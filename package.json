@@ -2,7 +2,7 @@
   "name": "frontend-loket",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for frontend-loket goes here",
+  "description": "Frontend of loket",
   "license": "MIT",
   "author": "",
   "directories": {
