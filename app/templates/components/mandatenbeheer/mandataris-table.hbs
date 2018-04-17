@@ -1,0 +1,33 @@
+{{#data-table content=content isLoading=isLoading noDataMessage="Geen mandatarissen gevonden"
+   sort=sort page=page size=size class="mandataris-data-table" as |t|}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      {{th-sortable field='bekleedt.bevatIn.isTijdsspecialisatieVan.naam' currentSorting=sort label='Orgaan'}}
+      {{th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam'}}
+      {{th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
+      {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie'}}
+      {{th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
+      {{th-sortable field='start' currentSorting=sort label='Start mandaat'}}
+      {{th-sortable field='einde' currentSorting=sort label='Eind mandaat'}}
+    {{/c.header}}
+    {{#c.body as |row|}}
+      <td>
+        {{row.bekleedt.bevatIn.isTijdsspecialisatieVan.naam}}
+      </td>
+      <td>
+        {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+      </td>
+      <td>
+        {{row.isBestuurlijkeAliasVan.achternaam}}
+      </td>
+      <td>
+        {{row.heeftLidmaatschap.binnenFractie.naam}}
+      </td>
+      <td>
+        {{row.bekleedt.bestuursfunctie.label}}
+      </td>
+      <td>{{moment-format row.start 'DD/MM/YYYY'}}</td>
+      <td>{{moment-format row.einde 'DD/MM/YYYY'}}</td>
+    {{/c.body}}
+  {{/t.content}}
+{{/data-table}}

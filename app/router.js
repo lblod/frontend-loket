@@ -7,6 +7,9 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('mandatenbeheer', function() {
+    this.route('mandatarissen', function() {});
+  });
 });
 
 export default Router;
