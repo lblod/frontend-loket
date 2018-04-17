@@ -8,7 +8,7 @@ export default Model.extend({
   stringRep: collect.apply(this,['id', 'label']),
   uri: attr(),
   label: attr(),
-  rdfaBindings: {
+  rdfaBindings: { // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
     label: "http://www.w3.org/2004/02/skos/core#prefLabel"
   }
 });

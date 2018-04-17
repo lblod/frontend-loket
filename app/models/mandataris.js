@@ -16,7 +16,7 @@ export default Model.extend({
   beleidsdomein: hasMany('beleidsdomein-code', { inverse: null }),
   status: hasMany('mandataris-status-code', { inverse: null }),
 
-  rdfaBindings: {
+  rdfaBindings: { // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
     class: "http://data.vlaanderen.be/ns/mandaat#Mandataris",
     rangorde: "http://data.vlaanderen.be/ns/mandaat#rangorde",
     start: "http://data.vlaanderen.be/ns/mandaat#start",

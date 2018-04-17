@@ -18,7 +18,7 @@ export default Model.extend({
   niveau: attr(),
   bestuurseenheid: hasMany('bestuurseenheid', { inverse: 'werkingsgebied' }),
 
-  rdfaBindings: {
+  rdfaBindings: { // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
     class: "prov:Location",
     naam: "rdfs:label"
   }
