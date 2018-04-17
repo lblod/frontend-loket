@@ -15,36 +15,5 @@
       </div>
     </div>
   </div>
-
-  <div class="container-flex--contain">
-    <div class="grid grid--collapse">
-      <div class="col--2-12 col--3-12--m u-hidden--s">
-        <div class="container-flex--contain">
-          <div class="sidebar">
-            <div class="sidebar__content">
-              <nav class="side-navigation">
-                <div class="side-navigation__content">
-                  <ul class="side-navigation__group">
-                    <li class="side-navigation__item">
-                      <a href="/loket/loket-inbox.html">Inbox</a>
-                    </li>
-                    <li class="side-navigation__item">
-                     {{#link-to "mandatenbeheer.mandatarissen.index"}}Mandatenbeheer{{/link-to}}
-                    </li>
-                    <li class="side-navigation__item">
-                      <a href="/loket/loket-bbcdr.html">BBC DR</a>
-                    </li>
-                  </ul>
-                </div>
-              </nav>
-            </div>
-            <div class="sidebar__footer">
-              <button class="button button--block button--alt">Persoonlijke gegevens</button>
-            </div>
-          </div>
-        </div>
-      </div>
-        {{outlet}}
-    </div>
-  </div>
+  {{outlet}}
 </div>

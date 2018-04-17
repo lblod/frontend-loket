@@ -17,6 +17,7 @@
     "test": "ember test"
   },
   "devDependencies": {
+    "@lblod/ember-mock-login": "^0.2.0",
     "@lblod/ember-vo-webuniversum": "^0.11.0",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.2",
     "broccoli-asset-rev": "^2.4.5",

@@ -1,0 +1,33 @@
+<div class="page">
+  <div id="main" itemprop="mainContentOfPage" role="main" tabindex="-1" class="main-content">
+    <section class="region">
+      <div class="layout layout--wide">
+        <h1 class="h1">Login</h1>
+        <div class="introduction">
+          <p>Kies een gebruiker om mee in te loggen.</p>
+          {{#mock-login as |login|}}
+            {{#if login.loading}}
+              <div class="loader-wrapper">
+                <div class="loader">
+                  <span class="u-visually-hidden">Aan het laden</span>
+                </div>
+              </div>
+            {{else}}
+              {{#if login.errorMessage}}
+                {{wu-alert title=login.errorMessage isWarning=true}}
+              {{/if}}
+              {{#login.each-account accounts=model as |account|}}
+                {{#wu-info-tile as |i|}}
+                  {{#i.content}}
+                    {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}} ({{account.gebruiker.group.naam}})
+                  {{/i.content}}
+                {{/wu-info-tile}}
+              {{/login.each-account}}
+            {{/if}}
+          {{/mock-login}}
+
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
