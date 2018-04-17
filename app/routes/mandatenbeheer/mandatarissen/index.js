@@ -28,7 +28,7 @@ export default Route.extend(DataTableRouteMixin, {
   },
 
   mergeQueryOptions(params){
-    return {
+    let queryParams = {
       sort: params.sort,
       'filter[bekleedt][bevat-in][id]': this.get('bestuursorganenIds').join(','),
       include: [
@@ -43,5 +43,10 @@ export default Route.extend(DataTableRouteMixin, {
         'beleidsdomein'
       ].join(',')
     };
+
+    if(this.paramsFor('mandatenbeheer.mandatarissen')['persoonFilter'])
+      queryParams['filter[is-bestuurlijke-alias-van]'] = this.paramsFor('mandatenbeheer.mandatarissen')['persoonFilter'];
+
+    return queryParams;
   }
 });
