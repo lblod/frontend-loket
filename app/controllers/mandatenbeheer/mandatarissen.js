@@ -6,8 +6,16 @@ export default Controller.extend({
   page: 0,
   size: 20,
 
+  isDisplayingSubroute: false,
+
   search: task(function* (searchData) {
    yield timeout(300);
    yield this.set('filter', searchData);
-  }).restartable()
+  }).restartable(),
+
+  actions: {
+    toggleSubrouteDisplay(){
+      this.set('isDisplayingSubroute', !this.get('isDisplayingSubroute'));
+    }
+  }
 });

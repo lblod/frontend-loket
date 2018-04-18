@@ -1,7 +1,10 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Route.extend(DataTableRouteMixin, {
+  currentSession: service(),
   modelName: 'mandataris',
 
   getBestuursorganen: async function(bestuurseenheidId){
@@ -21,7 +24,7 @@ export default Route.extend(DataTableRouteMixin, {
   },
 
   async beforeModel(){
-    let bestuurseenheid = await await this.modelFor('mandatenbeheer');
+    let bestuurseenheid = await this.get('currentSession.group');
     this.set('bestuurseenheid', bestuurseenheid);
     let bestuursorganen = await this.getBestuursorganen(bestuurseenheid.get('id'));
     this.set('bestuursorganenIds', bestuursorganen.map(o => o.get('id')));
