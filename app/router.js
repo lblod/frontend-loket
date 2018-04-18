@@ -14,6 +14,7 @@ Router.map(function() {
     path: '/*wildcard'
   });
   this.route('mandatenbeheer', function() {});
+  this.route('administratieve-gegevens', function() {});
 });
 
 export default Router;
