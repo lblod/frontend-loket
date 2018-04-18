@@ -22,7 +22,10 @@ export default Controller.extend({
     this.set('positionsErrorMessage', null);
     try {
       const positions = yield this.get('model.posities');
-      yield Promise.all(positions.map((positie) => positie.save()));
+      yield Promise.all(positions.map(async (positie) => {
+        const person = await positie.get('wordtIngevuldDoor');
+        return person.save();
+      }));
     }
     catch (e) {
       this.set('positionsErrorMessage', e.message);
