@@ -19,7 +19,8 @@
               {{#login.each-account accounts=model as |account|}}
                 {{#wu-info-tile as |i|}}
                   {{#i.content}}
-                    {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}} ({{account.gebruiker.group.naam}})
+                    {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
+                    ({{account.gebruiker.group.classificatie.label}} {{account.gebruiker.group.naam}})
                   {{/i.content}}
                 {{/wu-info-tile}}
               {{/login.each-account}}
