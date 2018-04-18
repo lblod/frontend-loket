@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
-
 export default Route.extend(DataTableRouteMixin, {
   modelName: 'mandataris',
 
@@ -22,7 +21,8 @@ export default Route.extend(DataTableRouteMixin, {
   },
 
   async beforeModel(){
-    let bestuurseenheid = await this.modelFor('mandatenbeheer.mandatarissen');
+    let bestuurseenheid = await await this.modelFor('mandatenbeheer');
+    this.set('bestuurseenheid', bestuurseenheid);
     let bestuursorganen = await this.getBestuursorganen(bestuurseenheid.get('id'));
     this.set('bestuursorganenIds', bestuursorganen.map(o => o.get('id')));
   },
@@ -30,7 +30,13 @@ export default Route.extend(DataTableRouteMixin, {
   mergeQueryOptions(params){
     let queryParams = {
       sort: params.sort,
-      'filter[bekleedt][bevat-in][id]': this.get('bestuursorganenIds').join(','),
+      filter: {
+        'bekleedt': {
+          'bevat-in': {
+            'id': this.get('bestuursorganenIds').join(',')
+          }
+        }
+      },
       include: [
         'is-bestuurlijke-alias-van',
         'is-bestuurlijke-alias-van.is-kandidaat-voor',
@@ -44,9 +50,15 @@ export default Route.extend(DataTableRouteMixin, {
       ].join(',')
     };
 
-    if(this.paramsFor('mandatenbeheer.mandatarissen')['persoonFilter'])
-      queryParams['filter[is-bestuurlijke-alias-van]'] = this.paramsFor('mandatenbeheer.mandatarissen')['persoonFilter'];
+    if(params.filter){
+      queryParams['filter']['is-bestuurlijke-alias-van'] = params.filter;
+    }
 
     return queryParams;
+  },
+
+  async setupController(controller, model){
+    this._super(controller, model);
+    controller.set('bestuurseenheid', this.get('bestuurseenheid'));
   }
 });

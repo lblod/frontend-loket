@@ -3,7 +3,7 @@
     <div class="u-border--light--bottom">
       <div class="grid u-padding--round--small mandate-edit-table__header">
         <div class="col--12-12 u-spacer--bottom">
-          <h1 class="h3 u-spacer--none">Mandatenbeheer {{model.classificatie.label}} {{model.naam}}</h1>
+          <h1 class="h3 u-spacer--none">Mandatenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
         </div>
         <div class="col--6-12">
           <div class="input-field-icon-container--right">
@@ -16,6 +16,8 @@
         </div>
       </div>
     </div>
-    {{outlet}}
+    <div class="data-table__scroll">
+      {{mandatenbeheer/mandataris-table content=model sort=sort page=page size=size}}
+    </div>
   </div>
 </div>

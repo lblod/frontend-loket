@@ -3,8 +3,6 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import { inject as service } from '@ember/service';
 export default Route.extend(AuthenticatedRouteMixin, {
   currentSession: service(),
-  queryParams: { persoonFilter: { refreshModel : true } },
-
   model(){
     return this.get('currentSession.group');
   }
