@@ -1,32 +1,13 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Route.extend(DataTableRouteMixin, {
-  currentSession: service(),
   modelName: 'mandataris',
 
-  getBestuursorganen: async function(bestuurseenheidId){
-    let bestuursorganen = await this.get('store').query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
-    let organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getLastBestuursorgaanInTijd(orgaan.get('id'))));
-    return organenInTijd.filter(orgaan => orgaan);
-  },
-
-  getLastBestuursorgaanInTijd: async function(bestuursorgaanId){
-    let queryParams = {
-      'sort': '-binding-start',
-      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId
-    };
-
-    let organen = await this.get('store').query('bestuursorgaan', queryParams);
-    return organen.firstObject;
-  },
-
   async beforeModel(){
-    let bestuurseenheid = await this.get('currentSession.group');
-    this.set('bestuurseenheid', bestuurseenheid);
-    let bestuursorganen = await this.getBestuursorganen(bestuurseenheid.get('id'));
+    let mandatenbeheer = await this.modelFor('mandatenbeheer');
+    this.set('bestuurseenheid', mandatenbeheer.bestuurseenheid);
+    let bestuursorganen = mandatenbeheer.bestuursorganen;
     this.set('bestuursorganenIds', bestuursorganen.map(o => o.get('id')));
   },
 
