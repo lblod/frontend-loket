@@ -35,12 +35,25 @@
         <li class="u-bg-block u-padding--round--small u-spacer--bottom--small">
           <label class="form__label">Mandaat</label>
           {{mandatenbeheer/mandaat-bestuursorganen-selector onSelect=(action 'setMandaat') bestuursorganen=model.bestuursorganen}}
+          <label class="form__label">Beleidsdomeinen</label>
+          {{mandatenbeheer/beleidsdomein-selector-with-create onSelect=(action 'setBeleidsdomeinen')}}
+
+          <div class="grid">
+            <div class="col--6-12">
+              <label class="form__label" for="datepicker-from">Geplande start</label>
+              {{wu-datepicker placeholder="01.01.2017" class="date-picker-mandataris-edit" value=start}}
+            </div>
+            <div class="col--6-12">
+              <label class="form__label" for="datepicker-to">Gepland einde</label>
+              {{wu-datepicker placeholder="01.01.2019" class="date-picker-mandataris-edit" value=einde}}
+            </div>
+          </div>
         </li>
       </ul>
     {{/if}}
   </div>
   <div class="u-padding--round--small u-border--light--top u-align-right">
-    <a class="button button--narrow button--alt toggle-mandate-new">Annuleer</a>
-    <a class="button button--narrow button--disabled mandate-new-info-button toggle-mandate-new">Voeg toe</a>
+    {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") disabled=disableCancel}} Annuleer {{/wu-button}}
+    {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") disabled=disableSave}} Voeg toe {{/wu-button}}
   </div>
 </div>
