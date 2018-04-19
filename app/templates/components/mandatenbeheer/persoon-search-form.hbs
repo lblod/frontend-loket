@@ -1,0 +1,31 @@
+<div class="form__row">
+  <div class="form__label">
+    <label for="mandataris-pattern">Zoek persoon op naam en familienaam</label>
+  </div>
+  <div class="form__input">
+       {{#mandatenbeheer/power-select
+         placeholder="Naam"
+         search=(perform searchByName)
+         selected=persoon
+         onchange=(action "selectPersoon")
+         as |persoon|}}
+      {{persoon.gebruikteVoornaam}} {{persoon.achternaam}} ({{moment-format persoon.geboorte.datum  'DD/MM/YYYY'}})
+      {{/mandatenbeheer/power-select}}
+
+  </div>
+</div>
+<div class="form__row">
+  <div class="form__label">
+    <label for="mandataris-pattern">Zoek persoon op rijksregisternummer</label>
+  </div>
+  <div class="form__input">
+    {{#mandatenbeheer/power-select
+       placeholder="Rijksregisternummer"
+       search=(perform searchById)
+       selected=persoon
+       onchange=(action "selectPersoon")
+       as |persoon|}}
+      {{persoon.identificator.identificator}} ({{persoon.gebruikteVoornaam}} {{persoon.achternaam}})
+    {{/mandatenbeheer/power-select}}
+  </div>
+</div>
