@@ -1,0 +1,8 @@
+{{#mandatenbeheer/power-select
+   placeholder="Zoek fractie"
+   search=(perform searchByName)
+   selected=fractie
+   onchange=(action "select")
+   as |fractie|}}
+  {{fractie.naam}}
+{{/mandatenbeheer/power-select}}
