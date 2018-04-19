@@ -1,2 +1,46 @@
-<h1>hello</h1>
-{{outlet}}
+<div class="col--4-12 mandate-edit-new container-flex--contain">
+  <div class="u-padding--trl--small u-border--light--bottom">
+    <div class="grid">
+      <div class="col--9-12">
+        <h2 class="h3">Voeg mandataris toe</h2>
+      </div>
+      <div class="col--3-12 u-align-right toggle-mandate-new u-padding--top--tiny">
+        <i class="vi vi-cross"></i>
+        <span class="u-visually-hidden">Sluit venster</span>
+      </div>
+    </div>
+    <div class="u-spacer--bottom--small">
+      {{mandatenbeheer/persoon-search-form onSelect=(action "setPersoon")}}
+    </div>
+  </div>
+  <div class="container-flex--scroll u-padding--round--small">
+    {{#if persoon}}
+      {{mandatenbeheer/persoon-card persoon=persoon}}
+    {{else}}
+      <div class="mandate-new-info">
+        <p class="text-fade">Zoek een persoon op naam of op rijksregisternummer.</p>
+      </div>
+    {{/if}}
+
+    {{#if persoon}}
+      <div class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small">
+        <h4 class="h6 sans-serif u-spacer--bottom--tiny">Fractie</h4>
+        {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie')}}
+      </div>
+    {{/if}}
+
+    {{#if persoon}}
+      <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
+      <ul>
+        <li class="u-bg-block u-padding--round--small u-spacer--bottom--small">
+          <label class="form__label">Mandaat</label>
+          {{mandatenbeheer/mandaat-bestuursorganen-selector onSelect=(action 'setMandaat') bestuursorganen=model.bestuursorganen}}
+        </li>
+      </ul>
+    {{/if}}
+  </div>
+  <div class="u-padding--round--small u-border--light--top u-align-right">
+    <a class="button button--narrow button--alt toggle-mandate-new">Annuleer</a>
+    <a class="button button--narrow button--disabled mandate-new-info-button toggle-mandate-new">Voeg toe</a>
+  </div>
+</div>
