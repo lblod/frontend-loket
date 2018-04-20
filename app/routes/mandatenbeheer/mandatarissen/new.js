@@ -7,10 +7,10 @@ export default Route.extend({
   },
 
   setupController(){
-    this.controllerFor('mandatenbeheer.mandatarissen').set('isDisplayingSubroute', true);
+    this.controllerFor('mandatenbeheer.mandatarissen').set('activeChildRoute', this.get('routeName'));
   },
 
   deactivate(){
-    this.controllerFor('mandatenbeheer.mandatarissen').set('isDisplayingSubroute', false);
+    this.controllerFor('mandatenbeheer.mandatarissen').set('activeChildRoute', '');
   }
 });

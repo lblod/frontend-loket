@@ -1,4 +1,4 @@
-<div class={{if isDisplayingSubroute "col--9-12--m col--1-1--s mandate-edit-table u-border--light--right col--6-12" "col--10-12 col--9-12--m col--1-1--s mandate-edit-table u-border--light--right"}}>
+<div class={{if activeChildRoute "col--9-12--m col--1-1--s mandate-edit-table u-border--light--right col--6-12" "col--10-12 col--9-12--m col--1-1--s mandate-edit-table u-border--light--right"}}>
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
       <div class="grid u-padding--round--small mandate-edit-table__header">
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="data-table__scroll">
-      {{mandatenbeheer/mandataris-table content=model sort=sort page=page size=size}}
+      {{mandatenbeheer/mandataris-table content=model sort=sort page=page size=size editRoute="mandatenbeheer.mandatarissen.edit" displaySubset=activeChildRoute}}
     </div>
   </div>
 </div>
