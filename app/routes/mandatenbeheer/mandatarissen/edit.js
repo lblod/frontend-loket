@@ -17,7 +17,7 @@ export default Route.extend({
       ].join(',')
     };
 
-    let mandataris = this.get('store').findRecord('mandataris', params.id, queryParams);
+    let mandataris = await this.get('store').findRecord('mandataris', params.id, queryParams);
 
     return RSVP.hash({
       bestuurseenheid: parentModel.bestuurseenheid,
