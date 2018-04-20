@@ -6,7 +6,8 @@ export default Route.extend({
     return this.modelFor('mandatenbeheer');
   },
 
-  setupController(){
+  setupController(controller, model){
+    this._super(controller, model);
     this.controllerFor('mandatenbeheer.mandatarissen').set('activeChildRoute', this.get('routeName'));
   },
 

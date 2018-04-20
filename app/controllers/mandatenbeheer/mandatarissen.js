@@ -9,12 +9,8 @@ export default Controller.extend({
 
   activeChildRoute: '',
   addMandatarisRoute: 'mandatenbeheer.mandatarissen.new',
-  editMandatarisRoute: 'mandatenbeheer.mandaterissen.edit',
   isDisplayingAddMandataris: computed('activeChildRoute', function(){
     return this.get('activeChildRoute') === this.get('addMandatarisRoute');
-  }),
-  isDisplayingEditMandataris: computed('activeChildRoute', function(){
-    return this.get('activeChildRoute') === this.get('editMandatarisRoute');
   }),
 
   search: task(function* (searchData) {
@@ -29,7 +25,7 @@ export default Controller.extend({
         return this.transitionToRoute(this.get('addMandatarisRoute'));
       }
       this.set('activeChildRoute', '');
-      return this.transitionToRoute(this.get('currentPath'));
+      return this.transitionToRoute('mandatenbeheer.mandatarissen');
     }
   }
 });
