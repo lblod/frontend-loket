@@ -19,10 +19,6 @@ export default Controller.extend({
     return !(this.get('mandaat') && this.get('rawStartDate'));
   }),
 
-  disableCancel: computed('save.isIdle', function(){
-    return !this.save.isIdle;
-  }),
-
   save: task(function* (){
     yield this.createNewBeleidsdomeinen();
 
@@ -42,7 +38,7 @@ export default Controller.extend({
     });
 
     return mandataris.save();
-  }).drop(),
+  }),
 
   async createNewBeleidsdomeinen(){
     if(!this.get('beleidsdomeinen')){
@@ -98,7 +94,7 @@ export default Controller.extend({
 
     async save(){
       let mandataris = await this.save.perform();
-      alert('ready');
+      this.transitionToRoute('mandatenbeheer.mandatarissen');
     },
 
     cancel(){

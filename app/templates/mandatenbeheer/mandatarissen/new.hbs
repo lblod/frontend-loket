@@ -1,59 +1,67 @@
-<div class="col--4-12 mandate-edit-new container-flex--contain">
-  <div class="u-padding--trl--small u-border--light--bottom">
-    <div class="grid">
-      <div class="col--9-12">
-        <h2 class="h3">Voeg mandataris toe</h2>
-      </div>
-      <div class="col--3-12 u-align-right toggle-mandate-new u-padding--top--tiny">
-        <i class="vi vi-cross"></i>
-        <span class="u-visually-hidden">Sluit venster</span>
-      </div>
-    </div>
-    <div class="u-spacer--bottom--small">
-      {{mandatenbeheer/persoon-search-form onSelect=(action "setPersoon")}}
+{{#if  save.isRunning}}
+  <div class="loader-wrapper">
+    <div class="loader">
+      <span class="u-visually-hidden">Aan het laden</span>
     </div>
   </div>
-  <div class="container-flex--scroll u-padding--round--small">
-    {{#if persoon}}
-      {{mandatenbeheer/persoon-card persoon=persoon}}
-    {{else}}
-      <div class="mandate-new-info">
-        <p class="text-fade">Zoek een persoon op naam of op rijksregisternummer.</p>
+{{else}}
+  <div class="col--4-12 mandate-edit-new container-flex--contain">
+    <div class="u-padding--trl--small u-border--light--bottom">
+      <div class="grid">
+        <div class="col--9-12">
+          <h2 class="h3">Voeg mandataris toe</h2>
+        </div>
+        <div class="col--3-12 u-align-right toggle-mandate-new u-padding--top--tiny">
+          <i class="vi vi-cross"></i>
+          <span class="u-visually-hidden">Sluit venster</span>
+        </div>
       </div>
-    {{/if}}
-
-    {{#if persoon}}
-      <div class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small">
-        <h4 class="h6 sans-serif u-spacer--bottom--tiny">Fractie</h4>
-        {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie')}}
+      <div class="u-spacer--bottom--small">
+        {{mandatenbeheer/persoon-search-form onSelect=(action "setPersoon")}}
       </div>
-    {{/if}}
+    </div>
+    <div class="container-flex--scroll u-padding--round--small">
+      {{#if persoon}}
+        {{mandatenbeheer/persoon-card persoon=persoon}}
+      {{else}}
+        <div class="mandate-new-info">
+          <p class="text-fade">Zoek een persoon op naam of op rijksregisternummer.</p>
+        </div>
+      {{/if}}
 
-    {{#if persoon}}
-      <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
-      <ul>
-        <li class="u-bg-block u-padding--round--small u-spacer--bottom--small">
-          <label class="form__label">Mandaat</label>
-          {{mandatenbeheer/mandaat-bestuursorganen-selector onSelect=(action 'setMandaat') bestuursorganen=model.bestuursorganen}}
-          <label class="form__label">Beleidsdomeinen</label>
-          {{mandatenbeheer/beleidsdomein-selector-with-create onSelect=(action 'setBeleidsdomeinen')}}
+      {{#if persoon}}
+        <div class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small">
+          <h4 class="h6 sans-serif u-spacer--bottom--tiny">Fractie</h4>
+          {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie')}}
+        </div>
+      {{/if}}
 
-          <div class="grid">
-            <div class="col--6-12">
-              <label class="form__label" for="datepicker-from">Geplande start</label>
-              {{wu-datepicker placeholder="01.01.2017" class="date-picker-mandataris-edit" value=rawStartDate}}
+      {{#if persoon}}
+        <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
+        <ul>
+          <li class="u-bg-block u-padding--round--small u-spacer--bottom--small">
+            <label class="form__label">Mandaat</label>
+            {{mandatenbeheer/mandaat-bestuursorganen-selector onSelect=(action 'setMandaat') bestuursorganen=model.bestuursorganen}}
+            <label class="form__label">Beleidsdomeinen</label>
+            {{mandatenbeheer/beleidsdomein-selector-with-create onSelect=(action 'setBeleidsdomeinen')}}
+
+            <div class="grid">
+              <div class="col--6-12">
+                <label class="form__label" for="datepicker-from">Geplande start</label>
+                {{wu-datepicker placeholder="01.01.2017" class="date-picker-mandataris-edit" value=rawStartDate}}
+              </div>
+              <div class="col--6-12">
+                <label class="form__label" for="datepicker-to">Gepland einde</label>
+                {{wu-datepicker placeholder="01.01.2019" class="date-picker-mandataris-edit" value=rawEndDate}}
+              </div>
             </div>
-            <div class="col--6-12">
-              <label class="form__label" for="datepicker-to">Gepland einde</label>
-              {{wu-datepicker placeholder="01.01.2019" class="date-picker-mandataris-edit" value=rawEndDate}}
-            </div>
-          </div>
-        </li>
-      </ul>
-    {{/if}}
+          </li>
+        </ul>
+      {{/if}}
+    </div>
+    <div class="u-padding--round--small u-border--light--top u-align-right">
+      {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") disabled=disableCancel}} Annuleer {{/wu-button}}
+      {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") disabled=disableSave}} Voeg toe {{/wu-button}}
+    </div>
   </div>
-  <div class="u-padding--round--small u-border--light--top u-align-right">
-    {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") disabled=disableCancel}} Annuleer {{/wu-button}}
-    {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") disabled=disableSave}} Voeg toe {{/wu-button}}
-  </div>
-</div>
+{{/if}}
