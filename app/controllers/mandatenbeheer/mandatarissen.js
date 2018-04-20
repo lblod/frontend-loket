@@ -14,8 +14,10 @@ export default Controller.extend({
   }).restartable(),
 
   actions: {
-    toggleSubrouteDisplay(){
-      this.set('isDisplayingSubroute', !this.get('isDisplayingSubroute'));
+    handleAddMandatarisClick(){
+      if(this.get('isDisplayingSubroute'))
+        return this.transitionToRoute('mandatenbeheer.mandatarissen');
+      return this.transitionToRoute('mandatenbeheer.mandatarissen.new');
     }
   }
 });

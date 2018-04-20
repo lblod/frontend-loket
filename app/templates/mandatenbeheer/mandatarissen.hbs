@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col--6-12 u-align-right">
-          {{#link-to "mandatenbeheer.mandatarissen.new" invokeAction=(action "toggleSubrouteDisplay") class="button button--narrow toggle-mandate-new"}}Voeg mandataris toe{{/link-to}}
+          {{#wu-button onClick=(action "handleAddMandatarisClick") class="button button--narrow toggle-mandate-new"}}Voeg mandataris toe{{/wu-button}}
         </div>
       </div>
     </div>
