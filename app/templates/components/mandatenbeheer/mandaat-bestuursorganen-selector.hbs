@@ -1,7 +1,7 @@
 {{#mandatenbeheer/power-select
    placeholder="Zoek mandaat"
    search=(perform searchByBestuursfunctie)
-   selected=mandaat
+   selected=_mandaat
    onchange=(action "select")
    as |mandaat|}}
   {{mandaat.bestuursfunctie.label}}

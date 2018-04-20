@@ -8,7 +8,12 @@ export default Component.extend({
 
   init(){
     this._super(...arguments);
-    this.set('beleidsdomeinen', A());
+    if(this.get('beleidsdomeinen')){
+      this.set('_beleidsdomeinen', this.get('beleidsdomeinen'));
+    }
+    else{
+      this.set('_beleidsdomeinen', A());
+    }
   },
 
   searchByName: task(function* (searchData) {
@@ -22,13 +27,13 @@ export default Component.extend({
 
   actions: {
     select(beleidsdomeinen){
-      this.set('beleidsdomeinen', beleidsdomeinen);
+      this.set('_beleidsdomeinen', beleidsdomeinen);
       this.get('onSelect')(beleidsdomeinen);
     },
     create(beleidsdomein){
-      this.get('beleidsdomeinen').
+      this.get('_beleidsdomeinen').
         pushObject(this.get('store').createRecord('beleidsdomein-code', {label: beleidsdomein}));
-      this.get('onSelect')(this.get('beleidsdomeinen'));
+      this.get('onSelect')(this.get('_beleidsdomeinen'));
     },
     suggest(term) {
       return `Voeg "${term}" toe`;

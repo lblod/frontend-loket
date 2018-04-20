@@ -5,6 +5,12 @@ import { task, timeout } from 'ember-concurrency';
 export default Component.extend({
   store: service(),
 
+  init(){
+    this._super(...arguments);
+    if(this.get('mandaat'))
+      this.set('_mandaat', this.get('mandaat'));
+  },
+
   searchByBestuursfunctie: task(function* (searchData) {
     yield timeout(300);
     let queryParams = {
@@ -18,7 +24,7 @@ export default Component.extend({
 
   actions: {
     select(mandaat){
-      this.set('mandaat', mandaat);
+      this.set('_mandaat', mandaat);
       this.get('onSelect')(mandaat);
     }
   }
