@@ -1,0 +1,115 @@
+<div class="col--10-12 data-table__scroll">
+  <div class="grid u-padding--round--small mandate-edit-table__header">
+    <h1 class="h3 u-spacer--none">Administratieve gegevens {{model.classificatie.label}} {{model.naam}}</h1>
+  </div>
+  <section class="contact-card u-spacer--bottom">
+    {{#contact-card as |c|}}
+      {{#c.header}}Contactgegevens{{/c.header}}
+      {{#c.content contactInfo=model.primaireSite.vestigingsadres as |content|}}
+        {{#content.row label="Adres"}}
+          {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="Nieuwstraat 123" value=(mut model.primaireSite.vestigingsadres.adres)}}
+        {{/content.row}}
+        {{#content.row label="Postcode"}}
+          {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="2000" value=(mut model.primaireSite.vestigingsadres.postcode)}}
+        {{/content.row}}
+        {{#content.row label="Gemeente"}}
+          {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="Antwerpen" value=(mut model.primaireSite.vestigingsadres.gemeente)}}
+        {{/content.row}}
+        {{#content.row label="telefoon"}}
+          {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.telephone)}}
+        {{/content.row}}
+        {{#content.row label="fax"}}
+          {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.fax)}}
+        {{/content.row}}
+        {{#content.row label="email"}}
+          {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="info@gemeente.be" value=(mut model.primaireSite.vestigingsadres.email)}}
+        {{/content.row}}
+        {{#content.row label="website"}}
+          {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="http://www.gemeente.be" value=(mut model.primaireSite.vestigingsadres.website)}}
+        {{/content.row}}
+        {{#wu-button disabled=saveContactInfo.isRunning onClick=(perform saveContactInfo) isLoading=saveContactInfo.isRunning}}Opslaan{{/wu-button}}
+      {{/c.content}}
+      {{#if contactErrorMessage}}
+        {{wu-alert title="Fout bij opslaan" message=contactErrorMessage isWarning=true}}
+      {{/if}}
+    {{/contact-card}}
+  </section>
+  {{#if isGemeente}}
+    <section class="contact-card u-spacer--bottom">
+      {{#contact-card as |c|}}
+        {{#c.header}}Andere functies{{/c.header}}
+        {{#c.content as |content|}}
+          {{#each sortedPosities as |positie|}}
+            {{#content.row label=positie.rol.label}}
+              {{#each positie.wordtIngevuldDoor as |person|}}
+                <div class="form__row">
+                  <div class="form__label">
+                    <label class="form__label">Voornaam </label>
+                  </div>
+                  <div class="form__input">
+                    {{input class="input-field" placeholder="Voornaam" value=(mut person.gebruikteVoornaam)}}
+                  </div>
+                  <div class="form__label">
+                    <label class="form__label">Achternaam </label>
+                  </div>
+                  <div class="form__input">
+                    {{input class="input-field" placeholder="Achternaam" value=(mut person.achternaam)}}
+                  </div>
+                </div>
+              {{/each}}
+            {{/content.row}}
+          {{/each}}
+          {{#wu-button onClick=(perform savePositions) isLoading=savePositions.isRunning}}Opslaan{{/wu-button}}
+        {{/c.content}}
+        {{#if positionsErrorMessage}}
+          {{wu-alert title="Fout bij opslaan" message=positionsErrorMessage isWarning=true}}
+        {{/if}}
+      {{/contact-card}}
+    </section>
+    <section class="contact-card u-spacer--bottom">
+      {{#contact-card as |c|}}
+        {{#c.header}}Politiezone{{/c.header}}
+        {{#c.content contactInfo=model.politiezone.contactinfo.firstObject as |content|}}
+          {{#content.row label="Naam"}}
+            {{input class="input-field" placeholder="Politiezone" value=(mut model.politiezone.naam)}}
+          {{/content.row}}
+          {{#each model.politiezone.posities as |positie|}}
+            {{#content.row label=positie.rol.label}}
+              {{#each positie.wordtIngevuldDoor as |person|}}
+                <div class="form__row">
+                  <div class="form__label">
+                    <label class="form__label">Voornaam </label>
+                  </div>
+                  <div class="form__input">
+                    {{input class="input-field" placeholder="Voornaam" value=(mut person.gebruikteVoornaam)}}<br />
+                  </div>
+                </div>
+                <div class="form__row">
+                  <div class="form__label">
+                    <label class="form__label">Achternaam </label>
+                  </div>
+                  <div class="form__input">
+                    {{input class="input-field" placeholder="Achternaam" value=(mut person.achternaam)}}
+                  </div>
+                </div>
+              {{/each}}
+            {{/content.row}}
+          {{/each}}
+          {{#content.row label="Adres"}}
+            {{input class="input-field" placeholder="Nieuwstraat 123" value=(mut model.politiezone.contactinfo.firstObject.adres)}}
+          {{/content.row}}
+          {{#content.row label="Postcode"}}
+            {{input class="input-field" placeholder="2000" value=(mut model.politiezone.contactinfo.firstObject.postcode)}}
+          {{/content.row}}
+          {{#content.row label="Gemeente"}}
+            {{input class="input-field" placeholder="Antwerpen" value=(mut model.politiezone.contactinfo.firstObject.gemeente)}}
+          {{/content.row}}
+          {{#wu-button onClick=(perform savePolitiezone) isLoading=savePolitiezone.isRunning}}Opslaan{{/wu-button}}
+        {{/c.content}}
+        {{#if politiezoneErrorMessage}}
+          {{wu-alert title="Fout bij opslaan" message=politiezoneErrorMessage isWarning=true}}
+        {{/if}}
+      {{/contact-card}}
+    </section>
+  {{/if}}
+</div>
