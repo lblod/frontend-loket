@@ -2,10 +2,10 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   actions: {
-    async setPersoon(persoon){
+    setPersoon(persoon){
       this.set('persoon', persoon);
     },
-    async save(){
+    save(){
       this.transitionToRoute('mandatenbeheer.mandatarissen');
     },
     cancel(){
