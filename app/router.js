@@ -7,13 +7,16 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('mandatenbeheer', function() {
-  });
   this.route('login');
   this.route('route-not-found', {
     path: '/*wildcard'
   });
-  this.route('mandatenbeheer', function() {});
+  this.route('mandatenbeheer', function(){
+    this.route('mandatarissen', function(){
+      this.route('new');
+      this.route('edit', {path: '/:id/edit'});
+    });
+  });
   this.route('administratieve-gegevens', function() {});
 });
 
