@@ -1,0 +1,25 @@
+<div class="pager">
+  <ul class="pager__list pager__list--right">
+    <li class="pager__element u-hidden-mobile">
+      <span class="u-visually-hidden">Resultaten </span><strong>{{startItem}} - {{endItem}}</strong> van {{total}}
+    </li>
+    {{#if hasMultiplePages}}
+      {{#unless isFirstPage}}
+        <li class="pager__element">
+          <a {{action "changePage" links.prev}}>
+            {{wu-icon "vi-arrow" class="vi-u-180deg vi-u-s"}} vorige
+            <span class="u-visually-hidden"> {{pageSize}} resultaten</span>
+          </a>
+        </li>
+      {{/unless}}
+      {{#unless isLastPage}}
+        <li class="pager__element">
+          <a {{action "changePage" links.next}}>volgende
+            <span class="u-visually-hidden"> {{pageSize}} resultaten</span>
+            {{wu-icon "vi-arrow" class="vi-u-s"}}
+          </a>
+        </li>
+      {{/unless}}
+    {{/if}}
+  </ul>
+</div>
