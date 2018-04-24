@@ -1,0 +1,41 @@
+<div class="mandate-new-unexisting">
+  <h2 class="h4 u-spacer--tiny sans-serif">Voeg een nieuwe persoon toe</h2>
+  <div class="form__row">
+    <div class="grid grid-collapse">
+      <div class="col--6-12">
+        <label for="mandataris-naam">Voornaam</label>
+        {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-naam" name="mandataris-naam" placeholder="Naam" value=(mut voornaam)}}
+      </div>
+      <div class="col--6-12">
+        <label for="mandataris-familienaam">Familienaam</label>
+        {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam" value=(mut achternaam)}}
+      </div>
+    </div>
+    <label for="mandataris-roepnaam">Roepnaam</label>
+    {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-roepnaam" name="mandataris-roepnaam" placeholder="Jos"value=(mut roepnaam)}}
+  </div>
+  <div class="form__row">
+    <label for="mandataris-rijksregister">Rijksregisternummer</label>
+    {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-rijksregister" name="mandataris-rijksregister" placeholder="00.00.00-000.00" value=(mut rijksregisternummer)}}
+    <label for="mandataris-geboorte">Geboortedatum</label>
+    {{wu-datepicker class="u-spacer--tiny" value=(mut birthDate)}}
+    <label>Geslacht</label>
+    {{#mandatenbeheer/power-select
+       selected=geslacht
+       options=genders
+       onchange=(action "selectGender")
+       as |gender|}}
+      {{gender.label}}
+    {{/mandatenbeheer/power-select}}
+    {{#if errorMessages.length}}
+      <br>
+      {{#wu-alert title="Fout bij opslaan" isWarning=true}}
+        {{#each errorMessages as |message|}}
+          {{message}}<br>
+        {{/each}}
+      {{/wu-alert}}
+    {{/if}}
+
+    {{#wu-button onClick=(perform save) loading=save.isRunning}}persoon toevoegen{{/wu-button}}
+  </div>
+</div>
