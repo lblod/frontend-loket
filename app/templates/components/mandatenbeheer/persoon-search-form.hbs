@@ -10,9 +10,8 @@
     </div>
   </div>
   <div class="u-spacer--bottom--small">
-    <div class="h4 sans-serif u-spacer--bottom--tiny">Zoek mandataris</div>
+    <div class="h4 sans-serif u-spacer--bottom--tiny">Zoek een persoon</div>
     <div class="form__row">
-      <h2>Zoek een persoon</h2>
       <div class="grid">
         <div class="col--6-12">
           <label for="mandataris-pattern">Naam</label>
@@ -44,7 +43,7 @@
       </p>
     </div>
   {{/if}}
-  {{#if search.isRunning}}
+  {{#if isQuerying}}
     <div class="loader-wrapper">
       <div class="loader"> </div>
     </div>
@@ -57,6 +56,17 @@
           class="u-border--light--bottom u-padding--tb--small"
         }}
       {{/each}}
+
+      {{#if personen}}
+        {{mandatenbeheer/persoon-search-form-pagination
+          page=page
+          size=pageSize
+          nbOfItems=personen.length
+          total=personen.meta.count
+          links=personen.meta.pagination
+          onSelectPage=(action "selectPage")
+        }}
+      {{/if}}
     </div>
   {{/if}}
 </div>

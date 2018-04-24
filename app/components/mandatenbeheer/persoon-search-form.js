@@ -7,6 +7,7 @@ import { A } from '@ember/array';
 export default Component.extend({
   store: service(),
   hasSearched: false,
+  pageSize: 20,
   noResultsAfterSearch: computed('personen', 'search.isRunning', function(){
     if(this.get('search.isRunning'))
       return false;
@@ -14,6 +15,9 @@ export default Component.extend({
   }),
   searchTerms: computed('gebruikteVoornaam', 'achternaam', 'identificator', function(){
     return [this.get('gebruikteVoornaam'), this.get('achternaam'), this.get('identificator')].filter( t => t ).join(', ');
+  }),
+  isQuerying: computed('search.isRunning', 'getPersoon.isRunning', function(){
+    return this.get('search.isRunning') || this.get('getPersoon.isRunning');
   }),
 
   init(){
@@ -32,12 +36,26 @@ export default Component.extend({
         achternaam: this.get('achternaam') || undefined,
         'gebruikte-voornaam': this.get('gebruikteVoornaam') || undefined,
         identifcator: this.get('identificator') || undefined
+      },
+      page:{
+        size: this.get('pageSize')
       }
     };
-    this.set('personen', yield this.get('store').query('persoon', queryParams));
+    this.set('queryParams', queryParams);
+    this.set('personen', yield this.getPersoon.perform(queryParams));
+  }),
+
+  getPersoon: task(function* (queryParams){
+    return this.get('store').query('persoon', queryParams);
   }),
 
   actions: {
+    async selectPage(page){
+      this.set('page', page);
+      let queryParams = this.get('queryParams');
+      queryParams['page'] = {number: page};
+      this.set('personen', await this.getPersoon.perform(queryParams));
+    },
     selectPersoon(persoon){
       this.get('onSelect')(persoon);
     },
