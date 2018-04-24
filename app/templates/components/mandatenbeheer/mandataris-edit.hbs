@@ -5,46 +5,48 @@
     </div>
   </div>
 {{else}}
-  <div class="container-flex--scroll u-padding--round--small">
-    <div class="mandate-new-info">
-    {{#if persoon}}
-      {{mandatenbeheer/persoon-card persoon=persoon hideHeader=editOnly}}
-    {{else}}
-      <p class="text-fade">Zoek een persoon op naam of op rijksregisternummer.</p>
-    {{/if}}
-    </div>
-    {{#if persoon}}
-      <div class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small">
-        <h4 class="h6 sans-serif u-spacer--bottom--tiny">Fractie</h4>
-        {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie') fractie=mandataris.heeftLidmaatschap.binnenFractie}}
+
+<div class="mandate-new-info">
+  {{mandatenbeheer/persoon-card persoon=mandataris.isBestuurlijkeAliasVan hideHeader=editOnlyMode}}
+</div>
+<div class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small">
+  <h4 class="h6 sans-serif u-spacer--bottom--tiny">Fractie</h4>
+  {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie') fractie=fractie}}
+</div>
+<h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
+<ul>
+  <li class="u-bg-block u-padding--round--small u-spacer--bottom--small">
+    <label class="form__label">Mandaat</label>
+    {{mandatenbeheer/mandaat-bestuursorganen-selector onSelect=(action 'setMandaat')
+      bestuursorganen=bestuursorganen mandaat=mandaat}}
+    <label class="form__label">Beleidsdomeinen</label>
+    {{mandatenbeheer/beleidsdomein-selector-with-create onSelect=(action 'setBeleidsdomein') beleidsdomeinen=beleidsdomein}}
+
+    <div class="grid">
+      <div class="col--6-12">
+        <label class="form__label" for="datepicker-from">Geplande start</label>
+        {{wu-datepicker placeholder="01-01-2018" class="date-picker-mandataris-edit" value=startDate dateFormat=dateFormat}}
       </div>
-    {{/if}}
-
-    {{#if persoon}}
-      <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
-      <ul>
-        <li class="u-bg-block u-padding--round--small u-spacer--bottom--small">
-          <label class="form__label">Mandaat</label>
-          {{mandatenbeheer/mandaat-bestuursorganen-selector onSelect=(action 'setMandaat') bestuursorganen=bestuursorganen mandaat=mandataris.bekleedt}}
-          <label class="form__label">Beleidsdomeinen</label>
-          {{mandatenbeheer/beleidsdomein-selector-with-create onSelect=(action 'setBeleidsdomeinen') beleidsdomeinen=mandataris.beleidsdomein}}
-
-          <div class="grid">
-            <div class="col--6-12">
-              <label class="form__label" for="datepicker-from">Geplande start</label>
-              {{wu-datepicker placeholder="01.01.2017" class="date-picker-mandataris-edit" value=rawStartDate}}
-            </div>
-            <div class="col--6-12">
-              <label class="form__label" for="datepicker-to">Gepland einde</label>
-              {{wu-datepicker placeholder="01.01.2019" class="date-picker-mandataris-edit" value=rawEndDate}}
-            </div>
-          </div>
-        </li>
-      </ul>
-    {{/if}}
+      <div class="col--6-12">
+        <label class="form__label" for="datepicker-to">Gepland einde</label>
+        {{wu-datepicker placeholder="01-01-2019" class="date-picker-mandataris-edit" value=endDate dateFormat=dateFormat}}
+      </div>
+    </div>
+  </li>
+  {{#if saveError}}
+  <div class="alert alert--error">
+    <div class="alert__icon" aria-hidden="true"></div>
+    <div class="alert__content">
+      <div class="alert__title">Er is een fout opgetreden tijdens het opslaan.</div>
+      <div class="alert__message">
+        <p>Gelieve de systeembeheerder contacteren</p>
+      </div>
+    </div>
   </div>
-  <div class="u-padding--round--small u-border--light--top u-align-right">
-    {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") disabled=disableCancel}} Annuleer {{/wu-button}}
-    {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") disabled=disableSave}} Voeg toe {{/wu-button}}
-  </div>
+  {{/if}}
+</ul>
+<div class="u-padding--round--small u-border--light--top u-align-right">
+  {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+  {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") }} Voeg toe {{/wu-button}}
+ </div>
 {{/if}}
