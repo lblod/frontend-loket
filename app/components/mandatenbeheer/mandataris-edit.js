@@ -118,13 +118,7 @@ export default Component.extend({
 
   async cleanUpOnError(){
     this.get('destroyOnError').forEach(o => {
-      try {
         o.destroyRecord();
-      }
-      catch (e){
-        console.log('error during cleanup');
-        console.log(e);
-      }
     });
   },
 
