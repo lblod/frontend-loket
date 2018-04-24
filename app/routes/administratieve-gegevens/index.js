@@ -6,7 +6,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   model(){
     return this.get('currentSession.group');
   },
-  async afterModel(model, transition) {
+  async afterModel(model) {
     await model.get('classificatie');
   }
 });
