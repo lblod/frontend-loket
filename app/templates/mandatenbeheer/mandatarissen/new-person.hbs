@@ -1,0 +1,18 @@
+<div class="col--4-12 person-new container-flex--contain">
+  <div class="u-padding--trl--small u-border--light--bottom">
+    <div class="grid">
+      <div class="col--9-12">
+        <h2 class="h3">Voeg persoon toe</h2>
+      </div>
+      <div class="col--3-12 u-align-right toggle-person-new">
+        {{#link-to 'mandatenbeheer.mandatarissen.new' class="link--icon--close"}}
+          <span class="u-visually-hidden">Venster sluiten</span>
+        {{/link-to}}
+      </div>
+    </div>
+  </div>
+  {{mandatenbeheer/create-persoon
+    onCreate=(action 'onCreate')
+    onCancel=(action 'onCancel')
+    class="container-flex--scroll u-padding--round--small u-position--relative"}}
+</div>

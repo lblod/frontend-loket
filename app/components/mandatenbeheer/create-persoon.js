@@ -83,7 +83,6 @@ const CreatePersoon = Component.extend({
       this.get('onCreate')(result);
     }
     catch(e) {
-      
       console.log(e);
       persoon.destroy();
     }

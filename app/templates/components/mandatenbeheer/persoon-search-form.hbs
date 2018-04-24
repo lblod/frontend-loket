@@ -4,9 +4,9 @@
       <h2 class="h3">Voeg mandataris toe</h2>
     </div>
     <div class="col--3-12 u-align-right toggle-mandate-new">
-      <a class="link--icon--close" href="">
+      {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
         <span class="u-visually-hidden">Venster sluiten</span>
-      </a>
+      {{/link-to}}
     </div>
   </div>
   <div class="u-spacer--bottom--small">
@@ -39,7 +39,7 @@
     <div class="mandate-new-unexisting-step-1">
       <h2 class="h4 u-spacer">De zoektermen "{{searchTerms}}" leverden geen resultaten op.</h2>
       <p>Zorg ervoor de naam en/of het rijksregisternummer correct is of
-        <a class="toggle-person-new toggle-person-new--mandate">voeg een nieuwe persoon toe</a>
+        {{#link-to 'mandatenbeheer.mandatarissen.new-person' (query-params activeChildRoute='new-person') class="toggle-person-new toggle-person-new--mandate"}}voeg een nieuwe persoon toe{{/link-to}}
         <!-- .toggle-mandate-new-unexisting-step-1-->
       </p>
     </div>
