@@ -7,18 +7,18 @@ export default Component.extend({
 
   didReceiveAttrs(){
     this.set('_mandaat', this.get('mandaat'));
+    this.set('mandaten', this.populateMandaten());
   },
 
-  searchByBestuursfunctie: task(function* (searchData) {
-    yield timeout(300);
+  populateMandaten(){
     let queryParams = {
       sort:'bestuursfunctie.label',
       include: 'bestuursfunctie',
-      'filter[bestuursfunctie]': searchData,
       'filter[bevat-in][id]': this.get('bestuursorganen').map(o => o.get('id')).join(',')
     };
-    return yield this.get('store').query('mandaat', queryParams);
-  }),
+    return this.get('store').query('mandaat', queryParams);
+
+  },
 
   actions: {
     select(mandaat){
