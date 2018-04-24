@@ -142,6 +142,10 @@ export default Component.extend({
 
     cancel(){
       this.get('onCancel')();
+    },
+
+    previous(){
+      this.get('onPrevious')();
     }
   }
 });
