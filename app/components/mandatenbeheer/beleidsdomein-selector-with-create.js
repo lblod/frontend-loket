@@ -8,12 +8,11 @@ export default Component.extend({
 
   init(){
     this._super(...arguments);
-    if(this.get('beleidsdomeinen')){
-      this.set('_beleidsdomeinen', this.get('beleidsdomeinen'));
-    }
-    else{
-      this.set('_beleidsdomeinen', A());
-    }
+    this.set('_beleidsdomeinen', A());
+  },
+
+  didReceiveAttrs(){
+    this.set('_beleidsdomeinen', this.get('beleidsdomeinen') || A());
   },
 
   searchByName: task(function* (searchData) {
@@ -30,9 +29,9 @@ export default Component.extend({
       this.set('_beleidsdomeinen', beleidsdomeinen);
       this.get('onSelect')(beleidsdomeinen);
     },
-    create(beleidsdomein){
-      this.get('_beleidsdomeinen').
-        pushObject(this.get('store').createRecord('beleidsdomein-code', {label: beleidsdomein}));
+    async create(beleidsdomein){
+      let domein = await this.get('store').createRecord('beleidsdomein-code', {label: beleidsdomein});
+      this.get('_beleidsdomeinen').pushObject(domein);
       this.get('onSelect')(this.get('_beleidsdomeinen'));
     },
     suggest(term) {
