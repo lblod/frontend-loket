@@ -7,6 +7,6 @@ export default Model.extend({
   // This is what mu-cl-resources uses to search on, and how the model will be presented while editing relationships.
   stringRep: collect.apply(this,['id', 'begin', 'einde']),
 
-  begin: attr('datetime'),
-  einde: attr('datetime')
+  begin: attr('date'),
+  einde: attr('date')
 });
