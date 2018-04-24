@@ -6,7 +6,6 @@ export default Controller.extend({
   sort: 'is-bestuurlijke-alias-van.achternaam',
   page: 0,
   size: 20,
-
   activeChildRoute: '',
   addMandatarisRoute: 'mandatenbeheer.mandatarissen.new',
   isDisplayingAddMandataris: computed('activeChildRoute', function(){

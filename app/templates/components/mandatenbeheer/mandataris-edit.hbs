@@ -11,21 +11,21 @@
       <div class="col--9-12">
         {{#unless editOnlyMode}}
           <h2 class="h3">Voeg mandataris toe</h2>
-        {{else}}
+{{else}}
           <h2 class="h3">{{mandataris.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{mandataris.isBestuurlijkeAliasVan.achternaam}}</h2>
         {{/unless}}
       </div>
       <div class="col--3-12 u-align-right toggle-mandate-new">
-        <a class="link--icon--close" href="">
+        {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
           <span class="u-visually-hidden">Venster sluiten</span>
-        </a>
+        {{/link-to}}
       </div>
     </div>
     <div class="u-spacer--bottom--small">
       {{mandatenbeheer/persoon-card persoon=mandataris.isBestuurlijkeAliasVan hideHeader=editOnlyMode}}
     </div>
   </div>
-  
+
   <div class="container-flex--scroll u-padding--round--small">
     <h4 class="h6 sans-serif u-spacer--bottom--tiny">Fractie</h4>
     {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie') fractie=fractie
@@ -70,9 +70,9 @@
       {{/if}}
     </ul>
   </div>
-    <div class="u-padding--round--small u-border--light--top u-align-right">
-      {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") }} Annuleer {{/wu-button}}
-      {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "previous") }} Vorige {{/wu-button}}
-      {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") }} Voeg toe {{/wu-button}}
+  <div class="u-padding--round--small u-border--light--top u-align-right">
+    {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+    {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "previous") }} Vorige {{/wu-button}}
+    {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") }} Voeg toe {{/wu-button}}
     </div>
 {{/if}}
