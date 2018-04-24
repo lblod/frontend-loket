@@ -10,15 +10,25 @@
       </div>
     </div>
     <div class="u-spacer--bottom--small">
-      {{mandatenbeheer/persoon-search-form onSelect=(action "setPersoon")}}
+      {{#if (not createPersoon)}}
+        {{mandatenbeheer/persoon-search-form onSelect=(action "setPersoon")}}
+      {{/if}}
+      <br>
+      {{#wu-button isBlock=true onClick=(action 'toggleCreate')}}
+        persoon toevoegen
+      {{/wu-button}}
     </div>
   </div>
-  {{#if mandataris}}
-    {{mandatenbeheer/mandataris-edit
-      class="container-flex--scroll u-padding--round--small"
-      bestuursorganen=model.bestuursorganen
-      mandataris=mandataris
-      onSave=(action 'save')
-      onCancel=(action 'cancel')}}
+  {{#if createPersoon}}
+    {{mandatenbeheer/create-persoon onCreate=(action 'setPersoon')}}
+  {{else}}
+    {{#if mandataris}}
+      {{mandatenbeheer/mandataris-edit
+        class="container-flex--scroll u-padding--round--small"
+        bestuursorganen=model.bestuursorganen
+        mandataris=mandataris
+        onSave=(action 'save')
+        onCancel=(action 'cancel')}}
     {{/if}}
+  {{/if}}
 </div>
