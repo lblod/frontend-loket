@@ -8,8 +8,8 @@ export default Component.extend({
   store: service(),
   hasSearched: false,
   pageSize: 20,
-  noResultsAfterSearch: computed('personen', 'search.isRunning', function(){
-    if(this.get('search.isRunning'))
+  noResultsAfterSearch: computed('personen', 'isQuerying', function(){
+    if(this.get('isQuerying'))
       return false;
     return this.get('hasSearched') && this.get('personen').length === 0;
   }),
@@ -32,7 +32,7 @@ export default Component.extend({
       sort:'achternaam',
       include: ['geboorte',
                 'identificator'].join(','),
-      filter:{
+      filter: {
         achternaam: this.get('achternaam') || undefined,
         'gebruikte-voornaam': this.get('gebruikteVoornaam') || undefined,
         identifcator: this.get('identificator') || undefined
@@ -46,8 +46,18 @@ export default Component.extend({
   }),
 
   getPersoon: task(function* (queryParams){
-    return this.get('store').query('persoon', queryParams);
+    try {
+      return yield this.get('store').query('persoon', queryParams);
+    }
+    catch(e){
+      this.set('error', true);
+    }
   }),
+
+  resetAfterError(){
+    this.set('error', false);
+    this.set('hasSearched', false);
+  },
 
   actions: {
     async selectPage(page){
@@ -61,6 +71,9 @@ export default Component.extend({
     },
     cancel(){
       this.get('onCancel')();
+    },
+    toggleError(){
+      this.resetAfterError();
     }
   }
 });

@@ -28,6 +28,10 @@
   </div>
 </div>
 <div class="container-flex--scroll u-padding--round--small u-position--relative">
+  {{#if error}}
+    {{wu-alert message="Fout bij het zoeken, gelieve opnieuw te proberen" onClick=(action 'toggleError') isError=error button="ok"}}
+  {{/if}}
+
   {{#unless hasSearched}}
   <div class="mandate-new-info">
     <p class="text-fade">Zoek een persoon op naam of op rijksregisternummer.</p>
