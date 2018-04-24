@@ -11,8 +11,8 @@
     </div>
   </div>
   {{mandatenbeheer/mandataris-edit
-    editOnly=true
-    persoon=model.mandataris.isBestuurlijkeAliasVan
+    editOnlyMode=true
+    class="container-flex--scroll u-padding--round--small"
     mandataris=model.mandataris
     bestuursorganen=model.bestuursorganen
     onSave=(action 'save')

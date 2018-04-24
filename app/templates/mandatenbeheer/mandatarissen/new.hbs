@@ -13,9 +13,12 @@
       {{mandatenbeheer/persoon-search-form onSelect=(action "setPersoon")}}
     </div>
   </div>
-  {{mandatenbeheer/mandataris-edit
-    bestuursorganen=model.bestuursorganen
-    persoon=persoon
-    onSave=(action 'save')
-    onCancel=(action 'cancel')}}
+  {{#if mandataris}}
+    {{mandatenbeheer/mandataris-edit
+      class="container-flex--scroll u-padding--round--small"
+      bestuursorganen=model.bestuursorganen
+      mandataris=mandataris
+      onSave=(action 'save')
+      onCancel=(action 'cancel')}}
+    {{/if}}
 </div>
