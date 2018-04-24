@@ -1,87 +1,134 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 import { A } from '@ember/array';
-import moment from 'moment';
 
 export default Component.extend({
   store: service(),
-  dateFormat: 'DD.MM.YYYY',
+  dateFormat: 'DD-MM-YYYY',
+  editOnlyMode: false, //some components will change behaviour when being in editMode
+  saveError: false,
 
-  startDate: computed('rawStartDate', function(){
-    return moment(this.get('rawStartDate'), this.get('dateFormat'));
+  init(){
+    this._super(...arguments);
+    this.set('destroyOnError', A());
+  },
+
+  didReceiveAttrs(){
+    this.set('fractie', this.get('mandataris.heeftLidmaatschap.binnenFractie'));
+  },
+
+  mandaat: computed('mandataris.bekleedt', {
+    set(key, value){
+        this.set('mandataris.bekleedt', value);
+    },
+    get(){
+        return this.get('mandataris.bekleedt');
+      }
+    }),
+
+  beleidsdomein: computed('mandataris.beleidsdomein', {
+    set(key, value){
+      if(value.length === 1)
+        return this.get('mandataris').get(key).pushObject(value);
+      return this.get('mandataris').get(key).setObjects(value);
+    },
+    get(){
+      return this.get('mandataris.beleidsdomein');
+    }
   }),
 
-  endDate: computed('rawEndDate', function(){
-    return moment(this.get('rawEndDate'), this.get('dateFormat'));
-  }),
+  startDate: alias('mandataris.start'),
 
-  disableSave: computed('mandaat', 'rawStartDate', function(){
-    return !(this.get('mandaat') && this.get('rawStartDate'));
-  }),
+  endDate: alias('mandataris.einde'),
 
   save: task(function* (){
-    yield this.createNewBeleidsdomeinen();
-
-    let lidmaatschap;
-
-    if(this.get('fractie')){
-      lidmaatschap = yield this.createLidmaatschap();
+    try {
+      yield this.saveNewBeleidsdomeinen();
+      //fractie is a complex object, requires some special flow
+      yield this.saveLidmaatschap();
+      return this.get('mandataris').save();
     }
-
-    let mandataris = yield this.get('store').createRecord('mandataris', {
-      start: this.get('startDate'),
-      einde: this.get('eindeDate'),
-      bekleedt: this.get('mandaat'),
-      heeftLidmaatschap: lidmaatschap,
-      isBestuurlijkeAliasVan: this.get('persoon'),
-      beleidsdomein: this.get('beleidsdomeinen')
-    });
-
-    return mandataris.save();
+    catch (e){
+      //TODO: needs refinment later
+      this.set('saveError', true);
+      console.log(`error during save ${e}`);
+      this.cleanUpOnError();
+    }
   }),
 
-  async createNewBeleidsdomeinen(){
-    if(!this.get('beleidsdomeinen')){
-      this.set('beleidsdomeinen', A());
-      return;
-    }
-
-    //TODO: should we cleanup on fail?
-    let savingD = this.get('beleidsdomeinen').map(d => {
-      if(d.get('isNew'))
-         return d.save();
+  async saveNewBeleidsdomeinen(){
+    let savingD = this.get('mandataris.beleidsdomein').map(async d => {
+      if(d.get('isNew')){
+        await d.save();
+        this.get('destroyOnError').pushObject(d);
+      }
     });
-
     return Promise.all(savingD);
   },
 
-  async createLidmaatschap(){
-    let fractie = this.get('fractie');
-    let tijdsinterval = await this.get('store').createRecord('tijdsinterval', {
-      begin: this.get('startDate'), einde: this.get('eindeDate')
-    });
-    await tijdsinterval.save();
+  async saveLidmaatschap(){
+    if(!this.get('mandataris.heeftLidmaatschap.id')){
+      await this.createNewLidmaatschap();
+      return;
+    }
+    if(this.get('mandataris.heeftLidmaatschap.binnenFractie.id') !== this.get('fractie.id')){
+      await this.updateLidmaatschap();
+      return;
+    }
+    this.set('mandataris.heeftLidmaatschap.tijdsinterval', await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde')));
+  },
 
-    try{
-      let lidmaatschap =  await this.get('store').createRecord('lidmaatschap', {
-        binnenFractie: fractie, lidGedurende: tijdsinterval
-      });
-      await lidmaatschap.save();
-      return lidmaatschap;
+  async updateLidmaatschap(){
+    let lidmaatschap = await this.get('mandataris.heeftLidmaatschap');
+    await lidmaatschap.destroyRecord();
+    await this.createNewLidmaatschap();
+  },
+
+  async createNewLidmaatschap(){
+    let tijdsinterval = await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde'));
+    let fractie = this.get('fractie');
+
+    let lidmaatschap =  await this.get('store').createRecord('lidmaatschap', {
+      binnenFractie: fractie, lidGedurende: tijdsinterval
+    });
+    await lidmaatschap.save();
+
+    this.get('destroyOnError').pushObject(lidmaatschap);
+    this.set('mandataris.heeftLidmaatschap', lidmaatschap);
+  },
+
+  async getTijdsinterval(begin, einde){
+    let tijdsinterval = await this.findTijdsinterval(begin, einde);
+    if(!tijdsinterval){
+      tijdsinterval = this.get('store').createRecord('tijdsinterval', {begin, einde});
+      await tijdsinterval.save();
+      this.get('destroyOnError').pushObject(tijdsinterval);
     }
-    catch (error){
-      await tijdsinterval.delete();
-      throw error;
-    }
+    return tijdsinterval;
+  },
+
+  async findTijdsinterval(startDate, endDate){
+    let begin = startDate ? startDate.toISOString().substring(0, 10) : '';
+    let einde = endDate ? endDate.toISOString().substring(0, 10) : '';
+    return await this.get('store').query('tijdsinterval',{filter: {begin, einde}});
+  },
+
+  async cleanUpOnError(){
+    this.get('destroyOnError').forEach(o => {
+      try {
+        o.destroyRecord();
+      }
+      catch (e){
+        console.log('error during cleanup');
+        console.log(e);
+      }
+    });
   },
 
   actions: {
-    async setPersoon(persoon){
-      this.set('persoon', persoon);
-    },
-
     setFractie(fractie){
       this.set('fractie', fractie);
     },
@@ -89,14 +136,14 @@ export default Component.extend({
     setMandaat(mandaat){
       this.set('mandaat', mandaat);
     },
-
-    setBeleidsdomeinen(beleidsdomeinen){
-      this.set('beleidsdomeinen', beleidsdomeinen);
+    setBeleidsdomein(beleidsdomeinen){
+      this.set('beleidsdomein', beleidsdomeinen);
     },
 
     async save(){
       let mandataris = await this.save.perform();
-      this.get('onSave')(mandataris);
+      if(!this.get('saveError'))
+        this.get('onSave')(mandataris);
     },
 
     cancel(){
