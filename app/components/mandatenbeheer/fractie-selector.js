@@ -5,10 +5,8 @@ import { task, timeout } from 'ember-concurrency';
 export default Component.extend({
   store: service(),
 
-  init(){
-    this._super(...arguments);
-    if(this.get('fractie'))
-      this.set('_fractie', this.get('fractie'));
+  didReceiveAttrs(){
+    this.set('_fractie', this.get('fractie'));
   },
 
   searchByName: task(function* (searchData) {
