@@ -12,6 +12,7 @@ export default Route.extend({
   },
 
   deactivate(){
+    this.controller.clearProperties();
     this.controllerFor('mandatenbeheer.mandatarissen').set('activeChildRoute', '');
   }
 });

@@ -1,6 +1,9 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+  clearProperties(){
+    this.set('mandataris', null);
+  },
   actions: {
     setPersoon(persoon){
       let mandataris = this.get('store').createRecord('mandataris');
