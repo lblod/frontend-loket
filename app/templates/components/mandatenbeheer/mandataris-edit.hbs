@@ -28,7 +28,7 @@
 
   <div class="container-flex--scroll u-padding--round--small">
     <h4 class="h6 sans-serif u-spacer--bottom--tiny">Fractie</h4>
-    {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie') fractie=fractie
+    {{mandatenbeheer/fractie-selector onSelect=(action 'setFractie') fractie=fractie allowClear=true
       class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"}}
     <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaat</h4>
     <ul>
@@ -39,6 +39,7 @@
           bestuursorganen=bestuursorganen
           mandaat=mandaat
           class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
+          allowClear=true
         }}
         <label class="form__label">Beleidsdomeinen</label>
         {{mandatenbeheer/beleidsdomein-selector-with-create
@@ -53,7 +54,11 @@
           onSelect=(action "setStatusCode")
           statusCode=status
           class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
+          allowClear=true
         }}
+        {{#if statusError}}
+          <div class="form__error">{{statusError}}</div>
+        {{/if}}
         <div class="grid">
           <div class="col--6-12">
             <label class="form__label" for="datepicker-from">Geplande start</label>
