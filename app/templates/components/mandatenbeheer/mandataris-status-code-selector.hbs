@@ -1,0 +1,9 @@
+{{#mandatenbeheer/power-select
+   disabled=disabled
+   placeholder="Titelvoerend, effectief, waarnemend"
+   options=statusCodes
+   selected=_statusCode
+   onchange=(action "select")
+   as |status|}}
+  {{status.label}}
+{{/mandatenbeheer/power-select}}
