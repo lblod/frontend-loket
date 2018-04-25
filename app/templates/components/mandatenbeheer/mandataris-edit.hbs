@@ -72,7 +72,9 @@
   </div>
   <div class="u-padding--round--small u-border--light--top u-align-right">
     {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") }} Annuleer {{/wu-button}}
-    {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "previous") }} Vorige {{/wu-button}}
+    {{#unless editOnlyMode}}
+      {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "previous") }} Vorige {{/wu-button}}
+    {{/unless}}
     {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") }}
       {{#unless editOnlyMode}}
         Voeg toe

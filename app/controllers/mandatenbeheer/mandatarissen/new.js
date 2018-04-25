@@ -10,7 +10,8 @@ export default Controller.extend({
     const persoon = await this.get('store').findRecord('persoon', this.get('persoonId'));
     this.setPersoon(persoon);
   }),
-  clearProperties(){
+  async clearProperties(){
+    await this.get('mandataris').destroyRecord();
     this.set('mandataris', null);
   },
   setPersoon(persoon){
@@ -24,6 +25,9 @@ export default Controller.extend({
     },
     cancel(){
       this.transitionToRoute('mandatenbeheer.mandatarissen');
+    },
+    async goSearchPerson(){
+      await this.clearProperties();
     }
   }
 });
