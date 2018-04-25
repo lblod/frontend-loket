@@ -11,10 +11,6 @@ export default Component.extend({
   editOnlyMode: false, //some components will change behaviour when being in editMode
   saveError: false,
 
-  init(){
-    this._super(...arguments);
-  },
-
   async didReceiveAttrs(){
     this.set('destroyOnError', A());
     this.set('saveError', false);
@@ -91,6 +87,12 @@ export default Component.extend({
     this.set('mandataris.heeftLidmaatschap', lidmaatschap);
   },
 
+  validateStatus: observer('status', function(){
+    this.set('statusError', null);
+    if(!this.get('status') && this.get('editOnlyMode'))
+      this.set('statusError', 'Gelieve een status op te geven.');
+  }),
+
   valideerStartEnEinde: observer('startDate', 'endDate', function() {
     console.log('validating');
     const start = this.get('startDate');
@@ -122,7 +124,7 @@ export default Component.extend({
   },
 
   async cleanUpOnError(){
-    //TODO: better rollback
+    //TODO: better rollback of relations
     this.get('mandataris').rollbackAttributes();
     this.get('destroyOnError').forEach(o => {
         o.destroyRecord();
