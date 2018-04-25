@@ -8,7 +8,7 @@ export default Controller.extend({
       this.transitionToRoute('mandatenbeheer.mandatarissen.edit', mandataris);
     },
     onCancel() {
-      this.transitionToRoute('mandatenbeheer.mandatarissen');
+      this.transitionToRoute('mandatenbeheer.mandatarissen.new');
     }
   }
 });

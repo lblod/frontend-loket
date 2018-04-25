@@ -4,18 +4,19 @@ import { task } from 'ember-concurrency';
 import { A } from '@ember/array';
 import { isBlank } from '@ember/utils';
 import { computed } from '@ember/object';
+import { equal } from '@ember/object/computed';
+const maleId = '5ab0e9b8a3b2ca7c5e000028';
+const femaleId = '5ab0e9b8a3b2ca7c5e000029';
 const CreatePersoon = Component.extend({
+  tagName: '',
   store: service(),
-  classNames: ['mandate-new-info'],
   init() {
     this._super(...arguments);
     this.set('errorMessages', A());
-    this.get('loadGenders').perform();
   },
-  loadGenders: task( function * () {
-    const result = yield this.get('store').findAll('geslacht-code');
-    this.set('genders', result);
-  }),
+
+  isMale: equal('geslacht', maleId),
+  isFemale: equal('geslacht', femaleId),
   /**
    * check if rijksregisternummer is valid
    */
@@ -23,7 +24,6 @@ const CreatePersoon = Component.extend({
     let rr = this.get('rijksregisternummer');
     if (isBlank(rr))
       return false;
-    rr = rr.replace(/\./g,'').replace(/-/g,'').trim();
     if (rr.length != 11) {
       return false;
     }
@@ -74,7 +74,7 @@ const CreatePersoon = Component.extend({
       gebruikteVoornaam: this.get('voornaam'),
       achternaam: this.get('achternaam'),
       alternatieveNaam: this.get('roepnaam'),
-      geslacht: this.get('geslacht'),
+      geslacht: yield store.findRecord('geslacht-code', this.get('geslacht')),
       identificator: yield this.get('loadOrCreateRijksregister').perform(),
       geboorte: yield this.get('loadOrCreateGeboorte').perform()
     });
@@ -88,13 +88,13 @@ const CreatePersoon = Component.extend({
     }
   }),
   actions: {
-    selectGender(gender) {
-      this.set('geslacht', gender);
+    setGender(event) {
+      this.set('geslacht', event.target.value);
     }
   }
 });
 
 CreatePersoon.reopen({
   requiredFields: [ 'geslacht', 'voornaam', 'achternaam', "rijksregisternummer" ]
-})
+});
 export default CreatePersoon;
