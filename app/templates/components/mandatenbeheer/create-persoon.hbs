@@ -14,7 +14,7 @@
 </div>
 <div class="form__row">
   <label for="mandataris-rijksregister">Rijksregisternummer</label>
-  {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-rijksregister" name="mandataris-rijksregister" placeholder="00.00.00-000.00" value=(mut rijksregisternummer)}}
+  {{one-way-input-mask rijksregisternummer mask='99.99.99-999.99' class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="00.00.00-000.00" update=(action (mut rijksregisternummer))}}
   <label for="mandataris-geboorte">Geboortedatum</label>
   {{wu-datepicker class="u-spacer--tiny" value=(mut birthDate)}}
   <label>Geslacht</label>

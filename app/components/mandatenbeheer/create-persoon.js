@@ -23,7 +23,6 @@ const CreatePersoon = Component.extend({
     let rr = this.get('rijksregisternummer');
     if (isBlank(rr))
       return false;
-    rr = rr.replace(/\./g,'').replace(/-/g,'').trim();
     if (rr.length != 11) {
       return false;
     }
