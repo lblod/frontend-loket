@@ -11,7 +11,7 @@ export default Component.extend({
   noResultsAfterSearch: computed('personen', 'isQuerying', function(){
     if(this.get('isQuerying'))
       return false;
-    return this.get('hasSearched') && this.get('personen').length === 0;
+    return this.get('hasSearched') && this.get('personen.length') === 0;
   }),
   searchTerms: computed('gebruikteVoornaam', 'achternaam', 'identificator', function(){
     return [this.get('gebruikteVoornaam'), this.get('achternaam'), this.get('identificator')].filter( t => t ).join(', ');
