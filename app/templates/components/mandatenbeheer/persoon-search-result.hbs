@@ -7,7 +7,7 @@
         {{#unless persoon.identificator.identificator}}
           details
         {{else}}
-          {{persoon.identificator.identificator}}
+          {{mandatenbeheer/display-rrn persoon.identificator.identificator}}
         {{/unless}}
       </a>
       <div class="accordion__content form__group u-padding--round--tiny u-spacer--none">
