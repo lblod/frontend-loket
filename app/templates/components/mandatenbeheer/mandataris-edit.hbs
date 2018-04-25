@@ -43,9 +43,11 @@
         <label class="form__label">Beleidsdomeinen</label>
         {{mandatenbeheer/beleidsdomein-selector-with-create
           onSelect=(action 'setBeleidsdomein')
-          beleidsdomeinen=beleidsdomein
+          beleidsdomeinen=beleidsdomeinen
           class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
         }}
+        <label class="form__label" for="mandataris-rangorde">Rangorde</label>
+        {{input class="input-field input-field--block u-spacer--bottom--small js-js-input-pattern-bound" placeholder="Eerste schepen" value=rangorde}}
         <div class="grid">
           <div class="col--6-12">
             <label class="form__label" for="datepicker-from">Geplande start</label>

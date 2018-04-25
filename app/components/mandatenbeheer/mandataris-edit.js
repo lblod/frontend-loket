@@ -16,39 +16,27 @@ export default Component.extend({
     this.set('destroyOnError', A());
   },
 
-  didReceiveAttrs(){
-    this.set('fractie', this.get('mandataris.heeftLidmaatschap.binnenFractie'));
+  async didReceiveAttrs(){
+    this.set('fractie', await this.get('mandataris.heeftLidmaatschap.binnenFractie'));
+    this.set('beleidsdomeinen', await this.get('mandataris.beleidsdomein'));
+    this.set('mandaat', await this.get('mandataris.bekleedt'));
+    this.set('startDate', this.get('mandataris.start'));
+    this.set('endDate', this.get('mandataris.einde'));
+    this.set('rangorde', this.get('mandataris.rangorde.content'));
   },
-
-  mandaat: computed('mandataris.bekleedt', {
-    set(key, value){
-        this.set('mandataris.bekleedt', value);
-    },
-    get(){
-        return this.get('mandataris.bekleedt');
-      }
-    }),
-
-  beleidsdomein: computed('mandataris.beleidsdomein', {
-    set(key, value){
-      if(value.length === 1)
-        return this.get('mandataris').get(key).pushObject(value);
-      return this.get('mandataris').get(key).setObjects(value);
-    },
-    get(){
-      return this.get('mandataris.beleidsdomein');
-    }
-  }),
-
-  startDate: alias('mandataris.start'),
-
-  endDate: alias('mandataris.einde'),
 
   save: task(function* (){
     try {
       yield this.saveNewBeleidsdomeinen();
       //fractie is a complex object, requires some special flow
       yield this.saveLidmaatschap();
+
+      this.set('mandataris.bekleedt', this.get('mandaat'));
+      this.get('mandataris.beleidsdomein').setObjects(this.get('beleidsdomeinen'));
+      this.set('mandataris.start', this.get('startDate'));
+      this.set('mandataris.einde', this.get('endDate'));
+      this.set('mandataris.rangorde', {content: this.get('rangorde'), language: 'nl'});
+
       return this.get('mandataris').save();
     }
     catch (e){
@@ -60,7 +48,7 @@ export default Component.extend({
   }),
 
   async saveNewBeleidsdomeinen(){
-    let savingD = this.get('mandataris.beleidsdomein').map(async d => {
+    let savingD = this.get('beleidsdomeinen').map(async d => {
       if(d.get('isNew')){
         await d.save();
         this.get('destroyOnError').pushObject(d);
@@ -117,6 +105,7 @@ export default Component.extend({
   },
 
   async cleanUpOnError(){
+    this.get('mandataris').rollbackAttributes();
     this.get('destroyOnError').forEach(o => {
         o.destroyRecord();
     });
@@ -131,7 +120,7 @@ export default Component.extend({
       this.set('mandaat', mandaat);
     },
     setBeleidsdomein(beleidsdomeinen){
-      this.set('beleidsdomein', beleidsdomeinen);
+      this.set('beleidsdomeinen', beleidsdomeinen);
     },
 
     async save(){
