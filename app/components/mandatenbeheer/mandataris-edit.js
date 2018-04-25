@@ -1,6 +1,8 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
+import { observer } from '@ember/object';
+import { isBlank } from '@ember/utils';
 import { A } from '@ember/array';
 
 export default Component.extend({
@@ -89,6 +91,20 @@ export default Component.extend({
     this.set('mandataris.heeftLidmaatschap', lidmaatschap);
   },
 
+  valideerStartEnEinde: observer('startDate', 'endDate', function() {
+    console.log('validating');
+    const start = this.get('startDate');
+    const end = this.get('endDate');
+    this.set('startDateError', null);
+    this.set('endDateError', null);
+    console.log(start,end, end < start);
+    if (isBlank(start))
+      this.set('startDateError', 'geplande start is een vereist veld');
+    if (start && end  && end < start ) {
+      this.set('startDateError', 'geplande start moet voor gepland einde liggen');
+      this.set('endDateError', 'gepland einde moet na geplande start liggen');
+    }
+  }),
   async getTijdsinterval(begin, einde){
     let tijdsinterval = await this.findTijdsinterval(begin, einde);
     if(!tijdsinterval){

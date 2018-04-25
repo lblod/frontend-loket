@@ -57,11 +57,17 @@
         <div class="grid">
           <div class="col--6-12">
             <label class="form__label" for="datepicker-from">Geplande start</label>
-            {{wu-datepicker placeholder="01-01-2018" class="date-picker-mandataris-edit" value=startDate dateFormat=dateFormat}}
+            {{wu-datepicker placeholder="01-01-2018" class=(if startDateError 'date-picker-mandataris-edit input-field--error' 'date-picker-mandataris-edit')  value=(mut startDate) dateFormat=dateFormat}}
+            {{#if startDateError}}
+              <div class="form__error">{{startDateError}}</div>
+            {{/if}}
           </div>
           <div class="col--6-12">
             <label class="form__label" for="datepicker-to">Gepland einde</label>
-            {{wu-datepicker placeholder="01-01-2019" class="date-picker-mandataris-edit" value=endDate dateFormat=dateFormat}}
+            {{wu-datepicker placeholder="01-01-2019" class=(if endDateError 'date-picker-mandataris-edit input-field--error' 'date-picker-mandataris-edit') value=endDate dateFormat=dateFormat}}
+            {{#if endDateError}}
+              <div class="form__error">{{endDateError}}</div>
+            {{/if}}
           </div>
         </div>
       </li>
