@@ -90,7 +90,6 @@ const CreatePersoon = Component.extend({
       this.get('onCreate')(result);
     }
     catch(e) {
-      console.log(e);
       this.get('errorMessages').pushObject('Fout bij verwerking, probeer het later opnieuw.');
       if (persoon) persoon.destroy();
     }
@@ -103,6 +102,7 @@ const CreatePersoon = Component.extend({
 });
 
 CreatePersoon.reopen({
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
   requiredFields: [ 'geslacht', 'voornaam', 'achternaam', "rijksregisternummer" ],
   male: maleId,
   female: femaleId
