@@ -44,6 +44,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
 
   async setupController(controller, model){
     this._super(controller, model);
+    controller.set('searchData', this.paramsFor('mandatenbeheer.mandatarissen')['filter']);
     controller.set('bestuurseenheid', this.get('bestuurseenheid'));
   }
 });
