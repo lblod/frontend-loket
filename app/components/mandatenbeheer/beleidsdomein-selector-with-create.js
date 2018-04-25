@@ -12,7 +12,7 @@ export default Component.extend({
   },
 
   didReceiveAttrs(){
-    this.set('_beleidsdomeinen', this.get('beleidsdomeinen') || A());
+    this.set('_beleidsdomeinen', (this.get('beleidsdomeinen') || A()).toArray());
   },
 
   searchByName: task(function* (searchData) {
@@ -26,8 +26,8 @@ export default Component.extend({
 
   actions: {
     select(beleidsdomeinen){
-      this.set('_beleidsdomeinen', beleidsdomeinen);
-      this.get('onSelect')(beleidsdomeinen);
+      this.get('_beleidsdomeinen').setObjects(beleidsdomeinen);
+      this.get('onSelect')(this.get('_beleidsdomeinen'));
     },
     async create(beleidsdomein){
       let domein = await this.get('store').createRecord('beleidsdomein-code', {label: beleidsdomein});
