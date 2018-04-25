@@ -13,6 +13,12 @@ const CreatePersoon = Component.extend({
   init() {
     this._super(...arguments);
     this.set('errorMessages', A());
+    const now = new Date();
+    const eighteenYearsAgo = `#{now.getDay()}-#{now.getMonth}-#{now.getFullYear - 18}`;
+    const hundredYearsAgo = `#{now.getDay()}-#{now.getMonth}-#{now.getFullYear - 100}`;
+    this.set('maxDate', eighteenYearsAgo);
+    this.set('minDate', hundredYearsAgo);
+    this.set('birthDate', new Date(now.getFullYear()-21,now.getMonth(), now.getDay()));
   },
 
   isMale: equal('geslacht', maleId),
@@ -70,21 +76,22 @@ const CreatePersoon = Component.extend({
     if (this.get('errorMessages').length > 0)
       return;
     const store = this.get('store');
-    const persoon = store.createRecord('persoon', {
-      gebruikteVoornaam: this.get('voornaam'),
-      achternaam: this.get('achternaam'),
-      alternatieveNaam: this.get('roepnaam'),
-      geslacht: yield store.findRecord('geslacht-code', this.get('geslacht')),
-      identificator: yield this.get('loadOrCreateRijksregister').perform(),
-      geboorte: yield this.get('loadOrCreateGeboorte').perform()
-    });
+    let persoon;
     try {
+      persoon = store.createRecord('persoon', {
+        gebruikteVoornaam: this.get('voornaam'),
+        achternaam: this.get('achternaam'),
+        alternatieveNaam: this.get('roepnaam'),
+        geslacht: yield store.findRecord('geslacht-code', this.get('geslacht')),
+        identificator: yield this.get('loadOrCreateRijksregister').perform(),
+        geboorte: yield this.get('loadOrCreateGeboorte').perform()
+      });
       const result = yield persoon.save();
       this.get('onCreate')(result);
     }
     catch(e) {
-      console.log(e);
-      persoon.destroy();
+      this.get('errorMessages').pushObject('Fout bij verwerking, probeer het later opnieuw.');
+      if (persoon) persoon.destroy();
     }
   }),
   actions: {
@@ -95,6 +102,9 @@ const CreatePersoon = Component.extend({
 });
 
 CreatePersoon.reopen({
-  requiredFields: [ 'geslacht', 'voornaam', 'achternaam', "rijksregisternummer" ]
+  // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
+  requiredFields: [ 'geslacht', 'voornaam', 'achternaam', "rijksregisternummer" ],
+  male: maleId,
+  female: femaleId
 });
 export default CreatePersoon;
