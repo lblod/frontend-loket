@@ -1,7 +1,5 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 import { A } from '@ember/array';
 
@@ -13,10 +11,11 @@ export default Component.extend({
 
   init(){
     this._super(...arguments);
-    this.set('destroyOnError', A());
   },
 
   async didReceiveAttrs(){
+    this.set('destroyOnError', A());
+    this.set('saveError', false);
     this.set('fractie', await this.get('mandataris.heeftLidmaatschap.binnenFractie'));
     this.set('beleidsdomeinen', await this.get('mandataris.beleidsdomein'));
     this.set('mandaat', await this.get('mandataris.bekleedt'));
@@ -27,6 +26,7 @@ export default Component.extend({
   },
 
   save: task(function* (){
+    this.set('saveError', false);
     try {
       yield this.saveNewBeleidsdomeinen();
       //fractie is a complex object, requires some special flow
@@ -42,7 +42,6 @@ export default Component.extend({
       return this.get('mandataris').save();
     }
     catch (e){
-      //TODO: needs refinment later
       this.set('saveError', true);
       console.log(`error during save ${e}`);
       this.cleanUpOnError();
@@ -107,6 +106,7 @@ export default Component.extend({
   },
 
   async cleanUpOnError(){
+    //TODO: better rollback
     this.get('mandataris').rollbackAttributes();
     this.get('destroyOnError').forEach(o => {
         o.destroyRecord();

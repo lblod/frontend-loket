@@ -66,15 +66,7 @@
         </div>
       </li>
       {{#if saveError}}
-        <div class="alert alert--error">
-          <div class="alert__icon" aria-hidden="true"></div>
-          <div class="alert__content">
-            <div class="alert__title">Er is een fout opgetreden tijdens het opslaan.</div>
-            <div class="alert__message">
-              <p>Gelieve de systeembeheerder contacteren</p>
-            </div>
-          </div>
-        </div>
+        {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
       {{/if}}
     </ul>
   </div>
