@@ -1,39 +1,51 @@
-<div class="form__row">
-  <div class="grid grid-collapse">
-    <div class="col--6-12">
-      <label for="mandataris-naam">Voornaam</label>
-      {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-naam" name="mandataris-naam" placeholder="Naam" value=(mut voornaam)}}
+<div class="container-flex--scroll u-padding--round--small u-position--relative">
+    <div class="form__row">
+    <div class="grid grid-collapse">
+      <div class="col--6-12">
+        <label for="mandataris-naam">Voornaam</label>
+        {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-naam" name="mandataris-naam" placeholder="Naam" value=(mut voornaam)}}
+      </div>
+      <div class="col--6-12">
+        <label for="mandataris-familienaam">Familienaam</label>
+        {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam" value=(mut achternaam)}}
+      </div>
     </div>
-    <div class="col--6-12">
-      <label for="mandataris-familienaam">Familienaam</label>
-      {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam" value=(mut achternaam)}}
-    </div>
+    <label for="mandataris-roepnaam">Roepnaam</label>
+    {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-roepnaam" name="mandataris-roepnaam" placeholder="Jos"value=(mut roepnaam)}}
   </div>
-  <label for="mandataris-roepnaam">Roepnaam</label>
-  {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-roepnaam" name="mandataris-roepnaam" placeholder="Jos"value=(mut roepnaam)}}
-</div>
-<div class="form__row">
-  <label for="mandataris-rijksregister">Rijksregisternummer</label>
-  {{one-way-input-mask rijksregisternummer mask='99.99.99-999.99' class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="00.00.00-000.00" update=(action (mut rijksregisternummer))}}
-  <label for="mandataris-geboorte">Geboortedatum</label>
-  {{wu-datepicker class="u-spacer--tiny" value=(mut birthDate)}}
-  <label>Geslacht</label>
-  {{#mandatenbeheer/power-select
-     selected=geslacht
-     options=genders
-     onchange=(action "selectGender")
-     as |gender|}}
-    {{gender.label}}
-  {{/mandatenbeheer/power-select}}
-  {{#if errorMessages.length}}
-    <br>
-    {{#wu-alert title="Fout bij opslaan" isWarning=true}}
-      {{#each errorMessages as |message|}}
-        {{message}}<br>
-      {{/each}}
-    {{/wu-alert}}
-  {{/if}}
+  <div class="form__row">
+    <label for="mandataris-rijksregister">Rijksregisternummer</label>
+    {{one-way-input-mask rijksregisternummer mask='99.99.99-999.99' class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="00.00.00-000.00" update=(action (mut rijksregisternummer))}}
 
-  {{#wu-button onClick=(perform save) loading=save.isRunning}}persoon toevoegen{{/wu-button}}
+    <label for="mandataris-geboorte">Geboortedatum</label>
+    {{wu-datepicker class="u-spacer--tiny" value=(mut birthDate)}}
+    <label>Geslacht</label>
+    <div class="grid u-spacer--bottom--tiny">
+      <div class="col--6-12">
+        <label class="radio">
+          <input class="radio__toggle" name="radio-buttons" onclick={{action 'setGender'}} value="{{female}}" checked={{isFemale}} type="radio">
+          <span></span>Vrouw
+        </label>
+      </div>
+      <div class="col--6-12">
+        <label class="radio">
+          <input class="radio__toggle" name="radio-buttons" onclick={{action 'setGender'}} value={{male}} checked={{isMale}} type="radio">
+          <span></span>Man
+        </label>
+      </div>
+    </div>
+    {{#if errorMessages.length}}
+      <br>
+      {{#wu-alert title="Fout bij opslaan" isWarning=true}}
+        {{#each errorMessages as |message|}}
+          {{message}}<br>
+        {{/each}}
+      {{/wu-alert}}
+    {{/if}}
+  </div>
+</div>
+<div class="u-padding--round--small u-border--light--top u-align-right person-new--mandate">
+  {{#wu-button disabled=save.isRunning class="button button--narrow button--alt toggle-person-new" onClick=(action onCancel)}}Annuleer{{/wu-button}}
+  {{#wu-button disabled=save.isRunning class="show-mandate-edit-new-next" onClick=(perform save) loading=save.isRunning}}Voeg persoon toe{{/wu-button}}
 </div>
 
