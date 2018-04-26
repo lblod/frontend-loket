@@ -1,14 +1,4 @@
-{{#unless mandataris}}
-  {{mandatenbeheer/persoon-search-form
-    onCancel=(action "cancel")
-    onSelect=(action setPersoon)
-    class="col--4-12 mandate-edit-new container-flex--contain"}}
-{{else}}
-  {{mandatenbeheer/mandataris-edit
-    class="col--4-12 mandate-edit-new-next container-flex--contain"
-    bestuursorganen=model.bestuursorganen
-    mandataris=mandataris
-    onSave=(action 'save')
-    onCancel=(action 'cancel')
-    onPrevious=(action 'goSearchPerson')}}
-{{/unless}}
+{{mandatenbeheer/persoon-search-form
+  onCancel=(action "cancel")
+  onSelect=(action setPersoon)
+  class="col--4-12 mandate-edit-new container-flex--contain"}}
