@@ -1,0 +1,37 @@
+<div class="u-padding--trl--small u-border--light--bottom">
+  <div class="grid">
+    <div class="col--9-12">
+      <h2 class="h3">Editeer mandaten</h2>
+    </div>
+    <div class="col--3-12 u-align-right toggle-mandate-new">
+      {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
+        <span class="u-visually-hidden">Venster sluiten</span>
+      {{/link-to}}
+    </div>
+  </div>
+  <div class="u-spacer--bottom--small">
+    {{mandatenbeheer/persoon-card persoon=persoon}}
+  </div>
+</div>
+
+<div class="container-flex--scroll u-padding--round--small">
+  <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
+  <ul>
+    {{#each mandatarissen as |mandataris|}}
+      {{mandatenbeheer/mandataris-edit
+        tagName="li"
+        class="u-bg-block u-padding--round--small u-spacer--bottom--small"
+        bestuursorganen=bestuursorganen
+        mandataris=mandataris
+        onSave=(action "mandatarisSaved")
+        onCancelCreate=(action "mandatarisCreateCanceled")
+      }}
+    {{/each}}
+  </ul>
+  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "createMandataris"}}>
+    <i class="vi vi-plus" aria-hidden="true"></i>Voeg mandaat toe
+  </a>
+</div>
+<div class="u-padding--round--small u-border--light--top u-align-right">
+  {{#wu-button class="button button--narrow button--alt toggle-mandate-new-previous" onClick=(action "finish")}}Ok{{/wu-button}}
+</div>
