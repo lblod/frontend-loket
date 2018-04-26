@@ -111,9 +111,9 @@ export default Component.extend({
     this.set('mandataris.heeftLidmaatschap', lidmaatschap);
   },
 
-  validateStatus: observer('status', 'editOnlyMode', function(){
+  validateStatus: observer('status', function(){
     this.set('statusError', null);
-    if(!this.get('status') && this.get('editOnlyMode'))
+    if(!this.get('status') && !this.get('createMode'))
       this.set('statusError', 'Gelieve een status op te geven.');
   }),
 
@@ -122,7 +122,6 @@ export default Component.extend({
     const end = this.get('endDate');
     this.set('startDateError', null);
     this.set('endDateError', null);
-    console.log(start,end, end < start);
     if (isBlank(start))
       this.set('startDateError', 'geplande start is een vereist veld');
     if (start && end  && end < start ) {
