@@ -33,7 +33,7 @@
         <td>{{moment-format row.start 'DD/MM/YYYY'}}</td>
         <td>{{moment-format row.einde 'DD/MM/YYYY'}}</td>
       {{/unless}}
-      <td>{{#link-to editRoute row.id}} Bewerk {{/link-to}}</td>
+      <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
     {{/c.body}}
   {{/t.content}}
 {{/data-table}}

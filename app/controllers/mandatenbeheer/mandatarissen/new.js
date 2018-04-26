@@ -10,24 +10,12 @@ export default Controller.extend({
     const persoon = await this.get('store').findRecord('persoon', this.get('persoonId'));
     this.setPersoon(persoon);
   }),
-  async clearProperties(){
-    await this.get('mandataris').destroyRecord();
-    this.set('mandataris', null);
-  },
   setPersoon(persoon){
-    const mandataris = this.get('store').createRecord('mandataris');
-    mandataris.set('isBestuurlijkeAliasVan', persoon);
-    this.set('mandataris', mandataris);
+    this.transitionToRoute('mandatenbeheer.mandatarissen.edit', persoon.get('id'));
   },
   actions: {
-    save(){
-      this.transitionToRoute('mandatenbeheer.mandatarissen');
-    },
     cancel(){
       this.transitionToRoute('mandatenbeheer.mandatarissen');
-    },
-    async goSearchPerson(){
-      await this.clearProperties();
     }
   }
 });

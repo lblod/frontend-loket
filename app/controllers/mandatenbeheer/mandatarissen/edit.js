@@ -2,10 +2,7 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   actions: {
-    save(){
-      this.transitionToRoute('mandatenbeheer.mandatarissen');
-    },
-    cancel(){
+    finish(){
       this.transitionToRoute('mandatenbeheer.mandatarissen');
     }
   }

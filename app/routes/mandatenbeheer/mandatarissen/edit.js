@@ -6,24 +6,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   async model(params){
     let parentModel = await this.modelFor('mandatenbeheer');
-
-    let queryParams = {
-      include: [
-        'is-bestuurlijke-alias-van',
-        'bekleedt',
-        'bekleedt.bestuursfunctie',
-        'beleidsdomein',
-        'heeft-lidmaatschap',
-        'heeft-lidmaatschap.binnen-fractie'
-      ].join(',')
-    };
-
-    let mandataris = await this.get('store').findRecord('mandataris', params.id, queryParams);
+    let persoon = await this.get('store').findRecord('persoon', params.id);
 
     return RSVP.hash({
       bestuurseenheid: parentModel.bestuurseenheid,
       bestuursorganen: parentModel.bestuursorganen,
-      mandataris: mandataris
+      persoon
     });
   },
 

@@ -4,23 +4,38 @@ import { task } from 'ember-concurrency';
 import { observer } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { A } from '@ember/array';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   store: service(),
   dateFormat: 'DD-MM-YYYY',
   editOnlyMode: false, //some components will change behaviour when being in editMode
+  createMode: false,
+  viewMode: computed('editOnlyMode', 'createMode', function(){
+    return !(this.get('editOnlyMode') || this.get('createMode'));
+  }),
   saveError: false,
 
   async didReceiveAttrs(){
+    await this.initComponentProperties();
+  },
+
+  async initComponentProperties(){
+    this.toggleCreateMode();
     this.set('destroyOnError', A());
     this.set('saveError', false);
     this.set('fractie', await this.get('mandataris.heeftLidmaatschap.binnenFractie'));
-    this.set('beleidsdomeinen', await this.get('mandataris.beleidsdomein'));
+    this.set('beleidsdomeinen', (await this.get('mandataris.beleidsdomein')) || A());
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
     this.set('rangorde', this.get('mandataris.rangorde.content'));
     this.set('status', await this.get('mandataris.status'));
+  },
+
+  toggleCreateMode(){
+    if(!this.get('mandataris.id'))
+      this.set('createMode', true);
   },
 
   save: task(function* (){
@@ -64,7 +79,7 @@ export default Component.extend({
   },
 
   async saveLidmaatschap(){
-    if(!this.get('mandataris.heeftLidmaatschap.id')){
+    if(!this.get('mandataris.heeftLidmaatschap.id') && this.get('fractie')){
       await this.createNewLidmaatschap();
       return;
     }
@@ -72,6 +87,8 @@ export default Component.extend({
       await this.updateLidmaatschap();
       return;
     }
+    if(!this.get('fractie'))
+      return;
     this.set('mandataris.heeftLidmaatschap.tijdsinterval', await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde')));
   },
 
@@ -94,14 +111,13 @@ export default Component.extend({
     this.set('mandataris.heeftLidmaatschap', lidmaatschap);
   },
 
-  validateStatus: observer('status', function(){
+  validateStatus: observer('status', 'editOnlyMode', function(){
     this.set('statusError', null);
     if(!this.get('status') && this.get('editOnlyMode'))
       this.set('statusError', 'Gelieve een status op te geven.');
   }),
 
   valideerStartEnEinde: observer('startDate', 'endDate', function() {
-    console.log('validating');
     const start = this.get('startDate');
     const end = this.get('endDate');
     this.set('startDateError', null);
@@ -114,6 +130,7 @@ export default Component.extend({
       this.set('endDateError', 'gepland einde moet na geplande start liggen');
     }
   }),
+
   async getTijdsinterval(begin, einde){
     let tijdsinterval = await this.findTijdsinterval(begin, einde);
     if(!tijdsinterval){
@@ -157,16 +174,27 @@ export default Component.extend({
 
     async save(){
       let mandataris = await this.save.perform();
-      if(!this.get('saveError'))
+      if(!this.get('saveError')){
+        this.set('editOnlyMode', false);
+        this.set('createMode', false);
         this.get('onSave')(mandataris);
+      }
     },
 
     cancel(){
-      this.get('onCancel')();
+      this.initComponentProperties();
+      if(this.get('createMode'))
+        this.get('onCancelCreate')(this.get('mandataris'));
+      else
+        this.set('editOnlyMode', false);
     },
 
     previous(){
       this.get('onPrevious')();
+    },
+
+    edit(){
+      this.set('editOnlyMode', true);
     }
   }
 });
