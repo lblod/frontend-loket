@@ -1,0 +1,22 @@
+<a class="small link--dark--light toggle toggle--arrow-down js-accordion__toggle js-accordion-bound" {{action "toggleOpen"}}>
+  <i class="toggle__icon" aria-hidden="true"></i>Toon / verberg totalen</a>
+<div class="accordion__content u-spacer--top--tiny u-bg-block">
+  {{#if getMandatarissenTotals.isRunning}}
+    <div class="loader-wrapper">
+      <div class="loader">
+        <span class="u-visually-hidden">Aan het laden</span>
+      </div>
+    </div>
+  {{else}}
+    {{#each mandatarissenTotals as |orgaanMap|}}
+      Bestuursorgaan: {{orgaanMap.orgaan}}
+      <ul class="inline-list inline-list--bordered">
+        {{#each orgaanMap.mandaten as |total|}}
+          <li>
+            {{total.naam}}: aantal {{total.aantal}}
+          </li>
+        {{/each}}
+      </ul>
+   {{/each}}
+  {{/if}}
+</div>

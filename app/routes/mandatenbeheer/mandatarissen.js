@@ -9,6 +9,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
     let mandatenbeheer = await this.modelFor('mandatenbeheer');
     this.set('bestuurseenheid', mandatenbeheer.bestuurseenheid);
     let bestuursorganen = mandatenbeheer.bestuursorganen;
+    this.set('bestuursorganen', bestuursorganen);
     this.set('bestuursorganenIds', bestuursorganen.map(o => o.get('id')));
   },
 
@@ -46,5 +47,6 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
     this._super(controller, model);
     controller.set('searchData', this.paramsFor('mandatenbeheer.mandatarissen')['filter']);
     controller.set('bestuurseenheid', this.get('bestuurseenheid'));
+    controller.set('bestuursorganen', this.get('bestuursorganen'));
   }
 });
