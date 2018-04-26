@@ -15,6 +15,9 @@ export default Component.extend({
     return !(this.get('editOnlyMode') || this.get('createMode'));
   }),
   saveError: false,
+  hasFatalError: computed('saveError', 'requiredFieldError', function(){
+    return this.get('saveError') || this.get('requiredFieldError');
+  }),
 
   async didReceiveAttrs(){
     await this.initComponentProperties();
@@ -24,6 +27,7 @@ export default Component.extend({
     this.toggleCreateMode();
     this.set('destroyOnError', A());
     this.set('saveError', false);
+    this.set('requiredFieldError', false);
     this.set('fractie', await this.get('mandataris.heeftLidmaatschap.binnenFractie'));
     this.set('beleidsdomeinen', (await this.get('mandataris.beleidsdomein')) || A());
     this.set('mandaat', await this.get('mandataris.bekleedt'));
@@ -42,22 +46,26 @@ export default Component.extend({
     this.set('saveError', false);
     try {
       yield this.saveNewBeleidsdomeinen();
+
       //fractie is a complex object, requires some special flow
       yield this.saveLidmaatschap();
 
-      if(this.get('mandaat'))
-        this.set('mandataris.bekleedt', this.get('mandaat'));
-      //TODO:  mandaat is mandatory
-      if(this.get('beleidsdomeinen.length') > 0)
-        this.get('mandataris.beleidsdomein').setObjects(this.get('beleidsdomeinen'));
-      if(this.get('startDate'))
-        this.set('mandataris.start', this.get('startDate'));
-      if(this.get('endDate'))
-        this.set('mandataris.einde', this.get('endDate'));
+      if(!this.get('mandaat')){
+        this.set('requiredFieldError', true);
+        return this.get('mandataris');
+      }
+
+      this.set('mandataris.bekleedt', this.get('mandaat'));
+      this.get('mandataris.beleidsdomein').setObjects(this.get('beleidsdomeinen'));
+      this.set('mandataris.start', this.get('startDate'));
+      this.set('mandataris.einde', this.get('endDate'));
+
       if(this.get('rangorde'))
         this.set('mandataris.rangorde', {content: this.get('rangorde'), language: 'nl'});
-      if(this.get('status'))
-        this.set('mandataris.status', this.get('status'));
+      else
+        this.set('mandataris.rangorde', undefined);
+
+      this.set('mandataris.status', this.get('status'));
 
       return yield this.get('mandataris').save();
     }
@@ -173,7 +181,7 @@ export default Component.extend({
 
     async save(){
       let mandataris = await this.save.perform();
-      if(!this.get('saveError')){
+      if(!this.get('hasFatalError')){
         this.set('editOnlyMode', false);
         this.set('createMode', false);
         this.get('onSave')(mandataris);

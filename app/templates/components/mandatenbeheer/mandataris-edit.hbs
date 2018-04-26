@@ -66,6 +66,9 @@
   class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
   disabled=viewMode}}
 <div class="u-spacer--top--small">
+  {{#if requiredFieldError}}
+    {{wu-alert message="Gelieve een mandaat op te geven." isError=true}}
+  {{/if}}
   {{#if saveError}}
     {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
   {{/if}}
