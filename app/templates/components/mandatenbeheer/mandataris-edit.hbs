@@ -7,13 +7,6 @@
   allowClear=true
   disabled=viewMode
 }}
-<label class="form__label">Fractie</label>
-{{mandatenbeheer/fractie-selector
-  onSelect=(action 'setFractie')
-  fractie=fractie
-  allowClear=true
-  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
-  disabled=viewMode}}
 <label class="form__label">Beleidsdomeinen</label>
 {{mandatenbeheer/beleidsdomein-selector-with-create
   onSelect=(action 'setBeleidsdomein')
@@ -39,7 +32,7 @@
 {{#if statusError}}
   <div class="form__error">{{statusError}}</div>
 {{/if}}
-<div class="grid">
+<div class="grid u-spacer--bottom--small">
   <div class="col--6-12">
     <label class="form__label" for="datepicker-from">Geplande start</label>
     {{wu-datepicker
@@ -65,7 +58,14 @@
     {{/if}}
   </div>
 </div>
-<div class="u-padding--round--small u-border--light--top u-align-right">
+<label class="form__label">Fractie</label>
+{{mandatenbeheer/fractie-selector
+  onSelect=(action 'setFractie')
+  fractie=fractie
+  allowClear=true
+  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
+  disabled=viewMode}}
+<div class="u-spacer--top--small">
   {{#if saveError}}
     {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
   {{/if}}
@@ -77,14 +77,14 @@
     </div>
   {{else}}
     {{#if viewMode}}
-      {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "edit") }} Editeer {{/wu-button}}
+      {{#wu-button class="button button--small button--narrow" onClick=(action "edit") }} Editeer {{/wu-button}}
     {{else}}
-      {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") }} Annuleer {{/wu-button}}
-      {{#wu-button class="button button--narrow mandate-new-info-button toggle-mandate-new" onClick=(action "save") }}
+      {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+      {{#wu-button class="button button--small button--narrow" onClick=(action "save") }}
         {{#if createMode}}
           Voeg toe
         {{else}}
-          Sla op
+          Bewaar
         {{/if}}
       {{/wu-button}}
     {{/if}}
