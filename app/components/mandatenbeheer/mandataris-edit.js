@@ -30,14 +30,21 @@ export default Component.extend({
       //fractie is a complex object, requires some special flow
       yield this.saveLidmaatschap();
 
-      this.set('mandataris.bekleedt', this.get('mandaat'));
-      this.get('mandataris.beleidsdomein').setObjects(this.get('beleidsdomeinen'));
-      this.set('mandataris.start', this.get('startDate'));
-      this.set('mandataris.einde', this.get('endDate'));
-      this.set('mandataris.rangorde', {content: this.get('rangorde'), language: 'nl'});
-      this.set('mandataris.status', this.get('status'));
+      if(this.get('mandaat'))
+        this.set('mandataris.bekleedt', this.get('mandaat'));
+      //TODO:  mandaat is mandatory
+      if(this.get('beleidsdomeinen.length') > 0)
+        this.get('mandataris.beleidsdomein').setObjects(this.get('beleidsdomeinen'));
+      if(this.get('startDate'))
+        this.set('mandataris.start', this.get('startDate'));
+      if(this.get('endDate'))
+        this.set('mandataris.einde', this.get('endDate'));
+      if(this.get('rangorde'))
+        this.set('mandataris.rangorde', {content: this.get('rangorde'), language: 'nl'});
+      if(this.get('status'))
+        this.set('mandataris.status', this.get('status'));
 
-      return this.get('mandataris').save();
+      return yield this.get('mandataris').save();
     }
     catch (e){
       this.set('saveError', true);
