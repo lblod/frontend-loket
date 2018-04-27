@@ -1,8 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import { computed } from '@ember/object';
-import RSVP from 'rsvp';
 
 export default Component.extend({
   store: service(),
@@ -39,18 +37,18 @@ export default Component.extend({
   getMandatarissenTotals: task(function* (){
     let bstOrgs = this.get('bestuursorganen');
 
-    let mapMandtnOrgs = yield Promise.all(bstOrgs.map(async o => {
+    let mapMandtnOrgs = yield Promise.all(bstOrgs.map(async (o) => {
      return {org: o, mandtn: await this.getMandatenOrgaan(o)};
     }));
 
-    let mapMandtnMandarissen = async mandaat => {
+    let mapMandtnMandarissen = async (mandaat) => {
       return {
         naam: await mandaat.get('bestuursfunctie.label'),
         aantal: (await this.getMandatarissenMandaat(mandaat)).meta.count
       };
     };
 
-    let mapMandtrsOrgs = yield Promise.all(mapMandtnOrgs.map(async e => {
+    let mapMandtrsOrgs = yield Promise.all(mapMandtnOrgs.map(async (e) => {
       return {
         orgaan: await e.org.get('isTijdsspecialisatieVan.naam'),
         mandaten: await Promise.all(e.mandtn.map(mapMandtnMandarissen))

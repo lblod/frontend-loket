@@ -1,3 +1,4 @@
+import { warn } from '@ember/debug';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
@@ -72,7 +73,7 @@ export default Component.extend({
     }
     catch (e){
       this.set('saveError', true);
-      console.log(`error during save ${e}`);
+      warn(`error during save ${e}`, { id: 'save-error' });
       this.cleanUpOnError();
     }
   }),
