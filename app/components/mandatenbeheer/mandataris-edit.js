@@ -9,7 +9,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
   store: service(),
   dateFormat: 'DD-MM-YYYY',
-  editOnlyMode: false, //some components will change behaviour when being in editMode
+  editOnlyMode: true, //some components will change behaviour when being in editMode
   createMode: false,
   viewMode: computed('editOnlyMode', 'createMode', function(){
     return !(this.get('editOnlyMode') || this.get('createMode'));
@@ -44,6 +44,7 @@ export default Component.extend({
 
   save: task(function* (){
     this.set('saveError', false);
+    this.set('requiredFieldError', false);
     try {
       yield this.saveNewBeleidsdomeinen();
 
