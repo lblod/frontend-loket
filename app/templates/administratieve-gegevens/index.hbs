@@ -15,16 +15,16 @@
         {{#content.row label="Gemeente"}}
           {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="Antwerpen" value=(mut model.primaireSite.vestigingsadres.gemeente)}}
         {{/content.row}}
-        {{#content.row label="telefoon"}}
+        {{#content.row label="Telefoon"}}
           {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.telephone)}}
         {{/content.row}}
-        {{#content.row label="fax"}}
+        {{#content.row label="Fax"}}
           {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.fax)}}
         {{/content.row}}
-        {{#content.row label="email"}}
+        {{#content.row label="E-mail"}}
           {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="info@gemeente.be" value=(mut model.primaireSite.vestigingsadres.email)}}
         {{/content.row}}
-        {{#content.row label="website"}}
+        {{#content.row label="Website"}}
           {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="http://www.gemeente.be" value=(mut model.primaireSite.vestigingsadres.website)}}
         {{/content.row}}
         {{#wu-button disabled=saveContactInfo.isRunning onClick=(perform saveContactInfo) isLoading=saveContactInfo.isRunning}}Opslaan{{/wu-button}}
