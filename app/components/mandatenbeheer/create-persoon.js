@@ -14,8 +14,8 @@ const CreatePersoon = Component.extend({
     this._super(...arguments);
     this.set('errorMessages', A());
     const now = new Date();
-    const eighteenYearsAgo = `#{now.getDay()}-#{now.getMonth}-#{now.getFullYear - 18}`;
-    const hundredYearsAgo = `#{now.getDay()}-#{now.getMonth}-#{now.getFullYear - 100}`;
+    const eighteenYearsAgo = `${now.getDay()}-${now.getMonth}-${now.getFullYear - 18}`;
+    const hundredYearsAgo = `${now.getDay()}-${now.getMonth}-${now.getFullYear - 100}`;
     this.set('maxDate', eighteenYearsAgo);
     this.set('minDate', hundredYearsAgo);
     this.set('birthDate', new Date(now.getFullYear()-21,now.getMonth(), now.getDay()));
@@ -64,23 +64,26 @@ const CreatePersoon = Component.extend({
   }),
   save: task( function * () {
     // todo geboorte en identifcator
-    this.set('errorMessages', A());
+    this.set('hasError', false);
     this.get('requiredFields').forEach((field) => {
-      if (!this.get(field)) {
-        this.get('errorMessages').pushObject(`${field} is een vereist veld.`);
+      this.set(`${field}Error`, null);
+      if (isBlank(this.get(field))) {
+        this.set('hasError', true);
+        this.set(`${field}Error`,`${field} is een vereist veld.`);
       }
     });
     if (! this.get('isValidRijksRegister')) {
-      this.get('errorMessages').pushObject('rijksregisternummer is niet geldig.');
+      this.set('rijksregisternummerError', 'rijksregisternummer is niet geldig.');
     }
-    if (this.get('errorMessages').length > 0)
+    if (this.get('hasError'))
       return;
     const store = this.get('store');
     let persoon;
+    this.set('saveError', '');
     try {
       persoon = store.createRecord('persoon', {
         gebruikteVoornaam: this.get('voornaam'),
-        achternaam: this.get('achternaam'),
+        achternaam: this.get('familienaam'),
         alternatieveNaam: this.get('roepnaam'),
         geslacht: yield store.findRecord('geslacht-code', this.get('geslacht')),
         identificator: yield this.get('loadOrCreateRijksregister').perform(),
@@ -90,7 +93,7 @@ const CreatePersoon = Component.extend({
       this.get('onCreate')(result);
     }
     catch(e) {
-      this.get('errorMessages').pushObject('Fout bij verwerking, probeer het later opnieuw.');
+      this.set('saveError','Fout bij verwerking, probeer het later opnieuw.');
       if (persoon) persoon.destroy();
     }
   }),
@@ -103,7 +106,7 @@ const CreatePersoon = Component.extend({
 
 CreatePersoon.reopen({
   // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
-  requiredFields: [ 'geslacht', 'voornaam', 'achternaam', "rijksregisternummer" ],
+  requiredFields: [ 'geslacht', 'voornaam', 'familienaam', "rijksregisternummer" ],
   male: maleId,
   female: femaleId
 });
