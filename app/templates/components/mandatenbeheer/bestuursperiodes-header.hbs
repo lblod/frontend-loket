@@ -1,0 +1,3 @@
+{{#each bestuursorganenInTijd as |bestuursorgaan|}}
+  Bestuursperiode voor {{bestuursorgaan.isTijdsspecialisatieVan.naam}}: van {{moment-format bestuursorgaan.bindingStart "YYYY"}} tot {{moment-format bestuursorgaan.bindingEinde "YYYY"}}.
+{{/each}}
