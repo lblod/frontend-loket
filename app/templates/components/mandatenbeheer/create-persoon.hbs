@@ -3,20 +3,28 @@
     <div class="grid grid-collapse">
       <div class="col--6-12">
         <label for="mandataris-naam">Voornaam</label>
-        {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-naam" name="mandataris-naam" placeholder="Naam" value=(mut voornaam)}}
+        {{input class=(with-error-class voornaamError "input-field input-field--block u-spacer--tiny js-js-input-pattern-bound") id="mandataris-naam" name="mandataris-naam" placeholder="Naam" value=(mut voornaam)}}
+        {{#if voornaamError}}
+          <div class="form__error">{{voornaamError}}</div>
+        {{/if}}
       </div>
       <div class="col--6-12">
         <label for="mandataris-familienaam">Familienaam</label>
-        {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam" value=(mut achternaam)}}
+        {{input class=(with-error-class familienaamError "input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam") value=(mut familienaam)}}
+        {{#if familienaamError}}
+          <div class="form__error">{{familienaamError}}</div>
+        {{/if}}
       </div>
     </div>
     <label for="mandataris-roepnaam">Roepnaam</label>
     {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-roepnaam" name="mandataris-roepnaam" placeholder="Jos"value=(mut roepnaam)}}
-  </div>
-  <div class="form__row">
-    <label for="mandataris-rijksregister">Rijksregisternummer</label>
-    {{one-way-input-mask rijksregisternummer mask='99.99.99-999.99' class="input-field input-field--block u-spacer--tiny uppercase js-js-input-pattern-bound" placeholder="00.00.00-000.00" update=(action (mut rijksregisternummer))}}
-
+    </div>
+    <div class="form__row">
+      <label for="mandataris-rijksregister">Rijksregisternummer</label>
+      {{one-way-input-mask rijksregisternummer mask='99.99.99-999.99' class=(with-error-class rijksregisternummerError "input-field input-field--block u-spacer--tiny uppercase js-js-input-pattern-bound") placeholder="00.00.00-000.00" update=(action (mut rijksregisternummer))}}
+      {{#if rijksregisternummerError}}
+        <div class="form__error">{{rijksregisternummerError}}</div>
+      {{/if}}
     <label for="mandataris-geboorte">Geboortedatum</label>
     {{wu-datepicker class="input-field--block u-spacer--small" dateFormat="DD.MM.YYYY" value=(mut birthDate) minDate=minDate maxDate=maxDate}}
     <label>Geslacht</label>
@@ -33,13 +41,14 @@
           <span></span>Man
         </label>
       </div>
+      {{#if geslachtError}}
+        <div class="form__error">{{geslachtError}}</div>
+      {{/if}}
     </div>
-    {{#if errorMessages.length}}
+    {{#if saveError}}
       <br>
-      {{#wu-alert title="Fout bij opslaan" isWarning=true}}
-        {{#each errorMessages as |message|}}
-          {{message}}<br>
-        {{/each}}
+      {{#wu-alert title="Fout bij opslaan" isError=true}}
+        {{saveError}}
       {{/wu-alert}}
     {{/if}}
   </div>

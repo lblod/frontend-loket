@@ -37,7 +37,7 @@
     <label class="form__label" for="datepicker-from">Geplande start</label>
     {{wu-datepicker
       placeholder="01-01-2018"
-      class=(if startDateError "date-picker-mandataris-edit input-field--error" "date-picker-mandataris-edit")
+      class=(with-error-class startDateError "date-picker-mandataris-edit")
       value=(mut startDate)
       dateFormat=dateFormat
       disabled=viewMode}}
@@ -49,7 +49,7 @@
     <label class="form__label" for="datepicker-to">Gepland einde</label>
     {{wu-datepicker
       placeholder="01-01-2019"
-      class=(if endDateError "date-picker-mandataris-edit input-field--error" "date-picker-mandataris-edit")
+      class=(with-error-class endDateError "date-picker-mandataris-edit")
       value=endDate
       dateFormat=dateFormat
       disabled=viewMode}}
