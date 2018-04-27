@@ -2,6 +2,11 @@
 @import 'main';
 @import 'ember-power-select';
 
+/* Preloader */
+.loader-wrapper {
+  padding: 25px;
+}
+
 .temporary-select__wrapper.temporary-select__wrapper--block.u-spacer--bottom--small.ember-view + .form__error{
   margin-top: -3%;
   margin-bottom: 3%;
