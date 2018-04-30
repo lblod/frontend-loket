@@ -14,7 +14,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
   },
 
   mergeQueryOptions(params){
-    let queryParams = {
+    const queryParams = {
       sort: params.sort,
       filter: {
         'bekleedt': {

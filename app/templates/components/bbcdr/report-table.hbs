@@ -1,0 +1,30 @@
+{{#data-table content=content isLoading=isLoading noDataMessage="Geen rapporten gevonden"
+     sort=sort page=page size=size class="bbcdr-reports-data-table" as |t|}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      <th>Rapport</th>
+      {{#unless displaySubset}}
+        {{th-sortable label='Gewijzigd door' field='lastModifier.achternaam' currentSorting=sort}}
+        {{th-sortable label='Bewerkt op' field='modified' currentSorting=sort}}
+      {{/unless}}
+      {{th-sortable label='Status' field='status.label' currentSorting=sort}}
+      <th><!-- Actions --></th>
+    {{/c.header}}
+    {{#c.body as |row|}}
+      <td>
+        {{#each row.files as |file|}}
+          {{wu-document-miniature isTiny=true class="switch-text-overflow-ellipsis"
+              type=(uppercase file.extension) label=file.filename metadata=(uppercase file.miniatureMetadata)}}
+        {{/each}}
+      </td>
+      {{#unless displaySubset}}
+        <td>{{row.lastModifier.fullName}}</td>
+        <td>{{moment-format row.modified 'DD/MM/YYYY'}}</td>
+      {{/unless}}
+      <td>
+        <label class="pill pill--clickable" resource={{row.status.uri}}>{{capitalize row.status.label}}</label>
+      </td>
+      <td>Bekijk</td>
+    {{/c.body}}
+  {{/t.content}}
+{{/data-table}}

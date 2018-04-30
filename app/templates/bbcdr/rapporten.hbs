@@ -1,0 +1,20 @@
+<div class="col--12-12--s delete-me-bbc-table u-border--light--right col--10-12 col--9-12--m">
+  <div class="container-flex--contain">
+    <div class="u-border--light--bottom">
+      <div class="grid u-padding--round--small mandate-edit-table__header">
+        <div class="col--12-12 u-spacer--bottom">
+          <h1 class="h3 u-spacer--none">BBC DR {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
+        </div>
+        <div class="col--6-12">
+          <!-- Search field -->
+        </div>
+        <div class="col--6-12 u-align-right">
+          {{wu-button label="Maak nieuw rapport" onClick=null isNarrow=true}}
+        </div>
+      </div>
+    </div>
+    {{bbcdr/report-table class="data-table__scroll" content=model sort=sort page=page size=size displaySubset=false}}
+  </div>
+</div>
+
+{{outlet}}

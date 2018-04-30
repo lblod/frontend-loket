@@ -14,11 +14,11 @@
           </div>
         </div>
         <div class="col--6-12 u-align-right">
-          {{#wu-button onClick=(action "handleAddMandatarisClick") class="button button--narrow toggle-mandate-new"}}Voeg mandataris toe{{/wu-button}}
+          {{wu-button label="Voeg mandataris toe" onClick=(action "handleAddMandatarisClick") isNarrow=true}}
         </div>
       </div>
     </div>
-      {{mandatenbeheer/mandataris-table class="data-table__scroll" content=model sort=sort page=page size=size editRoute="mandatenbeheer.mandatarissen.edit" displaySubset=activeChildRoute}}
+    {{mandatenbeheer/mandataris-table class="data-table__scroll" content=model sort=sort page=page size=size editRoute="mandatenbeheer.mandatarissen.edit" displaySubset=activeChildRoute}}
   </div>
 </div>
 {{outlet}}

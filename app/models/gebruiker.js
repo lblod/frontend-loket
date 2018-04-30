@@ -11,5 +11,8 @@ export default Model.extend({
   bestuurseenheden: hasMany('bestuurseenheid'),
   group: computed('bestuurseenheden', function () {
     return this.get('bestuurseenheden.firstObject');
-  }) // used for mock login
+  }), // used for mock login
+  fullName: computed('voornaam', 'achternaam', function() {
+    return `${this.voornaam} ${this.achternaam}`.trim();
+  })
 });
