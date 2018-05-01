@@ -10,5 +10,10 @@ export default Controller.extend({
   hasActiveChildRoute: computed('router.currentRouteName', function() {
     return this.get('router.currentRouteName').startsWith('bbcdr.rapporten.')
       && this.get('router.currentRouteName') != 'bbcdr.rapporten.index';
-  })
+  }),
+  actions: {
+    createNewReport() {
+      this.transitionToRoute('bbcdr.rapporten.new');
+    }
+  }
 });
