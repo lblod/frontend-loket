@@ -2,6 +2,7 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { get, computed } from '@ember/object';
 import { task, waitForProperty } from 'ember-concurrency';
+
 export default Service.extend({
   session: service('session'),
   store: service('store'),

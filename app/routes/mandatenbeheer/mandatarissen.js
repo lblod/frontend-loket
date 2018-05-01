@@ -6,9 +6,9 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
   modelName: 'mandataris',
 
   async beforeModel(){
-    let mandatenbeheer = await this.modelFor('mandatenbeheer');
+    const mandatenbeheer = await this.modelFor('mandatenbeheer');
     this.set('bestuurseenheid', mandatenbeheer.bestuurseenheid);
-    let bestuursorganen = mandatenbeheer.bestuursorganen;
+    const bestuursorganen = mandatenbeheer.bestuursorganen;
     this.set('bestuursorganen', bestuursorganen);
     this.set('bestuursorganenIds', bestuursorganen.map(o => o.get('id')));
   },
@@ -17,9 +17,9 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
     const queryParams = {
       sort: params.sort,
       filter: {
-        'bekleedt': {
+        bekleedt: {
           'bevat-in': {
-            'id': this.get('bestuursorganenIds').join(',')
+            id: this.get('bestuursorganenIds').join(',')
           }
         }
       },
@@ -43,7 +43,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
     return queryParams;
   },
 
-  async setupController(controller, model){
+  setupController(controller, model){
     this._super(controller, model);
     controller.set('searchData', this.paramsFor('mandatenbeheer.mandatarissen')['filter']);
     controller.set('bestuurseenheid', this.get('bestuurseenheid'));
