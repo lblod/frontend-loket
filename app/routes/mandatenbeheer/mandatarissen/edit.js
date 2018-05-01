@@ -5,8 +5,8 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 export default Route.extend(AuthenticatedRouteMixin, {
 
   async model(params){
-    let parentModel = await this.modelFor('mandatenbeheer');
-    let persoon = await this.get('store').findRecord('persoon', params.id);
+    const parentModel = this.modelFor('mandatenbeheer');
+    const persoon = await this.get('store').findRecord('persoon', params.id);
 
     return RSVP.hash({
       bestuurseenheid: parentModel.bestuurseenheid,

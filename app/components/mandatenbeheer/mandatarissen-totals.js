@@ -8,7 +8,7 @@ export default Component.extend({
   isOpen:false,
 
   getMandatenOrgaan(bestuursorgaan){
-    let queryParams = {
+    const queryParams = {
       filter: {
         'bevat-in': {
           id: bestuursorgaan.get('id')
@@ -24,31 +24,32 @@ export default Component.extend({
   },
 
   getMandatarissenMandaat(mandaat){
-    let queryParams = {
+    const queryParams = {
       filter: {
         bekleedt: {
           id: mandaat.get('id')
         }
-      }
+      },
+      page: { size: 1 }
     };
     return this.get('store').query('mandataris', queryParams);
   },
 
   getMandatarissenTotals: task(function* (){
-    let bstOrgs = this.get('bestuursorganen');
+    const bstOrgs = this.get('bestuursorganen');
 
-    let mapMandtnOrgs = yield Promise.all(bstOrgs.map(async (o) => {
+    const mapMandtnOrgs = yield Promise.all(bstOrgs.map(async (o) => {
      return {org: o, mandtn: await this.getMandatenOrgaan(o)};
     }));
 
-    let mapMandtnMandarissen = async (mandaat) => {
+    const mapMandtnMandarissen = async (mandaat) => {
       return {
         naam: await mandaat.get('bestuursfunctie.label'),
         aantal: (await this.getMandatarissenMandaat(mandaat)).meta.count
       };
     };
 
-    let mapMandtrsOrgs = yield Promise.all(mapMandtnOrgs.map(async (e) => {
+    const mapMandtrsOrgs = yield Promise.all(mapMandtnOrgs.map(async (e) => {
       return {
         orgaan: await e.org.get('isTijdsspecialisatieVan.naam'),
         mandaten: await Promise.all(e.mandtn.map(mapMandtnMandarissen))

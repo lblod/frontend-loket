@@ -10,7 +10,7 @@ export default Component.extend({
   },
 
   populateMandaten(){
-    let queryParams = {
+    const queryParams = {
       sort:'bestuursfunctie.label',
       include: 'bestuursfunctie',
       'filter[bevat-in][id]': this.get('bestuursorganen').map(o => o.get('id')).join(',')

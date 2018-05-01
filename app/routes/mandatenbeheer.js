@@ -14,8 +14,9 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   getLastBestuursorgaanInTijd: async function(bestuursorgaanId){
     const queryParams = {
-      'sort': '-binding-start',
-      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId
+      sort: '-binding-start',
+      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
+      page: { size: 1 }
     };
 
     const organen = await this.get('store').query('bestuursorgaan', queryParams);
