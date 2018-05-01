@@ -22,7 +22,7 @@
         <td>{{moment-format row.modified 'DD/MM/YYYY'}}</td>
       {{/unless}}
       <td>
-        <label class="pill pill--clickable" resource={{row.status.uri}}>{{capitalize row.status.label}}</label>
+        {{bbcdr/document-status-pill row.status}}
       </td>
       <td>Bekijk</td>
     {{/c.body}}
