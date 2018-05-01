@@ -1,4 +1,4 @@
-<div class="col--12-12--s u-border--light--right col--10-12 col--9-12--m">
+<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
       <div class="grid u-padding--round--small mandate-edit-table__header">
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    {{bbcdr/report-table class="data-table__scroll" content=model sort=sort page=page size=size displaySubset=false}}
+    {{bbcdr/report-table class="data-table__scroll" content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute}}
   </div>
 </div>
 

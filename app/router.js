@@ -23,7 +23,10 @@ Router.map(function() {
   this.route('administratieve-gegevens', function() {});
 
   this.route('bbcdr', function() {
-    this.route('rapporten');
+    this.route('rapporten', function() {
+      this.route('new');
+      this.route('edit', { path: '/:id' });
+    });
   });
 });
 
