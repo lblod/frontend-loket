@@ -10,7 +10,7 @@ export default Controller.extend({
   readyToSend: equal('model.files.length', 2),
   enableUpload: and('model.status.isConcept', not('readyToSend')),
   async updateModel() {
-    const currentUser = await this.get('currentSession.currentUser');
+    const currentUser = await this.get('currentSession.user');
     this.model.set('lastModifiedBy', currentUser);
     this.model.set('modified', new Date());
     return this.model.save();
