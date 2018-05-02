@@ -6,14 +6,20 @@ import { documentStatusVerstuurdId } from '../../../models/document-status';
 
 export default Controller.extend({
   store: service(),
+  currentSession: service(),
   readyToSend: equal('model.files.length', 2),
   enableUpload: and('model.status.isConcept', not('readyToSend')),
+  async updateModel() {
+    const currentUser = await this.get('currentSession.currentUser');
+    this.model.set('lastModifiedBy', currentUser);
+    this.model.set('modified', new Date());
+    return this.model.save();
+  },
   actions: {
     async send() {
       const statusSent = await this.store.findRecord('document-status', documentStatusVerstuurdId);
       this.model.set('status', statusSent);
-      this.model.set('modified', new Date());
-      await this.model.save();
+      await this.updateModel();
       this.transitionToRoute('bbcdr.rapporten.index');
     },
     async deleteReport() {
@@ -22,10 +28,13 @@ export default Controller.extend({
       this.model.destroyRecord();
       this.transitionToRoute('bbcdr.rapporten.index');
     },
+    async addFile(file) {
+      this.model.files.pushObject(file);
+      await this.updateModel();
+    },
     async deleteFile(file) {
       this.model.files.removeObject(file);
-      this.model.set('modified', new Date());
-      await this.model.save();
+      await this.updateModel();
       file.destroyRecord();
     }
   }
