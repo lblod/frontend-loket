@@ -20,7 +20,10 @@ export default Controller.extend({
 
   actions: {
     handleAddMandatarisClick() {
-      return this.transitionToRoute('mandatenbeheer.mandatarissen.new');
+      if (this.get('router.currentRouteName') === 'mandatenbeheer.mandatarissen.new')
+        return this.transitionToRoute('mandatenbeheer.mandatarissen.index');
+      else
+        return this.transitionToRoute('mandatenbeheer.mandatarissen.new');
     }
   }
 });
