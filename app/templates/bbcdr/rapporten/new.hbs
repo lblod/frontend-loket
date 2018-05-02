@@ -15,7 +15,7 @@
   </div>
   <div class="u-padding--round--small u-border--light--top u-align-right">
     {{#link-to 'bbcdr.rapporten.index' class="button button--narrow button--alt"}}Annuleer{{/link-to}}
-    {{wu-link-button label="Bewaar als concept" isNarrow=true isAlt=true onClick=null}}
+    {{wu-link-button label="Bewaar als concept" isNarrow=true isAlt=true onClick=(action 'save')}}
     {{#wu-link-button disabled=(not readyToSend) onClick=null class="u-spacer--tiny"}}Verstuur
       <span class="button__info button__info--below">naar Vlaamse Overheid</span>
     {{/wu-link-button}}
