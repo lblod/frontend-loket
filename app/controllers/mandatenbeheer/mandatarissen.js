@@ -21,9 +21,9 @@ export default Controller.extend({
   actions: {
     handleAddMandatarisClick() {
       if (this.get('router.currentRouteName') === 'mandatenbeheer.mandatarissen.new')
-        return this.transitionToRoute('mandatenbeheer.mandatarissen.index');
+        this.transitionToRoute('mandatenbeheer.mandatarissen.index');
       else
-        return this.transitionToRoute('mandatenbeheer.mandatarissen.new');
+        this.transitionToRoute('mandatenbeheer.mandatarissen.new');
     }
   }
 });

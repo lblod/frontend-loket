@@ -13,7 +13,10 @@ export default Controller.extend({
   }),
   actions: {
     createNewReport() {
-      this.transitionToRoute('bbcdr.rapporten.new');
+      if (this.get('router.currentRouteName') == 'bbcdr.rapporten.new')
+        this.transitionToRoute('bbcdr.rapporten.index');
+      else
+        this.transitionToRoute('bbcdr.rapporten.new');
     }
   }
 });
