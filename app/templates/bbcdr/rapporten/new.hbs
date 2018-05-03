@@ -11,7 +11,14 @@
       </div>
     </div>
   </div>
+  <div>
+    <h1>uploaded files</h1>
+    {{#each files as |file|}}
+    <li>{{file.filename}}</li>
+  {{/each}}
+  </div>
   <div class="container-flex--scroll u-padding--round--small">
+    <div>{{vo-mu-file-dropzone onFinishUpload=(action "addFile")}}</div>
   </div>
   <div class="u-padding--round--small u-border--light--top u-align-right">
     {{#link-to 'bbcdr.rapporten.index' class="button button--narrow button--alt"}}Annuleer{{/link-to}}
