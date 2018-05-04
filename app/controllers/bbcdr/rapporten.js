@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   router: service(),
-  sort: '-modified',
+  sort: 'status.label', //TODO: someday we should have a hierarchy!
   page: 0,
   size: 20,
   hasActiveChildRoute: computed('router.currentRouteName', function() {
