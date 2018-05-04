@@ -1,0 +1,29 @@
+<div class="grid">
+  <div class="col--9-12">
+    {{#if isNewReport}}
+      <h2 class="h3">Maak nieuw rapport</h2>
+    {{else}}
+      <h2 class="h3">Bekijk rapport</h2>
+    {{/if}}
+  </div>
+  <div class="col--3-12 u-align-right">
+    <a  {{action "close"}} class="link--icon--close">
+      <span class="u-visually-hidden">Venster sluiten</span>
+    </a>
+  </div>
+</div>
+<div class="grid u-spacer--small">
+  {{#unless isNewReport}}
+    <div class="col--4-12">
+    <div class="description-data__label">Gewijzigd door</div>
+    <div class="description-data__value">{{report.lastModifier.fullName}}</div>
+  </div>
+  <div class="col--4-12">
+    <div class="description-data__label">Bewerkt op</div>
+    <div class="description-data__value">{{moment-format report.modified 'DD-MM-YYYY'}}</div>
+  </div>
+  {{/unless}}
+  <div class="col--4-12">
+    {{bbcdr/document-status-pill report.status class="u-spacer--small"}}
+  </div>
+</div>
