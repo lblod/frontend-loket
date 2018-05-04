@@ -6,12 +6,18 @@ export default Model.extend({
   filename: attr(),
   format: attr(),
   size: attr(),
-  extension: attr(),
+  extension: attr('string', {defaultValue: 'n/a'}),
   created: attr('datetime'),
-  sizeMb: computed('size', function() {
-    return this.get('size') ? +(Math.round(this.get('size')/1000/1000 + "e+1") + "e-1") : 0;
+  humanReadableSize: computed('size', function(){
+    //ripped from https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
+    let bytes = this.get('size');
+    let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return '0 Byte';
+    var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
   }),
+
   miniatureMetadata: computed('sizeMb', 'extension', function() {
-    return `${this.extension} - ${this.sizeMb} MB`;
+    return `${this.extension} - ${this.humanReadableSize}`;
   })
 });
