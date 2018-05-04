@@ -1,4 +1,4 @@
-{{bbcdr/report-edit-header report=report isNewReport=isNewReport onClose=(action "close")}}
+{{bbcdr/report-edit-header report=report isNewReport=isNewReport onClose=(action "clickCloseCross")}}
 
 <div class="container-flex--scroll u-padding--round--small">
   <div class="form__row">
@@ -31,3 +31,11 @@
     {{/wu-link-button}}
   {{/unless}}
 </div>
+
+{{#if showExitModal}}
+  {{bbcdr/report-edit-exit-modal
+    onCancel=(action "cancelModal")
+    onSave=(action "saveAndExitModal")
+    onDiscard=(action "discardAndExitModal")
+  }}
+{{/if}}

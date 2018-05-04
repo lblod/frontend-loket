@@ -13,6 +13,7 @@ export default Component.extend({
   readyForTmpSave: gte('reportFiles.length', 1),
   readyToSend: equal('reportFiles.length', 2),
   enableUpload: and('report.status.isConcept', not('readyToSend')),
+  showExitModal: false,
 
   reportFiles: null,
 
@@ -61,6 +62,28 @@ export default Component.extend({
     },
 
     async close(){
+      if(this.isNewReport)
+        await this.deleteReport();
+      this.get('router').transitionTo('bbcdr.rapporten.index');
+    },
+
+    clickCloseCross(){
+      //TODO: find if outstanding changes
+      this.set('showExitModal', true);
+    },
+
+    cancelModal(){
+      this.set('showExitModal', false);
+    },
+
+    async saveAndExitModal(){
+      this.set('showExitModal', false);
+      await this.updateReport();
+      this.get('router').transitionTo('bbcdr.rapporten.index');
+    },
+
+    async discardAndExitModal(){
+      this.set('showExitModal', false);
       if(this.isNewReport)
         await this.deleteReport();
       this.get('router').transitionTo('bbcdr.rapporten.index');
