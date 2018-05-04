@@ -8,7 +8,8 @@ export default Model.extend({
   uri: attr(),
   label: attr(),
 
-  isConcept: equal('uri', 'http://data.lblod.info/document-statuses/concept')
+  isConcept: equal('uri', 'http://data.lblod.info/document-statuses/concept'),
+  isVerstuurd: equal('uri', 'http://data.lblod.info/document-statuses/verstuurd')
 });
 
 export { documentStatusVerstuurdId }
