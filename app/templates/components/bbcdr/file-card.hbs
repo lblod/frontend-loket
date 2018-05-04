@@ -6,7 +6,7 @@
 <div class="upload__files__container">
   <div class="upload__file">
     <p class="upload__file__name">{{file.filename}}
-      <span class="upload__file__size">{{fileSize}}</span>
+      <span class="upload__file__size">({{file.humanReadableSize}})</span>
     </p>
     <small>
       <a class="link--icon" href="{{downloadLink}}" download="{{file.filename}}">
