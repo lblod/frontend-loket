@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { gte, equal } from '@ember/object/computed';
 import { and, not } from 'ember-awesome-macros';
-import { documentStatusVerstuurdId } from '../../models/document-status';
 import { A } from '@ember/array';
 
 export default Component.extend({
@@ -43,7 +42,9 @@ export default Component.extend({
 
   actions: {
     async send() {
-      const statusSent = await this.store.findRecord('document-status', documentStatusVerstuurdId);
+      const statusSent = (await this.store.query('document-status', {
+        filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
+      })).firstObject;
       this.report.set('status', statusSent);
       await this.updateReport();
       this.get('router').transitionTo('bbcdr.rapporten.index');
