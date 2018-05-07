@@ -6,7 +6,7 @@
       <label for="bestanden">Upload één XML en één XBRLfile</label>
     </div>
     {{#each reportFiles as |file|}}
-      {{bbcdr/file-card file=file onDelete=(action "deleteFile") active=(not report.status.isVerstuurd)}}
+      {{bbcdr/file-card file=file onDelete=(action "deleteFile") active=(not report.status.isVerstuurd) }}
     {{/each}}
     {{#if enableUpload}}
       {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml"}}
