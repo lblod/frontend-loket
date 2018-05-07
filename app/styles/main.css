@@ -26,6 +26,245 @@
     opacity: 1; } }
 
 /* ==========================================================================
+  Annotations
+  Style the annotations here.
+ ========================================================================== */
+.annotation-snippet li,
+.annotation-snippet p,
+.annotation-snippet .h1,
+.annotation-snippet .h2,
+.annotation-snippet .h3,
+.annotation-snippet .h4,
+.annotation-snippet .h5,
+.annotation-snippet .h6,
+.annotation-structure li,
+.annotation-structure p,
+.annotation-structure .h1,
+.annotation-structure .h2,
+.annotation-structure .h3,
+.annotation-structure .h4,
+.annotation-structure .h5,
+.annotation-structure .h6 {
+  position: relative; }
+
+.annotation-structure {
+  margin-bottom: 3rem;
+  position: relative; }
+
+.annotation-structure--behandeling--open:after,
+.annotation-structure--behandeling--besloten:after {
+  position: absolute;
+  font-weight: 400;
+  font-size: 1.5rem;
+  width: 22rem;
+  text-align: right;
+  color: #666666;
+  opacity: 0;
+  right: -999rem;
+  top: 0;
+  display: block;
+  border-bottom: 1px solid #E8EBEE; }
+
+.annotation-structure--behandeling--open:hover:after,
+.annotation-structure--behandeling--besloten:hover:after {
+  right: -22rem;
+  opacity: 1; }
+
+.annotation-structure--behandeling--open:before,
+.annotation-structure--behandeling--besloten:before {
+  position: absolute;
+  font-family: "fontawesome";
+  left: -3rem;
+  font-size: 1.4rem;
+  top: 2px;
+  color: #B2B2B2; }
+
+.annotation-structure--behandeling--open:after {
+  content: "openbaar \a agendapunt"; }
+
+.annotation-structure--behandeling--besloten:after {
+  content: "besloten \a agendapunt"; }
+
+.annotation-structure--active:before {
+  content: "";
+  position: absolute;
+  left: -2rem;
+  top: 0rem;
+  bottom: 0rem;
+  width: 2px;
+  border-left: 2px solid #E8EBEE;
+  z-index: -1;
+  transition: width 200ms; }
+
+.annotation {
+  border-bottom: 1px solid rgba(203, 210, 218, 0.7);
+  cursor: pointer;
+  padding-bottom: 4px; }
+  .annotation:hover {
+    color: #000;
+    background-color: rgba(254, 229, 57, 0.2); }
+  .annotation:after {
+    position: absolute;
+    font-weight: 400;
+    font-size: 1.5rem;
+    width: 22rem;
+    text-align: right;
+    color: #666666;
+    opacity: 0;
+    right: -999rem;
+    top: 0;
+    display: block;
+    border-bottom: 1px solid #E8EBEE; }
+  .annotation:hover:after {
+    right: -22rem;
+    opacity: 1; }
+  .annotation.highlight {
+    background-color: #FEE539; }
+  .annotation + .annotation {
+    z-index: 2; }
+  .annotation.annotation--person:after {
+    content: "person"; }
+  .annotation.annotation--mandataris:after {
+    content: "mandataris"; }
+  .annotation.annotation--voorzitter:after {
+    content: "voorzitter"; }
+  .annotation.annotation--burgemeester:after {
+    content: "burgemeester"; }
+  .annotation.annotation--secretaris:after {
+    content: "secretaris"; }
+  .annotation.annotation--schepenen:first-child {
+    margin-left: 10rem; }
+  .annotation.annotation--schepenen:first-child:before {
+    content: "Schepenen:\02002";
+    position: absolute;
+    left: 0;
+    display: inline-block;
+    pointer-events: none;
+    font-weight: 500;
+    color: #333333; }
+  .annotation.annotation--raadsleden:after {
+    content: "raadsleden"; }
+  .annotation.annotation--korpschef:after {
+    content: "korpschef"; }
+  .annotation.annotation--link:after {
+    content: "link"; }
+  .annotation.annotation--ground:after {
+    content: "juridische grond"; }
+  .annotation.annotation--motivation:after {
+    content: "motivatie"; }
+  .annotation.annotation--location:after {
+    content: "locatie"; }
+  .annotation.annotation--organ:after {
+    content: "orgaan"; }
+  .annotation.annotation--organisation:after {
+    content: "organisatie"; }
+  .annotation.annotation--logo:after {
+    content: "logo stad"; }
+  .annotation.annotation--date:after {
+    content: "datum zitting"; }
+  .annotation.annotation--article:after {
+    content: "article"; }
+  .annotation.annotation--content:after {
+    content: "inhoud"; }
+  .annotation.annotation--content--full-width:after {
+    content: "inhoud"; }
+  .annotation.annotation--number:after {
+    content: "nummer";
+    right: -75rem; }
+  .annotation .annotation.annotation--number:hover:after {
+    right: -88.3rem; }
+  .annotation.annotation--time:after {
+    content: "tijd zitting"; }
+  .annotation.annotation--agendapunt {
+    border-bottom: none; }
+  .annotation.annotation--agendapunt--open:after {
+    content: "openbaar \a agendapunt"; }
+  .annotation.annotation--agendapunt--besloten:after {
+    content: "besloten \a agendapunt"; }
+
+.annotation .annotation {
+  padding-bottom: 2px;
+  border-bottom-color: #bcc5cf; }
+  .annotation .annotation:hover {
+    color: #000;
+    background-color: rgba(254, 229, 57, 0.5); }
+  .annotation .annotation:hover:after {
+    border-left: 1px solid #CBD2DA;
+    border-bottom: none;
+    padding-left: 1rem;
+    right: -45.5rem;
+    text-align: left; }
+
+.annotation .annotation .annotation {
+  border-bottom-color: #A5B3C2;
+  padding-bottom: 0; }
+  .annotation .annotation .annotation:hover {
+    background-color: rgba(254, 229, 57, 0.8); }
+  .annotation .annotation .annotation:hover:after {
+    top: 2.2rem; }
+
+.annotation--agendapunt--besloten__icon,
+.annotation--agendapunt--open__icon {
+  font-size: 1.6rem;
+  position: absolute;
+  left: -3rem;
+  top: 0rem;
+  padding-left: 1px; }
+
+.annotation--agendapunt--besloten__icon {
+  color: #e9cc01; }
+
+.annotation--agendapunt--open__icon {
+  color: #B2B2B2; }
+
+.annotation-structure--behandeling--open .annotation--agendapunt--besloten__icon,
+.annotation-structure--behandeling--open .annotation--agendapunt--open__icon,
+.annotation-structure--behandeling--besloten .annotation--agendapunt--besloten__icon,
+.annotation-structure--behandeling--besloten .annotation--agendapunt--open__icon {
+  top: 0.4rem; }
+
+/* Suggestions & targets
+ ========================================================================== */
+.annotation-suggestion__suggestion {
+  position: absolute;
+  z-index: 1; }
+
+p > .annotation-suggestion__target {
+  margin: 0 0.8rem; }
+
+.annotation-suggestion__target {
+  position: relative;
+  margin-bottom: 0.5rem; }
+  .annotation-suggestion__target:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -0.7rem;
+    right: -0.7rem;
+    top: -0.5rem;
+    bottom: -0.2rem;
+    border: 1px dashed #CBD2DA; }
+
+/* Editing annotations warning
+ ========================================================================== */
+[data-flagged-remove="almost-complete"],
+[data-flagged-remove="complete"] {
+  min-height: 1.6rem;
+  display: inline;
+  cursor: text;
+  background-color: rgba(15, 104, 201, 0.25);
+  box-shadow: -2px 0 0 #0F68C9; }
+
+[data-flagged-remove="complete"] {
+  min-width: 8px;
+  display: inline-block;
+  box-shadow: -2px 0 0 black; }
+
+.annotation--edit [data-flagged-remove="almost-complete"],
+.annotation--edit [data-flagged-remove="complete"] {
+  background-color: transparent; }
+
+/* ==========================================================================
   Buttons
   Define alternative buttons here.
  ========================================================================== */
@@ -42,6 +281,9 @@ button.button {
   a.button i.button__icon,
   button.button i.button__icon {
     padding-right: 0; }
+
+a[class^="link--icon--"]:before {
+  overflow: visible; }
 
 a.button.button--disabled,
 button.button.button--disabled {
@@ -359,10 +601,25 @@ a.link--dark--light i.vi {
   a.link--dark--light i.vi:hover {
     color: #0F68C9; }
 
+.link--edit {
+  position: relative;
+  display: inline-block;
+  padding-right: 3rem; }
+
+.link--edit:after {
+  content: "\E014";
+  font-family: vlaanderen_iconfont !important;
+  font-size: 70%;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  color: #0F68C9;
+  top: 15%; }
+
 .button__info {
   font-size: 75%; }
 
-.button.button--tuny .button__info {
+.button.button--tiny .button__info {
   font-size: 1rem; }
 
 .button .button__info--inside {
@@ -464,8 +721,8 @@ a.link--dark--light i.vi {
  ========================================================================== */
 .button-group > a.button:last-child,
 .button-group > button.button:last-child,
-.button-group > .popover.popover--right.js-popover:last-child button.button,
-.button-group > .popover.popover--right.js-popover:last-child a.button {
+.button-group > .popover.popover--left.js-popover:last-child button.button,
+.button-group > .popover.popover--left.js-popover:last-child a.button {
   margin-right: 0; }
 
 .button-group__inline button.button,
@@ -585,6 +842,9 @@ a.link--dark--light i.vi {
 
 /* Small switch checkbox
  ========================================================================== */
+.checkbox--switch__wrapper {
+  display: inline-block; }
+
 .checkbox--switch__wrapper.checkbox--switch--small {
   font-size: 0.8em; }
   .checkbox--switch__wrapper.checkbox--switch--small .checkbox--switch + .checkbox--switch__label {
@@ -992,12 +1252,9 @@ i.input-field__icon {
 
 /* Collapse
  ========================================================================== */
-.grid.grid--collapse > * {
-  padding-left: 0 !important; }
-
 .grid.grid--collapse {
   margin: 0 !important; }
-  .grid.grid--collapse > div[class^="col--"] {
+  .grid.grid--collapse > * {
     padding: 0;
     margin: 0; }
 
@@ -1044,6 +1301,19 @@ tr.tr-expand {
   tr.tr-expand.u-hidden {
     height: 0;
     overflow: hidden; }
+  tr.tr-expand td:first-child {
+    position: relative; }
+  tr.tr-expand td:first-child:after {
+    display: block;
+    content: "";
+    width: 1.5rem;
+    height: 1.5rem;
+    border-left: 1px solid #CBD2DA;
+    border-bottom: 1px solid #CBD2DA;
+    position: absolute;
+    top: 0.5rem;
+    left: 1.4rem;
+    bottom: 1rem; }
 
 /* ==========================================================================
   Typography
@@ -1176,9 +1446,6 @@ p.uppercase {
 .text-overflow-ellipsis--40 {
   max-width: 40rem; }
 
-.text-overflow-ellipsis--50 {
-  max-width: 50rem; }
-
 /* ==========================================================================
   accordion
   Style the accordion here.
@@ -1198,9 +1465,6 @@ p.uppercase {
  ========================================================================== */
 .alert--cta.alert--warning {
   border-top-color: #FFC515; }
-
-.alert--warning .u-hr {
-  border-color: #eed179; }
 
 /* Small
  ========================================================================== */
@@ -1231,66 +1495,6 @@ p.uppercase {
  ========================================================================== */
 .badge--l.badge--icon .fa {
   font-size: 2.5rem; }
-
-.badge--xs {
-  width: 2rem;
-  height: 2rem; }
-  .badge--xs .badge__icon {
-    font-size: 0.8rem; }
-
-a .badge--xs {
-  position: relative;
-  top: 3px; }
-
-.badge--button {
-  cursor: pointer;
-  transition: all 200ms; }
-  .badge--button.badge--border:hover, .badge--button.badge--light:hover {
-    background-color: #DDDDDD; }
-  .badge--button.badge--alt:hover {
-    background-color: #0F68C9; }
-    .badge--button.badge--alt:hover span {
-      color: #fff; }
-  .badge--button.badge--negative:hover {
-    background-color: #0F68C9;
-    color: #fff; }
-  .badge--button.badge--positive:hover {
-    background-color: #B3E000;
-    color: #fff; }
-  .badge--button.badge--negative:hover {
-    background-color: #F33;
-    color: #fff; }
-  .badge--button.badge--warning:hover {
-    background-color: #FFE843;
-    color: #fff; }
-  .badge--button.badge--accent:hover {
-    background-color: #feea5f; }
-
-/* colors
- ========================================================================== */
-.badge--action {
-  background-color: #0F68C9; }
-  .badge--action span {
-    color: #fff; }
-
-.badge--neutral {
-  background-color: #DDDDDD; }
-
-.badge--light {
-  background-color: #fff; }
-
-.badge--positive {
-  background-color: #8BAE00; }
-  .badge--positive span {
-    color: #fff; }
-
-.badge--negative {
-  background-color: #DB3434; }
-  .badge--negative span {
-    color: #fff; }
-
-.badge--warning {
-  background-color: #FFC515; }
 
 /* ==========================================================================
   content card
@@ -1388,18 +1592,8 @@ a .badge--xs {
  ========================================================================== */
 /* toggle icon mixed with info tiles
  ========================================================================== */
-.info-tile.toggle--arrow-down:before {
-  content: normal; }
-
 .js-drawer-active-item .link--icon.link--icon--caret:before {
   transform: rotate(90deg); }
-
-.info-tile.toggle--arrow-down:hover {
-  background-color: #F3F5F6;
-  transition: all 200ms; }
-
-.info-tile.js-drawer-active-item {
-  background-color: #F3F5F6; }
 
 .drawer.drawer--white {
   background-color: #fff;
@@ -1419,10 +1613,6 @@ a .badge--xs {
       border-width: 0 2.6rem 2.6rem;
       border-bottom-color: #fff;
       z-index: 1; }
-
-.drawer .layout.layout--wide {
-  max-width: 100%;
-  min-width: 100%; }
 
 /* ==========================================================================
   drilldown
@@ -1454,21 +1644,88 @@ a .badge--xs {
 .dropdown-navigation__title {
   line-height: 1; }
 
-.button-group .dropdown-navigation {
-  margin-right: 1rem; }
+/* ==========================================================================
+  Editor
+  Style the editor here.
+ ========================================================================== */
+.editor-chrome {
+  padding: 1rem 1.5rem 0;
+  border-bottom: 1px solid #CBD2DA; }
+
+.editor {
+  background-color: #F3F5F6;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 1rem; }
+
+.editor__paper {
+  background-color: #fff;
+  margin: 2rem 0 5rem 2rem;
+  padding: 5rem 6.5rem 5rem 5rem;
+  width: 600px;
+  min-height: 950px;
+  box-shadow: 0 2px 6px 0 #CBD2DA; }
+  .editor__paper:focus {
+    outline: none; }
+
+.editor__annotations {
+  padding-top: 7rem; }
+
+.editor .h1 {
+  margin-bottom: 3rem; }
+
+.editor .h4 {
+  margin-bottom: 1rem; }
+
+.editor p, .editor li {
+  font-size: 1.6rem; }
+
+.editor__paper.js-scrollspy__content {
+  border-radius: 0; }
+
+.editor__paper--blankstate {
+  position: relative;
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
+  margin-right: 1.5rem; }
+  .editor__paper--blankstate > * {
+    position: relative;
+    z-index: 2; }
+  .editor__paper--blankstate:before {
+    content: "";
+    display: block;
+    position: absolute;
+    border: 1px dashed #CBD2DA;
+    background-color: #F3F5F6;
+    top: -1.5rem;
+    right: 0;
+    bottom: -2rem;
+    left: -2rem;
+    z-index: 1; }
+
+.bijlagen__list li {
+  margin-bottom: 4rem; }
+
+.bijlage__bestand {
+  border: 1px solid #CBD2DA;
+  padding: 0.8rem 1rem 0.5rem; }
+
+.bijlage__sleepveld {
+  margin-top: 1rem;
+  background-color: #F3F5F6;
+  border: 2px dashed #CBD2DA;
+  padding: 1em;
+  text-align: center; }
+  .bijlage__sleepveld a {
+    display: block; }
+
+.bijlage__size {
+  color: #B2B2B2; }
 
 /* ==========================================================================
   Style the layout of the header here
  ========================================================================== */
 /* Temporary header topbar
  ========================================================================== */
-.official-header {
-  height: 44px;
-  color: #B2B2B2;
-  font-size: 1.2rem;
-  padding: 1rem;
-  border-bottom: 1px solid #CBD2DA; }
-
 .temporary-header {
   height: 38px; }
   @media (min-width: 767px) {
@@ -1567,13 +1824,6 @@ a .badge--xs {
     .temporary-header__name a.active {
       box-shadow: 0 3px 0 #FEE539; }
 
-.temporary-header__path {
-  height: 25px;
-  float: left;
-  padding: 0.4rem 1rem 0.2rem;
-  margin: 10px 0;
-  border-left: 1px solid #CBD2DA; }
-
 .temporary-header__info {
   height: 45px;
   padding: 0.9rem 1.5rem 0 2.5rem;
@@ -1581,29 +1831,6 @@ a .badge--xs {
   float: right;
   position: relative; }
   .temporary-header__info p:after {
-    display: block;
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    border-bottom: 44px solid #fff;
-    border-right: 14.70687px solid transparent; }
-
-.temporary-header__contact {
-  height: 45px;
-  padding: 0.9rem 1.5rem 1.5rem;
-  background-color: #F3F5F6;
-  float: right;
-  border-right: 18px solid #F3F5F6;
-  position: relative; }
-  .temporary-header__contact:hover {
-    background-color: #FEE539;
-    cursor: pointer; }
-    .temporary-header__contact:hover .vi.vi-u-badge--neutral {
-      background-color: #fff; }
-  .temporary-header__contact .vi.vi-u-badge--neutral {
-    background-color: #CBD2DA; }
-  .temporary-header__contact .temporary-header__contact__button:after {
     display: block;
     content: '';
     position: absolute;
@@ -1656,6 +1883,14 @@ a .badge--xs {
 
 .info-tile:not(.info-tile--alt):not(.info-tile--clickable) {
   background-color: #fff; }
+
+/* for drawer */
+.info-tile.toggle--arrow-down:before {
+  content: normal; }
+
+.info-tile.toggle--arrow-down:hover {
+  background-color: #F3F5F6;
+  transition: all 200ms; }
 
 /* ==========================================================================
   Style the layout of the app here
@@ -1718,7 +1953,7 @@ body {
     .container-flex--contain > .grid > div[class^="col--"] {
       min-height: 0;
       height: 100%; }
-  .container-flex--contain.tab__pane {
+  .container-flex--contain.tab__pane[data-show=false] {
     display: none; }
   .container-flex--contain.tab__pane[data-show=true] {
     display: -ms-flexbox;
@@ -1739,6 +1974,13 @@ body {
   .inline-list.inline-list--bordered li:last-child {
     border-right: none; }
 
+ul.bullet-list {
+  padding-left: 2rem; }
+
+ul.bullet-list li {
+  list-style-type: disc;
+  list-style: disc; }
+
 /* ==========================================================================
   loader
   Style the loader here.
@@ -1756,6 +1998,12 @@ body {
   Modals
   Style modals here.
  ========================================================================== */
+/* small modal
+ ========================================================================== */
+.modal-dialog.modal-dialog--small {
+  width: 35rem;
+  padding: 2rem 2rem 2.2rem; }
+
 /* modal overlay
  ========================================================================== */
 .modal-overlay {
@@ -1800,17 +2048,23 @@ body {
     .modal-dialog.modal-dialog--sectioned .modal-dialog__header .h6 {
       margin-bottom: 0; }
   .modal-dialog.modal-dialog--sectioned .modal-dialog__content {
-    padding: 1rem 1rem 1rem 1.5rem;
-    border-top: 1px solid #E8EBEE;
-    overflow-y: auto;
-    min-height: 10rem;
-    max-height: 60vh; }
+    border-top: 1px solid #CBD2DA;
+    padding: 1.5rem;
+    max-height: 25rem;
+    overflow: auto; }
+  .modal-dialog.modal-dialog--sectioned .modal-dialog__content.modal-dialog__content--sectioned {
+    padding: 0;
+    max-height: none; }
   .modal-dialog.modal-dialog--sectioned .modal-dialog__footer {
-    padding: 1.5rem 1.5rem 2rem;
-    border-top: 1px solid #E8EBEE; }
+    padding: 1.5rem 1.5rem 2.5rem;
+    border-top: 1px solid #CBD2DA; }
   .modal-dialog.modal-dialog--sectioned button.button,
   .modal-dialog.modal-dialog--sectioned a.button {
     margin-bottom: 0; }
+
+.modal-dialog--sectioned .pager {
+  background-color: #E8EBEE;
+  padding: 0.5rem 0; }
 
 @media (max-width: 766px) {
   .modal-dialog,
@@ -1825,31 +2079,45 @@ body {
       max-height: none;
       min-height: none; } }
 
-.modal-dialog.modal-dialog--small {
-  width: 35rem;
-  padding: 2rem 2rem 2.2rem; }
-  .modal-dialog.modal-dialog--small.modal-dialog--sectioned {
-    padding: 0; }
+/* input fields
+ ========================================================================== */
+.modal-dialog__content__search input.input-field {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  background-color: rgba(254, 229, 57, 0.15); }
+
+/* modal link lists
+ ========================================================================== */
+.modal-dialog__content .link-list {
+  max-height: 20rem;
+  overflow: auto; }
+
+.modal-dialog__content li.link-list__item {
+  margin: 0;
+  padding: 0; }
+  .modal-dialog__content li.link-list__item:last-child {
+    border-bottom: none; }
+
+.modal-dialog__content li.link-list__item a {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none; }
+  .modal-dialog__content li.link-list__item a:hover {
+    background-color: #F3F5F6; }
 
 /* ==========================================================================
   Popover
   Define alternative popover here.
  ========================================================================== */
-/* in popover checkboxes
- ========================================================================== */
 /* popover
  ========================================================================== */
 .popover.popover--left .popover__content {
-  right: auto !important;
-  left: 0 !important;
-  background-color: red; }
-
-.popover.popover--right .popover__content {
   right: 0 !important;
   left: auto !important; }
 
 @media (max-width: 766px) {
-  .popover.popover--right.popover--mobile--left .popover__content {
+  .popover.popover--left.popover--mobile--left .popover__content {
     left: 1rem !important;
     right: auto !important; } }
 
@@ -1965,7 +2233,7 @@ body {
   transition: all 300ms; }
 
 /* Sidebar content styling
-	 ========================================================================== */
+   ========================================================================== */
 .sidebar__header {
   border-bottom: 1px solid #E8EBEE;
   padding: 0.5em 1em; }
@@ -1987,9 +2255,13 @@ body {
   overflow-y: auto;
   overflow-x: hidden; }
 
+.sidebar__content.side-navigation--blankstate {
+  padding: 1em;
+  display: block; }
+
 .sidebar__footer {
   border-top: 1px solid #E8EBEE;
-  padding: 0.5em 1em; }
+  padding: 1rem 1rem 2rem; }
 
 .sidebar .side-navigation:last-child .side-navigation__content {
   border: none; }
@@ -2065,6 +2337,62 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
       font-family: vlaanderen_iconfont !important;
       font-size: 1.2rem;
       margin-right: 0.6rem; }
+
+/* Side navigation for
+ ========================================================================== */
+.sidebar .side-navigation {
+  max-height: none;
+  overflow: initial;
+  border: none; }
+
+.sidebar__content {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1;
+      flex: 1;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden; }
+  .sidebar__content .side-navigation__content {
+    border-bottom: 0; }
+  .sidebar__content .side-navigation:not(:last-child) .side-navigation__content {
+    padding-bottom: 0.5rem; }
+
+.sidebar .side-navigation__group {
+  padding-top: 1rem;
+  border: none; }
+
+.side-navigation__item {
+  padding: 0; }
+
+.side-navigation__item a {
+  padding: 0.4em 0.4em 0.35em 1em;
+  line-height: 1.2; }
+
+.side-navigation__item a.active {
+  background-color: #F3F5F6;
+  color: #000;
+  font-weight: 500;
+  box-shadow: inset 3px 0 0 #0F68C9; }
+
+.side-navigation__item a.message {
+  position: relative; }
+  .side-navigation__item a.message:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    z-index: 100;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 1rem;
+    background-color: #0F68C9;
+    left: 0.8rem; }
+
+.side-navigation--large li.side-navigation__item a {
+  font-size: 1.8rem; }
+  .side-navigation--large li.side-navigation__item a.active {
+    box-shadow: inset 5px 0 0 #0F68C9; }
 
 /* ==========================================================================
   Side navigation
@@ -2142,63 +2470,6 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
     content: normal; }
 
 /* ==========================================================================
-  swatches
-  Style swatches here.
- ========================================================================== */
-.swatch {
-  display: inline-block;
-  margin-right: 1rem;
-  width: 2rem;
-  height: 2rem; }
-
-.swatch--tiny {
-  width: 0.5rem;
-  height: 0.5rem;
-  margin-right: 0.3rem; }
-
-.swatch--small {
-  width: 1rem;
-  height: 1rem;
-  margin-right: 0.5rem; }
-
-.swatch--large {
-  width: 3rem;
-  height: 3rem;
-  margin-right: 1.5rem; }
-
-.swatch--long {
-  top: 0;
-  bottom: 0;
-  left: -1px;
-  width: 0.2rem;
-  position: absolute;
-  height: 100%; }
-
-.swatch--yellow {
-  background-color: #FEE539; }
-
-.swatch--blue {
-  background-color: #0F68C9; }
-
-.swatch--black {
-  background-color: #000; }
-
-.swatch--gray-dark {
-  background-color: #333333; }
-
-.swatch--gray {
-  background-color: #666666; }
-
-.swatch--gray-light {
-  background-color: #B2B2B2; }
-
-.swatch--gray-lighter {
-  background-color: #CCCCCC; }
-
-.swatch--gray-lightest {
-  background-color: #DDDDDD; }
-
-/* ==========================================================================
   tabs
   Redefine tabs here.
  ========================================================================== */
@@ -2222,6 +2493,7 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
   .tab.tab--right:last-child .tab__link:after {
     content: normal; }
 
+/* fix for tabs on mobile */
 .tabs__wrapper.tabs__wrapper--small-space {
   left: 0 !important;
   padding: 0 2rem; }
@@ -2257,19 +2529,36 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
     transition: all 300ms; }
 
 /* ==========================================================================
-  Mandatendatabank overview
-  Style the mandatendatabank overview here.
+  Toolbar
+  Style the toolbar here.
  ========================================================================== */
-/* Overzichtspagina
- ========================================================================== */
-.mandaten-overview > .js-select button {
-  border-left: none;
-  border-right: none; }
+.toolbar {
+  border-bottom: 1px solid #CBD2DA;
+  padding: 0.9rem 1.5rem 0;
+  height: 55px; }
+  .toolbar button.button {
+    margin-bottom: 0; }
+  .toolbar .toolbar__styling-tools button.button.active, .toolbar .toolbar__styling-tools button.button:hover {
+    background-color: #E8EBEE;
+    border-radius: 5px;
+    color: #000; }
+  .toolbar .toolbar__styling-tools button.button:focus {
+    outline: none; }
+  .toolbar .button-group {
+    border-right: 1px solid #CBD2DA;
+    padding: 0 0.5em 0 0.1em; }
+    .toolbar .button-group .button {
+      margin: 0; }
+    .toolbar .button-group:last-child {
+      border: none;
+      padding-right: 0; }
+      .toolbar .button-group:last-child .button {
+        margin: 0 0 0 0.5em; }
+  .toolbar .button i {
+    padding: 0; }
+  .toolbar .col*:first-child .button-group .button {
+    margin-right: 0; }
 
-/* Overzichtspagina
- ========================================================================== */
-/* Mandatendatabank table
- ========================================================================== */
 /* ==========================================================================
   Shame
   Try out new and dirty stuff here.
@@ -2341,7 +2630,7 @@ td.u-visible--desktop-up {
   width: 100%; }
 
 .u-display--inline {
-  display: block; }
+  display: inline; }
 
 .u-display--inline-block {
   display: inline-block; }
