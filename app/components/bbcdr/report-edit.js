@@ -35,6 +35,12 @@ export default Component.extend({
     this.report.destroyRecord();
   },
 
+  hasOutstandingChanges(){
+    if(this.report.get('hasDirtyAttributes') || this.didFilesChange)
+      return true;
+    return false;
+  },
+
   actions: {
     async send() {
       const statusSent = await this.store.findRecord('document-status', documentStatusVerstuurdId);
@@ -55,10 +61,12 @@ export default Component.extend({
 
     async addFile(file) {
       this.reportFiles.pushObject(file);
+      this.set('didFilesChange', true);
     },
 
     async deleteFile(file) {
       this.reportFiles.removeObject(file);
+      this.set('didFilesChange', true);
     },
 
     async close(){
@@ -68,8 +76,10 @@ export default Component.extend({
     },
 
     clickCloseCross(){
-      //TODO: find if outstanding changes
-      this.set('showExitModal', true);
+      if(this.hasOutstandingChanges())
+        this.set('showExitModal', true);
+      else
+        this.get('router').transitionTo('bbcdr.rapporten.index');
     },
 
     cancelModal(){
