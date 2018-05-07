@@ -35,7 +35,9 @@ export default Component.extend({
   },
 
   hasOutstandingChanges(){
-    if(this.report.get('hasDirtyAttributes') || this.didFilesChange)
+    if(this.report.get('hasDirtyAttributes') && this.report.get('id'))
+      return true;
+    if(this.didFilesChange)
       return true;
     return false;
   },
