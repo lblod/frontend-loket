@@ -21,10 +21,7 @@ export default Component.extend({
   },
 
   async updateReport() {
-    const currentUser = await this.get('currentSession.user');
     this.report.set('files', this.get('reportFiles'));
-    this.report.set('lastModifier', currentUser);
-    this.report.set('modified', new Date());
     return this.report.save();
   },
 
@@ -48,8 +45,13 @@ export default Component.extend({
         filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
       })).firstObject;
       this.report.set('status', statusSent);
-      await this.updateReport();
-      this.get('router').transitionTo('bbcdr.rapporten.index');
+      try {
+        await this.updateReport();
+        this.get('router').transitionTo('bbcdr.rapporten.index');
+      }
+      catch(e) {
+        // todo: proper error handling
+      }
     },
 
     async deleteReport() {
