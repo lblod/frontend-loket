@@ -41,16 +41,17 @@ export default Component.extend({
 
   actions: {
     async send() {
-      const statusSent = (await this.store.query('document-status', {
-        filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
-      })).firstObject;
-      this.report.set('status', statusSent);
+      this.set('showError', false);
       try {
+        const statusSent = (await this.store.query('document-status', {
+          filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
+        })).firstObject;
+        this.report.set('status', statusSent);
         await this.updateReport();
         this.get('router').transitionTo('bbcdr.rapporten.index');
       }
       catch(e) {
-        // todo: proper error handling
+        this.set('showError', true);
       }
     },
 
