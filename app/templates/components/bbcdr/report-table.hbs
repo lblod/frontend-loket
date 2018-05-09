@@ -14,7 +14,7 @@
       <td>
         {{#each row.files as |file|}}
           {{wu-document-miniature isTiny=true class="switch-text-overflow-ellipsis"
-              type=(uppercase file.extension) label=file.filename metadata=(uppercase file.miniatureMetadata)}}
+              type=(uppercase file.extension) label=file.filename metadata=file.miniatureMetadata}}
         {{else}}
           Geen bestanden
         {{/each}}
