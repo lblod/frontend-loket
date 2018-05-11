@@ -1,5 +1,5 @@
 {{#data-table content=content isLoading=isLoading noDataMessage="Geen mandatarissen gevonden"
-   sort=sort page=page size=size class="mandataris-data-table" as |t|}}
+   sort=sort page=page size=size class="mandataris-data-table container-flex--contain" as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
       {{th-sortable field='bekleedt.bevatIn.isTijdsspecialisatieVan.naam' currentSorting=sort label='Orgaan'}}
