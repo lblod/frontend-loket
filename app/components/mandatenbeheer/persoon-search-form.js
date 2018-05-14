@@ -35,7 +35,7 @@ export default Component.extend({
       filter: {
         achternaam: this.get('achternaam') || undefined,
         'gebruikte-voornaam': this.get('gebruikteVoornaam') || undefined,
-        identifcator: this.get('identificator') || undefined
+        identificator: this.get('identificator') || undefined
       },
       page:{
         size: this.get('pageSize')

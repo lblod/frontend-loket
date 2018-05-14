@@ -38,7 +38,7 @@ const CreatePersoon = Component.extend({
     return preNillies || postNillies;
   }),
   /**
-   * 
+   *
    */
   loadOrCreateRijksregister: task( function * () {
     const store = this.get('store');
@@ -63,7 +63,7 @@ const CreatePersoon = Component.extend({
     return geboorte;
   }),
   save: task( function * () {
-    // todo geboorte en identifcator
+    // todo geboorte en identificator
     this.set('hasError', false);
     this.get('requiredFields').forEach((field) => {
       this.set(`${field}Error`, null);
