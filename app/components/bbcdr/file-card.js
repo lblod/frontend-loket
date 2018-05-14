@@ -6,7 +6,7 @@ export default Component.extend({
   active: true,
 
   downloadLink: computed('file', function(){
-    return `/files/${this.file.get('id')}/download`;
+    return `/files/${this.file.get('id')}/download?name=${this.file.get('filename')}`;
   }),
 
   actions: {
