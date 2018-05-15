@@ -1,37 +1,37 @@
 {{#data-table content=content isLoading=isLoading noDataMessage="Geen mandatarissen gevonden"
-   sort=sort page=page size=size class="mandataris-data-table container-flex--contain" as |t|}}
+   sort=sort page=page size=size class="mandataris-data-table container-flex--contain data-table--nowrap" as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{th-sortable field='bekleedt.bevatIn.isTijdsspecialisatieVan.naam' currentSorting=sort label='Orgaan'}}
-      {{th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam'}}
+      {{th-sortable field='bekleedt.bevatIn.isTijdsspecialisatieVan.naam' currentSorting=sort label='Orgaan' class="u-hidden-mobile"}}
+      {{th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="u-hidden-mobile"}}
       {{th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
-      {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie'}}
+      {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
       {{th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
       {{#unless displaySubset}}
-        {{th-sortable field='start' currentSorting=sort label='Start mandaat'}}
-        {{th-sortable field='einde' currentSorting=sort label='Eind mandaat'}}
+        {{th-sortable field='start' currentSorting=sort label='Start mandaat' class="u-visible--tablet-landscape-up"}}
+        {{th-sortable field='einde' currentSorting=sort label='Eind mandaat' class="u-visible--tablet-landscape-up"}}
       {{/unless}}
       <th></th>
     {{/c.header}}
     {{#c.body as |row|}}
-      <td>
+      <td class="u-hidden-mobile">
         {{row.bekleedt.bevatIn.isTijdsspecialisatieVan.naam}}
       </td>
-      <td>
+      <td class="u-hidden-mobile">
         {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
       </td>
       <td>
         {{row.isBestuurlijkeAliasVan.achternaam}}
       </td>
-      <td>
+      <td class="u-visible--tablet-portrait-up">
         {{row.heeftLidmaatschap.binnenFractie.naam}}
       </td>
       <td>
         {{row.bekleedt.bestuursfunctie.label}}
       </td>
       {{#unless displaySubset}}
-        <td>{{moment-format row.start 'DD/MM/YYYY'}}</td>
-        <td>{{moment-format row.einde 'DD/MM/YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
       {{/unless}}
       <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
     {{/c.body}}

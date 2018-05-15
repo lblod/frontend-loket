@@ -1,19 +1,19 @@
 <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
-      <div class="grid u-padding--round--small mandate-edit-table__header">
-        <div class="col--12-12 u-spacer--bottom">
-          <h1 class="h3 u-spacer--none">BBC DR {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
-        </div>
-        <div class="col--6-12">
-          <!-- Search field -->
-        </div>
-        <div class="col--6-12 u-align-right">
-          {{wu-button label="Maak nieuw rapport" onClick=(action "createNewReport") isNarrow=true}}
+      <div class="u-padding--round--small mandate-edit-table__header">
+        <h1 class="h4 u-spacer--tiny">BBC DR {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
+        <div class="grid">
+          <div class="col--6-12 col--1-1--s">
+            <!-- Search field -->
+          </div>
+          <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
+            {{wu-button label="Maak nieuw rapport" onClick=(action "createNewReport") isNarrow=true}}
+          </div>
         </div>
       </div>
     </div>
-    {{bbcdr/report-table class="container-flex--contain" content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute}}
+    {{bbcdr/report-table class="container-flex--contain data-table--nowrap" content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute}}
   </div>
 </div>
 
