@@ -1736,6 +1736,10 @@ p.uppercase {
 .text-overflow-ellipsis--40 {
   max-width: 40rem; }
 
+@media (max-width: 766px) {
+  dt.contact-card__data__title {
+    display: block !important; } }
+
 /* ==========================================================================
   accordion
   Style the accordion here.
