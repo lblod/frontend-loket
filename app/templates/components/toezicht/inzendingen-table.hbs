@@ -1,0 +1,30 @@
+{{#data-table content=content isLoading=isLoading noDataMessage="Geen inzendingen gevonden"
+   sort=sort page=page size=size class="data-table data-table--tight data-table--nowrap" as |t|}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      {{th-sortable label='Titel' field='title' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+      {{#unless displaySubset}}
+        {{th-sortable label='Orgaan' field='decidedBy.label' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+        {{th-sortable label='Type besluit' field='besluitType.label' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+      {{/unless}}
+      {{th-sortable label='Status' field='status' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+      {{th-sortable label='Bewerkt op' field='modified' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+
+      <th><!-- Actions --></th>
+    {{/c.header}}
+    {{#c.body as |row|}}
+      <td>
+        {{row.title}}
+      </td>
+      {{#unless displaySubset}}
+        <td class="u-visible--tablet-landscape-up">{{row.decidedBy.label}}</td>
+        <td class="u-visible--tablet-landscape-up">{{row.besluitType.label}}</td>
+      {{/unless}}
+      <td class="u-hidden-mobile">
+        {{bbcdr/document-status-pill row.status}}
+      </td>
+      <td class="u-visible--tablet-landscape-up">{{moment-format row.modified 'DD-MM-YYYY'}}</td>
+      <td>{{#link-to 'bbcdr.rapporten.edit' row}}Bekijk{{/link-to}}</td>
+    {{/c.body}}
+  {{/t.content}}
+{{/data-table}}

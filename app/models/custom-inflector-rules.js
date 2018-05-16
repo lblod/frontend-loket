@@ -35,6 +35,7 @@ inflector.irregular("rechtsgrond-aanstelling","rechtsgronden-aanstelling");
 inflector.irregular("rechtsgrond-artikel","rechtsgronden-artikel");
 inflector.irregular("rechtsgrond-beeindiging","rechtsgronden-beeindiging");
 inflector.irregular("rechtsgrond-besluit","rechtsgronden-besluit");
+inflector.irregular("inzending-voor-toezicht","inzendingen-voor-toezicht");
 inflector.irregular("editor-document", "editor-documents");
 inflector.irregular("editor-document-status", "editor-document-statuses");
 inflector.irregular("account", "accounts");
