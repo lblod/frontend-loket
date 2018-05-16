@@ -1,3 +1,9 @@
-<h1 class="h1">Onverwachte fout</h1>
-Er is iets fout gelopen. Probeer het later opnieuw.
-{{model.message}}
+<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
+  <div class="container-flex--contain">
+    <h1 class="h3 u-spacer--none">Onverwachte fout</h1>
+    <p>Er is iets fout gelopen. Probeer het later opnieuw.</p>
+    <code>
+      {{model.message}}
+    </code>
+  </div>
+</div>
