@@ -9,13 +9,6 @@ export default Component.extend({
   allowClear: true,
   disabled: false,
 
-  queryParamsBuilder: function (searchString){
-    return {
-      sort: 'label',
-      'filter[label]': searchString
-    };
-  },
-
   async didReceiveAttrs(){
     this._super(...arguments);
     let options = this.get('model.options');
