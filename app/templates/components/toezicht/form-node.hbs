@@ -1,0 +1,11 @@
+<dl>
+  {{#each sortedChildren as |child|}}
+    <dt>
+     {{child.label}}
+    </dt>
+    <dd>
+      {{toezicht/edit-child model=child solution=solution}}
+    </dd>
+  {{/each}}
+</dl>
+{{yield}}
