@@ -12,7 +12,7 @@ export default DS.Model.extend({
   besluitType: DS.belongsTo('besluit-type'),
   decidedBy: DS.belongsTo('bestuursorgaan'),
   datumZitting: DS.attr('date'),
-  remark: DS.attr('string'),
+  opmerking: DS.attr('string'),
   boekjaar: DS.attr('string'),
   ondernemingsnummer: DS.attr('string'),
   ondernemingsnaam: DS.attr('string'),
