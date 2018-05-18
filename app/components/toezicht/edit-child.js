@@ -62,13 +62,33 @@ export default Component.extend({
     };
   },
 
+  isMatchingKeyValue(form, identifier, value){
+    if(!form.get('key') === identifier)
+      return false;
+
+    let matchKind = form.get('matchKind');
+
+    if(!matchKind || matchKind === 'uri')
+      return form.get('value') === value;
+
+    if(matchKind === 'boolean')
+      return (form.get('value') === 'true') === value;
+
+    if(matchKind === 'uuid')
+      return value.get('id') === form.get('value');
+
+    console.log(`no matching type found for ${matchKind}`);
+
+    return false;
+  },
+
   subform: computed('model.identifier', 'value', 'model.dynamicSubforms.[]', 'model.dynamicSubforms.@each.{key,value}', function() {
     const subform = this.get('model.dynamicSubforms').find(f => {
-      // TODO scope value comparison with matchKind (also support uuid/uri)
-      return f.get('key') == this.get('model.identifier') && f.get('value') == this.get('value');
+      return this.isMatchingKeyValue(f, this.get('model.identifier'), this.get('value'));
     });
     return subform;
   }),
+
   childComponentName: computed('model.displayType', function() {
     return `toezicht/input-fields/${this.get('model.displayType')}/edit`;
   })
