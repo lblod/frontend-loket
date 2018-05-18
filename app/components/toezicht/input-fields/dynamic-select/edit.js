@@ -9,20 +9,22 @@ export default Component.extend({
   allowClear: true,
   disabled: false,
 
+  buildQueryParams(options){
+    return ( searchString ) => {
+      let filter = options.filter.queryParams;
+      filter[options.filter.filterKey] = searchString;
+      return filter;
+    };
+  },
+
   async didReceiveAttrs(){
     this._super(...arguments);
     let options = this.get('model.options');
     this.set('queryModel', options.queryModel);
     this.set('displayProperty', options.displayProperty);
-
-    //expects to define a function called queryParamsBuilder(searchString)
-    let queryParamsBuilder = null;
-    eval(options.queryParams);
-
-    this.set('queryParams', queryParamsBuilder);
+    this.set('queryParams', this.buildQueryParams(options));
 
     if (this.get('model')) {
-      //TODO assumes it is an object
       const value = this.get(`solution.${this.get('model.identifier')}`);
       this.set('object_instance', value);
     }
