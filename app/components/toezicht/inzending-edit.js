@@ -6,8 +6,14 @@ export default Component.extend({
   router: service(),
 
   actions: {
+    async initDynamicForm(dForm){
+      this.set('dynamicForm', dForm);
+    },
     async close(){
       this.get('router').transitionTo('toezicht.inzendingen.index');
+    },
+    async save(){
+      this.get('dynamicForm').save();
     }
   }
 });

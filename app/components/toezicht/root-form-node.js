@@ -7,16 +7,8 @@ const flatten = function(arr) {
 
 export default Component.extend({
   store: service(),
-  didReceiveAttrs() {
-    this._super(...arguments);
-    console.log('no solution yet');
-    var formSolution = this.get('store').createRecord('form-solution', {
-      formNode: this.get('model')
-    });
-    this.set('solution', formSolution);
-  },
-  actions: {
-    async save() {
+
+  async save() {
       const walkFormNode = async (node) => {
         const formInputs = await node.get('children');
         const walkedInputs = await Promise.all(formInputs.map(async (input) => {
@@ -114,6 +106,19 @@ export default Component.extend({
 
         await savePath(propSegments);
       }
-    }
+  },
+
+  didReceiveAttrs() {
+    this._super(...arguments);
+    console.log('no solution yet');
+    var formSolution = this.get('store').createRecord('form-solution', {
+      formNode: this.get('model')
+    });
+    this.set('solution', formSolution);
+  },
+
+  didInsertElement(){
+    this._super(...arguments);
+    this.get('onDynamicFormInit')(this);
   }
 });
