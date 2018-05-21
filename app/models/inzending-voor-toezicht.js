@@ -13,7 +13,7 @@ export default DS.Model.extend({
   enddate: DS.attr('date'),
   isModification: DS.attr('boolean'),
   hasExtraTaxRates: DS.attr('boolean'),
-  agendaItemCount: DS.attr('integer'),
+  agendaItemCount: DS.attr('number'),
   status: DS.belongsTo('document-status'),
   lastModifier: DS.belongsTo('gebruiker'),
   bestuurseenheid: DS.belongsTo('bestuurseenheid'),
