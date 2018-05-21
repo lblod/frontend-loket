@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import isDynamicSubformValueMatch from '../../utils/toezicht/is-dynamic-subform-value-match';
 
 const flatten = function(arr) {
   return [].concat(...arr);
@@ -27,11 +28,9 @@ export default Component.extend({
         const walkedInputs = await Promise.all(formInputs.map(async (input) => {
           const subforms = await input.get('dynamicSubforms');
           const walkedSubformNodes = await Promise.all(subforms.map(async (subform) => {
-            // TODO scope value comparison with matchKind (also support uuid/uri)
-            const expectedKey = subform.get('key');
-            const expectedValue = subform.get('value');
-            const currentValue = this.get(`solution.${expectedKey}`);
-            if (expectedValue == currentValue) {
+            const key = subform.get('key');
+            const currentValue = this.get(`solution.${key}`);
+            if (isDynamicSubformValueMatch(subform, key, currentValue)) {
               const formNode = await subform.get('formNode');
               return walkDisplayedFormNodes(formNode);
             } else {

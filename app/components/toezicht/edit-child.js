@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { observer } from '@ember/object';
 import { inject as service } from '@ember/service';
+import isDynamicSubformValueMatch from '../../utils/toezicht/is-dynamic-subform-value-match';
 
 export default Component.extend({
   store: service(),
@@ -62,29 +63,9 @@ export default Component.extend({
     };
   },
 
-  isMatchingKeyValue(form, identifier, value){
-    if(!form.get('key') === identifier)
-      return false;
-
-    let matchKind = form.get('matchKind');
-
-    if(!matchKind || matchKind === 'uri')
-      return form.get('value') === value;
-
-    if(matchKind === 'boolean')
-      return (form.get('value') === 'true') === value;
-
-    if(matchKind === 'uuid')
-      return value.get('id') === form.get('value');
-
-    console.log(`no matching type found for ${matchKind}`);
-
-    return false;
-  },
-
   subform: computed('model.identifier', 'value', 'model.dynamicSubforms.[]', 'model.dynamicSubforms.@each.{key,value}', function() {
     const subform = this.get('model.dynamicSubforms').find(f => {
-      return this.isMatchingKeyValue(f, this.get('model.identifier'), this.get('value'));
+      return isDynamicSubformValueMatch(f, this.get('model.identifier'), this.get('value'));
     });
     return subform;
   }),
