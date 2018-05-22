@@ -1,16 +1,12 @@
 {{#unless hideHeader}}
-  <h3 class="h4 title--alt">{{persoon.gebruikteVoornaam}} {{persoon.achternaam}}</h3>
+  <h3 class="h4 title--alt u-spacer--tiny">{{persoon.gebruikteVoornaam}} {{persoon.achternaam}} &mdash; {{mandatenbeheer/display-rrn persoon.identificator.identificator}}</h3>
 {{/unless}}
-<div class="grid u-spacer">
-  <div class="col--6-12">
+<div class="grid u-spacer--small">
+{{!--   <div class="col--6-12">
     <div class="description-data__label">Rijksregisternummer</div>
     <div class="description-data__value">{{mandatenbeheer/display-rrn persoon.identificator.identificator}}</div>
-  </div>
-  <div class="col--6-12">
-    <div class="description-data__label">Geslacht</div>
-    <div class="description-data__value">{{persoon.geslacht.label}}</div>
-  </div>
-  <div class="col--6-12">
+  </div> --}}
+  <div class="col--4-12">
     <div class="description-data__label">Geboortedatum</div>
     <div class="description-data__value">
       {{#if persoon.geboorte.datum}}
@@ -18,7 +14,11 @@
       {{/if}}
     </div>
   </div>
-  <div class="col--6-12">
+  <div class="col--4-12">
+    <div class="description-data__label">Geslacht</div>
+    <div class="description-data__value">{{persoon.geslacht.label}}</div>
+  </div>
+  <div class="col--4-12">
     <div class="description-data__label">Roepnaam</div>
     <div class="description-data__value">{{persoon.gebruikteVoornaam}}</div>
   </div>
