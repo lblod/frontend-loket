@@ -3,7 +3,7 @@
     <div class="col--9-12">
       <h2 class="h3">Voeg mandataris toe</h2>
     </div>
-    <div class="col--3-12 u-align-right toggle-mandate-new">
+    <div class="col--3-12 u-align-right">
       {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
         <span class="u-visually-hidden">Venster sluiten</span>
       {{/link-to}}
@@ -15,15 +15,15 @@
       <div class="grid">
         <div class="col--6-12">
           <label for="mandataris-pattern">Naam</label>
-          {{input class="toggle-mandate-new-search input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search)}}
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search)}}
         </div>
         <div class="col--6-12">
           <label for="mandataris-pattern">Achternaam</label>
-          {{input class="toggle-mandate-new-found input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Achternaam" value=achternaam key-up=(perform search)}}
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Achternaam" value=achternaam key-up=(perform search)}}
         </div>
       </div>
       <label for="mandataris-pattern">Rijksregisternummer</label>
-      {{input class="toggle-mandate-new-unexisting input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search)}}
+      {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search)}}
     </div>
   </div>
 </div>
@@ -42,7 +42,7 @@
     <div class="mandate-new-unexisting-step-1">
       <h2 class="h4 u-spacer">De zoektermen "{{searchTerms}}" leverden geen resultaten op.</h2>
       <p>Zorg dat de naam en/of het rijksregisternummer correct is of
-        {{#link-to 'mandatenbeheer.mandatarissen.new-person' class="toggle-person-new toggle-person-new--mandate"}}voeg een nieuwe persoon toe{{/link-to}}.
+        {{#link-to 'mandatenbeheer.mandatarissen.new-person'}}voeg een nieuwe persoon toe{{/link-to}}.
         <!-- .toggle-mandate-new-unexisting-step-1-->
       </p>
     </div>
@@ -75,5 +75,5 @@
   {{/if}}
 </div>
 <div class="u-padding--round--small u-border--light--top u-align-right">
-  {{#wu-button class="button button--narrow button--alt toggle-mandate-new" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+  {{#wu-button class="button button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
 </div>
