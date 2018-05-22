@@ -12,5 +12,5 @@ RUN ember build -prod
 FROM semtech/ember-proxy-service:1.3.0
 
 ENV STATIC_FOLDERS_REGEX "^/(assets|font|files)/"
-
+COPY file_upload.conf /config
 COPY --from=builder /app/dist /app
