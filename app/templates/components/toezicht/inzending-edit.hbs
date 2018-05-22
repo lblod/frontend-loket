@@ -4,7 +4,7 @@
   {{toezicht/root-form-node model=model onDynamicFormInit=(action "initDynamicForm")}}
   <div class="u-spacer"></div>
   {{#each files as |file|}}
-    {{bbcdr/file-card file=file onDelete=(action "deleteFile") active=true}}
+    {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=true}}
   {{/each}}
   {{vo-mu-file-dropzone onFinishUpload=(action "addFile")}}
 </div>
