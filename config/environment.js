@@ -31,7 +31,8 @@ module.exports = function(environment) {
           apiKey: 'a2c0d6ea-01b4-4f68-920b-10834a943c27',
           baseUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/auth',
           scope: 'openid rrn vo profile abb_loketLB',
-          redirectUri: 'https://loket.lblod.info/authorization/callback'
+          redirectUri: 'https://loket.lblod.info/authorization/callback',
+          logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout'
         }
       }
     }
