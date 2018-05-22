@@ -2,38 +2,64 @@
    sort=sort page=page size=size class="mandataris-data-table container-flex--contain data-table--nowrap" as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{th-sortable field='bekleedt.bevatIn.isTijdsspecialisatieVan.naam' currentSorting=sort label='Orgaan' class="u-hidden-mobile"}}
+      {{!-- The first column is an indication if people have actually reviewed the mandate or not --}}
+      {{th-sortable field='nagekeken' currentSorting=sort label='Nagekeken'}}
+      {{#unless displaySubset}}
+        {{th-sortable field='bekleedt.bevatIn.isTijdsspecialisatieVan.naam' currentSorting=sort label='Orgaan' class="u-visible--tablet-landscape-up"}}
+      {{/unless}}
       {{th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="u-hidden-mobile"}}
       {{th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
-      {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
+      {{#unless displaySubset}}
+        {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
+      {{/unless}}
       {{th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
       {{#unless displaySubset}}
-        {{th-sortable field='start' currentSorting=sort label='Start mandaat' class="u-visible--tablet-landscape-up"}}
-        {{th-sortable field='einde' currentSorting=sort label='Eind mandaat' class="u-visible--tablet-landscape-up"}}
+        {{th-sortable field='start' currentSorting=sort label='Start' class="u-visible--tablet-landscape-up"}}
+        {{th-sortable field='einde' currentSorting=sort label='Einde' class="u-visible--tablet-landscape-up"}}
       {{/unless}}
       <th></th>
     {{/c.header}}
     {{#c.body as |row|}}
-      <td class="u-hidden-mobile">
-        {{row.bekleedt.bevatIn.isTijdsspecialisatieVan.naam}}
+      <td>
+        {{!-- The first column is an indication if people have actually reviewed the mandate or not; checkmark = done --}}
+        <i class="vi vi-check vi vi-u-badge vi-u-badge--xsmall vi-u-badge--positive"></i>
+        <span class="u-white-space--none">DD-MM-YYYY</span>
+        <br>
+
+        {{!-- The first column is an indication if people have actually reviewed the mandate or not; cross = todo --}}
+        {{#link-to editRoute row.isBestuurlijkeAliasVan.id}}
+          <i class="vi vi-cross vi vi-u-badge vi-u-badge--xsmall vi-u-badge--warning"></i>
+        {{/link-to}}
       </td>
+      {{#unless displaySubset}}
+        <td class="u-visible--tablet-landscape-up">
+          {{row.bekleedt.bevatIn.isTijdsspecialisatieVan.naam}}
+        </td>
+      {{/unless}}
       <td class="u-hidden-mobile">
         {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
       </td>
       <td>
         {{row.isBestuurlijkeAliasVan.achternaam}}
       </td>
-      <td class="u-visible--tablet-portrait-up">
-        {{row.heeftLidmaatschap.binnenFractie.naam}}
-      </td>
+      {{#unless displaySubset}}
+        <td class="u-visible--tablet-portrait-up">
+          {{row.heeftLidmaatschap.binnenFractie.naam}}
+        </td>
+      {{/unless}}
       <td>
         {{row.bekleedt.bestuursfunctie.label}}
       </td>
       {{#unless displaySubset}}
-        <td class="u-visible--tablet-landscape-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
-        <td class="u-visible--tablet-landscape-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up u-white-space--none">{{moment-format row.start 'DD-MM-YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up u-white-space--none">{{moment-format row.einde 'DD-MM-YYYY'}}</td>
       {{/unless}}
-      <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
+      <td>
+        {{#link-to editRoute row.isBestuurlijkeAliasVan.id}}
+          <span class="u-hidden-mobile">Bewerk</span>
+          <i class="vi vi-edit u-visible-mobile"></i>
+        {{/link-to}}
+      </td>
     {{/c.body}}
   {{/t.content}}
 {{/data-table}}
