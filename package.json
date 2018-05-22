@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "private": true,
   "description": "Frontend of loket",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "@lblod/ember-mock-login": "^0.4.0",
     "@lblod/ember-vo-webuniversum": "^0.11.5",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.5",
-    "@lblod/ember-vo-mu-file-upload": "0.1.0",
+    "@lblod/ember-vo-mu-file-upload": "0.1.2",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
     "ember-awesome-macros": "^0.41.0",

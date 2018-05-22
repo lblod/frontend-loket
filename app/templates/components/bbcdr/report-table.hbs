@@ -24,7 +24,7 @@
         <td class="u-visible--tablet-landscape-up">{{moment-format row.modified 'DD-MM-YYYY'}}</td>
       {{/unless}}
       <td class="u-hidden-mobile">
-        {{bbcdr/document-status-pill row.status}}
+        {{shared/document-status-pill row.status}}
       </td>
       <td>{{#link-to 'bbcdr.rapporten.edit' row}}Bekijk{{/link-to}}</td>
     {{/c.body}}

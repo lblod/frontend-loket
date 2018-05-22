@@ -1411,6 +1411,12 @@ i.input-field__icon {
     float: left;
     margin-left: -1px; }
 
+.grid.form-group [class^="col--"]:first-child .form-group__item,
+.grid.form-group [class^="col--"]:first-child .input-field,
+.grid.form-group [class^="col--"]:first-child select,
+.grid.form-group [class^="col--"]:first-child .button {
+  border-right: none; }
+
 /* Errors
  ========================================================================== */
 .form__error {
@@ -1740,6 +1746,9 @@ p.uppercase {
   dt.contact-card__data__title {
     display: block !important; } }
 
+.u-white-space--none {
+  white-space: nowrap; }
+
 /* ==========================================================================
   accordion
   Style the accordion here.
@@ -1789,6 +1798,12 @@ p.uppercase {
  ========================================================================== */
 .badge--l.badge--icon .fa {
   font-size: 2.5rem; }
+
+i.vi-u-badge--xsmall.vi-check:before {
+  font-size: 0.8rem; }
+
+i.vi-u-badge--xsmall.vi-cross:before {
+  font-size: 1rem; }
 
 /* ==========================================================================
   content card
@@ -2190,6 +2205,13 @@ p.uppercase {
   background-color: #F3F5F6;
   transition: all 200ms; }
 
+/* make sure buttons don't overflow when in info-tiles */
+.info-tile__footer .button.button--block {
+  padding: 0 0.5rem;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis; }
+
 /* ==========================================================================
   Style the layout of the app here
  ========================================================================== */
@@ -2279,30 +2301,54 @@ ul.bullet-list li {
   list-style-type: disc;
   list-style: disc; }
 
+ul.dashed-list,
+ol.dashed-list {
+  margin: 0 0 1rem 1rem; }
+
+ul.dashed-list li,
+ol.dashed-list li {
+  position: relative;
+  padding-left: 2rem; }
+  ul.dashed-list li:before,
+  ol.dashed-list li:before {
+    display: block;
+    content: "-";
+    margin-right: 1rem;
+    position: absolute;
+    left: 0rem;
+    top: 0.1rem; }
+
+ul.numbered-list,
+ol.numbered-list {
+  list-style-type: lower-alpha;
+  margin: 0 0 1rem 2rem; }
+
+ul.numbered-list li,
+ol.numbered-list li {
+  list-style-type: decimal;
+  margin-bottom: 0.5em; }
+
 /* preview list */
-ul.preview-list {
-  min-height: 30rem;
-  overflow-y: auto;
-  overflow-x: none;
-  padding: 3rem 1.5rem; }
-  ul.preview-list li {
-    display: inline-block;
-    cursor: pointer; }
-    ul.preview-list li:hover .preview-list__image {
-      box-shadow: 0 0 6px 0 #0F68C9; }
-    ul.preview-list li:hover .preview-list__name {
-      color: #0F68C9; }
-  ul.preview-list .preview-list__image {
-    width: 16rem;
-    height: 20rem;
-    display: block;
-    box-shadow: 0 0 6px 0 #CBD2DA;
-    overflow: hidden; }
-  ul.preview-list .preview-list__name {
-    display: block;
-    padding: 1rem 0;
-    line-height: 1.2;
-    margin-bottom: 1rem; }
+ul.preview-list li {
+  display: inline-block;
+  cursor: pointer; }
+  ul.preview-list li:hover .preview-list__image {
+    box-shadow: 0 0 6px 0 #0F68C9; }
+  ul.preview-list li:hover .preview-list__name {
+    color: #0F68C9; }
+
+ul.preview-list .preview-list__image {
+  width: 16rem;
+  height: 20rem;
+  display: block;
+  box-shadow: 0 0 6px 0 #CBD2DA;
+  overflow: hidden; }
+
+ul.preview-list .preview-list__name {
+  display: block;
+  padding: 1rem 0;
+  line-height: 1.2;
+  margin-bottom: 1rem; }
 
 /* ==========================================================================
   loader
@@ -2392,14 +2438,13 @@ ul.preview-list {
 @media (max-width: 766px) {
   .modal-dialog,
   .modal-dialog.modal-dialog--sectioned {
-    max-height: none;
-    height: calc(100vh - 2rem);
-    max-width: calc(100vw - 2rem);
-    max-height: none; }
+    height: auto;
+    max-height: calc(100vh - 2rem);
+    max-width: calc(100vw - 2rem); }
     .modal-dialog .modal-dialog__content,
     .modal-dialog.modal-dialog--sectioned .modal-dialog__content {
-      height: calc(100vh - 20rem);
-      max-height: none;
+      max-height: calc(100vh - 20rem);
+      height: auto;
       min-height: none; } }
 
 /* input fields
@@ -2412,6 +2457,12 @@ ul.preview-list {
 
 /* modal lists
  ========================================================================== */
+.modal-dialog ul.preview-list {
+  min-height: 30rem;
+  overflow-y: auto;
+  overflow-x: none;
+  padding: 3rem 1.5rem; }
+
 .modal-dialog__content--sectioned > * {
   max-height: 20rem;
   overflow: auto; }
@@ -2428,21 +2479,6 @@ ul.preview-list {
   text-decoration: none; }
   .modal-dialog__content li.link-list__item a:hover {
     background-color: #F3F5F6; }
-
-/* ==========================================================================
-  Popover
-  Define alternative popover here.
- ========================================================================== */
-/* popover
- ========================================================================== */
-.popover.popover--left .popover__content {
-  right: 0 !important;
-  left: auto !important; }
-
-@media (max-width: 766px) {
-  .popover.popover--left.popover--mobile--left .popover__content {
-    left: 1rem !important;
-    right: auto !important; } }
 
 /* ==========================================================================
   Pill
@@ -2697,10 +2733,11 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
   padding: 0; }
 
 .side-navigation__item a {
-  padding: 0.4em 0.4em 0.35em 1em;
-  line-height: 1.2; }
+  padding: 0.4rem 0.4rem 0.35rem 1rem;
+  line-height: 1.2;
+  word-break: break-all; }
 
-.side-navigation__item a.active {
+.side-navigation__item a.active:not(.link--icon) {
   background-color: #F3F5F6;
   color: #000;
   font-weight: 500;
@@ -2753,6 +2790,13 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
   padding-top: 1rem;
   border: none; }
 
+.side-navigation__item ul.side-navigation__group {
+  display: block;
+  font-size: 95%; }
+
+.side-navigation__item ul.side-navigation__group .side-navigation__item:first-child a {
+  padding-top: 0; }
+
 .side-navigation__item {
   padding: 0; }
 
@@ -2760,7 +2804,7 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
   padding: 0.4em 0.4em 0.35em 1em;
   line-height: 1.2; }
 
-.side-navigation__item a.active {
+.side-navigation__item a.active:not(.link--icon) {
   background-color: #F3F5F6;
   color: #000;
   font-weight: 500;
@@ -2781,7 +2825,7 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
 
 .side-navigation--large li.side-navigation__item a {
   font-size: 1.8rem; }
-  .side-navigation--large li.side-navigation__item a.active {
+  .side-navigation--large li.side-navigation__item a.active:not(.link--icon) {
     box-shadow: inset 5px 0 0 #0F68C9; }
 
 /* Side navigation block layout
@@ -2961,6 +3005,70 @@ section.drilldown__subcolumn.drilldown__subcolumn--active {
   left: 0;
   right: 0;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%); }
+
+.info-tile--capped.info-tile--capped--animation .info-tile__header__wrapper {
+  height: auto;
+  overflow: visible;
+  padding-bottom: 0; }
+  .info-tile--capped.info-tile--capped--animation .info-tile__header__wrapper:after {
+    content: normal; }
+
+.info-tile--expandable:hover {
+  box-shadow: inset 3px #0F68C9; }
+
+.info-tile--expandable {
+  transition: all 200ms;
+  cursor: pointer; }
+
+.info-tile--expandable:after {
+  content: "\E015";
+  font-family: vlaanderen_iconfont !important;
+  color: #B2B2B2;
+  position: absolute;
+  right: 0.8rem;
+  top: 0.8rem;
+  font-size: 1.2rem;
+  display: block;
+  overflow: visible;
+  -webkit-font-smoothing: antialiased; }
+
+.info-tile--expandable:hover {
+  box-shadow: inset 3px 0 0 #0F68C9;
+  border-left-color: #0F68C9; }
+  .info-tile--expandable:hover:after {
+    color: #0F68C9; }
+
+/* layout of besluiten databank besluitenlijst */
+.annotations-wrapper--remove.annotation,
+.annotations-wrapper--remove .annotation {
+  border-bottom: none; }
+
+.annotations-wrapper--remove.annotation-structure--behandeling--open:hover,
+.annotations-wrapper--remove .annotation-structure--behandeling--open:hover,
+.annotations-wrapper--remove.annotation:hover,
+.annotations-wrapper--remove .annotation:hover {
+  background: transparent; }
+
+.annotations-wrapper--remove.annotation:hover:after,
+.annotations-wrapper--remove .annotation:hover:after,
+.annotations-wrapper--remove.annotation-structure--behandeling--open:hover::after,
+.annotations-wrapper--remove .annotation-structure--behandeling--open:hover::after {
+  content: normal; }
+
+.info-tile.annotation-structure a,
+.info-tile.annotation-structure li,
+.info-tile.annotation-structure td,
+.info-tile.annotation-structure th {
+  font-size: 1.4rem; }
+
+.info-tile.annotation-structure li {
+  color: #333333;
+  margin-top: 1rem; }
+
+.info-tile.annotation-structure h3,
+.info-tile.annotation-structure p {
+  margin-bottom: 1rem;
+  line-height: 1.6; }
 
 /* ==========================================================================
   Shame

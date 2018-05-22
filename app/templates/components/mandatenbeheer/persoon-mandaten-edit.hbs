@@ -1,15 +1,15 @@
 <div class="u-padding--trl--small u-border--light--bottom">
   <div class="grid">
     <div class="col--9-12">
-      <h2 class="h3">Bewerk mandaten van een persoon</h2>
+      <h2 class="h3 u-spacer--bottom--tiny">Bewerk mandaten</h2>
     </div>
-    <div class="col--3-12 u-align-right toggle-mandate-new">
+    <div class="col--3-12 u-align-right">
       {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
         <span class="u-visually-hidden">Venster sluiten</span>
       {{/link-to}}
     </div>
   </div>
-  <div class="u-spacer--bottom--small">
+  <div>
     {{mandatenbeheer/persoon-card persoon=persoon}}
   </div>
 </div>
@@ -31,7 +31,19 @@
   <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "createMandataris"}}>
     <i class="vi vi-plus" aria-hidden="true"></i>Voeg mandaat toe
   </a>
+
+
+  {{!-- This section is here temporarily for ABB to review all the mandates in August --}}
+
+  <div class="alert alert--small alert--success">
+    <label class="checkbox checkbox--block">
+      <input type="checkbox" name="checkbox" value="0" checked="checked" class="checkbox__toggle"/>
+      <span></span>
+      <span>De persoon en al de bijbehorende mandaten werden nagekeken.</span>
+    </label>
+  </div>
+
 </div>
-<div class="u-padding--round--small u-border--light--top u-align-right">
-  {{#wu-button class="button button--narrow button--alt toggle-mandate-new-previous" onClick=(action "finish")}}Sluit{{/wu-button}}
+<div class="u-padding--round--small u-border--light--top">
+  {{#wu-button class="button button--narrow button--alt" onClick=(action "finish")}}Sluit{{/wu-button}}
 </div>

@@ -2,6 +2,7 @@ import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { observer } from '@ember/object';
 import { inject as service } from '@ember/service';
+import isDynamicSubformValueMatch from '../../utils/toezicht/is-dynamic-subform-value-match';
 
 export default Component.extend({
   store: service(),
@@ -64,11 +65,11 @@ export default Component.extend({
 
   subform: computed('model.identifier', 'value', 'model.dynamicSubforms.[]', 'model.dynamicSubforms.@each.{key,value}', function() {
     const subform = this.get('model.dynamicSubforms').find(f => {
-      // TODO scope value comparison with matchKind (also support uuid/uri)
-      return f.get('key') == this.get('model.identifier') && f.get('value') == this.get('value');
+      return isDynamicSubformValueMatch(f, this.get('model.identifier'), this.get('value'));
     });
     return subform;
   }),
+
   childComponentName: computed('model.displayType', function() {
     return `toezicht/input-fields/${this.get('model.displayType')}/edit`;
   })

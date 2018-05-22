@@ -48,6 +48,7 @@ inflector.irregular('bbcdr-report', 'bbcdr-reports');
 inflector.irregular('validation', 'validations');
 inflector.irregular('validation-execution', 'validation-executions');
 inflector.irregular('validation-error', 'validation-errors');
+inflector.irregular('form-solution', 'form-solutions');
 // Meet Ember Inspector's expectation of an export
 
 export default {};

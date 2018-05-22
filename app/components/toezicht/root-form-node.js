@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import isDynamicSubformValueMatch from '../../utils/toezicht/is-dynamic-subform-value-match';
 
 const flatten = function(arr) {
   return [].concat(...arr);
@@ -7,16 +8,8 @@ const flatten = function(arr) {
 
 export default Component.extend({
   store: service(),
-  didReceiveAttrs() {
-    this._super(...arguments);
-    console.log('no solution yet');
-    var formSolution = this.get('store').createRecord('form-solution', {
-      formNode: this.get('model')
-    });
-    this.set('solution', formSolution);
-  },
-  actions: {
-    async save() {
+
+  async save() {
       const walkFormNode = async (node) => {
         const formInputs = await node.get('children');
         const walkedInputs = await Promise.all(formInputs.map(async (input) => {
@@ -35,11 +28,9 @@ export default Component.extend({
         const walkedInputs = await Promise.all(formInputs.map(async (input) => {
           const subforms = await input.get('dynamicSubforms');
           const walkedSubformNodes = await Promise.all(subforms.map(async (subform) => {
-            // TODO scope value comparison with matchKind (also support uuid/uri)
-            const expectedKey = subform.get('key');
-            const expectedValue = subform.get('value');
-            const currentValue = this.get(`solution.${expectedKey}`);
-            if (expectedValue == currentValue) {
+            const key = subform.get('key');
+            const currentValue = this.get(`solution.${key}`);
+            if (isDynamicSubformValueMatch(subform, key, currentValue)) {
               const formNode = await subform.get('formNode');
               return walkDisplayedFormNodes(formNode);
             } else {
@@ -70,7 +61,6 @@ export default Component.extend({
           pathSegments.pop();
         }
       });
-
       const nonDisplayedProperties = properties.filter(x => !displayedProperties.includes(x));
       console.log(nonDisplayedProperties);
 
@@ -114,6 +104,18 @@ export default Component.extend({
 
         await savePath(propSegments);
       }
-    }
+
+    await this.get('solution').save();
+    return this.get('solution');
+  },
+
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this.set('model', this.get('solution.formNode'));
+  },
+
+  didInsertElement(){
+    this._super(...arguments);
+    this.get('onDynamicFormInit')(this);
   }
 });

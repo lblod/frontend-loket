@@ -3,6 +3,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   created: DS.attr('datetime'),
   modified: DS.attr('datetime'),
+  title: DS.attr('string'),
   description: DS.attr('string'),
   remark: DS.attr('string'),
   temporalCoverage: DS.attr('string'),
@@ -13,7 +14,7 @@ export default DS.Model.extend({
   enddate: DS.attr('date'),
   isModification: DS.attr('boolean'),
   hasExtraTaxRates: DS.attr('boolean'),
-  agendaItemCount: DS.attr('integer'),
+  agendaItemCount: DS.attr('number'),
   status: DS.belongsTo('document-status'),
   lastModifier: DS.belongsTo('gebruiker'),
   bestuurseenheid: DS.belongsTo('bestuurseenheid'),
