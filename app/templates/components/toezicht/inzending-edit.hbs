@@ -6,7 +6,7 @@
   {{#each files as |file|}}
     {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=true}}
   {{/each}}
-  {{vo-mu-file-dropzone onFinishUpload=(action "addFile")}}
+  {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
 </div>
 <div class="u-padding--round--small u-border--light--top u-align-right">
   {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt"}}Sluit{{/link-to}}
