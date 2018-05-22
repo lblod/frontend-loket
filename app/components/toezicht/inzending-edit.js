@@ -15,10 +15,11 @@ export default Component.extend({
   }),
 
   async updateInzending(){
-    this.model.set('inzendingVoorToezicht.modified', new Date());
-    this.model.get('inzendingVoorToezicht.files').setObjects(this.files);
-    this.model.set('inzendingVoorToezicht.lastModifier', await this.currentSession.get('user'));
-    return this.model.save();
+    let inzending = await this.model.get('inzendingVoorToezicht');
+    inzending.set('modified', new Date());
+    (await inzending.get('files')).setObjects(this.files);
+    inzending.set('lastModifier', await this.currentSession.get('user'));
+    return inzending.save();
   },
 
   init() {
@@ -56,7 +57,7 @@ export default Component.extend({
       const statusSent = (await this.store.query('document-status', {
         filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
       })).firstObject;
-      this.model.set('inzendingVoorToezicht.status', statusSent);
+      (await this.model.get('inzendingVoorToezicht')).set('status', statusSent);
       await this.updateInzending();
       this.get('router').transitionTo('toezicht.inzendingen.index');
     },
