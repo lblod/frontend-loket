@@ -1,4 +1,6 @@
 export default function isDynamicSubformValueMatch(form, identifier, value) {
+  if(!value) return false;
+  
   if(!form.get('key') === identifier)
       return false;
 
