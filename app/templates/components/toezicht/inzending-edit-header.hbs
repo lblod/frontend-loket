@@ -1,5 +1,6 @@
 <div class="grid">
   <div class="col--9-12">
+    {{shared/document-status-pill inzending.status class="u-spacer--small"}}
     {{#if isNew}}
       <h2 class="h3">Nieuwe melding</h2>
     {{else}}
@@ -19,15 +20,15 @@
       <div class="description-data__value">{{inzending.lastModifier.fullName}}</div>
     </div>
     <div class="col--4-12">
-      <div class="description-data__label">Aangemaakt op</div>
-      <div class="description-data__value">{{moment-format inzending.created 'DD-MM-YYYY'}}</div>
-    </div>
-    <div class="col--4-12">
       <div class="description-data__label">Bewerkt op</div>
       <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
     </div>
+      <div class="col--4-12">
+        <div class="description-data__label">Verstuurd op</div>
+        {{#if inzending.status.isVerstuurd}}
+          <div class="description-data__value">{{moment-format inzending.status.isVerstuurd 'DD-MM-YYYY'}}</div>
+        {{/if}}
+        <div class="description-data__value">-</div>
+      </div>
   {{/unless}}
-  <div class="col--4-12">
-    {{shared/document-status-pill inzending.status class="u-spacer--small"}}
-  </div>
 </div>
