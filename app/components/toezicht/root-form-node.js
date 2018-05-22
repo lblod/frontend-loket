@@ -61,7 +61,6 @@ export default Component.extend({
           pathSegments.pop();
         }
       });
-
       const nonDisplayedProperties = properties.filter(x => !displayedProperties.includes(x));
       console.log(nonDisplayedProperties);
 
@@ -105,15 +104,14 @@ export default Component.extend({
 
         await savePath(propSegments);
       }
+
+    await this.get('solution').save();
+    return this.get('solution');
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
-    console.log('no solution yet');
-    var formSolution = this.get('store').createRecord('form-solution', {
-      formNode: this.get('model')
-    });
-    this.set('solution', formSolution);
+    this.set('model', this.get('solution.formNode'));
   },
 
   didInsertElement(){
