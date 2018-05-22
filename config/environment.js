@@ -23,6 +23,17 @@ module.exports = function(environment) {
     },
     moment: {
       allowEmpty: true
+    },
+    torii: {
+      disableRedirectInitializer: true,
+      providers: {
+        'acmidm-oauth2': {
+          apiKey: 'a2c0d6ea-01b4-4f68-920b-10834a943c27',
+          baseUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/auth',
+          scope: 'openid rrn vo profile abb_loketLB',
+          redirectUri: 'https://loket.lblod.info/authorization/callback'
+        }
+      }
     }
   };
 
