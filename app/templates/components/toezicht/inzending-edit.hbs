@@ -1,7 +1,7 @@
 {{toezicht/inzending-edit-header inzending=inzending isNew=isNew onClose=(action "close")}}
 
 <div class="container-flex--scroll u-padding--round--small">
-  {{toezicht/root-form-node model=model onDynamicFormInit=(action "initDynamicForm")}}
+  {{toezicht/root-form-node solution=model onDynamicFormInit=(action "initDynamicForm")}}
   <div class="u-spacer"></div>
   {{#each files as |file|}}
     {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=true}}

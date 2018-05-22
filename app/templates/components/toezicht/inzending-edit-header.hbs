@@ -19,6 +19,10 @@
       <div class="description-data__value">{{inzending.lastModifier.fullName}}</div>
     </div>
     <div class="col--4-12">
+      <div class="description-data__label">Aangemaakt op</div>
+      <div class="description-data__value">{{moment-format inzending.created 'DD-MM-YYYY'}}</div>
+    </div>
+    <div class="col--4-12">
       <div class="description-data__label">Bewerkt op</div>
       <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
     </div>
