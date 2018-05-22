@@ -4,6 +4,9 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
   store: service('store'),
   model() {
-    return this.get('store').query('account', {'include': 'gebruiker,gebruiker.bestuurseenheden'});
+    return this.get('store').query('account', {
+      include: 'gebruiker,gebruiker.bestuurseenheden',
+      filter: { provider: 'https://github.com/lblod/mock-login-service' }
+    });
   }
 });
