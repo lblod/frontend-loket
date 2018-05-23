@@ -11,7 +11,11 @@ export default Component.extend({
   files: null,
 
   canDelete: computed('isNew', 'model.inzendingVoorToezicht.status.id', function(){
-    return !this.get('isNew') && !this.model.get('inzendingVoorToezicht.isVerstuurd');
+    return !this.get('isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  }),
+
+  canSend: computed('isNew', 'model.inzendingVoorToezicht.status.id', function(){
+    return !this.get('isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),
 
   async updateInzending(){

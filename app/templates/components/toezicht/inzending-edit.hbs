@@ -29,13 +29,21 @@
   {{#if isNew}}
     {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "create") class="button button--narrow button--alt"}}
   {{else}}
-    {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt"}}
+    {{#if canSend}}
+      {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt"}}
+    {{/if}}
   {{/if}}
 
   {{#unless isNew}}
-    {{#wu-link-button class="button delete-me-toggle-new u-spacer--tiny" onClick=(action "send")}}Verstuur
-      <span class="button__info button__info--below">naar Vlaamse Overheid</span>
-    {{/wu-link-button}}
+    {{#if canSend}}
+      {{#wu-link-button class="button delete-me-toggle-new u-spacer--tiny" onClick=(action "send")}}Verstuur
+        <span class="button__info button__info--below">naar Vlaamse Overheid</span>
+      {{/wu-link-button}}
+    {{else}}
+      {{#wu-link-button class="button button--disabled delete-me-toggle-concept u-spacer--tiny" onClick=(action "send")}}Verstuur
+        <span class="button__info button__info--below">naar Vlaamse Overheid</span>
+      {{/wu-link-button}}
+    {{/if}}
   {{/unless}}
 
 </div>
