@@ -8,9 +8,9 @@
         </div>
         <div class="introduction">
           <p>Kies een gebruiker om mee in te loggen.</p>
-          <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{gemeente}} oninput={{perform updateSearch value='target.value'}}>
+          <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{gemeente}} autofocus oninput={{perform updateSearch value='target.value'}}>
           {{#mock-login as |login|}}
-            {{#if login.loading}}
+            {{#if queryStore.isRunning}}
               <div class="loader-wrapper">
                 <div class="loader">
                   <span class="u-visually-hidden">Aan het laden</span>

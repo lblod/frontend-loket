@@ -5,10 +5,22 @@ export default Controller.extend({
   gemeente: '',
   page: 0,
   size: 10,
-  updateSearch: task(function*(value) {
-    console.log(value);
+  queryStore: task(function * () {
+    const filter = { provider: 'https://github.com/lblod/mock-login-service' };
+    if (this.gemeente)
+      filter.gebruiker = { 'achternaam': this.gemeente};
+    return this.get('store').query('account', {
+      include: 'gebruiker,gebruiker.bestuurseenheden',
+      filter: filter,
+      page: { size: this.size, number: this.page },
+      sort: 'gebruiker.achternaam'
+    });
+  }),
+  updateSearch: task(function * (value) {
     yield timeout(500);
     this.set('page',0);
     this.set('gemeente', value);
+    const model = yield this.queryStore.perform();
+    this.set('model', model);
   }).restartable()
 });

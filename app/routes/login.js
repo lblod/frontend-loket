@@ -3,9 +3,6 @@ import { inject as service } from '@ember/service';
 
 export default Route.extend({
   queryParams: {
-    gemeente: {
-      refreshModel: true
-    },
     page: {
       refreshModel: true
     }
