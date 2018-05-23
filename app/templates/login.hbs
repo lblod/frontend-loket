@@ -8,6 +8,7 @@
         </div>
         <div class="introduction">
           <p>Kies een gebruiker om mee in te loggen.</p>
+          <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{gemeente}} oninput={{perform updateSearch value='target.value'}}>
           {{#mock-login as |login|}}
             {{#if login.loading}}
               <div class="loader-wrapper">
@@ -23,13 +24,14 @@
                 {{#wu-info-tile as |i|}}
                   {{#i.content}}
                     {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
-                    ({{account.gebruiker.group.classificatie.label}} {{account.gebruiker.group.naam}})
                   {{/i.content}}
                 {{/wu-info-tile}}
               {{/login.each-account}}
+              {{number-pagination
+                page=page size=size nbOfItems=model.length
+                total=model.meta.count links=model.meta.pagination}}
             {{/if}}
           {{/mock-login}}
-
         </div>
       </div>
     </section>
