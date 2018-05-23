@@ -3,32 +3,10 @@
   onSelect=(action 'setMandaat')
   bestuursorganen=bestuursorganen
   mandaat=mandaat
-  class="temporary-select__wrapper temporary-select__wrapper--block"
+  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
   allowClear=true
   disabled=viewMode
 }}
-
-
-{{!-- We want to make this a bit less explicit, so we hide the form element in a toggle element until opened, and the is set to "effectief" --}}
-<div class="js-accordion u-spacer--bottom--small">
-  <a class="small toggle toggle--arrow-down js-accordion__toggle js-accordion-bound" {{action "toggleOpen"}}>
-    <i class="toggle__icon" aria-hidden="true"></i>Effectief</a>
-  <div class="accordion__content u-padding--left--small">
-    <label class="form__label">Status</label>
-    {{mandatenbeheer/mandataris-status-code-selector
-      onSelect=(action "setStatusCode")
-      statusCode=status
-      class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
-      allowClear=true
-      disabled=viewMode
-    }}
-    {{#if statusError}}
-      <div class="form__error">{{statusError}}</div>
-    {{/if}}
-
-  </div>
-</div>
-
 <label class="form__label">Beleidsdomeinen</label>
 {{mandatenbeheer/beleidsdomein-selector-with-create
   onSelect=(action 'setBeleidsdomein')
@@ -43,9 +21,18 @@
   value=rangorde
   disabled=viewMode
 }}
-
-{{!-- "Fractie" is temporarily hidden for ABB to make reviewing easier in August --}}
-<div class="grid u-spacer--bottom--small u-hidden">
+<label class="form__label">Status</label>
+{{mandatenbeheer/mandataris-status-code-selector
+  onSelect=(action "setStatusCode")
+  statusCode=status
+  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
+  allowClear=true
+  disabled=viewMode
+}}
+{{#if statusError}}
+  <div class="form__error">{{statusError}}</div>
+{{/if}}
+<div class="grid u-spacer--bottom--small">
   <div class="col--6-12">
     <label class="form__label" for="datepicker-from">Geplande start</label>
     {{wu-datepicker
@@ -71,16 +58,14 @@
     {{/if}}
   </div>
 </div>
-{{!-- "Fractie" is temporarily hidden for ABB to make reviewing easier in August --}}
-<label class="form__label u-hidden">Fractie</label>
+<label class="form__label">Fractie</label>
 {{mandatenbeheer/fractie-selector
   onSelect=(action 'setFractie')
   fractie=fractie
   allowClear=true
-  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small u-hidden"
+  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
   disabled=viewMode}}
-
-<div class="u-spacer--top">
+<div class="u-spacer--top--small">
   {{#if requiredFieldError}}
     {{wu-alert message="Gelieve een mandaat op te geven." isError=true}}
   {{/if}}
@@ -97,6 +82,7 @@
     {{#if viewMode}}
       {{#wu-button class="button button--small button--narrow" onClick=(action "edit") }} Editeer {{/wu-button}}
     {{else}}
+      {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
       {{#wu-button class="button button--small button--narrow" onClick=(action "save") }}
         {{#if createMode}}
           Voeg toe
@@ -104,8 +90,6 @@
           Bewaar
         {{/if}}
       {{/wu-button}}
-      {{#wu-button class="button button--small button--narrow button--alt button--alt--warning" onClick=(action "cancel") }} Verwijder {{/wu-button}}
-      {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
     {{/if}}
   {{/if}}
 </div>
