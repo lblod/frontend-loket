@@ -54,8 +54,10 @@ export default Component.extend({
     yield this.get('dynamicForm').save();
     const statusSent = (yield this.store.query('document-status', {
         filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
-      })).firstObject;
-    (yield this.model.get('inzendingVoorToezicht')).set('status', statusSent);
+    })).firstObject;
+    let inzending = yield this.model.get('inzendingVoorToezicht');
+    inzending.set('status', statusSent);
+    inzending.set('sentDate', new Date());
     yield this.updateInzending();
   }).drop(),
 

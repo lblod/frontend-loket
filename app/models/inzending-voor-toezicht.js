@@ -3,6 +3,7 @@ import DS from 'ember-data';
 export default DS.Model.extend({
   created: DS.attr('datetime'),
   modified: DS.attr('datetime'),
+  sentDate: DS.attr('datetime'),
   title: DS.attr('string'),
   description: DS.attr('string'),
   remark: DS.attr('string'),

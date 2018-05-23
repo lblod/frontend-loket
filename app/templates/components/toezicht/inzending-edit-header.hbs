@@ -26,9 +26,10 @@
       <div class="col--4-12">
         <div class="description-data__label">Verstuurd op</div>
         {{#if inzending.status.isVerstuurd}}
-          <div class="description-data__value">{{moment-format inzending.status.isVerstuurd 'DD-MM-YYYY'}}</div>
+          <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
+        {{else}}
+          <div class="description-data__value">-</div>
         {{/if}}
-        <div class="description-data__value">-</div>
       </div>
   {{/unless}}
 </div>
