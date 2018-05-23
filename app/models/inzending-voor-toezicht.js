@@ -22,6 +22,7 @@ export default DS.Model.extend({
   inzendingType: DS.belongsTo('toezicht-inzending-type'),
   besluitType: DS.belongsTo('besluit-type'),
   bestuursorgaan: DS.belongsTo('bestuursorgaan'),
+  sessionDate: DS.attr('date'),
   files: DS.hasMany('file'),
   taxRates: DS.hasMany('tax-rate')
 });
