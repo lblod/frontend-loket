@@ -62,3 +62,150 @@
     background-color: #B2B2B2;
   }
 }
+
+
+/* ==========================================================================
+  Style overwrite ember-power-select
+ ========================================================================== */
+
+/* basic colors and sizing of dropdown */
+
+.ember-power-select-dropdown.ember-basic-dropdown-content--below,
+.ember-power-select-dropdown.ember-basic-dropdown-content--above,
+.ember-power-select-dropdown.ember-basic-dropdown-content--in-place,
+.ember-power-select-trigger {
+  border-radius: 0;
+  border-color: #cbd2da;
+  color: #333;
+}
+
+.ember-basic-dropdown-content.ember-power-select-dropdown.ember-basic-dropdown-content--below {
+  box-shadow: 0 2px 2px rgba(165, 179, 194, 0.5);
+}
+
+.ember-power-select-trigger {
+  line-height: 3.5rem;
+  padding: 0 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.step .ember-power-select-trigger {
+  padding-right: 4.5rem;
+  height: 4.5rem;
+  font-size: 1.6rem;
+  max-width: 250px;
+  width: 100%;
+  display: block;
+}
+
+.ember-power-select-trigger.ember-basic-dropdown-trigger.ember-view.ember-power-select-trigger--active {
+  border-color: #cbd2da;
+  box-shadow: none;
+}
+
+.ember-power-select-trigger.ember-basic-dropdown-trigger.ember-view.ember-power-select-trigger--active:focus {
+  outline: none;
+}
+
+.ember-power-select-search-input {
+ font-family: flanders-sans,sans-serif;
+}
+
+.ember-power-select-search-input:focus {
+  outline: none;
+  border-color: #ffc515;
+  box-shadow: inset 0 0 0 1px #ffc515;
+}
+
+/* Select options
+ ========================================================================== */
+.ember-power-select-option.ember-power-select-option--loading-message,
+.ember-power-select-option.ember-power-select-option--no-matches-message,
+.ember-power-select-option.ember-power-select-option--search-message {
+  padding-left: 0.5rem;
+  color: #999999;
+}
+
+.ember-power-select-option {
+  padding: 0.5rem 0.5rem 0.5rem 3rem;
+  position: relative;
+  line-height: 1.4;
+}
+
+.ember-power-select-option[aria-selected="true"],
+.ember-power-select-option[aria-current="true"] {
+  background-color: #E8EBEE;
+  color: #0F68C9;
+  text-decoration: underline;
+
+   &:before {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 7px;
+    z-index: 2;
+    font-family: vlaanderen_iconfont;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: none;
+    content: "\E00C";
+    color: #0F68C9;
+  }
+}
+
+.ember-power-select-trigger-multiple-input,
+.ember-power-select-placeholder,
+.ember-power-select-selected-item {
+  font-size: 1.6rem;
+  margin-left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Icon restyle for steps (need to reformat)
+ ========================================================================== */
+
+.ember-power-select-trigger .ember-power-select-status-icon:after {
+  content: "\E004";
+  font-family: vlaanderen_iconfont!important;
+  font-size: 1.4rem;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ember-power-select-status-icon {
+  display: block;
+  border: none;
+  width: auto;
+  height: auto;
+  right: 1rem;
+  -webkit-transform: rotate(90deg) !important;
+  -ms-transform: rotate(90deg) !important;
+  transform: rotate(90deg) !important;
+  color: #666;
+
+  display: inline-block;
+  transition: all 200ms;
+}
+
+.ember-basic-dropdown-trigger[aria-expanded="true"] .ember-power-select-status-icon {
+  -webkit-transform: rotate(-90deg) !important;
+  -ms-transform: rotate(-90deg) !important;
+  transform: rotate(-90deg) !important;
+}
+
+.ember-power-select-clear-btn {
+  background-color: #E8EBEE;
+  border-radius: 100%;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  line-height: 1;
+  text-align: center;
+  top: 0.7rem;
+}
