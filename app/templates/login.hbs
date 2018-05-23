@@ -7,7 +7,7 @@
           {{acmidm-login}}
         </div>
         <div class="introduction">
-          <p>Kies een gebruiker om mee in te loggen.</p>
+          <p>Kies een bestuurseenheid om mee in te loggen.</p>
           <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{gemeente}} autofocus oninput={{perform updateSearch value='target.value'}}>
           {{#mock-login as |login|}}
             {{#if queryStore.isRunning}}
