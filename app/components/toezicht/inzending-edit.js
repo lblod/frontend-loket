@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
+import { gte } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 
 export default Component.extend({
@@ -10,6 +11,12 @@ export default Component.extend({
   store: service(),
   currentSession: service(),
   files: null,
+  errorMsg: '',
+  hasError: gte('errorMsg.length', 1),
+
+  flushErrors(){
+    this.set('errorMsg', '');
+  },
 
   canDelete: computed('isNew', 'model.inzendingVoorToezicht.status.id', function(){
     return !this.get('isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
@@ -46,26 +53,41 @@ export default Component.extend({
   },
 
   save: task(function* (){
+    try {
       const solution = yield this.get('dynamicForm').save();
       yield this.updateInzending();
+    }
+    catch(e){
+      this.set('errorMsg', `Fout bij het opslaan: ${e.message}`);
+    }
   }).drop(),
 
   send: task(function* (){
-    yield this.get('dynamicForm').save();
-    const statusSent = (yield this.store.query('document-status', {
-        filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
-    })).firstObject;
-    let inzending = yield this.model.get('inzendingVoorToezicht');
-    inzending.set('status', statusSent);
-    inzending.set('sentDate', new Date());
-    yield this.updateInzending();
+    try {
+      yield this.get('dynamicForm').save();
+      const statusSent = (yield this.store.query('document-status', {
+          filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
+      })).firstObject;
+      let inzending = yield this.model.get('inzendingVoorToezicht');
+      inzending.set('status', statusSent);
+      inzending.set('sentDate', new Date());
+      yield this.updateInzending();
+    }
+    catch(e){
+      this.set('errorMsg', `Fout bij het verzenden: ${e.message}`);
+    }
   }).drop(),
 
   delete: task(function* (){
-     let files = yield this.model.get('inzendingVoorToezicht.files');
-     yield (yield this.model.get('inzendingVoorToezicht')).destroyRecord();
-     yield Promise.all(files.map(f => f.destroyRecord()));
-     yield this.model.destroyRecord();
+    try {
+      let files = yield this.model.get('inzendingVoorToezicht.files');
+      yield (yield this.model.get('inzendingVoorToezicht')).destroyRecord();
+      yield Promise.all(files.map(f => f.destroyRecord()));
+      yield this.model.destroyRecord();
+    }
+    catch(e){
+      this.set('errorMsg', `Fout bij het verwijderen: ${e.message}`);
+    }
   }).drop(),
 
   actions: {
@@ -76,18 +98,25 @@ export default Component.extend({
       this.get('router').transitionTo('toezicht.inzendingen.index');
     },
     async save(){
+      this.flushErrors();
       await this.save.perform();
     },
     async create(){
+      this.flushErrors();
       await this.save.perform();
+      if(this.hasErrors) return;
       this.get('router').transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
     },
     async send(){
+      this.flushErrors();
       await this.send.perform();
+      if(this.hasErrors) return;
       this.get('router').transitionTo('toezicht.inzendingen.index');
     },
     async delete(){
+      this.flushErrors();
       await this.delete.perform();
+      if(this.hassErrors) return;
       this.get('router').transitionTo('toezicht.inzendingen.index');
     },
     async addFile(file) {
