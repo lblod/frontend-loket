@@ -1,12 +1,14 @@
 {{toezicht/inzending-edit-header inzending=inzending isNew=isNew onClose=(action "close")}}
 
 <div class="container-flex--scroll u-padding--round--small">
-  {{toezicht/root-form-node solution=model onDynamicFormInit=(action "initDynamicForm")}}
+  {{toezicht/root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") disabled=model.inzendingVoorToezicht.status.isVerstuurd}}
   <div class="u-spacer"></div>
   {{#each files as |file|}}
-    {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=true}}
+    {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
   {{/each}}
-  {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
+  {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
+    {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
+  {{/unless}}
 </div>
 
 <div class="u-padding--round--small u-border--light--top u-align-right">
