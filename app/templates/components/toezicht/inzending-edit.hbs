@@ -1,5 +1,6 @@
 {{toezicht/inzending-edit-header inzending=inzending isNew=isNew onClose=(action "close")}}
 {{#unless isWorking}}
+  {{#if deleteModal}}{{toezicht/inzending-delete-modal onCancel=(action "cancelDelete") onConfirm=(action "confirmDelete")}} {{/if}}
   {{#if hasError}}
     {{wu-alert message=errorMsg isError=true}}
   {{/if}}

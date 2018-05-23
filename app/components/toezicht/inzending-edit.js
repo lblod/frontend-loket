@@ -13,6 +13,7 @@ export default Component.extend({
   files: null,
   errorMsg: '',
   hasError: gte('errorMsg.length', 1),
+  deleteModal: false,
 
   flushErrors(){
     this.set('errorMsg', '');
@@ -115,9 +116,16 @@ export default Component.extend({
     },
     async delete(){
       this.flushErrors();
+      this.set('deleteModal', true);
+    },
+    async confirmDelete(){
+      this.set('deleteModal', false);
       await this.delete.perform();
-      if(this.hassErrors) return;
+      if(this.hasErrors) return;
       this.get('router').transitionTo('toezicht.inzendingen.index');
+    },
+    async cancelDelete(){
+      this.set('deleteModal', false);
     },
     async addFile(file) {
       this.files.pushObject(file);
