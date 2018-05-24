@@ -45,12 +45,17 @@ export default Component.extend({
   },
 
   async didReceiveAttrs(){
-    this._super(...arguments);
-    let inzending = await this.model.get('inzendingVoorToezicht');
-    this.set('inzending', inzending);
-    let files = await inzending.get('files');
-    if(files)
-      this.files.setObjects(files.toArray());
+    try {
+      this._super(...arguments);
+      let inzending = await this.model.get('inzendingVoorToezicht');
+      this.set('inzending', inzending);
+      let files = await inzending.get('files');
+      if(files)
+        this.files.setObjects(files.toArray());
+    }
+    catch(e){
+      this.set('errorMsg', `Fout bij het inladen: ${e.message}. Gelieve opnieuw te proberen.`);
+    }
   },
 
   save: task(function* (){
@@ -105,13 +110,13 @@ export default Component.extend({
     async create(){
       this.flushErrors();
       await this.save.perform();
-      if(this.hasErrors) return;
+      if(this.hasError) return;
       this.get('router').transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
     },
     async send(){
       this.flushErrors();
       await this.send.perform();
-      if(this.hasErrors) return;
+      if(this.hasError) return;
       this.get('router').transitionTo('toezicht.inzendingen.index');
     },
     async delete(){
@@ -121,7 +126,7 @@ export default Component.extend({
     async confirmDelete(){
       this.set('deleteModal', false);
       await this.delete.perform();
-      if(this.hasErrors) return;
+      if(this.hasError) return;
       this.get('router').transitionTo('toezicht.inzendingen.index');
     },
     async cancelDelete(){
