@@ -82,7 +82,9 @@ export default Component.extend({
         }
       });
 
-      const inputTypeMap = this.get('model.inputTypeMap');
+    const inputTypeMap = this.get('model.inputTypeMap');
+
+    await this.saveHasMany(inputTypeMap, displayedProperties);
 
       for(let i = 0; i < displayedProperties.length; i++) {
         const prop = displayedProperties[i];
@@ -107,6 +109,19 @@ export default Component.extend({
 
     await this.get('solution').save();
     return this.get('solution');
+  },
+
+  isHasManyType(kind){
+    return kind.endsWith('[]');
+  },
+
+  async saveHasMany(inputTypeMap, properties){
+    //TODO: this is not going to work for nested hasMany relations (we need a generic solution)
+    let hasManyProperties = properties.filter(prop => this.isHasManyType(inputTypeMap[prop] || ""));
+    await Promise.all(hasManyProperties.map(async (prop)=> {
+      let objects = await this.get(`solution.${prop}`);
+      await Promise.all(objects.map(o => o.save()));
+    }));
   },
 
   didReceiveAttrs() {
