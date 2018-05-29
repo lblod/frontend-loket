@@ -24,6 +24,11 @@ module.exports = function(environment) {
     moment: {
       allowEmpty: true
     },
+    'vo-webuniversum': {
+      version: '2.8.3',
+      header: '//widgets.vlaanderen.be/widget/live/1f2f13286a664241801cf21cd5a12316',
+      footer: '//widgets.vlaanderen.be/widget/live/36cb38a7d97d4ea29cde109aa0994201'
+    },
     torii: {
       disableRedirectInitializer: true,
       providers: {
@@ -60,6 +65,11 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+  }
+
+  if (process.env.DEPLOY_ENV === 'production') {
+    ENV['vo-webuniversum']['header'] = '//widgets.vlaanderen.be/widget/live/f91ec2eea9de4de399ef3e0f19db8c58';
+    ENV['vo-webuniversum']['footer'] = '//widgets.vlaanderen.be/widget/live/2833ae2aacff426e9445a336140d7420';
   }
 
   return ENV;
