@@ -1,5 +1,5 @@
 {{#data-table content=content isLoading=isLoading noDataMessage="Geen inzendingen gevonden"
-   sort=sort page=page size=size class="data-table data-table--tight data-table--nowrap" as |t|}}
+   sort=sort page=page size=size class="container-flex--contain data-table data-table--tight data-table--nowrap" as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
       {{th-sortable label='Titel' field='title' currentSorting=sort class="u-visible--tablet-landscape-up"}}
