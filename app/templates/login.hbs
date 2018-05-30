@@ -2,7 +2,7 @@
   <div id="main" itemprop="mainContentOfPage" role="main" tabindex="-1" class="main-content">
     <header class="content-header content-header--small content-header--half-image u-spacer--large">
       <div class="content-header__wrapper">
-        <picture class="content-header__bg"><img sizes="50vw" src="//www.vlaanderen.be/sites/default/files/ip_acm/page_banner_wide_alt/header.jpg" srcset="//www.vlaanderen.be/sites/default/files/ip_acm/page_banner_mobile_alt/header.jpg 320w, //www.vlaanderen.be/sites/default/files/ip_acm/page_banner_narrow/header.jpg 1024w, //www.vlaanderen.be/sites/default/files/ip_acm/page_banner_wide_alt/header.jpg 1600w" alt="" title=""/></picture>
+        <picture class="content-header__bg"><img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="" title=""/></picture>
         <div class="layout layout--wide">
           <div class="content-header__content">
             <div class="content-header__logo-wrapper"><a href="#" class="content-header__entity-logo content-header__entity-logo--lowercase"><span class="content-header__entity-logo__prefix">Vlaanderen</span><span class="content-header__entity-logo__title">is lokaal bestuur</span></a></div>
@@ -13,38 +13,92 @@
 
     <section class="region">
       <div class="layout layout--wide">
-        <h1 class="h1">Loket lokale besturen</h1>
-        <div>
-          {{acmidm-login}}
+        <div class="grid">
+          <div class="col--6-12">
+            <h1 class="h1">Loket voor lokale besturen</h1>
+          </div>
+          <div class="col--6-12 u-align-right--tablet-portrait-up">
+            {{acmidm-login}}
+          </div>
         </div>
-        <div class="introduction">
-          <p>Kies een bestuurseenheid om mee in te loggen.</p>
-          <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{gemeente}} autofocus oninput={{perform updateSearch value='target.value'}}>
-          {{#mock-login as |login|}}
-            {{#if queryStore.isRunning}}
-              <div class="loader-wrapper">
-                <div class="loader">
-                  <span class="u-visually-hidden">Aan het laden</span>
-                </div>
+        <div class="grid align-center">
+          <div class="col--6-12">
+            <h2 class="h2">Waarvoor dient het loket?</h2>
+            <p class="u-spacer">Het digitaal loket laat lokale besturen toe om:</p>
+            <ul class="bullet-list u-spacer">
+              <li>besluiten en overzichtslijsten elektronisch te bezorgen aan de toezichthoudende overheid;</li>
+              <li>om de digitale rapportering te bezorgen aan de Vlaamse Regering over de beleids- en beheerscyclus (BBC);</li>
+              <li>aanpassen van databank met gegevens over het personeel en de mandaten binnen de gemeenten, OCMW’s, districten en provincies;</li>
+              <li>de administratieve en personeelsgegevens gegevens aan te passen van uw bestuur.</li>
+            </ul>
+
+            <h2 class="h2">Wat vind je op het loket?</h2>
+            <ul class="bullet-list u-spacer">
+              <li><a href="https://lokaalbestuur.vlaanderen.be/sites/default/files/public/Digitaal_loket/overzicht_documenten_per_bestuur_v02.pdf" target="_blank">Overzicht van welke stukken</a> je voor bestuurlijk toezicht kan sturen via het loket;</li>
+              <li>meer informatie over de <a href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank">digitale rapportering</a>;</li>
+              <li>meer informatie over <a href="https://overheid.vlaanderen.be/gebruikersbeheer" target="_blank">het gebruikerbeheer</a> van de Vlaamse overheid;</li>
+              <li>hoe je <a href="/bbc/aan-de-slag-met-het-digitaal-loket-mijn-binnenland">aan de slag</a> gaat met het digitaal loket.</li>
+            </ul>
+
+            <h2 class="h2">Waar kan je terecht met vragen?</h2>
+            <ul class="u-spacer">
+              <li>Voor vragen over je toegang tot het loket en je gebruikersrechten kan je per <a href="http://www.vlaanderen.be/nl/vlaamse-overheid/contact/stuur-een-e-mail" target="_blank">per e-mail</a> of telefonisch contact opnemen met de Infolijn op het nummer 1700.</li>
+              <li>Voor vragen over de toepassing zelf, kan je ons altijd contacteren via <a href="mailto:binnenland@vlaanderen.be">binnenland@vlaanderen.be</a>.</li>
+              <li>Voor vragen over de inhoud van de mandatendatabank, kan je ons altijd contacteren via <a href="mailto:mandaten@vlaanderen.be">mandaten@vlaanderen.be</a>.</li>
+            </ul>
+
+            <h2 class="h2">Recente FAQ's</h2>
+            <ul class="bullet-list u-spacer">
+              <li class=""><a href="/faq/andere/wie-heeft-toegang-tot-mijn-binnenland">Wie heeft toegang tot MIJN BINNENLAND?</a></li>
+              <li class=""><a href="/faq/andere/waarom-kan-ik-mijn-bestanden-niet-opladen-mijn-binnenland">Waarom kan ik mijn bestanden niet opladen in MIJN BINNENLAND?</a></li>
+              <li class=""><a href="/faq/andere/wat-een-correcte-aanlevering">Wat is een correcte aanlevering?</a></li>
+              <li class=""><a href="/faq/andere/het-gebruik-van-mijn-binnenland-verplicht">Is het gebruik van MIJN BINNENLAND verplicht?</a></li>
+            </ul>
+
+            <h2 class="h2">Meer informatie</h2>
+            <ul class="bullet-list u-spacer">
+              <li><a href="https://codex.vlaanderen.be/Zoeken/Document.aspx?DID=1028526&amp;param=inhoud" target="_blank" class="icon icon-chevron-right">BVR 14/07/2017 - communicatie ikv bestuurlijk toezicht op lokale overheden wat betreft hulpverleningszones</a></li>
+              <li><a href="https://lokaalbestuur.vlaanderen.be/regelgeving/ministerieel-besluit-van-9-juli-2013-digitale-rapportering-bbc" target="_blank" class="icon icon-chevron-right">Ministerieel besluit digitale rapportering</a></li>
+              <li><a href="https://lokaalbestuur.vlaanderen.be/sites/default/files/public/thema/bbc/DigitaleRapp/Infosessie_DLMB.pdf" target="_blank" class="icon icon-chevron-right">Slides infosessies digitaal loket</a></li>
+              <li><a href="https://lokaalbestuur.vlaanderen.be/sites/default/files/public/thema/bbc/DigitaleRapp/BBC%20beleidsrapporten%20en%20digitale%20rapportering%20in%20het%20Digitaal%20Loket%20Mijn%20Binnenland%2010%20HANDIGE%20TIPS.docx" target="_blank" class="icon icon-chevron-right">10 Handige tips voor digitale rapportering van BBC Beleidsrapporten via het Digitaal Loket Mijn Binnenland</a></li>
+              <li>Regelgeving: <a href="http://www.codex.vlaanderen.be/Zoeken/Document.aspx?DID=1022713&amp;param=inhoud" target="_blank" class="icon icon-chevron-right">Besluit van de Vlaamse Regering tot nadere uitvoering van de mandatendatabank</a></li>
+            </ul>
+
+          </div>
+          <div class="col--6-12">
+            <div class="grid grid--align-right">
+              <div class="col--6-12">
+                <h2 class="h4 u-spacer">Of kies een bestuurseenheid om mee in te loggen.</h2>
+                <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{gemeente}} autofocus oninput={{perform updateSearch value='target.value'}}>
+                {{#mock-login as |login|}}
+                  {{#if queryStore.isRunning}}
+                    <div class="loader-wrapper">
+                      <div class="loader">
+                        <span class="u-visually-hidden">Aan het laden</span>
+                      </div>
+                    </div>
+                  {{else}}
+                    {{#if login.errorMessage}}
+                      {{wu-alert title=login.errorMessage isWarning=true}}
+                    {{/if}}
+                    {{#login.each-account accounts=model as |account|}}
+                      {{#wu-info-tile class="u-spacer--tiny" as |i|}}
+                        {{#i.content}}
+                          {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
+                        {{/i.content}}
+                      {{/wu-info-tile}}
+                    {{/login.each-account}}
+                    {{number-pagination
+                      page=page size=size nbOfItems=model.length
+                      total=model.meta.count links=model.meta.pagination}}
+                  {{/if}}
+                {{/mock-login}}
               </div>
-            {{else}}
-              {{#if login.errorMessage}}
-                {{wu-alert title=login.errorMessage isWarning=true}}
-              {{/if}}
-              {{#login.each-account accounts=model as |account|}}
-                {{#wu-info-tile as |i|}}
-                  {{#i.content}}
-                    {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
-                  {{/i.content}}
-                {{/wu-info-tile}}
-              {{/login.each-account}}
-              {{number-pagination
-                page=page size=size nbOfItems=model.length
-                total=model.meta.count links=model.meta.pagination}}
-            {{/if}}
-          {{/mock-login}}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </div>
+  {{wu-widget src="//widgets.vlaanderen.be/widget/live/2833ae2aacff426e9445a336140d7420"}}
 </div>
