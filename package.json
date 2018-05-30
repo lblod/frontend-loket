@@ -20,7 +20,7 @@
     "@lblod/ember-acmidm-login": "^0.1.0",
     "@lblod/ember-mock-login": "^0.4.0",
     "@lblod/ember-vo-mu-file-upload": "0.1.2",
-    "@lblod/ember-vo-webuniversum": "^0.12.0",
+    "@lblod/ember-vo-webuniversum": "^0.12.1",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.5",
     "broccoli-asset-rev": "^2.4.5",
     "ember-ajax": "^3.0.0",
