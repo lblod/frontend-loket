@@ -3,10 +3,15 @@ import Component from '@ember/component';
 import { observer } from '@ember/object';
 import { inject as service } from '@ember/service';
 import isDynamicSubformValueMatch from '../../utils/toezicht/is-dynamic-subform-value-match';
+import { A } from '@ember/array';
 
 export default Component.extend({
   store: service(),
   oldP: undefined,
+
+  isHasManyType(kind){
+    return kind.endsWith('[]');
+  },
 
   pObserver: observer( 'solution', 'model.identifier', function() {
     const oldP = this.get('oldP');
@@ -50,7 +55,10 @@ export default Component.extend({
           console.log('Kind is ' + kind);
           const prop = `solution.${newPath}`;
           // TODO shouldn't we await this.get(prop) ?
-          if (kind && !this.get(prop).content) {
+          if(kind && this.isHasManyType(kind) && !this.get(prop).content){
+            this.set(prop, A());
+          }
+          else if (kind && !this.get(prop).content) {
             console.log('setting property: ' + prop);
             const resource = this.get('store').createRecord(kind, {});
             this.set(prop, resource);
