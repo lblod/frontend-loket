@@ -60,7 +60,7 @@ export default Component.extend({
 
   save: task(function* (){
     try {
-      const solution = yield this.get('dynamicForm').save();
+      yield this.get('dynamicForm').save();
       yield this.updateInzending();
     }
     catch(e){

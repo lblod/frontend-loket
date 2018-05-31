@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import RSVP from 'rsvp';
 import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
