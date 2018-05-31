@@ -14,14 +14,15 @@ export default Component.extend({
   },
 
   actions: {
-    create(){
+    async create(){
       let taxRate =this.get('store').createRecord('tax-rate');
+      await taxRate.save();
       this.taxRates.pushObject(taxRate);
     },
 
-    delete(taxRate){
+    async delete(taxRate){
       this.taxRates.removeObject(taxRate);
-      taxRate.destroy();
+      await taxRate.destroy();
     }
   }
 });
