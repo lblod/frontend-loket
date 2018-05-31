@@ -1,20 +1,29 @@
 import Controller from '@ember/controller';
 import { task, timeout } from 'ember-concurrency';
+import ENV from 'frontend-loket/config/environment';
+
 export default Controller.extend({
   queryParams: ['gemeente', 'page'],
   gemeente: '',
   page: 0,
   size: 10,
+
+  init() {
+    this._super(...arguments);
+    this.set('footer', ENV['vo-webuniversum']['footer']);
+  },
+
   queryStore: task(function * () {
     const filter = { provider: 'https://github.com/lblod/mock-login-service' };
     if (this.gemeente)
       filter.gebruiker = { 'achternaam': this.gemeente};
-    return this.get('store').query('account', {
+    const accounts = yield this.get('store').query('account', {
       include: 'gebruiker,gebruiker.bestuurseenheden',
       filter: filter,
       page: { size: this.size, number: this.page },
       sort: 'gebruiker.achternaam'
     });
+    return accounts;
   }),
   updateSearch: task(function * (value) {
     yield timeout(500);
