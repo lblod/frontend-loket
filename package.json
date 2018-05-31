@@ -17,6 +17,7 @@
     "test": "ember test"
   },
   "devDependencies": {
+    "@lblod/ember-mu-dynamic-forms": "^0.1.0",
     "@lblod/ember-acmidm-login": "^0.1.0",
     "@lblod/ember-mock-login": "^0.4.0",
     "@lblod/ember-vo-mu-file-upload": "0.1.2",
