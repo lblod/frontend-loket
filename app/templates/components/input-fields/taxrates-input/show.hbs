@@ -1,0 +1,52 @@
+<table class="data-table data-table--tight u-spacer--tb--small">
+  <thead>
+    <tr>
+      <th>Bedrag</th>
+      <th>Eenheid</th>
+      <th>Basis</th>
+      <th>Commentaar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each taxRates as |taxRate|}}
+      <tr>
+        <td>
+          {{input
+            class="input-field input-field--block input-field--small"
+            value=taxRate.amount
+            onchange=(mut taxRate.amount)
+            placeholder="Bedrag"
+            disabled=true
+          }}
+        </td>
+        <td>
+          {{input
+            class="input-field input-field--block input-field--small"
+            value=taxRate.unit
+            onchange=(mut taxRate.unit)
+            placeholder="Eenheid"
+            disabled=true
+          }}
+        </td>
+        <td>
+          {{input
+            class="input-field input-field--block input-field--small"
+            value=taxRate.base
+            onchange=(mut taxRate.base)
+            placeholder="Basis"
+            disabled=true
+          }}
+        </td>
+        <td>
+          {{input
+            class="input-field input-field--block input-field--small"
+            value=taxRate.remark
+            onchange=(mut taxRate.remark)
+            placeholder="Commentaar"
+            disabled=true
+          }}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
