@@ -4,16 +4,23 @@ import { task, timeout } from 'ember-concurrency';
 
 export default Component.extend({
   store: service(),
-
-  didReceiveAttrs(){
+  currentSession: service(),
+  
+  async didReceiveAttrs(){
     this.set('_fractie', this.get('fractie'));
+    this.set('bestuurseenheid', await this.get('currentSession.group'));
   },
 
   searchByName: task(function* (searchData) {
     yield timeout(300);
     let queryParams = {
       sort:'naam',
-      'filter[naam]': searchData
+      filter: {
+        naam: searchData,
+        bestuurseenheid: {
+          id: this.get('bestuurseenheid.id')
+        }
+      }
     };
     return yield this.get('store').query('fractie', queryParams);
   }),
