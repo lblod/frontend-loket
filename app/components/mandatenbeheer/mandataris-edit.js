@@ -93,7 +93,14 @@ export default Component.extend({
       await this.createNewLidmaatschap();
       return;
     }
-    if(this.get('mandataris.heeftLidmaatschap.binnenFractie.id') !== this.get('fractie.id')){
+
+    //if new and old fractie are both onahankelijk, nothing needs to be done...
+    let currFractie = await this.get('mandataris.heeftLidmaatschap.binnenFractie');
+    if(( await currFractie.get('fractietype.isOnafhankelijk') ) && this.get('fractie.fractietype.isOnafhankelijk')){
+      return;
+    }
+
+    if((this.get('mandataris.heeftLidmaatschap.binnenFractie.id') !== this.get('fractie.id'))){
       await this.updateLidmaatschap();
       return;
     }
