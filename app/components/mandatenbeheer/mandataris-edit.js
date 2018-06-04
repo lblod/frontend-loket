@@ -94,7 +94,7 @@ export default Component.extend({
       return;
     }
 
-    //if new and old fractie are both onahankelijk, nothing needs to be done...
+    //if new and old fractie are both onafhankelijk, nothing needs to be done...
     let currFractie = await this.get('mandataris.heeftLidmaatschap.binnenFractie');
     if(( await currFractie.get('fractietype.isOnafhankelijk') ) && this.get('fractie.fractietype.isOnafhankelijk')){
       return;
@@ -116,7 +116,9 @@ export default Component.extend({
     if(fractie.get('fractietype.isOnafhankelijk')){
       await fractie.destroyRecord();
     }
-    await this.createNewLidmaatschap();
+    if(this.get('fractie')){
+      await this.createNewLidmaatschap();
+    }
   },
 
   async createNewLidmaatschap(){
