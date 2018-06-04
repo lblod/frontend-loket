@@ -5,10 +5,29 @@ import { task, timeout } from 'ember-concurrency';
 export default Component.extend({
   store: service(),
   currentSession: service(),
-  
+
   async didReceiveAttrs(){
     this.set('_fractie', this.get('fractie'));
-    this.set('bestuurseenheid', await this.get('currentSession.group'));
+    let bestuurseenheid = await this.get('currentSession.group');
+    let bestuursorganen = await this.getBestuursorganen(bestuurseenheid.id);
+    this.set('bestuursorganenId', bestuursorganen.map( o => o.get('id') ));
+  },
+
+  getBestuursorganen: async function(bestuurseenheidId){
+    const bestuursorganen = await this.get('store').query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
+    const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getLastBestuursorgaanInTijd(orgaan.get('id'))));
+    return organenInTijd.filter(orgaan => orgaan);
+  },
+
+  getLastBestuursorgaanInTijd: async function(bestuursorgaanId){
+    const queryParams = {
+      sort: '-binding-start',
+      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
+      page: { size: 1 }
+    };
+
+    const organen = await this.get('store').query('bestuursorgaan', queryParams);
+    return organen.firstObject;
   },
 
   searchByName: task(function* (searchData) {
@@ -17,8 +36,8 @@ export default Component.extend({
       sort:'naam',
       filter: {
         naam: searchData,
-        bestuurseenheid: {
-          id: this.get('bestuurseenheid.id')
+        'bestuursorganen-in-tijd': {
+          id: this.get('bestuursorganenId').join(',')
         }
       }
     };
