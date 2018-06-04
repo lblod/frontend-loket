@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
+import { Fractie }from '../../models/fractie';
 
 export default Component.extend({
   store: service(),
@@ -10,6 +11,7 @@ export default Component.extend({
     this.set('_fractie', this.get('fractie'));
     let bestuurseenheid = await this.get('currentSession.group');
     let bestuursorganen = await this.getBestuursorganen(bestuurseenheid.id);
+    this.set('bestuursorganen', bestuursorganen);
     this.set('bestuursorganenId', bestuursorganen.map( o => o.get('id') ));
   },
 
@@ -34,6 +36,7 @@ export default Component.extend({
     yield timeout(300);
     let queryParams = {
       sort:'naam',
+      include: 'fractietype',
       filter: {
         naam: searchData,
         'bestuursorganen-in-tijd': {
@@ -41,8 +44,26 @@ export default Component.extend({
         }
       }
     };
-    return yield this.get('store').query('fractie', queryParams);
+    let fracties = yield this.get('store').query('fractie', queryParams);
+    fracties = fracties.filter(f => !f.get('fractietype.isOnafhankelijk'));
+
+    //sets dummy
+    if('onafhankelijk'.includes(searchData.toLowerCase())){
+      fracties.pushObject(yield this.createNewOnafhankelijkeFractie());
+    }
+
+    return fracties;
   }),
+
+  async createNewOnafhankelijkeFractie(){
+    let onafFractie = (await this.get('store').findAll('fractietype')).find(f => f.get('isOnafhankelijk'));
+    return this.store.createRecord('fractie', {
+                                                naam: 'Onafhankelijk',
+                                                fractietype: onafFractie,
+                                                bestuursorganenInTijd: this.get('bestuursorganen'),
+                                                bestuurseenheid: this.get('bestuurseeneenheid')
+                                              });
+  },
 
   actions: {
     select(fractie){

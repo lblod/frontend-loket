@@ -104,13 +104,21 @@ export default Component.extend({
 
   async updateLidmaatschap(){
     let lidmaatschap = await this.get('mandataris.heeftLidmaatschap');
+    let fractie = await lidmaatschap.get('binnenFractie');
     await lidmaatschap.destroyRecord();
+    if(fractie.get('fractietype.isOnafhankelijk')){
+      await fractie.destroyRecord();
+    }
     await this.createNewLidmaatschap();
   },
 
   async createNewLidmaatschap(){
     let tijdsinterval = await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde'));
     let fractie = this.get('fractie');
+
+    if(!fractie.get('id')){
+      await fractie.save();
+    }
 
     let lidmaatschap =  await this.get('store').createRecord('lidmaatschap', {
       binnenFractie: fractie, lidGedurende: tijdsinterval
