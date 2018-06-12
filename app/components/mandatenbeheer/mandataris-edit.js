@@ -89,12 +89,18 @@ export default Component.extend({
   },
 
   async saveLidmaatschap(){
-    if(!this.get('mandataris.heeftLidmaatschap.id') && this.get('fractie')){
-      await this.createNewLidmaatschap();
-      return;
+    if(!this.get('mandataris.heeftLidmaatschap.id')){
+      if (this.get('fractie')) {
+        await this.createNewLidmaatschap();
+        return;
+      }
+      else {
+        // old and new fraction are both undefined. Nothing needs to be done...
+        return;
+      }
     }
 
-    //if new and old fractie are both onafhankelijk, nothing needs to be done...
+    // if new and old fractie are both onafhankelijk, nothing needs to be done...
     let currFractie = await this.get('mandataris.heeftLidmaatschap.binnenFractie');
     if(( await currFractie.get('fractietype.isOnafhankelijk') ) && this.get('fractie.fractietype.isOnafhankelijk')){
       return;
