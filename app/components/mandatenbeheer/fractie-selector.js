@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
-import { Fractie }from '../../models/fractie';
 
 export default Component.extend({
   store: service(),
