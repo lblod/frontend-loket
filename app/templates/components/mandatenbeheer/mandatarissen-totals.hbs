@@ -9,7 +9,7 @@
     </div>
   {{else}}
     {{#each mandatarissenTotals as |orgaanMap|}}
-      Bestuursorgaan: {{orgaanMap.orgaan}}
+      Bestuursorgaan: {{orgaanMap.orgaan.isTijdsspecialisatieVan.naam}}: van {{moment-format orgaanMap.orgaan.bindingStart "YYYY"}} tot {{#if orgaanMap.orgaan.bindingEinde}}{{moment-format orgaanMap.orgaan.bindingEinde "YYYY"}}{{else}}heden{{/if}}
       <ul class="inline-list inline-list--bordered">
         {{#each orgaanMap.mandaten as |total|}}
           <li>

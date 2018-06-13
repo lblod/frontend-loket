@@ -51,7 +51,7 @@ export default Component.extend({
 
     const mapMandtrsOrgs = yield Promise.all(mapMandtnOrgs.map(async (e) => {
       return {
-        orgaan: await e.org.get('isTijdsspecialisatieVan.naam'),
+        orgaan: e.org,
         mandaten: await Promise.all(e.mandtn.map(mapMandtnMandarissen))
       };
     }));
