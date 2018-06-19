@@ -10,6 +10,20 @@ export default Component.extend({
   disabled: false,
   displayProperty: 'classificatie.label',
 
+  async init() {
+    this._super(...arguments);
+
+    const bestuurseenheid = await this.get('currentSession.group');
+    const queryParams = {
+      sort: 'classificatie.label',
+      include: 'classificatie',
+      'filter[bestuurseenheid][id]': bestuurseenheid.get('id')
+    };
+
+    const options = await this.get('store').query('bestuursorgaan', queryParams);
+    this.set('options', options);
+  },
+
   async didReceiveAttrs(){
     this._super(...arguments);
 
@@ -22,8 +36,8 @@ export default Component.extend({
   search: task(function* (searchData){
     yield timeout(300);
 
-    let bestuurseenheid = yield this.get('currentSession.group');
-    let queryParams = {
+    const bestuurseenheid = yield this.get('currentSession.group');
+    const queryParams = {
       sort: 'classificatie.label',
       include: 'classificatie',
       'filter[classificatie]': searchData,
