@@ -8,7 +8,7 @@ export default Component.extend({
 
   allowClear: true,
   disabled: false,
-  displayProperty: 'classificatie.label',
+  displayProperty: 'label',
 
   async init() {
     this._super(...arguments);
@@ -30,16 +30,16 @@ export default Component.extend({
     yield timeout(300);
 
     const bestuurseenheid = yield this.get('currentSession.group');
+    const classificatie = yield bestuurseenheid.get('classificatie');
     const queryParams = {
-      sort: 'classificatie.label',
-      include: 'classificatie',
-      'filter[bestuurseenheid][id]': bestuurseenheid.get('id')
+      sort: 'label',
+      'filter[decidable-by][id]': classificatie.get('id')
     };
 
     if (searchData)
-      queryParams['filter[classificatie]'] = searchData;
+      queryParams['filter[label]'] = searchData;
 
-    return yield this.get('store').query('bestuursorgaan', queryParams);
+    return yield this.get('store').query('besluit-type', queryParams);
   }),
 
   actions: {
