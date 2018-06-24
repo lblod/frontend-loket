@@ -17,9 +17,9 @@
     "test": "ember test"
   },
   "devDependencies": {
-    "@lblod/ember-mu-dynamic-forms": "^0.1.0",
     "@lblod/ember-acmidm-login": "^0.1.0",
     "@lblod/ember-mock-login": "^0.4.0",
+    "@lblod/ember-mu-dynamic-forms": "^0.1.1",
     "@lblod/ember-vo-mu-file-upload": "0.1.2",
     "@lblod/ember-vo-webuniversum": "^0.12.1",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.5",
@@ -59,6 +59,7 @@
     "ember-mu-transform-helpers": "^1.1.0",
     "ember-power-select": "^2.0.0-beta.3",
     "ember-power-select-with-create": "^0.5.1",
+    "ember-promise-helpers": "^1.0.6",
     "ember-resolver": "^4.0.0",
     "ember-source": "~3.1.0",
     "ember-welcome-page": "^3.0.0",
