@@ -1,5 +1,5 @@
 <a class="small link--dark--light toggle toggle--arrow-down js-accordion__toggle js-accordion-bound" {{action "toggleOpen"}}>
-  <i class="toggle__icon" aria-hidden="true"></i>Toon / verberg totalen</a>
+  <i class="toggle__icon" aria-hidden="true"></i>Toon totalen en bestuursperiodes</a>
 <div class="accordion__content u-spacer--top--tiny u-bg-block">
   {{#if getMandatarissenTotals.isRunning}}
     <div class="loader-wrapper">
@@ -8,15 +8,21 @@
       </div>
     </div>
   {{else}}
-    {{#each mandatarissenTotals as |orgaanMap|}}
-      Bestuursorgaan: {{orgaanMap.orgaan.isTijdsspecialisatieVan.naam}}: van {{moment-format orgaanMap.orgaan.bindingStart "YYYY"}} tot {{#if orgaanMap.orgaan.bindingEinde}}{{moment-format orgaanMap.orgaan.bindingEinde "YYYY"}}{{else}}heden{{/if}}
-      <ul class="inline-list inline-list--bordered">
-        {{#each orgaanMap.mandaten as |total|}}
-          <li>
-            {{total.naam}}: {{total.aantal}}
-          </li>
-        {{/each}}
-      </ul>
-   {{/each}}
+    <div class="grid">
+      {{#each mandatarissenTotals as |orgaanMap|}}
+        <div class="col--4-12 col--1-1--s">
+          <h2 class="h6" style="min-height: 5rem;">{{orgaanMap.orgaan.isTijdsspecialisatieVan.naam}}
+          <br><small class="small uppercase text-fade">{{moment-format orgaanMap.orgaan.bindingStart "YYYY"}} tot {{#if orgaanMap.orgaan.bindingEinde}}{{moment-format orgaanMap.orgaan.bindingEinde "YYYY"}}{{else}}heden{{/if}}</small></h2>
+          <ul class="u-padding--top--tiny u-spacer--bottom--small small">
+            {{#each orgaanMap.mandaten as |total|}}
+              <li class="grid">
+                <div class="col--2-12">{{total.aantal}}</div>
+                <div class="col--10-12">{{total.naam}}</div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      {{/each}}
+    </div>
   {{/if}}
 </div>
