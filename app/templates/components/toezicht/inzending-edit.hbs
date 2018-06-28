@@ -1,22 +1,30 @@
 {{toezicht/inzending-edit-header inzending=inzending isNew=isNew onClose=(action "close")}}
-{{#unless isWorking}}
-  {{#if deleteModal}}{{toezicht/inzending-delete-modal onCancel=(action "cancelDelete") onConfirm=(action "confirmDelete")}} {{/if}}
-  {{#if hasError}}
-    {{wu-alert message=errorMsg isError=true}}
-  {{/if}}
-  <div class="container-flex--scroll u-padding--round--small">
-    {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
-    <div class="u-spacer"></div>
-    {{#each files as |file|}}
-      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
-    {{/each}}
-    {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
-      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
-    {{/unless}}
+{{#if isWorking}}
+  <div class="loader-wrapper">
+    <div class="loader">
+      <span class="u-visually-hidden">Bezig...</span>
+    </div>
   </div>
+{{/if}}
 
+{{#if deleteModal}}{{toezicht/inzending-delete-modal onCancel=(action "cancelDelete") onConfirm=(action "confirmDelete")}} {{/if}}
+{{#if hasError}}
+  {{wu-alert message=errorMsg isError=true}}
+{{/if}}
+
+<div class="container-flex--scroll u-padding--round--small {{if isWorking "u-hidden"}}">
+  {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
+  <div class="u-spacer"></div>
+  {{#each files as |file|}}
+    {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
+  {{/each}}
+  {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
+    {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
+  {{/unless}}
+</div>
+
+{{#unless isWorking}}
   <div class="u-padding--round--small u-border--light--top u-align-right">
-
     {{#if isNew}}
       {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt delete-me-toggle-new"}}Annuleer{{/link-to}}
     {{else}}
@@ -51,12 +59,5 @@
         {{/wu-link-button}}
       {{/if}}
     {{/unless}}
-
-  </div>
-{{else}}
-  <div class="loader-wrapper">
-    <div class="loader">
-      <span class="u-visually-hidden">Aan het werken</span>
-    </div>
   </div>
 {{/unless}}
