@@ -1,0 +1,16 @@
+<form class="u-spacer--large js-formvalidation-bound">
+  <div class="form__row">
+    <label class="form__label form__label--large form__label--block" for="select">Waar gaat uw bericht over?</label>
+    {{wu-radio-button label="De functionaliteit van de applicatie" value="digitaalABB@bz.vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="Een bug of probleem met de applicatie" value="digitaalABB@bz.vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="Een vraag over de inhoud van administratieve gegevens, BBC DR of toezich" value="binnenland@vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="Een vraag over de inhoud van het mandatenbeheer" value="mandaten@vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
+    <div class="form__error" aria-describedby="radio-buttons"></div>
+  </div>
+
+  {{#if mailto}}
+    <a href={{concat "mailto:" mailto}} class="button button--large">Bericht versturen</a>
+  {{else}}
+    {{wu-button label="Bericht versturen" onClick=null size="large" disabled=true}}
+  {{/if}}
+</form>

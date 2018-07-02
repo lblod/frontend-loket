@@ -35,6 +35,7 @@ Router.map(function() {
       this.route('edit', { path: '/:id' });
     });
   });
+  this.route('contact');
 });
 
 export default Router;
