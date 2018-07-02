@@ -17,7 +17,7 @@
   {{/if}}
 
 </div>
-<div class="u-padding--round--small u-border--light--top u-align-right">
+<div class="u-padding--round--small u-border--light--top">
   {{#unless isNewReport}}
     {{#if report.status.isConcept}}
       {{#wu-link-button disabled=(not readyToSend) onClick=(action "send") class="u-spacer--tiny"}}Verstuur
