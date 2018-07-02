@@ -24,14 +24,7 @@ export default Route.extend(DataTableRouteMixin, {
       },
       include: [
         'is-bestuurlijke-alias-van',
-        'is-bestuurlijke-alias-van.is-kandidaat-voor',
-        'bekleedt',
-        'bekleedt.bestuursfunctie',
-        'bekleedt.bevat-in.is-tijdsspecialisatie-van',
-        'bekleedt.bevat-in.is-tijdsspecialisatie-van.classificatie',
-        'heeft-lidmaatschap',
-        'heeft-lidmaatschap.binnen-fractie',
-        'beleidsdomein'
+        'bekleedt.bestuursfunctie'
       ].join(',')
     };
 
