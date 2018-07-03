@@ -10,19 +10,24 @@
                 <nav class="side-navigation">
                   <div class="side-navigation__content">
                     <ul class="side-navigation__group">
-                      <li class="side-navigation__item">
-                        {{#link-to "toezicht.inzendingen"}}Toezicht{{/link-to}}
-                      </li>
-
-                      <li class="side-navigation__item">
-                        {{#link-to "bbcdr.rapporten"}}BBC DR{{/link-to}}
-                      </li>
-                      <li class="side-navigation__item">
-                        {{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}
-                      </li>
-                      <li class="side-navigation__item">
-                        {{#link-to "administratieve-gegevens.index"}}Administratieve gegevens{{/link-to}}
-                      </li>
+                      {{#if currentSession.canAccessToezicht}}
+                        <li class="side-navigation__item">
+                          {{#link-to "toezicht.inzendingen"}}Toezicht{{/link-to}}
+                        </li>
+                      {{/if}}
+                      {{#if currentSession.canAccessBbcdr}}
+                        <li class="side-navigation__item">
+                          {{#link-to "bbcdr.rapporten"}}BBC DR{{/link-to}}
+                        </li>
+                      {{/if}}
+                      {{#if currentSession.canAccessMandaat}}
+                        <li class="side-navigation__item">
+                          {{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}
+                        </li>
+                        <li class="side-navigation__item">
+                          {{#link-to "administratieve-gegevens.index"}}Administratieve gegevens{{/link-to}}
+                        </li>
+                      {{/if}}
                     </ul>
                   </div>
                 </nav>
