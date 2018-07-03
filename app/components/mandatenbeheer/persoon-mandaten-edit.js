@@ -23,10 +23,8 @@ export default Component.extend({
       },
       include: [
         'is-bestuurlijke-alias-van',
-        'bekleedt',
         'bekleedt.bestuursfunctie',
         'beleidsdomein',
-        'heeft-lidmaatschap',
         'heeft-lidmaatschap.binnen-fractie'
       ].join(',')
     };

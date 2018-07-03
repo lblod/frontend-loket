@@ -13,7 +13,7 @@ export default Route.extend({
     if (params.gemeente)
       filter.gebruiker = { 'achternaam': params.gemeente};
     return this.get('store').query('account', {
-      include: 'gebruiker,gebruiker.bestuurseenheden',
+      include: 'gebruiker.bestuurseenheden',
       filter: filter,
       page: { size: 10, number: params.page },
       sort: 'gebruiker.achternaam'
