@@ -7,7 +7,12 @@ export default Route.extend({
       refreshModel: true
     }
   },
-  store: service('store'),
+  session: service(),
+  store: service(),
+  beforeModel() {
+    if (this.session.isAuthenticated)
+      this.transitionTo('index');
+  },
   model(params) {
     const filter = { provider: 'https://github.com/lblod/mock-login-service' };
     if (params.gemeente)
