@@ -144,12 +144,6 @@ export default Component.extend({
     this.set('mandataris.heeftLidmaatschap', lidmaatschap);
   },
 
-  validateStatus: observer('status', function(){
-    this.set('statusError', null);
-    if(!this.get('status') && !this.get('createMode'))
-      this.set('statusError', 'Gelieve een status op te geven.');
-  }),
-
   valideerStartEnEinde: observer('startDate', 'endDate', function() {
     const start = this.get('startDate');
     const end = this.get('endDate');
