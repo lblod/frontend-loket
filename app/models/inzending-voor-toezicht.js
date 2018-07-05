@@ -1,13 +1,8 @@
 import Model from 'ember-data/model';
-import { collect } from '@ember/object/computed';
 import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
-  // A string representation of this model, based on its attributes.
-  // This is what mu-cl-resources uses to search on, and how the model will be presented while editing relationships.
-  stringRep: collect.apply(this,['id', 'created', 'modified', 'sentDate', 'description', 'remark', 'temporalCoverage', 'businessIdentifier', 'businessName', 'dateOfEntryIntoForce', 'endDate', 'hasExtraTaxRates', 'agendaItemCount', 'sessionDate', 'title', 'administrationType', 'administrationName', 'decisionDateOtherAdministration', 'decisionSummary', 'dateHandover', 'text']),
-
   created: attr('datetime'),
   modified: attr('datetime'),
   sentDate: attr('datetime'),
@@ -22,8 +17,6 @@ export default Model.extend({
   agendaItemCount: attr(),
   sessionDate: attr('datetime'),
   title: attr(),
-  administrationType: attr(),
-  administrationName: attr(),
   decisionDateOtherAdministration: attr('date'),
   decisionSummary: attr(),
   dateHandover: attr('date'),
