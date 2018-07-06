@@ -33,6 +33,10 @@ Router.map(function() {
     });
   });
   this.route('contact');
+
+  this.route('route-not-found', {
+    path: '/*wildcard'
+  });
 });
 
 export default Router;
