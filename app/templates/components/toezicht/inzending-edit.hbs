@@ -25,28 +25,6 @@
 
 {{#unless isWorking}}
   <div class="u-padding--round--small u-border--light--top">
-    {{#if isNew}}
-      {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt delete-me-toggle-new"}}Annuleer{{/link-to}}
-    {{else}}
-      {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt delete-me-toggle-new"}}Sluit{{/link-to}}
-    {{/if}}
-
-    {{#if canDelete}}
-      {{#wu-link-button
-         class="button button--narrow button--alt button--alt--warning delete-me-toggle-concept delete-me-toggle-modal-delete-concept"
-         isNarrow=true isAlt=true onClick=(action "deleteInzending")
-      }}
-        Verwijder
-      {{/wu-link-button}}
-    {{/if}}
-
-    {{#if isNew}}
-      {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "create") class="button button--narrow button--alt"}}
-    {{else}}
-      {{#if canSend}}
-        {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt"}}
-      {{/if}}
-    {{/if}}
 
     {{#unless isNew}}
       {{#if canSend}}
@@ -59,5 +37,28 @@
         {{/wu-link-button}}
       {{/if}}
     {{/unless}}
+
+    {{#if isNew}}
+      {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "create") class="button button--narrow button--alt"}}
+    {{else}}
+      {{#if canSend}}
+        {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt"}}
+      {{/if}}
+    {{/if}}
+
+    {{#if canDelete}}
+      {{#wu-link-button
+         class="button button--narrow button--alt button--alt--warning delete-me-toggle-concept delete-me-toggle-modal-delete-concept"
+         isNarrow=true isAlt=true onClick=(action "deleteInzending")
+      }}
+        Verwijder
+      {{/wu-link-button}}
+    {{/if}}
+
+    {{#if isNew}}
+      {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt delete-me-toggle-new"}}Annuleer{{/link-to}}
+    {{else}}
+      {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt delete-me-toggle-new"}}Sluit{{/link-to}}
+    {{/if}}
   </div>
 {{/unless}}
