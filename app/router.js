@@ -33,7 +33,13 @@ Router.map(function() {
     });
   });
   this.route('contact');
-
+  this.route('pub', function() {
+    this.route('toezicht', function() {
+      this.route('inzendingen', function() {
+        this.route('show', { path: '/:id' });
+      });
+    });
+  });
   this.route('route-not-found', {
     path: '/*wildcard'
   });

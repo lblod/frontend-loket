@@ -1,0 +1,31 @@
+<div class="grid">
+  <div>
+    {{shared/document-status-pill inzending.status class="u-spacer--small"}}
+    <h2 class="h3">Bekijk besluit</h2>
+  </div>
+</div>
+
+<div class="grid u-spacer--small">
+  <div class="col--4-12">
+    <div class="description-data__label">Bestuur</div>
+    <div class="description-data__value">{{inzending.bestuurseenheid.classificatie.label}} {{inzending.bestuurseenheid.naam}}</div>
+  </div>
+  <div class="col--4-12">
+    <div class="description-data__label">Bewerkt op</div>
+    <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
+  </div>
+  <div class="col--4-12">
+    <div class="description-data__label">Verstuurd op</div>
+    {{#if inzending.status.isVerstuurd}}
+      <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
+    {{else}}
+      <div class="description-data__value">-</div>
+    {{/if}}
+  </div>
+</div>
+
+<div class="container-flex--scroll u-padding--round--small">
+  {{root-form-node solution=model onDynamicFormInit=null show=true}}
+</div>
+
+{{outlet}}
