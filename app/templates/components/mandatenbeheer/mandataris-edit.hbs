@@ -1,70 +1,91 @@
-<label class="form__label">Mandaat</label>
-{{mandatenbeheer/mandaat-bestuursorganen-selector
-  onSelect=(action 'setMandaat')
-  bestuursorganen=bestuursorganen
-  mandaat=mandaat
-  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
-  allowClear=true
-  disabled=viewMode
-}}
-<label class="form__label">Beleidsdomeinen</label>
-{{mandatenbeheer/beleidsdomein-selector-with-create
-  onSelect=(action 'setBeleidsdomein')
-  beleidsdomeinen=beleidsdomeinen
-  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
-  disabled=viewMode
-}}
-<label class="form__label" for="mandataris-rangorde">Rangorde</label>
-{{input
-  class="input-field input-field--block u-spacer--bottom--small js-js-input-pattern-bound"
-  placeholder="Eerste schepen"
-  value=rangorde
-  disabled=viewMode
-}}
-<label class="form__label">Status</label>
-{{mandatenbeheer/mandataris-status-code-selector
-  onSelect=(action "setStatusCode")
-  statusCode=status
-  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
-  allowClear=true
-  disabled=viewMode
-}}
-{{#if statusError}}
-  <div class="form__error">{{statusError}}</div>
-{{/if}}
-<div class="grid u-spacer--bottom--small">
-  <div class="col--6-12">
-    <label class="form__label" for="datepicker-from">Geplande start</label>
-    {{wu-datepicker
-      placeholder="01-01-2018"
-      class=(with-error-class startDateError "date-picker-mandataris-edit")
-      value=(mut startDate)
-      dateFormat=dateFormat
-      disabled=viewMode}}
-    {{#if startDateError}}
-      <div class="form__error">{{startDateError}}</div>
-    {{/if}}
-  </div>
-  <div class="col--6-12">
-    <label class="form__label" for="datepicker-to">Gepland einde</label>
-    {{wu-datepicker
-      placeholder="01-01-2019"
-      class=(with-error-class endDateError "date-picker-mandataris-edit")
-      value=endDate
-      dateFormat=dateFormat
-      disabled=viewMode}}
-    {{#if endDateError}}
-      <div class="form__error">{{endDateError}}</div>
-    {{/if}}
-  </div>
+<div class="row">
+	<div class="col--1-1 u-spacer--bottom--tiny">
+		<label class="form__label">Mandaat</label>
+		{{mandatenbeheer/mandaat-bestuursorganen-selector
+		  onSelect=(action 'setMandaat')
+		  bestuursorganen=bestuursorganen
+		  mandaat=mandaat
+		  class="temporary-select__wrapper temporary-select__wrapper--block"
+		  allowClear=true
+		  disabled=viewMode
+		}}
+	</div>
+
+	<div class="col--1-1 u-spacer--bottom--tiny">
+		<div class="grid">
+		  <div class="col--6-12">
+		    <label class="form__label" for="datepicker-from">Geplande start</label>
+		    {{wu-datepicker
+		      placeholder="01-01-2018"
+		      class=(with-error-class startDateError "date-picker-mandataris-edit")
+		      value=(mut startDate)
+		      dateFormat=dateFormat
+		      disabled=viewMode}}
+		    {{#if startDateError}}
+		      <div class="form__error">{{startDateError}}</div>
+		    {{/if}}
+		  </div>
+		  <div class="col--6-12">
+		    <label class="form__label" for="datepicker-to">Gepland einde</label>
+		    {{wu-datepicker
+		      placeholder="01-01-2019"
+		      class=(with-error-class endDateError "date-picker-mandataris-edit")
+		      value=endDate
+		      dateFormat=dateFormat
+		      disabled=viewMode}}
+		    {{#if endDateError}}
+		      <div class="form__error">{{endDateError}}</div>
+		    {{/if}}
+		  </div>
+		</div>
+	</div>
+
+	<div class="col--1-1 u-spacer--bottom--tiny">
+		<label class="form__label">Fractie</label>
+		{{mandatenbeheer/fractie-selector
+		  onSelect=(action 'setFractie')
+		  fractie=fractie
+		  allowClear=true
+		  class="temporary-select__wrapper temporary-select__wrapper--block"
+		  disabled=viewMode}}
+	</div>
+
+	<div class="col--1-1 u-spacer--bottom--tiny">
+		<label class="form__label">Beleidsdomeinen</label>
+		{{mandatenbeheer/beleidsdomein-selector-with-create
+		  onSelect=(action 'setBeleidsdomein')
+		  beleidsdomeinen=beleidsdomeinen
+		  class="temporary-select__wrapper temporary-select__wrapper--block"
+		  disabled=viewMode
+		}}
+		<p class="form__annotation">Enkel voor schepenen</p>
+	</div>
+
+
+	<div class="col--1-1 u-spacer--bottom--tiny">
+		<label class="form__label" for="mandataris-rangorde">Rangorde</label>
+		{{input
+		  class="input-field input-field--block js-js-input-pattern-bound"
+		  placeholder="Eerste schepen"
+		  value=rangorde
+		  disabled=viewMode
+		}}
+		<p class="form__annotation">Enkel voor schepenen</p>
+	</div>
+
+	<div class="col--1-1 u-spacer--bottom--tiny">
+		<label class="form__label">Status</label>
+		{{mandatenbeheer/mandataris-status-code-selector
+		  onSelect=(action "setStatusCode")
+		  statusCode=status
+		  class="temporary-select__wrapper temporary-select__wrapper--block"
+		  allowClear=true
+		  disabled=viewMode
+		}}
+		<p class="form__annotation">Enkel voor burgemeester</p>
+	</div>
 </div>
-<label class="form__label">Fractie</label>
-{{mandatenbeheer/fractie-selector
-  onSelect=(action 'setFractie')
-  fractie=fractie
-  allowClear=true
-  class="temporary-select__wrapper temporary-select__wrapper--block u-spacer--bottom--small"
-  disabled=viewMode}}
+
 <div class="u-spacer--top--small">
   {{#if requiredFieldError}}
     {{wu-alert message="Gelieve een mandaat op te geven." isError=true}}
@@ -82,14 +103,15 @@
     {{#if viewMode}}
       {{#wu-button class="button button--small button--narrow" onClick=(action "edit") }} Editeer {{/wu-button}}
     {{else}}
-      {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
       {{#wu-button class="button button--small button--narrow" onClick=(action "save") }}
         {{#if createMode}}
           Voeg toe
         {{else}}
-          Bewaar
+          Pas aan
         {{/if}}
       {{/wu-button}}
+      {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+      <div class="u-padding--top--small"><small>Pas enkel fouten en het geplande einde aan. Voor andere acties, voeg een nieuw mandaat toe.</small></div>
     {{/if}}
   {{/if}}
 </div>

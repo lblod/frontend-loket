@@ -1,28 +1,33 @@
 <div class="container">
   {{wu-widget src=header}}
   {{#if session.isAuthenticated}}
-  <div class="container-flex--contain">
-    <div class="grid grid--collapse">
-      <div class="col--2-12 col--3-12--m u-hidden--s">
-        <div class="container-flex--contain">
+    <div class="container-flex--contain">
+      <div class="grid grid--collapse">
+        <div class="col--2-12 col--3-12--m u-hidden--s">
+          <div class="container-flex--contain">
             <div class="sidebar">
               <div class="sidebar__content">
                 <nav class="side-navigation">
                   <div class="side-navigation__content">
                     <ul class="side-navigation__group">
-                      <li class="side-navigation__item">
-                        {{#link-to "toezicht.inzendingen"}}Toezicht{{/link-to}}
-                      </li>
-
-                      <li class="side-navigation__item">
-                        {{#link-to "bbcdr.rapporten"}}BBC DR{{/link-to}}
-                      </li>
-                      <li class="side-navigation__item">
-                        {{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}
-                      </li>
-                      <li class="side-navigation__item">
-                        {{#link-to "administratieve-gegevens.index"}}Administratieve gegevens{{/link-to}}
-                      </li>
+                      {{#if currentSession.canAccessToezicht}}
+                        <li class="side-navigation__item">
+                          {{#link-to "toezicht.inzendingen"}}Toezicht{{/link-to}}
+                        </li>
+                      {{/if}}
+                      {{#if currentSession.canAccessBbcdr}}
+                        <li class="side-navigation__item">
+                          {{#link-to "bbcdr.rapporten"}}BBC DR{{/link-to}}
+                        </li>
+                      {{/if}}
+                      {{#if currentSession.canAccessMandaat}}
+                        <li class="side-navigation__item">
+                          {{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}
+                        </li>
+                        <li class="side-navigation__item">
+                          {{#link-to "administratieve-gegevens.index"}}Administratieve gegevens{{/link-to}}
+                        </li>
+                      {{/if}}
                     </ul>
                   </div>
                 </nav>
@@ -31,11 +36,11 @@
                 {{acmidm-logout class="button button--alt button--block"}}
               </div>
             </div>
+          </div>
         </div>
+        {{outlet}}
       </div>
-      {{outlet}}
     </div>
-  </div>
   {{else}}
     {{outlet}}
   {{/if}}

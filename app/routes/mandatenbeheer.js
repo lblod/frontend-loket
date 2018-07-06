@@ -23,6 +23,11 @@ export default Route.extend(AuthenticatedRouteMixin, {
     return organen.firstObject;
   },
 
+  beforeModel() {
+    if (!this.currentSession.canAccessMandaat)
+      this.transitionTo('index');
+  },
+
   async model(){
     const bestuurseenheid = await this.get('currentSession.group');
     return RSVP.hash({

@@ -16,6 +16,18 @@
 
 <div class="container-flex--scroll u-padding--round--small">
   <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
+  <div class="alert alert--small alert--warning">
+    <div class="alert__content">
+      <div class="grid">
+        <div class="col--11-12">
+          <div class="alert__message">
+            <p>Verbeter enkel fouten per mandaat. Voor een <strong>nieuw mandaat of aangepaste status</strong>, <strong>voeg een nieuw mandaat</strong> toe en beëindig het oude mandaat indien&nbsp;nodig.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <ul>
     {{#each mandatarissen as |mandataris|}}
       {{mandatenbeheer/mandataris-edit
@@ -34,16 +46,16 @@
 
 
   {{!-- This section is here temporarily for ABB to review all the mandates in August --}}
-
+{{!--
   <div class="alert alert--small alert--success">
     <label class="checkbox checkbox--block">
       <input type="checkbox" name="checkbox" value="0" checked="checked" class="checkbox__toggle"/>
       <span></span>
       <span>De persoon en al de bijbehorende mandaten werden nagekeken.</span>
     </label>
-  </div>
+  </div> --}}
 
 </div>
-<div class="u-padding--round--small u-border--light--top u-align-right">
+<div class="u-padding--round--small u-border--light--top">
   {{#wu-button class="button button--narrow button--alt" onClick=(action "finish")}}Sluit{{/wu-button}}
 </div>

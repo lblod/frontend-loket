@@ -1,0 +1,15 @@
+{{#if session.isAuthenticated}}
+  <div class="col--10-12 col--9-12--m col--1-1--s">
+    <div class="container-flex--scroll u-spacer--top u-spacer--left">
+      <h1 class="h1">Contact</h1>
+      {{contact-form}}
+    </div>
+  </div>
+{{else}}
+  {{wu-content-header tagline="Loket"}}
+  <div class="layout layout--wide">
+    <h1 class="h1">Contact</h1>
+    {{contact-form}}
+  </div>
+{{/if}}
+{{outlet}}

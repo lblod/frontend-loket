@@ -21,7 +21,13 @@ export default Component.extend({
     this._super(...arguments);
 
     if (this.get('model')) {
-      const value = this.get(`solution.${this.get('model.identifier')}`);
+      let value = await this.get(`solution.${this.get('model.identifier')}`);
+
+      if (value && value.get('isNew')) { // only already existing options are allowed
+        value.destroyRecord();
+        value = null;
+      }
+
       this.set('object_instance', value);
     }
   },
@@ -39,7 +45,8 @@ export default Component.extend({
     if (searchData)
       queryParams['filter[classificatie]'] = searchData;
 
-    return yield this.get('store').query('bestuursorgaan', queryParams);
+    const resources = yield this.get('store').query('bestuursorgaan', queryParams);
+    return resources;
   }),
 
   actions: {

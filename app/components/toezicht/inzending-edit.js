@@ -119,7 +119,7 @@ export default Component.extend({
       if(this.hasError) return;
       this.get('router').transitionTo('toezicht.inzendingen.index');
     },
-    async delete(){
+    async deleteInzending(){
       this.flushErrors();
       this.set('deleteModal', true);
     },
