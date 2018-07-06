@@ -14,8 +14,9 @@ export default Controller.extend({
   }),
 
   search: task(function* (searchData) {
-   yield timeout(300);
-   yield this.set('filter', searchData);
+    yield timeout(300);
+    this.set('page', 0);
+    yield this.set('filter', searchData);
   }).restartable(),
 
   actions: {
