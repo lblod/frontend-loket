@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { gte, equal } from '@ember/object/computed';
 import { and, not } from 'ember-awesome-macros';
 import { A } from '@ember/array';
+import { all } from 'rsvp';
 
 export default Component.extend({
   classNames: ['col--4-12 col--9-12--m col--12-12--s container-flex--contain'],
@@ -27,8 +28,8 @@ export default Component.extend({
 
   async deleteReport(){
     const files = await this.report.files;
-    files.forEach(file => file.destroyRecord());
-    this.report.destroyRecord();
+    await all(files.map(file => file.destroyRecord()));
+    await this.report.destroyRecord();
   },
 
   hasOutstandingChanges(){
