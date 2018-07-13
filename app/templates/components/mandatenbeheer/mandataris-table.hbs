@@ -2,7 +2,9 @@
    sort=sort page=page size=size class="container-flex--contain data-table--nowrap" as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      <th class="u-hidden--mobile">Orgaan</th>
+      {{#unless displaySubset}}
+        <th class="u-hidden--mobile">Orgaan</th>
+      {{/unless}}
       {{th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="u-hidden-mobile"}}
       {{th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
       {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
@@ -14,11 +16,13 @@
       <th></th>
     {{/c.header}}
     {{#c.body as |row|}}
-      <td class="u-hidden-mobile">
-        {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}
-          {{bestuursorgaan.isTijdsspecialisatieVan.naam}}<br>
-        {{/each}}
-      </td>
+      {{#unless displaySubset}}
+        <td class="u-hidden-mobile">
+          {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}
+            {{bestuursorgaan.isTijdsspecialisatieVan.naam}}<br>
+          {{/each}}
+        </td>
+      {{/unless}}
       <td class="u-hidden-mobile">
         {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
       </td>
