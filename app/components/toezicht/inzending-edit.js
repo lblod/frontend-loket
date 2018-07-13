@@ -19,12 +19,12 @@ export default Component.extend({
     this.set('errorMsg', '');
   },
 
-  canDelete: computed('isNew', 'model.inzendingVoorToezicht.status.id', function(){
-    return !this.get('isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  canDelete: computed('model.isNew', 'model.inzendingVoorToezicht.status.id', function(){
+    return !this.get('model.isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),
 
-  canSend: computed('isNew', 'model.inzendingVoorToezicht.status.id', function(){
-    return !this.get('isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  canSend: computed('model.inzendingVoorToezicht.status.id', 'files.[]', function(){
+    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd') && this.get('files.length');
   }),
 
   isWorking: computed('save.isRunning','delete.isRunning','send.isRunning', function(){
@@ -115,6 +115,7 @@ export default Component.extend({
     },
     async send(){
       this.flushErrors();
+      await this.save.perform();
       await this.send.perform();
       if(this.hasError) return;
       this.get('router').transitionTo('toezicht.inzendingen.index');
