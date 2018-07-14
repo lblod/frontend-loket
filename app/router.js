@@ -38,6 +38,7 @@ Router.map(function() {
       this.route('inzendingen', function() {
         this.route('show', { path: '/:id' });
       });
+      this.route('rapporten');
     });
   });
   this.route('route-not-found', {
