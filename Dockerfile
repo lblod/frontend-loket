@@ -11,7 +11,7 @@ RUN ember build -prod
 
 FROM semtech/ember-proxy-service:1.3.0
 
-ENV STATIC_FOLDERS_REGEX "^/(assets|font|files)/"
+ENV STATIC_FOLDERS_REGEX "^/(assets|font|files|rapporten)/"
 
 COPY ./proxy/torii-authorization.conf /config/torii-authorization.conf
 COPY ./proxy/file-upload.conf /config/file-upload.conf
