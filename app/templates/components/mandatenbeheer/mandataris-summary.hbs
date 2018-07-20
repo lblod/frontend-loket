@@ -1,0 +1,19 @@
+<div class="col--5-12">
+  <p>
+    <strong>{{rol}}</strong>
+  </p>
+</div>
+<div class="col--7-12 u-align-right">
+  {{#unless isEditing}}
+    <a class="button button--small button--narrow u-spacer--bottom--tiny js-accordion__toggle js-accordion-bound" {{action "edit"}}>Bewerk</a>
+  {{/unless}}
+</div>
+<div class="col--12-12">
+  <p>
+    {{moment-format start 'DD/MM/YYYY'}} —
+    {{#if einde}}
+      {{moment-format einde 'DD/MM/YYYY'}}
+    {{/if}}
+  </p>
+  <p>{{fractie}}</p>
+</div>
