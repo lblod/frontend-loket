@@ -15,18 +15,8 @@
 </div>
 
 <div class="container-flex--scroll u-padding--round--small">
-  <h4 class="h6 sans-serif u-spacer--bottom--tiny">Mandaten</h4>
-  <div class="alert alert--small alert--warning">
-    <div class="alert__content">
-      <div class="grid">
-        <div class="col--11-12">
-          <div class="alert__message">
-            <p>Verbeter enkel fouten per mandaat. Voor een <strong>nieuw mandaat of aangepaste status</strong>, <strong>voeg een nieuw mandaat</strong> toe en beëindig het oude mandaat indien&nbsp;nodig.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h4 class="h6 sans-serif u-spacer--bottom--tiny">Alle mandaten</h4>
+  <div class="u-hr u-spacer--bottom--small"></div>
 
   <ul>
     {{#each mandatarissen as |mandataris|}}
@@ -39,8 +29,8 @@
       }}
     {{/each}}
   </ul>
-  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "createMandataris"}}>
-    <i class="vi vi-plus" aria-hidden="true"></i>Voeg mandaat toe
+  <a class="button button--alt button--block u-spacer--bottom--small" {{action "createMandataris"}}>
+    <i class="vi vi-plus" aria-hidden="true"></i>Voeg nieuw mandaat toe
   </a>
 
 
