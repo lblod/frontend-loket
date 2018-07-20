@@ -1,7 +1,7 @@
 <div class="u-padding--trl--small u-border--light--bottom">
   <div class="grid">
     <div class="col--9-12">
-      <h2 class="h3 u-spacer--bottom--tiny">Bewerk mandaten {{persoon.gebruikteVoornaam}} {{persoon.achternaam}}</h2>
+      <h2 class="h3 u-spacer--bottom--tiny">Bewerk mandaten<br>{{persoon.gebruikteVoornaam}} {{persoon.achternaam}}</h2>
     </div>
     <div class="col--3-12 u-align-right">
       {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
@@ -9,13 +9,38 @@
       {{/link-to}}
     </div>
   </div>
-  <div>
-    {{mandatenbeheer/persoon-card persoon=persoon}}
-  </div>
 </div>
 
+
 <div class="container-flex--scroll u-padding--round--small">
-  <h4 class="h6 sans-serif u-spacer--bottom--tiny">Alle mandaten</h4>
+
+  <div class="u-spacer--large">
+    <div class="grid">
+      <div class="col--6-12">
+        <div class="description-data__label">Rijksregisternummer</div>
+        <div class="description-data__value">{{mandatenbeheer/display-rrn persoon.identificator.identificator}}</div>
+      </div>
+      <div class="col--6-12">
+        <div class="description-data__label">Geboortedatum</div>
+        <div class="description-data__value">
+          {{#if persoon.geboorte.datum}}
+            {{moment-format persoon.geboorte.datum 'DD-MM-YYYY'}}
+          {{/if}}
+        </div>
+      </div>
+      <div class="col--6-12">
+        <div class="description-data__label">Geslacht</div>
+        <div class="description-data__value">{{persoon.geslacht.label}}</div>
+      </div>
+      <div class="col--6-12">
+        <div class="description-data__label">Roepnaam</div>
+        <div class="description-data__value">{{persoon.gebruikteVoornaam}}</div>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="h6 sans-serif u-spacer--bottom--tiny">Lijst van alle mandaten</h4>
+
   <div class="u-hr u-spacer--bottom--small"></div>
 
   <ul>
@@ -29,7 +54,7 @@
       }}
     {{/each}}
   </ul>
-  <a class="button button--alt button--block u-spacer--bottom--small" {{action "createMandataris"}}>
+  <a id="nieuwmandaat" class="button button--alt button--block u-spacer--bottom--small" {{action "createMandataris"}}>
     <i class="vi vi-plus" aria-hidden="true"></i>Voeg nieuw mandaat toe
   </a>
 

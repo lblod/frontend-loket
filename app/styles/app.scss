@@ -213,3 +213,39 @@
   text-align: center;
   top: 0.7rem;
 }
+
+/* temporary fix for calendar full width and disabled look, need to make sure in the future we can fix this the right way */
+
+.input-field--disabled {
+  .input-field {
+    background-color: #f4f5f7;
+    color: #ADADAD;
+  }
+}
+
+.input-field--block {
+  .datepicker {
+    display: block;
+    width: 100%;
+  }
+  .input-field {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* temporary fix for contact cards in webuniversum*/
+
+.contact-card.contact-card--wide {
+  .contact-card__data,
+  .contact-card__map {
+    width: 100%;
+  }
+
+  .contact-card__data__title,
+  .contact-card__data__content {
+    float: none;
+    width: 100%;
+    display: block;
+  }
+}
