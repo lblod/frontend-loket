@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
+import { debug } from '@ember/debug';
 
 export default Component.extend({
   currentSession: service(),
@@ -24,6 +25,7 @@ export default Component.extend({
       let value = await this.get(`solution.${this.get('model.identifier')}`);
 
       if (value && value.get('isNew')) { // only already existing options are allowed
+        debug(`Reset value of toezicht-besluit-type-select to null`);
         value.destroyRecord();
         value = null;
       }
@@ -33,7 +35,8 @@ export default Component.extend({
   },
 
   search: task(function* (searchData){
-    yield timeout(300);
+    if (searchData)
+      yield timeout(300);
 
     const bestuurseenheid = yield this.get('currentSession.group');
     const classificatie = yield bestuurseenheid.get('classificatie');
@@ -47,7 +50,7 @@ export default Component.extend({
 
     const resources = yield this.get('store').query('besluit-type', queryParams);
     return resources;
-  }),
+  }).keepLatest(),
 
   actions: {
     select(object_instance){
