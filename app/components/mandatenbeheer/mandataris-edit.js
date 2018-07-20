@@ -10,8 +10,11 @@ import { computed } from '@ember/object';
 export default Component.extend({
   store: service(),
   dateFormat: 'DD-MM-YYYY',
-  editOnlyMode: true, //some components will change behaviour when being in editMode
+  editMode: false, //some components will change behaviour when being in editMode
+  correctMode: false,
+  terminateMode: false,
   createMode: false,
+  promptMode: false,
   viewMode: computed('editOnlyMode', 'createMode', function(){
     return !(this.get('editOnlyMode') || this.get('createMode'));
   }),
@@ -201,18 +204,25 @@ export default Component.extend({
     async save(){
       let mandataris = await this.save.perform();
       if(!this.get('hasFatalError')){
-        this.set('editOnlyMode', false);
-        this.set('createMode', false);
+        this.set('promptMode', false);
+        this.set('editMode', false);
+        this.set('terminateMode', false);
+        this.set('correctMode', false);
         this.get('onSave')(mandataris);
       }
     },
 
     cancel(){
       this.initComponentProperties();
-      if(this.get('createMode'))
+      if(this.get('createMode')){
         this.get('onCancelCreate')(this.get('mandataris'));
-      else
-        this.set('editOnlyMode', false);
+      }
+      else {
+        this.set('promptMode', false);
+        this.set('editMode', false);
+        this.set('terminateMode', false);
+        this.set('correctMode', false);
+      }
     },
 
     previous(){
@@ -220,7 +230,18 @@ export default Component.extend({
     },
 
     edit(){
-      this.set('editOnlyMode', true);
+      this.set('editMode', false);
+      this.set('promptMode', true);
+    },
+    correct(){
+      this.set('promptMode', false);
+      this.set('editMode', true);
+      this.set('correctMode', !this.get('correctMode'));
+    },
+    terminate(){
+      this.set('promptMode', false);
+      this.set('editMode', true);
+      this.set('terminateMode', !this.get('terminateMode'));
     }
   }
 });
