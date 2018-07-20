@@ -138,7 +138,7 @@
                 <label class="form__label" for="datepicker-from">Start</label>
                 {{wu-datepicker
                   placeholder="01-01-2018"
-                  class=(with-error-class startDateError "date-range__datepicker datepicker")
+                  class=(with-error-class startDateError "date-range__datepicker datepicker input-field--disabled input-field--block")
                   value=(mut startDate)
                   dateFormat=dateFormat
                   disabled=true
@@ -148,7 +148,7 @@
                 <label class="form__label" for="datepicker-from">Einde</label>
                 {{wu-datepicker
                   placeholder="01-01-2019"
-                  class=(with-error-class endDateError "date-range__datepicker datepicker")
+                  class=(with-error-class endDateError "date-range__datepicker datepicker input-field--block")
                   value=endDate
                   dateFormat=dateFormat
                 }}
@@ -171,8 +171,10 @@
                   </div>
                 </div>
               {{else}}
-                {{#wu-button class="button button--small button--narrow" onClick=(action "save") }} Beeïndig mandaat {{/wu-button}}
-                {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+                <div class="button-group">
+                  {{#wu-button class="button button--small button--narrow" onClick=(action "save") }} Beeïndig mandaat {{/wu-button}}
+                  {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+                </div>
               {{/if}}
             </div>
           </div>
