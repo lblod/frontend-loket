@@ -7,7 +7,9 @@
       {{/unless}}
       {{th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="u-hidden-mobile"}}
       {{th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
-      {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
+      {{#unless displaySubset}}
+        {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
+      {{/unless}}
       {{th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
       {{#unless displaySubset}}
         {{th-sortable field='start' currentSorting=sort label='Start mandaat' class="u-visible--tablet-landscape-up"}}
@@ -29,9 +31,11 @@
       <td>
         {{row.isBestuurlijkeAliasVan.achternaam}}
       </td>
-      <td class="u-visible--tablet-portrait-up">
-        {{row.heeftLidmaatschap.binnenFractie.naam}}
-      </td>
+      {{#unless displaySubset}}
+        <td class="u-visible--tablet-portrait-up">
+          {{row.heeftLidmaatschap.binnenFractie.naam}}
+        </td>
+      {{/unless}}
       <td>
         {{row.bekleedt.bestuursfunctie.label}}
       </td>
