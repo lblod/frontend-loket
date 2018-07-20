@@ -30,7 +30,7 @@ export default Component.extend({
     this.set('saveError', false);
     this.set('requiredFieldError', false);
     this.set('fractie', await this.get('mandataris.heeftLidmaatschap.binnenFractie'));
-    this.set('beleidsdomeinen', (await this.get('mandataris.beleidsdomein')) || A());
+    this.set('beleidsdomeinen', ((await this.get('mandataris.beleidsdomein')) || A()).toArray());
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
