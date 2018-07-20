@@ -204,6 +204,7 @@ export default Component.extend({
     async save(){
       let mandataris = await this.save.perform();
       if(!this.get('hasFatalError')){
+        this.set('createMode', false);
         this.set('promptMode', false);
         this.set('editMode', false);
         this.set('terminateMode', false);
@@ -215,6 +216,7 @@ export default Component.extend({
     cancel(){
       this.initComponentProperties();
       if(this.get('createMode')){
+        this.set('createMode', false);
         this.get('onCancelCreate')(this.get('mandataris'));
       }
       else {
