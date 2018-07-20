@@ -9,121 +9,123 @@
 
 
     <div class="container-flex--scroll">
-      <div class="u-padding--round--small">
-        <div class="grid">
-          <div class="col--6-12">
-            <h2 class="contact-card__title h5 u-spacer--tb--tiny">Contactgegevens</h2>
-          </div>
-          <div class="col--6-12 u-align-right">
-            <div class="button-group u-visible--tablet-portrait-up">
-              {{#wu-button class="button--narrow" disabled=saveContactInfo.isRunning onClick=(perform saveContactInfo) isLoading=saveContactInfo.isRunning}}Contactgegevens opslaan{{/wu-button}}
-            </div>
-          </div>
-          <div class="col--12-12">
-            {{#if contactErrorMessage}}
-              {{wu-alert title="Fout bij opslaan" message=contactErrorMessage isWarning=true}}
-            {{/if}}
-          </div>
-        </div>
-
-        <div class="u-background--gray-lighter u-padding--round--small">
+      <section class="contact-card contact-card--wide u-spacer--bottom">
+        <div class="u-padding--round--small">
           <div class="grid">
-            <div class="col--5-12 col--12-12--m col--12-12--s">
-              <div class="u-spacer">
-                <div class="form__row">
-                  <div class="form__label">
-                    <label class="form__label">Straat en huisnummer </label>
-                  </div>
-                  <div class="form__input">
-                    {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="Nieuwstraat 123" value=(mut model.primaireSite.vestigingsadres.adres)}}
-                  </div>
-                </div>
-                <div class="form__row">
-                  <div class="grid">
-                    <div class="col--8-12 col--12-12--s col--6-12--m">
-                      <div class="form__label">
-                        <label class="form__label">Gemeente </label>
-                      </div>
-                      <div class="form__input">
-                        {{input disabled=saveContactInfo.isRunning class="input-field input-field--block" placeholder="Antwerpen" value=(mut model.primaireSite.vestigingsadres.gemeente)}}
-                      </div>
+            <div class="col--6-12">
+              <h2 class="contact-card__title h5 u-spacer--tb--tiny">Contactgegevens</h2>
+            </div>
+            <div class="col--6-12 u-align-right">
+              <div class="button-group u-visible--tablet-portrait-up">
+                {{#wu-button class="button--narrow" disabled=saveContactInfo.isRunning onClick=(perform saveContactInfo) isLoading=saveContactInfo.isRunning}}Contactgegevens opslaan{{/wu-button}}
+              </div>
+            </div>
+            <div class="col--12-12">
+              {{#if contactErrorMessage}}
+                {{wu-alert title="Fout bij opslaan" message=contactErrorMessage isWarning=true}}
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="u-background--gray-lighter u-padding--round--small">
+            <div class="grid">
+              <div class="col--5-12 col--12-12--m col--12-12--s">
+                <div class="u-spacer">
+                  <div class="form__row">
+                    <div class="form__label">
+                      <label class="form__label">Straat en huisnummer </label>
                     </div>
-                    <div class="col--4-12">
-                      <div class="form__label">
-                        <label class="form__label">Postcode </label>
-                      </div>
-                      <div class="form__input">
-                        {{input class="input-field" placeholder="2000" value=(mut model.politiezone.contactinfo.firstObject.postcode)}}
-                      </div>
+                    <div class="form__input">
+                      {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="Nieuwstraat 123" value=(mut model.primaireSite.vestigingsadres.adres)}}
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="u-spacer">
-            <div class="grid">
-              <div class="col--3-12 col--6-12--m col--12-12--s">
-                <div class="form__row">
-                  <div class="form__label">
-                    <label class="form__label">Telefoon</label>
-                  </div>
-                  <div class="form__input">
-                    {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.telephone)}}
-                  </div>
-                </div>
-              </div>
-
-              <div class="col--3-12 col--6-12--m col--12-12--s">
-                <div class="form__row">
-                  <div class="form__label">
-                    <label class="form__label">Fax</label>
-                  </div>
-                  <div class="form__input">
-                    {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.fax)}}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="u-spacer">
-            <div class="grid">
-              <div class="col--3-12 col--6-12--m col--12-12--s">
-                <div class="form__row">
-                  <div class="form__label">
-                    <label class="form__label">Email</label>
-                  </div>
-                  <div class="form__input">
-                    {{input disabled=saveContactInfo.isRunning class="input-field input-field--block" placeholder="info@gemeente.be" value=(mut model.primaireSite.vestigingsadres.email)}}
-                  </div>
-                </div>
-              </div>
-
-              <div class="col--3-12 col--6-12--m col--12-12--s">
-                <div class="form__row">
-                  <div class="form__label">
-                    <label class="form__label">Website</label>
-                  </div>
-                  <div class="form__input">
-                    {{input disabled=saveContactInfo.isRunning class="input-field input-field--block" placeholder="http://www.gemeente.be" value=(mut model.primaireSite.vestigingsadres.website)}}
+                  <div class="form__row">
+                    <div class="grid">
+                      <div class="col--8-12 col--12-12--s col--6-12--m">
+                        <div class="form__label">
+                          <label class="form__label">Gemeente </label>
+                        </div>
+                        <div class="form__input">
+                          {{input disabled=saveContactInfo.isRunning class="input-field input-field--block" placeholder="Antwerpen" value=(mut model.primaireSite.vestigingsadres.gemeente)}}
+                        </div>
+                      </div>
+                      <div class="col--4-12">
+                        <div class="form__label">
+                          <label class="form__label">Postcode </label>
+                        </div>
+                        <div class="form__input">
+                          {{input class="input-field" placeholder="2000" value=(mut model.politiezone.contactinfo.firstObject.postcode)}}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-          </div>
-          <div class="button-group u-hidden--tablet-portrait-up">
-            {{#wu-button class="button--block" disabled=saveContactInfo.isRunning onClick=(perform saveContactInfo) isLoading=saveContactInfo.isRunning}}Contactgegevens opslaan{{/wu-button}}
+            <div class="u-spacer">
+              <div class="grid">
+                <div class="col--3-12 col--6-12--m col--12-12--s">
+                  <div class="form__row">
+                    <div class="form__label">
+                      <label class="form__label">Telefoon</label>
+                    </div>
+                    <div class="form__input">
+                      {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.telephone)}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col--3-12 col--6-12--m col--12-12--s">
+                  <div class="form__row">
+                    <div class="form__label">
+                      <label class="form__label">Fax</label>
+                    </div>
+                    <div class="form__input">
+                      {{input disabled=saveContactInfo.isRunning class="input-field" placeholder="+3234567890" value=(mut model.primaireSite.vestigingsadres.fax)}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="u-spacer">
+              <div class="grid">
+                <div class="col--3-12 col--6-12--m col--12-12--s">
+                  <div class="form__row">
+                    <div class="form__label">
+                      <label class="form__label">Email</label>
+                    </div>
+                    <div class="form__input">
+                      {{input disabled=saveContactInfo.isRunning class="input-field input-field--block" placeholder="info@gemeente.be" value=(mut model.primaireSite.vestigingsadres.email)}}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col--3-12 col--6-12--m col--12-12--s">
+                  <div class="form__row">
+                    <div class="form__label">
+                      <label class="form__label">Website</label>
+                    </div>
+                    <div class="form__input">
+                      {{input disabled=saveContactInfo.isRunning class="input-field input-field--block" placeholder="http://www.gemeente.be" value=(mut model.primaireSite.vestigingsadres.website)}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="button-group u-hidden--tablet-portrait-up">
+              {{#wu-button class="button--block" disabled=saveContactInfo.isRunning onClick=(perform saveContactInfo) isLoading=saveContactInfo.isRunning}}Contactgegevens opslaan{{/wu-button}}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {{#if isGemeente}}
 
 
-        <section class="contact-card contact-card--wide u-spacer--bottom u-spacer--bottom">
+        <section class="contact-card contact-card--wide u-spacer--bottom">
           <div class="u-padding--round--small">
             <div class="grid">
               <div class="col--6-12">
@@ -141,13 +143,13 @@
               </div>
             </div>
 
-            <div class="u-background--gray-lighter u-padding--round--small">
+            <div class="u-background--gray-lighter">
               {{#contact-card as |c|}}
                 {{#c.content as |content|}}
                   {{#each sortedPosities as |positie|}}
                     {{#content.row label=positie.rol.label}}
                       {{#each positie.wordtIngevuldDoor as |person|}}
-                        <div class="u-spacer">
+                        <div class="u-spacer--tiny">
                           <div class="grid">
                             <div class="col--3-12 col--12-12--s col--6-12--m">
                               <div class="form__row">
@@ -174,17 +176,16 @@
                       {{/each}}
                     {{/content.row}}
                   {{/each}}
-
+                  <div class="button-group u-hidden--tablet-portrait-up">
+                    {{#wu-button class="button--block" onClick=(perform savePositions) isLoading=savePositions.isRunning}}Andere functies opslaan{{/wu-button}}
+                  </div>
                 {{/c.content}}
               {{/contact-card}}
-              <div class="button-group u-hidden--tablet-portrait-up">
-                {{#wu-button class="button--block" onClick=(perform savePositions) isLoading=savePositions.isRunning}}Andere functies opslaan{{/wu-button}}
-              </div>
             </div>
           </div>
         </section>
 
-        <section class="contact-card contact-card--wide u-spacer--bottom u-spacer--bottom">
+        <section class="contact-card contact-card--wide u-spacer--bottom">
           <div class="u-padding--round--small">
             <div class="grid">
               <div class="col--6-12">
@@ -202,7 +203,7 @@
               </div>
             </div>
 
-            <div class="u-background--gray-lighter u-padding--round--small">
+            <div class="u-background--gray-lighter">
 
               {{#contact-card as |c|}}
                 {{#c.content contactInfo=model.politiezone.contactinfo.firstObject as |content|}}
@@ -253,7 +254,7 @@
                   {{#each model.politiezone.posities as |positie|}}
                     {{#content.row label=positie.rol.label}}
                       {{#each positie.wordtIngevuldDoor as |person|}}
-                        <div class="u-spacer">
+                        <div class="u-spacer--tiny">
                           <div class="grid">
                             <div class="col--3612 col--12-12--s">
                               <div class="form__row">
@@ -280,12 +281,11 @@
                       {{/each}}
                     {{/content.row}}
                   {{/each}}
+                  <div class="button-group u-hidden--tablet-portrait-up">
+                    {{#wu-button class="button--block" onClick=(perform savePolitiezone) isLoading=savePolitiezone.isRunning}}Politiezone opslaan{{/wu-button}}
+                  </div>
                 {{/c.content}}
               {{/contact-card}}
-
-              <div class="button-group u-hidden--tablet-portrait-up">
-                {{#wu-button class="button--block" onClick=(perform savePolitiezone) isLoading=savePolitiezone.isRunning}}Politiezone opslaan{{/wu-button}}
-              </div>
             </div>
           </div>
         </section>
