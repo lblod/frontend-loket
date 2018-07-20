@@ -90,7 +90,7 @@
           </div>
 
 
-          <div class="u-spacer--top--small">
+          <div class="u-spacer--round--tiny">
             {{#if requiredFieldError}}
               {{wu-alert message="Gelieve een mandaat op te geven." isError=true}}
             {{/if}}
@@ -104,24 +104,26 @@
                 </div>
               </div>
             {{else}}
-              {{#wu-button class="button button--small button--narrow" onClick=(action "save") }}
-                {{#if createMode}}
-                  Voeg toe
-                {{else if correctMode}}
-                  Corrigeer informatie
-                {{else}}
-                  Pas aan
-                {{/if}}
-              {{/wu-button}}
-              {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }}
-                {{#if correctMode}}
-                  Verwerp wijzigingen
-                {{else}}
-                  Annuleer
-                {{/if}}
-              {{/wu-button}}
+	            <div class="button-group">
+	              {{#wu-button class="button button--small button--narrow" onClick=(action "save") }}
+	                {{#if createMode}}
+	                  Voeg toe
+	                {{else if correctMode}}
+	                  Corrigeer informatie
+	                {{else}}
+	                  Pas aan
+	                {{/if}}
+	              {{/wu-button}}
+	              {{#wu-button class="button button--small button--narrow button--alt" onClick=(action "cancel") }}
+	                {{#if correctMode}}
+	                  Verwerp wijzigingen
+	                {{else}}
+	                  Annuleer
+	                {{/if}}
+	              {{/wu-button}}
+	            </div>
             {{/if}}
-            <div class="u-padding--top--small"><small>Pas enkel fouten en het geplande einde aan. Voor andere acties, voeg een nieuw mandaat toe.</small></div>
+            <div class="u-padding--top--tiny"><small>Pas enkel fouten aan. Indien er een wijziging aan status, fractie, rangorde of bevoegdheid zich voordoet, beëindig het mandaat en voeg een nieuw mandaat toe.</small></div>
           </div>
         </div>
       {{/if}}
