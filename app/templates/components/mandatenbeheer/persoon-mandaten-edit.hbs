@@ -31,8 +31,7 @@
   <ul>
     {{#each mandatarissen as |mandataris|}}
       {{mandatenbeheer/mandataris-edit
-        tagName="li"
-        class="u-bg-block u-padding--round--small u-spacer--bottom--small"
+        class="link-list link-list--bordered"
         bestuursorganen=bestuursorganen
         mandataris=mandataris
         onSave=(action "mandatarisSaved")
