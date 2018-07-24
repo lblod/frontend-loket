@@ -2,6 +2,7 @@
    sort=sort page=page size=size class="container-flex--contain data-table--nowrap" as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
+      {{th-sortable field='isBestuurlijkeAliasVan.verifiedMandaten' currentSorting=sort label='Nagekeken' class="u-hidden-mobile"}}
       {{#unless displaySubset}}
         <th class="u-hidden--mobile">Orgaan</th>
       {{/unless}}
@@ -18,6 +19,9 @@
       <th></th>
     {{/c.header}}
     {{#c.body as |row|}}
+      <td>
+        {{input type="checkbox" name="isAdmin" checked=row.isBestuurlijkeAliasVan.verifiedMandaten disabled=true}}
+      </td>
       {{#unless displaySubset}}
         <td class="u-hidden-mobile">
           {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}

@@ -6,6 +6,7 @@ export default Model.extend({
   achternaam: attr(),
   alternatieveNaam: attr(),
   gebruikteVoornaam: attr(),
+  verifiedMandaten: attr(),
   geboorte: belongsTo('geboorte', { inverse: null }),
   identificator: belongsTo('identificator', { inverse: null }),
   geslacht: belongsTo('geslacht-code', { inverse: null }),

@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import computed from '@ember/object';
 
 export default Component.extend({
   store: service(),
@@ -34,6 +35,10 @@ export default Component.extend({
   },
 
   actions: {
+    async updateVerifiedMandaten(){
+      this.set('persoon.verifiedMandaten', !this.get('persoon.verifiedMandaten'));
+      await this.get('persoon').save();
+    },
     mandatarisSaved(/*mandataris*/){
       //here you can do some additional validation, e.g. validation over all mandaten for a person
     },
