@@ -1,6 +1,10 @@
 @import 'ember-vo-webuniversum-data-table';
 @import 'ember-power-select';
 
+.vo-header-widget {
+  min-height: 45px;
+}
+
 /* Preloader */
 .loader-wrapper {
   padding: 25px;
