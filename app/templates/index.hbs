@@ -1,0 +1,104 @@
+<div class="container-flex--scroll">
+	<div class="u-padding--round">
+		<h1 class="h1 u-spacer--none">U heeft toegang deze onderdelen:</h1>
+
+		<div class="grid grid--is-stacked grid--equal-height u-spacer--tb">
+			{{#if currentSession.canAccessToezicht}}
+			<div class="col--6-12 col--6-12--m col--6-12--s col--1-1--xs">
+					<div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item toggle--arrow-down">
+						<div>
+							<div class="info-tile__header">
+								<div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+									<i class="badge__icon vi vi-book" aria-hidden="true"></i>
+								</div>
+								<div class="info-tile__header__wrapper">
+									<h3 class="info-tile__header__title">Toezicht</h3>
+								</div>
+							</div>
+							<div class="info-tile__content">
+								<p>Bezorg besluiten en overzichtslijsten elektronisch aan de toezichthoudende overheid.</p>
+							</div>
+							<footer class="info-tile__footer">
+								<p>
+									{{#link-to "toezicht.inzendingen"}}Ga naar toezicht{{/link-to}}
+								</p>
+							</footer>
+						</div>
+					</div>
+				</div>
+			{{/if}}
+			{{#if currentSession.canAccessBbcdr}}
+				<div class="col--6-12 col--6-12--m col--6-12--s col--1-1--xs">
+					<div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item toggle--arrow-down">
+						<div>
+							<div class="info-tile__header">
+								<div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+									<i class="badge__icon vi vi-paperclip" aria-hidden="true"></i>
+								</div>
+								<div class="info-tile__header__wrapper">
+									<h3 class="info-tile__header__title">BBC-DR</h3>
+								</div>
+							</div>
+							<div class="info-tile__content">
+								<p>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus (BBC).</p>
+							</div>
+							<footer class="info-tile__footer">
+								<p>
+									{{#link-to "bbcdr.rapporten"}}Ga naar BBC DR{{/link-to}}
+								</p>
+							</footer>
+						</div>
+					</div>
+				</div>
+			{{/if}}
+
+			{{#if currentSession.canAccessMandaat}}
+			<div class="col--6-12 col--6-12--m col--6-12--s col--1-1--xs">
+				<div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item toggle--arrow-down">
+					<div>
+						<div class="info-tile__header">
+							<div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+								<i class="badge__icon vi vi-addressbook" aria-hidden="true"></i>
+							</div>
+							<div class="info-tile__header__wrapper">
+								<h3 class="info-tile__header__title">Mandatenbeheer</h3>
+							</div>
+						</div>
+						<div class="info-tile__content">
+							<p>Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
+						</div>
+						<footer class="info-tile__footer">
+							<p>
+								{{#link-to "mandatenbeheer.mandatarissen"}}Ga naar mandatenbeheer{{/link-to}}
+							</p>
+						</footer>
+					</div>
+				</div>
+			</div>
+			<div class="col--6-12 col--6-12--m col--6-12--s col--1-1--xs">
+				<div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item toggle--arrow-down">
+					<div>
+						<div class="info-tile__header">
+							<div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+								<i class="badge__icon vi vi-info" aria-hidden="true"></i>
+							</div>
+							<div class="info-tile__header__wrapper">
+								<h3 class="info-tile__header__title">Administratieve gegevens</h3>
+							</div>
+						</div>
+						<div class="info-tile__content">
+							<p>Beheer de adminstratieve gegevens over het bestuur en het personeel binnen de gemeenten, OCMW’s, districten en provincies.</p>
+						</div>
+						<footer class="info-tile__footer">
+							<p>
+								{{#link-to "administratieve-gegevens.index"}}Ga naar administratieve gegevens{{/link-to}}
+							</p>
+						</footer>
+					</div>
+				</div>
+			</div>
+			{{/if}}
+		</div>
+		<p>Indien u toegang mist tot een van de onderdelen in het loket, neem contact op met uw interne beheerder. Indien er een probleem is, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
+	</div>
+</div>
