@@ -42,6 +42,7 @@ export default Component.extend({
     const classificatie = yield bestuurseenheid.get('classificatie');
     const queryParams = {
       sort: 'label',
+      page: { size: 200 },
       'filter[decidable-by][id]': classificatie.get('id')
     };
 

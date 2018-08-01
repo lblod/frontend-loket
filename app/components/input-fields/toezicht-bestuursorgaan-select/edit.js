@@ -41,6 +41,7 @@ export default Component.extend({
     const bestuurseenheid = yield this.get('currentSession.group');
     const queryParams = {
       sort: 'classificatie.label',
+      page: { size: 200 },
       include: 'classificatie',
       'filter[bestuurseenheid][id]': bestuurseenheid.get('id')
     };
