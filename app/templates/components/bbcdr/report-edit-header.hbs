@@ -14,16 +14,16 @@
 </div>
 <div class="grid u-spacer--small">
   {{#unless isNewReport}}
-    <div class="col--4-12">
+    <div class="col--12-12">
     <div class="description-data__label">Gewijzigd door</div>
     <div class="description-data__value">{{report.lastModifier.fullName}}</div>
   </div>
-  <div class="col--4-12">
+  <div class="col--6-12">
     <div class="description-data__label">Bewerkt op</div>
     <div class="description-data__value">{{moment-format report.modified 'DD-MM-YYYY'}}</div>
   </div>
   {{/unless}}
-  <div class="col--4-12">
+  <div class="col--6-12">
     {{shared/document-status-pill report.status class="u-spacer--small"}}
   </div>
 </div>
