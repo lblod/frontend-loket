@@ -50,6 +50,5 @@ inflector.irregular('toezicht-fiscal-period', 'toezicht-fiscal-periods');
 inflector.irregular('form-solution', 'form-solutions');
 inflector.irregular('dynamic-subform', 'dynamic-subforms');
 inflector.irregular('form-input', 'form-inputs');
-inflector.irregular("toezicht-report", "toezicht-reports");
 // Meet Ember Inspector's expectation of an export
 export default {};

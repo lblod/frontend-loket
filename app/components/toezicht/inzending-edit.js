@@ -19,6 +19,14 @@ export default Component.extend({
     this.set('errorMsg', '');
   },
 
+  isSent: computed('model.inzendingVoorToezicht.status.id', function(){
+    return this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  }),
+
+  canSave: computed('model.inzendingVoorToezicht.status.id', function(){
+    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  }),
+
   canDelete: computed('model.isNew', 'model.inzendingVoorToezicht.status.id', function(){
     return !this.get('model.isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),

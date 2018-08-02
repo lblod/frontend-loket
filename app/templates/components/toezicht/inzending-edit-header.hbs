@@ -15,15 +15,15 @@
 </div>
 <div class="grid u-spacer--small">
   {{#unless isNew}}
-    <div class="col--4-12">
+    <div class="col--12-12">
       <div class="description-data__label">Gewijzigd door</div>
       <div class="description-data__value">{{inzending.lastModifier.fullName}}</div>
     </div>
-    <div class="col--4-12">
+    <div class="col--6-12">
       <div class="description-data__label">Bewerkt op</div>
       <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
     </div>
-      <div class="col--4-12">
+      <div class="col--6-12">
         <div class="description-data__label">Verstuurd op</div>
         {{#if inzending.status.isVerstuurd}}
           <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
