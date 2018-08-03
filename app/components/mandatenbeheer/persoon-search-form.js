@@ -28,6 +28,12 @@ export default Component.extend({
   search: task(function* () {
     this.set('hasSearched', true);
     yield timeout(300);
+
+    if(!(this.get('achternaam') || this.get('gebruikteVoornaam') || this.get('identificator'))){
+      this.set('personen', []);
+      return;
+    }
+
     let queryParams = {
       sort:'achternaam',
       include: ['geboorte',
