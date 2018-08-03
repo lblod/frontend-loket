@@ -28,6 +28,13 @@ export default Component.extend({
   search: task(function* () {
     this.set('hasSearched', true);
     yield timeout(300);
+
+    if(!(this.get('achternaam') || this.get('gebruikteVoornaam') || this.get('identificator'))){
+      this.set('queryParams', {});
+      this.set('personen', []);
+      return;
+    }
+
     let queryParams = {
       sort:'achternaam',
       include: ['geboorte',
@@ -38,7 +45,8 @@ export default Component.extend({
         identificator: this.get('identificator') || undefined
       },
       page:{
-        size: this.get('pageSize')
+        size: this.get('pageSize'),
+        number: 0
       }
     };
     this.set('queryParams', queryParams);
