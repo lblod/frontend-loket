@@ -15,6 +15,7 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember/use-brace-expansion': 'off'
   },
   overrides: [
     // node files

@@ -30,6 +30,7 @@ export default Component.extend({
           id: mandaat.get('id')
         }
       },
+      'filter[:gte:einde]': new Date().toISOString().slice(0, 10),
       page: { size: 1 }
     };
     return this.get('store').query('mandataris', queryParams);
