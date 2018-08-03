@@ -45,7 +45,8 @@ export default Component.extend({
         identificator: this.get('identificator') || undefined
       },
       page:{
-        size: this.get('pageSize')
+        size: this.get('pageSize'),
+        number: 0
       }
     };
     this.set('queryParams', queryParams);
