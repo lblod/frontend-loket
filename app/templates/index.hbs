@@ -1,11 +1,10 @@
 <div class="container-flex--scroll">
   <div class="u-padding--round">
-    <h1 class="h1">U heeft toegang deze onderdelen</h1>
-
-    <div class="grid grid--is-stacked grid--equal-height u-spacer">
+    <h1 class="h1">U heeft toegang deze onderdelen {{!-- van {{currentSession.group.classificatie.label}} {{currentSession.group.naam}} --}}</h1>
+    <div class="grid grid--is-stacked u-spacer">
       {{#if currentSession.canAccessToezicht}}
         <div class="col--6-12 col--3-12--xl col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-          <div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item">
+          <div class="info-tile info-tile--m info-tile--center info-tile--v-center">
             <div>
               <div class="info-tile__header">
                 <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
@@ -30,7 +29,7 @@
       {{/if}}
       {{#if currentSession.canAccessBbcdr}}
         <div class="col--6-12 col--3-12--xl col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-          <div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item">
+          <div class="info-tile info-tile--m info-tile--center info-tile--v-center">
             <div>
               <div class="info-tile__header">
                 <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
@@ -56,7 +55,7 @@
 
       {{#if currentSession.canAccessMandaat}}
       <div class="col--6-12 col--3-12--xl col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item">
+        <div class="info-tile info-tile--m info-tile--center info-tile--v-center">
           <div>
             <div class="info-tile__header">
               <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
@@ -79,7 +78,7 @@
         </div>
       </div>
       <div class="col--6-12 col--3-12--xl col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center info-tile--v-center grid--equal-height__item">
+        <div class="info-tile info-tile--m info-tile--center info-tile--v-center">
           <div>
             <div class="info-tile__header">
               <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
