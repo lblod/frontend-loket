@@ -27,7 +27,7 @@ export default Component.extend({
     return !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),
 
-  canDelete: computed('model.isNew', 'model.inzendingVoorToezicht.status.id', function(){
+  canDelete: computed('model.{isNew,inzendingVoorToezicht.status.id}', function(){
     return !this.get('model.isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),
 
