@@ -1,6 +1,7 @@
 <div class="container-flex--scroll">
   <div class="u-padding--round">
-    <h1 class="h1">U heeft toegang deze onderdelen {{!-- van {{currentSession.group.classificatie.label}} {{currentSession.group.naam}} --}}</h1>
+    <h1 class="h1">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</h1>
+    <h2 class="h4 u-spacer">U heeft toegang tot volgende onderdelen</h2>
     <div class="grid grid--is-stacked u-spacer">
       {{#if currentSession.canAccessToezicht}}
         <div class="col--6-12 col--3-12--xl col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
@@ -46,7 +47,7 @@
                 <p class="u-spacer--tiny">
                   {{wu-button class="button--narrow" label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
                 </p>
-                <small><a class="link--dark" href="https://lokaalbestuur.vlaanderen.be/mijn-binnenland" target="_blank">Handleiding</a></small>
+                <small><a class="link--dark" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank">Handleiding</a></small>
               </footer>
             </div>
           </div>
