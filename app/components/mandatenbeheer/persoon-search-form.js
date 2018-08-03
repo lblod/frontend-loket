@@ -30,6 +30,7 @@ export default Component.extend({
     yield timeout(300);
 
     if(!(this.get('achternaam') || this.get('gebruikteVoornaam') || this.get('identificator'))){
+      this.set('queryParams', {});
       this.set('personen', []);
       return;
     }
