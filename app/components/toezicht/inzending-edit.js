@@ -6,7 +6,7 @@ import { gte } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 
 export default Component.extend({
-  classNames: ['col--4-12 col--9-12--m col--12-12--s container-flex--contain'],
+  classNames: ['col--5-12 col--9-12--m col--12-12--s container-flex--contain'],
   router: service(),
   store: service(),
   currentSession: service(),
