@@ -248,3 +248,9 @@
     display: block;
   }
 }
+
+textarea[disabled],
+input[disabled] {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+}
