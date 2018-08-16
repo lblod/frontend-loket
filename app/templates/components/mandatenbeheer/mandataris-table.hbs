@@ -21,6 +21,7 @@
     {{#c.body as |row|}}
       <td>
         {{input type="checkbox" name="isAdmin" checked=row.isBestuurlijkeAliasVan.verifiedMandaten disabled=true}}
+        <span></span>
       </td>
       {{#unless displaySubset}}
         <td class="u-hidden-mobile">

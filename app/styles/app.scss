@@ -248,3 +248,42 @@
     display: block;
   }
 }
+
+/* temporary fix for mandatenbeheer controle */
+.data-table input.ember-checkbox[type=checkbox] {
+  display: none;
+}
+
+.data-table input.ember-checkbox[type=checkbox] + span:after {
+  content: "\E00F";
+  color: black;
+  background-color: #FDC345;
+  font-size: 2rem;
+
+  font-family: vlaanderen_iconfont!important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+  border-radius: 100%;
+  margin: 0;
+
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.data-table input.ember-checkbox[type=checkbox]:checked + span:after {
+  background-color: #8bae00 !important;
+  content: "\E00C";
+  color: white;
+}
+
