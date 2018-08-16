@@ -15,5 +15,8 @@
       {{moment-format einde 'DD/MM/YYYY'}}
     {{/if}}
   </p>
+  <p>{{join ', ' (map-by "label" (await beleidsdomein))}}</p>
+  <p>{{status}}</p>
+  <p>{{rangorde}}</p>
   <p>{{fractie}}</p>
 </div>

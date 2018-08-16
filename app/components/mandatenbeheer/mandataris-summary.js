@@ -6,6 +6,9 @@ export default Component.extend({
   start: computed.reads('mandataris.start'),
   einde: computed.reads('mandataris.einde'),
   fractie: computed.reads('mandataris.heeftLidmaatschap.binnenFractie.naam'),
+  rangorde: computed.reads('mandataris.rangorde.content'),
+  status: computed.reads('mandataris.status.label'),
+  beleidsdomein: computed.reads('mandataris.beleidsdomein'),
   actions: {
     edit(){
       this.get('onEdit')();

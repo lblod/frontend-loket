@@ -23,6 +23,7 @@ export default Component.extend({
 
   async updateReport() {
     this.report.set('files', this.get('reportFiles'));
+    this.report.set('modified', new Date());
     return this.report.save();
   },
 
