@@ -67,9 +67,9 @@
 }
 
 
-/* ==========================================================================
+/* --------------------------------------------------------------------------
   Style overwrite ember-power-select
- ========================================================================== */
+ -------------------------------------------------------------------------- */
 
 /* basic colors and sizing of dropdown */
 
@@ -122,7 +122,7 @@
 }
 
 /* Select options
- ========================================================================== */
+ -------------------------------------------------------------------------- */
 .ember-power-select-option.ember-power-select-option--loading-message,
 .ember-power-select-option.ember-power-select-option--no-matches-message,
 .ember-power-select-option.ember-power-select-option--search-message {
@@ -170,7 +170,7 @@
 }
 
 /* Icon restyle for steps (need to reformat)
- ========================================================================== */
+ -------------------------------------------------------------------------- */
 
 .ember-power-select-trigger .ember-power-select-status-icon:after {
   content: "\E004";
@@ -249,7 +249,16 @@
   }
 }
 
-/* temporary fix for mandatenbeheer controle */
+/* temporary fix to make sure disabled fields look disabled */
+
+textarea[disabled],
+input[disabled] {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+/* temporary fix for controle mandatenbeheer */
+
 .data-table input.ember-checkbox[type=checkbox] {
   display: none;
 }
@@ -286,4 +295,3 @@
   content: "\E00C";
   color: white;
 }
-
