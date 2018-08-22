@@ -39,36 +39,26 @@
     </div>
   </div>
 
-  <h4 class="h6 sans-serif u-spacer--bottom--tiny">Lijst van alle mandaten</h4>
+  <div class="u-spacer">
+    <h4 class="h6 sans-serif u-spacer--bottom--tiny">Lijst van alle mandaten</h4>
 
-  <div class="u-hr u-spacer--bottom--small"></div>
+    <div class="u-hr u-spacer--bottom--small"></div>
 
-  <ul>
-    {{#each mandatarissen as |mandataris|}}
-      {{mandatenbeheer/mandataris-edit
-        class="link-list link-list--bordered"
-        bestuursorganen=bestuursorganen
-        mandataris=mandataris
-        onSave=(action "mandatarisSaved")
-        onCancelCreate=(action "mandatarisCreateCanceled")
-      }}
-    {{/each}}
-  </ul>
-  <a id="nieuwmandaat" class="button button--alt button--block u-spacer--bottom--small" {{action "createMandataris"}}>
-    <i class="vi vi-plus" aria-hidden="true"></i>Voeg nieuw mandaat toe
-  </a>
-
-
-  {{!-- This section is here temporarily for ABB to review all the mandates in August --}}
-{{!--
-  <div class="alert alert--small alert--success">
-    <label class="checkbox checkbox--block">
-      <input type="checkbox" name="checkbox" value="0" checked="checked" class="checkbox__toggle"/>
-      <span></span>
-      <span>De persoon en al de bijbehorende mandaten werden nagekeken.</span>
-    </label>
-  </div> --}}
-
+    <ul>
+      {{#each mandatarissen as |mandataris|}}
+        {{mandatenbeheer/mandataris-edit
+          class="link-list link-list--bordered"
+          bestuursorganen=bestuursorganen
+          mandataris=mandataris
+          onSave=(action "mandatarisSaved")
+          onCancelCreate=(action "mandatarisCreateCanceled")
+        }}
+      {{/each}}
+    </ul>
+    <a id="nieuwmandaat" class="button button--alt button--block u-spacer--bottom--small" {{action "createMandataris"}}>
+      <i class="vi vi-plus" aria-hidden="true"></i>Voeg nieuw mandaat toe
+    </a>
+  </div>
 </div>
 <div class="u-padding--round--small u-border--light--top">
   {{#wu-button class="button button--narrow button--alt" onClick=(action "finish")}}Sluit{{/wu-button}}
