@@ -233,6 +233,56 @@
   }
 }
 
+/* temporary fix for required fields */
+.form__row--required {
+  label.form__label,
+  .upload__element {
+    padding-right: 10rem;
+    position: relative;
+    display: block;
+
+    &:after {
+      content: "Verplicht";
+      right: 0;
+      position: absolute;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-size: 1.2rem;
+      top: 0.1rem;
+      color: #333333;
+      background-color: #E8EBEE;
+      border-radius: 3px;
+      padding: 0.4rem 0.3rem 0.3rem 0.4rem;
+      line-height: 1;
+    }
+  }
+
+  .upload__element:after {
+    top: -0.2rem;
+    right: -0.2rem;
+  }
+}
+
+.form__validation-check .form__row--required {
+  input,
+  textarea,
+  .ember-power-select-trigger {
+    border-bottom-color: red;
+  }
+
+  .upload__element {
+    border-color: red;
+    background-color: RGBA(249, 22, 40, 0.1);
+  }
+
+  .upload__element:after,
+  label.form__label:after {
+    background-color: red;
+    color: white;
+  }
+}
+
 /* temporary fix for contact cards in webuniversum*/
 
 .contact-card.contact-card--wide {
