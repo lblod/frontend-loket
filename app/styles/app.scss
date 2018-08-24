@@ -213,6 +213,12 @@
   top: 0.7rem;
 }
 
+/* temporary fix to make sure the first field for selecting the dossier type in toezicht has an extra space below */
+
+.form__row--toezicht-besluit-type-select .ember-power-select-trigger:first-child ÷{
+  margin-bottom: 2rem;
+}
+
 /* temporary fix for calendar full width and disabled look, need to make sure in the future we can fix this the right way */
 
 .input-field--disabled {
