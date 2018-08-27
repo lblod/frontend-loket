@@ -39,6 +39,18 @@ export default Component.extend({
     return this.save.isRunning || this.delete.isRunning || this.send.isRunning || false;
   }),
 
+  async validate(){
+    let errors = [];
+    let states = await this.get('dynamicForm.formNode.unionStates');
+    if(states.filter((s) => { return s == 'noSend'; }).length > 0)
+      errors.push('Gelieve alle verplichte velden in te vullen.');
+
+    if((await this.files).length == 0)
+      errors.push('Gelieve minstens één bestand op te laden.');
+
+    this.set('errorMsg', errors.join(' '));
+  },
+
   async updateInzending(){
     let inzending = await this.model.get('inzendingVoorToezicht');
     inzending.set('modified', new Date());
@@ -123,6 +135,8 @@ export default Component.extend({
     },
     async send(){
       this.flushErrors();
+      await this.validate();
+      if(this.hasError) return;
       await this.save.perform();
       await this.send.perform();
       if(this.hasError) return;
