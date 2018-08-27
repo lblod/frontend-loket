@@ -37,6 +37,11 @@ Router.map(function() {
     path: '/*wildcard'
   });
   this.route('mock-login');
+
+  this.route('legaal', function() {
+    this.route('disclaimer');
+    this.route('cookieverklaring');
+  });
 });
 
 export default Router;
