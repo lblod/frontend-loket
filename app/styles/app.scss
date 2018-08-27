@@ -248,3 +248,27 @@
     display: block;
   }
 }
+
+/* temporary fix for inline required properties */
+.is-required {
+  display: flex;
+}
+
+.is-required .power-select {
+  flex: 1;
+}
+
+.is-required:after {
+  content: "Verplicht";
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-size: 1.2rem;
+  top: 0.1rem;
+  color: #333333;
+  background-color: #E8EBEE;
+  border-radius: 3px;
+  padding: 1rem 0.3rem 0.3rem 0.4rem;
+  margin-left: 0.4rem;
+  line-height: 1;
+}

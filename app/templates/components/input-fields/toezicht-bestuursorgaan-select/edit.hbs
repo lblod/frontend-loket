@@ -1,13 +1,16 @@
-{{#power-select
-   loadingMessage="Aan het laden..."
-   noMatchesMessage="Geen resultaten"
-   searchMessage="Typ om te zoeken"
-   allowClear=allowClear
-   disabled=disabled
-   options=options
-   search=(perform search)
-   selected=object_instance
-   onchange=(action "select")
-   as |object_instance|}}
-  {{get object_instance displayProperty}}
-{{/power-select}}
+<div class="power-select">
+  {{#power-select
+     loadingMessage="Aan het laden..."
+     noMatchesMessage="Geen resultaten"
+     searchMessage="Typ om te zoeken"
+     allowClear=allowClear
+     disabled=disabled
+     options=options
+     search=(perform search)
+     selected=object_instance
+     onchange=(action "select")
+     as |object_instance|}}
+    {{get object_instance displayProperty}}
+  {{/power-select}}
+</div>
+
