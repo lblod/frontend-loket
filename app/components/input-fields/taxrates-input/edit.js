@@ -17,7 +17,6 @@ export default Component.extend( InputField, {
 
   activeInputStates: computed( 'inputStates.[]', 'value', function() {
     const inputStates = this.inputStates;
-    const value = this.value;
 
     return inputStates
       .map(function( inputState ) {
@@ -26,7 +25,6 @@ export default Component.extend( InputField, {
           case "empty":
             return this.taxRates && this.taxRates.length == 0 && inputState.stateName;
           default:
-            console.log(`Do not know how to process ${inputState.validationName}`);
             return undefined;
         }})
       // remove all non-truethy validation names
