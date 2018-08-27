@@ -19,7 +19,7 @@
   "devDependencies": {
     "@lblod/ember-acmidm-login": "^0.1.2",
     "@lblod/ember-mock-login": "^0.4.4",
-    "@lblod/ember-mu-dynamic-forms": "^0.2.3",
+    "@lblod/ember-mu-dynamic-forms": "0.3.0",
     "@lblod/ember-vo-mu-file-upload": "0.1.5",
     "@lblod/ember-vo-webuniversum": "^0.14.0",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.7",
