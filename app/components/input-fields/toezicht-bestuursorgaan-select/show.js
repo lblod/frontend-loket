@@ -1,6 +1,7 @@
 import Component from '@ember/component';
+import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
 
-export default Component.extend({
+export default Component.extend( InputField, {
   disabled: false,
   displayProperty: 'classificatie.label',
 

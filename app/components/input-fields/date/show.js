@@ -1,13 +1,7 @@
 import Component from '@ember/component';
+import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
 
-export default Component.extend({
+export default Component.extend( InputField, {
   datePickerClass: 'date-picker-mandataris-edit',
-  dateFormat: 'DD-MM-YYYY',
-  didReceiveAttrs() {
-    this._super(...arguments);
-    if (this.get('model')) {
-      const value = this.get(`solution.${this.get('model.identifier')}`);
-      this.set('value', value);
-    }
-  }
+  dateFormat: 'DD-MM-YYYY'
 });

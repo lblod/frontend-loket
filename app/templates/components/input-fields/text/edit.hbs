@@ -1,1 +1,5 @@
-{{textarea class="textarea textarea--block component" cols="40" rows="4" placeholder="Typ hier..." value=value key-up=(action "editSolution") }}
+{{textarea class="textarea textarea--block component" cols="40" rows="4" placeholder="Typ hier..." value=internalValue key-up=(action "update") }}
+
+{{#each activeInputStates as |state|}}
+  {{state}}
+{{/each}}

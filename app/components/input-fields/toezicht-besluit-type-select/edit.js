@@ -2,8 +2,9 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 import { debug } from '@ember/debug';
+import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
 
-export default Component.extend({
+export default Component.extend( InputField, {
   currentSession: service(),
   store: service(),
 
