@@ -1,8 +1,10 @@
+import { computed } from '@ember/object';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
+import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
 
-export default Component.extend({
+export default Component.extend( InputField, {
   store: service(),
   didReceiveAttrs() {
     this._super(...arguments);
@@ -12,6 +14,22 @@ export default Component.extend({
       this.set('taxRates', value || A());
     }
   },
+
+  activeInputStates: computed( 'inputStates.[]', 'value', function() {
+    const inputStates = this.inputStates;
+
+    return inputStates
+      .map(function( inputState ) {
+        // Yield state name for matching validations
+        switch (inputState.validationName) {
+          case "empty":
+            return this.taxRates && this.taxRates.length == 0 && inputState.stateName;
+          default:
+            return undefined;
+        }})
+      // remove all non-truethy validation names
+      .filter( (i) => i );
+  } ),
 
   actions: {
     async create(){
