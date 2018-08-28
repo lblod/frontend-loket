@@ -3,10 +3,12 @@ import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 import { debug } from '@ember/debug';
 import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
+import { oneWay } from '@ember/object/computed';
 
 export default Component.extend( InputField, {
   currentSession: service(),
   store: service(),
+  internalValue: oneWay('value'),
 
   allowClear: true,
   disabled: false,
@@ -23,15 +25,10 @@ export default Component.extend( InputField, {
     this._super(...arguments);
 
     if (this.get('model')) {
-      let value = await this.get(`solution.${this.get('model.identifier')}`);
-
-      if (value && value.get('isNew')) { // only already existing options are allowed
-        debug(`Reset value of toezicht-besluit-type-select to null`);
-        value.destroyRecord();
-        value = null;
+      if (this.internalValue && this.internalValue.get('isNew')) { // only already existing options are allowed
+        this.internalValue.destroyRecord();
+        this.updateValue( this.internalValue );
       }
-
-      this.set('object_instance', value);
     }
   },
 
@@ -56,9 +53,7 @@ export default Component.extend( InputField, {
 
   actions: {
     select(object_instance){
-      this.set('object_instance', object_instance);
-      const prop = this.get('model.identifier');
-      this.set(`solution.${prop}`, object_instance);
+      this.updateValue( object_instance );
     }
   }
 
