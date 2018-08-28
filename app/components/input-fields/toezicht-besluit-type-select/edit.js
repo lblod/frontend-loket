@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
-import { debug } from '@ember/debug';
 import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
 import { oneWay } from '@ember/object/computed';
 
