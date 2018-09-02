@@ -1,4 +1,5 @@
-{{#power-select
+<div class="power-select">
+  {{#power-select
      loadingMessage="Aan het laden..."
      noMatchesMessage="Geen resultaten"
      searchMessage="Typ om te zoeken"
@@ -6,8 +7,9 @@
      disabled=disabled
      options=options
      search=(perform search)
-     selected=object_instance
+     selected=internalValue
      onchange=(action "select")
-     as |object_instance|}}
-  {{get object_instance displayProperty}}
-{{/power-select}}
+     as |internalValue|}}
+    {{get internalValue displayProperty}}
+  {{/power-select}}
+</div>

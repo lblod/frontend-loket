@@ -1,16 +1,17 @@
 <form class="u-spacer--large js-formvalidation-bound">
   <div class="form__row">
     <label class="form__label form__label--large form__label--block" for="select">Waar gaat uw bericht over?</label>
-    {{wu-radio-button label="De functionaliteit van de applicatie" value="digitaalABB@bz.vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
-    {{wu-radio-button label="Een bug of probleem met de applicatie" value="digitaalABB@bz.vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
-    {{wu-radio-button label="Een vraag over de inhoud van administratieve gegevens, BBC DR of toezich" value="binnenland@vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
-    {{wu-radio-button label="Een vraag over de inhoud van het mandatenbeheer" value="mandaten@vlaanderen.be" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="Een vraag of probleem over de applicatie" value="LoketLokaalBestuur@vlaanderen.be?subject=Vraag of probleem - Loket Lokaal Bestuur" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="Toezicht" value="LoketLokaalBestuur@vlaanderen.be?subject=Toezicht - Loket Lokaal Bestuur" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="BBC-DR" value="LoketLokaalBestuur@vlaanderen.be?subject=BBC-DR - Loket Lokaal Bestuur" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="Mandatenbeheer" value="LoketLokaalBestuur@vlaanderen.be?subject=Mandatenbeheer - Loket Lokaal Bestuur" onChange=(action (mut mailto)) isBlock=true}}
+    {{wu-radio-button label="Administratieve gegevens" value="LoketLokaalBestuur@vlaanderen.be?subject= Administratieve Gegevens - Loket Lokaal Bestuur" onChange=(action (mut mailto)) isBlock=true}}
     <div class="form__error" aria-describedby="radio-buttons"></div>
   </div>
 
   {{#if mailto}}
-    <a href={{concat "mailto:" mailto}} class="button button--large">Bericht versturen</a>
+    <a href={{concat "mailto:" mailto}} class="button button--large">Stel bericht op</a>
   {{else}}
-    {{wu-button label="Bericht versturen" onClick=null size="large" disabled=true}}
+    {{wu-button label="Stel bericht op" onClick=null size="large" disabled=true}}
   {{/if}}
 </form>
