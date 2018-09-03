@@ -350,3 +350,22 @@
   width: 49%;
   display: inline-block;
 }
+
+/* temporary fix to make sure checkbox is aligned correctly */
+
+.form__row--checkbox {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .form__input {
+    flex: 0;
+  }
+
+  .form__label {
+    flex: 1;
+  }
+
+  .checkbox {
+    margin-right: 0rem;
+  }
+}
