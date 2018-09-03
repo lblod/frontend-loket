@@ -369,3 +369,23 @@
     margin-right: 0rem;
   }
 }
+
+/* temporary fix to highlight errors and required fields */
+
+.alert + .container-flex--scroll .is-required {
+
+  .input-field,
+  .ember-power-select-trigger {
+    border-bottom-color: red;
+  }
+}
+
+.is-required.upload__element {
+  border-color: red;
+  background-color: RGBA(249, 22, 40, 0.1);
+
+  &:after {
+    background-color: RGBA(249, 22, 40, 1);
+    color: white;
+  }
+}
