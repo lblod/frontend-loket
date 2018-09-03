@@ -14,7 +14,7 @@
 
 <div class="container-flex--scroll u-padding--round--small {{if isWorking "u-hidden"}}">
   {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
-  {{#if model.inzendingVoorToezicht.besluitType}}
+  {{#if model.inzendingVoorToezicht.besluitType.id}}
     <div class="u-spacer"></div>
     {{#each files as |file|}}
       {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
