@@ -352,6 +352,13 @@ input[disabled] {
   border-radius: 0;
 }
 
+/* temporary fix for narrower forms */
+
+.form__row--date {
+  width: 49%;
+  display: inline-block;
+}
+
 /* temporary fix for controle mandatenbeheer */
 
 .data-table input.ember-checkbox[type=checkbox] {
