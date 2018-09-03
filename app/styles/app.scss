@@ -303,6 +303,10 @@
     width: 100%;
     display: block;
   }
+
+  .form__label > .form__label {
+    margin-right: 0;
+  }
 }
 
 /* temporary fix to make sure disabled fields look disabled */
@@ -314,27 +318,38 @@ input[disabled] {
 }
 
 /* temporary fix for inline required properties */
+.form__label > .form__label {
+  margin-right: 8rem;
+}
+
 .is-required {
-  display: flex;
+  position: relative;
+
+  &:after {
+    content: "Verplicht";
+    position: absolute;
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 1.2rem;
+    top: -2.5rem;
+    right: 0;
+    color: #333333;
+    background-color: #E8EBEE;
+    border-radius: 3px;
+    padding: 0.5rem 0.3rem 0.3rem 0.4rem;
+    line-height: 1;
+  }
 }
 
-.is-required .power-select {
-  flex: 1;
+.form__row--date .is-required:after {
+  top: -2.3rem;
 }
 
-.is-required:after {
-  content: "Verplicht";
-  text-align: right;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  font-size: 1.2rem;
-  top: 0.1rem;
-  color: #333333;
-  background-color: #E8EBEE;
-  border-radius: 3px;
-  padding: 1rem 0.3rem 0.3rem 0.4rem;
-  margin-left: 0.4rem;
-  line-height: 1;
+.upload__element.is-required:after {
+  top: -0.2rem;
+  right: -0.2rem;
+  border-radius: 0;
 }
 
 /* temporary fix for controle mandatenbeheer */
