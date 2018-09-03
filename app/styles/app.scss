@@ -215,7 +215,7 @@
 
 /* temporary fix to make sure the first field for selecting the dossier type in toezicht has an extra space below */
 
-.form__row--toezicht-besluit-type-select .ember-power-select-trigger:first-child ÷{
+.form__row--toezicht-besluit-type-select .ember-power-select-trigger:first-child {
   margin-bottom: 2rem;
 }
 
