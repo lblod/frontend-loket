@@ -334,18 +334,11 @@ input[disabled] {
   top: -2.3rem;
 }
 
-<<<<<<< HEAD
-.upload__element.is-required:after {
-  top: -0.2rem;
-  right: -0.2rem;
-  border-radius: 0;
-=======
 .upload.is-required:after {
   top: -0rem;
   right: -0rem;
   border-radius: 0;
   z-index: 4;
->>>>>>> master
 }
 
 /* temporary fix for narrower forms */
@@ -374,7 +367,6 @@ input[disabled] {
   }
 }
 
-<<<<<<< HEAD
 /* temporary fix for controle mandatenbeheer */
 
 .data-table input.ember-checkbox[type=checkbox] {
@@ -412,7 +404,8 @@ input[disabled] {
   background-color: #8bae00 !important;
   content: "\E00C";
   color: white;
-=======
+}
+
 /* temporary fix to highlight errors and required fields */
 
 .alert + .container-flex--scroll .is-required {
@@ -431,5 +424,4 @@ input[disabled] {
     background-color: RGBA(249, 22, 40, 1);
     color: white;
   }
->>>>>>> master
 }
