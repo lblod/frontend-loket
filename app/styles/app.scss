@@ -326,10 +326,11 @@ input[disabled] {
   top: -2.3rem;
 }
 
-.upload__element.is-required:after {
-  top: -0.2rem;
-  right: -0.2rem;
+.upload.is-required:after {
+  top: -0rem;
+  right: -0rem;
   border-radius: 0;
+  z-index: 4;
 }
 
 /* temporary fix for narrower forms */
@@ -368,7 +369,7 @@ input[disabled] {
   }
 }
 
-.is-required.upload__element {
+.alert + .container-flex--scroll .is-required.upload {
   border-color: red;
   background-color: RGBA(249, 22, 40, 0.1);
 
