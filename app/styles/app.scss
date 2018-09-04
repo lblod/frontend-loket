@@ -219,24 +219,12 @@
   margin-bottom: 2rem;
 }
 
-/* temporary fix for calendar full width and disabled look, need to make sure in the future we can fix this the right way */
+/* temporary fix to make sure disabled fields look disabled */
 
-.input-field--disabled {
-  .input-field {
-    background-color: #f4f5f7;
-    color: #ADADAD;
-  }
-}
-
-.input-field--block {
-  .datepicker {
-    display: block;
-    width: 100%;
-  }
-  .input-field {
-    display: block;
-    width: 100%;
-  }
+textarea[disabled],
+input[disabled] {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 /* temporary fix for required fields */
@@ -346,10 +334,18 @@ input[disabled] {
   top: -2.3rem;
 }
 
+<<<<<<< HEAD
 .upload__element.is-required:after {
   top: -0.2rem;
   right: -0.2rem;
   border-radius: 0;
+=======
+.upload.is-required:after {
+  top: -0rem;
+  right: -0rem;
+  border-radius: 0;
+  z-index: 4;
+>>>>>>> master
 }
 
 /* temporary fix for narrower forms */
@@ -378,6 +374,7 @@ input[disabled] {
   }
 }
 
+<<<<<<< HEAD
 /* temporary fix for controle mandatenbeheer */
 
 .data-table input.ember-checkbox[type=checkbox] {
@@ -415,4 +412,24 @@ input[disabled] {
   background-color: #8bae00 !important;
   content: "\E00C";
   color: white;
+=======
+/* temporary fix to highlight errors and required fields */
+
+.alert + .container-flex--scroll .is-required {
+
+  .input-field,
+  .ember-power-select-trigger {
+    border-bottom-color: red;
+  }
+}
+
+.alert + .container-flex--scroll .is-required.upload {
+  border-color: red;
+  background-color: RGBA(249, 22, 40, 0.1);
+
+  &:after {
+    background-color: RGBA(249, 22, 40, 1);
+    color: white;
+  }
+>>>>>>> master
 }
