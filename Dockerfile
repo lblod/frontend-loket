@@ -1,4 +1,4 @@
-FROM madnificent/ember:3.0.0 as builder
+FROM madnificent/ember:3.4.1 as builder
 
 LABEL maintainer="info@redpencil.io"
 
@@ -11,7 +11,7 @@ RUN git clone https://github.com/lblod/handleiding-digitaal-loket.git handleidin
       && rm -r handleiding/.git \
       && mv handleiding /app/dist/handleiding
 
-FROM semtech/ember-proxy-service:1.3.0
+FROM semtech/ember-proxy-service:1.4.0
 
 ENV STATIC_FOLDERS_REGEX "^/(assets|font|files|handleiding|toezicht/bestanden)/"
 
