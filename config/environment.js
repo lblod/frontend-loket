@@ -28,8 +28,7 @@ module.exports = function(environment) {
       vs: {i:11,f:-3,o:-3,s:-3,c:-3},
       style: 'corner',
       l: 'nl',
-      shift_page_down: false,
-      test: true
+      shift_page_down: false
     },
     'vo-webuniversum': {
       version: '2.8.3',
