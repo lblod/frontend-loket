@@ -347,11 +347,11 @@ input[disabled] {
   flex-direction: row-reverse;
 
   .form__input {
-    flex: 0;
+    flex: 1 0 auto;
   }
 
   .form__label {
-    flex: 1;
+    flex: auto;
   }
 
   .checkbox {
@@ -377,4 +377,8 @@ input[disabled] {
     background-color: RGBA(249, 22, 40, 1);
     color: white;
   }
+}
+
+.alert__icon+.alert__content {
+  min-height: 0;
 }
