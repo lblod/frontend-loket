@@ -12,6 +12,6 @@ export default Component.extend( InputField, {
   internalValue: oneWay('value'),
 
   valueObserver: observer('internalValue', function() {
-    this.updateValue( this.get("internalValue") );
+    this.updateValue( this.internalValue );
   })
 });

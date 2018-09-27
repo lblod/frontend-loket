@@ -4,10 +4,10 @@ export default Component.extend({
   showDetails: false,
   actions: {
     select(){
-      this.get('onSelect')(this.get('persoon'));
+      this.onSelect(this.persoon);
     },
     toggleDetails(){
-      this.set('showDetails', !this.get('showDetails'));
+      this.set('showDetails', !this.showDetails);
     }
   }
 });

@@ -23,7 +23,7 @@ export default Component.extend( InputField, {
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('taxRates', A());
-    if (this.get('model')) {
+    if (this.model) {
       const value = this.get(`solution.${this.get('model.identifier')}`);
       this.set('taxRates', value || A());
     }

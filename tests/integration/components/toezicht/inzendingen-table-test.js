@@ -12,7 +12,7 @@ module('Integration | Component | toezicht/inzendingen-table', function(hooks) {
 
     await render(hbs`{{toezicht/inzendingen-table}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
@@ -21,6 +21,6 @@ module('Integration | Component | toezicht/inzendingen-table', function(hooks) {
       {{/toezicht/inzendingen-table}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom(this.element).hasText('template block text');
   });
 });

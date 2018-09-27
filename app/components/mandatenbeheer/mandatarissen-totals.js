@@ -20,7 +20,7 @@ export default Component.extend({
         'bevat-in.is-tijdsspecialisatie-van'
       ].join(',')
     };
-    return this.get('store').query('mandaat', queryParams);
+    return this.store.query('mandaat', queryParams);
   },
 
   getMandatarissenMandaat(mandaat){
@@ -33,11 +33,11 @@ export default Component.extend({
       'filter[:gte:einde]': new Date().toISOString().slice(0, 10),
       page: { size: 1 }
     };
-    return this.get('store').query('mandataris', queryParams);
+    return this.store.query('mandataris', queryParams);
   },
 
   getMandatarissenTotals: task(function* (){
-    const bstOrgs = this.get('bestuursorganen');
+    const bstOrgs = this.bestuursorganen;
 
     const mapMandtnOrgs = yield Promise.all(bstOrgs.map(async (o) => {
      return {org: o, mandtn: await this.getMandatenOrgaan(o)};
@@ -65,9 +65,9 @@ export default Component.extend({
 
   actions:{
     toggleOpen(){
-      if(!this.get('isOpen'))
+      if(!this.isOpen)
         this.getMandatarissenTotals.perform();
-      this.set('isOpen', !this.get('isOpen'));
+      this.set('isOpen', !this.isOpen);
     }
   }
 });

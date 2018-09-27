@@ -27,7 +27,7 @@ const CreatePersoon = Component.extend({
    * check if rijksregisternummer is valid
    */
   isValidRijksRegister: computed('rijksregisternummer', function() {
-    let rr = this.get('rijksregisternummer');
+    let rr = this.rijksregisternummer;
     if (isBlank(rr))
       return false;
     if (rr.length != 11) {
@@ -41,56 +41,56 @@ const CreatePersoon = Component.extend({
    *
    */
   loadOrCreateRijksregister: task( function * () {
-    const store = this.get('store');
+    const store = this.store;
     let identificator;
-    let queryResult = yield store.query('identificator', {filter: {':exact:identificator': this.get('rijksregisternummer')}});
+    let queryResult = yield store.query('identificator', {filter: {':exact:identificator': this.rijksregisternummer}});
     if (queryResult.length >= 1)
       identificator = queryResult.get('firstObject');
     else {
-      identificator = yield store.createRecord('identificator', {identificator: this.get('rijksregisternummer')}).save();
+      identificator = yield store.createRecord('identificator', {identificator: this.rijksregisternummer}).save();
     }
     return identificator;
   }),
   loadOrCreateGeboorte: task( function * () {
-    const store = this.get('store');
+    const store = this.store;
     let geboorte;
-    let queryResult = yield store.query('geboorte', {filter: {'datum': this.get('birthDate').toISOString().substring(0, 10)}});
+    let queryResult = yield store.query('geboorte', {filter: {'datum': this.birthDate.toISOString().substring(0, 10)}});
     if (queryResult.length >= 1)
       geboorte = queryResult.get('firstObject');
     else {
-      geboorte = yield store.createRecord('geboorte', {datum: this.get('birthDate')}).save();
+      geboorte = yield store.createRecord('geboorte', {datum: this.birthDate}).save();
     }
     return geboorte;
   }),
   save: task( function * () {
     // todo geboorte en identificator
     this.set('hasError', false);
-    this.get('requiredFields').forEach((field) => {
+    this.requiredFields.forEach((field) => {
       this.set(`${field}Error`, null);
       if (isBlank(this.get(field))) {
         this.set('hasError', true);
         this.set(`${field}Error`,`${field} is een vereist veld.`);
       }
     });
-    if (! this.get('isValidRijksRegister')) {
+    if (! this.isValidRijksRegister) {
       this.set('rijksregisternummerError', 'rijksregisternummer is niet geldig.');
     }
-    if (this.get('hasError'))
+    if (this.hasError)
       return;
-    const store = this.get('store');
+    const store = this.store;
     let persoon;
     this.set('saveError', '');
     try {
       persoon = store.createRecord('persoon', {
-        gebruikteVoornaam: this.get('voornaam'),
-        achternaam: this.get('familienaam'),
-        alternatieveNaam: this.get('roepnaam'),
-        geslacht: yield store.findRecord('geslacht-code', this.get('geslacht')),
-        identificator: yield this.get('loadOrCreateRijksregister').perform(),
-        geboorte: yield this.get('loadOrCreateGeboorte').perform()
+        gebruikteVoornaam: this.voornaam,
+        achternaam: this.familienaam,
+        alternatieveNaam: this.roepnaam,
+        geslacht: yield store.findRecord('geslacht-code', this.geslacht),
+        identificator: yield this.loadOrCreateRijksregister.perform(),
+        geboorte: yield this.loadOrCreateGeboorte.perform()
       });
       const result = yield persoon.save();
-      this.get('onCreate')(result);
+      this.onCreate(result);
     }
     catch(e) {
       this.set('saveError','Fout bij verwerking, probeer het later opnieuw.');

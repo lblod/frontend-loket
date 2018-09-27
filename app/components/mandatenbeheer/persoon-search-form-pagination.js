@@ -5,7 +5,7 @@ export default Component.extend({
   classNames: ['data-table-pagination'],
   currentPage: computed('page', {
     get() {
-      return this.get('page') ? parseInt(this.get('page')) + 1 : 1;
+      return this.page ? parseInt(this.page) + 1 : 1;
     },
     set(key, value) {
       this.set('page', value - 1);
@@ -20,27 +20,27 @@ export default Component.extend({
     return max ? max + 1 : max;
   }),
   isFirstPage: computed('firstPage', 'currentPage', function() {
-    return this.get('firstPage') == this.get('currentPage');
+    return this.firstPage == this.currentPage;
   }),
   isLastPage: computed('lastPage', 'currentPage', function() {
-    return this.get('lastPage') == this.get('currentPage');
+    return this.lastPage == this.currentPage;
   }),
   hasMultiplePages: computed('lastPage', function() {
-    return this.get('lastPage') > 0;
+    return this.lastPage > 0;
   }),
   startItem: computed('size', 'currentPage', function() {
-    return this.get('size') * (this.get('currentPage') - 1) + 1;
+    return this.size * (this.currentPage - 1) + 1;
   }),
   endItem: computed('startItem', 'nbOfItems', function() {
-    return this.get('startItem') + this.get('nbOfItems') - 1;
+    return this.startItem + this.nbOfItems - 1;
   }),
   pageOptions: computed('firstPage', 'lastPage', function() {
-    const nbOfPages = this.get('lastPage') - this.get('firstPage') + 1;
-    return Array.from(new Array(nbOfPages), (val, index) => this.get('firstPage') + index);
+    const nbOfPages = this.lastPage - this.firstPage + 1;
+    return Array.from(new Array(nbOfPages), (val, index) => this.firstPage + index);
   }),
   actions: {
     changePage(link) {
-      this.get('onSelectPage')(link['number'] || 0);
+      this.onSelectPage(link['number'] || 0);
     }
   }
 });

@@ -16,11 +16,11 @@ export default Component.extend({
   createMode: false,
   promptMode: false,
   viewMode: computed('editOnlyMode', 'createMode', function(){
-    return !(this.get('editOnlyMode') || this.get('createMode'));
+    return !(this.editOnlyMode || this.createMode);
   }),
   saveError: false,
   hasFatalError: computed('saveError', 'requiredFieldError', function(){
-    return this.get('saveError') || this.get('requiredFieldError');
+    return this.saveError || this.requiredFieldError;
   }),
 
   async didReceiveAttrs(){
@@ -55,24 +55,24 @@ export default Component.extend({
       //fractie is a complex object, requires some special flow
       yield this.saveLidmaatschap();
 
-      if(!this.get('mandaat')){
+      if(!this.mandaat){
         this.set('requiredFieldError', true);
-        return this.get('mandataris');
+        return this.mandataris;
       }
 
-      this.set('mandataris.bekleedt', this.get('mandaat'));
-      this.get('mandataris.beleidsdomein').setObjects(this.get('beleidsdomeinen'));
-      this.set('mandataris.start', this.get('startDate'));
-      this.set('mandataris.einde', this.get('endDate'));
+      this.set('mandataris.bekleedt', this.mandaat);
+      this.get('mandataris.beleidsdomein').setObjects(this.beleidsdomeinen);
+      this.set('mandataris.start', this.startDate);
+      this.set('mandataris.einde', this.endDate);
 
-      if(this.get('rangorde'))
-        this.set('mandataris.rangorde', {content: this.get('rangorde'), language: 'nl'});
+      if(this.rangorde)
+        this.set('mandataris.rangorde', {content: this.rangorde, language: 'nl'});
       else
         this.set('mandataris.rangorde', undefined);
 
-      this.set('mandataris.status', this.get('status'));
+      this.set('mandataris.status', this.status);
 
-      return yield this.get('mandataris').save();
+      return yield this.mandataris.save();
     }
     catch (e){
       this.set('saveError', true);
@@ -82,10 +82,10 @@ export default Component.extend({
   }),
 
   async saveNewBeleidsdomeinen(){
-    let savingD = this.get('beleidsdomeinen').map(async d => {
+    let savingD = this.beleidsdomeinen.map(async d => {
       if(d.get('isNew')){
         await d.save();
-        this.get('destroyOnError').pushObject(d);
+        this.destroyOnError.pushObject(d);
       }
     });
     return Promise.all(savingD);
@@ -93,7 +93,7 @@ export default Component.extend({
 
   async saveLidmaatschap(){
     if(!this.get('mandataris.heeftLidmaatschap.id')){
-      if (this.get('fractie')) {
+      if (this.fractie) {
         await this.createNewLidmaatschap();
         return;
       }
@@ -113,7 +113,7 @@ export default Component.extend({
       await this.updateLidmaatschap();
       return;
     }
-    if(!this.get('fractie'))
+    if(!this.fractie)
       return;
     this.set('mandataris.heeftLidmaatschap.tijdsinterval', await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde')));
   },
@@ -125,31 +125,31 @@ export default Component.extend({
     if(fractie.get('fractietype.isOnafhankelijk')){
       await fractie.destroyRecord();
     }
-    if(this.get('fractie')){
+    if(this.fractie){
       await this.createNewLidmaatschap();
     }
   },
 
   async createNewLidmaatschap(){
     let tijdsinterval = await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde'));
-    let fractie = this.get('fractie');
+    let fractie = this.fractie;
 
     if(!fractie.get('id')){
       await fractie.save();
     }
 
-    let lidmaatschap =  await this.get('store').createRecord('lidmaatschap', {
+    let lidmaatschap =  await this.store.createRecord('lidmaatschap', {
       binnenFractie: fractie, lidGedurende: tijdsinterval
     });
     await lidmaatschap.save();
 
-    this.get('destroyOnError').pushObject(lidmaatschap);
+    this.destroyOnError.pushObject(lidmaatschap);
     this.set('mandataris.heeftLidmaatschap', lidmaatschap);
   },
 
   valideerStartEnEinde: observer('startDate', 'endDate', function() {
-    const start = this.get('startDate');
-    const end = this.get('endDate');
+    const start = this.startDate;
+    const end = this.endDate;
     this.set('startDateError', null);
     this.set('endDateError', null);
     if (isBlank(start))
@@ -163,9 +163,9 @@ export default Component.extend({
   async getTijdsinterval(begin, einde){
     let tijdsinterval = await this.findTijdsinterval(begin, einde);
     if(!tijdsinterval){
-      tijdsinterval = this.get('store').createRecord('tijdsinterval', {begin, einde});
+      tijdsinterval = this.store.createRecord('tijdsinterval', {begin, einde});
       await tijdsinterval.save();
-      this.get('destroyOnError').pushObject(tijdsinterval);
+      this.destroyOnError.pushObject(tijdsinterval);
     }
     return tijdsinterval;
   },
@@ -173,13 +173,13 @@ export default Component.extend({
   async findTijdsinterval(startDate, endDate){
     let begin = startDate ? startDate.toISOString().substring(0, 10) : '';
     let einde = endDate ? endDate.toISOString().substring(0, 10) : '';
-    return await this.get('store').query('tijdsinterval',{filter: {begin, einde}});
+    return await this.store.query('tijdsinterval',{filter: {begin, einde}});
   },
 
   async cleanUpOnError(){
     //TODO: better rollback of relations
-    this.get('mandataris').rollbackAttributes();
-    this.get('destroyOnError').forEach(o => {
+    this.mandataris.rollbackAttributes();
+    this.destroyOnError.forEach(o => {
         o.destroyRecord();
     });
   },
@@ -203,21 +203,21 @@ export default Component.extend({
 
     async save(){
       let mandataris = await this.save.perform();
-      if(!this.get('hasFatalError')){
+      if(!this.hasFatalError){
         this.set('createMode', false);
         this.set('promptMode', false);
         this.set('editMode', false);
         this.set('terminateMode', false);
         this.set('correctMode', false);
-        this.get('onSave')(mandataris);
+        this.onSave(mandataris);
       }
     },
 
     cancel(){
       this.initComponentProperties();
-      if(this.get('createMode')){
+      if(this.createMode){
         this.set('createMode', false);
-        this.get('onCancelCreate')(this.get('mandataris'));
+        this.onCancelCreate(this.mandataris);
       }
       else {
         this.set('promptMode', false);
@@ -228,7 +228,7 @@ export default Component.extend({
     },
 
     previous(){
-      this.get('onPrevious')();
+      this.onPrevious();
     },
 
     edit(){
@@ -238,12 +238,12 @@ export default Component.extend({
     correct(){
       this.set('promptMode', false);
       this.set('editMode', true);
-      this.set('correctMode', !this.get('correctMode'));
+      this.set('correctMode', !this.correctMode);
     },
     terminate(){
       this.set('promptMode', false);
       this.set('editMode', true);
-      this.set('terminateMode', !this.get('terminateMode'));
+      this.set('terminateMode', !this.terminateMode);
     }
   }
 });

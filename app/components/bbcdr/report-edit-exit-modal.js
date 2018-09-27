@@ -4,13 +4,13 @@ export default Component.extend({
 
   actions: {
     save(){
-      this.get('onSave')();
+      this.onSave();
     },
     cancel(){
-      this.get('onCancel')();
+      this.onCancel();
     },
     discard(){
-      this.get('onDiscard')();
+      this.onDiscard();
     }
   }
 });

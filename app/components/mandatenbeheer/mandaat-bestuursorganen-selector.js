@@ -5,7 +5,7 @@ export default Component.extend({
   store: service(),
 
   didReceiveAttrs(){
-    this.set('_mandaat', this.get('mandaat'));
+    this.set('_mandaat', this.mandaat);
     this.set('mandaten', this.populateMandaten());
   },
 
@@ -13,16 +13,16 @@ export default Component.extend({
     const queryParams = {
       sort:'bestuursfunctie.label',
       include: 'bestuursfunctie',
-      'filter[bevat-in][id]': this.get('bestuursorganen').map(o => o.get('id')).join(',')
+      'filter[bevat-in][id]': this.bestuursorganen.map(o => o.get('id')).join(',')
     };
-    return this.get('store').query('mandaat', queryParams);
+    return this.store.query('mandaat', queryParams);
 
   },
 
   actions: {
     select(mandaat){
       this.set('_mandaat', mandaat);
-      this.get('onSelect')(mandaat);
+      this.onSelect(mandaat);
     }
   }
 });
