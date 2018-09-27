@@ -24,7 +24,7 @@
     "@lblod/ember-mock-login": "^0.4.5",
     "@lblod/ember-mu-dynamic-forms": "0.3.2",
     "@lblod/ember-vo-mu-file-upload": "0.3.1",
-    "@lblod/ember-vo-webuniversum": "^0.16.2",
+    "@lblod/ember-vo-webuniversum": "^0.16.3",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.10",
     "@lblod/ember-vo-webuniversum-widget": "^0.1.2",
     "broccoli-asset-rev": "^2.7.0",
