@@ -1,23 +1,23 @@
+import { reads } from '@ember/object/computed';
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 
 export default Component.extend({
-  rol: computed.reads('mandataris.bekleedt.bestuursfunctie.label'),
-  start: computed.reads('mandataris.start'),
-  einde: computed.reads('mandataris.einde'),
-  fractie: computed.reads('mandataris.heeftLidmaatschap.binnenFractie.naam'),
-  rangorde: computed.reads('mandataris.rangorde.content'),
-  status: computed.reads('mandataris.status.label'),
-  beleidsdomein: computed.reads('mandataris.beleidsdomein'),
+  rol: reads('mandataris.bekleedt.bestuursfunctie.label'),
+  start: reads('mandataris.start'),
+  einde: reads('mandataris.einde'),
+  fractie: reads('mandataris.heeftLidmaatschap.binnenFractie.naam'),
+  rangorde: reads('mandataris.rangorde.content'),
+  status: reads('mandataris.status.label'),
+  beleidsdomein: reads('mandataris.beleidsdomein'),
   actions: {
     edit(){
-      this.get('onEdit')();
+      this.onEdit();
     },
     terminate(){
-      this.get('onTerminate')();
+      this.onTerminate();
     },
     correct(){
-      this.get('onCorrect')();
+      this.onCorrect();
     }
   }
 });

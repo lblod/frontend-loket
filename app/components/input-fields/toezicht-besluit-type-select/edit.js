@@ -23,7 +23,7 @@ export default Component.extend( InputField, {
   async didReceiveAttrs(){
     this._super(...arguments);
 
-    if (this.get('model')) {
+    if (this.model) {
       if (this.internalValue && this.internalValue.get('isNew')) { // only already existing options are allowed
         this.internalValue.destroyRecord();
         this.updateValue( this.internalValue );
@@ -46,7 +46,7 @@ export default Component.extend( InputField, {
     if (searchData)
       queryParams['filter[label]'] = searchData;
 
-    const resources = yield this.get('store').query('besluit-type', queryParams);
+    const resources = yield this.store.query('besluit-type', queryParams);
     return resources;
   }).keepLatest(),
 

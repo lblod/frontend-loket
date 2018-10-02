@@ -80,7 +80,7 @@ export default Component.extend({
 
   save: task(function* (){
     try {
-      yield this.get('dynamicForm').save();
+      yield this.dynamicForm.save();
       yield this.updateInzending();
     }
     catch(e){
@@ -90,7 +90,7 @@ export default Component.extend({
 
   send: task(function* (){
     try {
-      yield this.get('dynamicForm').save();
+      yield this.dynamicForm.save();
       const statusSent = (yield this.store.query('document-status', {
           filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
       })).firstObject;
@@ -121,7 +121,7 @@ export default Component.extend({
       this.set('dynamicForm', dForm);
     },
     async close(){
-      this.get('router').transitionTo('toezicht.inzendingen.index');
+      this.router.transitionTo('toezicht.inzendingen.index');
     },
     async save(){
       this.flushErrors();
@@ -131,7 +131,7 @@ export default Component.extend({
       this.flushErrors();
       await this.save.perform();
       if(this.hasError) return;
-      this.get('router').transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
+      this.router.transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
     },
     async send(){
       this.flushErrors();
@@ -140,7 +140,7 @@ export default Component.extend({
       await this.save.perform();
       await this.send.perform();
       if(this.hasError) return;
-      this.get('router').transitionTo('toezicht.inzendingen.index');
+      this.router.transitionTo('toezicht.inzendingen.index');
     },
     async deleteInzending(){
       this.flushErrors();
@@ -150,7 +150,7 @@ export default Component.extend({
       this.set('deleteModal', false);
       await this.delete.perform();
       if(this.hasError) return;
-      this.get('router').transitionTo('toezicht.inzendingen.index');
+      this.router.transitionTo('toezicht.inzendingen.index');
     },
     async cancelDelete(){
       this.set('deleteModal', false);

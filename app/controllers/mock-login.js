@@ -11,7 +11,7 @@ export default Controller.extend({
     const filter = { provider: 'https://github.com/lblod/mock-login-service' };
     if (this.gemeente)
       filter.gebruiker = { 'achternaam': this.gemeente};
-    const accounts = yield this.get('store').query('account', {
+    const accounts = yield this.store.query('account', {
       include: 'gebruiker,gebruiker.bestuurseenheden',
       filter: filter,
       page: { size: this.size, number: this.page },

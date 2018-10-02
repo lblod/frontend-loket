@@ -12,7 +12,7 @@ export default Component.extend({
   },
 
   didReceiveAttrs(){
-    this.set('_beleidsdomeinen', (this.get('beleidsdomeinen') || A()).toArray());
+    this.set('_beleidsdomeinen', (this.beleidsdomeinen || A()).toArray());
   },
 
   searchByName: task(function* (searchData) {
@@ -21,18 +21,18 @@ export default Component.extend({
       sort:'label',
       'filter[label]': searchData
     };
-    return yield this.get('store').query('beleidsdomein-code', queryParams);
+    return yield this.store.query('beleidsdomein-code', queryParams);
   }),
 
   actions: {
     select(beleidsdomeinen){
-      this.get('_beleidsdomeinen').setObjects(beleidsdomeinen);
-      this.get('onSelect')(this.get('_beleidsdomeinen'));
+      this._beleidsdomeinen.setObjects(beleidsdomeinen);
+      this.onSelect(this._beleidsdomeinen);
     },
     async create(beleidsdomein){
-      let domein = await this.get('store').createRecord('beleidsdomein-code', {label: beleidsdomein});
-      this.get('_beleidsdomeinen').pushObject(domein);
-      this.get('onSelect')(this.get('_beleidsdomeinen'));
+      let domein = await this.store.createRecord('beleidsdomein-code', {label: beleidsdomein});
+      this._beleidsdomeinen.pushObject(domein);
+      this.onSelect(this._beleidsdomeinen);
     },
     suggest(term) {
       return `Voeg "${term}" toe`;

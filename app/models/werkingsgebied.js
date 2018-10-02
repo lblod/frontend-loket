@@ -5,8 +5,8 @@ import { computed } from '@ember/object';
 
 export default Model.extend({
   longName: computed('niveau', 'naam', function(){
-    let niveau = this.get('niveau');
-    let naam = this.get('naam');
+    let niveau = this.niveau;
+    let naam = this.naam;
     return `${naam} (${niveau})`;
   }),
 

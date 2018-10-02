@@ -9,7 +9,7 @@
       {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not report.status.isVerstuurd) }}
     {{/each}}
     {{#if enableUpload}}
-      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml"}}
+      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml" maxFileSizeMB=1024}}
     {{/if}}
   </div>
   {{#if showError}}

@@ -18,7 +18,7 @@ export default Route.extend(DataTableRouteMixin, {
       filter: {
         bekleedt: {
           'bevat-in': {
-            id: this.get('bestuursorganenIds').join(',')
+            id: this.bestuursorganenIds.join(',')
           }
         }
       },
@@ -38,7 +38,7 @@ export default Route.extend(DataTableRouteMixin, {
   setupController(controller, model){
     this._super(controller, model);
     controller.set('searchData', this.paramsFor('mandatenbeheer.mandatarissen')['filter']);
-    controller.set('bestuurseenheid', this.get('bestuurseenheid'));
-    controller.set('bestuursorganen', this.get('bestuursorganen'));
+    controller.set('bestuurseenheid', this.bestuurseenheid);
+    controller.set('bestuursorganen', this.bestuursorganen);
   }
 });

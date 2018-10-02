@@ -11,7 +11,7 @@ export default DS.Model.extend({
   created: attr('datetime'),
 
   filesizeMb: computed('filesize', function() {
-    return this.get('filesize') ? +(Math.round(this.get('filesize')/1000/1000 + "e+1") + "e-1") : 0;
+    return this.filesize ? +(Math.round(this.filesize/1000/1000 + "e+1") + "e-1") : 0;
   }),
   createdFormatted: format(_moment('created'), 'DD/MM/YYYY HH:mm')
 });

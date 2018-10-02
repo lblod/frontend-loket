@@ -12,6 +12,6 @@ module('Integration | Helper | withErrorClass', function(hooks) {
 
     await render(hbs`{{with-error-class inputValue}}`);
 
-    assert.equal(this.element.textContent.trim(), '1234');
+    assert.dom(this.element).hasText('1234');
   });
 });
