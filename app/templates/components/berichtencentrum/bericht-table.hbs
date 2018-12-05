@@ -1,1 +1,32 @@
-{{yield}}
+{{#data-table
+  content=content
+  isLoading=isLoadingModel
+  noDataMessage="Geen berichten gevonden"
+  sort=sort
+  page=page
+  size=size
+  class="container-flex--contain berichtencentrum-overzicht-data-table"
+
+  as |t|}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      {{th-sortable label='betreft'           field='betreft'                 currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Type communicatie' field='typeCommunicatie'        currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Dossier-nummer'    field='dossiernummer'           currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Reactietermijn'    field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label=''                  field=''                        currentSorting=sort class="u-hidden-mobile"}}
+      <th><!-- Actions --></th>
+    {{/c.header}}
+    {{#c.body as |row|}}
+      <td class="u-visible--tablet-landscape-up">{{row.betreft}}</td>
+      <td class="u-visible--tablet-landscape-up">{{row.typeCommunicatie}}</td>
+      <td class="u-visible--tablet-landscape-up">{{row.dossiernummer}}</td>
+      <td class="u-visible--tablet-landscape-up">{{row.niceFormatReactietermijn}}</td>
+      <td>
+        {{#link-to 'berichtencentrum.berichten.bericht.view' row.id}}
+          Bekijk
+        {{/link-to}}
+      </td>
+    {{/c.body}}
+  {{/t.content}}
+{{/data-table}}
