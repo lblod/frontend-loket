@@ -43,6 +43,9 @@ Router.map(function() {
     this.route('disclaimer');
     this.route('cookieverklaring');
   });
+  this.route('berichtencentrum', function() {
+    this.route('berichten');
+  });
 });
 
 export default Router;
