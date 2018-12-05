@@ -13,6 +13,7 @@ export default Service.extend({
       const user = await account.get('gebruiker');
       const group = await this.store.find('bestuurseenheid', get(session, 'data.authenticated.relationships.group.data.id'));
       const roles = await get(session, 'data.authenticated.data.attributes.roles');
+      roles.push('LoketLB-berichtencentrumGebruiker');
       this.set('_account', account);
       this.set('_user', user);
       this.set('_group', group);
@@ -20,6 +21,7 @@ export default Service.extend({
       this.set('canAccessToezicht', this.canAccess('LoketLB-toezichtGebruiker'));
       this.set('canAccessBbcdr', this.canAccess('LoketLB-bbcdrGebruiker'));
       this.set('canAccessMandaat', this.canAccess('LoketLB-mandaatGebruiker'));
+      this.set('canAccessBerichtencentrum', this.canAccess('LoketLB-berichtencentrumGebruiker'));
     }
   },
   canAccess(role) {
