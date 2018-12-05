@@ -1,0 +1,58 @@
+{{berichtencentrum/bericht-new-header}}
+<div class="container-flex--scroll u-padding--round--small">
+    <form onsubmit={{action "sendMessage"}}>
+
+        <div style="text-align:right">
+            <button type="submit" class="rr-action-button">Stuur</button>
+        </div>
+
+        <div class="form__row">
+            <div class="form__label">
+                Typecommunicatie
+            </div>
+        {{input type="text" value=berichtTypeCommunicatie   class="full-width"  placeHolder="Voeg typecommunicatie toe"}}
+        </div>
+        
+        <div class="form__row">
+            <div class="form__label">
+                Dossiernummer
+            </div>
+        {{input type="text" value=berichtDossiernummer      class="full-width"  placeHolder="Voeg dossiernummer toe"}}
+        </div>
+        
+        <div class="form__row">
+            <div class="form__label">
+                Title
+            </div>
+        {{input type="text" value=berichtTitle              class="full-width"  placeHolder="Voeg title toe"}}
+        </div>
+        
+        <div class="form__row">
+            <div class="form__label">
+                Reactietermijn
+            </div>
+        {{input type="text" value=berichtReactietermijn     class="full-width"  placeHolder="Zet een datum"}}
+        </div>
+        <div class="form__row">
+            <div class="form__label">
+                LaatsteBericht
+            </div>
+        {{input type="text" value=berichtLaatsteBericht     class="full-width"  placeHolder=""}}
+        </div>
+        
+        <div class="form__row">
+            <div class="form__label">
+                LaatstVerstuurdDoor
+            </div>
+        {{input type="text" value=berichtLaatstVerstuurdDoor   class="full-width"   placeHolder=""}}
+        </div>
+        
+        <div class="form__row">
+            <div class="form__label">
+                Berichtteskt
+            </div> 
+            {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml" maxFileSizeMB=1024}}
+            {{textarea value=berichtTekst   class="full-width" rows="8"}}
+        </div>
+    </form>
+</div>
