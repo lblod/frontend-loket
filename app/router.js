@@ -44,7 +44,9 @@ Router.map(function() {
     this.route('cookieverklaring');
   });
   this.route('berichtencentrum', function() {
-    this.route('berichten');
+    this.route('berichten', function() {
+      this.route('new');
+    });
   });
 });
 
