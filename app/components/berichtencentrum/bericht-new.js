@@ -2,32 +2,28 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { empty } from '@ember/object/computed';
 import { computed } from '@ember/object';
+import { A } from '@ember/array';
 
 export default Component.extend({
 
-    berichtTypeCommunicatie: '',
-    berichtDossiernummer: '',
-    berichtTitle: '',
-    berichtReactietermijn: '',
-    berichtLaatsteBericht: '',
-    berichtLaatstVerstuurdDoor: '',
-    berichtTekst: '',
+    inhoud                  : '',
+    van                     : '',
+    auteur                  : '',
+    naar                    : '',
+
+    bijlagen                : A(['bijlaag 1', 'bijlaag 2']),
     
     isSendButtonDisabled: computed ('isSendButtonDisabled', function(){
 
-        return  empty('berichtTypeCommunicatie')
-                &&
-                empty('berichtDossiernummer')
-                &&
-                empty('berichtTitle')
-                &&
-                empty('berichtReactietermijn')
-                &&
-                empty('berichtLaatsteBericht')
-                &&
-                empty('berichtLaatstVerstuurdDoor')
-                &&
-                empty('berichtTekst');
+        return  empty('inhoud')
+                ||
+                empty('van')
+                ||
+                empty('auteur')
+                ||
+                empty('naar')
+                ||
+                empty('bijlagen');
     }),
     
     router: service(),
@@ -44,16 +40,15 @@ export default Component.extend({
             event.preventDefault();
             
             await this.get('store').createRecord('bericht', {
+                
+                inhoud                  : this.inhoud,
+                aangekomen              : Date.parse(new Date().toISOString),
+                verzonden               : Date.parse(new Date().toISOString),
+                van                     : this.van,
+                auteur                  : this.auteur,
+                naar                    : this.naar,
 
-                typeCommunicatie        : this.berichtTypeCommunicatie,
-                dossiernummer           : this.berichtDossiernummer,
-                reactietermijn          : Date.parse(this.berichtReactietermijn),
-                laatsteBericht          : this.berichtLaatsteBericht,
-                laatstVerstuurdDoor     : this.berichtLaatstVerstuurdDoor,
-                messageBody             : this.berichtTekst,
-                aangekomenDatum         : null,
-                verzondenDatum          : Date.parse(new Date().toISOString),
-                title                   : this.berichtTitle
+                bijlagen                : this.bijlagen
                 
             }).save();
 
