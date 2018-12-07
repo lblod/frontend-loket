@@ -46,6 +46,10 @@ Router.map(function() {
   this.route('berichtencentrum', function() {
     this.route('berichten', function() {
       this.route('new');
+
+      this.route('conversatie', {
+        path: ':id'
+      });
     });
   });
 });
