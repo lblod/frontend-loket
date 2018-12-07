@@ -1,6 +1,7 @@
 import { hasMany } from 'ember-data/relationships';
 import DS from 'ember-data';
 const { attr } = DS;
+import { computed } from '@ember/object';
 
 export default DS.Model.extend({
 
@@ -10,5 +11,13 @@ export default DS.Model.extend({
     reactietermijn:     attr('string'),
 
     berichten:          hasMany('bericht'),
+
+    laatsteBericht: computed ('', function(){
+        return 'not computed yet';
+    }),
+
+    laatsteBerichtVerstuurdDoor: computed ('', function(){
+        return 'not computed yet';
+    }),
 
 });

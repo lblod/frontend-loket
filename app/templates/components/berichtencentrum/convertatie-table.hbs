@@ -14,6 +14,9 @@
       {{th-sortable label='Type communicatie' field='typeCommunicatie'        currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label='Dossier-nummer'    field='dossiernummer'           currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label='Reactietermijn'    field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Laatste bericht'   field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Laatste bericht verstuurd door'
+                                              field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label=''                  field=''                        currentSorting=sort class="u-hidden-mobile"}}
       <th><!-- Actions --></th>
     {{/c.header}}
@@ -22,6 +25,8 @@
       <td class="u-visible--tablet-landscape-up">{{row.typeCommunicatie}}</td>
       <td class="u-visible--tablet-landscape-up">{{row.dossiernummer}}</td>
       <td class="u-visible--tablet-landscape-up">{{row.niceFormatReactietermijn}}</td>
+      <td class="u-visible--tablet-landscape-up">{{row.laatsteBericht}}</td>
+      <td class="u-visible--tablet-landscape-up">{{row.laatsteBerichtVerstuurdDoor}}</td>
       <td>
         {{#link-to 'berichtencentrum.berichten.bericht.view' row.id}}
           Bekijk
