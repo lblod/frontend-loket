@@ -1,6 +1,13 @@
 {{berichtencentrum/conversatie-view-header  conversatie=model}}
 <div class="container-flex--scroll u-padding--round--small">
 {{#each model.berichten as |bericht|}}
-    {{berichtencentrum/bericht-view bericht=bericht}}
+    {{berichtencentrum/bericht-view bericht=bericht conversatie=model}}
 {{/each}}
+
+<div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
+    {{!--{{wu-button label="Lever nieuw brief aan" onClick=(action "onNieuwBriefClicked") isNarrow=true}}--}}
+    {{#link-to 'berichtencentrum.berichten.conversatie.new' row.id}}
+        Plaats reactie
+    {{/link-to}}
+</div>
 </div>
