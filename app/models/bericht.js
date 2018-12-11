@@ -12,13 +12,13 @@ export default DS.Model.extend({
     auteur:     belongsTo('gebruiker'),
     naar:       belongsTo('bestuurseenheid'),
 
-    bijlagen:   hasMany('string'),
+    bijlagen:   hasMany('file'),
 
-    niceFormatAangekomenDatum: computed ('aangekomen', function(){
+    niceFormatAangekomen: computed ('aangekomen', function(){
         return this.niceFormatDate(this.aangekomen);
     }),
 
-    niceFormatVerzondenDatum: computed ('verzonden', function(){
+    niceFormatVerzonden: computed ('verzonden', function(){
         return this.niceFormatDate(this.verzonden);
     }),
 
@@ -36,8 +36,14 @@ export default DS.Model.extend({
             return 'undefined';
         
         let parts = (date + "").split(" ");
-        return [parts[2], parts[1], parts[3]].join(" ") + ", " + parts[4];
+        return [parts[2], parts[1], parts[3]].join(" ") + ", " + this.timeHoursMinutes(parts[4]);
         
+    },
+
+    timeHoursMinutes: function(time) {
+        
+        let parts = time.split(":");
+        return [parts[0], parts[1]].join(":");
     },
 
     toDays: function (d) {

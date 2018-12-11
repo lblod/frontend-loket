@@ -1,16 +1,17 @@
-import { hasMany } from 'ember-data/relationships';
-import DS from 'ember-data';
-const { attr } = DS;
+import DS           from 'ember-data';
+import { hasMany }  from 'ember-data/relationships';
 import { computed } from '@ember/object';
+
+const { attr } = DS;
 
 export default DS.Model.extend({
 
-    dossiernummer:      attr('string'),
-    betreft:            attr('string'),
-    typeCommunicatie:   attr('string'),
-    reactietermijn:     attr('string'),
+    dossiernummer   : attr('string'),
+    betreft         : attr('string'),
+    typeCommunicatie: attr('string'),
+    reactietermijn  : attr('string'),
 
-    berichten:          hasMany('bericht'),
+    berichten       : hasMany('bericht'),
 
     laatsteBericht: computed ('', function(){
         return 'not computed yet';

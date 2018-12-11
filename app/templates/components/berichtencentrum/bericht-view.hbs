@@ -1,0 +1,26 @@
+{{!--{{berichtencentrum/bericht-view-header bericht=bericht}}--}}
+<div class="js-accordion {{if isExpanded "js-accordion--open"}}">
+    <div class="grid grid-collapse">
+
+        <div class="col--6-12">
+            <h3 class="h6">Geen bericht 'TITLE' {{bericht.inhoud}}</h3>
+        </div>
+
+        <div class="col--5-12 u-align--right">
+            <p class="text-fade smaller">Aangekomen: {{bericht.niceFormatAangekomen}}</p>
+            <p class="text-fade smaller">Verzonden: {{bericht.niceFormatVerzonden}}</p>
+        </div>
+
+        {{berichtencentrum/bericht-view-expander click=(action "expand")}}
+        
+    </div>
+    
+    <div class="accordion__content u-spacer--top--small">
+        <div class="u-spacer--tiny">
+            <p class="small">{{bericht.inhoud}}</p>
+        </div>
+    </div>
+
+    <div class="u-hr u-spacer--tb--small"></div>
+
+</div>

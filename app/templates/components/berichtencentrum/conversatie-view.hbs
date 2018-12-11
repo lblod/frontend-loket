@@ -1,0 +1,6 @@
+{{berichtencentrum/conversatie-view-header  conversatie=model}}
+<div class="container-flex--scroll u-padding--round--small">
+{{#each model.berichten as |bericht|}}
+    {{berichtencentrum/bericht-view bericht=bericht}}
+{{/each}}
+</div>
