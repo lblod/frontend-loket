@@ -1,27 +1,30 @@
 {{!--{{berichtencentrum/bericht-view-header bericht=bericht}}--}}
 <div class="js-accordion {{if isExpanded "js-accordion--open"}}">
-    <div class="grid grid-collapse">
-
+    <div class="grid grid--collapse">
         <div class="col--6-12">
             <h3 class="h6">Geen bericht 'TITLE'</h3>
             <p class="smaller">Antwoord op {{conversatie.typeCommunicatie}}</p>
         </div>
-
         <div class="col--5-12 u-align--right">
             <p class="text-fade smaller">Aangekomen: {{bericht.niceFormatAangekomen}}</p>
-            <p class="text-fade smaller">Verzonden: {{bericht.niceFormatVerzonden}}</p>
+            <p class="smaller text-fade">Verzonden: {{bericht.niceFormatVerzonden}}</p>
         </div>
-
-        {{berichtencentrum/bericht-view-expander click=(action "expand")}}
-        
-    </div>
-    
-    <div class="accordion__content u-spacer--top--small">
-        <div class="u-spacer--tiny">
-            <p class="small">{{bericht.inhoud}}</p>
+        <div class="col--1-12 u-align--right" {{action 'expand'}}>
+            <span class="js-accordion__toggle js-accordion-bound" type="button"><i class="vi vi-expand vi-u-s" aria-hidden="true"></i><span class="u-visually-hidden">Toon / verberg bericht</span></span>
+        </div>
+        <div class="accordion__content u-spacer--top--small">
+            <div class="u-spacer--tiny">
+                <p class="small">{{bericht.inhoud}}</p>
+            </div>
+            <!--
+            <div class="upload__files upload__files--has-files" data-upload-input-name="files2[4]">
+                <div class="upload__files__container">
+                <div class="upload__file" data-filename="doorsturenopvraging.pdf">
+                    <p class="upload__file__name">doorsturenopvraging.pdf<span class="upload__file__size">(192 Bytes)</span></p><small><a class="link--icon"><i class="fa fa-cloud-download"></i>Download bestand</a></small>
+                </div>
+                </div>
+            </div>
+            -->
         </div>
     </div>
-
-    <div class="u-hr u-spacer--tb--small"></div>
-
 </div>

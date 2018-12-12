@@ -28,14 +28,11 @@ export default Component.extend({
     
     router: service(),
     store: service(),
+    isExpanded: false,
 
     actions: {
-
-        cancelMessage: function() {
-            this.closeMe();
-        },
         
-        async sendMessage(event) {
+        async verstuurBericht(event) {
 
             event.preventDefault();
             
@@ -54,13 +51,14 @@ export default Component.extend({
 
             this.closeMe();
         },
-    
-        deleteFile: function() {},
-        
-        addFile: function() {},
+
+        expandMe: function() {
+            this.set('isExpanded', true);
+        },
+
+        collapseMe: function() {
+            this.set('isExpanded', false);
+        }
     },
     
-    closeMe: function() {
-        this.router.transitionTo('berichtencentrum.berichten');
-    },
 });

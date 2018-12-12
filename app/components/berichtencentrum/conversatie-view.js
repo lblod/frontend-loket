@@ -14,5 +14,14 @@ export default Component.extend({
       async close(){
         this.router.transitionTo('berichtencentrum.berichten');
       },
+        
+      onReactieClicked() {
+          
+          if (this.get('router.currentRouteName') === 'berichtencentrum.berichten.new')
+              this.transitionToRoute('berichtencentrum.berichten');
+          else
+              this.transitionToRoute('berichtencentrum.berichten.new');
+          
+      },
     }
   });

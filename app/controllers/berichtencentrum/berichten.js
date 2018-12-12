@@ -16,15 +16,6 @@ export default Controller.extend({
       }),
 
     actions: {
-        
-        onNieuwBriefClicked() {
-            
-            if (this.get('router.currentRouteName') === 'berichtencentrum.berichten.new')
-                this.transitionToRoute('berichtencentrum.berichten');
-            else
-                this.transitionToRoute('berichtencentrum.berichten.new');
-            
-        },
 
         actions: {
             onClose: function() {
