@@ -15,11 +15,21 @@ export default DS.Model.extend({
     bijlagen:   hasMany('file'),
 
     niceFormatAangekomen: computed ('aangekomen', function(){
-        return this.niceFormatDate(this.aangekomen);
+        try {
+            return this.niceFormatDate(this.aangekomen);
+        }
+        catch (err) {
+            return 'no date';
+        }
     }),
 
     niceFormatVerzonden: computed ('verzonden', function(){
-        return this.niceFormatDate(this.verzonden);
+        try {
+            return this.niceFormatDate(this.verzonden);
+        }
+        catch (err) {
+            return 'no date';
+        }
     }),
 
     niceFormatReactietermijn: computed ('reactietermijn', function(){

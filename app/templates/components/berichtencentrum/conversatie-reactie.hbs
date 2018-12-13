@@ -1,13 +1,13 @@
 <div class="js-accordion u-spacer--small {{if isExpanded "js-accordion--open"}}">
-        <button
-            class="button button--block button--alt delete-me-verberg-reply delete-me-reply js-accordion__toggle js-accordion-bound {{if isExpanded "u-hidden"}}"
-            type="button"
-            {{action 'expandMe'}}
-            ><i class="vi vi-mail"></i>Plaats reactie</button>
-        <div class="accordion__content">
-            <div class="u-hr u-spacer--tb--small"></div>
-            <h3 class="h6 u-spacer--small">Uw reactie</h3>
-            <div class="grid u-spacer--tiny">
+    <button
+        class="button button--block button--alt delete-me-verberg-reply delete-me-reply js-accordion__toggle js-accordion-bound {{if isExpanded "u-hidden"}}"
+        type="button"
+        {{action 'expandMe'}}
+        ><i class="vi vi-mail"></i>Plaats reactie</button>
+    <div class="accordion__content">
+        <div class="u-hr u-spacer--tb--small"></div>
+        <h3 class="h6 u-spacer--small">Uw reactie</h3>
+        <div class="grid u-spacer--tiny">
             <div class="col--2-12">
                 <p class="smaller"><strong>Naar</strong></p>
             </div>
@@ -20,32 +20,23 @@
             <div class="col--10-12">
                 <p class="smaller"><span style="color:red">Geen gegeven</span></p>
             </div>
-            </div>
-            <p class="smaller u-spacer--tiny"><strong>Uw antwoord als bijlage</strong></p>
-            <div class="form__row u-spacer">
-            <div class="form__input">
-                <div class="upload js-upload" data-upload-t-close="Sluiten" data-upload-t-drop="Laat de bestanden hier los om op te laden" data-upload-allow-drop="">
-                <div class="upload__element">
-                    <input class="upload__element__input" type="file" id="files2[2]" name="files2[2]" data-upload-multiple-caption="{count} files selected" multiple="" data-upload-error-message-filesize="Het bestand mag max :maxFsz zijn." data-upload-max-size="20000000" accept=".pdf, .txt, .doc, .docx">
-                    <label class="upload__element__label" for="files2[2]"><i class="vi vi-paperclip"></i><span>Upload bestanden</span><small>Sleep de bestanden naar hier om toe te voegen</small></label>
-                </div>
-                <div class="alert alert--warning u-hidden">
-                    <div class="alert__icon" aria-hidden="true"></div>
-                    <div class="alert__content">
-                    <div class="alert__title">Upload de juiste bestanden om uw rapport te versturen.</div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
-                    type="button"
-                    {{action 'verstuurBericht'}}>Verstuur bericht</button>
-            <button class="button button--narrow button--small button--alt js-accordion__toggle js-accordion-bound"
-                    type="button"
-                    {{action 'collapseMe'}}>Bewaar concept</button>
-            <button class="button button--narrow button--small button--alt delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
-                    type="button"
-                    {{action 'collapseMe'}}>Verwijder nieuw bericht</button>
         </div>
+        {{textarea value=inhoud rows="8"}}
+        {{#each bijlagen as |file|}}
+            {{vo-mu-file-card file=file onDelete=(action "deleteFile") }}
+        {{/each}}
+        {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
+        <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
+                type="button"
+                {{action 'verstuurBericht'}}
+                >
+                Verstuur bericht
+        </button>
+        <button class="button button--narrow button--small button--alt js-accordion__toggle js-accordion-bound"
+                type="button"
+                {{action 'collapseMe'}}>Bewaar concept</button>
+        <button class="button button--narrow button--small button--alt delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
+                type="button"
+                {{action 'collapseMe'}}>Verwijder nieuw bericht</button>
     </div>
+</div>

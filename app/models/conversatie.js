@@ -21,4 +21,8 @@ export default DS.Model.extend({
         return 'not computed yet';
     }),
 
+    addReaction (bericht) {
+        this.berichten.pushObject(bericht);
+    },
+
 });

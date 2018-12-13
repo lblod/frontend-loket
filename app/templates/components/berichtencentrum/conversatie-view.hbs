@@ -1,8 +1,10 @@
 {{berichtencentrum/conversatie-view-header  conversatie=model}}
 <div class="container-flex--scroll u-padding--round--small">
-    {{#each model.berichten as |bericht|}}
+    {{#each model.berichten as |bericht index|}}
         {{berichtencentrum/bericht-view bericht=bericht conversatie=model}}
-        <div class="u-hr u-spacer--tb--small"></div>
+        {{#if ( not-eq bericht model.berichten.lastObject ) }}
+            <div class="u-hr u-spacer--tb--small"></div>
+        {{/if}}
     {{/each}}
-    {{berichtencentrum/conversatie-reactie}}
+    {{berichtencentrum/conversatie-reactie conversatie=model}}
 </div>
