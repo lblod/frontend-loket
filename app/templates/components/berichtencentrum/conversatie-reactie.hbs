@@ -21,7 +21,8 @@
                 <p class="smaller"><span style="color:red">Geen gegeven</span></p>
             </div>
         </div>
-        {{textarea value=inhoud rows="8"}}
+        {{!--{{textarea value=inhoud}}--}}
+        <textarea value={{inhoud}} rows="12" oninput={{action (mut inhoud) value="target.value"}} style="width: 100%"></textarea>
         {{#each bijlagen as |bijlage|}}
             {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
         {{/each}}
