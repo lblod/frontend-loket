@@ -27,6 +27,19 @@ export default Component.extend({
         return this.sortedMessages.get('firstObject');
     },
 
+    naar: async function () {
+
+        return this.get('store').query ('bestuurseenheid', {
+            
+            filter: { naam : 'Agentschap Binnenlands Bestuur' }
+            
+        }).then(function(records) {
+
+            return records.get('firstObject');
+
+        });
+    },
+
     onDateSorter: Object.freeze(['verzonden']),
     sortedMessages: sort('conversatie.berichten', 'onDateSorter'),
 
@@ -34,8 +47,10 @@ export default Component.extend({
         
         async verstuurBericht() {
 
-            const bestuurseenheid = await this.get('currentSession.group');
-            let user = await this.get('currentSession.user')
+            const bestuurseenheid   = await this.get('currentSession.group');
+            const user              = await this.get('currentSession.user');
+
+            //let naar = await this.anotherName();
             
             try {
                 this.collapse();
@@ -47,7 +62,7 @@ export default Component.extend({
                     verzonden               : new Date(),
                     van                     : bestuurseenheid,
                     auteur                  : user,
-                    naar                    : this.firstMessage().van,
+                    naar                    : await this.naar(),
 
                     bijlagen                : this.bijlagen
                     
@@ -65,7 +80,6 @@ export default Component.extend({
 
         attachFile: function (file) {
             this.bijlagen.pushObject(file);
-            console.log ('A new file was added\n' + this.bijlagen);
         },
 
         deleteFile: function (file) {

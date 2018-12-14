@@ -14,6 +14,9 @@
         </div>
     </div>
     <div class="accordion__content u-spacer--top--small">
+        <div>Van: {{bericht.van.naam}}</div>
+        <div>Naar: {{bericht.naar.naam}}</div>
+        <div>Auteur: {{bericht.auteur.fullNam}}</div>
         <p class="u-spacer--bottom--small small">{{bericht.inhoud}}</p>
         <!--<div class="upload__files upload__files--has-files" data-upload-input-name="files2[4]">-->
             {{#each bericht.bijlagen as |bijlage|}}
