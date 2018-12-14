@@ -3,9 +3,8 @@ import { inject as service } from '@ember/service';
 import { empty } from '@ember/object/computed';
 import { computed } from '@ember/object';
 import { A } from '@ember/array';
-import bericht from '../../models/bericht';
 import { sort } from '@ember/object/computed';
-import EmberObject from '@ember/object';
+import DS from 'ember-data';
 
 export default Component.extend({
 
@@ -18,6 +17,12 @@ export default Component.extend({
     currentSession: service(),
     
     isExpanded: false,
+
+    naarWie: computed ('naarWie', function() {
+        return  DS.PromiseObject.create({
+            promise: this.naar()
+        });
+    }),
     
     isSendButtonDisabled: computed ('isSendButtonDisabled', function(){
         return  empty('inhoud');
@@ -35,6 +40,9 @@ export default Component.extend({
             
         }).then(function(records) {
 
+            this.naarWie = records.get('firstObject').fullName;
+            console.log('narr: ' + this.naarWie);
+
             return records.get('firstObject');
 
         });
@@ -46,6 +54,9 @@ export default Component.extend({
     actions: {
         
         async verstuurBericht() {
+
+            if (this.isSendButtonDisabled)
+                return;
 
             const bestuurseenheid   = await this.get('currentSession.group');
             const user              = await this.get('currentSession.user');
