@@ -11,7 +11,7 @@ export default Component.extend({
   
     actions: {
   
-      async close(){
+      async closeVenster(){
         this.router.transitionTo('berichtencentrum.berichten');
       },
     }
