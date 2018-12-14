@@ -12,13 +12,13 @@
         <div class="col--1-12 u-align--right" {{action 'expand'}}>
             <span class="js-accordion__toggle js-accordion-bound" type="button"><i class="vi vi-expand vi-u-s" aria-hidden="true"></i><span class="u-visually-hidden">Toon / verberg bericht</span></span>
         </div>
-        <div class="accordion__content u-spacer--top--small">
-            <p class="u-spacer--bottom--small small">{{bericht.inhoud}}</p>
-            <!--<div class="upload__files upload__files--has-files" data-upload-input-name="files2[4]">-->
-                {{#each bericht.bijlagen as |bijlage|}}
-                    {{vo-mu-file-card file=bijlage onDelete=null active=false}}
-                {{/each}}
-            <!--</div>-->
-        </div>
+    </div>
+    <div class="accordion__content u-spacer--top--small">
+        <p class="u-spacer--bottom--small small">{{bericht.inhoud}}</p>
+        <!--<div class="upload__files upload__files--has-files" data-upload-input-name="files2[4]">-->
+            {{#each bericht.bijlagen as |bijlage|}}
+                {{vo-mu-file-card file=bijlage onDelete=null active=false}}
+            {{/each}}
+        <!--</div>-->
     </div>
 </div>
