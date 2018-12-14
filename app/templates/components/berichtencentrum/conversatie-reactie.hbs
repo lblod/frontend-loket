@@ -22,8 +22,8 @@
             </div>
         </div>
         {{textarea value=inhoud rows="8"}}
-        {{#each bijlagen as |file|}}
-            {{vo-mu-file-card file=file onDelete=(action "deleteFile") }}
+        {{#each bijlagen as |bijlage|}}
+            {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
         {{/each}}
         {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
         <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"

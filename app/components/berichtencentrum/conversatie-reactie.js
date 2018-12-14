@@ -53,8 +53,9 @@ export default Component.extend({
                     
                 });
 
-                this.conversatie.addReaction(reactie);
                 await reactie.save();
+                this.conversatie.addReaction(reactie);
+                await this.conversatie.save();
             }
             catch (err) {
                 alert (err.message);

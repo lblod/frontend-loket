@@ -13,18 +13,12 @@
             <span class="js-accordion__toggle js-accordion-bound" type="button"><i class="vi vi-expand vi-u-s" aria-hidden="true"></i><span class="u-visually-hidden">Toon / verberg bericht</span></span>
         </div>
         <div class="accordion__content u-spacer--top--small">
-            <div class="u-spacer--tiny">
-                <p class="small">{{bericht.inhoud}}</p>
-            </div>
-            <!--
-            <div class="upload__files upload__files--has-files" data-upload-input-name="files2[4]">
-                <div class="upload__files__container">
-                <div class="upload__file" data-filename="doorsturenopvraging.pdf">
-                    <p class="upload__file__name">doorsturenopvraging.pdf<span class="upload__file__size">(192 Bytes)</span></p><small><a class="link--icon"><i class="fa fa-cloud-download"></i>Download bestand</a></small>
-                </div>
-                </div>
-            </div>
-            -->
+            <p class="u-spacer--bottom--small small">{{bericht.inhoud}}</p>
+            <!--<div class="upload__files upload__files--has-files" data-upload-input-name="files2[4]">-->
+                {{#each bericht.bijlagen as |bijlage|}}
+                    {{vo-mu-file-card file=bijlage onDelete=null active=false}}
+                {{/each}}
+            <!--</div>-->
         </div>
     </div>
 </div>
