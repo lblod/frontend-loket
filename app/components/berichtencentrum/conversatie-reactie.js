@@ -17,15 +17,9 @@ export default Component.extend({
     currentSession: service(),
     
     isExpanded: false,
-
-    naarWie: computed ('naarWie', function() {
-        return  DS.PromiseObject.create({
-            promise: this.naar()
-        });
-    }),
     
     isSendButtonDisabled: computed ('isSendButtonDisabled', function(){
-        return  empty('inhoud');
+        return  empty('inhoud') && false;
     }),
 
     firstMessage: function () {
@@ -39,9 +33,6 @@ export default Component.extend({
             filter: { naam : 'Agentschap Binnenlands Bestuur' }
             
         }).then(function(records) {
-
-            this.naarWie = records.get('firstObject').fullName;
-            console.log('narr: ' + this.naarWie);
 
             return records.get('firstObject');
 
@@ -73,7 +64,7 @@ export default Component.extend({
                     verzonden               : new Date(),
                     van                     : bestuurseenheid,
                     auteur                  : user,
-                    naar                    : await this.naar(),
+                    naar                    : this.originator,
 
                     bijlagen                : this.bijlagen
                     
@@ -112,6 +103,23 @@ export default Component.extend({
 
     expand: function() {
         this.set('isExpanded', true);
+    },
+
+    currentUser: null,
+    originator: null,
+
+    didInsertElement() {
+
+        this._super(...arguments);
+        
+        this.get('store')
+            .query ('bestuurseenheid', {filter: { naam : 'Agentschap Binnenlands Bestuur' }})
+            .then((records) => {
+                let u = records.get('firstObject');
+                this.set('originator', u);
+            });
+
+        this.set('currentUser', this.get('currentSession.user'));
     }
 
 });
