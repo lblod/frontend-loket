@@ -24,5 +24,5 @@ export default DS.Model.extend({
     addReaction (bericht) {
         this.berichten.pushObject(bericht);
     },
-
+    
 });
