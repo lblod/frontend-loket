@@ -13,13 +13,25 @@
                 <p class="smaller"><strong>Naar</strong></p>
             </div>
             <div class="col--10-12">
-                <p class="smaller"><span style="color:red">Geen gegeven</span></p>
+                <p class="smaller">
+                {{#if originator}}
+                    {{originator.naam}}
+                {{ else }}
+                    Loading...
+                {{/if}}
+                </p>
             </div>
             <div class="col--2-12">
                 <p class="smaller"><strong>Van</strong></p>
             </div>
             <div class="col--10-12">
-                <p class="smaller"><span style="color:red">Geen gegeven</span></p>
+                <p class="smaller">
+                {{#if originator}}
+                    {{currentUser.value.fullName}}
+                {{ else }}
+                    Loading...
+                {{/if}}
+                </p>
             </div>
         </div>
         

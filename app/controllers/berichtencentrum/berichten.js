@@ -8,6 +8,7 @@ export default Controller.extend({
     sort:   'is-bestuurlijke-alias-van.achternaam',
     page:   0,
     size:   20,
+    showPreferences: false,
 
     hasActiveChildRoute: computed('router.currentRouteName', function() {
         return  this.get('router.currentRouteName').startsWith('berichtencentrum.berichten.')
@@ -17,12 +18,13 @@ export default Controller.extend({
 
     actions: {
 
-        actions: {
-            onClose: function() {
-                //router: Ember.inject.service('-routing');
-                this.transitionTo('berichtencentrum.berichten');
-            },
+        showPreferences: function() {
+            this.set('showPreferences', true);
         },
+
+        hidePreferences: function() {
+            this.set('showPreferences', false);
+        }
     }
 
 });

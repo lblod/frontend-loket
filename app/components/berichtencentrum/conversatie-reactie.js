@@ -17,10 +17,6 @@ export default Component.extend({
     currentSession: service(),
     
     isExpanded: false,
-    
-    isSendButtonDisabled: computed ('isSendButtonDisabled', function(){
-        return  empty('inhoud') && false;
-    }),
 
     firstMessage: function () {
         return this.sortedMessages.get('firstObject');
@@ -46,7 +42,7 @@ export default Component.extend({
         
         async verstuurBericht() {
 
-            if (this.isSendButtonDisabled)
+            if (this.inhoud == '')
                 return;
 
             const bestuurseenheid   = await this.get('currentSession.group');
