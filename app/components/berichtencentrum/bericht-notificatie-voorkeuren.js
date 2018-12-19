@@ -7,13 +7,14 @@ export default Component.extend({
     isHidden: true,
     store: service(),
     currentSession: service(),
+
+    wilMailOntvangen: true,
     emailAddress: 'mail@adres.com',
 
     actions: {
 
         show() {
             this.set("isHidden", false);
-            console.log("show in component level");
         },
 
         cancel() {
@@ -22,51 +23,13 @@ export default Component.extend({
 
         async commit() {
             
-            console.log('commit on the component level');
-            console.log("-------------------------------------------------------");
+            this.cancel();
             
             let group = await this.get('currentSession.group');
-            console.log("current email address:");
-            console.log(group.mailAdres);
-            console.log("-------------------------------------------------------");
+            group.set('mailAdres', this.emailAddress);
+            group.set('wilMailOntvangen', this.wilMailOntvangen);
+            await group.save();
             
-            group.set('emailAdres', this.emailAddress);
-            
-            console.log("email: ", group.get('emailAdres'));
-            console.log("-------------------------------------------------------");
-            
-            
-            await this.get('store')
-            .query ('bestuurseenheid', {filter: { naam : group.get('naam') }})
-            .then((records) => {
-                
-                let g = records.get('firstObject');
-                g.save();
-                console.log("g");
-                console.log(g);
-                console.log("-------------------------------------------------------");
-
-            });
-            
-            /*
-            await this.get('store').createRecord('bericht', {
-                
-                inhoud                  : this.inhoud,
-                aangekomen              : new Date(),
-                verzonden               : new Date(),
-                van                     : bestuurseenheid,
-                auteur                  : user,
-                naar                    : this.originator,
-
-                bijlagen                : this.bijlagen
-                
-            });
-
-            await reactie.save();
-            this.conversatie.addReaction(reactie);
-            await this.conversatie.save();
-            */
-            this.cancel();
         }
     }
 });
