@@ -31,5 +31,18 @@ export default Component.extend({
             await group.save();
             
         }
+    },
+
+
+
+    didReceiveAttrs() {
+
+        this._super(...arguments);
+        
+            this.get('currentSession.group')
+            .then((group) => {
+                this.set('wilMailOntvangen',    group.get("wilMailOntvangen"));
+                this.set('emailAddress',        group.get("mailAdres"));
+            });
     }
 });
