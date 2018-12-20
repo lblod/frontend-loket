@@ -24,7 +24,13 @@
       <td class="u-visible--tablet-landscape-up">{{row.betreft}}</td>
       <td class="u-visible--tablet-landscape-up">{{row.typeCommunicatie}}</td>
       <td class="u-visible--tablet-landscape-up">{{row.dossiernummer}}</td>
-      <td class="u-visible--tablet-landscape-up">{{row.niceFormatReactietermijn}}</td>
+      <td class="u-visible--tablet-landscape-up">
+        {{#if row.reactietermijn}}
+          Binnen {{berichtencentrum/display-moment-indays row.reactietermijn}} dagen
+        {{else}}
+          Geen reactie vereist
+        {{/if}}
+      </td>
       <td class="u-visible--tablet-landscape-up">{{row.laatsteBericht}}</td>
       <td class="u-visible--tablet-landscape-up">{{row.laatsteBerichtVerstuurdDoor}}</td>
       <td>

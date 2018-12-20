@@ -32,14 +32,6 @@ export default DS.Model.extend({
         }
     }),
 
-    niceFormatReactietermijn: computed ('reactietermijn', function(){
-
-        if (this.reactietermijn == undefined)
-            return "Geen reactie vreist";
-
-        return "In bijna " + this.daysBetween(Date.parse(this.reactietermijn), new Date()) + " dagen";
-    }),
-
     niceFormatDate: function (date) {
         
         if (date == undefined)
