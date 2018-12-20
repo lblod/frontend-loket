@@ -13,14 +13,20 @@ export default DS.Model.extend({
 
     berichten       : hasMany('bericht'),
 
-    laatsteBericht: computed ('', function(){
-        return 'not computed yet';
+    laatsteBerichtDatum: computed('berichten.@each.verzonden', function(){
+        return this.get('berichten').then(function (res){
+          return res.sortBy('verzonden').get('lastObject.verzonden');
+        });
     }),
 
-    laatsteBerichtVerstuurdDoor: computed ('', function(){
-        return 'not computed yet';
+    laatsteBerichtDoor: computed('berichten.@each.verzonden', function(){
+        return this.get('berichten').then(function (res){
+          return res.sortBy('verzonden').get('lastObject.van').then(function (res2){
+            return res2;
+          });
+        });
     }),
-
+    
     addReaction (bericht) {
         this.berichten.pushObject(bericht);
     },

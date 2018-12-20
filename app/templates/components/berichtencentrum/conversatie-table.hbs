@@ -14,9 +14,9 @@
       {{th-sortable label='Type communicatie' field='typeCommunicatie'        currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label='Dossier-nummer'    field='dossiernummer'           currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label='Reactietermijn'    field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label='Laatste bericht'   field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Laatste bericht'   field='laatsteBerichtDatum'          currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label='Laatste bericht verstuurd door'
-                                              field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
+                                              field=''          currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label=''                  field=''                        currentSorting=sort class="u-hidden-mobile"}}
       <th><!-- Actions --></th>
     {{/c.header}}
@@ -31,8 +31,8 @@
           Geen reactie vereist
         {{/if}}
       </td>
-      <td class="u-visible--tablet-landscape-up">{{row.laatsteBericht}}</td>
-      <td class="u-visible--tablet-landscape-up">{{row.laatsteBerichtVerstuurdDoor}}</td>
+      <td class="u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBerichtDatum) 'DD-MM-YYYY'}}</td>
+      <td class="u-visible--tablet-landscape-up">{{get (await row.laatsteBerichtDoor) 'naam'}}</td>
       <td>
         {{#link-to 'berichtencentrum.berichten.conversatie' row.id}}
           Bekijk
