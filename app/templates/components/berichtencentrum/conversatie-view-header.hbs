@@ -6,8 +6,8 @@
         </label>
         <label class="pill pill--gray-light u-spacer--tiny" data-content="nog geen data content" data-placement="left" data-timer="218" data-toggle="tooltip" title="nog geen title">
             Reactietermijn: 
-            {{#if row.reactietermijn}}
-              {{berichtencentrum/display-moment-indays row.reactietermijn}} dagen
+            {{#if conversatie.reactietermijn}}
+              {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
             {{else}}
               geen reactie vereist
             {{/if}}
