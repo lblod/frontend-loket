@@ -5,8 +5,8 @@ import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default DS.Model.extend({
 
-    verzonden:  attr('date'),
-    aangekomen: attr('date'),
+    verzonden:  attr('datetime'),
+    aangekomen: attr('datetime'),
     inhoud:     attr('string'),
     van:        belongsTo('bestuurseenheid'),
     auteur:     belongsTo('gebruiker'),

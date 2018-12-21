@@ -1,22 +1,13 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { empty } from '@ember/object/computed';
-import { computed } from '@ember/object';
 import { A } from '@ember/array';
 import { sort } from '@ember/object/computed';
-import DS from 'ember-data';
 
 export default Component.extend({
 
-    inhoud      : '',
-    bijlagen    : A([]),
-    conversatie : null,
-    
     router: service(),
     store: service(),
     currentSession: service(),
-    
-    isExpanded: false,
 
     firstMessage: function () {
         return this.sortedMessages.get('firstObject');
@@ -25,18 +16,21 @@ export default Component.extend({
     naar: async function () {
 
         return this.get('store').query ('bestuurseenheid', {
-            
             filter: { naam : 'Agentschap Binnenlands Bestuur' }
-            
         }).then(function(records) {
-
             return records.get('firstObject');
-
         });
     },
 
     onDateSorter: Object.freeze(['verzonden']),
     sortedMessages: sort('conversatie.berichten', 'onDateSorter'),
+
+    init() {
+        this._super(...arguments);
+        this.inhoud = '';
+        this.bijlagen = A([]);
+        this.isExpanded = false;
+    },
 
     actions: {
         
@@ -47,8 +41,6 @@ export default Component.extend({
 
             const bestuurseenheid   = await this.get('currentSession.group');
             const user              = await this.get('currentSession.user');
-
-            //let naar = await this.anotherName();
             
             try {
                 this.collapse();
@@ -107,6 +99,9 @@ export default Component.extend({
     didInsertElement() {
 
         this._super(...arguments);
+
+        console.log('conversatie provided:')
+        console.log(this.conversatie);
         
         this.get('store')
             .query ('bestuurseenheid', {filter: { naam : 'Agentschap Binnenlands Bestuur' }})
