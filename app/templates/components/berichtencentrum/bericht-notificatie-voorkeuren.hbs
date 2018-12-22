@@ -13,7 +13,6 @@
       <div class="form__label">
         <label class="checkbox checkbox--block">
           {{input class="checkbox__toggle" type="checkbox" checked=wilMailOntvangen}}
-          <!--<input class="checkbox__toggle" type="checkbox" name="checkbox" value="1" checked="">-->
           <span></span>
           <span>Ontvang mails bij nieuwe berichten</span>
         </label>
@@ -27,8 +26,8 @@
     </div>
   </div>
   <div class="modal-dialog__footer">
-    {{wu-button  label="Bewaar"    isNarrow=true onClick=(action "commit")  isAlt=false}}
-    {{wu-button  label="Annuleer"  isNarrow=true onClick=(action cancel)    isAlt=true}}
+    {{wu-button label="Bewaar" isNarrow=true onClick=(action "commit") isAlt=false}}
+    {{wu-button label="Annuleer" isNarrow=true onClick=(action "cancel") isAlt=true}}
     <a class="modal-dialog__button delete-me-toggle-configure-berichtencentrum" {{action cancel}}>
       <i class="vi vi-cross vi-u-link"></i>Verwerp wijzigingen
     </a>

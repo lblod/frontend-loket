@@ -3,8 +3,6 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   isHidden: true,
-  currentSession: service(),
-
   wilMailOntvangen: true,
   emailAddress: 'mail@adres.com',
 
