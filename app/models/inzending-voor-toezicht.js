@@ -16,7 +16,6 @@ export default Model.extend({
   hasExtraTaxRates: attr(),
   agendaItemCount: attr(),
   sessionDate: attr('datetime'),
-  title: attr(),
   decisionDateOtherAdministration: attr('date'),
   decisionSummary: attr(),
   dateHandover: attr('date'),
