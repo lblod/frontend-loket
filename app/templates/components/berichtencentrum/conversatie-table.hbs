@@ -35,12 +35,12 @@
         </td>
         <td class="u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBerichtDatum) 'DD-MM-YYYY'}}</td>
         <td class="u-visible--tablet-landscape-up">{{row.laatsteBericht.van.naam}}</td>
-        <td>
-          {{#link-to 'berichtencentrum.berichten.conversatie' row.id}}
-            Bekijk
-          {{/link-to}}
-        </td>
       {{/unless}}
+      <td>
+        {{#link-to 'berichtencentrum.berichten.conversatie' row}}
+          Bekijk
+        {{/link-to}}
+      </td>
     {{/c.body}}
   {{/t.content}}
 {{/data-table}}
