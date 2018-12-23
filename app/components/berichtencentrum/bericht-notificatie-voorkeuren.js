@@ -2,9 +2,7 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  isHidden: true,
-  wilMailOntvangen: true,
-  emailAddress: 'mail@adres.com',
+  currentSession: service(),
 
   didReceiveAttrs() {
     this._super(...arguments);
@@ -17,20 +15,18 @@ export default Component.extend({
   },
 
   actions: {
-    show() {
-      this.set("isHidden", false);
-    },
-
-    cancel() {
-      this.set("isHidden", true);
-    },
-
     async commit() {
-      this.cancel();
-      
+      // get all variables
+      let emailAddress = this.emailAddress;
+      let wilMailOntvangen = this.wilMailOntvangen;
       let group = await this.get('currentSession.group');
-      group.set('mailAdres', this.emailAddress);
-      group.set('wilMailOntvangen', this.wilMailOntvangen);
+
+      // close the popup
+      this.close(); // close the popup
+
+      // save the lot
+      group.set('mailAdres', emailAddress);
+      group.set('wilMailOntvangen', wilMailOntvangen);
       await group.save();
     }
   }

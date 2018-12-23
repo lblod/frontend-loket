@@ -1,18 +1,17 @@
 {{title "Berichtencentrum "}}
 <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
-<div class="container-flex--contain">
+  <div class="container-flex--contain">
     <div class="u-border--light--bottom">
       <div class="u-padding--round--small mandate-edit-table__header">
-
         <div class="grid u-spacer--tiny">
           <div class="col--6-12">
             <h1 class="h4 u-spacer--tiny">Berichtencentrum</h1>
           </div>
           <div class="col--6-12 u-align--right">
             <button class="button--tiny button--link button--link--dark button--alt button button--narrow delete-me-toggle-configure-berichtencentrum"
-                {{action 'showPreferences'}}>
-                <i class="fa fa-cog"></i>
-                Ontvang mails bij nieuwe berichten
+              {{action 'showPreferences'}}>
+              <i class="fa fa-cog"></i>
+              Ontvang mails bij nieuwe berichten
             </button>
           </div>
         </div>
@@ -51,7 +50,9 @@
       sort=sort page=page size=size displaySubset=hasActiveChildRoute}}
   </div>
   <div class="modal-overlay modal-overlay-configure-berichtencentrum {{unless showPreferences "u-hidden"}}">
-    {{berichtencentrum/bericht-notificatie-voorkeuren cancel=(action "hidePreferences")}}
+    {{#if showPreferences}} {{!-- removing ensures we clear the component's state --}}
+      {{berichtencentrum/bericht-notificatie-voorkeuren close=(action "hidePreferences")}}
+    {{/if}}
   </div>
 </div>
 {{outlet}}
