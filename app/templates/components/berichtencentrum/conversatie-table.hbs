@@ -1,43 +1,46 @@
 {{#data-table
-  content=content
-  isLoading=isLoadingModel
-  noDataMessage="Geen berichten gevonden"
-  sort=sort
-  page=page
-  size=size
-  class="container-flex--contain berichtencentrum-overzicht-data-table"
+   content=content
+   isLoading=isLoadingModel
+   noDataMessage="Geen berichten gevonden"
+   sort=sort
+   page=page
+   size=size
+   class="container-flex--contain berichtencentrum-overzicht-data-table"
 
-  as |t|}}
+   as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{th-sortable label='betreft'           field='betreft'                 currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label='Type communicatie' field='typeCommunicatie'        currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label='Dossier-nummer'    field='dossiernummer'           currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label='Reactietermijn'    field='reactietermijn'          currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label='Laatste bericht'   field='laatsteBerichtDatum'          currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label='Laatste bericht verstuurd door'
-                                              field=''          currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label=''                  field=''                        currentSorting=sort class="u-hidden-mobile"}}
+      {{#each (if renderSmallTable smallHeaders bigHeaders) as |header|}}
+        {{#if header.field}}
+          {{th-sortable label=header.label field=header.field currentSorting=sort class="u-hidden-mobile"}}
+        {{else}}
+        {{/if}}
+      {{/each}}
+
+      <!-- TODO last headers are not sortable -->
+
       <th><!-- Actions --></th>
     {{/c.header}}
     {{#c.body as |row|}}
       <td class="u-visible--tablet-landscape-up">{{row.betreft}}</td>
       <td class="u-visible--tablet-landscape-up">{{row.typeCommunicatie}}</td>
       <td class="u-visible--tablet-landscape-up">{{row.dossiernummer}}</td>
-      <td class="u-visible--tablet-landscape-up">
-        {{#if row.reactietermijn}}
-          Binnen {{berichtencentrum/display-moment-indays row.reactietermijn}} dagen
-        {{else}}
-          Geen reactie vereist
-        {{/if}}
-      </td>
-      <td class="u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBerichtDatum) 'DD-MM-YYYY'}}</td>
-      <td class="u-visible--tablet-landscape-up">{{get (await row.laatsteBerichtDoor) 'naam'}}</td>
-      <td>
-        {{#link-to 'berichtencentrum.berichten.conversatie' row.id}}
-          Bekijk
-        {{/link-to}}
-      </td>
+      {{#unless renderSmallTable}}
+        <td class="u-visible--tablet-landscape-up">
+          {{#if row.reactietermijn}}
+            Binnen {{berichtencentrum/display-moment-indays row.reactietermijn}} dagen
+          {{else}}
+            Geen reactie vereist
+          {{/if}}
+        </td>
+        <td class="u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBerichtDatum) 'DD-MM-YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up">{{row.laatsteBericht.van.naam}}</td>
+        <td>
+          {{#link-to 'berichtencentrum.berichten.conversatie' row.id}}
+            Bekijk
+          {{/link-to}}
+        </td>
+      {{/unless}}
     {{/c.body}}
   {{/t.content}}
 {{/data-table}}

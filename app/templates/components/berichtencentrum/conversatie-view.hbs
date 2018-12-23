@@ -1,17 +1,17 @@
-{{berichtencentrum/conversatie-view-header  conversatie=model}}
+{{berichtencentrum/conversatie-view-header conversatie=model close=(action 'closePane')}}
 <div class="container-flex--scroll u-padding--round--small">
-    {{#each model.berichten as |bericht index|}}
-        {{berichtencentrum/bericht-view bericht=bericht conversatie=model}}
-        {{#if ( not-eq bericht model.berichten.lastObject ) }}
-            <div class="u-hr u-spacer--tb--small"></div>
-        {{/if}}
-    {{/each}}
-    {{berichtencentrum/conversatie-reactie conversatie=model}}
+  {{#each model.berichten as |bericht index|}}
+    {{berichtencentrum/bericht-view bericht=bericht conversatie=model}}
+    {{#if ( not-eq bericht model.berichten.lastObject ) }}
+      <div class="u-hr u-spacer--tb--small"></div>
+    {{/if}}
+  {{/each}}
+  {{berichtencentrum/conversatie-reactie conversatie=model}}
 </div>
 <div class="u-padding--round--small u-border--light--top u-align-right">
-    <a
-        {{action "closeVenster"}}
-        class="button button--narrow button--alt delete-me-toggle-bericht button--save">
-        Sluit venster
-    </a>
+  <a
+    {{action "closePane"}}
+    class="button button--narrow button--alt delete-me-toggle-bericht button--save">
+    Sluit venster
+  </a>
 </div>

@@ -48,7 +48,8 @@
     {{berichtencentrum/conversatie-table
       class="container-flex--contain data-table--nowrap"
       content=model
-      sort=sort page=page size=size displaySubset=hasActiveChildRoute}}
+      sort=sort page=page size=size displaySubset=hasActiveChildRoute
+      renderSmallTable=hasActiveChildRoute}}
   </div>
   <div class="modal-overlay modal-overlay-configure-berichtencentrum {{unless showPreferences "u-hidden"}}">
     {{#if showPreferences}} {{!-- removing ensures we clear the component's state --}}

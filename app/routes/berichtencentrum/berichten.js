@@ -1,8 +1,6 @@
 import Route from '@ember/routing/route';
+import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
-export default Route.extend({
-  async model () {
-    let data = this.store.findAll('conversatie');
-    return data;
-  }
+export default Route.extend(DataTableRouteMixin, {
+  modelName: 'conversatie'
 });

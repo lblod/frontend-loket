@@ -3,28 +3,20 @@ import { inject as service }    from '@ember/service';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
+  router: service(),
+  showPreferences: false,
 
-    router: service(),
-    sort:   'is-bestuurlijke-alias-van.achternaam',
-    page:   0,
-    size:   20,
-    showPreferences: false,
+  hasActiveChildRoute: computed('router.currentRouteName', function() {
+    return this.get('router.currentRouteName').startsWith('berichtencentrum.berichten.')
+        && this.get('router.currentRouteName') != 'berichtencentrum.berichten.index';
+  }),
 
-    hasActiveChildRoute: computed('router.currentRouteName', function() {
-        return  this.get('router.currentRouteName').startsWith('berichtencentrum.berichten.')
-                &&
-                this.get('router.currentRouteName') != 'berichtencentrum.berichten.index';
-      }),
-
-    actions: {
-
-        showPreferences: function() {
-            this.set('showPreferences', true);
-        },
-
-        hidePreferences: function() {
-            this.set('showPreferences', false);
-        }
+  actions: {
+    showPreferences: function() {
+      this.set('showPreferences', true);
+    },
+    hidePreferences: function() {
+      this.set('showPreferences', false);
     }
-
+  }
 });
