@@ -1,32 +1,31 @@
 <div class="grid">
-    
-    <div class="col--9-12">
-        <label class="pill pill--gray-light  u-spacer--tiny" data-content="nog geen data content" data-placement="left" data-timer="218" data-toggle="tooltip" title="nog geen title">
-            Dossiernummer: {{conversatie.dossiernummer}}
-        </label>
-        <label class="pill pill--gray-light u-spacer--tiny" data-content="nog geen data content" data-placement="left" data-timer="218" data-toggle="tooltip" title="nog geen title">
-            Reactietermijn: 
-            {{#if conversatie.reactietermijn}}
-              {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
-            {{else}}
-              geen reactie vereist
-            {{/if}}
-        </label>
-        <h2 class="h3">{{conversatie.typeCommunicatie}}</h2>
-    </div>
+  <div class="col--9-12">
+    <label class="pill pill--gray-light  u-spacer--tiny" data-content="nog geen data content" data-placement="left" data-timer="218" data-toggle="tooltip" title="nog geen title">
+      Dossiernummer: {{conversatie.dossiernummer}}
+    </label>
+    <label class="pill pill--gray-light u-spacer--tiny" data-content="nog geen data content" data-placement="left" data-timer="218" data-toggle="tooltip" title="nog geen title">
+      Reactietermijn:
+      {{#if conversatie.reactietermijn}}
+        {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
+      {{else}}
+        geen reactie vereist
+      {{/if}}
+    </label>
+    <h2 class="h3">{{conversatie.typeCommunicatie}}</h2>
+  </div>
 
-    <div class="col--3-12 u-align--right">
-        <a {{action 'close'}} class="link--icon--close">
-        <span class="u-visually-hidden">Venster sluiten</span>
-        </a>
+  <div class="col--3-12 u-align--right">
+    <a {{action 'close'}} class="link--icon--close">
+      <span class="u-visually-hidden">Venster sluiten</span>
+    </a>
+  </div>
+
+  <div class="grid u-spacer--small">
+    <div class="col--12-12">
+      <div class="description-data__label">
+        {{conversatie.betreft}}
+      </div>
     </div>
-    
-    <div class="grid u-spacer--small">
-        <div class="col--12-12">
-            <div class="description-data__label">
-                {{conversatie.betreft}}
-            </div>
-        </div>
-    </div>
-    {{yield}}
+  </div>
+  {{yield}}
 </div>
