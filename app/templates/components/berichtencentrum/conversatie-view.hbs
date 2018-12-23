@@ -1,4 +1,4 @@
-{{berichtencentrum/conversatie-view-header conversatie=model close=(action 'closePane')}}
+{{berichtencentrum/conversatie-view-header conversatie=model close=close}}
 <div class="container-flex--scroll u-padding--round--small">
   {{#each model.berichten as |bericht index|}}
     {{berichtencentrum/bericht-view bericht=bericht conversatie=model}}
@@ -10,7 +10,7 @@
 </div>
 <div class="u-padding--round--small u-border--light--top u-align-right">
   <a
-    {{action "closePane"}}
+    {{action "close"}}
     class="button button--narrow button--alt delete-me-toggle-bericht button--save">
     Sluit venster
   </a>

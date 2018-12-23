@@ -9,8 +9,8 @@ export default Component.extend({
   showExitModal   : false,
   
   actions: {
-    async closePane(){
-      this.router.transitionTo('berichtencentrum.berichten');
-    },
+    close(){
+      this.close();
+    }
   }
 });
