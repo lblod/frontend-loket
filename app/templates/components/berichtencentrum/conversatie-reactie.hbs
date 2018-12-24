@@ -17,7 +17,7 @@
                 {{#if originator}}
                     {{originator.naam}}
                 {{ else }}
-                    Loading...
+                    Aan het laden...
                 {{/if}}
                 </p>
             </div>
@@ -25,11 +25,11 @@
                 <p class="smaller"><strong>Van</strong></p>
             </div>
             <div class="col--10-12">
-                <p class="smaller">
-                {{#if originator}}
-                    {{currentUser.value.fullName}}
-                {{ else }}
-                    Loading...
+              <p class="smaller">
+                {{#if currentSession.groupContent.naam}}
+                  {{currentSession.groupContent.naam}}
+                {{else}}
+                  Aan het laden...
                 {{/if}}
                 </p>
             </div>

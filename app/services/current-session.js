@@ -15,8 +15,18 @@ export default Service.extend({
       const roles = await get(session, 'data.authenticated.data.attributes.roles');
       this.set('_account', account);
       this.set('_user', user);
-      this.set('_group', group);
       this.set('_roles', roles);
+      this.set('_group', group);
+
+      // The naming is off, but account,user,roles are taken for the
+      // promises in a currently public API.
+      this.setProperties({
+        accountContent: account,
+        userContent: user,
+        rolesContent: roles,
+        groupContent: group
+      });
+
       this.set('canAccessToezicht', this.canAccess('LoketLB-toezichtGebruiker'));
       this.set('canAccessBbcdr', this.canAccess('LoketLB-bbcdrGebruiker'));
       this.set('canAccessMandaat', this.canAccess('LoketLB-mandaatGebruiker'));
@@ -25,17 +35,21 @@ export default Service.extend({
   canAccess(role) {
     return this._roles.includes(role);
   },
-  waitForIt: task(function * (property) {
+  // constructs a task which resolves in the promise
+  makePropertyPromise: task(function * (property) {
     yield waitForProperty(this, property);
     return this.get(property);
   }),
+  // this is a promise
   account: computed('_account', function() {
-    return this.waitForIt.perform('_account');
+    return this.makePropertyPromise.perform('_account');
   }),
+  // this contains a promise
   user: computed('_user', function() {
-    return this.waitForIt.perform('_user');
+    return this.makePropertyPromise.perform('_user');
   }),
+  // this contains a promise
   group: computed('_group', function() {
-    return this.waitForIt.perform('_group');
+    return this.makePropertyPromise.perform('_group');
   })
 });
