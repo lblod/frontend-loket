@@ -10,9 +10,5 @@ export default DS.Model.extend({
   typeCommunicatie: attr('string'),
   reactietermijn: attr('string'),
   berichten: hasMany('bericht', { inverse: null }),
-  laatsteBericht: belongsTo('bericht', { inverse: null }),
-
-  addReaction (bericht) {
-    this.berichten.pushObject(bericht);
-  }
+  laatsteBericht: belongsTo('bericht', { inverse: null })
 });

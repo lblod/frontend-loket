@@ -46,7 +46,7 @@ export default Component.extend({
         });
 
         await reactie.save();
-        this.conversatie.addReaction(reactie);
+        this.conversatie.berichten.pushObject(reactie);
         await this.conversatie.save();
       }
       catch (err) {
