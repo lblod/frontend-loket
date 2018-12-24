@@ -44,12 +44,22 @@
         {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
       {{/each}}
       {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
-      <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
-        type="button"
-        {{action 'verstuurBericht'}}
-      >
-        Verstuur bericht
-      </button>
+      {{#if canSend}}
+        <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
+          type="button"
+          {{action 'verstuurBericht'}}
+        >
+          Verstuur bericht
+        </button>
+      {{else}}
+        <!-- @miet this button is the one when no files have been attached -->
+        <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
+          type="button"
+          {{action 'verstuurBericht'}}
+        >
+          Verstuur bericht
+        </button>
+      {{/if}}
       <button class="button button--narrow button--small button--alt js-accordion__toggle js-accordion-bound u-hidden"
         type="button"
         {{action 'collapseMe'}}>Bewaar concept</button>

@@ -33,11 +33,12 @@ export default Component.extend({
       isExpanded: false});
   },
 
+  canSend: computed('bijlagen', 'bijlagen.[]', function() {
+    return this.bijlagen.length > 0;
+  }),
+
   actions: {
     async verstuurBericht() {
-      if (this.inhoud == '')
-        return;
-
       const bestuurseenheid   = await this.get('currentSession.group');
       const user              = await this.get('currentSession.user');
       
