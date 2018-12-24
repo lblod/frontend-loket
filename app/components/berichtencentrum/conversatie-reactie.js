@@ -15,14 +15,22 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    this.inhoud = '';
-    this.bijlagen = A([]);
-    this.isExpanded = false;
+    this.initInputState();
   },
 
   didReceiveAttrs() {
     this._super(...arguments);
+    this.initInputState();
     this.ensureOriginator();
+  },
+
+  // Initializes the input state so it appears the component was not
+  // used before.
+  initInputState(){
+    this.setProperties({
+      inhoud: '',
+      bijlagen: A(),
+      isExpanded: false});
   },
 
   actions: {
