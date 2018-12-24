@@ -38,6 +38,9 @@
         </div>
       </div>
 
+      <p class="smaller u-spacer--tiny">
+        <strong>Uw antwoord als bijlage</strong>
+      </p>
       {{#each bijlagen as |bijlage|}}
         {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
       {{/each}}
@@ -50,7 +53,6 @@
           Verstuur bericht
         </button>
       {{else}}
-        <!-- @miet this button is the one when no files have been attached -->
         <button class="button button--narrow button--small button--disabled delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
           type="button"
         >
