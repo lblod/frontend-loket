@@ -33,7 +33,7 @@
             Geen reactie vereist
           {{/if}}
         </td>
-        <td class="u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBerichtDatum) 'DD-MM-YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBericht.verzonden) 'DD-MM-YYYY'}}</td>
         <td class="u-visible--tablet-landscape-up">{{row.laatsteBericht.van.naam}}</td>
       {{/unless}}
       <td>

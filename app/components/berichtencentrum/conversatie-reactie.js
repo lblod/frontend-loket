@@ -55,6 +55,7 @@ export default Component.extend({
 
         await reactie.save();
         this.conversatie.berichten.pushObject(reactie);
+        this.conversatie.set('laatsteBericht', reactie);
         await this.conversatie.save();
       }
       catch (err) {
