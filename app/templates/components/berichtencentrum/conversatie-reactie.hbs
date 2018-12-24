@@ -1,57 +1,61 @@
-<div class="js-accordion u-spacer--small {{if isExpanded "js-accordion--open"}}">
-    <button
-        class="button button--block button--alt delete-me-verberg-reply delete-me-reply js-accordion__toggle js-accordion-bound {{if isExpanded "u-hidden"}}"
-        type="button"
-        {{action 'expandMe'}}
-        ><i class="vi vi-mail"></i>Plaats reactie</button>
+{{#if (not isExpanded)}}
+  <button
+    class="button button--block button--alt delete-me-verberg-reply delete-me-reply js-accordion__toggle js-accordion-bound"
+    type="button"
+    {{action 'expandMe'}}>
+    <i class="vi vi-mail"></i>Plaats reactie
+  </button>
+{{else}}
+  <div class="js-accordion u-spacer--small js-accordion--open">
     <div class="accordion__content">
-        <div class="u-hr u-spacer--tb--small"></div>
-        <h3 class="h6 u-spacer--small">Uw reactie</h3>
-        
-        <div class="grid u-spacer--tiny">
-            <div class="col--2-12">
-                <p class="smaller"><strong>Naar</strong></p>
-            </div>
-            <div class="col--10-12">
-                <p class="smaller">
-                {{#if originator}}
-                    {{originator.naam}}
-                {{ else }}
-                    Aan het laden...
-                {{/if}}
-                </p>
-            </div>
-            <div class="col--2-12">
-                <p class="smaller"><strong>Van</strong></p>
-            </div>
-            <div class="col--10-12">
-              <p class="smaller">
-                {{#if currentSession.groupContent.naam}}
-                  {{currentSession.groupContent.naam}}
-                {{else}}
-                  Aan het laden...
-                {{/if}}
-                </p>
-            </div>
+      <div class="u-hr u-spacer--tb--small"></div>
+      <h3 class="h6 u-spacer--small">Uw reactie</h3>
+
+      <div class="grid u-spacer--tiny">
+        <div class="col--2-12">
+          <p class="smaller"><strong>Naar</strong></p>
         </div>
-        
-        {{!--{{textarea value=inhoud}}--}}
-        <textarea value={{inhoud}} rows="12" oninput={{action (mut inhoud) value="target.value"}} style="width: 100%"></textarea>
-        {{#each bijlagen as |bijlage|}}
-            {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
-        {{/each}}
-        {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
-        <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
-                type="button"
-                {{action 'verstuurBericht'}}
-                >
-                Verstuur bericht
-        </button>
-        <button class="button button--narrow button--small button--alt js-accordion__toggle js-accordion-bound"
-                type="button"
-                {{action 'collapseMe'}}>Bewaar concept</button>
-        <button class="button button--narrow button--small button--alt delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
-                type="button"
-                {{action 'collapseMe'}}>Verwijder nieuw bericht</button>
+        <div class="col--10-12">
+          <p class="smaller">
+            {{#if originator}}
+              {{originator.naam}}
+              {{ else }}
+              Aan het laden...
+            {{/if}}
+          </p>
+        </div>
+        <div class="col--2-12">
+          <p class="smaller"><strong>Van</strong></p>
+        </div>
+        <div class="col--10-12">
+          <p class="smaller">
+            {{#if currentSession.groupContent.naam}}
+              {{currentSession.groupContent.naam}}
+            {{else}}
+              Aan het laden...
+            {{/if}}
+          </p>
+        </div>
+      </div>
+
+      {{!--{{textarea value=inhoud}}--}}
+      <textarea value={{inhoud}} rows="12" oninput={{action (mut inhoud) value="target.value"}} style="width: 100%"></textarea>
+      {{#each bijlagen as |bijlage|}}
+        {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
+      {{/each}}
+      {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
+      <button class="button button--narrow button--small delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
+        type="button"
+        {{action 'verstuurBericht'}}
+      >
+        Verstuur bericht
+      </button>
+      <button class="button button--narrow button--small button--alt js-accordion__toggle js-accordion-bound"
+        type="button"
+        {{action 'collapseMe'}}>Bewaar concept</button>
+      <button class="button button--narrow button--small button--alt delete-me-verberg-reply js-accordion__toggle js-accordion-bound"
+        type="button"
+        {{action 'collapseMe'}}>Verwijder nieuw bericht</button>
     </div>
-</div>
+  </div>
+{{/if}}
