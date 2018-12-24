@@ -6,8 +6,6 @@
             <p class="smaller">Antwoord op {{conversatie.typeCommunicatie}}</p>
         </div>
         <div class="col--5-12 u-align--right">
-            <p class="text-fade smaller">Aangekomen: {{bericht.niceFormatAangekomen}}</p>
-            <p class="smaller text-fade">Verzonden: {{bericht.niceFormatVerzonden}}</p>
         </div>
         <div class="col--1-12 u-align--right" {{action 'expand'}}>
             <span class="js-accordion__toggle js-accordion-bound" type="button"><i class="vi vi-expand vi-u-s" aria-hidden="true"></i><span class="u-visually-hidden">Toon / verberg bericht</span></span>
@@ -27,5 +25,7 @@
                 {{vo-mu-file-card file=bijlage onDelete=null active=false}}
             {{/each}}
         <!--</div>-->
+      <p class="text-fade smaller">Aangekomen: {{moment-format bericht.aangekomen}}</p>
+      <p class="smaller text-fade">Verzonden: {{moment-format bericht.verzonden}}</p>
     </div>
 </div>
