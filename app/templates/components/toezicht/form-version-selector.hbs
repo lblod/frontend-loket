@@ -1,0 +1,34 @@
+{{#if setOptions.isRunning}}
+  <div class="loader-wrapper">
+    <div class="loader">
+      <span class="u-visually-hidden">Bezig...</span>
+    </div>
+  </div>
+{{else}}
+  {{#mandatenbeheer/power-select
+     allowClear=allowClear
+     disabled=disabled
+     options=options
+     placeholder="Selecteer versie van het formulier"
+     selected=_selected
+     onchange=(action "select")
+     as |version|}}
+    {{version.description}}
+  {{/mandatenbeheer/power-select}}
+
+  {{#if _selected}}
+    {{wu-button
+      label="Ga verder"
+      isNarrow=true
+      class="button button delete-me-toggle-concept u-spacer--tiny"
+      onClick=(action "proceed")
+    }}
+  {{else}}
+    {{wu-button
+      label="Ga verder"
+      isNarrow=true
+      class="button button--disabled delete-me-toggle-concept u-spacer--tiny"
+      onClick=null
+    }}
+  {{/if}}
+{{/if}}
