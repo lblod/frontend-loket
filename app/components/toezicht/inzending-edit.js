@@ -9,6 +9,7 @@ export default Component.extend({
   classNames: ['col--5-12 col--9-12--m col--12-12--s container-flex--contain'],
   router: service(),
   store: service(),
+  formVersionTracker: service('toezicht/form-version-tracker'),
   currentSession: service(),
   files: null,
   errorMsg: '',
@@ -117,6 +118,11 @@ export default Component.extend({
   }).drop(),
 
   actions: {
+    setFormVersion(formVersion){
+      this.set('model.formNode', formVersion.get('formNode'));
+      this.formVersionTracker.updateFomVersion(formVersion);
+    },
+
     async initDynamicForm(dForm){
       this.set('dynamicForm', dForm);
     },

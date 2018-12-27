@@ -13,6 +13,10 @@
 {{/if}}
 
 <div class="container-flex--scroll u-padding--round--small {{if isWorking "u-hidden"}}">
+  {{#unless model.formNode}}
+    {{toezicht/form-version-selector onSelect=(action "setFormVersion")}}
+  {{/unless}}
+  
   {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
   {{#if model.inzendingVoorToezicht.besluitType.id}}
   <div class="form__row">
@@ -26,6 +30,7 @@
     {{/unless}}
   </div>
   {{/if}}
+
 </div>
 
 {{#unless isWorking}}
