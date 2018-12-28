@@ -7,6 +7,7 @@ import { oneWay } from '@ember/object/computed';
 export default Component.extend( InputField, {
   currentSession: service(),
   store: service(),
+  formVersionTracker: service('toezicht/form-version-tracker'),
   internalValue: oneWay('value'),
 
   allowClear: true,
@@ -35,6 +36,7 @@ export default Component.extend( InputField, {
     if (searchData)
       yield timeout(300);
 
+    const formVersion = this.formVersionTracker.get('formVersion');
     const bestuurseenheid = yield this.get('currentSession.group');
     const classificatie = yield bestuurseenheid.get('classificatie');
     const queryParams = {
@@ -42,6 +44,9 @@ export default Component.extend( InputField, {
       page: { size: 200 },
       'filter[decidable-by][id]': classificatie.get('id')
     };
+
+    if(formVersion)
+      queryParams['filter[form-version][:uri:]'] = formVersion.uri;
 
     if (searchData)
       queryParams['filter[label]'] = searchData;

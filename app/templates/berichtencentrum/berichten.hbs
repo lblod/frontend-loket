@@ -1,0 +1,60 @@
+{{title "Berichtencentrum "}}
+<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
+  <div class="container-flex--contain">
+    <div class="u-border--light--bottom">
+      <div class="u-padding--round--small mandate-edit-table__header">
+        <div class="grid u-spacer--tiny">
+          <div class="col--6-12">
+            <h1 class="h4 u-spacer--tiny">Berichtencentrum</h1>
+          </div>
+          <div class="col--6-12 u-align--right">
+            <button class="button--tiny button--link button--link--dark button--alt button button--narrow delete-me-toggle-configure-berichtencentrum"
+              {{action 'showPreferences'}}>
+              <i class="fa fa-cog"></i>
+              Ontvang mails bij nieuwe berichten
+            </button>
+          </div>
+        </div>
+
+        <!-- Hiding search options b/c they're not implemented yet -->
+        <div class="grid u-hidden-mobile u-hidden">
+          <div class="col--12-12">
+            <div class="input-field-icon-container--right u-spacer--bottom--tiny">
+              <input class="input-field input-field--block" id="input-field" type="text" placeholder="Type communicatie, dossiernummer, ..." style="min-width: 25rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+            </div>
+            <div class="popover js-popover">
+              <div class="input-field-icon-container--right u-spacer--bottom--tiny">
+                <input class="input-field input-field--block js-popover__toggle" name="datepicker-range" type="text" placeholder="01.01.2017 - heden"><i class="input-field__icon vi vi-calendar" aria-hidden="true"></i>
+                <div class="popover__content u-padding--round--tiny">
+                  <form class="form" action="">
+                    <div class="date-range">
+                      <label class="date-range__label u-spacer--tiny" for="datepicker-from">van</label>
+                      <div class="date-range__datepicker datepicker">
+                        <input class="input-field input-field--block" id="datepicker-from" type="text" placeholder="01.01.2016" name="datepicker-from" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2017">
+                      </div>
+                      <label class="date-range__label" for="datepicker-to">tot</label>
+                      <div class="date-range__datepicker datepicker">
+                        <input class="input-field input-field--block" id="datepicker-to" type="text" placeholder="01.01.2017" name="datepicker-to" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2018">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{berichtencentrum/conversatie-table
+      class="container-flex--contain data-table--nowrap"
+      content=model
+      sort=sort page=page size=size displaySubset=hasActiveChildRoute
+      renderSmallTable=hasActiveChildRoute}}
+  </div>
+  {{#if showPreferences}}
+    <div class="modal-overlay modal-overlay-configure-berichtencentrum">
+      {{berichtencentrum/bericht-notificatie-voorkeuren close=(action "hidePreferences")}}
+    </div>
+  {{/if}}
+</div>
+{{outlet}}

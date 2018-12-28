@@ -1,0 +1,42 @@
+{{#data-table
+   content=content
+   isLoading=isLoadingModel
+   noDataMessage="Geen berichten gevonden"
+   sort=sort
+   page=page
+   size=size
+   class="container-flex--contain berichtencentrum-overzicht-data-table"
+
+   as |t|}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      {{#each (if renderSmallTable smallHeaders bigHeaders) as |header|}}
+        {{#if header.field}}
+          {{th-sortable label=header.label field=header.field currentSorting=sort class="u-hidden-mobile"}}
+        {{/if}}
+      {{/each}}
+      <th><!-- Actions --></th>
+    {{/c.header}}
+    {{#c.body as |row|}}
+      <td class="u-visible--tablet-landscape-up">{{row.betreft}}</td>
+      <td class="u-visible--tablet-landscape-up">{{row.typeCommunicatie}}</td>
+      <td class="u-visible--tablet-landscape-up">{{row.dossiernummer}}</td>
+      {{#unless renderSmallTable}}
+        <td class="u-visible--tablet-landscape-up">
+          {{#if row.reactietermijn}}
+            Binnen {{berichtencentrum/display-moment-indays row.reactietermijn}} dagen
+          {{else}}
+            Geen reactie vereist
+          {{/if}}
+        </td>
+        <td class="u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBericht.verzonden) 'DD-MM-YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up">{{row.laatsteBericht.van.naam}}</td>
+      {{/unless}}
+      <td>
+        {{#link-to 'berichtencentrum.berichten.conversatie' row}}
+          Bekijk
+        {{/link-to}}
+      </td>
+    {{/c.body}}
+  {{/t.content}}
+{{/data-table}}

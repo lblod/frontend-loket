@@ -8,13 +8,16 @@ export default Controller.extend({
 			this.transitionToRoute('toezicht.inzendingen');
 		},
 		goToBbcdr() {
-			this.transitionToRoute('bbcdr.rapporten')
+			this.transitionToRoute('bbcdr.rapporten');
 		},
 		goToMandatenbeheer() {
-			this.transitionToRoute('mandatenbeheer.mandatarissen')
+			this.transitionToRoute('mandatenbeheer.mandatarissen');
+		},
+		goToBerichtencentrum() {
+			this.transitionToRoute('berichtencentrum.berichten');
 		},
 		goToAdministratievegegevens() {
-			this.transitionToRoute('administratieve-gegevens')
+			this.transitionToRoute('administratieve-gegevens');
 		}
 	}
 });

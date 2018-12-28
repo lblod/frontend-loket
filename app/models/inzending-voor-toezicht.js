@@ -20,6 +20,7 @@ export default Model.extend({
   decisionSummary: attr(),
   dateHandover: attr('date'),
   text: attr(),
+  datePublicationWebapp: attr('date'),
   status: belongsTo('document-status', { inverse: null }),
   lastModifier: belongsTo('gebruiker', { inverse: null }),
   bestuurseenheid: belongsTo('bestuurseenheid', { inverse: null }),
