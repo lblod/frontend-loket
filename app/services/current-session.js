@@ -30,6 +30,8 @@ export default Service.extend({
       this.set('canAccessToezicht', this.canAccess('LoketLB-toezichtGebruiker'));
       this.set('canAccessBbcdr', this.canAccess('LoketLB-bbcdrGebruiker'));
       this.set('canAccessMandaat', this.canAccess('LoketLB-mandaatGebruiker'));
+      this.set('canAccessBerichten', this.canAccess('LoketLB-berichtenGebruiker'));
+      this.set('canAccessLeidinggevenden', this.canAccess('LoketLB-leidinggevendenGebruiker'));
     }
   },
   canAccess(role) {

@@ -30,7 +30,9 @@
             </div>
           </div>
         </div>
+      {{/if}}
 
+      {{#if currentSession.canAccessBerichten}}
         <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
           <div class="info-tile info-tile--m info-tile--center">
             <div>
@@ -47,7 +49,7 @@
               </div>
               <footer class="info-tile__footer">
                 <p class="u-spacer--tiny">
-                 Include link "Ga naar berichtencentrum"
+                  {{wu-button class="button--narrow" label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
                 </p>
                 <p>
                   <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank">Meer informatie</a>
