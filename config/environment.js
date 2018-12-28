@@ -22,7 +22,9 @@ module.exports = function(environment) {
       // when it is created
     },
     moment: {
-      allowEmpty: true
+      allowEmpty: true,
+      includeLocales: ['nl-be'],
+      includeTimezone: 'all'
     },
     browserUpdate: {
       vs: {i:11,f:-3,o:-3,s:-3,c:-3},

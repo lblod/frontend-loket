@@ -69,6 +69,7 @@
     "ember-promise-helpers": "^1.0.6",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.4.0",
+    "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^5.2.0",
     "loader.js": "^4.7.0",
     "postscribe": "^2.0.8",

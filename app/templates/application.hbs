@@ -16,6 +16,11 @@
                           {{#link-to "toezicht.inzendingen"}}Toezicht{{/link-to}}
                         </li>
                       {{/if}}
+                      {{#if currentSession.canAccessBerichten}}
+                        <li class="side-navigation__item">
+                          {{#link-to "berichtencentrum.berichten"}}Berichtencentrum{{/link-to}}
+                        </li>
+                      {{/if}}
                       {{#if currentSession.canAccessBbcdr}}
                         <li class="side-navigation__item">
                           {{#link-to "bbcdr.rapporten"}}BBC DR{{/link-to}}
