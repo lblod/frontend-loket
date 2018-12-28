@@ -7,21 +7,20 @@ export default Route.extend(AuthenticatedRouteMixin, {
   currentSession: service(),
 
   queryParams: {
-   startDate: 'startDate',
+    startDate: { refreshModel: true }
   },
-  startDate: Date('2019-01-01'),
 
   getBestuursorganen: async function(bestuurseenheidId){
     const bestuursorganen = await this.store.query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
-    const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getBestuursorganenInTijdFromStartDate(orgaan.get('bindingStart'), this.startDate)));
+    const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getBestuursorganenInTijdFromStartDate(orgaan.get('id'), this.startDate)));
     return organenInTijd.filter(orgaan => orgaan);
   },
 
-  getBestuursorganenInTijdFromStartDate: async function(bestuursorgaanId, bestuursorgaanStartDate){
+  getBestuursorganenInTijdFromStartDate: async function(bestuursorgaanId, startDate){
     const queryParams = {
       sort: '-binding-start',
       'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
-      'filter[binding-start]': bestuursorgaanStartDate.toISOString().slice(0, 10)
+      'filter[binding-start]': startDate
     };
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
@@ -41,7 +40,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   // - Handle redirections (redirect to the most recent orgaan ?)
 
   async model(params){
-    this.startDate = new Date(params.startDate);
+    this.startDate = params.startDate;
 
     const bestuurseenheid = await this.get('currentSession.group');
     return RSVP.hash({
