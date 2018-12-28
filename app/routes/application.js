@@ -11,7 +11,7 @@ export default Route.extend(ApplicationRouteMixin, {
     const moment = this.get('moment');
     moment.setLocale('nl-be');
     moment.setTimeZone('Europe/Brussels');
-    moment.set('defaultFormat', 'DD MMM YYYY, hh:mm');
+    moment.set('defaultFormat', 'DD MMM YYYY, HH:mm');
 
     return this._loadCurrentSession();
   },

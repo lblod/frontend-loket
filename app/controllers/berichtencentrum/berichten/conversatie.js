@@ -6,7 +6,7 @@ export default Controller.extend({
 
   actions: {
     transitionToOverview(){
-      this.router.transitionTo('berichtencentrum.berichten');
-    },
+      this.router.transitionTo('berichtencentrum.berichten.index');
+    }
   }
 });

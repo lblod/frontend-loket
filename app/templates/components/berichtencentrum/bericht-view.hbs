@@ -1,8 +1,10 @@
 <div class="js-accordion {{if isExpanded "js-accordion--open"}}">
   <div class="grid grid--collapse">
     <div class="col--6-12">
-      <h3 class="h6">Bericht</h3>
-      <p class="smaller">Antwoord op {{conversatie.typeCommunicatie}}</p>
+      <h3 class="h6">
+        {{bericht.van.classificatie.label}} {{bericht.van.naam}}
+        {{#if bericht.auteur}}&mdash; {{bericht.auteur.fullName}}{{/if}}
+      </h3>
     </div>
     <div class="col--5-12 u-align--right">
       <p class="text-fade smaller">Aangekomen: {{moment-format bericht.aangekomen}}</p>
@@ -13,11 +15,6 @@
     </div>
   </div>
   <div class="accordion__content u-spacer--top--small">
-    <div>Van: {{bericht.van.classificatie.label}} {{bericht.van.naam}}</div>
-    <div>Naar: {{bericht.naar.classificatie.label}} {{bericht.naar.naam}}</div>
-    <div>
-      <p class="smaller">Auteur: {{bericht.auteur.fullName}}</p>
-    </div>
     <p class="u-spacer--bottom--small small">{{bericht.inhoud}}</p>
     {{#each bericht.bijlagen as |bijlage|}}
       {{vo-mu-file-card file=bijlage onDelete=null active=false}}

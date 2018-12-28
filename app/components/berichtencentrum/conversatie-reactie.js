@@ -1,22 +1,12 @@
-import { computed } from '@ember/object';
-import { oneWay } from '@ember/object/computed';
+import { empty, oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
-import { sort } from '@ember/object/computed';
 
 export default Component.extend({
   router: service(),
   store: service(),
   currentSession: service(),
-
-  onDateSorter: Object.freeze(['verzonden']),
-  sortedMessages: sort('conversatie.berichten', 'onDateSorter'),
-
-  init() {
-    this._super(...arguments);
-    this.initInputState();
-  },
 
   didReceiveAttrs() {
     this._super(...arguments);
@@ -33,18 +23,18 @@ export default Component.extend({
       isExpanded: false});
   },
 
-  canSend: computed('bijlagen', 'bijlagen.[]', function() {
-    return this.bijlagen.length > 0;
-  }),
+  canSend: empty('bijlagen'),
+  currentUser: oneWay('currentSession.userContent'),
+  bestuursEenheidNaam: oneWay('currentSession.groupContent.naam'),
 
   actions: {
     async verstuurBericht() {
-      const bestuurseenheid   = await this.get('currentSession.group');
-      const user              = await this.get('currentSession.user');
-      
+      const bestuurseenheid = await this.get('currentSession.group');
+      const user = await this.get('currentSession.user');
+
       try {
         this.collapse();
-        let reactie = await this.get('store').createRecord('bericht', {
+        const reactie = await this.get('store').createRecord('bericht', {
           inhoud                  : this.inhoud,
           aangekomen              : new Date(),
           verzonden               : new Date(),
@@ -89,13 +79,11 @@ export default Component.extend({
     this.set('isExpanded', true);
   },
 
-  currentUser: oneWay('currentSession.userContent'),
-  bestuursEenheidNaam: oneWay('currentSession.groupContent.naam'),
-
   async ensureOriginator(){
     const berichten = (await this.get('conversatie.berichten')).sortBy('verzonden');
     const ourGroup = await this.get('currentSession.group');
 
+    // find first sender of message that is not our group
     for( let bericht of berichten ){
       let sender = await bericht.van;
       if( sender && sender.id !== ourGroup.id ) {
