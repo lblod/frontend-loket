@@ -51,10 +51,10 @@
       sort=sort page=page size=size displaySubset=hasActiveChildRoute
       renderSmallTable=hasActiveChildRoute}}
   </div>
-  <div class="modal-overlay modal-overlay-configure-berichtencentrum {{unless showPreferences "u-hidden"}}">
-    {{#if showPreferences}} {{!-- removing ensures we clear the component's state --}}
+  {{#if showPreferences}}
+    <div class="modal-overlay modal-overlay-configure-berichtencentrum">
       {{berichtencentrum/bericht-notificatie-voorkeuren close=(action "hidePreferences")}}
-    {{/if}}
-  </div>
+    </div>
+  {{/if}}
 </div>
 {{outlet}}

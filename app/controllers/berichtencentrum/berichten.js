@@ -1,9 +1,11 @@
-import Controller               from '@ember/controller';
-import { inject as service }    from '@ember/service';
+import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
   router: service(),
+
+  sort: '-laatste-bericht.verzonden',
   showPreferences: false,
 
   hasActiveChildRoute: computed('router.currentRouteName', function() {

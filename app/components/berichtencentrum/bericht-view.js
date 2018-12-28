@@ -6,6 +6,6 @@ export default Component.extend({
   actions: {
     expand() {
       this.set("isExpanded", !this.isExpanded);
-    },
+    }
   }
 });

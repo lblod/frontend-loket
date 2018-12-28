@@ -13,12 +13,8 @@
       {{#each (if renderSmallTable smallHeaders bigHeaders) as |header|}}
         {{#if header.field}}
           {{th-sortable label=header.label field=header.field currentSorting=sort class="u-hidden-mobile"}}
-        {{else}}
         {{/if}}
       {{/each}}
-
-      <!-- TODO last headers are not sortable -->
-
       <th><!-- Actions --></th>
     {{/c.header}}
     {{#c.body as |row|}}
