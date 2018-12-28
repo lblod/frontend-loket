@@ -6,17 +6,22 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 export default Route.extend(AuthenticatedRouteMixin, {
   currentSession: service(),
 
+  queryParams: {
+    startDate: 'start-date'
+  },
+  startDate: null,
+
   getBestuursorganen: async function(bestuurseenheidId){
     const bestuursorganen = await this.store.query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
-    const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getLastBestuursorgaanInTijd(orgaan.get('id'))));
+    const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getBestuursorganenInTijdFromStartDate(orgaan.get('bindingStart'), this.startDate)));
     return organenInTijd.filter(orgaan => orgaan);
   },
 
-  getLastBestuursorgaanInTijd: async function(bestuursorgaanId){
+  getBestuursorganenInTijdFromStartDate: async function(bestuursorgaanId, bestuursorgaanStartDate){
     const queryParams = {
       sort: '-binding-start',
       'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
-      page: { size: 1 }
+      'filter[binding-start]': bestuursorgaanStartDate.toISOString().slice(0, 10)
     };
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
@@ -28,7 +33,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
       this.transitionTo('index');
   },
 
-  async model(){
+  async model(params){
+    this.startDate = new Date(params.startDate);
     const bestuurseenheid = await this.get('currentSession.group');
     return RSVP.hash({
       'bestuurseenheid': bestuurseenheid,
