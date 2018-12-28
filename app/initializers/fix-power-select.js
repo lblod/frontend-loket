@@ -3,7 +3,7 @@ import PowerSelectBeforeOptions from 'ember-power-select/components/power-select
 
 // TODO: Delete when this is fixed:
 // https://github.com/cibernox/ember-power-select/issues/1130
-export function initialize(application) {
+export function initialize(/*application*/) {
     PowerSelectBeforeOptions.reopen({
         focusInput() {
             this.input = document.querySelector(

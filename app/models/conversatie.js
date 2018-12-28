@@ -1,7 +1,5 @@
-import DS           from 'ember-data';
+import DS from 'ember-data';
 import { hasMany, belongsTo }  from 'ember-data/relationships';
-import { computed } from '@ember/object';
-
 const { attr } = DS;
 
 export default DS.Model.extend({
