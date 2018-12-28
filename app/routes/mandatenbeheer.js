@@ -18,10 +18,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   getBestuursorganenInTijdFromStartDate: async function(bestuursorgaanId, startDate){
     const queryParams = {
+      page: { size: 1 },
       sort: '-binding-start',
-      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
-      'filter[binding-start]': startDate
+      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId
     };
+
+    if (startDate)
+      queryParams['filter[binding-start]'] = startDate;
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
     return organen.firstObject;
@@ -33,11 +36,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   // What is not working :
-  // - No data in the table even though the request seem to be working well
   // - Same for "Toon totalen en bestuursperiodes"
-  //
-  // What is left to do :
-  // - Handle redirections (redirect to the most recent orgaan ?)
 
   async model(params){
     this.startDate = params.startDate;
