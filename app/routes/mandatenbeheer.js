@@ -7,9 +7,9 @@ export default Route.extend(AuthenticatedRouteMixin, {
   currentSession: service(),
 
   queryParams: {
-    startDate: 'start-date'
+   startDate: 'startDate',
   },
-  startDate: null,
+  startDate: Date('2019-01-01'),
 
   getBestuursorganen: async function(bestuurseenheidId){
     const bestuursorganen = await this.store.query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
@@ -33,8 +33,16 @@ export default Route.extend(AuthenticatedRouteMixin, {
       this.transitionTo('index');
   },
 
+  // What is not working :
+  // - No data in the table even though the request seem to be working well
+  // - Same for "Toon totalen en bestuursperiodes"
+  //
+  // What is left to do :
+  // - Handle redirections (redirect to the most recent orgaan ?)
+
   async model(params){
     this.startDate = new Date(params.startDate);
+
     const bestuurseenheid = await this.get('currentSession.group');
     return RSVP.hash({
       'bestuurseenheid': bestuurseenheid,
