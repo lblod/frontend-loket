@@ -71,7 +71,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.set('files', A());
-    this.set('addresses', A([]));
+    this.set('fileAddresses', A([]));
   },
 
   async didReceiveAttrs(){
@@ -82,6 +82,9 @@ export default Component.extend({
       let files = await inzending.get('files');
       if(files)
         this.files.setObjects(files.toArray());
+      let fileAddresses = await inzending.get('fileAddresses');
+      if(fileAddresses)
+        this.fileAddresses.setObjects(fileAddresses.toArray());
     }
     catch(e){
       this.set('errorMsg', `Fout bij het inladen: ${e.message}. Gelieve opnieuw te proberen.`);
