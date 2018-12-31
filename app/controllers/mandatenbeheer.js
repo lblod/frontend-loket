@@ -1,13 +1,20 @@
 import Controller from '@ember/controller';
+import moment from 'moment';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
-  selectedBestuursperioden: function() {
-    return this.model.bestuursorgaanWithBestuursperioden.firstObject;
-  },
+  selectedBestuursorgaan: computed('startDate', function() {
+    if(this.get('startDate')) {
+      return this.model.bestuursorgaanWithBestuursperioden.find(o => o.bindingStart.toDateString() == new Date(this.get('startDate')).toDateString());
+    } else {
+      return this.model.bestuursorgaanWithBestuursperioden.firstObject;
+    }
+  }),
 
   actions: {
-    select(selectedBestuursperioden) {
-      this.set('selectedBestuursperioden', selectedBestuursperioden);
+    select(selectedBestuursorgaan) {
+      this.set('selectedBestuursorgaan', selectedBestuursorgaan);
+      this.set('startDate', moment(selectedBestuursorgaan.bindingStart).format('YYYY-MM-DD'));
     },
   }
 });
