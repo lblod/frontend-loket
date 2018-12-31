@@ -60,6 +60,10 @@ export default Component.extend({
     let inzending = await this.model.get('inzendingVoorToezicht');
     inzending.set('modified', new Date());
     (await inzending.get('files')).setObjects(this.files);
+
+    await Promise.all(this.fileAddresses.map(a => a.save()));
+    (await inzending.get('fileAddresses')).setObjects(this.fileAddresses);
+
     inzending.set('lastModifier', await this.currentSession.get('user'));
     return inzending.save();
   },
@@ -145,20 +149,6 @@ export default Component.extend({
       this.router.transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
     },
     async send(){
-      // Skip null urls, if any
-      let addresses = this.get('addresses').filter (x => x);
-      this.set('fileAddresses', A());
-      for (let i = 0; i < addresses.length; ++i)
-          // Make a new fileAddress object
-          try {
-            const fileAddressObject = this.store.createRecord('fileAddress', {url: addresses[i]});
-            await fileAddressObject.save();
-            this.get('fileAddresses').pushObject(fileAddressObject);
-            debugger;
-          } catch (err) {
-            console.log(err);
-          }
-      
       this.flushErrors();
       await this.validate();
       if(this.hasError) return;
