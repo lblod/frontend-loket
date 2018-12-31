@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { task, timeout } from 'ember-concurrency';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
+import moment from 'moment';
 
 export default Controller.extend({
   router: service(),
@@ -19,12 +20,25 @@ export default Controller.extend({
     yield this.set('filter', searchData);
   }).restartable(),
 
+  selectedBestuursorgaan: computed('startDate', function() {
+    if(this.mandatenbeheer.startDate) {
+      return this.mandatenbeheer.bestuursorgaanWithBestuursperioden.find(o => o.bindingStart.toDateString() == new Date(this.get('startDate')).toDateString());
+    } else {
+      return this.mandatenbeheer.bestuursorgaanWithBestuursperioden.firstObject;
+    }
+  }),
+
   actions: {
     handleAddMandatarisClick() {
       if (this.get('router.currentRouteName') === 'mandatenbeheer.mandatarissen.new')
         this.transitionToRoute('mandatenbeheer.mandatarissen.index');
       else
         this.transitionToRoute('mandatenbeheer.mandatarissen.new');
+    },
+
+    select(selectedBestuursorgaan) {
+      this.set('selectedBestuursorgaan', selectedBestuursorgaan);
+      this.transitionToRoute('mandatenbeheer.mandatarissen', { queryParams: { startDate: moment(selectedBestuursorgaan.bindingStart).format('YYYY-MM-DD') }});
     }
   }
 });
