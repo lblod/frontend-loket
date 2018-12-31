@@ -12,7 +12,7 @@
     {{#c.header}}
       {{#each (if renderSmallTable smallHeaders bigHeaders) as |header|}}
         {{#if header.field}}
-          {{th-sortable label=header.label field=header.field currentSorting=sort class="u-hidden-mobile"}}
+          {{th-sortable label=header.label field=header.field currentSorting=sort}}
         {{/if}}
       {{/each}}
       <th><!-- Actions --></th>
