@@ -1,0 +1,27 @@
+{{title "Mandatenbeheer " model.bestuurseenheid.classificatie.label " " model.bestuurseenheid.naam}}
+<div class="col--9-12--m col--1-1--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12"}}">
+  <div class="container-flex--contain">
+    <div class="u-border--light--bottom">
+      <div class="u-padding--round--small mandate-edit-table__header">
+        <div>
+          {{#power-select
+               options=model.bestuursorgaanWithBestuursperioden
+               selected=selectedBestuursperioden
+               searchEnabled=false
+               onchange=(action "select")
+               as |orgaan|}}
+
+            Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
+            -
+            {{#if orgaan.bindingEinde}}
+              {{moment-format orgaan.bindingEinde 'YYYY'}}
+            {{else}}
+              heden
+            {{/if}}
+          {{/power-select}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{outlet}}
