@@ -10,11 +10,14 @@
    as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{#each (if renderSmallTable smallHeaders bigHeaders) as |header|}}
-        {{#if header.field}}
-          {{th-sortable label=header.label field=header.field currentSorting=sort}}
-        {{/if}}
-      {{/each}}
+      {{th-sortable label='Betreft' field='betreft' currentSorting=sort}}
+      {{th-sortable label='Type communicatie' field='typeCommunicatie' currentSorting=sort}}
+      {{th-sortable label='Dossier-nummer' field='dossiernummer' currentSorting=sort}}
+      {{#unless renderSmallTable}}
+        {{th-sortable label='Reactietermijn' field='reactietermijn' currentSorting=sort}}
+        {{th-sortable label='Laatste bericht' field='laatste-bericht.verzonden' currentSorting=sort}}
+        {{th-sortable label='Laatste bericht verstuurd door' field='laatste-bericht.van.naam' currentSorting=sort}}
+      {{/unless}}
       <th><!-- Actions --></th>
     {{/c.header}}
     {{#c.body as |row|}}
