@@ -16,9 +16,11 @@
   {{/each}}
 </div>
 
+{{#unless disabled}}
 <div class="js-accordion">
   <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound"
       {{action "addUrlField"}}>
     <i class="vi vi-plus" aria-hidden="true"></i>Voeg nog een link toe
   </a>
 </div>
+{{/unless}}

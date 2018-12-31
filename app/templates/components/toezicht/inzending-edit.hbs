@@ -20,7 +20,7 @@
   {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
 
   {{#if model.inzendingVoorToezicht.besluitType.id}}
-    {{toezicht/url-box urls=fileAddresses}}
+    {{toezicht/url-box urls=fileAddresses disabled=isSent}}
   <div class="form__row">
     <div class="u-spacer"></div>
     <label class="form__label">Bestanden</label>
