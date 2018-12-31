@@ -30,6 +30,17 @@ export default Route.extend(AuthenticatedRouteMixin, {
     return organen.firstObject;
   },
 
+  getBestuursorgaanWithBestuursperioden: async function(bestuurseenheidId){
+    const bestuursorganen = await this.store.query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
+    const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getBestuursorganenInTijd(orgaan.get('id'))));
+    return organenInTijd.firstObject;
+  },
+
+  getBestuursorganenInTijd: async function(bestuursorgaanId){
+    const organenInTijd = await this.store.query('bestuursorgaan', {'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId });
+    return organenInTijd;
+  },
+
   beforeModel() {
     if (!this.currentSession.canAccessMandaat)
       this.transitionTo('index');
@@ -44,7 +55,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     const bestuurseenheid = await this.get('currentSession.group');
     return RSVP.hash({
       'bestuurseenheid': bestuurseenheid,
-      'bestuursorganen': this.getBestuursorganen(bestuurseenheid.get('id'))
+      'bestuursorganen': this.getBestuursorganen(bestuurseenheid.get('id')),
+      'bestuursorgaanWithBestuursperioden': this.getBestuursorgaanWithBestuursperioden(bestuurseenheid.get('id'))
     });
-  }
+  },
 });
