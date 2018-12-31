@@ -56,7 +56,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
     return RSVP.hash({
       'bestuurseenheid': bestuurseenheid,
       'bestuursorganen': this.getBestuursorganen(bestuurseenheid.get('id')),
-      'bestuursorgaanWithBestuursperioden': this.getBestuursorgaanWithBestuursperioden(bestuurseenheid.get('id'))
+      'bestuursorgaanWithBestuursperioden': this.getBestuursorgaanWithBestuursperioden(bestuurseenheid.get('id')),
+      'startDate': this.startDate
     });
   },
 });

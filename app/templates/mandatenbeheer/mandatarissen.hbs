@@ -16,6 +16,23 @@
           <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
             {{wu-button label="Voeg mandataris toe" onClick=(action "handleAddMandatarisClick") isNarrow=true}}
           </div>
+          <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
+            {{#power-select
+                options=mandatenbeheer.bestuursorgaanWithBestuursperioden
+                selected=selectedBestuursorgaan
+                searchEnabled=false
+                onchange=(action "select")
+                as |orgaan|}}
+
+              Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
+              -
+              {{#if orgaan.bindingEinde}}
+                {{moment-format orgaan.bindingEinde 'YYYY'}}
+              {{else}}
+                heden
+              {{/if}}
+            {{/power-select}}
+          </div>
         </div>
       </div>
     </div>
