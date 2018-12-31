@@ -31,7 +31,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   getBestuursorgaanWithBestuursperioden: async function(bestuurseenheidId){
-    const bestuursorganen = await this.store.query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
+    const bestuursorganen = await this.store.query('bestuursorgaan', {sort: '-binding-start', 'filter[bestuurseenheid][id]': bestuurseenheidId });
     const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getBestuursorganenInTijd(orgaan.get('id'))));
     return organenInTijd.firstObject;
   },
