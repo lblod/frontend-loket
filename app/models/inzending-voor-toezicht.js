@@ -35,5 +35,6 @@ export default Model.extend({
   nomenclature: belongsTo('toezicht-nomenclature', { inverse: null }),
   taxType: belongsTo('toezicht-tax-type', { inverse: null }),
   files: hasMany('file', { inverse: null }),
-  taxRates: hasMany('tax-rate', { inverse: null })
+  taxRates: hasMany('tax-rate', { inverse: null }),
+  fileAddresses: hasMany('file-address', { inverse: null})
 });

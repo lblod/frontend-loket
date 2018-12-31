@@ -5,17 +5,11 @@
 	{{#each urls as |url|}}
 	<div class="form__input">
 		<div class="grid grid--collapse form-group">
-			<div class="col--3-12">
+			<div class="col--12-12">
 				{{input class="input-field input-field--block input-field--disabled"
-						placeholder="https://"
-						name="URL-besluit-beschrijving"
-						value=(get url 'protocol')}}
-			</div>
-			<div class="col--9-12">
-				{{input class="input-field input-field--block input-field--disabled"
-					placeholder="wwww.besluiten.be/besluit"
+					placeholder="http://wwww.besluiten.be/besluit"
 					name="URL-besluit-URL"
-					value=(get url 'body')}}
+					value=(get url "url")}}
 			</div>
 		</div>
 	</div>

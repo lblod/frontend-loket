@@ -7,7 +7,7 @@ export default Component.extend({
 
     actions: {
         addUrlField() {
-            this.urls.pushObject({protocol: null, body: null});
+            this.urls.pushObject({url: null});
         }
     }
 });

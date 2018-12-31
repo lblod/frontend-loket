@@ -5,6 +5,7 @@ import { computed } from '@ember/object';
 import { gte } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 import fileAddress from '../../models/file-address';
+import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
   classNames: ['col--5-12 col--9-12--m col--12-12--s container-flex--contain'],
@@ -13,7 +14,7 @@ export default Component.extend({
   formVersionTracker: service('toezicht/form-version-tracker'),
   currentSession: service(),
   files: null,
-  urls: null,
+  addresses: null,
   fileAddresses: null,
   errorMsg: '',
   hasError: gte('errorMsg.length', 1),
@@ -66,8 +67,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.set('files', A());
-    this.set('urls', A([{protocol: null, body: null}]));
-    this.set('fileAddresses', A());
+    this.set('addresses', A([]));
   },
 
   async didReceiveAttrs(){
@@ -145,33 +145,19 @@ export default Component.extend({
       this.router.transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
     },
     async send(){
-      let list = this.get('fileAddresses');
-      let urls = this.get('urls')
-      for (let i = 0; i < urls.length; ++i)
-      {
-        let urlObject = null;
-        // Construct the url object
-        try {
-          urlObject = await new URL(urls[i].protocol + urls[i].body);
-        } catch (err) {
-          if (urls[i].protocol != null || urls[i].bodya != null) {
-            alert('Invalid url');
-            return;
+      // Skip null urls, if any
+      let addresses = this.get('addresses').filter (x => x);
+      this.set('fileAddresses', A());
+      for (let i = 0; i < addresses.length; ++i)
+          // Make a new fileAddress object
+          try {
+            const fileAddressObject = this.store.createRecord('fileAddress', {url: addresses[i]});
+            await fileAddressObject.save();
+            this.get('fileAddresses').pushObject(fileAddressObject);
+            debugger;
+          } catch (err) {
+            console.log(err);
           }
-        }
-        // If a url object is successfully constructed,
-        // make a fielAddress object from it or update an existing one
-        if (urlObject != null)
-          if (list[i] == undefined) {
-            // Make a new fileAddress object
-            const address = this.store.createRecord('fileAddress', {url: urlObject});
-            await address.save();
-            list.pushObject(address);
-          } else {
-            // Update an existing fileAddress object
-            list[i].set('url', urlObject);
-          }
-      }
       
       this.flushErrors();
       await this.validate();

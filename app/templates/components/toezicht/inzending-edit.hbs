@@ -19,7 +19,7 @@
   
   {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
   {{#if model.inzendingVoorToezicht.besluitType.id}}
-  {{toezicht/url-box urls=(get this "urls")}}
+  {{toezicht/url-box urls=(get this "addresses")}}
   <div class="form__row">
     <div class="u-spacer"></div>
     <label class="form__label">Bestanden</label>
@@ -43,7 +43,8 @@
       {{/wu-link-button}}
     {{else}}
       {{#unless isSent}}
-        {{#wu-link-button class="button button--disabled delete-me-toggle-concept u-spacer--tiny" onClick=(action "send")}}Verstuur
+        {{!!--{{#wu-link-button class="button button--disabled delete-me-toggle-concept u-spacer--tiny" onClick=(action "send")}}<!--Verstuur-->
+        {{#wu-link-button class="button delete-me-toggle-concept u-spacer--tiny" onClick=(action "send")}}Verstuur
           <span class="button__info button__info--below">naar Vlaamse Overheid</span>
         {{/wu-link-button}}
       {{/unless}}
