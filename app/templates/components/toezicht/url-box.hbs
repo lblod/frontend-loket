@@ -1,24 +1,24 @@
 <div class="form__row u-spacer--tiny">
-	<div class="form__label">
-		<label class="form__label">URL</label>
-	</div>
-	{{#each urls as |url|}}
-	<div class="form__input">
-		<div class="grid grid--collapse form-group">
-			<div class="col--12-12">
-				{{input class="input-field input-field--block input-field--disabled"
-					placeholder="http://wwww.besluiten.be/besluit"
-					name="URL-besluit-URL"
-					value=(get url "url")}}
-			</div>
-		</div>
-	</div>
-	{{/each}}
+  <div class="form__label">
+    <label class="form__label">URL</label>
+  </div>
+  {{#each urls as |url|}}
+  <div class="form__input">
+    <div class="grid grid--collapse form-group">
+      <div class="col--12-12">
+        {{input class="input-field input-field--block input-field--disabled"
+          placeholder="http://wwww.besluiten.be/besluit"
+          name="URL-besluit-URL"
+          value=(get url "url")}}
+      </div>
+    </div>
+  </div>
+  {{/each}}
 </div>
 
 <div class="js-accordion">
-	<a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound"
-			{{action "addUrlField"}}>
-		<i class="vi vi-plus" aria-hidden="true"></i>Voeg nog een url toe
-	</a>
+  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound"
+      {{action "addUrlField"}}>
+    <i class="vi vi-plus" aria-hidden="true"></i>Voeg nog een url toe
+  </a>
 </div>
