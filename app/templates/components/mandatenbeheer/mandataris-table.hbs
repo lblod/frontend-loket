@@ -21,6 +21,7 @@
     {{#c.body as |row|}}
       <td>
         {{input type="checkbox" name="isAdmin" checked=row.isBestuurlijkeAliasVan.verifiedMandaten disabled=true}}
+        <span></span>
       </td>
       {{#unless displaySubset}}
         <td class="u-hidden-mobile">
@@ -47,7 +48,12 @@
         <td class="u-visible--tablet-landscape-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
         <td class="u-visible--tablet-landscape-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
       {{/unless}}
+      {{#unless displaySubset}}
       <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
+      {{/unless}}
+      {{#if displaySubset}}
+        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} <i class="vi vi-edit u-padding--right"></i> {{/link-to}}</td>
+      {{/if}}
     {{/c.body}}
   {{/t.content}}
 {{/data-table}}

@@ -58,6 +58,22 @@
     <a id="nieuwmandaat" class="button button--alt button--block u-spacer--bottom--small" {{action "createMandataris"}}>
       <i class="vi vi-plus" aria-hidden="true"></i>Voeg nieuw mandaat toe
     </a>
+
+    {{!-- This section is here temporarily for ABB to review all the mandates in August --}}
+    <div class="alert alert--small alert--warning">
+      <div class="alert__icon" aria-hidden="true"></div>
+      <div class="alert__content">
+        <div class="alert__message">
+          <label class="checkbox checkbox--block u-spacer">
+            {{input type="checkbox" name="isAdmin" checked=persoon.verifiedMandaten click=(action "updateVerifiedMandaten") class="checkbox__toggle"}}
+            <span></span>
+            <span>De persoon en al de bijbehorende mandaten werden nagekeken.</span>
+          </label>
+          <br>
+          <p>Wil u graag een <strong>mandaat of mandataris verwijderen</strong>, de <strong>gegevens van een mandataris wijzigen</strong> of een <strong>fractie toevoegen of aanpassen</strong>? Zoek naar de juiste tab in <a href="https://docs.google.com/spreadsheets/d/13D38ZLH0toLlJ2u7lBwywUThM77ze1O6YUOMFL9T2lQ/edit#gid=0" target="_blank">deze controle sheet</a> om het door te geven.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="u-padding--round--small u-border--light--top">

@@ -67,9 +67,9 @@
 }
 
 
-/* ==========================================================================
+/* --------------------------------------------------------------------------
   Style overwrite ember-power-select
- ========================================================================== */
+ -------------------------------------------------------------------------- */
 
 /* basic colors and sizing of dropdown */
 
@@ -122,7 +122,7 @@
 }
 
 /* Select options
- ========================================================================== */
+ -------------------------------------------------------------------------- */
 .ember-power-select-option.ember-power-select-option--loading-message,
 .ember-power-select-option.ember-power-select-option--no-matches-message,
 .ember-power-select-option.ember-power-select-option--search-message {
@@ -170,7 +170,7 @@
 }
 
 /* Icon restyle for steps (need to reformat)
- ========================================================================== */
+ -------------------------------------------------------------------------- */
 
 .ember-power-select-trigger .ember-power-select-status-icon:after {
   content: "\E004";
@@ -297,6 +297,14 @@ input[disabled] {
   }
 }
 
+/* temporary fix to make sure disabled fields look disabled */
+
+textarea[disabled],
+input[disabled] {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.5);
+}
+
 /* temporary fix for inline required properties */
 .form__label > .form__label {
   margin-right: 8rem;
@@ -357,6 +365,45 @@ input[disabled] {
   .checkbox {
     margin-right: 0rem;
   }
+}
+
+/* temporary fix for controle mandatenbeheer */
+
+.data-table input.ember-checkbox[type=checkbox] {
+  display: none;
+}
+
+.data-table input.ember-checkbox[type=checkbox] + span:after {
+  content: "\E00F";
+  color: black;
+  background-color: #FDC345;
+  font-size: 2rem;
+
+  font-family: vlaanderen_iconfont!important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+  border-radius: 100%;
+  margin: 0;
+
+  display: inline-block;
+  border-radius: 50%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.data-table input.ember-checkbox[type=checkbox]:checked + span:after {
+  background-color: #8bae00 !important;
+  content: "\E00C";
+  color: white;
 }
 
 /* temporary fix to highlight errors and required fields */
