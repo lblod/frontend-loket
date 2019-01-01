@@ -16,11 +16,11 @@ export default Model.extend({
   hasExtraTaxRates: attr(),
   agendaItemCount: attr(),
   sessionDate: attr('datetime'),
-  title: attr(),
   decisionDateOtherAdministration: attr('date'),
   decisionSummary: attr(),
   dateHandover: attr('date'),
   text: attr(),
+  datePublicationWebapp: attr('date'),
   status: belongsTo('document-status', { inverse: null }),
   lastModifier: belongsTo('gebruiker', { inverse: null }),
   bestuurseenheid: belongsTo('bestuurseenheid', { inverse: null }),
@@ -35,5 +35,6 @@ export default Model.extend({
   nomenclature: belongsTo('toezicht-nomenclature', { inverse: null }),
   taxType: belongsTo('toezicht-tax-type', { inverse: null }),
   files: hasMany('file', { inverse: null }),
-  taxRates: hasMany('tax-rate', { inverse: null })
+  taxRates: hasMany('tax-rate', { inverse: null }),
+  fileAddresses: hasMany('file-address', { inverse: null})
 });

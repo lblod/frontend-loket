@@ -7,7 +7,7 @@
       <h2 class="h3">Bekijk aanlevering dossier</h2>
     {{/if}}
   </div>
-  <div class="col--3-12">
+  <div class="col--3-12 u-align--right">
     <a {{action "close"}} class="link--icon--close">
       <span class="u-visually-hidden">Venster sluiten</span>
     </a>
@@ -15,15 +15,15 @@
 </div>
 <div class="grid u-spacer--small">
   {{#unless isNew}}
-    <div class="col--4-12">
+    <div class="col--12-12">
       <div class="description-data__label">Gewijzigd door</div>
       <div class="description-data__value">{{inzending.lastModifier.fullName}}</div>
     </div>
-    <div class="col--4-12">
+    <div class="col--6-12">
       <div class="description-data__label">Bewerkt op</div>
       <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
     </div>
-      <div class="col--4-12">
+      <div class="col--6-12">
         <div class="description-data__label">Verstuurd op</div>
         {{#if inzending.status.isVerstuurd}}
           <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>

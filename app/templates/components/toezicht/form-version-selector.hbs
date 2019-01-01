@@ -1,0 +1,44 @@
+{{#if setOptions.isRunning}}
+  <div class="loader-wrapper">
+    <div class="loader">
+      <span class="u-visually-hidden">Bezig...</span>
+    </div>
+  </div>
+{{else}}
+	<div class="form__row">
+		<div class="u-spacer--tiny">
+			<div class="form__label">
+				<label class="form__label">Selecteer voor welke bestuursperiode u een dossier wil&nbsp;inzenden:</label>
+			</div>
+			<div class="form__input">
+				<div class="is-required">
+				  {{#mandatenbeheer/power-select
+				     allowClear=allowClear
+				     disabled=disabled
+				     options=options
+				     selected=_selected
+				     onchange=(action "select")
+				     as |version|}}
+				    {{version.description}}
+				  {{/mandatenbeheer/power-select}}
+				</div>
+			</div>
+		</div>
+
+	  {{#if _selected}}
+	    {{wu-button
+	      label="Ga naar volgende stap"
+	      isNarrow=true
+	      class="button button--block delete-me-toggle-concept"
+	      onClick=(action "proceed")
+	    }}
+	  {{else}}
+	    {{wu-button
+	      label="Ga naar volgende stap"
+	      isNarrow=true
+	      class="button button--block button--disabled delete-me-toggle-concept"
+	      onClick=null
+	    }}
+	  {{/if}}
+	</div>
+{{/if}}

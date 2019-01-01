@@ -22,7 +22,15 @@ module.exports = function(environment) {
       // when it is created
     },
     moment: {
-      allowEmpty: true
+      allowEmpty: true,
+      includeLocales: ['nl-be'],
+      includeTimezone: 'all'
+    },
+    browserUpdate: {
+      vs: {i:11,f:-3,o:-3,s:-3,c:-3},
+      style: 'corner',
+      l: 'nl',
+      shift_page_down: false
     },
     'vo-webuniversum': {
       version: '2.8.3',
@@ -68,6 +76,10 @@ module.exports = function(environment) {
   }
 
   if (process.env.DEPLOY_ENV === 'production') {
+    ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '90a39574-e986-4007-84f2-becf6d9eb481';
+    ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/auth';
+    ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://loket.lokaalbestuur.vlaanderen.be/authorization/callback';
+    ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/logout';
     ENV['vo-webuniversum']['header'] = '//widgets.vlaanderen.be/widget/live/f91ec2eea9de4de399ef3e0f19db8c58';
     ENV['vo-webuniversum']['footer'] = '//widgets.vlaanderen.be/widget/live/2833ae2aacff426e9445a336140d7420';
   }

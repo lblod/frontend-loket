@@ -5,5 +5,5 @@ import { belongsTo } from 'ember-data/relationships';
 export default Model.extend({
   datum: attr('date'),
   geldigheid: attr('date'),
-  steltSamen: belongsTo('bestuursorgaan', { inverse: null })
+  steltSamen: belongsTo('bestuursorgaan', { inverse: 'wordtSamengesteldDoor' })
 });

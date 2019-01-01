@@ -1,11 +1,14 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
-import { debug } from '@ember/debug';
+import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
+import { oneWay } from '@ember/object/computed';
 
-export default Component.extend({
+export default Component.extend( InputField, {
   currentSession: service(),
   store: service(),
+  formVersionTracker: service('toezicht/form-version-tracker'),
+  internalValue: oneWay('value'),
 
   allowClear: true,
   disabled: false,
@@ -21,16 +24,11 @@ export default Component.extend({
   async didReceiveAttrs(){
     this._super(...arguments);
 
-    if (this.get('model')) {
-      let value = await this.get(`solution.${this.get('model.identifier')}`);
-
-      if (value && value.get('isNew')) { // only already existing options are allowed
-        debug(`Reset value of toezicht-besluit-type-select to null`);
-        value.destroyRecord();
-        value = null;
+    if (this.model) {
+      if (this.internalValue && this.internalValue.get('isNew')) { // only already existing options are allowed
+        this.internalValue.destroyRecord();
+        this.updateValue( this.internalValue );
       }
-
-      this.set('object_instance', value);
     }
   },
 
@@ -38,25 +36,28 @@ export default Component.extend({
     if (searchData)
       yield timeout(300);
 
+    const formVersion = this.formVersionTracker.get('formVersion');
     const bestuurseenheid = yield this.get('currentSession.group');
     const classificatie = yield bestuurseenheid.get('classificatie');
     const queryParams = {
       sort: 'label',
+      page: { size: 200 },
       'filter[decidable-by][id]': classificatie.get('id')
     };
+
+    if(formVersion)
+      queryParams['filter[form-version][:uri:]'] = formVersion.uri;
 
     if (searchData)
       queryParams['filter[label]'] = searchData;
 
-    const resources = yield this.get('store').query('besluit-type', queryParams);
+    const resources = yield this.store.query('besluit-type', queryParams);
     return resources;
   }).keepLatest(),
 
   actions: {
     select(object_instance){
-      this.set('object_instance', object_instance);
-      const prop = this.get('model.identifier');
-      this.set(`solution.${prop}`, object_instance);
+      this.updateValue( object_instance );
     }
   }
 

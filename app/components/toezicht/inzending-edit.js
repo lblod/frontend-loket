@@ -4,13 +4,18 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 import { gte } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
+import fileAddress from '../../models/file-address';
+import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
-  classNames: ['col--4-12 col--9-12--m col--12-12--s container-flex--contain'],
+  classNames: ['col--5-12 col--9-12--m col--12-12--s container-flex--contain'],
   router: service(),
   store: service(),
+  formVersionTracker: service('toezicht/form-version-tracker'),
   currentSession: service(),
   files: null,
+  addresses: null,
+  fileAddresses: null,
   errorMsg: '',
   hasError: gte('errorMsg.length', 1),
   deleteModal: false,
@@ -18,6 +23,14 @@ export default Component.extend({
   flushErrors(){
     this.set('errorMsg', '');
   },
+
+  isSent: computed('model.inzendingVoorToezicht.status.id', function(){
+    return this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  }),
+
+  canSave: computed('model.inzendingVoorToezicht.status.id', function(){
+    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  }),
 
   canDelete: computed('model.isNew', 'model.inzendingVoorToezicht.status.id', function(){
     return !this.get('model.isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
@@ -31,10 +44,26 @@ export default Component.extend({
     return this.save.isRunning || this.delete.isRunning || this.send.isRunning || false;
   }),
 
+  async validate(){
+    let errors = [];
+    let states = await this.get('dynamicForm.formNode.unionStates');
+    if(states.filter((s) => { return s == 'noSend'; }).length > 0)
+      errors.push('Gelieve alle verplichte velden in te vullen.');
+
+    if((await this.files).length == 0)
+      errors.push('Gelieve minstens één bestand op te laden.');
+
+    this.set('errorMsg', errors.join(' '));
+  },
+
   async updateInzending(){
     let inzending = await this.model.get('inzendingVoorToezicht');
     inzending.set('modified', new Date());
     (await inzending.get('files')).setObjects(this.files);
+
+    await Promise.all(this.fileAddresses.map(a => a.save()));
+    (await inzending.get('fileAddresses')).setObjects(this.fileAddresses);
+
     inzending.set('lastModifier', await this.currentSession.get('user'));
     return inzending.save();
   },
@@ -42,6 +71,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.set('files', A());
+    this.set('fileAddresses', A([]));
   },
 
   async didReceiveAttrs(){
@@ -52,6 +82,9 @@ export default Component.extend({
       let files = await inzending.get('files');
       if(files)
         this.files.setObjects(files.toArray());
+      let fileAddresses = await inzending.get('fileAddresses');
+      if(fileAddresses)
+        this.fileAddresses.setObjects(fileAddresses.toArray());
     }
     catch(e){
       this.set('errorMsg', `Fout bij het inladen: ${e.message}. Gelieve opnieuw te proberen.`);
@@ -60,7 +93,7 @@ export default Component.extend({
 
   save: task(function* (){
     try {
-      yield this.get('dynamicForm').save();
+      yield this.dynamicForm.save();
       yield this.updateInzending();
     }
     catch(e){
@@ -70,7 +103,7 @@ export default Component.extend({
 
   send: task(function* (){
     try {
-      yield this.get('dynamicForm').save();
+      yield this.dynamicForm.save();
       const statusSent = (yield this.store.query('document-status', {
           filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
       })).firstObject;
@@ -97,11 +130,16 @@ export default Component.extend({
   }).drop(),
 
   actions: {
+    setFormVersion(formVersion){
+      this.set('model.formNode', formVersion.get('formNode'));
+      this.formVersionTracker.updateFomVersion(formVersion);
+    },
+
     async initDynamicForm(dForm){
       this.set('dynamicForm', dForm);
     },
     async close(){
-      this.get('router').transitionTo('toezicht.inzendingen.index');
+      this.router.transitionTo('toezicht.inzendingen.index');
     },
     async save(){
       this.flushErrors();
@@ -111,14 +149,16 @@ export default Component.extend({
       this.flushErrors();
       await this.save.perform();
       if(this.hasError) return;
-      this.get('router').transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
+      this.router.transitionTo('toezicht.inzendingen.edit', this.model.get('inzendingVoorToezicht.id'));
     },
     async send(){
       this.flushErrors();
+      await this.validate();
+      if(this.hasError) return;
       await this.save.perform();
       await this.send.perform();
       if(this.hasError) return;
-      this.get('router').transitionTo('toezicht.inzendingen.index');
+      this.router.transitionTo('toezicht.inzendingen.index');
     },
     async deleteInzending(){
       this.flushErrors();
@@ -128,7 +168,7 @@ export default Component.extend({
       this.set('deleteModal', false);
       await this.delete.perform();
       if(this.hasError) return;
-      this.get('router').transitionTo('toezicht.inzendingen.index');
+      this.router.transitionTo('toezicht.inzendingen.index');
     },
     async cancelDelete(){
       this.set('deleteModal', false);
@@ -138,6 +178,10 @@ export default Component.extend({
     },
     async deleteFile(file) {
       this.files.removeObject(file);
+    },
+
+    deleteFileAddress(fileAddress){
+      this.fileAddresses.removeObject(fileAddress);
     }
   }
 });

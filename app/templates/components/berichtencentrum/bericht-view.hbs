@@ -1,0 +1,21 @@
+<div class="js-accordion {{if isExpanded "js-accordion--open"}}" {{action 'expand'}}>
+  <div class="grid grid--collapse">
+    <div class="col--11-12">
+      <h3 class="h6 u-spacer--bottom--tinier">
+        {{bericht.van.classificatie.label}} {{bericht.van.naam}}
+        {{#if bericht.auteur}}&mdash; {{bericht.auteur.fullName}}{{/if}}
+      </h3>
+      <p class="text-fade smaller">Aangekomen: {{moment-format bericht.aangekomen}}</p>
+      <p class="smaller text-fade">Verzonden: {{moment-format bericht.verzonden}}</p>
+    </div>
+    <div class="col--1-12 u-align--right">
+      <span class="js-accordion__toggle js-accordion-bound" type="button"><i class="vi vi-expand vi-u-s" aria-hidden="true"></i><span class="u-visually-hidden">Toon / verberg bericht</span></span>
+    </div>
+  </div>
+  <div class="accordion__content u-spacer--top--small">
+    <p class="u-spacer--bottom--small small">{{bericht.inhoud}}</p>
+    {{#each bericht.bijlagen as |bijlage|}}
+      {{vo-mu-file-card file=bijlage onDelete=null active=false}}
+    {{/each}}
+  </div>
+</div>

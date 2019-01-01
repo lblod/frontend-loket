@@ -1,6 +1,6 @@
 {{head-layout}}
 <div class="container">
-  {{wu-widget src=header}}
+  {{wu-widget src=header class="vo-header-widget"}}
   {{#if session.isAuthenticated}}
     <div class="container-flex--contain">
       <div class="grid grid--collapse">
@@ -16,6 +16,11 @@
                           {{#link-to "toezicht.inzendingen"}}Toezicht{{/link-to}}
                         </li>
                       {{/if}}
+                      {{#if currentSession.canAccessBerichten}}
+                        <li class="side-navigation__item">
+                          {{#link-to "berichtencentrum.berichten"}}Berichtencentrum{{/link-to}}
+                        </li>
+                      {{/if}}
                       {{#if currentSession.canAccessBbcdr}}
                         <li class="side-navigation__item">
                           {{#link-to "bbcdr.rapporten"}}BBC DR{{/link-to}}
@@ -25,9 +30,11 @@
                         <li class="side-navigation__item">
                           {{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}
                         </li>
-                        <li class="side-navigation__item">
-                          {{#link-to "administratieve-gegevens.index"}}Administratieve gegevens{{/link-to}}
-                        </li>
+                        <!-- Disable administratieve gegevens
+                             <li class="side-navigation__item">
+                             {{#link-to "administratieve-gegevens.index"}}Administratieve<br>gegevens{{/link-to}}
+                             </li>
+                           -->
                       {{/if}}
                     </ul>
                   </div>

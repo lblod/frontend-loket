@@ -10,7 +10,7 @@ export default Component.extend({
   },
 
   async initComponentProperties(){
-    let bestuursorganenIds = this.get('bestuursorganen').map(o => o.get('id'));
+    let bestuursorganenIds = this.bestuursorganen.map(o => o.get('id'));
     let queryParams = {
       filter: {
         'is-bestuurlijke-alias-van': {
@@ -30,7 +30,7 @@ export default Component.extend({
       ].join(',')
     };
 
-    let mandatarissen = await this.get('store').query('mandataris', queryParams);
+    let mandatarissen = await this.store.query('mandataris', queryParams);
     this.set('mandatarissen', mandatarissen.toArray());
   },
 
@@ -44,15 +44,15 @@ export default Component.extend({
     },
     async mandatarisCreateCanceled(mandataris){
       await mandataris.destroy();
-      this.get('mandatarissen').removeObject(mandataris);
+      this.mandatarissen.removeObject(mandataris);
     },
     async createMandataris(){
-      const mandataris = this.get('store').createRecord('mandataris');
-      mandataris.set('isBestuurlijkeAliasVan',await this.get('persoon'));
-      this.get('mandatarissen').pushObject(mandataris);
+      const mandataris = this.store.createRecord('mandataris');
+      mandataris.set('isBestuurlijkeAliasVan',await this.persoon);
+      this.mandatarissen.pushObject(mandataris);
     },
     finish(){
-      this.get('onFinish')();
+      this.onFinish();
     }
   }
 });

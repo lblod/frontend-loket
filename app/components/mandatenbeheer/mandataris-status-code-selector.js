@@ -5,7 +5,7 @@ export default Component.extend({
   store: service(),
 
   didReceiveAttrs(){
-    this.set('_statusCode', this.get('statusCode'));
+    this.set('_statusCode', this.statusCode);
     this.set('statusCodes', this.populate());
   },
 
@@ -13,13 +13,13 @@ export default Component.extend({
     let queryParams = {
       sort:'label'
     };
-    return this.get('store').query('mandataris-status-code', queryParams);
+    return this.store.query('mandataris-status-code', queryParams);
   },
 
   actions: {
     select(code){
       this.set('_statusCode', code);
-      this.get('onSelect')(code);
+      this.onSelect(code);
     }
   }
 });

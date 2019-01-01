@@ -4,10 +4,10 @@ export default Component.extend({
 
   actions: {
     confirm(){
-      this.get('onConfirm')();
+      this.onConfirm();
     },
     cancel(){
-      this.get('onCancel')();
+      this.onCancel();
     }
   }
 });

@@ -1,22 +1,17 @@
+import { oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
 import { observer } from '@ember/object';
+import InputField from '@lblod/ember-mu-dynamic-forms/mixins/input-field';
 
-export default Component.extend({
+export default Component.extend( InputField, {
   //TODO: extract properties from options
   placeholder: '01-01-2019',
   datePickerClass: 'date-picker-mandataris-edit',
   dateFormat: 'DD-MM-YYYY',
 
-  valueObserver: observer('value', function() {
-     const prop = this.get('model.identifier');
-     this.set(`solution.${prop}`, this.get('value'));
-  }),
+  internalValue: oneWay('value'),
 
-  didReceiveAttrs() {
-    this._super(...arguments);
-    if (this.get('model')) {
-      const value = this.get(`solution.${this.get('model.identifier')}`);
-      this.set('value', value);
-    }
-  }
+  valueObserver: observer('internalValue', function() {
+    this.updateValue( this.internalValue );
+  })
 });

@@ -12,7 +12,7 @@ export default Model.extend({
 
   humanReadableSize: computed('size', function(){
     //ripped from https://stackoverflow.com/questions/15900485/correct-way-to-convert-size-in-bytes-to-kb-mb-gb-in-javascript
-    const bytes = this.get('size');
+    const bytes = this.size;
     const sizes = ['bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '0 byte';
     const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));

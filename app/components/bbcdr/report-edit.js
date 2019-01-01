@@ -22,7 +22,8 @@ export default Component.extend({
   },
 
   async updateReport() {
-    this.report.set('files', this.get('reportFiles'));
+    this.report.set('files', this.reportFiles);
+    this.report.set('modified', new Date());
     return this.report.save();
   },
 
@@ -49,7 +50,7 @@ export default Component.extend({
         })).firstObject;
         this.report.set('status', statusSent);
         await this.updateReport();
-        this.get('router').transitionTo('bbcdr.rapporten.index');
+        this.router.transitionTo('bbcdr.rapporten.index');
       }
       catch(e) {
         this.set('showError', true);
@@ -58,12 +59,12 @@ export default Component.extend({
 
     async deleteReport() {
       await this.deleteReport();
-      this.get('router').transitionTo('bbcdr.rapporten.index');
+      this.router.transitionTo('bbcdr.rapporten.index');
     },
 
     async tempSave(){
       await this.updateReport();
-      this.get('router').transitionTo('bbcdr.rapporten.edit', this.report.get('id'));
+      this.router.transitionTo('bbcdr.rapporten.edit', this.report.get('id'));
     },
 
     async addFile(file) {
@@ -79,14 +80,14 @@ export default Component.extend({
     async close(){
       if(this.isNewReport)
         await this.deleteReport();
-      this.get('router').transitionTo('bbcdr.rapporten.index');
+      this.router.transitionTo('bbcdr.rapporten.index');
     },
 
     clickCloseCross(){
       if(this.hasOutstandingChanges())
         this.set('showExitModal', true);
       else
-        this.get('router').transitionTo('bbcdr.rapporten.index');
+        this.router.transitionTo('bbcdr.rapporten.index');
     },
 
     cancelModal(){
@@ -96,14 +97,14 @@ export default Component.extend({
     async saveAndExitModal(){
       this.set('showExitModal', false);
       await this.updateReport();
-      this.get('router').transitionTo('bbcdr.rapporten.index');
+      this.router.transitionTo('bbcdr.rapporten.index');
     },
 
     async discardAndExitModal(){
       this.set('showExitModal', false);
       if(this.isNewReport)
         await this.deleteReport();
-      this.get('router').transitionTo('bbcdr.rapporten.index');
+      this.router.transitionTo('bbcdr.rapporten.index');
     }
   }
 });

@@ -17,7 +17,8 @@ Router.map(function() {
 
     this.route('personen', function() {});
   });
-  this.route('administratieve-gegevens', function() {});
+
+  //  this.route('administratieve-gegevens', function() {});
 
   this.route('bbcdr', function() {
     this.route('rapporten', function() {
@@ -33,16 +34,19 @@ Router.map(function() {
     });
   });
   this.route('contact');
-  this.route('pub', function() {
-    this.route('toezicht', function() {
-      this.route('inzendingen', function() {
-        this.route('show', { path: '/:id' });
-      });
-      this.route('rapporten');
-    });
-  });
   this.route('route-not-found', {
     path: '/*wildcard'
+  });
+  this.route('mock-login');
+
+  this.route('legaal', function() {
+    this.route('disclaimer');
+    this.route('cookieverklaring');
+  });
+  this.route('berichtencentrum', function() {
+    this.route('berichten', function() {
+      this.route('conversatie', { path: ':id' }, function() {});
+    });
   });
 });
 

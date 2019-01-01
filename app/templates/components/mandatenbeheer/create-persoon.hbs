@@ -10,7 +10,7 @@
       </div>
       <div class="col--6-12">
         <label for="mandataris-familienaam">Familienaam</label>
-        {{input class=(with-error-class familienaamError "input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam") value=(mut familienaam)}}
+        {{input class=(with-error-class familienaamError "input-field input-field--block u-spacer--tiny js-js-input-pattern-bound") id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam" value=(mut familienaam)}}
         {{#if familienaamError}}
           <div class="form__error">{{familienaamError}}</div>
         {{/if}}

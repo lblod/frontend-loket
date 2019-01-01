@@ -6,6 +6,6 @@ export default Route.extend({
       filter: { ':uri:': 'http://data.lblod.info/document-statuses/concept' }
     })).firstObject;
 
-    return this.get('store').createRecord('bbcdr-report', {status});
+    return this.store.createRecord('bbcdr-report', {status});
   }
 });

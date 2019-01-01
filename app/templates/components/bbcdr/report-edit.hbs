@@ -9,14 +9,14 @@
       {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not report.status.isVerstuurd) }}
     {{/each}}
     {{#if enableUpload}}
-      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml"}}
+      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml" maxFileSizeMB=1024}}
     {{/if}}
   </div>
   {{#if showError}}
     {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." isError=true}}
   {{/if}}
-
 </div>
+
 <div class="u-padding--round--small u-border--light--top">
   {{#unless isNewReport}}
     {{#if report.status.isConcept}}

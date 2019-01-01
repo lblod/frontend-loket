@@ -5,8 +5,14 @@ import ENV from 'frontend-loket/config/environment';
 
 export default Route.extend(ApplicationRouteMixin, {
   currentSession: service(),
+  moment: service(),
 
   beforeModel() {
+    const moment = this.get('moment');
+    moment.setLocale('nl-be');
+    moment.setTimeZone('Europe/Brussels');
+    moment.set('defaultFormat', 'DD MMM YYYY, HH:mm');
+
     return this._loadCurrentSession();
   },
 
@@ -21,6 +27,6 @@ export default Route.extend(ApplicationRouteMixin, {
   },
 
   _loadCurrentSession() {
-    return this.get('currentSession').load().catch(() => this.get('session').invalidate());
+    return this.currentSession.load().catch(() => this.session.invalidate());
   }
 });

@@ -30,6 +30,6 @@ export default Route.extend(DataTableRouteMixin, {
 
   setupController(controller, model) {
     this._super(controller, model);
-    controller.set('bestuurseenheid', this.get('bestuurseenheid'));
+    controller.set('bestuurseenheid', this.bestuurseenheid);
   }
 });

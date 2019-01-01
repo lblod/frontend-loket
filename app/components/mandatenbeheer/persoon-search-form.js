@@ -9,12 +9,12 @@ export default Component.extend({
   hasSearched: false,
   pageSize: 20,
   noResultsAfterSearch: computed('personen', 'isQuerying', function(){
-    if(this.get('isQuerying'))
+    if(this.isQuerying)
       return false;
-    return this.get('hasSearched') && this.get('personen.length') === 0;
+    return this.hasSearched && this.get('personen.length') === 0;
   }),
   searchTerms: computed('gebruikteVoornaam', 'achternaam', 'identificator', function(){
-    return [this.get('gebruikteVoornaam'), this.get('achternaam'), this.get('identificator')].filter( t => t ).join(', ');
+    return [this.gebruikteVoornaam, this.achternaam, this.identificator].filter( t => t ).join(', ');
   }),
   isQuerying: computed('search.isRunning', 'getPersoon.isRunning', function(){
     return this.get('search.isRunning') || this.get('getPersoon.isRunning');
@@ -28,26 +28,34 @@ export default Component.extend({
   search: task(function* () {
     this.set('hasSearched', true);
     yield timeout(300);
+
+    if(!(this.achternaam || this.gebruikteVoornaam || this.identificator)){
+      this.set('queryParams', {});
+      this.set('personen', []);
+      return;
+    }
+
     let queryParams = {
       sort:'achternaam',
       include: ['geboorte',
                 'identificator'].join(','),
       filter: {
-        achternaam: this.get('achternaam') || undefined,
-        'gebruikte-voornaam': this.get('gebruikteVoornaam') || undefined,
-        identificator: this.get('identificator') || undefined
+        achternaam: this.achternaam || undefined,
+        'gebruikte-voornaam': this.gebruikteVoornaam || undefined,
+        identificator: this.identificator || undefined
       },
       page:{
-        size: this.get('pageSize')
+        size: this.pageSize,
+        number: 0
       }
     };
     this.set('queryParams', queryParams);
-    this.set('personen', yield this.getPersoon.perform(queryParams));
+    this.set('personen', (yield this.getPersoon.perform(queryParams)));
   }),
 
   getPersoon: task(function* (queryParams){
     try {
-      return yield this.get('store').query('persoon', queryParams);
+      return yield this.store.query('persoon', queryParams);
     }
     catch(e){
       this.set('error', true);
@@ -62,15 +70,15 @@ export default Component.extend({
   actions: {
     async selectPage(page){
       this.set('page', page);
-      let queryParams = this.get('queryParams');
+      let queryParams = this.queryParams;
       queryParams['page'] = {number: page};
       this.set('personen', await this.getPersoon.perform(queryParams));
     },
     selectPersoon(persoon){
-      this.get('onSelect')(persoon);
+      this.onSelect(persoon);
     },
     cancel(){
-      this.get('onCancel')();
+      this.onCancel();
     },
     toggleError(){
       this.resetAfterError();

@@ -3,10 +3,10 @@ import Component from '@ember/component';
 export default Component.extend({
   actions: {
     terminate(){
-      this.get('onTerminate')();
+      this.onTerminate();
     },
     correct(){
-      this.get('onCorrect')();
+      this.onCorrect();
     }
   }
 });
