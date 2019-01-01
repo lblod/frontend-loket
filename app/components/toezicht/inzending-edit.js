@@ -179,5 +179,9 @@ export default Component.extend({
     async deleteFile(file) {
       this.files.removeObject(file);
     },
+
+    deleteFileAddress(fileAddress){
+      this.fileAddresses.removeObject(fileAddress);
+    }
   }
 });
