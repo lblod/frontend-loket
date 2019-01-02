@@ -11,22 +11,24 @@ export default Controller.extend({
   page: 0,
   size: 20,
   hasActiveChildRoute: computed('router.currentRouteName', function() {
-    return this.get('router.currentRouteName').startsWith('mandatenbeheer.mandatarissen.')
-      && this.get('router.currentRouteName') != 'mandatenbeheer.mandatarissen.index';
+    return this.get('router.currentRouteName').startsWith('mandatenbeheer.mandatarissen.') &&
+      this.get('router.currentRouteName') != 'mandatenbeheer.mandatarissen.index';
   }),
 
   bestuursorganenSortingDesc: Object.freeze(['bindingStart:desc']),
   descSortedBestuursorgaanWithBestuursperioden: sort('mandatenbeheer.bestuursorgaanWithBestuursperioden', 'bestuursorganenSortingDesc'),
 
-  search: task(function* (searchData) {
+  search: task(function*(searchData) {
     yield timeout(300);
     this.set('page', 0);
     yield this.set('filter', searchData);
   }).restartable(),
 
   selectedBestuursorgaan: computed('startDate', function() {
-    if(this.mandatenbeheer.startDate) {
-      return this.mandatenbeheer.bestuursorgaanWithBestuursperioden.find(o => o.bindingStart.toDateString() == new Date(this.mandatenbeheer.startDate).toDateString());
+    if (this.mandatenbeheer.startDate) {
+      return this.mandatenbeheer.bestuursorgaanWithBestuursperioden.find(
+        o => o.bindingStart.toDateString() == new Date(this.mandatenbeheer.startDate).toDateString()
+      );
     } else {
       return this.descSortedBestuursorgaanWithBestuursperioden.firstObject;
     }
@@ -42,7 +44,12 @@ export default Controller.extend({
 
     select(selectedBestuursorgaan) {
       this.set('selectedBestuursorgaan', selectedBestuursorgaan);
-      this.transitionToRoute('mandatenbeheer.mandatarissen', { queryParams: { startDate: moment(selectedBestuursorgaan.bindingStart).format('YYYY-MM-DD') }});
+      this.transitionToRoute('mandatenbeheer.mandatarissen', {
+        queryParams: {
+          page: 0,
+          startDate: moment(selectedBestuursorgaan.bindingStart).format('YYYY-MM-DD')
+        }
+      });
     }
   }
 });
