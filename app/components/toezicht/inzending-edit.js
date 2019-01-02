@@ -4,6 +4,8 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 import { gte } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
+import fileAddress from '../../models/file-address';
+import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
   classNames: ['col--5-12 col--9-12--m col--12-12--s container-flex--contain'],
@@ -12,6 +14,8 @@ export default Component.extend({
   formVersionTracker: service('toezicht/form-version-tracker'),
   currentSession: service(),
   files: null,
+  addresses: null,
+  fileAddresses: null,
   errorMsg: '',
   hasError: gte('errorMsg.length', 1),
   deleteModal: false,
@@ -56,6 +60,10 @@ export default Component.extend({
     let inzending = await this.model.get('inzendingVoorToezicht');
     inzending.set('modified', new Date());
     (await inzending.get('files')).setObjects(this.files);
+
+    await Promise.all(this.fileAddresses.map(a => a.save()));
+    (await inzending.get('fileAddresses')).setObjects(this.fileAddresses);
+
     inzending.set('lastModifier', await this.currentSession.get('user'));
     return inzending.save();
   },
@@ -63,6 +71,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     this.set('files', A());
+    this.set('fileAddresses', A([]));
   },
 
   async didReceiveAttrs(){
@@ -73,6 +82,9 @@ export default Component.extend({
       let files = await inzending.get('files');
       if(files)
         this.files.setObjects(files.toArray());
+      let fileAddresses = await inzending.get('fileAddresses');
+      if(fileAddresses)
+        this.fileAddresses.setObjects(fileAddresses.toArray());
     }
     catch(e){
       this.set('errorMsg', `Fout bij het inladen: ${e.message}. Gelieve opnieuw te proberen.`);
@@ -166,6 +178,10 @@ export default Component.extend({
     },
     async deleteFile(file) {
       this.files.removeObject(file);
+    },
+
+    deleteFileAddress(fileAddress){
+      this.fileAddresses.removeObject(fileAddress);
     }
   }
 });

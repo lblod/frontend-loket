@@ -51,5 +51,6 @@ inflector.irregular('form-solution', 'form-solutions');
 inflector.irregular('dynamic-subform', 'dynamic-subforms');
 inflector.irregular('form-input', 'form-inputs');
 inflector.irregular('inzending-voor-toezicht-form-version', 'inzending-voor-toezicht-form-versions');
+inflector.irregular('file-address', 'file-addresses');
 // Meet Ember Inspector's expectation of an export
 export default {};

@@ -10,7 +10,8 @@ export default Route.extend({
                                                             'inzending-voor-toezicht.inzending-type',
                                                             'inzending-voor-toezicht.besluit-type',
                                                             'inzending-voor-toezicht.bestuursorgaan',
-                                                            'inzending-voor-toezicht.tax-rates'
+                                                            'inzending-voor-toezicht.tax-rates',
+                                                            'inzending-voor-toezicht.file-addresses'
                                                            ].join(',')}));
     return models.firstObject;
   }

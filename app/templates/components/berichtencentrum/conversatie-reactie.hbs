@@ -3,10 +3,9 @@
 {{else}}
   <div class="js-accordion u-spacer--small js-accordion--open">
     <div class="accordion__content">
-      <div class="u-hr u-spacer--tb--small"></div>
       <h3 class="h6 u-spacer--small">Uw reactie</h3>
 
-      <div class="grid u-spacer--tiny">
+      <div class="grid u-spacer--small">
         <div class="col--2-12">
           <p class="smaller"><strong>Naar</strong></p>
         </div>
@@ -36,13 +35,17 @@
       <p class="smaller u-spacer--tiny">
         <strong>Uw antwoord als bijlage</strong>
       </p>
-      {{#each bijlagen as |bijlage|}}
-        {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
-      {{/each}}
-      {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
+      <div class="form__row u-spacer">
+	      {{#each bijlagen as |bijlage|}}
+	        {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
+	      {{/each}}
+	      {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
+	    </div>
 
-      {{wu-button label="Verstuur bericht" onClick=(action 'verstuurBericht') disabled=canSend isNarrow=true isSmall=true class="js-accordion__toggle js-accordion-bound"}}
-      {{wu-button label="Verwijder nieuw bericht" onClick=(action 'collapseMe') isNarrow=true isSmall=true isAlt=true class="js-accordion__toggle js-accordion-bound"}}
+      <div class="button-group">
+	      {{wu-button label="Verstuur bericht" onClick=(action 'verstuurBericht') disabled=canSend isNarrow=true isSmall=true class="js-accordion__toggle js-accordion-bound"}}
+	      {{wu-button label="Verwijder nieuw bericht" onClick=(action 'collapseMe') isNarrow=true isSmall=true isAlt=true class="js-accordion__toggle js-accordion-bound"}}
+	    </div>
     </div>
   </div>
 {{/if}}
