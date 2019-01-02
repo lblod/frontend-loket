@@ -46,9 +46,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
       this.transitionTo('index');
   },
 
-  // What is not working :
-  // - Same for "Toon totalen en bestuursperiodes"
-
   async model(params){
     this.startDate = params.startDate;
 
@@ -59,5 +56,5 @@ export default Route.extend(AuthenticatedRouteMixin, {
       'bestuursorgaanWithBestuursperioden': this.getBestuursorgaanWithBestuursperioden(bestuurseenheid.get('id')),
       'startDate': this.startDate
     });
-  },
+  }
 });
