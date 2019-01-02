@@ -3,13 +3,37 @@
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
       <div class="u-padding--round--small mandate-edit-table__header">
-        <h1 class="h4 u-spacer--tiny">Mandatenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
-        {{mandatenbeheer/mandatarissen-totals class="js-accordion u-spacer--tb--tiny" bestuursorganen=bestuursorganen}}
+        <h1 class="h4 u-spacer--small">Mandatenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
+
+        <div class="grid">
+          <div class="col--6-12 col--1-1--xs">
+            {{mandatenbeheer/mandatarissen-totals class="js-accordion u-spacer--bottom--tiny" bestuursorganen=bestuursorganen}}
+          </div>
+          <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
+            <div class="power-select power-select--small power-select--inline u-spacer--small">
+              {{#power-select
+                  options=descSortedBestuursorgaanWithBestuursperioden
+                  selected=selectedBestuursorgaan
+                  searchEnabled=false
+                  onchange=(action "select")
+                  as |orgaan|}}
+
+                Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
+                -
+                {{#if orgaan.bindingEinde}}
+                  {{moment-format orgaan.bindingEinde 'YYYY'}}
+                {{else}}
+                  heden
+                {{/if}}
+              {{/power-select}}
+            </div>
+          </div>
+        </div>
 
         <div class="grid">
           <div class="col--6-12 col--1-1--xs">
             <div class="input-field-icon-container--right input-field-icon-container--block">
-              {{input class="input-field input-field--block u-spacer--tiny" value=searchData type="text" placeholder="Zoek mandataris" style="max-width: 100%; width: 100%;" key-up=(perform search)}}
+              {{input class="input-field input-field--block u-spacer--tiny" value=searchData type="text" placeholder="Zoek mandataris" key-up=(perform search)}}
               <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
             </div>
           </div>
