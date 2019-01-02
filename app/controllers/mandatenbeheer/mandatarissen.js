@@ -22,7 +22,7 @@ export default Controller.extend({
 
   selectedBestuursorgaan: computed('startDate', function() {
     if(this.mandatenbeheer.startDate) {
-      return this.mandatenbeheer.bestuursorgaanWithBestuursperioden.find(o => o.bindingStart.toDateString() == new Date(this.get('startDate')).toDateString());
+      return this.mandatenbeheer.bestuursorgaanWithBestuursperioden.find(o => o.bindingStart.toDateString() == new Date(this.mandatenbeheer.startDate).toDateString());
     } else {
       return this.mandatenbeheer.bestuursorgaanWithBestuursperioden.firstObject;
     }

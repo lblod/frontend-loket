@@ -4,7 +4,31 @@
     <div class="u-border--light--bottom">
       <div class="u-padding--round--small mandate-edit-table__header">
         <h1 class="h4 u-spacer--tiny">Mandatenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
-        {{mandatenbeheer/mandatarissen-totals class="js-accordion u-spacer--tb--tiny" bestuursorganen=bestuursorganen}}
+
+        <div class="grid">
+          <div class="col--6-12 col--1-1--xs">
+            {{mandatenbeheer/mandatarissen-totals class="js-accordion u-spacer--tb--tiny" bestuursorganen=bestuursorganen}}
+          </div>
+          <div class="col--6-12 col--1-1--xs u-align-left--tablet-portrait-up">
+            <div class="power-select">
+              {{#power-select
+                  options=mandatenbeheer.bestuursorgaanWithBestuursperioden
+                  selected=selectedBestuursorgaan
+                  searchEnabled=false
+                  onchange=(action "select")
+                  as |orgaan|}}
+
+                Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
+                -
+                {{#if orgaan.bindingEinde}}
+                  {{moment-format orgaan.bindingEinde 'YYYY'}}
+                {{else}}
+                  heden
+                {{/if}}
+              {{/power-select}}
+            </div>
+          </div>
+        </div>
 
         <div class="grid">
           <div class="col--6-12 col--1-1--xs">
@@ -15,23 +39,6 @@
           </div>
           <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
             {{wu-button label="Voeg mandataris toe" onClick=(action "handleAddMandatarisClick") isNarrow=true}}
-          </div>
-          <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
-            {{#power-select
-                options=mandatenbeheer.bestuursorgaanWithBestuursperioden
-                selected=selectedBestuursorgaan
-                searchEnabled=false
-                onchange=(action "select")
-                as |orgaan|}}
-
-              Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
-              -
-              {{#if orgaan.bindingEinde}}
-                {{moment-format orgaan.bindingEinde 'YYYY'}}
-              {{else}}
-                heden
-              {{/if}}
-            {{/power-select}}
           </div>
         </div>
       </div>
