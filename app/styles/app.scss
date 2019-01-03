@@ -121,6 +121,20 @@
   box-shadow: inset 0 0 0 1px #ffc515;
 }
 
+/* make smaller */
+
+.power-select.power-select--small .ember-power-select-trigger {
+  font-size: 1.4rem;
+  height: 3rem;
+  line-height: 1.8;
+  padding-left: 0.5rem;
+  padding-right: 3rem;
+}
+
+.power-select.power-select--inline .ember-power-select-trigger {
+	display: inline-block;
+}
+
 /* Select options
  ========================================================================== */
 .ember-power-select-option.ember-power-select-option--loading-message,

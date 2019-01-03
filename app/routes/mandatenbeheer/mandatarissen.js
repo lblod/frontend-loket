@@ -6,6 +6,7 @@ export default Route.extend(DataTableRouteMixin, {
 
   async beforeModel(){
     const mandatenbeheer = await this.modelFor('mandatenbeheer');
+    this.set('mandatenbeheer', mandatenbeheer);
     this.set('bestuurseenheid', mandatenbeheer.bestuurseenheid);
     const bestuursorganen = mandatenbeheer.bestuursorganen;
     this.set('bestuursorganen', bestuursorganen);
@@ -38,6 +39,7 @@ export default Route.extend(DataTableRouteMixin, {
   setupController(controller, model){
     this._super(controller, model);
     controller.set('searchData', this.paramsFor('mandatenbeheer.mandatarissen')['filter']);
+    controller.set('mandatenbeheer', this.mandatenbeheer);
     controller.set('bestuurseenheid', this.bestuurseenheid);
     controller.set('bestuursorganen', this.bestuursorganen);
   }
