@@ -4,8 +4,6 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 import { gte } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
-import fileAddress from '../../models/file-address';
-import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
   classNames: ['col--5-12 col--9-12--m col--12-12--s container-flex--contain'],

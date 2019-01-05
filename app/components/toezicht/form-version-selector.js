@@ -12,13 +12,12 @@ export default Component.extend({
     this.setOptions.perform();
   },
 
-  setOptions: task(function* (searchData) {
-
-    let queryParams = {
+  setOptions: task(function* () {
+    const queryParams = {
       'include': 'form-node'
     };
 
-    let formVersions = yield this.store.findAll('inzending-voor-toezicht-form-version', queryParams);
+    const formVersions = yield this.store.findAll('inzending-voor-toezicht-form-version', queryParams);
     this.set('options', formVersions);
   }),
 
