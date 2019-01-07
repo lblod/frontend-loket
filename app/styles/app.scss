@@ -201,26 +201,6 @@ input[disabled] {
   color: rgba(0, 0, 0, 0.5);
 }
 
-/* temporary fix for contact cards in webuniversum*/
-
-.contact-card.contact-card--wide {
-  .contact-card__data,
-  .contact-card__map {
-    width: 100%;
-  }
-
-  .contact-card__data__title,
-  .contact-card__data__content {
-    float: none;
-    width: 100%;
-    display: block;
-  }
-
-  .form__label > .form__label {
-    margin-right: 0;
-  }
-}
-
 
 // /* CSS for browser warning
 //  ========================================================================== */
