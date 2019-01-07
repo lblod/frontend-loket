@@ -5,10 +5,10 @@
       <div class="u-padding--round--small mandate-edit-table__header">
 
         <div class="grid">
-          <div class="col--8-12 col--1-1--xs">
+          <div class="col--6-12 col--1-1--xs">
         		<h1 class="h4 u-spacer--none">Mandatenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
           </div>
-          <div class="col--4-12 col--1-1--xs u-align-right--tablet-portrait-up">
+          <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
             <div class="power-select power-select--small power-select--inline">
               {{#power-select
                   options=descSortedBestuursorgaanWithBestuursperioden
@@ -33,7 +33,7 @@
 
         <div class="grid">
           <div class="col--4-12 col--1-1--xs">
-            <div class="input-field-icon-container--right input-field-icon-container--block">
+            <div class="input-field-icon-container--right">
               {{input class="input-field input-field--block u-spacer--tiny" value=searchData type="text" placeholder="Zoek mandataris" key-up=(perform search)}}
               <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
             </div>
