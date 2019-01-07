@@ -118,7 +118,7 @@
               </div>
             {{else}}
 	            <div class="button-group">
-	              {{#wu-button class="button button--narrow" onClick=(action "save") }}
+	              {{#wu-button isNarrow=true onClick=(action "save") }}
 	                {{#if createMode}}
 	                  Voeg toe
 	                {{else if correctMode}}
@@ -127,7 +127,7 @@
 	                  Pas aan
 	                {{/if}}
 	              {{/wu-button}}
-	              {{#wu-button class="button button--narrow button--alt" onClick=(action "cancel") }}
+	              {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }}
 	                {{#if correctMode}}
 	                  Verwerp wijzigingen
 	                {{else}}
@@ -185,8 +185,8 @@
                 </div>
               {{else}}
                 <div class="button-group">
-                  {{#wu-button class="button button--narrow" onClick=(action "save") }} Wijzig einde mandaat {{/wu-button}}
-                  {{#wu-button class="button button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+                  {{#wu-button onClick=(action "save") isNarrow=true}}Wijzig einde mandaat{{/wu-button}}
+                  {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }}Annuleer{{/wu-button}}
                 </div>
                 <p>Indien het om een vervanging gaat, voeg hierna een nieuw mandaat toe.</p>
               {{/if}}
@@ -292,8 +292,8 @@
               </div>
             {{else}}
               <div class="button-group">
-                {{#wu-button class="button button--narrow" onClick=(action "save") }} Voeg toe{{/wu-button}}
-                {{#wu-button class="button button--narrow button--alt" onClick=(action "cancel") }} Annuleer {{/wu-button}}
+                {{#wu-button isNarrow=true onClick=(action "save") }}Voeg toe{{/wu-button}}
+                {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }}Annuleer{{/wu-button}}
               </div>
             {{/if}}
           </div>
