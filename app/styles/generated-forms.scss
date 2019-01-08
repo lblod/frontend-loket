@@ -7,14 +7,6 @@
   margin-bottom: 2rem;
 }
 
-/* temporary fix to make sure disabled fields look disabled */  // verwijderen na ember vo update
-
-textarea[disabled],
-input[disabled] {
-  background-color: rgba(0, 0, 0, 0.1);
-  color: rgba(0, 0, 0, 0.5);
-}
-
 /* temporary fix for required fields */
 .form__row--required {
   label.form__label,
