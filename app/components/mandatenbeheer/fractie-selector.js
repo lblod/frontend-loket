@@ -7,7 +7,8 @@ export default Component.extend({
   currentSession: service(),
 
   async didReceiveAttrs(){
-    this.set('_fractie', this.fractie);
+    if(this.fractie)
+      this.set('_fractie', this.fractie);
     if(this.bestuursorganen){
       this.set('bestuursorganenId', this.bestuursorganen.map( o => o.get('id') ));
     }
