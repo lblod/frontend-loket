@@ -4,8 +4,6 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 import { gte } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
-import fileAddress from '../../models/file-address';
-import { isEmpty } from '@ember/utils';
 
 export default Component.extend({
   classNames: ['col--5-12 col--9-12--m col--12-12--s container-flex--contain'],
@@ -37,11 +35,15 @@ export default Component.extend({
   }),
 
   canSend: computed('model.inzendingVoorToezicht.status.id', 'files.[]', function(){
-    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd') && this.get('files.length');
+    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd') && (this.get('files.length') || !this.allEmptyFileAddresses);
   }),
 
   isWorking: computed('save.isRunning','delete.isRunning','send.isRunning', function(){
     return this.save.isRunning || this.delete.isRunning || this.send.isRunning || false;
+  }),
+
+  allEmptyFileAddresses: computed('fileAddresses', 'fileAddresses.[]', function(){
+    return !(this.fileAddresses || []).any(a => a.address && a.address.length > 0);
   }),
 
   async validate(){
@@ -50,8 +52,8 @@ export default Component.extend({
     if(states.filter((s) => { return s == 'noSend'; }).length > 0)
       errors.push('Gelieve alle verplichte velden in te vullen.');
 
-    if((await this.files).length == 0)
-      errors.push('Gelieve minstens één bestand op te laden.');
+    if((await this.files).length == 0 && this.allEmptyFileAddresses)
+      errors.push('Gelieve minstens één bestand of link naar document op te laden.');
 
     this.set('errorMsg', errors.join(' '));
   },

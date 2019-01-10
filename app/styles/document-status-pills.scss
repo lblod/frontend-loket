@@ -1,0 +1,37 @@
+/* Document status pills
+ ========================================================================== */
+
+.pill {
+  &[resource^="http://data.lblod.info/document-statuses/"] {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    position: relative;
+    white-space: nowrap;
+    padding-right: 10px;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      bottom: -1px;
+      width: 5px;
+    }
+  }
+  &[resource="http://data.lblod.info/document-statuses/concept"]::after {
+    background-color: #B2B2B2;
+  }
+  &[resource="http://data.lblod.info/document-statuses/goedgekeurd"]::after {
+    background-color: #333333;
+  }
+  &[resource="http://data.lblod.info/document-statuses/opmerking"]::after {
+    background-color: #FEE539;
+  }
+  &[resource="http://data.lblod.info/document-statuses/verstuurd"]::after {
+    background-color: #0F68C9
+  }
+  &[resource="http://data.lblod.info/document-statuses/prullenbak"]::after {
+    background-color: #B2B2B2;
+  }
+}

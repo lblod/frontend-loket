@@ -1,0 +1,15 @@
+{{#power-select
+    options=options
+    selected=selected
+    searchEnabled=false
+    onchange=(action "select")
+    as |orgaan|}}
+
+  Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
+  -
+  {{#if orgaan.bindingEinde}}
+    {{moment-format orgaan.bindingEinde 'YYYY'}}
+  {{else}}
+    heden
+  {{/if}}
+{{/power-select}}

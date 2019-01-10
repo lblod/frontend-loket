@@ -50,11 +50,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
     this.startDate = params.startDate;
 
     const bestuurseenheid = await this.get('currentSession.group');
-    return RSVP.hash({
+    let model =  await RSVP.hash({
       'bestuurseenheid': bestuurseenheid,
       'bestuursorganen': this.getBestuursorganen(bestuurseenheid.get('id')),
       'bestuursorgaanWithBestuursperioden': this.getBestuursorgaanWithBestuursperioden(bestuurseenheid.get('id')),
       'startDate': this.startDate
     });
+    return model;
   }
 });

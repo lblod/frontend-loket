@@ -1,0 +1,149 @@
+/* Generated form styling
+ ========================================================================== */
+
+/* temporary fix to make sure the first field for selecting the dossier type in toezicht has an extra space below */
+
+.form__row--toezicht-besluit-type-select .ember-power-select-trigger:first-child {
+  margin-bottom: 2rem;
+}
+
+/* temporary fix for required fields */
+.form__row--required {
+  label.form__label,
+  .upload__element {
+    padding-right: 10rem;
+    position: relative;
+    display: block;
+
+    &:after {
+      content: "Verplicht";
+      right: 0;
+      position: absolute;
+      text-align: right;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-size: 1.2rem;
+      top: 0.1rem;
+      color: #333333;
+      background-color: #E8EBEE;
+      border-radius: 3px;
+      padding: 0.4rem 0.3rem 0.3rem 0.4rem;
+      line-height: 1;
+    }
+  }
+
+  .upload__element:after {
+    top: -0.2rem;
+    right: -0.2rem;
+  }
+}
+
+.form__validation-check .form__row--required {
+  input,
+  textarea,
+  .ember-power-select-trigger {
+    border-bottom-color: red;
+  }
+
+  .upload__element {
+    border-color: red;
+    background-color: RGBA(249, 22, 40, 0.1);
+  }
+
+  .upload__element:after,
+  label.form__label:after {
+    background-color: red;
+    color: white;
+  }
+}
+
+/* temporary fix for inline required properties */
+.form__label > .form__label {
+  margin-right: 8rem;
+}
+
+.is-required {
+  position: relative;
+
+  &:after {
+    content: "Verplicht";
+    position: absolute;
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 1.2rem;
+    top: -2.5rem;
+    right: 0;
+    color: #333333;
+    background-color: #E8EBEE;
+    border-radius: 3px;
+    padding: 0.5rem 0.3rem 0.3rem 0.4rem;
+    line-height: 1;
+  }
+}
+
+.form__row--date .is-required:after {
+  top: -2.3rem;
+}
+
+.upload.is-required:after {
+  top: -0rem;
+  right: -0rem;
+  border-radius: 0;
+  z-index: 4;
+}
+
+/* temporary fix to highlight errors and required fields */
+
+.alert + .container-flex--scroll .is-required {
+
+  .input-field,
+  .ember-power-select-trigger {
+    border-bottom-color: red;
+  }
+}
+
+.alert + .container-flex--scroll .is-required.upload {
+  border-color: red;
+  background-color: RGBA(249, 22, 40, 0.1);
+
+  &:after {
+    background-color: RGBA(249, 22, 40, 1);
+    color: white;
+  }
+}
+
+.alert__icon+.alert__content {
+  min-height: 0;
+}
+
+.temporary-select__wrapper.temporary-select__wrapper--block.u-spacer--bottom--small.ember-view + .form__error {
+  margin-top: -3%;
+  margin-bottom: 3%;
+}
+
+/* temporary fix for narrower forms */
+
+.form__row--date {
+  width: 49%;
+  display: inline-block;
+}
+
+/* temporary fix to make sure checkbox is aligned correctly */
+
+.form__row--checkbox {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .form__input {
+    flex: 1 0 auto;
+  }
+
+  .form__label {
+    flex: auto;
+  }
+
+  .checkbox {
+    margin-right: 0rem;
+  }
+}

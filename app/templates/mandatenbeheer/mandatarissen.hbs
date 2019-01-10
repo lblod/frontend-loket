@@ -1,16 +1,27 @@
 {{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
 <div class="col--9-12--m col--1-1--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12"}}">
+
+  <div class="alert alert--success alert--tiny">
+    <div class="alert__icon" aria-hidden="true"></div>
+    <div class="alert__content">
+      <div class="alert__title">Mandatenbeheer via Gelinkt Notuleren</div>
+      <div class="alert__message">
+        <p>Besturen die gebruik hebben gemaakt van de webapplicatie <a href="http://gelinkt-notuleren.vlaanderen.be" target="_blank">Gelinkt Notuleren</a>, hoeven hun mandaten niet in te geven voor bestuursperiode 2019. Deze worden automatisch doorgegeven.</p>
+      </div>
+    </div>
+  </div>
+
+
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
       <div class="u-padding--round--small mandate-edit-table__header">
-        <h1 class="h4 u-spacer--small">Mandatenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
 
         <div class="grid">
           <div class="col--6-12 col--1-1--xs">
-            {{mandatenbeheer/mandatarissen-totals class="js-accordion u-spacer--bottom--tiny" bestuursorganen=bestuursorganen}}
+            <h1 class="h4 u-spacer--none">Mandatenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
           </div>
           <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
-            <div class="power-select power-select--small power-select--inline u-spacer--small">
+            <div class="power-select power-select--small power-select--inline">
               {{#power-select
                   options=descSortedBestuursorgaanWithBestuursperioden
                   selected=selectedBestuursorgaan
@@ -30,14 +41,18 @@
           </div>
         </div>
 
+        {{mandatenbeheer/mandatarissen-totals class="js-accordion u-spacer--bottom--small" bestuursorganen=bestuursorganen}}
+
         <div class="grid">
-          <div class="col--6-12 col--1-1--xs">
-            <div class="input-field-icon-container--right input-field-icon-container--block">
+          <div class="col--4-12 col--1-1--xs">
+            <div class="input-field-icon-container--right">
               {{input class="input-field input-field--block u-spacer--tiny" value=searchData type="text" placeholder="Zoek mandataris" key-up=(perform search)}}
               <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
             </div>
           </div>
-          <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
+          <div class="col--8-12 col--1-1--xs u-align-right--tablet-portrait-up">
+            <!--<a class="button button--narrow button--link button--link--dark delete-me-toggle-overview-personen delete-me-mandate-edit-data">Bekijk gegevens mandatarissen</a>-->
+            {{wu-button label="Beheer fracties" onClick=(action "handleBeheerFractiesClick") isNarrow=true class="button--alt"}}
             {{wu-button label="Voeg mandataris toe" onClick=(action "handleAddMandatarisClick") isNarrow=true}}
           </div>
         </div>

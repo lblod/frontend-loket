@@ -42,6 +42,10 @@ export default Controller.extend({
         this.transitionToRoute('mandatenbeheer.mandatarissen.new');
     },
 
+    handleBeheerFractiesClick() {
+      this.router.transitionTo('mandatenbeheer.fracties');
+    },
+
     select(selectedBestuursorgaan) {
       this.set('selectedBestuursorgaan', selectedBestuursorgaan);
       this.transitionToRoute('mandatenbeheer.mandatarissen', {
