@@ -39,6 +39,8 @@
             </div>
           </div>
           <div class="col--8-12 col--1-1--xs u-align-right--tablet-portrait-up">
+            <!--<a class="button button--narrow button--link button--link--dark delete-me-toggle-overview-personen delete-me-mandate-edit-data">Bekijk gegevens mandatarissen</a>-->
+            {{wu-button label="Beheer fracties" onClick=(action "handleBeheerFractiesClick") isNarrow=true class="button--alt"}}
             {{wu-button label="Voeg mandataris toe" onClick=(action "handleAddMandatarisClick") isNarrow=true}}
           </div>
         </div>
