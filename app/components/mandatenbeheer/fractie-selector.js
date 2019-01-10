@@ -8,27 +8,9 @@ export default Component.extend({
 
   async didReceiveAttrs(){
     this.set('_fractie', this.fractie);
-    let bestuurseenheid = await this.get('currentSession.group');
-    let bestuursorganen = await this.getBestuursorganen(bestuurseenheid.id);
-    this.set('bestuursorganen', bestuursorganen);
-    this.set('bestuursorganenId', bestuursorganen.map( o => o.get('id') ));
-  },
-
-  getBestuursorganen: async function(bestuurseenheidId){
-    const bestuursorganen = await this.store.query('bestuursorgaan', {'filter[bestuurseenheid][id]': bestuurseenheidId });
-    const organenInTijd = await Promise.all(bestuursorganen.map(orgaan => this.getLastBestuursorgaanInTijd(orgaan.get('id'))));
-    return organenInTijd.filter(orgaan => orgaan);
-  },
-
-  getLastBestuursorgaanInTijd: async function(bestuursorgaanId){
-    const queryParams = {
-      sort: '-binding-start',
-      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
-      page: { size: 1 }
-    };
-
-    const organen = await this.store.query('bestuursorgaan', queryParams);
-    return organen.firstObject;
+    if(this.bestuursorganen){
+      this.set('bestuursorganenId', this.bestuursorganen.map( o => o.get('id') ));
+    }
   },
 
   searchByName: task(function* (searchData) {
