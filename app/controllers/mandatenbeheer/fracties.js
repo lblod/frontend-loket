@@ -6,7 +6,7 @@ export default Controller.extend({
   size: 20,
 
   isAdding: false,
-   
+
   saveNewFractie: task(function * (fractieNaam) {
     let fractie = this.store.createRecord('fractie', {
       naam: fractieNaam,
@@ -14,18 +14,15 @@ export default Controller.extend({
       bestuursorganenInTijd: this.bestuursorganen,
       bestuurseenheid: yield this.bestuurseenheid
     });
-    //TODO: think again this flow
     yield this.updateExistingFractie.perform(fractie);
   }),
-   
+
   updateExistingFractie: task(function * (fractie) {
     yield fractie.save();
     this.set("isAdding", false);
-    yield this.updateFractiesOnChangeBestuursPeriode(this.selectedOrgPeriode);
-
     this.send('reloadModel');
   }),
-  
+
   async updateFractiesOnChangeBestuursPeriode(periode){
     this.transitionToRoute('mandatenbeheer.fracties', {
       queryParams: {
@@ -33,15 +30,15 @@ export default Controller.extend({
       }
     });
   },
-  
+
   actions: {
-    
+
     addFractie() {
       this.set("isAdding", true);
     },
-    
+
     async createFractie(fractieNaam) {
-      this.saveNewFractie.perform(fractieNaam);
+      await this.saveNewFractie.perform(fractieNaam);
     },
 
     updateFractie(fractie) {

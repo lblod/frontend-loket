@@ -24,14 +24,14 @@ export default Route.extend({
     this._super(controller, model);
     controller.set('bestuurseenheid', this.bestuurseenheid);
     controller.set('orgPerioden', this.orgPerioden);
-    controller.set('selectedOrgPeriode', this.bestuursorganen.firstObject)
-    controller.set('bestuursorganen', this.bestuursorganen)
+    controller.set('selectedOrgPeriode', this.bestuursorganen.firstObject);
+    controller.set('bestuursorganen', this.bestuursorganen);
   },
 
   model() {
     let startDate = this.paramsFor('mandatenbeheer')['startDate'];
     if(!startDate){
-      startDate = moment(this.bestuursorganen.firstObject.bindingStart).format('YYYY-MM-DD')
+      startDate = moment(this.bestuursorganen.firstObject.bindingStart).format('YYYY-MM-DD');
     }
     return this.store.query('fractie', {'filter[bestuursorganen-in-tijd][binding-start]': startDate});
   },
