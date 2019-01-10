@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { A } from '@ember/array';
+import moment from 'moment';
 export default Controller.extend({
-  //sort: 'is-bestuurlijke-alias-van.achternaam',
   page: 0,
   size: 20,
 
@@ -26,6 +26,13 @@ export default Controller.extend({
   }),
   
   async updateFractiesOnChangeBestuursPeriode(periode){
+    this.transitionToRoute('mandatenbeheer.fracties', {
+      queryParams: {
+        page: 0,
+        startDate: moment(periode.bindingStart).format('YYYY-MM-DD')
+      }
+    });
+
     let fracties = await this.store.query('fractie', {'filter[bestuursorganen-in-tijd][id]': periode.id});
     this.set('model', fracties);
   },

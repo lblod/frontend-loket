@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
+import moment from 'moment';
 
 export default Route.extend({
   currentSession: service(),
@@ -18,20 +18,21 @@ export default Route.extend({
 
     const bestuurseenheid = await this.get('currentSession.group');
     this.set('bestuurseenheid', bestuurseenheid);
-    
-    const bestuursorgaan = await this.get('currentSession.group');
-    this.set('bestuursorgaan', bestuursorgaan);
   },
 
   setupController(controller, model) {
     this._super(controller, model);
     controller.set('bestuurseenheid', this.bestuurseenheid);
     controller.set('orgPerioden', this.orgPerioden);
-    controller.set('selectedOrgPeriode', this.orgPerioden.firstObject)
+    controller.set('selectedOrgPeriode', this.bestuursorganen.firstObject)
   },
 
   model() {
-    return this.store.query('fractie', {'filter[bestuursorganen-in-tijd][id]': this.bestuursorgaan.id});
+    let startDate = this.paramsFor('mandatenbeheer')['startDate'];
+    if(!startDate){
+      startDate = moment(this.bestuursorganen.firstObject.bindingStart).format('YYYY-MM-DD')
+    }
+    return this.store.query('fractie', {'filter[bestuursorganen-in-tijd][binding-start]': startDate});
   },
 
 });
