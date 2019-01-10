@@ -16,6 +16,7 @@ Router.map(function() {
     });
 
     this.route('personen', function() {});
+    this.route('fracties', function() {});
   });
 
   //  this.route('administratieve-gegevens', function() {});

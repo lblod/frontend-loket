@@ -1,0 +1,33 @@
+{{#if isAdding}}
+  <td>{{input  value=tempValue  placeholder="Edit fractienaam" class="input-field input-field--block"}}</td>
+  <td>{{moment-format periode.bindingStart 'YYYY'}} - {{moment-format periode.bindingEinde 'YYYY'}}</td>
+  <td class="u-align-right">
+    <div class="button-group">
+      {{wu-button  class="button button--narrow button--alt" isNarrow=true
+            label='Annuleer'
+            onClick=(action "cancelFractieEdit")}}
+      {{wu-button  class="button button--narrow" isNarrow=true
+            label='Bewaar'
+            onClick=(action "approveFractieEdit")
+            disabled=(eq tempValue '')}}
+    </div>
+  </td>
+{{else if isEditing}}
+  <td>{{input value=fractie.naam  placeholder="Edit fractienaam" class="input-field input-field--block"}}</td>
+  <td>{{moment-format bestuursorganenInTijdStart 'YYYY'}} - {{moment-format bestuursorganenInTijdEinde 'YYYY'}}</td>
+  <td class="u-align-right">
+    <div class="button-group">
+      {{wu-button  class="button button--narrow button--alt" isNarrow=true
+            label='Verwerp wijzigingen'
+            onClick=(action "cancelFractieEdit")}}
+      {{wu-button  class="button button--narrow" isNarrow=true
+            label='Bewaar'
+            onClick=(action "approveFractieEdit")
+            disabled=(or (eq fractie.naam '') (eq fractie.naam nameBeforeEdit))}}
+    </div>
+  </td>
+{{else}}
+  <td><strong>{{fractie.naam}}</strong></td>
+  <td>{{moment-format bestuursorganenInTijdStart 'YYYY'}} - {{moment-format bestuursorganenInTijdEinde 'YYYY'}}</td>
+  <td class="u-align-right"><a onClick={{action "startFractieEdit"}}>Bewerk</a></td>
+{{/if}}
