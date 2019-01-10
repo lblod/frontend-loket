@@ -1,0 +1,68 @@
+<div class="col--10-12 col--9-12--m col--1-1--s delete-me-fractie-edit-table u-border--light--right delete-me-overview-fracties">
+  <div class="container-flex--contain">
+    <div class="u-border--light--bottom">
+      <ul class="inline-list inline-list--bordered smaller u-background--gray-lightest u-padding--rl--small u-padding--tb--tiny">
+        {{#link-to "mandatenbeheer.mandatarissen" class="delete-me-toggle-overview-fracties delete-me-fractie-edit-data"}}
+          Mandatenbeheer
+        {{/link-to}}
+        <li>Beheer fracties</li>
+      </ul>
+      <div class="u-padding--round--small delete-me-fractie-edit-table__header main-content" id="main" itemprop="mainContentOfPage" role="main" tabindex="-1">
+        <div class="grid">
+          <div class="col--6-12 col--1-1--xs">
+            <h1 class="h4 u-spacer--bottom--small u-hidden-mobile">Beheer Fracties {{bestuurseenheid.naam}}</h1>
+          </div>
+          <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
+            <div class="power-select power-select--small power-select--inline">
+              {{mandatenbeheer/bestuursperioden-selector
+                options=orgPerioden
+                selected=selectedOrgPeriode
+                onSelect=(action 'selectPeriode')
+              }}
+            </div>
+          </div>
+          <!--
+          <div class="col--6-12">
+            <div class="input-field-icon-container--right">
+              <input class="input-field input-field--block" id="input-field" type="text" placeholder="Fractie" style="min-width: 35rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+            </div>
+          </div>
+          -->
+          {{wu-button class="col--2-12 u-align-right"
+            label="Voeg fractie toe"
+            onClick=(action "addFractie") 
+            isNarrow=true}}
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-flex--scroll">
+      <table class="data-table data-table--nowrap">
+        <thead>
+          <tr class="data-table__header">
+            <th class="data-table__header-title"><a class="data-table__header-title--sortable data-table__header-title--sortable-active" href="#" title="sort">Fractienaam<i class="data-table__header-title__sort-icon vi vi-u-link-after vi-long-arrow"></i></a></th>
+            <th>Bestuusperiode</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {{#if isAdding}}
+            {{mandatenbeheer/fractie-table-row onEditFinish=(action "createFractie") isAdding=true periode=selectedOrgPeriode}}
+          {{/if}}
+
+          {{#each model as |row|}}
+            {{mandatenbeheer/fractie-table-row onEditFinish=(action "updateFractie") fractie=row}}
+          {{/each}}
+          <!--
+            <tr>
+            <td><strong>Onafhankelijk</strong></td>
+            <td>2019 — heden</td>
+            <td class="u-align-right"></td>
+          </tr>
+          -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
