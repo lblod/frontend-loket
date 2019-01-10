@@ -8,9 +8,14 @@ export default Controller.extend({
   isAdding: false,
 
   saveNewFractie: task(function * (fractieNaam) {
+    //get correct type fractie;
+    let samenwerkingsverband = (yield this.store.query('fractietype', {
+      'filter[:uri:]': 'http://data.vlaanderen.be/id/concept/Fractietype/Samenwerkingsverband'
+    })).firstObject;
+
     let fractie = this.store.createRecord('fractie', {
       naam: fractieNaam,
-      fractietype: null,
+      fractietype: samenwerkingsverband,
       bestuursorganenInTijd: this.bestuursorganen,
       bestuurseenheid: yield this.bestuurseenheid
     });
