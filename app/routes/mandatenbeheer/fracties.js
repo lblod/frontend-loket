@@ -25,6 +25,7 @@ export default Route.extend({
     controller.set('bestuurseenheid', this.bestuurseenheid);
     controller.set('orgPerioden', this.orgPerioden);
     controller.set('selectedOrgPeriode', this.bestuursorganen.firstObject)
+    controller.set('bestuursorganen', this.bestuursorganen)
   },
 
   model() {

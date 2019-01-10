@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
-import { A } from '@ember/array';
 import moment from 'moment';
 export default Controller.extend({
   page: 0,
@@ -12,29 +11,26 @@ export default Controller.extend({
     let fractie = this.store.createRecord('fractie', {
       naam: fractieNaam,
       fractietype: null,
-      bestuursorganenInTijd: A([this.selectedOrgPeriode]),
+      bestuursorganenInTijd: this.bestuursorganen,
       bestuurseenheid: yield this.bestuurseenheid
     });
     //TODO: think again this flow
-    this.updateExistingFractie.perform(fractie);
+    yield this.updateExistingFractie.perform(fractie);
   }),
    
   updateExistingFractie: task(function * (fractie) {
     yield fractie.save();
-    yield this.updateFractiesOnChangeBestuursPeriode(this.selectedOrgPeriode);
     this.set("isAdding", false);
+    yield this.updateFractiesOnChangeBestuursPeriode(this.selectedOrgPeriode);
+
   }),
   
   async updateFractiesOnChangeBestuursPeriode(periode){
     this.transitionToRoute('mandatenbeheer.fracties', {
       queryParams: {
-        page: 0,
         startDate: moment(periode.bindingStart).format('YYYY-MM-DD')
       }
     });
-
-    let fracties = await this.store.query('fractie', {'filter[bestuursorganen-in-tijd][id]': periode.id});
-    this.set('model', fracties);
   },
   
   actions: {
