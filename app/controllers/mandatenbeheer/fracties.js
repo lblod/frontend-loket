@@ -23,6 +23,7 @@ export default Controller.extend({
     this.set("isAdding", false);
     yield this.updateFractiesOnChangeBestuursPeriode(this.selectedOrgPeriode);
 
+    this.send('reloadModel');
   }),
   
   async updateFractiesOnChangeBestuursPeriode(periode){

@@ -36,4 +36,10 @@ export default Route.extend({
     return this.store.query('fractie', {'filter[bestuursorganen-in-tijd][binding-start]': startDate});
   },
 
+  actions: {
+    reloadModel(){
+      this.refresh();
+    }
+  }
+
 });
