@@ -6,7 +6,6 @@
 				<li>Beheer fracties</li>
 			</ul>
 
-
       <div class="u-padding--round--small delete-me-fractie-edit-table__header main-content" id="main" itemprop="mainContentOfPage" role="main" tabindex="-1">
         <div class="grid">
           <div class="col--6-12 col--1-1--xs">
@@ -36,46 +35,53 @@
       </div>
     </div>
 
-    <div class="container-flex--scroll">
-      <table class="data-table data-table--nowrap">
-        <thead>
-          <tr class="data-table__header">
-            <th class="data-table__header-title"><a class="data-table__header-title--sortable data-table__header-title--sortable-active" href="#" title="sort">Fractienaam<i class="data-table__header-title__sort-icon vi vi-u-link-after vi-long-arrow"></i></a></th>
-            <th>Bestuursperiode</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
+    {{#if isBusy}}
+      <div class="loader-wrapper">
+        <div class="loader">
+          <span class="u-visually-hidden">Bezig...</span>
+        </div>
+      </div>
+    {{else}}
+      <div class="container-flex--scroll">
+        <table class="data-table data-table--nowrap">
+          <thead>
+            <tr class="data-table__header">
+              <th class="data-table__header-title"><a class="data-table__header-title--sortable data-table__header-title--sortable-active" href="#" title="sort">Fractienaam<i class="data-table__header-title__sort-icon vi vi-u-link-after vi-long-arrow"></i></a></th>
+              <th>Bestuursperiode</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#if isAdding}}
+              {{mandatenbeheer/fractie-table-row onEditFinish=(action "createFractie") isAdding=true periode=selectedOrgPeriode isBusy=isBusy}}
+            {{/if}}
 
-          {{#if isAdding}}
-            {{mandatenbeheer/fractie-table-row onEditFinish=(action "createFractie") isAdding=true periode=selectedOrgPeriode}}
-          {{/if}}
-
-          {{#each model as |row|}}
-            {{mandatenbeheer/fractie-table-row onEditFinish=(action "updateFractie") fractie=row}}
-          {{else}}
-          	{{#unless isAdding}}
-	          	<tr>
-	          		<td colspan="3">
-	          			Geen fracties gevonden.
-				          {{wu-button
-				          	class="button button--link"
-				            label="Voeg een nieuwe fractie toe"
-				            onClick=(action "addFractie")
-				            isNarrow=true}}
-				        </td>
-	          	</tr>
-          	{{/unless}}
-          {{/each}}
-          <!--
-            <tr>
-            <td><strong>Onafhankelijk</strong></td>
-            <td>2019 — heden</td>
-            <td class="u-align-right"></td>
-          </tr>
-          -->
-        </tbody>
-      </table>
-    </div>
+            {{#each model as |row|}}
+              {{mandatenbeheer/fractie-table-row onEditFinish=(action "updateFractie") fractie=row isBusy=isBusy}}
+            {{else}}
+              {{#unless isAdding}}
+                <tr>
+                  <td colspan="3">
+                    Geen fracties gevonden.
+                    {{wu-button
+                      class="button button--link"
+                      label="Voeg een nieuwe fractie toe"
+                      onClick=(action "addFractie")
+                      isNarrow=true}}
+                  </td>
+                </tr>
+              {{/unless}}
+            {{/each}}
+            <!--
+              <tr>
+              <td><strong>Onafhankelijk</strong></td>
+              <td>2019 — heden</td>
+              <td class="u-align-right"></td>
+            </tr>
+            -->
+          </tbody>
+        </table>
+      </div>
+    {{/if}}
   </div>
 </div>
