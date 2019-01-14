@@ -6,7 +6,6 @@
 				<li>Beheer fracties</li>
 			</ul>
 
-
       <div class="u-padding--round--small delete-me-fractie-edit-table__header main-content" id="main" itemprop="mainContentOfPage" role="main" tabindex="-1">
         <div class="grid">
           <div class="col--6-12 col--1-1--xs">
@@ -46,13 +45,16 @@
           </tr>
         </thead>
         <tbody>
-
+          {{#if isBusy}}
+            <td>Even geduld aub.</td>
+          {{/if}}
+          
           {{#if isAdding}}
-            {{mandatenbeheer/fractie-table-row onEditFinish=(action "createFractie") isAdding=true periode=selectedOrgPeriode}}
+            {{mandatenbeheer/fractie-table-row onEditFinish=(action "createFractie") isAdding=true periode=selectedOrgPeriode isBusy=isBusy}}
           {{/if}}
 
           {{#each model as |row|}}
-            {{mandatenbeheer/fractie-table-row onEditFinish=(action "updateFractie") fractie=row}}
+            {{mandatenbeheer/fractie-table-row onEditFinish=(action "updateFractie") fractie=row isBusy=isBusy}}
           {{else}}
           	{{#unless isAdding}}
 	          	<tr>
