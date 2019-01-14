@@ -6,6 +6,7 @@ export default Controller.extend({
   size: 20,
 
   isAdding: false,
+  isBusy: false,
 
   saveNewFractie: task(function * (fractieNaam) {
     //get correct type fractie;
@@ -23,7 +24,9 @@ export default Controller.extend({
   }),
 
   updateExistingFractie: task(function * (fractie) {
+    this.set('isBusy', true);
     yield fractie.save();
+    this.set('isBusy', false);
     this.exitAddMode();
     this.send('reloadModel');
   }),
