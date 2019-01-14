@@ -24,10 +24,10 @@
       {{/unless}}
       <td>{{row.besluitType.label}}</td>
       {{#unless displaySubset}}
-        <td>{{row.description}}</td>
+        <td>{{moment-format row.sessionDate 'DD-MM-YYYY'}}</td>
       {{/unless}}
       {{#unless displaySubset}}
-        <td class="u-visible--tablet-landscape-up">{{moment-format row.sessionDate 'DD-MM-YYYY'}}</td>
+        <td class="u-visible--tablet-landscape-up">{{moment-format row.sentDate 'DD-MM-YYYY'}}</td>
       {{/unless}}
       <td class="u-hidden-mobile">
         {{shared/document-status-pill row.status}}
