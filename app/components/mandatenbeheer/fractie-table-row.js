@@ -30,7 +30,11 @@ export default Component.extend({
       this.openEditSession();
     },
     cancelFractieEdit() {
-      if (!this.isAdding) this.set("fractie.naam", this.nameBeforeEdit);
+      if (this.isAdding) { 
+        this.onEditFinish('');
+      } else {
+        this.set("fractie.naam", this.nameBeforeEdit);
+      }
       this.closeEditSession();
     },
     approveFractieEdit() {

@@ -24,9 +24,13 @@ export default Controller.extend({
 
   updateExistingFractie: task(function * (fractie) {
     yield fractie.save();
-    this.set("isAdding", false);
+    this.exitAddMode();
     this.send('reloadModel');
   }),
+  
+  exitAddMode() {
+    this.set("isAdding", false);
+  },
 
   async updateFractiesOnChangeBestuursPeriode(periode){
     this.transitionToRoute('mandatenbeheer.fracties', {
@@ -43,7 +47,11 @@ export default Controller.extend({
     },
 
     async createFractie(fractieNaam) {
-      await this.saveNewFractie.perform(fractieNaam);
+      if (fractieNaam != '') {
+        await this.saveNewFractie.perform(fractieNaam);
+      } else {
+        this.exitAddMode();
+      }
     },
 
     updateFractie(fractie) {
