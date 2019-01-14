@@ -6,11 +6,14 @@
         {{th-sortable label='Orgaan' field='decidedBy.label' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
       {{th-sortable label='Type dossier' field='besluitType.label' currentSorting=sort class="u-visible--tablet-landscape-up"}}
-      {{#unless displaySubset}}
+      {{!--{{#unless displaySubset}}
         {{th-sortable label='Dossieromschrijving' field='description' currentSorting=sort class="u-visible--tablet-landscape-up"}}
-      {{/unless}}
+      {{/unless}}--}}
       {{#unless displaySubset}}
         {{th-sortable label='Datum zitting/besluit' field='sessionDate' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+      {{/unless}}
+      {{#unless displaySubset}}
+        {{th-sortable label='Datum verstuurd' field='sentDate' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
       {{th-sortable label='Status' field='status' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       <th><!-- Actions --></th>
