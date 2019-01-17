@@ -30,7 +30,7 @@ export default Controller.extend({
     this.exitAddMode();
     this.send('reloadModel');
   }),
-  
+
   exitAddMode() {
     this.set("isAdding", false);
   },
