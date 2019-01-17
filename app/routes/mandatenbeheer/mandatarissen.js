@@ -42,5 +42,11 @@ export default Route.extend(DataTableRouteMixin, {
     controller.set('mandatenbeheer', this.mandatenbeheer);
     controller.set('bestuurseenheid', this.bestuurseenheid);
     controller.set('bestuursorganen', this.bestuursorganen);
+  },
+
+  actions: {
+    reloadModel(){
+      this.refresh();
+    }
   }
 });

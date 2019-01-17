@@ -23,13 +23,13 @@
       <div class="description-data__label">Bewerkt op</div>
       <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
     </div>
-      <div class="col--6-12">
-        <div class="description-data__label">Verstuurd op</div>
-        {{#if inzending.status.isVerstuurd}}
-          <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
-        {{else}}
-          <div class="description-data__value">-</div>
-        {{/if}}
-      </div>
+    <div class="col--6-12">
+      <div class="description-data__label">Verstuurd op</div>
+      {{#if inzending.status.isVerstuurd}}
+        <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
+      {{else}}
+        <div class="description-data__value">-</div>
+      {{/if}}
+    </div>
   {{/unless}}
 </div>

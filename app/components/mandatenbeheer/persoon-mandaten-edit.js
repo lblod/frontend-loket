@@ -39,8 +39,9 @@ export default Component.extend({
       this.set('persoon.verifiedMandaten', !this.get('persoon.verifiedMandaten'));
       await this.get('persoon').save();
     },
-    mandatarisSaved(/*mandataris*/){
+    mandatarisSaved(mandataris){
       //here you can do some additional validation, e.g. validation over all mandaten for a person
+      this.onMandatarisSaved(mandataris);
     },
     async mandatarisCreateCanceled(mandataris){
       await mandataris.destroy();
