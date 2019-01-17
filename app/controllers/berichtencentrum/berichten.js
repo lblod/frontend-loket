@@ -6,6 +6,8 @@ export default Controller.extend({
   router: service(),
 
   sort: '-laatste-bericht.verzonden',
+  page: 0,
+  size: 20,
   showPreferences: false,
 
   hasActiveChildRoute: computed('router.currentRouteName', function() {
