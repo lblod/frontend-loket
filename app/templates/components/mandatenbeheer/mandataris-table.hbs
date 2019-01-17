@@ -49,7 +49,8 @@
         <td class="u-visible--tablet-landscape-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
       {{/unless}}
       {{#unless displaySubset}}
-      <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
+        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
+        <td>{{#wu-button isWarning=true size="small" onClick=(action "removeMandataris" row)}}Verwijder{{/wu-button}}</td>
       {{/unless}}
       {{#if displaySubset}}
         <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} <i class="vi vi-edit u-padding--right"></i> {{/link-to}}</td>
