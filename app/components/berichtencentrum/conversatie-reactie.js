@@ -36,7 +36,7 @@ export default Component.extend({
         this.collapse();
         const reactie = await this.get('store').createRecord('bericht', {
           inhoud                  : this.inhoud,
-          aangekomen              : new Date(),
+          // aangekomen              : new Date(),
           verzonden               : new Date(),
           van                     : bestuurseenheid,
           auteur                  : user,
