@@ -75,7 +75,7 @@ export default Component.extend({
     },
 
     async removeFractie(fractie) {
-      await fractie.destroyRecord(fractie);
+      await fractie.destroyRecord();
     }
   },
 
