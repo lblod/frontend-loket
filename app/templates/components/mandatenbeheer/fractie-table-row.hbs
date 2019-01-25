@@ -51,4 +51,9 @@
 		{{/if}}
 	</td>
   <td class="u-align-right"><a onClick={{action "startFractieEdit"}}>Bewerk</a></td>
+  <td class="u-align-right">
+    {{#unless hasLidmaatschappen}}
+      {{#wu-button isWarning=true size="small" onClick=(action "removeFractie" fractie)}}Verwijder{{/wu-button}}
+    {{/unless}}
+  </td>
 {{/if}}

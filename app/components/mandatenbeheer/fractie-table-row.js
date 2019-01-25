@@ -30,13 +30,16 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.hasFractieLidmaatschap.perform();
+    this.setFractieHasLidmaatschap.perform();
   },
 
-  hasFractieLidmaatschap: task(function* () {
-    const fractie = yield this.fractie;
-    const lidmaatschap = yield this.store.query('lidmaatschap', {'filter[lidmaatschap][binnenFractie]': fractie});
-    // return lidmaatschap;
+  setFractieHasLidmaatschap: task(function* () {
+    const lidmaatschap = yield this.store.query('lidmaatschap', {'filter[binnen-fractie][:id:]': this.fractie.id});
+    if(lidmaatschap.length == 0) {
+      this.set('hasLidmaatschappen', false);
+    } else {
+      this.set('hasLidmaatschappen', true);
+    }
   }).drop(),
 
   actions: {
@@ -70,6 +73,10 @@ export default Component.extend({
       //-- finalize the session
       this.closeEditSession();
     },
+
+    async removeFractie(fractie) {
+      await fractie.destroyRecord(fractie);
+    }
   },
 
   openEditSession() {
