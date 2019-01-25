@@ -51,7 +51,7 @@ export default Component.extend({
     };
     this.set('queryParams', queryParams);
     this.set('personen', (yield this.getPersoon.perform(queryParams)));
-  }),
+  }).restartable(),
 
   getPersoon: task(function* (queryParams){
     try {
