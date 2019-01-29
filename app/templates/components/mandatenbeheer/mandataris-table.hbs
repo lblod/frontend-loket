@@ -16,6 +16,7 @@
         {{th-sortable field='start' currentSorting=sort label='Start mandaat' class="u-visible--tablet-landscape-up"}}
         {{th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="u-visible--tablet-landscape-up"}}
       {{/unless}}
+      {{th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
       <th></th>
     {{/c.header}}
     {{#c.body as |row|}}
@@ -48,6 +49,9 @@
         <td class="u-visible--tablet-landscape-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
         <td class="u-visible--tablet-landscape-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
       {{/unless}}
+      <td>
+        {{row.generatedFromGelinktNotuleren}}
+      </td>
       {{#unless displaySubset}}
         <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
         <td>{{#wu-button isWarning=true size="small" onClick=(action "removeMandataris" row)}}Verwijder{{/wu-button}}</td>

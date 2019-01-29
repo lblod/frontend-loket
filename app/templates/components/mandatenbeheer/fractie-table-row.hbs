@@ -1,13 +1,13 @@
 {{#if isAdding}}
   <td>{{input  value=tempValue  placeholder="Edit fractienaam" class="input-field input-field--block"}}</td>
   <td>
-  	{{moment-format periode.bindingStart 'YYYY'}} -
-	  {{#if periode.bindingEinde}}
-			{{moment-format periode.bindingEinde 'YYYY'}}
-		{{else}}
-			heden
-		{{/if}}
-	</td>
+    {{moment-format periode.bindingStart 'YYYY'}} -
+    {{#if periode.bindingEinde}}
+      {{moment-format periode.bindingEinde 'YYYY'}}
+    {{else}}
+      heden
+    {{/if}}
+  </td>
   <td class="u-align-right">
     <div class="button-group">
       {{wu-button  class="button button--narrow button--alt" isNarrow=true
@@ -22,38 +22,39 @@
 {{else if isEditing}}
   <td>{{input value=fractie.naam  placeholder="Edit fractienaam" class="input-field input-field--block"}}</td>
   <td>
-  	{{moment-format bestuursorganenInTijdStart 'YYYY'}} -
-	  {{#if periode.bindingEinde}}
-			{{moment-format bestuursorganenInTijdEinde 'YYYY'}}
-		{{else}}
-			heden
-		{{/if}}
-	</td>
+    {{moment-format bestuursorganenInTijdStart 'YYYY'}} -
+    {{#if periode.bindingEinde}}
+      {{moment-format bestuursorganenInTijdEinde 'YYYY'}}
+    {{else}}
+      heden
+    {{/if}}
+  </td>
   <td class="u-align-right">
     <div class="button-group">
       {{wu-button  class="button button--narrow button--alt" isNarrow=true
         label='Verwerp wijzigingen'
         onClick=(action "cancelFractieEdit")}}
       {{wu-button  class="button button--narrow" isNarrow=true
-	      label='Bewaar'
-	      onClick=(action "approveFractieEdit")
-	      disabled=(or (eq fractie.naam '') (eq fractie.naam nameBeforeEdit))}}
+        label='Bewaar'
+        onClick=(action "approveFractieEdit")
+        disabled=(or (eq fractie.naam '') (eq fractie.naam nameBeforeEdit))}}
     </div>
   </td>
 {{else}}
   <td><strong>{{fractie.naam}}</strong></td>
   <td>
-  	{{moment-format bestuursorganenInTijdStart 'YYYY'}} -
-	  {{#if periode.bindingEinde}}
-			{{moment-format bestuursorganenInTijdEinde 'YYYY'}}
-		{{else}}
-			heden
-		{{/if}}
-	</td>
-  <td class="u-align-right"><a onClick={{action "startFractieEdit"}}>Bewerk</a></td>
+    {{moment-format bestuursorganenInTijdStart 'YYYY'}} -
+    {{#if periode.bindingEinde}}
+      {{moment-format bestuursorganenInTijdEinde 'YYYY'}}
+    {{else}}
+      heden
+    {{/if}}
+  </td>
   <td class="u-align-right">
+    <a onClick={{action "startFractieEdit"}}>Bewerk</a>
     {{#unless hasLidmaatschappen}}
       {{#wu-button isWarning=true size="small" onClick=(action "removeFractie" fractie)}}Verwijder{{/wu-button}}
     {{/unless}}
   </td>
+  <td>{{fractie.generatedFromGelinktNotuleren}}</td>
 {{/if}}
