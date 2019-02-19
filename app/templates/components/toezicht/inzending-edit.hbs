@@ -21,20 +21,22 @@
 
   {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
 
-  {{#if model.inzendingVoorToezicht.besluitType.id}}
-    <div class="form__row u-spacer--top">
-      {{toezicht/url-box class="is-required" urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
-    </div>
-    <div class="form__row">
-      <label class="form__label">Bestanden</label>
-      {{#each files as |file|}}
-        {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
-      {{/each}}
-      {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
-        {{vo-mu-file-dropzone onFinishUpload=(action "addFile") class="is-required" maxFileSizeMB=1024}}
-      {{/unless}}
-    </div>
-  {{/if}}
+  <div class="form__group form__group--mobile-full-width">
+	  {{#if model.inzendingVoorToezicht.besluitType.id}}
+	    <div class="form__row u-spacer--top">
+	      {{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
+	    </div>
+	    <div class="form__row">
+	      <label class="form__label">Bestanden</label>
+	      {{#each files as |file|}}
+	        {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
+	      {{/each}}
+	      {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
+	        {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
+	      {{/unless}}
+	    </div>
+	  {{/if}}
+	</div>
 </div>
 
 {{#if model.formNode}}
