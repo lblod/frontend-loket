@@ -1,40 +1,70 @@
 {{toezicht/inzending-edit-header inzending=inzending isNew=isNew onClose=(action "close")}}
 
-{{#if isWorking}}
-  <div class="loader-wrapper">
-    <div class="loader">
-      <span class="u-visually-hidden">Bezig...</span>
-    </div>
-  </div>
-{{/if}}
 
 {{#if deleteModal}}{{toezicht/inzending-delete-modal onCancel=(action "cancelDelete") onConfirm=(action "confirmDelete")}} {{/if}}
 {{#if hasError}}
   {{wu-alert message=errorMsg isError=true}}
 {{/if}}
 
-<div class="container-flex--scroll u-padding--round--small {{if isWorking "u-hidden"}}">
+<div class="u-padding--round--small container-flex--scroll">
+	<div class="u-spacer">
+		<div class="grid">
+		  {{#unless isNew}}
+		    <div class="col--12-12">
+		      <div class="description-data__label">Gewijzigd door</div>
+		      <div class="description-data__value u-spacer--tiny">{{inzending.lastModifier.fullName}}</div>
+		    </div>
+		    <div class="col--6-12">
+		      <div class="description-data__label">Bewerkt op</div>
+		      <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
+		    </div>
+		    <div class="col--6-12">
+		      <div class="description-data__label">Verstuurd op</div>
+		      {{#if inzending.status.isVerstuurd}}
+		        <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
+		      {{else}}
+		        <p class="small text-fade">Nog niet verstuurd</p>
+		      {{/if}}
+		    </div>
+		  {{/unless}}
+		</div>
+	</div>
 
-  {{#unless model.formNode}}
-    {{toezicht/form-version-selector onSelect=(action "setFormVersion")}}
-  {{/unless}}
+	{{#if isWorking}}
+	  <div class="loader-wrapper">
+	    <div class="loader">
+	      <span class="u-visually-hidden">Bezig...</span>
+	    </div>
+	  </div>
+	{{/if}}
 
-  {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd}}
+	<div class="{{if isWorking "u-hidden"}}">
 
-  <div class="form__group form__group--mobile-full-width">
+	  {{#unless model.formNode}}
+	    {{toezicht/form-version-selector onSelect=(action "setFormVersion")}}
+	  {{/unless}}
+
+	  {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd class="u-spacer"}}
+
 	  {{#if model.inzendingVoorToezicht.besluitType.id}}
-	    <div class="form__row u-spacer--top">
-	      {{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
-	    </div>
-	    <div class="form__row">
-	      <label class="form__label">Bestanden</label>
-	      {{#each files as |file|}}
-	        {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
-	      {{/each}}
-	      {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
-	        {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
-	      {{/unless}}
-	    </div>
+		  <label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
+		  <div class="is-required">
+			  <div class="u-background--gray-lightest u-padding--round--small"> {{!--  --}}
+				  <div class="form__row u-spacer">
+				    {{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
+				  </div>
+				  <div class="form__row u-spacer--bottom--small">
+				    {{#each files as |file|}}
+				  		<label class="form__label u-spacer--tb--small small">Bestanden</label>
+				      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
+				    {{/each}}
+				    {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
+				  		<label class="form__label u-spacer--tb--small small"><strong>Of</strong> voeg manueel de bestanden toe</label>
+				      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
+				    {{/unless}}
+				  </div>
+				</div>
+			</div>
 	  {{/if}}
 	</div>
 </div>
