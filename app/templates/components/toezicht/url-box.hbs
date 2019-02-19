@@ -1,28 +1,42 @@
-<div class="form__row u-spacer--tiny">
-  <table class="data-table data-table--tight u-spacer--tb--small">
+<div class="form__row u-padding--tb--tinier">
+  <table class="data-table data-table--tight u-spacer--bottom--tiny">
     <thead>
       <tr>
-        <th>Links naar documenten</th>
-        <th>&nbsp;</th>
+        <td colspan="2">
+        	<p><strong>Links naar documenten</strong></p>
+        	<p class="small">Enkel links naar specifieke documenten, geen overzichtspagina's.</p>
+        </td>
       </tr>
     </thead>
     <tbody>
       {{#if saveAddress.isRunning}}
         Link aan het controleren...
       {{else}}
+        <tr>
+          <td>
+            {{input
+              class="input-field input-field--block input-field--small"
+              placeholder="http://wwww.uw-bestuur.be/specifiek-document"
+              name="URL-besluit-URL"
+              value=(mut url.address)
+            }}
+          </td>
+          <td>
+          </td>
+        </tr>
         {{#each urls as |url|}}
           <tr>
             <td>
               {{input
                 class="input-field input-field--block input-field--small"
-                placeholder="http://wwww.besluiten.be/besluit"
+                placeholder="http://wwww.uw-bestuur.be/specifiek-document"
                 name="URL-besluit-URL"
                 value=(mut url.address)
               }}
             </td>
-            <td>
+            <td class="u-align-right">
               <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "delete" url}}>
-                Verwijder
+                Verwijder&nbsp;link
               </a>
               {{!--  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "save" url}}>
                 Haal op
@@ -34,13 +48,10 @@
         {{/if}}
     </tbody>
   </table>
+	{{#unless disabled}}
+	  <button class="button button--tiny js-accordion-bound"
+	    {{action "addUrlField"}}>
+	    <i class="vi vi-plus button__icon" aria-hidden="true"></i> Voeg extra link toe
+	  </button>
+	{{/unless}}
 </div>
-
-{{#unless disabled}}
-<div class="js-accordion">
-  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound"
-      {{action "addUrlField"}}>
-    <i class="vi vi-plus" aria-hidden="true"></i>Voeg een link naar document toe
-  </a>
-</div>
-{{/unless}}
