@@ -12,18 +12,6 @@
       {{#if saveAddress.isRunning}}
         Link aan het controleren...
       {{else}}
-        <tr>
-          <td>
-            {{input
-              class="input-field input-field--block input-field--small"
-              placeholder="http://wwww.uw-bestuur.be/specifiek-document"
-              name="URL-besluit-URL"
-              value=(mut url.address)
-            }}
-          </td>
-          <td>
-          </td>
-        </tr>
         {{#each urls as |url|}}
           <tr>
             <td>
@@ -51,7 +39,7 @@
 	{{#unless disabled}}
 	  <button class="button button--tiny js-accordion-bound"
 	    {{action "addUrlField"}}>
-	    <i class="vi vi-plus button__icon" aria-hidden="true"></i> Voeg extra link toe
+	    <i class="vi vi-plus button__icon" aria-hidden="true"></i> Voeg link toe
 	  </button>
 	{{/unless}}
 </div>
