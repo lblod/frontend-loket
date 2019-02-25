@@ -1,0 +1,9 @@
+{{#unless (eq downloadLink "...")}}
+  <a href="{{downloadLink}}" download>Download from cache</a>
+{{/unless}}
+{{input
+  class="input-field input-field--block input-field--small"
+  placeholder="http://wwww.uw-bestuur.be/specifiek-document"
+  name="URL-besluit-URL"
+  value=(mut url.address)
+}}
