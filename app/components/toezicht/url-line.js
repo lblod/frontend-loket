@@ -3,7 +3,10 @@ import { task } from 'ember-concurrency';
 
 export default Component.extend({
 
-  downloadLink: '...',
+  init() {
+    this._super(...arguments);
+    this.set('downloadLink', null);
+  },
 
   async didReceiveAttrs() {
     this._super(...arguments);

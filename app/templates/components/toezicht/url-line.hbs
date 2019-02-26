@@ -1,6 +1,6 @@
-{{#unless (eq downloadLink "...")}}
+{{#if downloadLink}}
   <a href="{{downloadLink}}" download>Download from cache</a>
-{{/unless}}
+{{/if}}
 {{input
   class="input-field input-field--block input-field--small"
   placeholder="http://wwww.uw-bestuur.be/specifiek-document"
