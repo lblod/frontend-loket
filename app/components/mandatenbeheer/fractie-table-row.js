@@ -1,8 +1,12 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { reads } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import { task } from 'ember-concurrency';
 
 export default Component.extend({
+  store: service(),
+
   tagName: 'tr',
   isEditing: false,
   isAdding: false,
@@ -24,13 +28,27 @@ export default Component.extend({
   bestuursorganenInTijdStart: reads('fractie.bestuursorganenInTijd.firstObject.bindingStart'),
   bestuursorganenInTijdEinde: reads('fractie.bestuursorganenInTijd.firstObject.bindingEinde'),
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this.setFractieHasLidmaatschap.perform();
+  },
+
+  setFractieHasLidmaatschap: task(function* () {
+    const lidmaatschap = yield this.store.query('lidmaatschap', {'filter[binnen-fractie][:id:]': this.fractie.id});
+    if(lidmaatschap.length == 0) {
+      this.set('hasLidmaatschappen', false);
+    } else {
+      this.set('hasLidmaatschappen', true);
+    }
+  }).drop(),
+
   actions: {
     startFractieEdit() {
       this.set("nameBeforeEdit", this.fractie.naam);
       this.openEditSession();
     },
     cancelFractieEdit() {
-      if (this.isAdding) { 
+      if (this.isAdding) {
         this.onEditFinish('');
       } else {
         this.set("fractie.naam", this.nameBeforeEdit);
@@ -50,11 +68,15 @@ export default Component.extend({
       } catch (err) {
         this.onEditFinish(this.fractie);
       }
-      
+
 
       //-- finalize the session
       this.closeEditSession();
     },
+
+    async removeFractie(fractie) {
+      await fractie.destroyRecord();
+    }
   },
 
   openEditSession() {

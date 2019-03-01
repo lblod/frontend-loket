@@ -9,6 +9,7 @@ export default Component.extend({
   rangorde: reads('mandataris.rangorde.content'),
   status: reads('mandataris.status.label'),
   beleidsdomein: reads('mandataris.beleidsdomein'),
+  gelinktNotuleren: reads('mandataris.generatedFromGelinktNotuleren'),
   actions: {
     edit(){
       this.onEdit();

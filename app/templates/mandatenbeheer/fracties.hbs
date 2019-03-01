@@ -1,10 +1,10 @@
 <div class="col--10-12 col--9-12--m col--1-1--s delete-me-fractie-edit-table u-border--light--right delete-me-overview-fracties">
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
-			<ul class="inline-list inline-list--bordered smaller u-background--gray-lightest u-padding--rl--small u-padding--tb--tiny">
-				<li>{{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}</li>
-				<li>Beheer fracties</li>
-			</ul>
+      <ul class="inline-list inline-list--bordered smaller u-background--gray-lightest u-padding--rl--small u-padding--tb--tiny">
+        <li>{{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}</li>
+        <li>Beheer fracties</li>
+      </ul>
 
       <div class="u-padding--round--small delete-me-fractie-edit-table__header main-content" id="main" itemprop="mainContentOfPage" role="main" tabindex="-1">
         <div class="grid">
@@ -26,10 +26,10 @@
             </div> --}}
           </div>
           <div class="col--6-12 u-align-right">
-	          {{wu-button
-	            label="Voeg fractie toe"
-	            onClick=(action "addFractie")
-	            isNarrow=true}}
+            {{wu-button
+              label="Voeg fractie toe"
+              onClick=(action "addFractie")
+              isNarrow=true}}
           </div>
         </div>
       </div>
@@ -49,6 +49,7 @@
               <th class="data-table__header-title"><a class="data-table__header-title--sortable data-table__header-title--sortable-active" href="#" title="sort">Fractienaam<i class="data-table__header-title__sort-icon vi vi-u-link-after vi-long-arrow"></i></a></th>
               <th>Bestuursperiode</th>
               <th></th>
+              <th>Gelinkt notuleren</th>
             </tr>
           </thead>
           <tbody>
