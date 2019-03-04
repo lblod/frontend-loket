@@ -7,20 +7,23 @@ import EmberObject from '@ember/object';
 module('Integration | Component | toezicht/url-line', function(hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test('it renders the correct link for a cached url', async function(assert) {
     
-    let url = EmberObject.create({
+    //--- when url is provided (a cached resource was found)
+    const id = 5;
+    const filename = 'somefile.png'; 
+    const url = EmberObject.create({
       address: 'someURL',
-      cacheResource: EmberObject.create({ id: 5 }),
+      cacheResource: EmberObject.create({ id: id, filename: filename }),
     });
 
     this.set('url', url);
-    let linkText = 'Download voorbeeld';
+    const linkText = 'Download voorbeeld';
+    //let link = `/files/${id}/download?name=${filename}`;
 
     await render(hbs`{{toezicht/url-line url=this.url}}`);
     assert.equal(this.element.textContent.trim(), linkText);
+    //assert.equal(this.element.querySelector('a').getAttribute('href'), link);
     
     // Template block usage:
     await render(hbs`
@@ -28,7 +31,19 @@ module('Integration | Component | toezicht/url-line', function(hooks) {
         template block text
       {{/toezicht/url-line}}
     `);
-   
     assert.equal(this.element.textContent.trim(), linkText);
+
+    //--- when url is not provided (a cached resource was not found)
+    await render(hbs`{{toezicht/url-line}}`);
+    assert.equal(this.element.textContent.trim(), '');
+    
+    // Template block usage:
+    await render(hbs`
+      {{#toezicht/url-line}}
+        template block text
+      {{/toezicht/url-line}}
+    `);
+    assert.equal(this.element.textContent.trim(), '');
   });
+
 });
