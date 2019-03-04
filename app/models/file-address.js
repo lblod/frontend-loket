@@ -4,14 +4,12 @@ import { computed }  from '@ember/object';
 
 export default DS.Model.extend({
   address: DS.attr(),
-  cacheResource: belongsTo('file', { inverse: null }),
+  replicatedFile: belongsTo('file', { inverse: null }),
 
-  downloadLink: computed('cacheResource.{id,filename}', function() {
-    const cacheResourceId = this.get('cacheResource.id');
-    // TODO: as said in the PR: update the name cacheResource, it's disturbing :-)
-    const filename = this.get('cacheResource.filename');
-    const result =  cacheResourceId && filename && `/files/${cacheResourceId}/download?name=${filename}`;
-    debugger;
+  downloadLink: computed('replicatedFile.{id,filename}', function() {
+    const replicatedFileId = this.get('replicatedFile.id');
+    const filename = this.get('replicatedFile.filename');
+    const result =  replicatedFileId && filename && `/files/${replicatedFileId}/download?name=${filename}`;
     return result;
   })
 });
