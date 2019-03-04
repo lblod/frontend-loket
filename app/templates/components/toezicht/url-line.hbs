@@ -1,5 +1,7 @@
-{{#if downloadLink}}
-  <a href="{{downloadLink}}" download>Download voorbeeld</a>
+{{#if url.downloadLink}}
+  <a href="{{url.downloadLink}}" download>Download voorbeeld</a>
+{{else}}
+  <p>Geen voorbeeld</p>
 {{/if}}
 {{input
   class="input-field input-field--block input-field--small"
