@@ -10,30 +10,31 @@ module('Integration | Component | toezicht/url-line', function(hooks) {
   test('it renders the correct link for a cached url', async function(assert) {
     
     //--- when url is provided (a cached resource was found)
+    let linkText = 'Download voorbeeld';
     const id = 5;
     const filename = 'somefile.png'; 
     const url = EmberObject.create({
       address: 'someURL',
-      cacheResource: EmberObject.create({ id: id, filename: filename }),
+      replicatedFile: EmberObject.create({ id: id, filename: filename }),
     });
 
     this.set('url', url);
-    const linkText = 'Download voorbeeld';
     //let link = `/files/${id}/download?name=${filename}`;
-
+    
     await render(hbs`{{toezicht/url-line url=this.url}}`);
     assert.equal(this.element.textContent.trim(), linkText);
     //assert.equal(this.element.querySelector('a').getAttribute('href'), link);
     
     // Template block usage:
     await render(hbs`
-      {{#toezicht/url-line url=this.url}}
-        template block text
-      {{/toezicht/url-line}}
+    {{#toezicht/url-line url=this.url}}
+    template block text
+    {{/toezicht/url-line}}
     `);
     assert.equal(this.element.textContent.trim(), linkText);
-
+    
     //--- when url is not provided (a cached resource was not found)
+    linkText = 'Geen voorbeeld';
     await render(hbs`{{toezicht/url-line}}`);
     assert.equal(this.element.textContent.trim(), '');
     
