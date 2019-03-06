@@ -17,15 +17,17 @@
             <td>
               {{toezicht/url-line url=url}}
             </td>
-            <td class="u-align-right">
-              <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "delete" url}}>
-                Verwijder&nbsp;link
-              </a>
-              {{!--  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "save" url}}>
-                Haal op
-              </a>
-              --}}
-            </td>
+            {{#unless disabled}}
+              <td class="u-align-right">
+                <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "delete" url}}>
+                  Verwijder&nbsp;link
+                </a>
+                {{!--  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "save" url}}>
+                  Haal op
+                </a>
+                --}}
+              </td>
+            {{/unless}}
           </tr>
         {{/each}}
       {{/if}}
