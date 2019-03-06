@@ -51,7 +51,7 @@
 		  	<label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
 			{{/unless}}
 		  <div class={{if isSent "" "is-required"}}>
-			  <div class="u-background--gray-lightest u-padding--round--small"> {{!--  --}}
+			  <div class="u-background--gray-lightest u-padding--round--small">
 					{{#if fileAddresses}}
 						<div class="form__row u-spacer">
 							{{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
