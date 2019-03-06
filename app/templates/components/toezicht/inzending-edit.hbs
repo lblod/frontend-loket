@@ -47,8 +47,10 @@
 	  {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd class="u-spacer"}}
 
 	  {{#if model.inzendingVoorToezicht.besluitType.id}}
-		  <label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
-		  <div class="is-required">
+			{{#unless isSent}}
+		  	<label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
+			{{/unless}}
+		  <div class={{if isSent "" "is-required"}}>
 			  <div class="u-background--gray-lightest u-padding--round--small"> {{!--  --}}
 					{{#if fileAddresses}}
 						<div class="form__row u-spacer">
