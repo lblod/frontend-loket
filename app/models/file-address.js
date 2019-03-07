@@ -4,7 +4,5 @@ import { alias } from '@ember/object/computed';
 
 export default DS.Model.extend({
   address: DS.attr(),
-  replicatedFile: belongsTo('file', { inverse: null }),
-
-  downloadLink: alias('replicatedFile.downloadLink')
+  replicatedFile: belongsTo('file', { inverse: null })
 });
