@@ -26,6 +26,10 @@ export default Component.extend({
     return this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),
 
+  isNew: computed('isSent', function(){
+    return !this.get('isSent');
+  }),
+
   canSave: computed('model.inzendingVoorToezicht.status.id', function(){
     return !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),

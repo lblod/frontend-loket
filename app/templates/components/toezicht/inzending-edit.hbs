@@ -52,7 +52,7 @@
 			{{/unless}}
 		  <div class={{if isSent "" "is-required"}}>
 			  <div class="u-background--gray-lightest u-padding--round--small">
-					{{#if fileAddresses}}
+					{{#if (or isNew fileAddresses)}}
 						<div class="form__row u-spacer">
 							{{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
 						</div>
