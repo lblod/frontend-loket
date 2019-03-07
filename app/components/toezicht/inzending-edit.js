@@ -17,6 +17,7 @@ export default Component.extend({
   errorMsg: '',
   hasError: gte('errorMsg.length', 1),
   deleteModal: false,
+  editMode: false,
 
   flushErrors(){
     this.set('errorMsg', '');
