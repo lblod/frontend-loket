@@ -48,7 +48,7 @@
 
 	  {{#if model.inzendingVoorToezicht.besluitType.id}}
 		  <label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
-		  <div class={{if editMode "is-required" ""}}>
+		  <div class={{if (or editMode isNew) "is-required" ""}}>
 			  <div class="u-background--gray-lightest u-padding--round--small"> {{!--  --}}
 				  <div class="form__row u-spacer">
 				    {{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
