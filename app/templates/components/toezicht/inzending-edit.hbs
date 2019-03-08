@@ -62,7 +62,7 @@
 				  		<label class="form__label u-spacer--tb--small small">Bestanden</label>
 				      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not isSent)}}
 				    {{/each}}
-				    {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
+				    {{#unless isSent}}
 				  		<label class="form__label u-spacer--tb--small small"><strong>Of</strong> voeg manueel de bestanden toe</label>
 				      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
 				    {{/unless}}
