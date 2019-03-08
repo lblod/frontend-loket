@@ -32,7 +32,6 @@ Router.map(function() {
     this.route('inzendingen', function() {
       this.route('new');
       this.route('edit', { path: '/:id' });
-      this.route('view', { path: '/:id' });
     });
   });
   this.route('contact');
