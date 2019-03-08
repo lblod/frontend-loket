@@ -44,7 +44,7 @@
 	    {{toezicht/form-version-selector onSelect=(action "setFormVersion")}}
 	  {{/unless}}
 
-	  {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=model.inzendingVoorToezicht.status.isVerstuurd class="u-spacer"}}
+	  {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=isSent class="u-spacer"}}
 
 	  {{#if model.inzendingVoorToezicht.besluitType.id}}
 			{{#unless isSent}}
@@ -60,7 +60,7 @@
 				  <div class="form__row u-spacer--bottom--small">
 				    {{#each files as |file|}}
 				  		<label class="form__label u-spacer--tb--small small">Bestanden</label>
-				      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=model.inzendingVoorToezicht.status.isConcept}}
+				      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not isSent)}}
 				    {{/each}}
 				    {{#unless model.inzendingVoorToezicht.status.isVerstuurd}}
 				  		<label class="form__label u-spacer--tb--small small"><strong>Of</strong> voeg manueel de bestanden toe</label>
