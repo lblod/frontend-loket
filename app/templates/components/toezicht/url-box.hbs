@@ -13,7 +13,7 @@
         Link aan het controleren...
       {{else}}
         {{#each urls as |url|}}
-          {{#if (or editMode isNew)}}
+          {{#if (or editMode isNew (not disabled))}}
             <tr>
               <td>
                 {{input
