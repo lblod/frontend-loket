@@ -14,8 +14,11 @@ module('Integration | Component | toezicht/url-line', function(hooks) {
     const filename = 'somefile.png'; 
     const url = EmberObject.create({
       address: 'someURL',
-      replicatedFile: EmberObject.create({ id: id, filename: filename }),
-      downloadLink: `/files/${id}/download?name=${filename}`,
+      replicatedFile: EmberObject.create({
+        id: id,
+        filename: filename,
+        downloadLink: `/files/${id}/download?name=${filename}`
+      }),
     });
 
     this.set('url', url);
