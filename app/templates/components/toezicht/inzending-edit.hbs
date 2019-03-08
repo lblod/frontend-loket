@@ -50,7 +50,7 @@
 		  <label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
 		  <div class={{if (or editMode isNew) "is-required" ""}}>
 			  <div class="u-background--gray-lightest u-padding--round--small"> {{!--  --}}
-				  {{#if (await (or isNew editMode fileAddresses.length))}}
+				  {{#if (or isNew editMode fileAddresses.length)}}
 						<div class="form__row u-spacer">
 							{{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
 						</div>
