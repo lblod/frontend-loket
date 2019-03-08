@@ -21,5 +21,9 @@ export default Model.extend({
 
   miniatureMetadata: computed('humanReadableSize', 'extension', function() {
     return `${this.extension.toUpperCase()} - ${this.humanReadableSize}`;
-  })
+  }),
+
+  downloadLink: computed('filename', function(){
+    return `/files/${this.get('id')}/download?name=${this.get('filename')}`;
+  }),
 });
