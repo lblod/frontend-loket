@@ -15,9 +15,7 @@
         Link aan het controleren...
       {{else}}
         {{#each urls as |url|}}
-          <tr>
-            {{toezicht/url-line url=url editable=(not disabled) onDelete=onDelete}}
-          </tr>
+          {{toezicht/url-line url=url editable=(not disabled) onDelete=onDelete}}
         {{/each}}
       {{/if}}
     </tbody>
