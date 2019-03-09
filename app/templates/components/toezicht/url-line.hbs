@@ -2,16 +2,13 @@
   {{#if url.replicatedFile.downloadLink}}
     <a href="{{url.replicatedFile.downloadLink}}" download><p>Download archiefbestand</p></a>
   {{/if}}
-  {{#if editable}}
-    {{input
-      class="input-field input-field--block input-field--small"
-      placeholder="http://wwww.uw-bestuur.be/specifiek-document"
-      name="URL-besluit-URL"
-      value=url.address
-    }}
-  {{else}}
-    <a href={{url.address}} target="_blank">{{url.address}}</a>
-  {{/if}}
+  {{input
+    class="input-field input-field--block input-field--small"
+    placeholder="http://wwww.uw-bestuur.be/specifiek-document"
+    name="URL-besluit-URL"
+    value=url.address
+    disabled=(not editable)
+  }}
 </td>
 {{#if editable}}
   <td class="u-align-right">
