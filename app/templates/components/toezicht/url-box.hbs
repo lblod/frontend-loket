@@ -10,12 +10,12 @@
         </td>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-test-mn="url-box-list">
       {{#if saveAddress.isRunning}}
         Link aan het controleren...
       {{else}}
         {{#each urls as |url|}}
-          {{#if (or editMode isNew (not disabled))}}
+          {{#if (or editMode isNew)}}
             <tr>
               <td>
                 {{input
@@ -39,7 +39,7 @@
             <a href={{url.address}}>{{url.address}}</a>
           {{/if}}
         {{/each}}
-        {{/if}}
+      {{/if}}
     </tbody>
   </table>
 	{{#unless disabled}}
