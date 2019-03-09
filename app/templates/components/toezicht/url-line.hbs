@@ -1,7 +1,4 @@
 <td>
-  {{#if url.replicatedFile.downloadLink}}
-    <a href="{{url.replicatedFile.downloadLink}}" download><p>Download archiefbestand</p></a>
-  {{/if}}
   {{input
     class="input-field input-field--block input-field--small"
     placeholder="http://wwww.uw-bestuur.be/specifiek-document"
@@ -9,6 +6,9 @@
     value=url.address
     disabled=(not editable)
   }}
+  {{#if url.replicatedFile.downloadLink}}
+    <a href="{{url.replicatedFile.downloadLink}}" download><p>Download archiefbestand</p></a>
+  {{/if}}
 </td>
 {{#if editable}}
   <td class="u-align-right">
