@@ -1,32 +1,30 @@
-<tr>
-  <td>
-    {{#if url.replicatedFile.downloadLink}}
-      <a href="{{url.replicatedFile.downloadLink}}" download><p>Download voorbeeld</p></a>
-    {{else}}
-      <p>Geen voorbeeld</p>
-    {{/if}}
-    {{#if editable}}
-      {{input
-        class="input-field input-field--block input-field--small"
-        placeholder="http://wwww.uw-bestuur.be/specifiek-document"
-        name="URL-besluit-URL"
-        value=url.address
-      }}
-    {{else}}
-      <a href={{url.address}} target="_blank">{{input
-        class="input-field input-field--block input-field--small"
-        placeholder="http://wwww.uw-bestuur.be/specifiek-document"
-        name="URL-besluit-URL"
-        value=url.address
-        disabled=true
-      }}</a>
-    {{/if}}
-  </td>
-  {{#if editable}}
-    <td class="u-align-right">
-      <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "delete" url}}>
-        Verwijder&nbsp;link
-      </a>
-    </td>
+<td>
+  {{#if url.replicatedFile.downloadLink}}
+    <a href="{{url.replicatedFile.downloadLink}}" download><p>Download voorbeeld</p></a>
+  {{else}}
+    <p>Geen voorbeeld</p>
   {{/if}}
-</tr>
+  {{#if editable}}
+    {{input
+      class="input-field input-field--block input-field--small"
+      placeholder="http://wwww.uw-bestuur.be/specifiek-document"
+      name="URL-besluit-URL"
+      value=url.address
+    }}
+  {{else}}
+    <a href={{url.address}} target="_blank">{{input
+      class="input-field input-field--block input-field--small"
+      placeholder="http://wwww.uw-bestuur.be/specifiek-document"
+      name="URL-besluit-URL"
+      value=url.address
+      disabled=true
+    }}</a>
+  {{/if}}
+</td>
+{{#if editable}}
+  <td class="u-align-right">
+    <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "delete" url}}>
+      Verwijder&nbsp;link
+    </a>
+  </td>
+{{/if}}
