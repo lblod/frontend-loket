@@ -12,13 +12,7 @@
       value=url.address
     }}
   {{else}}
-    <a href={{url.address}} target="_blank">{{input
-      class="input-field input-field--block input-field--small"
-      placeholder="http://wwww.uw-bestuur.be/specifiek-document"
-      name="URL-besluit-URL"
-      value=url.address
-      disabled=true
-    }}</a>
+    <a href={{url.address}} target="_blank">{{url.address}}</a>
   {{/if}}
 </td>
 {{#if editable}}
