@@ -6,15 +6,13 @@ import hbs from 'htmlbars-inline-precompile';
 module('Integration | Component | toezicht/url-box', function(hooks) {
   setupRenderingTest(hooks);
 
-  // A sample call:
-  // {{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
-
-  test('it renders nothing if no url is provided', async function(assert) {
+  test('it renders', async function(assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
+
     await render(hbs`{{toezicht/url-box}}`);
 
-    assert.equal(this.element.querySelector('[data-test-mn=url-box-list]').textContent.trim(), '');
+    assert.equal(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
@@ -23,6 +21,6 @@ module('Integration | Component | toezicht/url-box', function(hooks) {
       {{/toezicht/url-box}}
     `);
 
-    assert.equal(this.element.querySelector('[data-test-mn=url-box-list]').textContent.trim(), '');
+    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });
