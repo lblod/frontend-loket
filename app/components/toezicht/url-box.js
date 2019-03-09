@@ -4,6 +4,7 @@ import { task } from 'ember-concurrency';
 
 export default Component.extend({
   store: service(),
+  disabled: false,
 
   actions: {
     addUrlField() {
