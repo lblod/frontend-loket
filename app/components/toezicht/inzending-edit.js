@@ -53,7 +53,9 @@ export default Component.extend({
    *  2. The inzending has been sent and it contains at least one url: fileAddress.length > 0
    */
   needsUrlBox: computed('isSent', 'fileAddresses.length', function() {
-    return !this.get('isSent') || this.get('fileAddresses.length') > 0;
+    const notSent = !this.isSent;
+    const hasFileAddresses = this.get('fileAddresses.length') > 0;
+    return notSent || hasFileAddresses;
   }),
 
   async validate(){
