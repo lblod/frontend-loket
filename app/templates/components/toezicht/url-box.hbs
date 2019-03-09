@@ -11,13 +11,9 @@
       </tr>
     </thead>
     <tbody data-test-mn="url-box-list">
-      {{#if saveAddress.isRunning}}
-        Link aan het controleren...
-      {{else}}
-        {{#each urls as |url|}}
-          {{toezicht/url-line url=url editable=(not disabled) onDelete=onDelete}}
-        {{/each}}
-      {{/if}}
+      {{#each urls as |url|}}
+        {{toezicht/url-line url=url editable=(not disabled) onDelete=onDelete}}
+      {{/each}}
     </tbody>
   </table>
 	{{#unless disabled}}
