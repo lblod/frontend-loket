@@ -47,6 +47,16 @@ export default Component.extend({
     return !(this.fileAddresses || []).any(a => a.address && a.address.length > 0);
   }),
 
+  /**
+   * url-box is used to either show existing urls or enter new ones
+   * It is needed in two cases
+   *  1. The inzending is not yet finalized/sent: !isSnet
+   *  2. The inzending has been sent and it contains at lease one url: fileAddress.length > 0
+   */
+  needsUrlBox: computed('isSent', 'fileAddresses.length', function() {
+    return !this.get('isSent') || this.get('fileAddresses.length') > 0;
+  }),
+
   async validate(){
     let errors = [];
     let states = await this.get('dynamicForm.formNode.unionStates');
