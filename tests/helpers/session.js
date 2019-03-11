@@ -3,7 +3,7 @@ import { currentSession, authenticateSession, invalidateSession} from 'ember-sim
 const session = async function(server, options = {}) {
   const defaultOptions = {
     roles: [
-      "LoketLB-mandaatGebruiker","LoketLB-berichtenGebruiker","LoketLB-bbcdrGebruiker","LoketLB-toezichtGebruiker","LoketLB-leidinggevendenGebruiker","LoketLB-toezichtGebruiker","LoketLB-leidinggevendenGebruiker","LoketLB-bbcdrGebruiker","LoketLB-berichtenGebruiker","LoketLB-mandaatGebruiker"
+      "LoketLB-mandaatGebruiker","LoketLB-berichtenGebruiker","LoketLB-bbcdrGebruiker","LoketLB-toezichtGebruiker","LoketLB-leidinggevendenGebruiker",
     ]};
 
   options = Object.assign( defaultOptions, options );
