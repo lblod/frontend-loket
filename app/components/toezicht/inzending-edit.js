@@ -146,7 +146,7 @@ export default Component.extend({
   actions: {
     setFormVersion(formVersion){
       this.set('model.formNode', formVersion.get('formNode'));
-      this.formVersionTracker.updateFomVersion(formVersion);
+      this.formVersionTracker.updateFormVersion(formVersion);
     },
 
     async initDynamicForm(dForm){

@@ -18,8 +18,9 @@
 				     options=options
 				     selected=_selected
 				     onchange=(action "select")
-				     as |version|}}
-				    {{version.description}}
+				     as |version|
+					}}
+						{{version.description}}
 				  {{/mandatenbeheer/power-select}}
 				</div>
 			</div>
@@ -31,6 +32,7 @@
 	      isNarrow=true
 	      class="button button--block delete-me-toggle-concept"
 	      onClick=(action "proceed")
+				data-test-loket="next-step-button"
 	    }}
 	  {{else}}
 	    {{wu-button
@@ -38,6 +40,7 @@
 	      isNarrow=true
 	      class="button button--block button--disabled delete-me-toggle-concept"
 	      onClick=null
+				data-test-loket="next-step-button"
 	    }}
 	  {{/if}}
 	</div>
