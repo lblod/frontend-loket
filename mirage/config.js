@@ -14,14 +14,17 @@ export default function() {
 
   /*
     Shorthand cheatsheet:
-   
+
     this.get('/accounts/:id/gebruiker');
     this.get('/bestuurseenheden/:id');
 
 
     http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
    */
+
   this.get('/accounts/:id/gebruiker');
   this.get('/bestuurseenheden/:id');
   this.get('/accounts/:id');
+  this.get('/bestuursorganen');
+  this.get('/mandatarissen');
 }
