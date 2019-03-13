@@ -2,7 +2,7 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
-import { gte } from '@ember/object/computed';
+import { gte, not, alias } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 
 export default Component.extend({
@@ -22,27 +22,23 @@ export default Component.extend({
     this.set('errorMsg', '');
   },
 
-  isSent: computed('model.inzendingVoorToezicht.status.id', function(){
-    return this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  isSent: alias('model.inzendingVoorToezicht.status.isVerstuurd'),
+
+  canSave: not('isSent'),
+
+  canDelete: computed('model.isNew', 'isSent', function(){
+    return !this.get('model.isNew') && !this.isSent;
   }),
 
-  canSave: computed('model.inzendingVoorToezicht.status.id', function(){
-    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
-  }),
-
-  canDelete: computed('model.isNew', 'model.inzendingVoorToezicht.status.id', function(){
-    return !this.get('model.isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
-  }),
-
-  canSend: computed('model.inzendingVoorToezicht.status.id', 'files.[]', function(){
-    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd') && (this.get('files.length') || !this.allEmptyFileAddresses);
+  canSend: computed('isSent', 'files.[]', function(){
+    return !this.isSent && (this.get('files.length') || !this.allEmptyFileAddresses);
   }),
 
   isWorking: computed('save.isRunning','delete.isRunning','send.isRunning', function(){
     return this.save.isRunning || this.delete.isRunning || this.send.isRunning || false;
   }),
 
-  allEmptyFileAddresses: computed('fileAddresses', 'fileAddresses.[]', function(){
+  allEmptyFileAddresses: computed('fileAddresses.[]', function(){
     return !(this.fileAddresses || []).any(a => a.address && a.address.length > 0);
   }),
 
