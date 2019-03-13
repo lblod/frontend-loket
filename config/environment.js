@@ -69,6 +69,9 @@ module.exports = function(environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+    ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = '/logout';
+    ENV['vo-webuniversum']['header'] = '/assets/tests/empty-vo-widget.js';
+    ENV['vo-webuniversum']['footer'] = '/assets/tests/empty-vo-widget.js';
   }
 
   if (environment === 'production') {
