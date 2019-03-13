@@ -38,7 +38,7 @@ export default Component.extend({
     return this.save.isRunning || this.delete.isRunning || this.send.isRunning || false;
   }),
 
-  allEmptyFileAddresses: computed('fileAddresses.[]', function(){
+  allEmptyFileAddresses: computed('fileAddresses.@each.address', function(){
     return !(this.fileAddresses || []).any(a => a.address && a.address.length > 0);
   }),
 
