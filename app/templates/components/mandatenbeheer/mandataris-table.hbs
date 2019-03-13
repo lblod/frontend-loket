@@ -17,7 +17,7 @@
       {{/unless}}
       <th></th>
     {{/c.header}}
-    {{#c.body as |row|}}
+    {{#c.body data-test-loket="mandatarissen-body" as |row|}}
       {{#unless displaySubset}}
         <td class="u-hidden-mobile">
           {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}

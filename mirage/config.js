@@ -28,4 +28,6 @@ export default function() {
   this.get('/bbcdr-reports');
   this.get('/bbcdr-reports/:id');
   this.get('/document-statuses');
+  this.get('/bestuursorganen');
+  this.get('/mandatarissen');
 }
