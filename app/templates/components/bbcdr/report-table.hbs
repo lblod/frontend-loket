@@ -10,11 +10,11 @@
       {{th-sortable label='Status' field='status.label' currentSorting=sort class="u-hidden-mobile"}}
       <th><!-- Actions --></th>
     {{/c.header}}
-    {{#c.body as |row|}}
-      <td>
+    {{#c.body data-test-loket='bbcdr-report-table-body' as |row|}}
+      <td data-test-loket='bbcdr-report-table-files-column'>
         {{#each row.files as |file|}}
           {{wu-document-miniature isTiny=true class="switch-text-overflow-ellipsis"
-              type=(uppercase file.extension) label=file.filename metadata=file.miniatureMetadata}}
+              type=(uppercase file.extension) label=file.filename metadata=file.miniatureMetadata data-test-loket='bbcdr-file-miniature'}}
         {{else}}
           Geen bestanden
         {{/each}}
@@ -26,7 +26,7 @@
       <td class="u-hidden-mobile">
         {{shared/document-status-pill row.status}}
       </td>
-      <td>{{#link-to 'bbcdr.rapporten.edit' row}}Bekijk{{/link-to}}</td>
+      <td data-test-loket='bbcdr-report-table-open-details-column'>{{#link-to 'bbcdr.rapporten.edit' row}}Bekijk{{/link-to}}</td>
     {{/c.body}}
   {{/t.content}}
 {{/data-table}}

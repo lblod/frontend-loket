@@ -4,36 +4,16 @@
       <tr>
         <td colspan="2">
         	<p><strong>Links naar documenten</strong></p>
-        	<p class="small">Enkel links naar specifieke documenten, geen overzichtspagina's.</p>
+        	{{#unless disabled}}
+            <p class="small">Enkel links naar specifieke documenten, geen overzichtspagina's.</p>
+          {{/unless}}
         </td>
       </tr>
     </thead>
-    <tbody>
-      {{#if saveAddress.isRunning}}
-        Link aan het controleren...
-      {{else}}
-        {{#each urls as |url|}}
-          <tr>
-            <td>
-              {{input
-                class="input-field input-field--block input-field--small"
-                placeholder="http://wwww.uw-bestuur.be/specifiek-document"
-                name="URL-besluit-URL"
-                value=(mut url.address)
-              }}
-            </td>
-            <td class="u-align-right">
-              <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "delete" url}}>
-                Verwijder&nbsp;link
-              </a>
-              {{!--  <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "save" url}}>
-                Haal op
-              </a>
-              --}}
-            </td>
-          </tr>
-        {{/each}}
-        {{/if}}
+    <tbody data-test-mn="url-box-list">
+      {{#each urls as |url|}}
+        {{toezicht/url-line url=url editable=(not disabled) onDelete=onDelete}}
+      {{/each}}
     </tbody>
   </table>
 	{{#unless disabled}}

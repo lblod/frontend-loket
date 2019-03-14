@@ -1,4 +1,4 @@
-{{bbcdr/report-edit-header report=report isNewReport=isNewReport onClose=(action "clickCloseCross")}}
+{{bbcdr/report-edit-header report=report onClose=(action "clickCloseCross") data-test-loket='bbcdr-report-edit-header'}}
 
 <div class="container-flex--scroll u-padding--round--small">
   <div class="form__row">
@@ -6,10 +6,10 @@
       <label for="bestanden">Upload één XML en één XBRLfile</label>
     </div>
     {{#each reportFiles as |file|}}
-      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not report.status.isVerstuurd) }}
+      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not report.status.isVerstuurd) data-test-loket='bbcdr-file-card'}}
     {{/each}}
     {{#if enableUpload}}
-      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml" maxFileSizeMB=1024}}
+      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml" maxFileSizeMB=1024 data-test-loket='bbcdr-file-upload'}}
     {{/if}}
   </div>
   {{#if showError}}
@@ -17,23 +17,23 @@
   {{/if}}
 </div>
 
-<div class="u-padding--round--small u-border--light--top">
-  {{#unless isNewReport}}
+<div class="u-padding--round--small u-border--light--top" data-test-loket="bbcdr-report-edit-buttons">
+  {{#if report.isNew}}
+    {{#wu-link-button disabled=(not readyToSend) onClick=(action "send") class="u-spacer--tiny" data-test-loket="bbcdr-send-btn"}}Verstuur
+      <span class="button__info button__info--below">naar Vlaamse Overheid</span>
+    {{/wu-link-button}}
+    {{wu-link-button disabled=(not readyForTmpSave) label="Bewaar concept" isNarrow=true isAlt=true onClick=(action "tempSave")}}
+    {{wu-link-button label="Annuleer" isNarrow=true isAlt=true onClick=(action "deleteReport")}}
+  {{else}}
     {{#if report.status.isConcept}}
-      {{#wu-link-button disabled=(not readyToSend) onClick=(action "send") class="u-spacer--tiny"}}Verstuur
+      {{#wu-link-button disabled=(not readyToSend) onClick=(action "send") class="u-spacer--tiny" data-test-loket="bbcdr-send-btn"}}Verstuur
         <span class="button__info button__info--below">naar Vlaamse Overheid</span>
       {{/wu-link-button}}
       {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "tempSave")}}
       {{wu-link-button label="Verwijder" isNarrow=true isAlt=true onClick=(action "deleteReport") class="button--alt--warning"}}
     {{/if}}
-    {{#link-to 'bbcdr.rapporten.index' class="button button--narrow button--alt"}}Sluit{{/link-to}}
-  {{else}}
-    {{#wu-link-button disabled=(not readyToSend) onClick=(action "send") class="u-spacer--tiny"}}Verstuur
-      <span class="button__info button__info--below">naar Vlaamse Overheid</span>
-    {{/wu-link-button}}
-    {{wu-link-button disabled=(not readyForTmpSave) label="Bewaar concept" isNarrow=true isAlt=true onClick=(action "tempSave")}}
-    {{wu-link-button label="Annuleer" isNarrow=true isAlt=true onClick=(action "deleteReport")}}
-  {{/unless}}
+    {{#link-to 'bbcdr.rapporten.index' class="button button--narrow button--alt" data-test-loket="bbcdr-close-panel-btn"}}Sluit{{/link-to}}
+  {{/if}}
 </div>
 
 {{#if showExitModal}}

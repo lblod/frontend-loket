@@ -1,0 +1,19 @@
+<td>
+  {{input
+    class="input-field input-field--block input-field--small"
+    placeholder="http://wwww.uw-bestuur.be/specifiek-document"
+    name="URL-besluit-URL"
+    value=url.address
+    disabled=(not editable)
+  }}
+  {{#if url.replicatedFile.downloadLink}}
+    <a href="{{url.replicatedFile.downloadLink}}" download><p>Download archiefbestand</p></a>
+  {{/if}}
+</td>
+{{#if editable}}
+  <td class="u-align-right">
+    <a class="toggle js-accordion__toggle small link--icon u-spacer--bottom--small js-accordion-bound" {{action "delete" url}}>
+      Verwijder&nbsp;link
+    </a>
+  </td>
+{{/if}}

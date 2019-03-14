@@ -1,6 +1,6 @@
 <div class="grid">
   <div class="col--9-12">
-    <label class="pill pill--gray-light  u-spacer--tiny">
+    <label class="pill pill--gray-light  u-spacer--tiny"  data-test-loket="berichtencentrum-header-dossiernummer">
       Dossiernummer: {{conversatie.dossiernummer}}
     </label>
 {{!--     {{#if conversatie.reactietermijn}}
@@ -8,18 +8,18 @@
         Reactietermijn: {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
       </label>
     {{/if}} --}}
-    <h2 class="h3">{{conversatie.typeCommunicatie}}</h2>
+    <h2 class="h3" data-test-loket="berichtencentrum-header-type-communicatie">{{conversatie.typeCommunicatie}}</h2>
   </div>
 
   <div class="col--3-12 u-align--right">
-    <a {{action 'close'}} class="link--icon--close">
+    <a {{action 'close'}} class="link--icon--close" data-test-loket="berichtencentrum-header-cross">
       <span class="u-visually-hidden">Venster sluiten</span>
     </a>
   </div>
 
   <div class="grid u-spacer--small">
     <div class="col--12-12">
-      <div class="description-data__label">
+      <div class="description-data__label" data-test-loket="berichtencentrum-header-betreft">
         {{conversatie.betreft}}
       </div>
     </div>

@@ -19,7 +19,7 @@
       {{th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
       <th></th>
     {{/c.header}}
-    {{#c.body as |row|}}
+    {{#c.body data-test-loket="mandatarissen-body" as |row|}}
       <td>
         {{input type="checkbox" name="isAdmin" checked=row.isBestuurlijkeAliasVan.verifiedMandaten disabled=true}}
         <span></span>

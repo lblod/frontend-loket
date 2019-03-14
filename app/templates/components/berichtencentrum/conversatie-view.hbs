@@ -1,12 +1,12 @@
-{{berichtencentrum/conversatie-view-header conversatie=model close=close}}
+{{berichtencentrum/conversatie-view-header conversatie=model close=close data-test-loket="berichtencentrum-conversatie-header"}}
 
 <div class="container-flex--scroll u-padding--round--small">
   {{#each (sort-by 'verzonden' model.berichten) as |bericht|}}
-    {{berichtencentrum/bericht-view bericht=bericht conversatie=model}}
+    {{berichtencentrum/bericht-view bericht=bericht conversatie=model data-test-loket="berichtencentrum-bericht-view"}}
     <div class="u-hr u-spacer--tb--small"></div>
   {{/each}}
-  {{berichtencentrum/conversatie-reactie conversatie=model}}
+  {{berichtencentrum/conversatie-reactie conversatie=model data-test-loket="berichtencentrum-conversatie"}}
 </div>
 <div class="u-padding--round--small u-border--light--top u-align-right">
-  {{#wu-button onClick=(action "close") isNarrow=true isAlt=true class="button--save"}}Sluit venster{{/wu-button}}
+  {{#wu-button onClick=(action "close") isNarrow=true isAlt=true class="button--save" data-test-loket="berichtencentrum-conversatie-button"}}Sluit venster{{/wu-button}}
 </div>
