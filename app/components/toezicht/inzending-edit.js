@@ -42,7 +42,7 @@ export default Component.extend({
     return this.save.isRunning || this.delete.isRunning || this.send.isRunning || false;
   }),
 
-  allEmptyFileAddresses: computed('fileAddresses', 'fileAddresses.[]', function(){
+  allEmptyFileAddresses: computed('fileAddresses', 'fileAddresses.{[],@each.address}', function(){
     return !(this.fileAddresses || []).any(a => a.address && a.address.length > 0);
   }),
 
