@@ -28,7 +28,7 @@
 		{{wu-button
 			label="Ga naar volgende stap"
 			isNarrow=true
-			class=(concat "button button--block delete-me-toggle-concept " (if _selected "delete-me-toggle-concept" ""))
+			class=(concat "button button--block " (if _selected "" "button--disabled") " delete-me-toggle-concept")
 			onClick=(if _selected (action "proceed") null)
 		}}
 	</div>
