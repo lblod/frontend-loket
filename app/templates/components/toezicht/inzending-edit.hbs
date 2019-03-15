@@ -1,9 +1,8 @@
 {{toezicht/inzending-edit-header inzending=inzending isNew=isNew onClose=(action "close")}}
 
-
 {{#if deleteModal}}{{toezicht/inzending-delete-modal onCancel=(action "cancelDelete") onConfirm=(action "confirmDelete")}} {{/if}}
 {{#if hasError}}
-  {{wu-alert message=errorMsg isError=true}}
+  {{wu-alert message=errorMsg isError=true data-test-loket="warning-message"}}
 {{/if}}
 
 <div class="u-padding--round--small container-flex--scroll">
@@ -84,7 +83,11 @@
             <div class="alert__message">Gelieve per besluit of besluitenlijst één dossier aan te maken.</div>
           </div>
         </div>
-        {{#wu-link-button class="button u-spacer--tiny" onClick=(action "send")}}Verstuur
+        {{#wu-link-button
+          class="button u-spacer--tiny"
+          onClick=(action "send")
+          data-test-loket="submit-button"
+        }}Verstuur
           <span class="button__info button__info--below">naar Vlaamse Overheid</span>
         {{/wu-link-button}}
       {{else}}
@@ -102,10 +105,10 @@
       {{/if}}
 
       {{#if isNew}}
-        {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "create") class="button button--narrow button--alt"}}
+        {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "create") class="button button--narrow button--alt" data-test-loket="bewaar-button"}}
       {{else}}
         {{#if canSave}}
-          {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt"}}
+          {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt" data-test-loket="bewaar-button"}}
         {{/if}}
       {{/if}}
 
@@ -113,15 +116,16 @@
         {{#wu-link-button
            class="button button--narrow button--alt button--alt--warning"
            isNarrow=true isAlt=true onClick=(action "deleteInzending")
+           data-test-loket="dismiss-button"
         }}
           Verwijder
         {{/wu-link-button}}
       {{/if}}
 
       {{#if isNew}}
-        {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt"}}Annuleer{{/link-to}}
+        {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt" data-test-loket="close-button"}}Annuleer{{/link-to}}
       {{else}}
-        {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt"}}Sluit{{/link-to}}
+        {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt" data-test-loket="close-button"}}Sluit{{/link-to}}
       {{/if}}
     </div>
   {{/unless}}

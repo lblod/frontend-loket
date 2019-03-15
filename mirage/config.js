@@ -23,6 +23,9 @@ export default function() {
    */
   this.get('/accounts/:id/gebruiker');
   this.get('/bestuurseenheden/:id');
+  this.get('/bestuurseenheden/:id/classificatie', function(schema, request){
+    return schema.bestuurseenheidClassificatieCodes.find(request.params.id);
+  });
   this.get('/accounts/:id');
   this.get('/conversaties');
   this.get('/bbcdr-reports');
@@ -30,4 +33,6 @@ export default function() {
   this.get('/document-statuses');
   this.get('/bestuursorganen');
   this.get('/mandatarissen');
+  this.get('/inzendingen-voor-toezicht');
+  this.get('/inzending-voor-toezicht-form-versions');
 }
