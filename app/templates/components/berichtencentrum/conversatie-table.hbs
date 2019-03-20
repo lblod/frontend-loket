@@ -14,7 +14,7 @@
       {{th-sortable label='Type communicatie' field='typeCommunicatie' currentSorting=sort}}
       {{th-sortable label='Dossier-nummer' field='dossiernummer' currentSorting=sort class="u-hidden-mobile"}}
       {{#unless renderSmallTable}}
-        {{th-sortable label='Reactietermijn' field='reactietermijn' currentSorting=sort class="u-visible--desktop-up"}}
+        {{!-- {{th-sortable label='Reactietermijn' field='reactietermijn' currentSorting=sort class="u-visible--desktop-up"}} --}}
         {{th-sortable label='Laatste bericht' field='laatste-bericht.verzonden' currentSorting=sort class="u-hidden-mobile u-visible--tablet-landscape-up"}}
         {{th-sortable label='Laatste bericht verstuurd door' field='laatste-bericht.van.naam' currentSorting=sort class="u-hidden-mobile u-visible--tablet-landscape-up"}}
       {{/unless}}
@@ -23,15 +23,15 @@
     {{#c.body as |row|}}
       <td>{{row.betreft}}</td>
       <td>{{row.typeCommunicatie}}</td>
-      <td class="u-hidden-mobile">{{row.dossiernummer}}</td>
+      <td class="u-hidden-mobile word-break--break-word">{{row.dossiernummer}}</td>
       {{#unless renderSmallTable}}
-        <td class="u-visible--desktop-up">
+{{!--         <td class="u-visible--desktop-up">
           {{#if row.reactietermijn}}
             Binnen {{berichtencentrum/display-moment-indays row.reactietermijn}} dagen
           {{else}}
             Geen reactie vereist
           {{/if}}
-        </td>
+        </td> --}}
         <td class="u-hidden-mobile u-visible--tablet-landscape-up">{{moment-format (await row.laatsteBericht.verzonden) 'DD-MM-YYYY'}}</td>
         <td class="u-hidden-mobile u-visible--tablet-landscape-up">{{row.laatsteBericht.van.naam}}</td>
       {{/unless}}

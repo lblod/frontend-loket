@@ -34,8 +34,9 @@ export default Component.extend({
   },
 
   actions: {
-    mandatarisSaved(/*mandataris*/){
+    mandatarisSaved(mandataris){
       //here you can do some additional validation, e.g. validation over all mandaten for a person
+      this.onMandatarisSaved(mandataris);
     },
     async mandatarisCreateCanceled(mandataris){
       await mandataris.destroy();

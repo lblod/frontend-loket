@@ -2,6 +2,8 @@ import { empty, oneWay } from '@ember/object/computed';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
+import { task } from 'ember-concurrency';
+import { or } from 'ember-awesome-macros';
 
 export default Component.extend({
   router: service(),
@@ -11,7 +13,7 @@ export default Component.extend({
   didReceiveAttrs() {
     this._super(...arguments);
     this.initInputState();
-    this.ensureOriginator();
+    this.ensureOriginator.perform();
   },
 
   // Initializes the input state so it appears the component was not
@@ -23,9 +25,26 @@ export default Component.extend({
       isExpanded: false});
   },
 
-  canSend: empty('bijlagen'),
+  cantSend: or('ensureOriginator.isRunning', empty('bijlagen')),
   currentUser: oneWay('currentSession.userContent'),
   bestuursEenheidNaam: oneWay('currentSession.groupContent.naam'),
+
+  ensureOriginator: task(function *() {
+    const berichten = (yield this.get('conversatie.berichten')).sortBy('verzonden');
+    const ourGroup = yield this.get('currentSession.group');
+
+    // find first sender of message that is not our group
+    for( let bericht of berichten ){
+      let sender = yield bericht.van;
+      if( sender && sender.id !== ourGroup.id ) {
+        this.set('originator', sender);
+        return;
+      }
+    }
+
+    // if no originator could be found, we reset the property
+    this.set('originator', null);
+  }),
 
   actions: {
     async verstuurBericht() {
@@ -34,6 +53,7 @@ export default Component.extend({
 
       try {
         this.collapse();
+
         const reactie = await this.get('store').createRecord('bericht', {
           inhoud                  : this.inhoud,
           // aangekomen              : new Date(),
@@ -77,22 +97,5 @@ export default Component.extend({
 
   expand: function() {
     this.set('isExpanded', true);
-  },
-
-  async ensureOriginator(){
-    const berichten = (await this.get('conversatie.berichten')).sortBy('verzonden');
-    const ourGroup = await this.get('currentSession.group');
-
-    // find first sender of message that is not our group
-    for( let bericht of berichten ){
-      let sender = await bericht.van;
-      if( sender && sender.id !== ourGroup.id ) {
-        this.set('originator', sender);
-        return;
-      }
-    }
-
-    // if no originator could be found, we reset the property
-    this.set('originator', null);
   }
 });

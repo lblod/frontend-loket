@@ -6,6 +6,7 @@ export default Controller.extend({
   router: service(),
   page: 0,
   size: 20,
+  sort: 'status.label,-sent-date',
   hasActiveChildRoute: computed('router.currentRouteName', function() {
     return this.get('router.currentRouteName').startsWith('toezicht.inzendingen')
       && this.get('router.currentRouteName') != 'toezicht.inzendingen.index';

@@ -46,7 +46,7 @@ export default Controller.extend({
       this.router.transitionTo('mandatenbeheer.fracties');
     },
 
-    select(selectedBestuursorgaan) {
+    selectBestuursorgaan(selectedBestuursorgaan) {
       this.set('selectedBestuursorgaan', selectedBestuursorgaan);
       this.transitionToRoute('mandatenbeheer.mandatarissen', {
         queryParams: {
