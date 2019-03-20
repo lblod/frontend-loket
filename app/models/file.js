@@ -25,5 +25,5 @@ export default Model.extend({
 
   downloadLink: computed('filename', function(){
     return `/files/${this.id}/download?name=${this.filename}`;
-  }),
+  })
 });

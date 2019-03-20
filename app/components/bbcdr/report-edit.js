@@ -9,7 +9,6 @@ export default Component.extend({
   classNames: ['col--4-12 col--9-12--m col--12-12--s container-flex--contain'],
   router: service(),
   store: service(),
-  currentSession: service(),
   readyForTmpSave: gte('reportFiles.length', 1),
   readyToSend: equal('reportFiles.length', 2),
   enableUpload: and('report.status.isConcept', not('readyToSend')),
@@ -17,7 +16,7 @@ export default Component.extend({
 
   reportFiles: null,
 
-  async didReceiveAttrs(){
+  async didReceiveAttrs() {
     this.set('reportFiles', await this.get('report.files').toArray() || A());
   },
 

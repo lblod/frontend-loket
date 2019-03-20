@@ -1,128 +1,132 @@
 {{toezicht/inzending-edit-header inzending=inzending isNew=isNew onClose=(action "close")}}
 
-
 {{#if deleteModal}}{{toezicht/inzending-delete-modal onCancel=(action "cancelDelete") onConfirm=(action "confirmDelete")}} {{/if}}
 {{#if hasError}}
-  {{wu-alert message=errorMsg isError=true}}
+  {{wu-alert message=errorMsg isError=true data-test-loket="warning-message"}}
 {{/if}}
 
 <div class="u-padding--round--small container-flex--scroll">
-	<div class="u-spacer">
-		<div class="grid">
-		  {{#unless isNew}}
-		    <div class="col--12-12">
-		      <div class="description-data__label">Gewijzigd door</div>
-		      <div class="description-data__value u-spacer--tiny">{{inzending.lastModifier.fullName}}</div>
-		    </div>
-		    <div class="col--6-12">
-		      <div class="description-data__label">Bewerkt op</div>
-		      <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
-		    </div>
-		    <div class="col--6-12">
-		      <div class="description-data__label">Verstuurd op</div>
-		      {{#if inzending.status.isVerstuurd}}
-		        <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
-		      {{else}}
-		        <p class="small text-fade">Nog niet verstuurd</p>
-		      {{/if}}
-		    </div>
-		  {{/unless}}
-		</div>
-	</div>
+  <div class="u-spacer">
+    <div class="grid">
+      {{#unless isNew}}
+        <div class="col--12-12">
+          <div class="description-data__label">Gewijzigd door</div>
+          <div class="description-data__value u-spacer--tiny">{{inzending.lastModifier.fullName}}</div>
+        </div>
+        <div class="col--6-12">
+          <div class="description-data__label">Bewerkt op</div>
+          <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
+        </div>
+        <div class="col--6-12">
+          <div class="description-data__label">Verstuurd op</div>
+          {{#if inzending.status.isVerstuurd}}
+            <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
+          {{else}}
+            <p class="small text-fade">Nog niet verstuurd</p>
+          {{/if}}
+        </div>
+      {{/unless}}
+    </div>
+  </div>
 
-	{{#if isWorking}}
-	  <div class="loader-wrapper">
-	    <div class="loader">
-	      <span class="u-visually-hidden">Bezig...</span>
-	    </div>
-	  </div>
-	{{/if}}
+  {{#if isWorking}}
+    <div class="loader-wrapper">
+      <div class="loader">
+        <span class="u-visually-hidden">Bezig...</span>
+      </div>
+    </div>
+  {{/if}}
 
-	<div class="{{if isWorking "u-hidden"}}">
+  <div class="{{if isWorking "u-hidden"}}">
 
-	  {{#unless model.formNode}}
-	    {{toezicht/form-version-selector onSelect=(action "setFormVersion")}}
-	  {{/unless}}
+    {{#unless model.formNode}}
+      {{toezicht/form-version-selector onSelect=(action "setFormVersion")}}
+    {{/unless}}
 
-	  {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=isSent class="u-spacer"}}
+    {{root-form-node solution=model onDynamicFormInit=(action "initDynamicForm") show=isSent class="u-spacer"}}
 
-	  {{#if model.inzendingVoorToezicht.besluitType.id}}
-			{{#unless isSent}}
-		  	<label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
-			{{/unless}}
-		  <div class={{if isSent "" "is-required"}}>
-			  <div class="u-background--gray-lightest u-padding--round--small">
-					{{#if needsUrlBox}}
-						<div class="form__row u-spacer">
-							{{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
-						</div>
-					{{/if}}
-				  <div class="form__row u-spacer--bottom--small">
-				    {{#each files as |file|}}
-				  		<label class="form__label u-spacer--tb--small small">Bestanden</label>
-				      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not isSent)}}
-				    {{/each}}
-				    {{#unless isSent}}
-				  		<label class="form__label u-spacer--tb--small small"><strong>Of</strong> voeg manueel de bestanden toe</label>
-				      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
-				    {{/unless}}
-				  </div>
-				</div>
-			</div>
-	  {{/if}}
-	</div>
+    {{#if model.inzendingVoorToezicht.besluitType.id}}
+      {{#unless isSent}}
+        <label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
+      {{/unless}}
+      <div class={{if isSent "" "is-required"}}>
+        <div class="u-padding--round--small {{if hasError "alert--error" "u-background--gray-lightest"}}">
+          {{#if needsUrlBox}}
+            <div class="form__row u-spacer">
+              {{toezicht/url-box urls=fileAddresses disabled=isSent onDelete=(action "deleteFileAddress")}}
+            </div>
+          {{/if}}
+          <div class="form__row u-spacer--bottom--small">
+            {{#each files as |file|}}
+              <label class="form__label u-spacer--tb--small small">Bestanden</label>
+              {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not isSent)}}
+            {{/each}}
+            {{#unless isSent}}
+              <label class="form__label u-spacer--tb--small small"><strong>Of</strong> voeg manueel de bestanden toe</label>
+              {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
+            {{/unless}}
+          </div>
+        </div>
+      </div>
+    {{/if}}
+  </div>
 </div>
 
 {{#if model.formNode}}
-	{{#unless isWorking}}
-	  <!-- TODO: move this to seperate create/edit/view templates  -->
-	  <div class="u-padding--round--small u-border--light--top">
-	    {{#if canSend}}
-				<div class="alert alert--tiny alert--success">
-				  <div class="alert__icon" aria-hidden="true"></div>
-				  <div class="alert__content">
-				    <div class="alert__message">Gelieve per besluit of besluitenlijst één dossier aan te maken.</div>
-				  </div>
-				</div>
-	      {{#wu-link-button class="button u-spacer--tiny" onClick=(action "send")}}Verstuur
-	        <span class="button__info button__info--below">naar Vlaamse Overheid</span>
-	      {{/wu-link-button}}
-	    {{else}}
-	      {{#unless isSent}}
-					<div class="alert alert--tiny alert--success">
-					  <div class="alert__icon" aria-hidden="true"></div>
-					  <div class="alert__content">
-					    <div class="alert__message">Gelieve per besluit of besluitenlijst één dossier aan te maken.</div>
-					  </div>
-					</div>
-	        {{#wu-link-button class="button u-spacer--tiny" onClick=(action "send")}}Verstuur
-	          <span class="button__info button__info--below">naar Vlaamse Overheid</span>
-	        {{/wu-link-button}}
-	      {{/unless}}
-	    {{/if}}
+  {{#unless isWorking}}
+    <!-- TODO: move this to seperate create/edit/view templates  -->
+    <div class="u-padding--round--small u-border--light--top">
+      {{#if canSend}}
+        <div class="alert alert--tiny alert--success">
+          <div class="alert__icon" aria-hidden="true"></div>
+          <div class="alert__content">
+            <div class="alert__message">Gelieve per besluit of besluitenlijst één dossier aan te maken.</div>
+          </div>
+        </div>
+        {{#wu-link-button
+          class="button u-spacer--tiny"
+          onClick=(action "send")
+          data-test-loket="submit-button"
+        }}Verstuur
+          <span class="button__info button__info--below">naar Vlaamse Overheid</span>
+        {{/wu-link-button}}
+      {{else}}
+        {{#unless isSent}}
+          <div class="alert alert--tiny alert--success">
+            <div class="alert__icon" aria-hidden="true"></div>
+            <div class="alert__content">
+              <div class="alert__message">Gelieve per besluit of besluitenlijst één dossier aan te maken.</div>
+            </div>
+          </div>
+          {{#wu-link-button class="button u-spacer--tiny" onClick=(action "send")}}Verstuur
+            <span class="button__info button__info--below">naar Vlaamse Overheid</span>
+          {{/wu-link-button}}
+        {{/unless}}
+      {{/if}}
 
-	    {{#if isNew}}
-	      {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "create") class="button button--narrow button--alt"}}
-	    {{else}}
-	      {{#if canSave}}
-	        {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt"}}
-	      {{/if}}
-	    {{/if}}
+      {{#if isNew}}
+        {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "create") class="button button--narrow button--alt" data-test-loket="bewaar-button"}}
+      {{else}}
+        {{#if canSave}}
+          {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "save") class="button button--narrow button--alt" data-test-loket="bewaar-button"}}
+        {{/if}}
+      {{/if}}
 
-	    {{#if canDelete}}
-	      {{#wu-link-button
-	         class="button button--narrow button--alt button--alt--warning"
-	         isNarrow=true isAlt=true onClick=(action "deleteInzending")
-	      }}
-	        Verwijder
-	      {{/wu-link-button}}
-	    {{/if}}
+      {{#if canDelete}}
+        {{#wu-link-button
+           class="button button--narrow button--alt button--alt--warning"
+           isNarrow=true isAlt=true onClick=(action "deleteInzending")
+           data-test-loket="dismiss-button"
+        }}
+          Verwijder
+        {{/wu-link-button}}
+      {{/if}}
 
-	    {{#if isNew}}
-	      {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt"}}Annuleer{{/link-to}}
-	    {{else}}
-	      {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt"}}Sluit{{/link-to}}
-	    {{/if}}
-	  </div>
-	{{/unless}}
+      {{#if isNew}}
+        {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt" data-test-loket="close-button"}}Annuleer{{/link-to}}
+      {{else}}
+        {{#link-to "toezicht.inzendingen.index" class="button button--narrow button--alt" data-test-loket="close-button"}}Sluit{{/link-to}}
+      {{/if}}
+    </div>
+  {{/unless}}
 {{/if}}
