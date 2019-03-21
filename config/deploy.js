@@ -18,11 +18,9 @@ module.exports = function(deployTarget) {
     },
     'rsync': {
       dest: '/data/app-digitaal-loket-dev/loket-app',
-      username: 'root',
-      host: 'rpio-dev.s.redpencil.io',
+      host: 'root@rpio-dev.s.redpencil.io',
       port: 22,
       delete: false,
-      privateKey: process.env.SSH_AUTH_SOCK,
       arg:['--verbose']
     }
   };
