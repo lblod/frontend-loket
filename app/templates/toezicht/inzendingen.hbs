@@ -2,8 +2,8 @@
 <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" " col--10-12 col--9-12--m"}}">
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
-      <div class="u-padding--round--small mandate-edit-table__header">
-        <h1 class="h4 u-spacer--tiny">Toezicht {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
+      <div class="u-padding--round--small mandate-edit-table__header"  data-test-mn="inzendingen-page-title-parent-node">
+        <h1 class="h4 u-spacer--tiny" data-test-loket="inzendingen-page-title">Toezicht {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
         <div class="js-accordion u-visible-mobile">
           <!-- toggle-->
           <a class="toggle toggle--arrow-down js-accordion__toggle js-accordion-bound">
@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="col--6-12 col--12-12--s u-align-right--tablet-portrait-up">
-            {{wu-button label="Maak nieuwe melding" onClick=(action "handleAddClick") isNarrow=true}}
+            {{wu-button label="Maak nieuwe melding" onClick=(action "handleAddClick") isNarrow=true data-test-loket="new-melding-button"}}
           </div>
         </div>
       </div>

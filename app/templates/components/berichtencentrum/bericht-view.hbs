@@ -2,7 +2,14 @@
   {{bericht.van.classificatie.label}} {{bericht.van.naam}}
   {{#if bericht.auteur}}&mdash; {{bericht.auteur.fullName}}{{/if}}
 </h3>
-<p class="text-fade smaller">Aangekomen: {{moment-format bericht.aangekomen}}</p>
+<p class="text-fade smaller u-hidden">
+  Aangekomen:
+  {{#if bericht.aangekomen}}
+    {{moment-format bericht.aangekomen}}
+  {{else}}
+    -
+  {{/if}}
+</p>
 <p class="smaller text-fade">Verzonden: {{moment-format bericht.verzonden}}</p>
 <p class="u-spacer--tb--small small">{{bericht.inhoud}}</p>
 {{#each bericht.bijlagen as |bijlage|}}
