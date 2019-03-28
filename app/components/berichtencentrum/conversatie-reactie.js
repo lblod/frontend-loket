@@ -12,7 +12,6 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    this.initInputState();
     this.ensureOriginator.perform();
   },
 
@@ -21,10 +20,11 @@ export default Component.extend({
   initInputState(){
     this.setProperties({
       inhoud: '',
-      bijlagen: A(),
-      isExpanded: false});
+      bijlagen: A()
+    });
   },
 
+  isExpanded: false,
   cantSend: or('ensureOriginator.isRunning', empty('bijlagen')),
   currentUser: oneWay('currentSession.userContent'),
   bestuursEenheidNaam: oneWay('currentSession.groupContent.naam'),
@@ -83,6 +83,7 @@ export default Component.extend({
     },
 
     expandMe: function() {
+      this.initInputState();
       this.expand();
     },
 
