@@ -25,7 +25,7 @@ module('Integration | Component | toezicht/url-line', function(hooks) {
     const expectedLinkHref = `/files/${id}/download?name=${filename}`;
 
     await render(hbs`{{toezicht/url-line url=this.url}}`);
-    assert.equal(this.element.textContent.trim(), expectedLinkText);
+    assert.dom(this.element).hasText(expectedLinkText);
     assert.equal(this.element.querySelector('a').getAttribute('href'), expectedLinkHref);
 
     // Template block usage:
@@ -34,14 +34,14 @@ module('Integration | Component | toezicht/url-line', function(hooks) {
     template block text
     {{/toezicht/url-line}}
     `);
-    assert.equal(this.element.textContent.trim(), expectedLinkText);
+    assert.dom(this.element).hasText(expectedLinkText);
   });
 
   test('it renders nothing if the url is not cached', async function(assert) {
     //--- when url is not provided (a cached resource was not found)
     const expectedLinkText = '';
     await render(hbs`{{toezicht/url-line}}`);
-    assert.equal(this.element.textContent.trim(), expectedLinkText);
+    assert.dom(this.element).hasText(expectedLinkText);
 
     // Template block usage:
     await render(hbs`
@@ -49,6 +49,6 @@ module('Integration | Component | toezicht/url-line', function(hooks) {
         template block text
       {{/toezicht/url-line}}
     `);
-    assert.equal(this.element.textContent.trim(), expectedLinkText);
+    assert.dom(this.element).hasText(expectedLinkText);
   });
 });

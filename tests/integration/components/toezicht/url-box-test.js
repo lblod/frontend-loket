@@ -14,7 +14,7 @@ module('Integration | Component | toezicht/url-box', function(hooks) {
     // Handle any actions with this.set('myAction', function(val) { ... });
     await render(hbs`{{toezicht/url-box}}`);
 
-    assert.equal(this.element.querySelector('[data-test-mn=url-box-list]').textContent.trim(), '');
+    assert.dom(this.element.querySelector('[data-test-mn=url-box-list]')).hasText('');
 
     // Template block usage:
     await render(hbs`
@@ -23,6 +23,6 @@ module('Integration | Component | toezicht/url-box', function(hooks) {
       {{/toezicht/url-box}}
     `);
 
-    assert.equal(this.element.querySelector('[data-test-mn=url-box-list]').textContent.trim(), '');
+    assert.dom(this.element.querySelector('[data-test-mn=url-box-list]')).hasText('');
   });
 });
