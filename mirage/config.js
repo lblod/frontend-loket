@@ -19,21 +19,20 @@ export default function() {
     this.get('/bestuurseenheden/:id');
 
 
-    http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/ 
+    http://www.ember-cli-mirage.com/docs/v0.4.x/shorthands/
    */
-
   this.get('/accounts/:id/gebruiker');
   this.get('/bestuurseenheden/:id');
   this.get('/bestuurseenheden/:id/classificatie', function(schema, request){
     return schema.bestuurseenheidClassificatieCodes.find(request.params.id);
   });
   this.get('/accounts/:id');
-
+  this.get('/conversaties');
+  this.get('/bbcdr-reports');
+  this.get('/bbcdr-reports/:id');
+  this.get('/document-statuses');
   this.get('/bestuursorganen');
   this.get('/mandatarissen');
-
   this.get('/inzendingen-voor-toezicht');
-  this.get('/document-statuses');
   this.get('/inzending-voor-toezicht-form-versions');
-
 }

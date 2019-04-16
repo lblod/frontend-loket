@@ -1,4 +1,6 @@
-import { currentSession, authenticateSession, invalidateSession} from 'ember-simple-auth/test-support';
+import { authenticateSession } from 'ember-simple-auth/test-support';
+
+export const CLASSIFICATION_LABEL = "classificatieLabel";
 
 export const CLASSIFICATION_LABEL = "classificatieLabel";
 
@@ -33,7 +35,7 @@ const session = async function(server, options = {}) {
     voornaam: 'John',
     achternaam: 'Doe'
   });
-  const acc = server.create('account', {
+  server.create('account', {
     provider: 'https://github.com/lblod/mock-login-service',
     id: '9b875bc387960fd6efa0065bdff32877',
     gebruiker: user

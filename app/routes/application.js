@@ -2,6 +2,8 @@ import Route from '@ember/routing/route';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import { inject as service } from '@ember/service';
 import ENV from 'frontend-loket/config/environment';
+import { warn } from '@ember/debug';
+
 export default Route.extend(ApplicationRouteMixin, {
   currentSession: service(),
   moment: service(),
@@ -26,14 +28,13 @@ export default Route.extend(ApplicationRouteMixin, {
       window.location.replace(logoutUrl);
     }
     else {
-      console.warn('incorrect logoutUrl set');
+      warn('Incorrect logout URL configured', { id: 'session-invalidation-failure' });
     }
   },
 
   _loadCurrentSession() {
     return this.currentSession.load().catch((e) => {
-      console.warn('invalidating because of foo');
-      console.warn(e);
+      warn(e, { id: 'session-load-failure' });
       this.session.invalidate();
     });
 

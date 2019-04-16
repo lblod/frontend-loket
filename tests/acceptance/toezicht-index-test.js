@@ -1,9 +1,8 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, pauseTest, click } from '@ember/test-helpers';
+import { visit, currentURL, click } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 import setupSession, { CLASSIFICATION_LABEL } from '../helpers/session';
-import { currentSession, authenticateSession, invalidateSession} from 'ember-simple-auth/test-support';
 
 module('Acceptance | toezicht index', function(hooks) {
   setupApplicationTest(hooks);
@@ -21,23 +20,17 @@ module('Acceptance | toezicht index', function(hooks) {
     await click('[data-test-loket=new-melding-button]');
     assert.equal(currentURL(), '/toezicht/inzendingen/new', 'Clicked the "make new" button and our user is on the "new toezicht" route');
     assert.dom('[data-test-loket=next-step-button]').hasAttribute('class', /\bdisabled\b/, 'The "proceed" button is disabled by default');
-    
+
     await click('[data-test-loket=new-melding-button]');
     assert.equal(currentURL(), '/toezicht/inzendingen', 'Clicked again and the user is now back on our secret url');
   });
 
   test('The inzending index page has a correct title', async function(assert) {
-    this.server.logging = true
+    this.server.logging = true;
     await setupSession(this.server);
     await visit('/toezicht/inzendingen');
-    //await this.pauseTest();
-    //const sectionTitle = 'Toezicht'
-    //assert.dom(`[data-test-loket=inzendingen-page-title]`).includesText(sectionTitle, "Title is correct");
-    
-    //const classification = this.bestuurseenheid.classificatie.label;
+    const sectionTitle = 'Toezicht';
+    assert.dom(`[data-test-loket=inzendingen-page-title]`).includesText(sectionTitle, "Title is correct");
     assert.dom(`[data-test-loket=inzendingen-page-title]`).includesText(CLASSIFICATION_LABEL, "Classification is correct");
-    
-    //const name = this.bestuurseenheid.naam
-    //assert.dom(`[data-test-loket=inzendingen-page-title]`).includesText(name, "Name is correct");
   });
 });

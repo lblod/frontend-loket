@@ -9,12 +9,20 @@
             <!-- Search field -->
           </div>
           <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-            {{wu-button label="Lever nieuw rapport aan" onClick=(action "createNewReport") isNarrow=true}}
+            {{wu-button
+                label="Lever nieuw rapport aan"
+                onClick=(action "createNewReport")
+                isNarrow=true
+                data-test-loket='bbcdr-create-report-btn'}}
           </div>
         </div>
       </div>
     </div>
-    {{bbcdr/report-table class="container-flex--contain data-table--nowrap" content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute}}
+    {{bbcdr/report-table
+        content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
+        class="container-flex--contain data-table--nowrap"
+        data-test-loket='bbcdr-report-table'
+    }}
   </div>
 </div>
 

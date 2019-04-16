@@ -27,6 +27,7 @@ export default Model.extend({
   formSolution: belongsTo('form-solution', { inverse: 'inzendingVoorToezicht' }),
   inzendingType: belongsTo('toezicht-inzending-type', { inverse: null }),
   besluitType: belongsTo('besluit-type', { inverse: null }),
+  regulationType: belongsTo('toezicht-regulation-type', { inverse: null }),
   bestuursorgaan: belongsTo('bestuursorgaan', { inverse: null }),
   authenticityType: belongsTo('toezicht-document-authenticity-type', { inverse: null }),
   accountAcceptanceStatus: belongsTo('toezicht-account-acceptance-status', { inverse: null }),

@@ -9,7 +9,7 @@
             <!-- Search field -->
           </div>
           <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-            <button class="button--tiny button--link button--link--dark button--alt button button--narrow" {{action 'showPreferences'}}>
+            <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
               <i class="fa fa-cog"></i>Ontvang mails bij nieuwe berichten
             </button>
           </div>
@@ -48,11 +48,14 @@
       class="container-flex--contain"
       content=model
       sort=sort page=page size=size displaySubset=hasActiveChildRoute
-      renderSmallTable=hasActiveChildRoute}}
+      renderSmallTable=hasActiveChildRoute
+      data-test-loket="berichtencentrum-table"}}
   </div>
   {{#if showPreferences}}
     <div class="modal-overlay modal-overlay-configure-berichtencentrum">
-      {{berichtencentrum/bericht-notificatie-voorkeuren close=(action "hidePreferences")}}
+      {{berichtencentrum/bericht-notificatie-voorkeuren
+        close=(action "hidePreferences")
+        data-test-loket="setting-email-component"}}
     </div>
   {{/if}}
 </div>

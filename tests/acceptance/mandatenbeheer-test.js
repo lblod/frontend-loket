@@ -10,7 +10,7 @@ module('Acceptance | mandatenbeheer', function(hooks) {
 
   hooks.beforeEach(function(){
 
-    const bestuurseenheid = this.server.create('bestuurseenheid', {
+    this.server.create('bestuurseenheid', {
       "naam":"Aalst",
       "mailAdres":null,
       "wilMailOntvangen":false,
@@ -48,7 +48,7 @@ module('Acceptance | mandatenbeheer', function(hooks) {
       "bestuursfunctie": bestuursfunctie
     });
 
-    const bot = this.server.create('bestuursorgaan', {
+    this.server.create('bestuursorgaan', {
       "uri":"http://data.lblod.info/id/bestuursorganen/509d93f78ffc107fc368edfc879fb931b52cbbd8597f6e94e6c33a16901f4481",
       "bindingStart":"2012-10-14",
       "bindingEinde":"2019-01-01",
@@ -59,7 +59,7 @@ module('Acceptance | mandatenbeheer', function(hooks) {
       bevat: [ mandaat ]
     });
 
-    const mandataris =this.server.create('mandataris',{
+    this.server.create('mandataris',{
       "start":"2019-01-01T00:00:00.000Z",
       "einde":null,
       "bekleedt": mandaat,
