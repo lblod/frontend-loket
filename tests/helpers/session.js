@@ -2,8 +2,6 @@ import { authenticateSession } from 'ember-simple-auth/test-support';
 
 export const CLASSIFICATION_LABEL = "classificatieLabel";
 
-export const CLASSIFICATION_LABEL = "classificatieLabel";
-
 const session = async function(server, options = {}) {
   const defaultOptions = {
     roles: [
