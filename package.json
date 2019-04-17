@@ -75,6 +75,7 @@
     "eslint-plugin-ember": "^5.2.0",
     "loader.js": "^4.7.0",
     "postscribe": "^2.0.8",
+    "toezicht-form-fields": "x.x.x",
     "qunit-dom": "^0.7.1"
   },
   "engines": {
