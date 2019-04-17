@@ -23,6 +23,7 @@
     "@lblod/ember-acmidm-login": "^0.1.4",
     "@lblod/ember-mock-login": "^0.4.5",
     "@lblod/ember-mu-dynamic-forms": "0.3.2",
+    "@lblod/ember-toezicht-form-fields": "^0.0.1",
     "@lblod/ember-vo-mu-file-upload": "0.4.1",
     "@lblod/ember-vo-webuniversum": "^0.19.12",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
@@ -75,10 +76,10 @@
     "eslint-plugin-ember": "^5.2.0",
     "loader.js": "^4.7.0",
     "postscribe": "^2.0.8",
-    "toezicht-form-fields": "x.x.x",
     "qunit-dom": "^0.7.1"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
-  }
+  },
+  "dependencies": {}
 }
