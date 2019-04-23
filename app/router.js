@@ -19,8 +19,6 @@ Router.map(function() {
     this.route('fracties', function() {});
   });
 
-  //  this.route('administratieve-gegevens', function() {});
-
   this.route('bbcdr', function() {
     this.route('rapporten', function() {
       this.route('new');
