@@ -99,16 +99,15 @@
 
   .input-field,
   .ember-power-select-trigger {
-    border-bottom-color: red;
+  	border-bottom-color: red;
   }
 }
 
 .alert + .container-flex--scroll .is-required.upload {
-  border-color: red;
-  background-color: RGBA(249, 22, 40, 0.1);
+  background-color: rgba(249, 22, 40, 0.1);
 
   &:after {
-    background-color: RGBA(249, 22, 40, 1);
+    background-color: rgba(249, 22, 40, 1);
     color: white;
   }
 }
