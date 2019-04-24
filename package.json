@@ -3,9 +3,12 @@
   "version": "0.15.1",
   "private": true,
   "description": "Frontend of loket",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lblod/frontend-loket.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "redpencil.io",
   "directories": {
     "doc": "doc",
     "test": "tests"
