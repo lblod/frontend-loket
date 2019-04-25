@@ -1,22 +1,20 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
+import { oneWay } from '@ember/object/computed';
 
 export default Component.extend({
   store: service(),
 
-  didReceiveAttrs(){
-    this.set('_mandaat', this.mandaat);
-    this.set('mandaten', this.populateMandaten());
-  },
+  _mandaat: oneWay('mandaat'),
+  bestuursorganen: null,
 
-  populateMandaten(){
-    const queryParams = {
-      sort:'bestuursfunctie.label',
+  async didReceiveAttrs(){
+    const mandaten = await this.store.query('mandaat', {
+      sort: 'bestuursfunctie.label',
       include: 'bestuursfunctie',
       'filter[bevat-in][id]': this.bestuursorganen.map(o => o.get('id')).join(',')
-    };
-    return this.store.query('mandaat', queryParams);
-
+    });
+    this.set('mandaten', mandaten);
   },
 
   actions: {

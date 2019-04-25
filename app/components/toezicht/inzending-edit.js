@@ -144,15 +144,16 @@ export default Component.extend({
   }).drop(),
 
   actions: {
-    setFormVersion(formVersion){
-      this.set('model.formNode', formVersion.get('formNode'));
+    async setFormVersion(formVersion){
+      const formNode = await formVersion.get('formNode');
+      this.set('model.formNode', formNode);
       this.formVersionTracker.updateFormVersion(formVersion);
     },
 
-    async initDynamicForm(dForm){
+    initDynamicForm(dForm){
       this.set('dynamicForm', dForm);
     },
-    async close(){
+    close(){
       this.router.transitionTo('toezicht.inzendingen.index');
     },
     async save(){
@@ -174,7 +175,7 @@ export default Component.extend({
       if(this.hasError) return;
       this.router.transitionTo('toezicht.inzendingen.index');
     },
-    async deleteInzending(){
+    deleteInzending(){
       this.flushErrors();
       this.set('deleteModal', true);
     },
@@ -184,13 +185,13 @@ export default Component.extend({
       if(this.hasError) return;
       this.router.transitionTo('toezicht.inzendingen.index');
     },
-    async cancelDelete(){
+    cancelDelete(){
       this.set('deleteModal', false);
     },
-    async addFile(file) {
+    addFile(file) {
       this.files.pushObject(file);
     },
-    async deleteFile(file) {
+    deleteFile(file) {
       this.files.removeObject(file);
     },
 
