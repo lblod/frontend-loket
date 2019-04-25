@@ -1,5 +1,10 @@
 import { module, test } from 'qunit';
-import { visit, click, currentRouteName, currentURL } from '@ember/test-helpers';
+import {
+  visit,
+  click,
+  currentRouteName,
+  currentURL
+} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import session from '../../helpers/session';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';

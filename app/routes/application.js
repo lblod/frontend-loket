@@ -9,7 +9,7 @@ export default Route.extend(ApplicationRouteMixin, {
   moment: service(),
 
   beforeModel() {
-    const moment = this.get('moment');
+    const moment = this.moment;
     moment.setLocale('nl-be');
     moment.setTimeZone('Europe/Brussels');
     moment.set('defaultFormat', 'DD MMM YYYY, HH:mm');

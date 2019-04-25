@@ -54,7 +54,7 @@ export default Component.extend({
       try {
         this.collapse();
 
-        const reactie = await this.get('store').createRecord('bericht', {
+        const reactie = await this.store.createRecord('bericht', {
           inhoud                  : this.inhoud,
           // aangekomen              : new Date(),
           verzonden               : new Date(),
