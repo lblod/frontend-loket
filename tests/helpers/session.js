@@ -42,7 +42,7 @@ const session = async function(server, options = {}) {
     label: CLASSIFICATION_LABEL,
     id: '974816591f269bb7d74aa1720922651529f3d3b2a787f5c60b73e5a0384950a4'
   });
-  server.create('bestuurseenheid', {
+  const bestuurseenheid = server.create('bestuurseenheid', {
     id: '974816591f269bb7d74aa1720922651529f3d3b2a787f5c60b73e5a0384950a4',
     classificatie: classificatie,
     naam: "BESTUUR-NAAM"

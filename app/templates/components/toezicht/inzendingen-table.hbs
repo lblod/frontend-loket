@@ -22,7 +22,10 @@
       {{#unless displaySubset}}
         <td class="u-visible--tablet-landscape-up">{{row.bestuursorgaan.naam}}</td>
       {{/unless}}
-      <td>{{row.besluitType.label}}</td>
+      <td>
+      	<p>{{row.besluitType.label}}</p>
+      	<p class="text-fade">{{row.regulationType.label}}</p>
+      </td>
       {{#unless displaySubset}}
         <td>{{moment-format row.sessionDate 'DD-MM-YYYY'}}</td>
       {{/unless}}

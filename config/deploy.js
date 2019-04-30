@@ -8,21 +8,19 @@ module.exports = function(deployTarget) {
     build: {
       environment: 'production'
     },
-    'ssh-index': {
+    'ssh-index': { // copy and deploy index.html
       username: 'root',
       host: 'rpio-dev.s.redpencil.io',
+      port: 22,
       remoteDir: '/data/app-digitaal-loket-dev/loket-app',
-      agent: process.env.SSH_AUTH_SOCK,
-      port: 22,
-      allowOverwrite: true
+      allowOverwrite: true,
+      agent: process.env.SSH_AUTH_SOCK
     },
-    'rsync': {
-      dest: '/data/app-digitaal-loket-dev/loket-app',
-      username: 'root',
-      host: 'rpio-dev.s.redpencil.io',
+    'rsync': { // copy assets
+      host: 'root@rpio-dev.s.redpencil.io',
       port: 22,
+      dest: '/data/app-digitaal-loket-dev/loket-app',
       delete: false,
-      privateKey: process.env.SSH_AUTH_SOCK,
       arg:['--verbose']
     }
   };

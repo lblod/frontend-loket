@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click, pauseTest } from '@ember/test-helpers';
+import { render, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberObject from '@ember/object';
 
@@ -8,7 +8,7 @@ module('Integration | Component | toezicht/inzending-edit', function(hooks) {
   setupRenderingTest(hooks);
 
   test('Sending an empty form fails', async function(assert) {
-    this.set('model', EmberObject.create({ 
+    this.set('model', EmberObject.create({
       formNode: true,
       inzendingVoorToezicht: EmberObject.create({
         besluitType: EmberObject.create({ id: 1})
@@ -42,7 +42,7 @@ module('Integration | Component | toezicht/inzending-edit', function(hooks) {
     assert
       .dom('[data-test-loket="dismiss-button"]')
       .doesNotExist('The verwijder button is not shown when creating a new toezicht.');
-    
+
     this.set('model', EmberObject.create({
       id: 1,
       formNode: true,
@@ -67,7 +67,7 @@ module('Integration | Component | toezicht/inzending-edit', function(hooks) {
   });
 
   test('Bewaar button is shown/hidden correctly', async function(assert){
-    
+
     this.set('model', EmberObject.create({
       formNode: true,
       isNew: true,
@@ -83,7 +83,7 @@ module('Integration | Component | toezicht/inzending-edit', function(hooks) {
     assert
       .dom('[data-test-loket="bewaar-button"]')
       .exists('The Bewaar button is shown when creating a new toezicht.');
-    
+
     this.set('model', EmberObject.create({
       id: 1,
       formNode: true,
@@ -105,7 +105,7 @@ module('Integration | Component | toezicht/inzending-edit', function(hooks) {
     assert
       .dom('[data-test-loket="bewaar-button"]')
       .doesNotExist('The Bewaar button is not shown for already sent toezichts.');
-    
+
     this.set('model', EmberObject.create({
       id: 1,
       formNode: true,
@@ -170,7 +170,7 @@ module('Integration | Component | toezicht/inzending-edit', function(hooks) {
     assert
     .dom('[data-test-loket="bewaar-button"]')
     .exists('There is at least one close button when model is provided.');
-    
+
     this.set('model', EmberObject.create({ formNode: true }));
     await render(hbs`
     {{toezicht/inzending-edit model=model}}`);

@@ -12,7 +12,7 @@ export default Model.extend({
   isTijdsspecialisatieVan: belongsTo('bestuursorgaan', { inverse: 'heeftTijdsspecialisaties' }),
   wordtSamengesteldDoor: belongsTo('rechtstreekse-verkiezing', { inverse: 'steltSamen' }),
   heeftTijdsspecialisaties: hasMany('bestuursorgaan', { inverse: 'isTijdsspecialisatieVan' }),
-  bevat: hasMany('mandaat', { inverse: 'bevatIn' }),
+  bevat: hasMany('mandaat', { inverse: null }),
 
   rdfaBindings: { // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
     naam: "http://www.w3.org/2004/02/skos/core#prefLabel",
