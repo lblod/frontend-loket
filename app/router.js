@@ -47,6 +47,9 @@ Router.map(function() {
       this.route('conversatie', { path: ':id' }, function() {});
     });
   });
+  this.route('leidinggevendenbeheer', function() {
+    this.route('bestuursfuncties');
+  });
 });
 
 export default Router;
