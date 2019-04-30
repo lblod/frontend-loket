@@ -1,20 +1,21 @@
-import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
+import Model from 'ember-data/model';
+import { collect } from '@ember/object/computed';
 import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default Model.extend({
+  // A string representation of this model, based on its attributes.
+  // This is what mu-cl-resources uses to search on, and how the model will be presented while editing relationships.
+  stringRep: collect.apply(this,['id', 'naam', 'wilMailOntvangen', 'mailAdres']),
 
+  uri: attr(),
   naam: attr(),
   mailAdres: attr('string'),
   wilMailOntvangen: attr('boolean'),
 
   werkingsgebied: belongsTo('werkingsgebied', { inverse: 'bestuurseenheid' }),
   classificatie: belongsTo('bestuurseenheid-classificatie-code', { inverse: null }),
-  primaireSite: belongsTo('vestiging', { inverse: null }),
-  politiezone: belongsTo('organisatie', { inverse: null }),
-  
   contactinfo: hasMany('contact-punt', { inverse: null }),
-  posities: hasMany('positie', { inverse: null }),
   bestuursorganen: hasMany('bestuursorgaan', { inverse: 'bestuurseenheid' }),
 
   rdfaBindings: { // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
