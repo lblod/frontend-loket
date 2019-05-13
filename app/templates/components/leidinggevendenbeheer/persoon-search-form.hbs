@@ -33,14 +33,14 @@
 
   {{#unless hasSearched}}
     <div class="mandate-new-info">
-      <p class="text-fade u-spacer--round--tiny">Zoek een persoon uit de lijst van verkozenen op naam of op rijksregisternummer,<br>of voeg een nieuwe persoon toe buiten de lijst.</p>
+      <p class="text-fade u-spacer--round--tiny">Zoek een persoon uit de lijst van verkozenen op naam of op rijksregisternummer,<br>of {{#link-to 'leidinggevendenbeheer.functionarissen.new.create-persoon'}}voeg een nieuwe persoon toe{{/link-to}} buiten de lijst.</p>
     </div>
   {{/unless}}
   {{#if noResultsAfterSearch}}
     <div class="mandate-new-unexisting-step-1">
       <h2 class="h4 u-spacer">De zoektermen "{{searchTerms}}" leverden geen resultaten&nbsp;op.</h2>
       <p>Zorg dat de naam en/of het rijksregisternummer correct is of
-        voeg een nieuwe persoon toe buiten de lijst.
+        {{#link-to 'leidinggevendenbeheer.functionarissen.new.create-persoon'}}voeg een nieuwe persoon toe{{/link-to}} buiten de lijst.
       </p>
     </div>
   {{/if}}
