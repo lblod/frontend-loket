@@ -1,1 +1,23 @@
+{{title "Leidinggevendenbeheer" bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
+  <div class="container-flex--contain">
+    <div class="u-border--light--bottom">
+      <div class="u-padding--round--small">
+        <h1 class="h4 u-spacer--tiny">Leidinggevendenbeheer {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
+        <div class="grid">
+          <div class="col--6-12 col--1-1--s">
+            <p class="text-light">Overzicht functies</p>
+          </div>
+          <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-flex--scroll">
+      {{!#each model as |bestuursfunctie|}}
+        <!-- list of bestuurfuncties -->
+      {{!/each}}
+    </div>
+  </div>
+</div>
 {{outlet}}
