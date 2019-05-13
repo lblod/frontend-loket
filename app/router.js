@@ -53,6 +53,7 @@ Router.map(function() {
       this.route('new', function() {
         this.route('select-persoon');
         this.route('provide-details');
+        this.route('create-persoon');
       });
     });
   });
