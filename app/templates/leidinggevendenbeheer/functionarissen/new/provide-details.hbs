@@ -1,0 +1,40 @@
+<div class="u-padding--rl--small u-border--light--bottom">
+  <div class="col--7-12">
+    <h2 class="h3">2. Voeg aanstellingsperiode voor Joost Geert Venken als Algemeen Directeur toe</h2>
+  </div>
+</div>
+<div class="container-flex--scroll u-padding--round--small">
+  <!-- persoon's info -->
+  <h4 class="h5 u-spacer--tiny">Functie</h4>
+  <div class="form__row">
+    <div class="grid">
+      <div class="col--4-12 col--6-12--s col--1-1--xs">
+        <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
+        {{wu-datepicker classNames="date-range__datepicker datepicker" style="max-width: none; width:auto" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.functionaris.start)}}
+      </div>
+      <div class="col--4-12 col--6-12--s col--1-1--xs">
+        <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
+        {{wu-datepicker class="date-range__datepicker datepicker" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.functionaris.einde)}}
+      </div>
+    </div>
+  </div>
+  <div class="form__row">
+    <div class="grid">
+      <div class="col--4-12 col--6-12--s col--1-1--xs">
+        {{wu-radio-button label=model.aangesteldStatus.label value=model.aangesteldStatus.id isBlock=true
+        onChange=(action "setStatus")
+        checked=(eq model.aangesteldStatus.id model.defaultStatus.id)}}
+      </div>
+      <div class="col--4-12 col--6-12--s col--1-1--xs">
+        {{wu-radio-button label=model.waarnemendStatus.label value=model.waarnemendStatus.id isBlock=true
+        onChange=(action "setStatus")
+        checked=(eq model.waarnemendStatus.id model.defaultStatus.id)}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="u-padding--round--small u-border--light--top">
+  {{wu-button label="Voeg aanstellingsperiode toe" onClick=(action "addPeriod") disabled=(not canAdd) isNarrow=true}}
+  {{wu-button label="Annuleer" onClick=(action "cancel") isAlt=true}}
+  {{wu-button label="Vorige stap" onClick=(action "gotoPreviousStep") isLink=true}}
+</div>

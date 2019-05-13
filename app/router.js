@@ -52,6 +52,7 @@ Router.map(function() {
     this.route('functionarissen', { path: '/:id/functionarissen' }, function() {
       this.route('new', function() {
         this.route('select-persoon');
+        this.route('provide-details');
       });
     });
   });
