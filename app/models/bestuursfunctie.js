@@ -11,5 +11,5 @@ export default Model.extend({
   uri: attr(),
   rol: belongsTo('bestuursfunctie-code', { inverse: null }),
   contactinfo: belongsTo('contact-punt', { inverse: null }),
-  bevatIn: hasMany('bestuurorgaan', { inverse: null })
+  bevatIn: hasMany('bestuursorgaan', { inverse: null })
 });
