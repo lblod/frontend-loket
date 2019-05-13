@@ -49,7 +49,9 @@ Router.map(function() {
   });
   this.route('leidinggevendenbeheer', function() {
     this.route('bestuursfuncties');
-    this.route('functionarissen', { path: '/:id/functionarissen' });
+    this.route('functionarissen', { path: '/:id/functionarissen' }, function() {
+      this.route('new');
+    });
   });
 });
 

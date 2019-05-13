@@ -1,0 +1,28 @@
+<div class="col--1-1--s delete-me-function-edit-new container-flex--contain">
+  <div class="u-padding--trl--small">
+    <div class="grid">
+      <div class="col--7-12">
+        <h1 class="h6 uppercase text-fade u-spacer--tiny">Voeg een nieuwe aanstellingsperiode toe</h1>
+      </div>
+      <div class="col--5-12 u-align--right">
+        <div {{action "cancel"}} class="link--icon--close">
+          <span class="u-visually-hidden">Venster sluiten</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{outlet}}
+</div>
+<!-- Modal confirmation dialog -->
+{{#if dataIsGettingLost}}
+  <div class="modal-overlay modal-overlay-save">
+    <div class="modal-dialog">
+      <h2 class="modal-dialog__title">Wil u de aangebrachte wijzigingen bewaren?</h2>
+      <div class="modal-dialog__content u-spacer">De wijzigingen zullen verloren gaan als u niet op bewaren klikt.</div>
+      {{wu-button label="Bewaar" onClick=(action "bewaar")}}
+      {{wu-button label="Annuleer" onClick=(action "annuleer") isAlt=true isNarrow=true}}
+      <i class="vi vi-cross vi-u-link"></i>
+      {{wu-button label="Verwerp wijzigingen" onClick=(action "dismissChanges") isLink=true isNarrow=true}}
+    </div>
+  </div>
+{{/if}}
