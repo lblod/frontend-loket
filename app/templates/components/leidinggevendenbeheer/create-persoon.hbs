@@ -1,0 +1,65 @@
+<div class="container-flex--scroll u-padding--round--small u-position--relative">
+    <div class="form__row">
+    <div class="grid grid-collapse">
+      <div class="col--6-12">
+        <label for="mandataris-naam">Voornaam</label>
+        {{input class=(with-error-class voornaamError "input-field input-field--block u-spacer--tiny js-js-input-pattern-bound") id="mandataris-naam" name="mandataris-naam" placeholder="Naam" value=(mut voornaam)}}
+        {{#if voornaamError}}
+          <div class="form__error">{{voornaamError}}</div>
+        {{/if}}
+      </div>
+      <div class="col--6-12">
+        <label for="mandataris-familienaam">Familienaam</label>
+        {{input class=(with-error-class familienaamError "input-field input-field--block u-spacer--tiny js-js-input-pattern-bound") id="mandataris-familienaam" name="mandataris-familienaam" placeholder="Familienaam" value=(mut familienaam)}}
+        {{#if familienaamError}}
+          <div class="form__error">{{familienaamError}}</div>
+        {{/if}}
+      </div>
+    </div>
+    <label for="mandataris-roepnaam">Roepnaam</label>
+    {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" id="mandataris-roepnaam" name="mandataris-roepnaam" placeholder="Jos"value=(mut roepnaam)}}
+    </div>
+    <div class="form__row">
+      <label for="mandataris-rijksregister">Rijksregisternummer</label>
+      {{one-way-input-mask rijksregisternummer mask='99.99.99-999.99' class=(with-error-class rijksregisternummerError "input-field input-field--block u-spacer--tiny uppercase js-js-input-pattern-bound") placeholder="00.00.00-000.00" update=(action (mut rijksregisternummer))}}
+      {{#if rijksregisternummerError}}
+        <div class="form__error">{{rijksregisternummerError}}</div>
+      {{/if}}
+    <label for="mandataris-geboorte">Geboortedatum</label>
+    {{wu-datepicker class="input-field--block u-spacer--small" dateFormat="DD.MM.YYYY" value=(mut birthDate) minDate=minDate maxDate=maxDate}}
+    <label>Geslacht</label>
+    <div class="grid u-spacer--bottom--tiny">
+      <div class="col--6-12">
+        <label class="radio">
+          <input class="radio__toggle" name="radio-buttons" onclick={{action 'setGender'}} value="{{female}}" checked={{isFemale}} type="radio">
+          <span></span>Vrouw
+        </label>
+      </div>
+      <div class="col--6-12">
+        <label class="radio">
+          <input class="radio__toggle" name="radio-buttons" onclick={{action 'setGender'}} value={{male}} checked={{isMale}} type="radio">
+          <span></span>Man
+        </label>
+      </div>
+      {{#if geslachtError}}
+        <div class="form__error">{{geslachtError}}</div>
+      {{/if}}
+    </div>
+    {{#if saveError}}
+      <br>
+      {{#wu-alert title="Fout bij opslaan" isError=true}}
+        {{saveError}}
+      {{/wu-alert}}
+    {{/if}}
+  </div>
+</div>
+<div class="u-padding--round--small u-border--light--top">
+  {{wu-button label="Voeg nieuwe functionaris toe" onClick=(perform save)
+    disabled=save.isRunning
+    loading=save.isRunning
+    class="show-mandate-edit-new-next" isNarrow=true}}
+  {{wu-button label="Annuleer" onClick=(action onCancel)
+    disabled=save.isRunning
+    class="toggle-person-new" isAlt=true isNarrow=true}}
+  {{wu-button label="Vorige stap" onClick=(action gotoPreviousStep) isLink=true}}
+</div>
