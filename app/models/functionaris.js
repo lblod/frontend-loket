@@ -2,6 +2,7 @@ import attr from 'ember-data/attr';
 import Model from 'ember-data/model';
 import { collect } from '@ember/object/computed';
 import { belongsTo } from 'ember-data/relationships';
+import { computed }  from '@ember/object';
 
 export default Model.extend({
   // A string representation of this model, based on its attributes.
@@ -13,5 +14,9 @@ export default Model.extend({
   einde: attr('datetime'),
   bekleedt: belongsTo('bestuursfunctie', { inverse: null }),
   status: belongsTo('functionaris-status-code', { inverse: null }),
-  isBestuurlijkeAliasVan: belongsTo('persoon', { inverse: null })
+  isBestuurlijkeAliasVan: belongsTo('persoon', { inverse: null }),
+
+  datesAreCompatible: computed('start', 'einde', function(){
+    return this.einde > this.start;
+  })
 });
