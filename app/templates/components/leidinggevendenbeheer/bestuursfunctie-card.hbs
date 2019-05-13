@@ -1,0 +1,17 @@
+<div class="u-spacer--round--small">
+  <div class="u-spacer">
+    <div class="u-padding--tb--small u-border--light--bottom">
+      <div class="grid">
+        <div class="col--8-12">
+          <h2 class="h5 u-spacer--tiny">{{model.rol.label}}</h2>
+          <ul class="inline-list inline-list--bordered small">
+            <li><a class="link--dark" href="mailto:mailadres.be">{{model.contactinfo.email}}</a></li>
+            <li>{{model.contactinfo.telephone}}</li>
+            <li>{{model.contactinfo.adres}}</li>
+          </ul>
+        </div>
+        {{wu-button label="> Bekijk en bewerk aanstellingsperiodes" onClick=(action "handleEditAanstellingsperiodesClick") isNarrow=true isSmall=true}}
+      </div>
+    </div>
+  </div>
+</div>
