@@ -1,0 +1,29 @@
+{{#data-table
+   content=content
+   isLoading=isLoadingModel
+   noDataMessage=""
+   sort=sort
+   page=page
+   size=size
+   class="container-flex--contain data-table data-table--tight data-table--nowrap"
+
+   as |t|}}
+  {{#t.content as |c|}}
+    {{#c.header}}
+      {{th-sortable label='Naam' field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort}}
+      {{th-sortable label='Familienaam' field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Status' field='status.label' currentSorting=sort}}
+      {{th-sortable label='Start periode' field='start' currentSorting=sort}}
+      {{th-sortable label='Einde periode' field='einde' currentSorting=sort class="u-hidden-mobile"}}
+      <th><!-- Actions --></th>
+    {{/c.header}}
+    {{#c.body as |row|}}
+      <td>{{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}</td>
+      <td class="u-hidden-mobile">{{row.isBestuurlijkeAliasVan.achternaam}}</td> 
+      <td>{{row.status.label}}</td>
+      <td class="word-break--break-word">{{moment-format (await row.start) 'DD-MM-YYYY'}}</td>
+      <td class="u-hidden-mobile">{{moment-format (await row.einde) 'DD-MM-YYYY'}}</td>
+      <td>{{#link-to 'leidinggevendenbeheer.functionarissen.edit' row.id}}Bewerk periode{{/link-to}}</td>
+    {{/c.body}}
+  {{/t.content}}
+{{/data-table}}
