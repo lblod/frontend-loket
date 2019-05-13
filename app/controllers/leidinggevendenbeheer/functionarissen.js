@@ -11,7 +11,7 @@ export default Controller.extend({
 
   actions: {
     handleVoegNieuweAanstellingsperiodeClick(){
-      
+      this.router.transitionTo('leidinggevendenbeheer.functionarissen.new.select-persoon');
     }
   }
 });
