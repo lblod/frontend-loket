@@ -38,7 +38,12 @@
           </div>
         </div>
       </div>
-      <!-- functionarissen table -->
+      {{leidinggevendenbeheer/functionaris-table
+        class="container-flex--contain"
+        content=model.functionarissen
+        sort=sort page=page size=size displaySubset=hasActiveChildRoute
+        renderSmallTable=hasActiveChildRoute
+        data-test-loket="leidinggevendenbeheer-table"}}
       {{#if (is-empty model.functionarissen)}}
         <div class="u-align-center u-padding--round--small" colspan="6">
           <p class="u-spacer--tiny">Geen aanstellingsperiode voor de functie algemeen directeur toegevoegd.&nbsp;</p>
