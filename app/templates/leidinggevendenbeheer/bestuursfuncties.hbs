@@ -14,9 +14,9 @@
       </div>
     </div>
     <div class="container-flex--scroll">
-      {{!#each model as |bestuursfunctie|}}
-        <!-- list of bestuurfuncties -->
-      {{!/each}}
+      {{#each model as |bestuursfunctie|}}
+        {{leidinggevendenbeheer/bestuursfunctie-card model=bestuursfunctie}}
+      {{/each}}
     </div>
   </div>
 </div>
