@@ -55,6 +55,7 @@ Router.map(function() {
         this.route('provide-details');
         this.route('create-persoon');
       });
+      this.route('edit', { path: '/:functionarisId/edit' });
     });
   });
 });
