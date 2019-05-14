@@ -48,7 +48,11 @@ Router.map(function() {
     });
   });
   this.route('leidinggevendenbeheer', function() {
-    this.route('bestuursfuncties');
+    this.route('bestuursfuncties', function() {
+      this.route('contact-info', {
+        path: '/:id/contact-info/'
+      });
+    });
     this.route('functionarissen', { path: '/:id/functionarissen' }, function() {
       this.route('new', function() {
         this.route('select-persoon');
