@@ -1,10 +1,12 @@
 import Route from '@ember/routing/route';
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(DataTableRouteMixin, {
+export default Route.extend({
   currentSession: service(),
-  modelName: 'bestuursfunctie',
+
+  async model() {
+    return this.store.findAll('bestuursfunctie');
+  },
 
   async beforeModel() {
     const bestuurseenheid = await this.get('currentSession.group');
