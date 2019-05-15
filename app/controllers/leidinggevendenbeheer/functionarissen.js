@@ -4,6 +4,9 @@ import { computed } from '@ember/object';
 
 export default Controller.extend({
   router: service(),
+  sort: 'start',
+  page: 0,
+  size: 20,
   hasActiveChildRoute: computed('router.currentRouteName', function() {
     return this.get('router.currentRouteName').startsWith('leidinggevendenbeheer.functionarissen.') &&
       this.get('router.currentRouteName') != 'leidinggevendenbeheer.functionarissen.index';
