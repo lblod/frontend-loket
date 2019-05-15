@@ -5,7 +5,7 @@
         <h2 class="h3">Bewerk algemene contactgegevens {{model.role.label}} Hasselt</h2>
       </div>
       <div class="col--3-12 u-align--right">
-        <div class="link--icon--close">
+        <div {{action "cancel"}} class="link--icon--close">
           <span class="u-visually-hidden">Venster sluiten</span>
         </div>
       </div>
@@ -17,13 +17,13 @@
         <div class="grid u-spacer--small">
           <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
             <label class="form__label" for="mailadres">Mailadres</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="mail@adres.be" inputmode="email"}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="mail@adres.be" inputmode="email" value=(mut model.contactinfo.email)}}
           </div>
         </div>
         <div class="grid">
           <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
             <label class="form__label" for="telefoonnummer">Telefoonnummer</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="+32484738324" inputmode="tel" type="tel"}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="+32484738324" inputmode="tel" type="tel" value=(mut model.contactinfo.telephone)}}
           </div>
         </div>
       </div>
@@ -32,15 +32,15 @@
         <div class="grid">
           <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
             <label class="form__label" for="straat">Straat</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Veldstraat"}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Veldstraat" value=(mut model.contactinfo.adres)}}
           </div>
           <div class="col--2-12 col--2-12--m col--2-12--s col--6-12--xs">
             <label class="form__label" for="nummer">Nummer</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-phone" placeholder="+32484738324" type="number"}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-phone" placeholder="+32484738324" type="number" disabled=true}}
           </div>
           <div class="col--2-12 col--2-12--m col--2-12--s col--6-12--xs">
             <label class="form__label" for="toevoeging">Toevoeging</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder=""}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="" disabled=true}}
           </div>
         </div>
       </div>
@@ -48,11 +48,11 @@
         <div class="grid">
           <div class="col--2-12 col--3-12--m col--3-12--s col--1-1--xs">
             <label class="form__label" for="straat">Postcode</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="9000" type="number"}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="9000" type="number" value=(mut model.contactinfo.postcode)}}
           </div>
           <div class="col--5-12 col--6-12--m col--8-12--s col--1-1--xs">
             <label class="form__label" for="gemeente">Gemeente of stad</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Gent"}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Gent" value=(mut model.contactinfo.gemeente)}}
           </div>
         </div>
       </div>
@@ -60,8 +60,8 @@
   </div>
   <div class="u-padding--round--small u-border--light--top">
     <div class="button-group">
-      {{wu-button label="Corrigeer aanstellingsperiode" onClick=null disabled=(not canConfirm) isNarrow=true}}
-      {{wu-button isNarrow=true isAlt=true onClick=null label="Verwerp wijzigingen"}}
+      {{wu-button label="Bewaar contactgegevens" onClick=(action "confirmChanges") isNarrow=true disabled=(not model.contactinfo.hasDirtyAttributes)}}
+      {{wu-button isNarrow=true isAlt=true onClick=(action "dismissChanges") label="Verwerp wijzigingen"}}
     </div>
   </div>
 </div>
@@ -71,8 +71,8 @@
     <div class="modal-dialog">
       <h2 class="modal-dialog__title">Wil u de aangebrachte wijzigingen bewaren?</h2>
       <div class="modal-dialog__content u-spacer">De wijzigingen zullen verloren gaan als u niet op bewaren klikt.</div>
-      {{wu-button label="Bewaar" onClick=null}}
-      {{wu-button label="Annuleer" onClick=null isAlt=true isNarrow=true}}
+      {{wu-button label="Bewaar" onClick=(action "bewaar")}}
+      {{wu-button label="Annuleer" onClick=(action "annuleer") isAlt=true isNarrow=true}}
       <i class="vi vi-cross vi-u-link"></i>
       {{wu-button label="Verwerp wijzigingen" onClick=(action "dismissChanges") isLink=true isNarrow=true}}
     </div>
