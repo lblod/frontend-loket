@@ -5,7 +5,7 @@ export default Controller.extend({
   providedDataIsValid: computed('model.functionaris.start', 'model.functionaris.einde', function(){
     return this.model.functionaris.start && this.model.functionaris.einde && this.model.functionaris.datesAreCompatible;
   }),
-  
+
   async clearModel() {
     this.model.functionaris.set('isBestuurlijkeAliasVan', null);
     this.model.functionaris.set('start', undefined);
