@@ -5,7 +5,9 @@ export default Route.extend({
   currentSession: service(),
 
   async model() {
-    return this.store.findAll('bestuursfunctie');
+    return this.store.query('bestuursfunctie', {
+      'filter[bevat-in][is-tijdsspecialisatie-van][bestuurseenheid][:id:]':this.bestuurseenheid.id
+    });
   },
 
   async beforeModel() {
