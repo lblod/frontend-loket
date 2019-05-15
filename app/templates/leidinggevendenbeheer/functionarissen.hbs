@@ -31,9 +31,10 @@
             </ul>
           </div>
           <div class="col--4-12 col--1-1--xs u-align-right--tablet-portrait-up">
-            {{wu-button label="+ Voeg nieuwe aanstellingsperiode toe"
+            {{#wu-button
                 onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
-                isNarrow=true isSmall=true}}
+                isNarrow=true 
+                isSmall=true}}<i class="vi vi-plus"></i>Voeg nieuwe aanstellingsperiode toe{{/wu-button}}
           </div>
         </div>
       </div>
