@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { computed }  from '@ember/object';
 
 export default Controller.extend({
-  canAdd: computed('model.functionaris.start', 'model.functionaris.einde', function(){
+  providedDataIsValid: computed('model.functionaris.start', 'model.functionaris.einde', function(){
     return this.model.functionaris.start && this.model.functionaris.einde && this.model.functionaris.datesAreCompatible;
   }),
   
