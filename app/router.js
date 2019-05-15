@@ -53,7 +53,7 @@ Router.map(function() {
         path: '/:id/contact-info/'
       });
     });
-    this.route('functionarissen', { path: '/:id/functionarissen' }, function() {
+    this.route('functionarissen', { path: '/:bestuursfunctieId/functionarissen' }, function() {
       this.route('new', function() {
         this.route('select-persoon');
         this.route('provide-details');
