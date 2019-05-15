@@ -29,7 +29,8 @@ export default Controller.extend({
     },
     async addPeriod() {
       await this.model.functionaris.save();
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen.index');
+      const bestuursfunctieId = this.model.functionaris.get('bekleedt.id');
+      this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId);
     },
   }
 });
