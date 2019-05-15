@@ -16,7 +16,7 @@ export default Route.extend(DataTableRouteMixin, {
     this.set('bestuursFunctieId', params.bestuursfunctieId);
     return {'filter[bekleedt][id]': params.bestuursfunctieId};
   },
-  
+
   async setupController(controller, model) {
     this._super(controller, model);
     controller.set('bestuurseenheid', this.bestuurseenheid);
