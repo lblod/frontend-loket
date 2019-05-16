@@ -56,7 +56,7 @@ Router.map(function() {
     this.route('functionarissen', { path: '/:bestuursfunctieId/functionarissen' }, function() {
       this.route('new', function() {
         this.route('select-persoon');
-        this.route('provide-details');
+        this.route('provide-details',  { path: '/:persoonId/provide-details' });
         this.route('create-persoon');
       });
       this.route('edit', { path: '/:functionarisId/edit' });
