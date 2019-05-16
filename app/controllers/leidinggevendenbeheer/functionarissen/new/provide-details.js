@@ -31,6 +31,7 @@ export default Controller.extend({
     async addPeriod() {
       await this.model.save();
       const bestuursfunctieId = this.model.get('bekleedt.id');
+      this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
     },
   }
 });
