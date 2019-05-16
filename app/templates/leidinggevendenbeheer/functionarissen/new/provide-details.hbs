@@ -1,34 +1,34 @@
 <div class="u-padding--rl--small u-border--light--bottom">
   <div class="col--7-12">
-    <h2 class="h3">2. Voeg aanstellingsperiode voor {{model.functionaris.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.functionaris.isBestuurlijkeAliasVan.achternaam}} als {{model.functionaris.bekleedt.rol.label}} toe</h2>
+    <h2 class="h3">2. Voeg aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}} toe</h2>
   </div>
 </div>
 <div class="container-flex--scroll u-padding--round--small">
-  {{leidinggevendenbeheer/persoon-card persoon=model.functionaris.isBestuurlijkeAliasVan hideHeader=true}}
+  {{leidinggevendenbeheer/persoon-card persoon=model.isBestuurlijkeAliasVan hideHeader=true}}
   <h4 class="h5 u-spacer--tiny">Functie</h4>
   <div class="form__row">
     <div class="grid">
       <div class="col--4-12 col--6-12--s col--1-1--xs">
         <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
-        {{wu-datepicker classNames="date-range__datepicker datepicker" style="max-width: none; width:auto" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.functionaris.start)}}
+        {{wu-datepicker classNames="date-range__datepicker datepicker" style="max-width: none; width:auto" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.start)}}
       </div>
       <div class="col--4-12 col--6-12--s col--1-1--xs">
         <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
-        {{wu-datepicker class="date-range__datepicker datepicker" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.functionaris.einde)}}
+        {{wu-datepicker class="date-range__datepicker datepicker" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.einde)}}
       </div>
     </div>
   </div>
   <div class="form__row">
     <div class="grid">
       <div class="col--4-12 col--6-12--s col--1-1--xs">
-        {{wu-radio-button label=model.aangesteldStatus.label value=model.aangesteldStatus.id isBlock=true
+        {{wu-radio-button label=aangesteldStatus.label value=aangesteldStatus.id isBlock=true
         onChange=(action "setStatus")
-        checked=(eq model.aangesteldStatus.id model.defaultStatus.id)}}
+        checked=(eq aangesteldStatus.id model.status.id)}}
       </div>
       <div class="col--4-12 col--6-12--s col--1-1--xs">
-        {{wu-radio-button label=model.waarnemendStatus.label value=model.waarnemendStatus.id isBlock=true
+        {{wu-radio-button label=waarnemendStatus.label value=waarnemendStatus.id isBlock=true
         onChange=(action "setStatus")
-        checked=(eq model.waarnemendStatus.id model.defaultStatus.id)}}
+        checked=(eq waarnemendStatus.id model.status.id)}}
       </div>
     </div>
   </div>
