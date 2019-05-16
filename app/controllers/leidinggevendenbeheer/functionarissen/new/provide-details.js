@@ -22,10 +22,11 @@ export default Controller.extend({
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
     },
     setStatus(statusId){
-      if (statusId == this.model.aangesteldStatus.id)
-        this.model.functionaris.set('status', this.model.aangesteldStatus);
-      else if (statusId == this.model.waarnemendStatus.id)
-        this.model.functionaris.set('status', this.model.waarnemendStatus);
+      if (statusId == this.aangesteldStatus.id) {
+        this.model.set('status', this.aangesteldStatus);
+      } else if (statusId == this.waarnemendStatus.id) {
+        this.model.set('status', this.waarnemendStatus);
+      }
     },
     async addPeriod() {
       await this.model.save();
