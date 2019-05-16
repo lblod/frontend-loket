@@ -6,19 +6,11 @@ export default Controller.extend({
     return this.model.start && this.model.einde && this.model.datesAreCompatible;
   }),
 
-  async clearModel() {
-    this.model.functionaris.set('isBestuurlijkeAliasVan', null);
-    this.model.functionaris.set('start', undefined);
-    this.model.functionaris.set('einde', undefined);
-    this.model.functionaris.set('status', this.model.defaultStatus);
-  },
-
   actions: {
     cancel(){
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
     },
     gotoPreviousStep() {
-      this.clearModel();
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
     },
     setStatus(statusId){
