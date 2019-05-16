@@ -3,7 +3,7 @@ import { computed }  from '@ember/object';
 
 export default Controller.extend({
   providedDataIsValid: computed('model.functionaris.start', 'model.functionaris.einde', function(){
-    return this.model.functionaris.start && this.model.functionaris.einde && this.model.functionaris.datesAreCompatible;
+    return this.model.start && this.model.einde && this.model.datesAreCompatible;
   }),
 
   async clearModel() {
@@ -28,9 +28,8 @@ export default Controller.extend({
         this.model.functionaris.set('status', this.model.waarnemendStatus);
     },
     async addPeriod() {
-      await this.model.functionaris.save();
-      const bestuursfunctieId = this.model.functionaris.get('bekleedt.id');
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId);
+      await this.model.save();
+      const bestuursfunctieId = this.model.get('bekleedt.id');
     },
   }
 });
