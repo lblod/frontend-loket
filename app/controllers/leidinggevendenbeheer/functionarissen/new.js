@@ -41,11 +41,9 @@ export default Controller.extend({
       this.exit();
     },
     async cancel(){
-      if (! await this.hasDirtyAttributes()) {
+      this.set('userHasRequestedToClose', true);
+      if (! this.dataIsGettingLost) {
         this.exit();
-      } else {
-        //--- This will reveal the modal confirmation dialog
-        this.set('dataIsGettingLost', true);
       }
     },
     async confirmChanges() {
