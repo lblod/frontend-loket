@@ -34,7 +34,7 @@ export default Controller.extend({
   //--- actions
   actions: {
     annuleer(){
-      this.set('dataIsGettingLost', false);
+      this.set('userHasRequestedToClose', false);
     },
     async bewaar(){
       await this.childController.save();
