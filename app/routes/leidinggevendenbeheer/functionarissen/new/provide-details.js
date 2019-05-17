@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 export default Route.extend({
   async model(params) {
 
-    const bestuursfunctieId = this.paramsFor('leidinggevendenbeheer.functionarissen').bestuursfunctieId;
+    const bestuursfunctieId = this.paramsFor('leidinggevendenbeheer.functionarissen').bestuursfunctie_id;
 
     const aangesteldStatus = (await this.store.query('functionaris-status-code', {
       filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' }})).firstObject;
@@ -17,7 +17,7 @@ export default Route.extend({
 
     const functionaris = await this.store.createRecord('functionaris', {
       bekleedt: await this.store.findRecord('bestuursfunctie', bestuursfunctieId),
-      isBestuurlijkeAliasVan: await this.store.findRecord('persoon', params.persoonId),
+      isBestuurlijkeAliasVan: await this.store.findRecord('persoon', params.persoon_id),
       status: this.defaultStatus,
     });
 

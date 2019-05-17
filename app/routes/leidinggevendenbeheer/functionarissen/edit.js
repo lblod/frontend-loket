@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   async model(params){
-    const functionaris = await this.store.findRecord('functionaris', params.functionarisId);
+    const functionaris = await this.store.findRecord('functionaris', params.functionaris_id);
     return {
       functionaris: functionaris,
       /**

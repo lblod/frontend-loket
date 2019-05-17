@@ -53,13 +53,13 @@ Router.map(function() {
         path: '/:id/contact-info/'
       });
     });
-    this.route('functionarissen', { path: '/:bestuursfunctieId/functionarissen' }, function() {
+    this.route('functionarissen', { path: '/:bestuursfunctie_id/functionarissen' }, function() {
       this.route('new', function() {
         this.route('select-persoon');
-        this.route('provide-details',  { path: '/:persoonId/provide-details' });
+        this.route('provide-details',  { path: '/:persoon_id/provide-details' });
         this.route('create-persoon');
       });
-      this.route('edit', { path: '/:functionarisId/edit' });
+      this.route('edit', { path: '/:functionaris_id/edit' });
     });
   });
 });
