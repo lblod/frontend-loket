@@ -6,6 +6,10 @@ export default Controller.extend({
     return this.model.start && this.model.einde && this.model.datesAreCompatible;
   }),
 
+  async save() {
+    await this.model.save();
+  },
+
   actions: {
     cancel(){
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
