@@ -1,40 +1,53 @@
-<div class="u-padding--rl--small u-border--light--bottom">
-  <div class="col--7-12">
-    <h2 class="h3">2. Voeg aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}} toe</h2>
+<div class="col--1-1--s container-flex--contain">
+  {{leidinggevendenbeheer/functionaris-creation-header
+    cancel=(action "cancel")
+    confirmChanges=(action "confirmChanges")
+  }}
+  <div class="u-padding--rl--small u-border--light--bottom">
+    <div class="col--7-12">
+      <h2 class="h3">2. Voeg aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}} toe</h2>
+    </div>
   </div>
-</div>
-<div class="container-flex--scroll u-padding--round--small">
-  {{leidinggevendenbeheer/persoon-card persoon=model.isBestuurlijkeAliasVan hideHeader=true}}
-  <h4 class="h5 u-spacer--tiny">Functie</h4>
-  <div class="form__row">
-    <div class="grid">
-      <div class="col--4-12 col--6-12--s col--1-1--xs">
-        <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
-        {{wu-datepicker classNames="date-range__datepicker datepicker" style="max-width: none; width:auto" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.start)}}
+  <div class="container-flex--scroll u-padding--round--small">
+    {{leidinggevendenbeheer/persoon-card persoon=model.isBestuurlijkeAliasVan hideHeader=true}}
+    <h4 class="h5 u-spacer--tiny">Functie</h4>
+    <div class="form__row">
+      <div class="grid">
+        <div class="col--4-12 col--6-12--s col--1-1--xs">
+          <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
+          {{wu-datepicker classNames="date-range__datepicker datepicker" style="max-width: none; width:auto" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.start)}}
+        </div>
+        <div class="col--4-12 col--6-12--s col--1-1--xs">
+          <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
+          {{wu-datepicker class="date-range__datepicker datepicker" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.einde)}}
+        </div>
       </div>
-      <div class="col--4-12 col--6-12--s col--1-1--xs">
-        <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
-        {{wu-datepicker class="date-range__datepicker datepicker" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.einde)}}
+    </div>
+    <div class="form__row">
+      <div class="grid">
+        <div class="col--4-12 col--6-12--s col--1-1--xs">
+          {{wu-radio-button label=aangesteldStatus.label value=aangesteldStatus.id isBlock=true
+          onChange=(action "setStatus")
+          checked=(eq aangesteldStatus.id model.status.id)}}
+        </div>
+        <div class="col--4-12 col--6-12--s col--1-1--xs">
+          {{wu-radio-button label=waarnemendStatus.label value=waarnemendStatus.id isBlock=true
+          onChange=(action "setStatus")
+          checked=(eq waarnemendStatus.id model.status.id)}}
+        </div>
       </div>
     </div>
   </div>
-  <div class="form__row">
-    <div class="grid">
-      <div class="col--4-12 col--6-12--s col--1-1--xs">
-        {{wu-radio-button label=aangesteldStatus.label value=aangesteldStatus.id isBlock=true
-        onChange=(action "setStatus")
-        checked=(eq aangesteldStatus.id model.status.id)}}
-      </div>
-      <div class="col--4-12 col--6-12--s col--1-1--xs">
-        {{wu-radio-button label=waarnemendStatus.label value=waarnemendStatus.id isBlock=true
-        onChange=(action "setStatus")
-        checked=(eq waarnemendStatus.id model.status.id)}}
-      </div>
-    </div>
+  <div class="u-padding--round--small u-border--light--top">
+    {{wu-button label="Voeg aanstellingsperiode toe" onClick=(action "addPeriod") isNarrow=true}}
+    {{wu-button label="Annuleer" onClick=(action "cancel") isAlt=true}}
+    {{wu-button label="Vorige stap" onClick=(action "gotoPreviousStep") isLink=true}}
   </div>
 </div>
-<div class="u-padding--round--small u-border--light--top">
-  {{wu-button label="Voeg aanstellingsperiode toe" onClick=(action "addPeriod") isNarrow=true}}
-  {{wu-button label="Annuleer" onClick=(action "cancel") isAlt=true}}
-  {{wu-button label="Vorige stap" onClick=(action "gotoPreviousStep") isLink=true}}
-</div>
+{{#if dataIsGettingLost}}
+  {{leidinggevendenbeheer/functionaris-close-confirmation
+    annuleer=(action "annuleer")
+    bewaar=(action "bewaar")
+    dismissChanges=(action "dismissChanges")
+  }}
+{{/if}}

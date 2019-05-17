@@ -3,6 +3,7 @@ import { computed }  from '@ember/object';
 
 export default Controller.extend({
   status: null,
+  userHasRequestedToClose: false,
   
   hasUnsavedData: computed('model.start', 'model.einde', 'status', function(){
     const startHasChanged = this.model.start !== undefined;
@@ -12,6 +13,10 @@ export default Controller.extend({
     return startHasChanged || eindeHasChanged || statusHasChanged;
   }),
 
+  dataIsGettingLost: computed('hasUnsavedData', 'userHasRequestedToClose', function(){
+    return this.hasUnsavedData && this.userHasRequestedToClose;
+  }),
+
   async save() {
     await this.model.save();
   },
@@ -19,11 +24,13 @@ export default Controller.extend({
   reset() {
     this.set('status', null);
   },
+
+  exit() {
+    this.set('userHasRequestedToClose', false);
+    this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+  },
   
   actions: {
-    cancel(){
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen');
-    },
     gotoPreviousStep() {
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
     },
@@ -39,6 +46,27 @@ export default Controller.extend({
       await this.model.save();
       const bestuursfunctieId = this.model.get('bekleedt.id');
       this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
+    },
+
+    annuleer(){
+      this.set('userHasRequestedToClose', false);
+    },
+    async bewaar(){
+      await this.save();
+      this.exit();
+    },
+    async cancel(){
+      this.set('userHasRequestedToClose', true);
+      if (! this.hasUnsavedData) {
+        this.exit();
+      }
+    },
+    async confirmChanges() {
+      await this.save();
+      this.exit();
+    },
+    dismissChanges() {
+      this.exit();
     },
   }
 });
