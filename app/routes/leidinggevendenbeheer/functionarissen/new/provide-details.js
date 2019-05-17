@@ -32,5 +32,8 @@ export default Route.extend({
     controller.set('waarnemendStatus', this.waarnemendStatus);
     controller.set('defaultStatus', this.defaultStatus);
 
+    const parentController = this.controllerFor('leidinggevendenbeheer.functionarissen.new');
+    parentController.set('childController', this.controller);
+  },
   }
 });
