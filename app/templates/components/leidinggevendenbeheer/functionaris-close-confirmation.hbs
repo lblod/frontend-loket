@@ -1,0 +1,10 @@
+<div class="modal-overlay modal-overlay-save">
+  <div class="modal-dialog">
+    <h2 class="modal-dialog__title">Wil u de aangebrachte wijzigingen bewaren?</h2>
+    <div class="modal-dialog__content u-spacer">De wijzigingen zullen verloren gaan als u niet op bewaren klikt.</div>
+    {{wu-button label="Bewaar" onClick=(action bewaar)}}
+    {{wu-button label="Annuleer" onClick=(action annuleer) isAlt=true isNarrow=true}}
+    <i class="vi vi-cross vi-u-link"></i>
+    {{wu-button label="Verwerp wijzigingen" onClick=(action dismissChanges) isLink=true isNarrow=true}}
+  </div>
+</div>
