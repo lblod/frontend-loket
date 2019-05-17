@@ -37,7 +37,7 @@ export default Route.extend({
   },
 
   actions: {
-    willTransition(transition) {
+    willTransition() {
       this.controller.reset();
     },
   }
