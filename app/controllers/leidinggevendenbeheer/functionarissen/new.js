@@ -38,6 +38,7 @@ export default Controller.extend({
     },
     async bewaar(){
       await this.childController.save();
+      this.exit();
     },
     async cancel(){
       if (! await this.hasDirtyAttributes()) {
@@ -49,6 +50,7 @@ export default Controller.extend({
     },
     async confirmChanges() {
       await this.childController.save();
+      this.texit();
     },
     dismissChanges() {
       this.exit();
