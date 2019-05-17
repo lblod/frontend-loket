@@ -17,6 +17,6 @@ export default Model.extend({
   isBestuurlijkeAliasVan: belongsTo('persoon', { inverse: null }),
 
   datesAreCompatible: computed('start', 'einde', function(){
-    return this.einde > this.start;
+    return this.start && this.einde && this.einde > this.start;
   })
 });
