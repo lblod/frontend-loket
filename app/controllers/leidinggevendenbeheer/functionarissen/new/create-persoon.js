@@ -10,6 +10,9 @@ export default Controller.extend({
     },
     gotoPreviousStep() {
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
-    }
+    },
+    cancel() {
+      this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+    },
   }
 });
