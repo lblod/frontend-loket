@@ -2,7 +2,17 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   //--- variables
-  dataIsGettingLost: false,
+  childController: null,
+  userHasRequestedToClose: false,
+
+  //--- computed values
+  dataIsGettingLost: computed('childController', 'childController.hasUnsavedData','userHasRequestedToClose', function() {
+    if (! this.childController) {
+      return false;
+    } else {
+      return this.childController.hasUnsavedData && this.userHasRequestedToClose;
+    }
+  }),
 
   //--- methods
   exit() {
