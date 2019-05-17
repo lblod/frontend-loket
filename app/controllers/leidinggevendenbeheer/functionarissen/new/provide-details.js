@@ -16,6 +16,10 @@ export default Controller.extend({
     await this.model.save();
   },
 
+  reset() {
+    this.set('status', null);
+  },
+  
   actions: {
     cancel(){
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
