@@ -35,5 +35,10 @@ export default Route.extend({
     const parentController = this.controllerFor('leidinggevendenbeheer.functionarissen.new');
     parentController.set('childController', this.controller);
   },
+
+  actions: {
+    willTransition(transition) {
+      this.controller.reset();
+    },
   }
 });
