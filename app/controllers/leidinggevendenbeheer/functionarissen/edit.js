@@ -14,7 +14,7 @@ export default Controller.extend({
     this.set('dataIsGettingLost', false);
     this.transitionToRoute('leidinggevendenbeheer.functionarissen');
   },
-  
+
   async init() {
     this._super(...arguments);
     this.set('aangesteldStatus', (await this.store.query('functionaris-status-code', {
