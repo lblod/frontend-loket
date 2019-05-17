@@ -13,12 +13,13 @@ export default Controller.extend({
     gotoPreviousStep() {
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
     },
-    setStatus(statusId){
+    async setStatus(statusId){
       if (statusId == this.aangesteldStatus.id) {
         this.model.set('status', this.aangesteldStatus);
       } else if (statusId == this.waarnemendStatus.id) {
         this.model.set('status', this.waarnemendStatus);
       }
+      await this.set('status', this.model.status);
     },
     async addPeriod() {
       await this.model.save();
