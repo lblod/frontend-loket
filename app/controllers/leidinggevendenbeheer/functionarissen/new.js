@@ -36,8 +36,7 @@ export default Controller.extend({
       this.set('dataIsGettingLost', false);
     },
     async bewaar(){
-      await this.model.functionaris.save();
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+      await this.childController.save();
     },
     async cancel(){
       if (! await this.hasDirtyAttributes()) {
@@ -48,8 +47,7 @@ export default Controller.extend({
       }
     },
     async confirmChanges() {
-      await this.model.functionaris.save();
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+      await this.childController.save();
     },
     dismissChanges() {
       this.exit();
