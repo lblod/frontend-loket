@@ -27,14 +27,14 @@
     <div class="form__row">
       <div class="grid">
         <div class="col--4-12 col--6-12--s col--1-1--xs">
-          {{wu-radio-button label=model.aangesteldStatus.label value=model.aangesteldStatus.id isBlock=true
+          {{wu-radio-button label=aangesteldStatus.label value=aangesteldStatus.id isBlock=true
           onChange=(action "setStatus")
-          checked=(eq model.aangesteldStatus.id model.functionaris.status.id)}}
+          checked=(eq aangesteldStatus.id model.functionaris.status.id)}}
         </div>
         <div class="col--4-12 col--6-12--s col--1-1--xs">
-          {{wu-radio-button label=model.waarnemendStatus.label value=model.waarnemendStatus.id isBlock=true
+          {{wu-radio-button label=waarnemendStatus.label value=waarnemendStatus.id isBlock=true
           onChange=(action "setStatus")
-          checked=(eq model.waarnemendStatus.id model.functionaris.status.id)}}
+          checked=(eq waarnemendStatus.id model.functionaris.status.id)}}
         </div>
       </div>
     </div>

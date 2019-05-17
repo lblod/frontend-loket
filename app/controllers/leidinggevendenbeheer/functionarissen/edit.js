@@ -15,6 +15,15 @@ export default Controller.extend({
     this.transitionToRoute('leidinggevendenbeheer.functionarissen');
   },
   
+  async init() {
+    this._super(...arguments);
+    this.set('aangesteldStatus', (await this.store.query('functionaris-status-code', {
+      filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' }})).firstObject);
+
+    this.set('waarnemendStatus', (await this.store.query('functionaris-status-code', {
+    filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/188fc9c0-dae7-43b2-b2b3-6122c1594479' }})).firstObject);
+  },
+
   //--- actions
   actions: {
     annuleer(){
@@ -45,10 +54,10 @@ export default Controller.extend({
       this.exit();
     },
     setStatus(statusId){
-      if (statusId == this.model.aangesteldStatus.id)
-        this.model.functionaris.set('status', this.model.aangesteldStatus);
-      else if (statusId == this.model.waarnemendStatus.id)
-        this.model.functionaris.set('status', this.model.waarnemendStatus);
+      if (statusId == this.aangesteldStatus.id)
+        this.model.functionaris.set('status', this.aangesteldStatus);
+      else if (statusId == this.waarnemendStatus.id)
+        this.model.functionaris.set('status', this.waarnemendStatus);
     }
   }
 });
