@@ -32,7 +32,7 @@
         <div class="grid">
           <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
             <label class="form__label" for="straat">Straat</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Veldstraat" value=(mut model.contactinfo.adres)}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Veldstraat" value=(mut model.contactinfo.adres) disabled=true}}
           </div>
           <div class="col--2-12 col--2-12--m col--2-12--s col--6-12--xs">
             <label class="form__label" for="nummer">Nummer</label>
@@ -48,11 +48,11 @@
         <div class="grid">
           <div class="col--2-12 col--3-12--m col--3-12--s col--1-1--xs">
             <label class="form__label" for="straat">Postcode</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="9000" type="number" value=(mut model.contactinfo.postcode)}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="9000" type="number" value=(mut model.contactinfo.postcode) disabled=true}}
           </div>
           <div class="col--5-12 col--6-12--m col--8-12--s col--1-1--xs">
             <label class="form__label" for="gemeente">Gemeente of stad</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Gent" value=(mut model.contactinfo.gemeente)}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Gent" value=(mut model.contactinfo.gemeente) disabled=true}}
           </div>
         </div>
       </div>

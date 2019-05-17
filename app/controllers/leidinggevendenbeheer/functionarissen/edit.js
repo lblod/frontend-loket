@@ -34,9 +34,9 @@ export default Controller.extend({
       this.set('dataIsGettingLost', false);
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
     },
-    cancel(){
+    async cancel(){
       const f = this.model.functionaris;
-      const statusHasChanged = f.status !== this.model.initialStatus;
+      const statusHasChanged = (await f.status) !== this.model.initialStatus;
       if (!f.hasDirtyAttributes && !statusHasChanged) {
         this.exit();
       } else {
