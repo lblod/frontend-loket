@@ -16,7 +16,8 @@ export default Controller.extend({
 
   //--- methods
   exit() {
-    this.set('dataIsGettingLost', false);
+    this.set('childController', null);
+    this.set('userHasRequestedToClose', false);
     this.transitionToRoute('leidinggevendenbeheer.functionarissen');
   },
   async hasDirtyAttributes(){
