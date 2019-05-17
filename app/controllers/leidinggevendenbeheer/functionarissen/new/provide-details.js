@@ -2,8 +2,14 @@ import Controller from '@ember/controller';
 import { computed }  from '@ember/object';
 
 export default Controller.extend({
-  providedDataIsValid: computed('model.functionaris.start', 'model.functionaris.einde', function(){
-    return this.model.start && this.model.einde && this.model.datesAreCompatible;
+  status: null,
+  
+  hasUnsavedData: computed('model.start', 'model.einde', 'status', function(){
+    const startHasChanged = this.model.start !== undefined;
+    const eindeHasChanged = this.model.einde !== undefined;
+    const statusHasChanged = this.status && this.status !== this.defaultStatus;
+    
+    return startHasChanged || eindeHasChanged || statusHasChanged;
   }),
 
   async save() {
