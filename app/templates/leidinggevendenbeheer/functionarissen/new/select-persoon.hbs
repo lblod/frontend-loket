@@ -9,7 +9,8 @@
           <h2 class="h3">1. Kies een functionaris</h2>
         </div>
       </div>
-      {{leidinggevendenbeheer/persoon-search-form
+      {{mandatenbeheer/persoon-search-form
+        newPersoonRoute='leidinggevendenbeheer.functionarissen.new.create-persoon'
         onCancel=(action "cancel")
         onSelect=(action "setPersoon")}}
       <div class="u-padding--round--small u-border--light--top">
