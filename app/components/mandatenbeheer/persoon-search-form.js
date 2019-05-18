@@ -8,6 +8,7 @@ export default Component.extend({
   store: service(),
   hasSearched: false,
   pageSize: 20,
+  newPersoonRoute: 'mandatenbeheer.mandatarissen.new-person',
   noResultsAfterSearch: computed('personen', 'isQuerying', function(){
     if(this.isQuerying)
       return false;
