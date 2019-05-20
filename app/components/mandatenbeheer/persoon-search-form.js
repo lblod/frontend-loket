@@ -9,6 +9,7 @@ export default Component.extend({
   hasSearched: false,
   pageSize: 20,
   newPersoonRoute: '',
+  showDefaultHead: true,
   noResultsAfterSearch: computed('personen', 'isQuerying', function(){
     if(this.isQuerying)
       return false;
