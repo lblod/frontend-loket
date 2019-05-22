@@ -4,11 +4,20 @@ import { computed }  from '@ember/object';
 export default Controller.extend({
 
   dataIsGettingLost: false,
+  hasErrors: false,
 
   canConfirm: computed('model.functionaris.start', 'model.functionaris.einde', function(){
     return this.model.functionaris.start && this.model.functionaris.einde && this.model.functionaris.datesAreCompatible;
   }),
 
+  checkHasErrors: function(){
+    this.set('hasErrors', false);
+    if(!this.model.functionaris.start){
+      this.set('hasErrors', true);
+      return true;
+    }
+    return false;
+  },
 
   exit() {
     this.set('dataIsGettingLost', false);
@@ -32,6 +41,7 @@ export default Controller.extend({
     },
 
     async bewaar(){
+      if(this.checkHasErrors()) return;
       await this.model.functionaris.save();
       this.set('dataIsGettingLost', false);
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
@@ -48,6 +58,7 @@ export default Controller.extend({
     },
 
     async confirmChanges() {
+      if(this.checkHasErrors()) return;
       await this.model.functionaris.save();
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
     },
