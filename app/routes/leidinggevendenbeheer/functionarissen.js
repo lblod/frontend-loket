@@ -14,7 +14,7 @@ export default Route.extend(DataTableRouteMixin, {
 
   mergeQueryOptions(params) {
     this.set('bestuursFunctieId', params.bestuursfunctie_id);
-    return {'filter[bekleedt][id]': params.bestuursfunctie_id};
+    return {'filter[bekleedt][id]': params.bestuursfunctie_id, include:'is-bestuurlijke-alias-van'};
   },
 
   async setupController(controller, model) {
