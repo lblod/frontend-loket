@@ -7,6 +7,6 @@ export default Controller.extend({
     },
     setPersoon(persoon){
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.provide-details', persoon.id);
-    },
+    }
   }
 });

@@ -15,7 +15,7 @@ export default Route.extend({
     if (! await model.contactinfo) {
       const info = await this.store.createRecord('contact-punt');
       await info.save();
-      
+
       model.set('contactinfo', info);
       await model.save();
     }

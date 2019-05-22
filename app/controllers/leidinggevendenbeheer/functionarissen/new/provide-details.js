@@ -4,12 +4,12 @@ import { computed }  from '@ember/object';
 export default Controller.extend({
   status: null,
   userHasRequestedToClose: false,
-  
+
   hasUnsavedData: computed('model.start', 'model.einde', 'status', function(){
     const startHasChanged = this.model.start !== undefined;
     const eindeHasChanged = this.model.einde !== undefined;
     const statusHasChanged = this.status && this.status !== this.defaultStatus;
-    
+
     return startHasChanged || eindeHasChanged || statusHasChanged;
   }),
 
@@ -29,7 +29,7 @@ export default Controller.extend({
     this.set('userHasRequestedToClose', false);
     this.transitionToRoute('leidinggevendenbeheer.functionarissen');
   },
-  
+
   actions: {
     gotoPreviousStep() {
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
@@ -67,6 +67,6 @@ export default Controller.extend({
     },
     dismissChanges() {
       this.exit();
-    },
+    }
   }
 });

@@ -13,6 +13,6 @@ export default Controller.extend({
     },
     cancel() {
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
-    },
+    }
   }
 });
