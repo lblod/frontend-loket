@@ -27,10 +27,6 @@ export default Controller.extend({
     return this.hasUnsavedData && this.userHasRequestedToClose;
   }),
 
-  async save() {
-    await this.model.save();
-  },
-
   reset() {
     this.set('status', null);
   },
@@ -70,7 +66,7 @@ export default Controller.extend({
 
     async bewaar(){
       if(this.checkHasErrors()) return;
-      await this.save();
+      await this.model.save();
       this.exit();
     },
 
@@ -83,7 +79,7 @@ export default Controller.extend({
 
     async confirmChanges() {
       if(this.checkHasErrors()) return;
-      await this.save();
+      await this.model.save();
       this.exit();
     },
 
