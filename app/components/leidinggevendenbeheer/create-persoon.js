@@ -10,6 +10,7 @@ const femaleId = '5ab0e9b8a3b2ca7c5e000029';
 const CreatePersoon = Component.extend({
   tagName: '',
   store: service(),
+  router: service(),
   init() {
     this._super(...arguments);
     this.set('errorMessages', A());
@@ -101,7 +102,7 @@ const CreatePersoon = Component.extend({
   actions: {
     setGender(event) {
       this.set('geslacht', event.target.value);
-    }
+    },
   }
 });
 

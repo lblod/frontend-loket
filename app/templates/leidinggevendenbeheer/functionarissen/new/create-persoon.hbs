@@ -1,0 +1,15 @@
+<div class="col--1-1--s delete-me-function-edit-new container-flex--contain">
+  {{leidinggevendenbeheer/functionaris-creation-header
+    cancel=(action "cancel")
+  }}
+  <div class="u-padding--rl--small u-border--light--bottom">
+    <div class="col--7-12">
+      <h2 class="h3">1 Voeg een nieuwe functionaris toe</h2>
+    </div>
+  </div>
+  {{leidinggevendenbeheer/create-persoon
+    onCreate=(action "onCreate")
+    onCancel=(action "onCancel")
+    gotoPreviousStep=(action "gotoPreviousStep")
+  }}
+</div>
