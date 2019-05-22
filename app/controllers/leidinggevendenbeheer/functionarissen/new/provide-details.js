@@ -45,6 +45,9 @@ export default Controller.extend({
     async addPeriod() {
       await this.model.save();
       const bestuursfunctieId = this.model.get('bekleedt.id');
+      //This is a 'trick/hack' to send an event to refresh the model, which will bubble up.
+      //Until a consumer acts on it
+      this.send('reloadModelLeidinggevendenbeheerFunctionarissen');
       this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
     },
 
