@@ -34,6 +34,7 @@ export default Controller.extend({
     gotoPreviousStep() {
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
     },
+
     async setStatus(statusId){
       if (statusId == this.aangesteldStatus.id) {
         this.model.set('status', this.aangesteldStatus);
@@ -42,6 +43,7 @@ export default Controller.extend({
       }
       await this.set('status', this.model.status);
     },
+
     async addPeriod() {
       await this.model.save();
       const bestuursfunctieId = this.model.get('bekleedt.id');
@@ -54,20 +56,24 @@ export default Controller.extend({
     annuleer(){
       this.set('userHasRequestedToClose', false);
     },
+
     async bewaar(){
       await this.save();
       this.exit();
     },
+
     async cancel(){
       this.set('userHasRequestedToClose', true);
       if (! this.hasUnsavedData) {
         this.exit();
       }
     },
+
     async confirmChanges() {
       await this.save();
       this.exit();
     },
+
     dismissChanges() {
       this.exit();
     }

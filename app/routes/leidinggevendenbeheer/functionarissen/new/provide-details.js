@@ -8,7 +8,7 @@ export default Route.extend({
     const aangesteldStatus = (await this.store.query('functionaris-status-code', {
       filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' }})).firstObject;
     this.set('aangesteldStatus', aangesteldStatus);
-    
+
     const waarnemendStatus = (await this.store.query('functionaris-status-code', {
       filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/188fc9c0-dae7-43b2-b2b3-6122c1594479' }})).firstObject;
     this.set('waarnemendStatus', waarnemendStatus);
@@ -27,7 +27,7 @@ export default Route.extend({
   setupController(controller, model) {
     this._super(controller, model);
     //--- Provide the controller with default status values
-    //--- These will be used for checks in radio buttons 
+    //--- These will be used for checks in radio buttons
     controller.set('aangesteldStatus', this.aangesteldStatus);
     controller.set('waarnemendStatus', this.waarnemendStatus);
     controller.set('defaultStatus', this.defaultStatus);
@@ -39,6 +39,6 @@ export default Route.extend({
   actions: {
     willTransition() {
       this.controller.reset();
-    },
+    }
   }
 });

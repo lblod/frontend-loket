@@ -10,6 +10,6 @@ export default Route.extend({
        * This check is necessary when we are leaving the route.
        */
       initialStatus: await functionaris.status
-    }
+    };
   }
 });

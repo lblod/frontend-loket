@@ -21,9 +21,12 @@ export default Route.extend(DataTableRouteMixin, {
     this._super(controller, model);
     controller.set('bestuurseenheid', this.bestuurseenheid);
     controller.set('bestuursfunctie', await this.store.findRecord('bestuursfunctie', this.bestuursFunctieId));
+  },
+
   actions: {
     reloadModelLeidinggevendenbeheerFunctionarissen(){
       this.refresh();
     }
+
   }
 });
