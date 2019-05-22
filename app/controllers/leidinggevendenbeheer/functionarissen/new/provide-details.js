@@ -4,6 +4,16 @@ import { computed }  from '@ember/object';
 export default Controller.extend({
   status: null,
   userHasRequestedToClose: false,
+  hasErrors: false,
+
+  checkHasErrors: function(){
+    this.set('hasErrors', false);
+    if(!this.model.start){
+      this.set('hasErrors', true);
+      return true;
+    }
+    return false;
+  },
 
   hasUnsavedData: computed('model.start', 'model.einde', 'status', function(){
     const startHasChanged = this.model.start !== undefined;
@@ -45,6 +55,7 @@ export default Controller.extend({
     },
 
     async addPeriod() {
+      if(this.checkHasErrors()) return;
       await this.model.save();
       const bestuursfunctieId = this.model.get('bekleedt.id');
       //This is a 'trick/hack' to send an event to refresh the model, which will bubble up.
@@ -58,6 +69,7 @@ export default Controller.extend({
     },
 
     async bewaar(){
+      if(this.checkHasErrors()) return;
       await this.save();
       this.exit();
     },
@@ -70,6 +82,7 @@ export default Controller.extend({
     },
 
     async confirmChanges() {
+      if(this.checkHasErrors()) return;
       await this.save();
       this.exit();
     },
