@@ -2,15 +2,39 @@
   <div class="u-spacer">
     <div class="u-padding--tb--small u-border--light--bottom">
       <div class="grid">
-        <div class="col--8-12">
+        <div class="col--8-12 col--1-1--m">
           <h2 class="h5 u-spacer--tiny">{{model.rol.label}}</h2>
           <ul class="inline-list inline-list--bordered small">
-            <li><a class="link--dark" href="mailto:mailadres.be">{{model.contactinfo.email}}</a></li>
-            <li>{{model.contactinfo.telephone}}</li>
-            <li>{{model.contactinfo.adres}}</li>
+            <li>
+            	{{#if model.contactinfo.email}}
+	            	<a class="link--dark" href="mailto:{{model.contactinfo.email}}">
+			            {{model.contactinfo.email}}
+			          </a>
+			        {{else}}
+			       		<span class="text-fade">Geen mailadres</span>
+		          {{/if}}
+		        </li>
+            <li>
+            	{{#if model.contactinfo.telephone}}
+	            	<a class="link--dark" href="tel:{{model.contactinfo.telephone}}">
+			            {{model.contactinfo.telephone}}
+			          </a>
+			        {{else}}
+			       		<span class="text-fade">geen telefoonnummer</span>
+		          {{/if}}
+		        </li>
+            <li>
+            	{{#if model.contactinfo.adres}}
+			        	<span>{{model.contactinfo.adres}}</span>
+			        {{else}}
+			       		<span class="text-fade">geen adres</span>
+		          {{/if}}
+			      </li>
           </ul>
         </div>
-        {{#wu-button onClick=(action "handleEditAanstellingsperiodesClick") isNarrow=true isSmall=true}}<i class="vi vi-arrow button__icon">&nbsp;</i>Bekijk en bewerk aanstellingsperiodes{{/wu-button}}
+        <div class="col--4-12 col--1-1--m u-align-right--tablet-portrait-up">
+	        {{#wu-button onClick=(action "handleEditAanstellingsperiodesClick") isNarrow=true isSmall=true}}<i class="vi vi-arrow button__icon">&nbsp;</i>Bekijk en bewerk aanstellingsperiodes{{/wu-button}}
+	      </div>
       </div>
     </div>
   </div>

@@ -11,19 +11,47 @@
   {{#t.content as |c|}}
     {{#c.header}}
       {{th-sortable label='Naam' field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort}}
-      {{th-sortable label='Familienaam' field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort class="u-hidden-mobile"}}
+      {{th-sortable label='Familienaam' field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort}}
       {{th-sortable label='Status' field='status.label' currentSorting=sort}}
-      {{th-sortable label='Start periode' field='start' currentSorting=sort}}
+      {{th-sortable label='Start periode' field='start' currentSorting=sort class="u-hidden-mobile"}}
       {{th-sortable label='Einde periode' field='einde' currentSorting=sort class="u-hidden-mobile"}}
       <th><!-- Actions --></th>
     {{/c.header}}
+    {{#if (is-empty model)}}
+	    <tbody>
+	      <tr>
+	        <td class="u-align-center u-padding--round--small" colspan="6">
+	          <p class="u-spacer--tiny">Geen aanstellingsperiode voor de functie algemeen directeur toegevoegd.</p>
+	          <button class="button">Aanstellingsbutton (zie code)</button>
+	          {{!-- {{wu-button label=(concat "Voeg aanstellingsperiode " bestuursfunctie.rol.label " toe")
+	              onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
+	              isNarrow=true}} --}}
+	        </td>
+	      </tr>
+	    </tbody>
+	  {{/if}}
     {{#c.body as |row|}}
       <td>{{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}</td>
-      <td class="u-hidden-mobile">{{row.isBestuurlijkeAliasVan.achternaam}}</td> 
+      <td>{{row.isBestuurlijkeAliasVan.achternaam}}</td>
       <td>{{row.status.label}}</td>
-      <td class="word-break--break-word">{{moment-format (await row.start) 'DD-MM-YYYY'}}</td>
-      <td class="u-hidden-mobile">{{moment-format (await row.einde) 'DD-MM-YYYY'}}</td>
+      <td class="u-hidden-mobile word-break--break-word">
+      	{{#if row.start}}
+      		{{moment-format (await row.start) 'DD-MM-YYYY'}}
+      	{{else}}
+      		<span class="text-fade">Onbepaald</span>
+      	{{/if}}
+      </td>
+      <td class="u-hidden-mobile">
+      	{{#if row.einde}}
+      		{{moment-format (await row.einde) 'DD-MM-YYYY'}}
+      	{{else}}
+      		<span class="text-fade">Onbepaald</span>
+      	{{/if}}
+      </td>
       <td>{{#link-to 'leidinggevendenbeheer.functionarissen.edit' row.id}}Bewerk periode{{/link-to}}</td>
     {{/c.body}}
   {{/t.content}}
 {{/data-table}}
+
+
+
