@@ -16,15 +16,30 @@
           <div class="col--8-12">
             <ul class="inline-list inline-list--bordered small text-light">
               <li>
-                <p class="text-fade">{{bestuursfunctie.contactinfo.telephone}}</p>
+	            	{{#if bestuursfunctie.contactinfo.email}}
+                	{{bestuursfunctie.contactinfo.email}}
+				        {{else}}
+				       		<span class="text-fade">Geen mailadres</span>
+			          {{/if}}
               </li>
               <li>
-                <p>{{bestuursfunctie.contactinfo.email}}</p>
+	            	{{#if bestuursfunctie.contactinfo.telephone}}
+                	{{bestuursfunctie.contactinfo.telephone}}
+				        {{else}}
+				       		<span class="text-fade">geen telefoonnummer</span>
+			          {{/if}}
               </li>
               <li>
-                <p>{{bestuursfunctie.contactinfo.straat}}
+	            	{{#if bestuursfunctie.contactinfo.straat}}
+				        	<span>{{bestuursfunctie.contactinfo.straat}}</span>
+				        {{else}}
+				       		<span class="text-fade">geen adres</span>
+			          {{/if}}
+			        </li>
+			        <li>
+			          <p>
                   {{#link-to "leidinggevendenbeheer.bestuursfuncties.contact-info" bestuursfunctie.id}}
-                    <button class="button button--link button--small button--narrow u-spacer--left--small delete-me-toggle-contactdetails-edit"><i class="vi vi-edit button__icon"></i><span class="u-visually-hidden">Bewerk contactgegevens</span></button>
+                    <button class="button button--link button--small button--narrow u-spacer--left--small delete-me-toggle-contactdetails-edit"><i class="vi vi-edit button__icon"></i><span class="u-padding--left--tiny">Bewerk</span></button>
                   {{/link-to}}
                 </p>
               </li>
@@ -33,7 +48,7 @@
           <div class="col--4-12 col--1-1--xs u-align-right--tablet-portrait-up">
             {{#wu-button
                 onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
-                isNarrow=true 
+                isNarrow=true
                 isSmall=true}}<i class="vi vi-plus"></i>Voeg nieuwe aanstellingsperiode toe{{/wu-button}}
           </div>
         </div>
@@ -48,14 +63,6 @@
         filter=filter
         renderSmallTable=hasActiveChildRoute
         data-test-loket="leidinggevendenbeheer-table"}}
-      {{#if (is-empty model)}}
-        <div class="u-align-center u-padding--round--small" colspan="6">
-          <p class="u-spacer--tiny">Geen aanstellingsperiode voor de functie algemeen directeur toegevoegd.&nbsp;</p>
-          {{wu-button label=(concat "Voeg aanstellingsperiode " bestuursfunctie.rol.label " toe")
-              onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
-              isNarrow=true}}
-        </div>
-      {{/if}}
     </div>
   </div>
 {{/unless}}
