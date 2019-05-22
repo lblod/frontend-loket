@@ -15,7 +15,14 @@
       <div class="grid">
         <div class="col--4-12 col--6-12--s col--1-1--xs">
           <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
-          {{wu-datepicker classNames="date-range__datepicker datepicker" style="max-width: none; width:auto" placeholder="01-01-2019" dateFormat="DD.MM.YYYY" value=(mut model.start)}}
+          {{wu-datepicker classNames="date-range__datepicker datepicker"
+            style="max-width: none; width:auto"
+            placeholder="01-01-2019"
+            dateFormat="DD.MM.YYYY"
+            value=(mut model.start)}}
+          {{#if hasErrors}}
+            <div class="form__error">Start aanstellingsperiode is verplicht</div>
+          {{/if}}
         </div>
         <div class="col--4-12 col--6-12--s col--1-1--xs">
           <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
