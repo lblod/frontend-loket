@@ -18,6 +18,9 @@ export default Controller.extend({
 		},
 		goToAdministratievegegevens() {
 			this.transitionToRoute('administratieve-gegevens');
+		},
+		goToLeidinggevendenbeheer() {
+			this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties');
 		}
 	}
 });
