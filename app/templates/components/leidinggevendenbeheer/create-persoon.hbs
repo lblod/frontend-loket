@@ -27,7 +27,7 @@
       {{/if}}
     <label for="mandataris-geboorte">Geboortedatum</label>
     {{wu-datepicker class="input-field--block u-spacer--small" dateFormat="DD.MM.YYYY" value=(mut birthDate) minDate=minDate maxDate=maxDate}}
-    <label>Geslacht</label>
+    {{!-- <label>Geslacht</label>
     <div class="grid u-spacer--bottom--tiny">
       <div class="col--6-12">
         <label class="radio">
@@ -44,7 +44,7 @@
       {{#if geslachtError}}
         <div class="form__error">{{geslachtError}}</div>
       {{/if}}
-    </div>
+    </div> --}}
     {{#if saveError}}
       <br>
       {{#wu-alert title="Fout bij opslaan" isError=true}}
