@@ -62,6 +62,7 @@ Router.map(function() {
       this.route('edit', { path: '/:functionaris_id/edit' });
     });
   });
+  this.route('switch-login');
 });
 
 export default Router;

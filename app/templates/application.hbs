@@ -47,7 +47,8 @@
               </div>
               <div class="sidebar__footer u-align-center">
                 <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" class="button button--alt button--small button--block u-spacer--tb--tiny"><i class="vi vi-book vi-u-s"></i> Bekijk handleiding</a>
-                {{acmidm-logout class="button button--link button--small button--block"}}
+                {{#wu-button isLoading=loadingSwitch class="button--alt u-spacer--tb--tiny" isBlock=true onClick=(action 'switchUser')}}Kies een ander bestuur{{/wu-button}}
+                {{acmidm-logout class="button button--alt button--block"}}
               </div>
             </div>
           </div>
