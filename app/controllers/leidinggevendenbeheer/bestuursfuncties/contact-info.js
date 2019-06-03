@@ -34,6 +34,9 @@ export default Controller.extend({
     async dismissChanges() {
       (await this.model.contactinfo).rollbackAttributes();
       this.exit();
+    },
+    addressSelected(adressenRegister){
+
     }
   }
 });
