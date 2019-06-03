@@ -9,15 +9,15 @@
   <div class="u-spacer">
     <div class="grid">
       {{#unless isNew}}
-        <div class="col--12-12">
+        <div class="col--4-12 col--1-1--m col--1-1--s">
           <div class="description-data__label">Gewijzigd door</div>
           <div class="description-data__value u-spacer--tiny">{{inzending.lastModifier.fullName}}</div>
         </div>
-        <div class="col--6-12">
+        <div class="col--4-12 col--6-12--m col--6-12--s">
           <div class="description-data__label">Bewerkt op</div>
           <div class="description-data__value">{{moment-format inzending.modified 'DD-MM-YYYY'}}</div>
         </div>
-        <div class="col--6-12">
+        <div class="col--4-12 col--6-12--m col--6-12--s">
           <div class="description-data__label">Verstuurd op</div>
           {{#if inzending.status.isVerstuurd}}
             <div class="description-data__value">{{moment-format inzending.sentDate 'DD-MM-YYYY'}}</div>
@@ -47,7 +47,7 @@
 
     {{#if model.inzendingVoorToezicht.besluitType.id}}
       {{#unless isSent}}
-        <label class="form__label">Voeg de relevante documenten toe per link <strong>of</strong> bestand</label>
+        <label class="form__label">Voeg documenten toe per link <strong>of</strong> bestand</label>
       {{/unless}}
       <div class={{if isSent "" "is-required"}}>
         <div class="u-padding--round--small {{if hasError "alert--error" "u-background--gray-lightest"}}">
@@ -61,6 +61,7 @@
               <label class="form__label u-spacer--tb--small small">Bestanden</label>
               {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not isSent)}}
             {{/each}}
+            <div class="u-hr u-spacer"></div>
             {{#unless isSent}}
               <label class="form__label u-spacer--tb--small small"><strong>Of</strong> voeg manueel de bestanden toe</label>
               {{vo-mu-file-dropzone onFinishUpload=(action "addFile") maxFileSizeMB=1024}}
