@@ -4,6 +4,11 @@ import fetch from 'fetch';
 
 export default Component.extend({
 
+  async didReceiveAttrs(){
+    if(this.adres)
+      this.set('_address', { volledigAdres : { geografischeNaam : { spelling: this.adres } } });
+  },
+
   search: task(function* (searchData) {
     yield timeout(400);
     let result =  yield fetch(`/adressenregister/search?query=${searchData}`);
@@ -17,13 +22,24 @@ export default Component.extend({
   getDetailForOverviewItem: task(function* (overviewAddress){
     //the api returns only a 'summary', we need to fetch details.
     this.set('_address', null);
-    let result =  yield fetch(`/adressenregister/detail?uri=${overviewAddress.detail}`);
+    let result =  yield fetch(`/adressenregister/detail?url=${overviewAddress.detail}`);
     if (result.ok){
       let adresRegister = yield result.json();
       this.set('_address', adresRegister);
-      this.onSelect(adresRegister);
+      this.onSelect(this.extractRelevantInfo(adresRegister));
     }
   }),
+
+  extractRelevantInfo(adresRegister){
+    return {
+      land: null, //seriously no land?
+      gemeente: adresRegister['gemeente']['gemeentenaam']['geografischeNaam']['spelling'],
+      postcode: adresRegister['postinfo']['objectId'],
+      adres: adresRegister['volledigAdres']['geografischeNaam']['spelling'],
+      adresRegisterId: adresRegister['identificator']['objectId'],
+      adresRegisterUri: adresRegister['identificator']['id']
+    };
+  },
 
   actions: {
     async select(overviewAddress){
