@@ -17,7 +17,7 @@ export default Controller.extend({
       const returnUrl= ENV.torii.providers['acmidm-oauth2'].switchUrl;
       this.set('loadingSwitch', true);
       await this.ajax.del('/sessions/current');
-      window.location.replace(`${logoutUrl}?switch=true&clientid=${clientId}&returnurl=${encodeURIComponent(returnUrl)}`);
+      window.location.replace(`${logoutUrl}?switch=true&client_id=${clientId}&post_logout_redirect_uri=${encodeURIComponent(returnUrl)}`);
     }
   }
 });
