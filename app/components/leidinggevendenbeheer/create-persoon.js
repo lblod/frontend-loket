@@ -87,7 +87,6 @@ const CreatePersoon = Component.extend({
         gebruikteVoornaam: this.voornaam,
         achternaam: this.familienaam,
         alternatieveNaam: this.roepnaam,
-        geslacht: yield store.findRecord('geslacht-code', this.geslacht),
         identificator: yield this.loadOrCreateRijksregister.perform(),
         geboorte: yield this.loadOrCreateGeboorte.perform()
       });
@@ -108,7 +107,7 @@ const CreatePersoon = Component.extend({
 
 CreatePersoon.reopen({
   // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
-  requiredFields: [ 'geslacht', 'voornaam', 'familienaam', "rijksregisternummer" ],
+  requiredFields: [ 'voornaam', 'familienaam', "rijksregisternummer" ],
   male: maleId,
   female: femaleId
 });
