@@ -1,0 +1,13 @@
+{{#power-select
+   allowClear=allowClear
+   disabled=disabled
+   placeholder="Koningin Maria Hendrikaplein 70, Gent"
+   search=(perform search)
+   selected=_address
+   onchange=(action "select")
+   loadingMessage="Aan het laden..."
+   noMatchesMessage="Geen resultaten"
+   searchMessage="Typ om te zoeken"
+   as |address|}}
+  {{address.volledigAdres.geografischeNaam.spelling}}
+{{/power-select}}

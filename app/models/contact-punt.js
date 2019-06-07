@@ -15,5 +15,7 @@ export default Model.extend({
   email: attr(),
   telephone: attr(),
   fax: attr(),
-  website: attr()
+  website: attr(),
+  adresRegisterId: attr(),
+  adresRegisterUri: attr()
 });
