@@ -85,6 +85,6 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@lblod/ember-toezicht-form-fields": "^0.1.8"
+    "@lblod/ember-toezicht-form-fields": "^0.1.9"
   }
 }
