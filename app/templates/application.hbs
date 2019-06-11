@@ -10,19 +10,23 @@
               <div class="sidebar__header">
 								<div class="user-toggle">
 								  <nav class="text-left u-align-left">
-								    <p>Miet Claes</p>
-								    <div class="user-toggle__name">Gemeente Gent</div>
-								    <div class="popover js-popover user-toggle__toggle">
-								      <button class="vi vi-up-down-arrows vi-u-s js-popover__toggle"></button>
-								      <ul class="popover__content">
-								        <li>
-								        	{{acmidm-logout class="popover__link"}}
-								        </li>
-								        <li>
-								          <a class="popover__link" href="#">Wissel van bestuurseenheid</a>
-								        </li>
-								      </ul>
-								    </div>
+                    <p>{{currentSession._user.voornaam}} {{currentSession._user.achternaam}}</p>
+                    {{#wu-popover as |p|}}
+                      {{#p.toggle}}
+                        <div class="user-toggle__name">
+                          {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}
+                        </div>
+                        <button class="vi vi-up-down-arrows vi-u-s"></button>
+                      {{/p.toggle}}
+                      {{#p.content tagName="ul"}}
+                          <li>
+                            {{acmidm-logout tagName="a" class="popover__link"}}
+                          </li>
+                          <li>
+                            {{acmidm-switch tagName="a" class="popover__link"}}
+                          </li>
+                      {{/p.content}}
+                    {{/wu-popover}}
 								  </nav>
 								</div>
               </div>
