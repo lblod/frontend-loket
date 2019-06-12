@@ -26,6 +26,7 @@
     "@lblod/ember-acmidm-login": "^0.1.5",
     "@lblod/ember-mock-login": "^0.4.6",
     "@lblod/ember-mu-dynamic-forms": "^0.3.5",
+    "@lblod/ember-toezicht-form-fields": "^0.2.0",
     "@lblod/ember-vo-mu-file-upload": "^0.4.1",
     "@lblod/ember-vo-webuniversum": "^0.21.0",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
@@ -83,8 +84,5 @@
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
-  },
-  "dependencies": {
-    "@lblod/ember-toezicht-form-fields": "^0.1.9"
   }
 }
