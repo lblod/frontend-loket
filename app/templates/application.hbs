@@ -10,20 +10,26 @@
               <div class="sidebar__header">
 								<div class="user-toggle">
 								  <nav class="text-left u-align-left">
-                    <p>{{currentSession._user.voornaam}} {{currentSession._user.achternaam}}</p>
                     {{#wu-popover as |p|}}
                       {{#p.toggle}}
+			                  <div class="user-toggle__name--label">{{currentSession._user.voornaam}} {{currentSession._user.achternaam}}</div>
                         <div class="user-toggle__name">
                           {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}
                         </div>
-                        <button class="vi vi-up-down-arrows vi-u-s"></button>
+                        <button class="vi vi-arrow vi-u-90deg vi-u-badge vi-u-badge--xsmall vi-u-badge--neutral"></button>
                       {{/p.toggle}}
                       {{#p.content tagName="ul"}}
                           <li>
-                            {{acmidm-logout tagName="a" class="popover__link"}}
+                            {{#acmidm-switch tagName="a" class="popover__link"}}
+	                            <i class="fa fa-retweet button__icon"></i>
+	                            <span>Wissel van bestuurseenheid</span>
+                            {{/acmidm-switch}}
                           </li>
                           <li>
-                            {{acmidm-switch tagName="a" class="popover__link"}}
+                            {{#acmidm-logout tagName="a" class="popover__link"}}
+	                            <i class="button__icon fa fa-power-off"></i>
+                            	<span>Meld u af</span>
+                            {{/acmidm-logout}}
                           </li>
                       {{/p.content}}
                     {{/wu-popover}}
