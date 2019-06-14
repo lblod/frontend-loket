@@ -1,39 +1,51 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  //--- variables
   dataIsGettingLost: false,
-  
-  //--- methods
+  newAddressData: null,
+
   exit() {
+    this.set('newAdressData', null);
     this.set('dataIsGettingLost', false);
     this.transitionToRoute('leidinggevendenbeheer.functionarissen', this.model.id);
   },
-  
-  //--- actions
+
+  async saveData(){
+    if(this.newAddressData){
+      (await this.model.contactinfo).setProperties(this.newAddressData);
+    }
+    await (await this.model.contactinfo).save();
+    await this.model.save();
+  },
+
+  hasUnsavedData(){
+    return this.model.get('contactinfo.hasDirtyAttributes') || this.newAddressData;
+  },
+
   actions: {
-    async annuleer() {
+    annuleer() {
       this.set('dataIsGettingLost', false);
     },
-    async bewaar() {
-      await this.model.save();
+
+    async save() {
+      await this.saveData();
       this.exit();
     },
-    cancel() {
-      if (! this.model.get('contactinfo.hasDirtyAttributes'))
-      this.exit();
+
+    cancel(){
+      if (!this.hasUnsavedData()) this.exit();
       else {
         this.set('dataIsGettingLost', true);
       }
     },
-    async confirmChanges() {
-      await (await this.model.contactinfo).save();
-      await this.model.save();
-      this.exit();
-    },
+
     async dismissChanges() {
       (await this.model.contactinfo).rollbackAttributes();
       this.exit();
+    },
+
+    addressSelected(addressData){
+      this.set('newAddressData', addressData);
     }
   }
 });
