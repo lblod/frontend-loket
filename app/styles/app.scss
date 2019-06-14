@@ -4,7 +4,13 @@
 
 @import 'document-status-pills';
 @import 'generated-forms';
+@import 'user-toggle';
 
 .data-table__actions { // reformat
   padding: 0;
+}
+
+.loket-onderdeel__header .h3,
+.loket-onderdeel__header .h4 {
+	font-weight: 400;
 }
