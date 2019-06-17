@@ -5,7 +5,7 @@ export default Controller.extend({
     cancel(){
       this.transitionToRoute('leidinggevendenbeheer.functionarissen');
     },
-    setPersoon(persoon){
+    selectPersoon(persoon){
       this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.provide-details', persoon.id);
     }
   }

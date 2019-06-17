@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  setPersoon(persoon){
+  selectPersoon(persoon){
     this.transitionToRoute('mandatenbeheer.mandatarissen.edit', persoon.get('id'));
   },
   actions: {
