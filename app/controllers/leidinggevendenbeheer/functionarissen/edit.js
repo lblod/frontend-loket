@@ -6,10 +6,6 @@ export default Controller.extend({
   dataIsGettingLost: false,
   hasErrors: false,
 
-  canConfirm: computed('model.functionaris.start', 'model.functionaris.einde', function(){
-    return this.model.functionaris.start && this.model.functionaris.einde && this.model.functionaris.datesAreCompatible;
-  }),
-
   checkHasErrors: function(){
     this.set('hasErrors', false);
     if(!this.model.functionaris.start){
