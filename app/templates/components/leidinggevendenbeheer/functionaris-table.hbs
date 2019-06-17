@@ -28,14 +28,14 @@
         <td>{{row.status.label}}</td>
         <td class="u-hidden-mobile word-break--break-word">
           {{#if row.start}}
-            {{moment-format (await row.start) 'DD-MM-YYYY'}}
+            {{moment-format row.start 'DD-MM-YYYY'}}
           {{else}}
             <span class="text-fade">Onbepaald</span>
           {{/if}}
         </td>
         <td class="u-hidden-mobile">
           {{#if row.einde}}
-            {{moment-format (await row.einde) 'DD-MM-YYYY'}}
+            {{moment-format row.einde 'DD-MM-YYYY'}}
           {{else}}
             <span class="text-fade">Onbepaald</span>
           {{/if}}
