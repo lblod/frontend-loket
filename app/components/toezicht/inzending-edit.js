@@ -26,16 +26,16 @@ export default Component.extend({
     return this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),
 
-  canSave: computed('model.inzendingVoorToezicht.status.id', function(){
-    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
+  canSave: computed('isSent', function(){
+    return !this.isSent;
   }),
 
   canDelete: computed('model.isNew', 'model.inzendingVoorToezicht.status.id', function(){
     return !this.get('model.isNew') && !this.model.get('inzendingVoorToezicht.status.isVerstuurd');
   }),
 
-  canSend: computed('model.inzendingVoorToezicht.status.id', 'files.[]', function(){
-    return !this.model.get('inzendingVoorToezicht.status.isVerstuurd') && (this.get('files.length') || !this.allEmptyFileAddresses);
+  canSend: computed('model.inzendingVoorToezicht.status.id', 'files.[]', 'allEmptyFileAddresses', function(){
+    return !this.isSent && (this.get('files.length') || !this.allEmptyFileAddresses);
   }),
 
   isWorking: computed('save.isRunning','delete.isRunning','send.isRunning', function(){
@@ -75,6 +75,8 @@ export default Component.extend({
     inzending.set('modified', new Date());
     (await inzending.get('files')).setObjects(this.files);
 
+    // TODO add stricter validation on URLs
+    this.fileAddresses.forEach(a => a.set('address', a.address && a.address.trim()));
     await Promise.all(this.fileAddresses.map(a => a.save()));
     (await inzending.get('fileAddresses')).setObjects(this.fileAddresses);
 
@@ -117,14 +119,14 @@ export default Component.extend({
 
   send: task(function* (){
     try {
-      yield this.dynamicForm.save();
+      yield this.save.perform();
       const statusSent = (yield this.store.query('document-status', {
           filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
       })).firstObject;
-      let inzending = yield this.model.get('inzendingVoorToezicht');
+      const inzending = yield this.model.get('inzendingVoorToezicht');
       inzending.set('status', statusSent);
       inzending.set('sentDate', new Date());
-      yield this.updateInzending();
+      yield inzending.save();
     }
     catch(e){
       this.set('errorMsg', `Fout bij het verzenden: ${e.message}`);
@@ -170,7 +172,6 @@ export default Component.extend({
       this.flushErrors();
       await this.validate();
       if(this.hasError) return;
-      await this.save.perform();
       await this.send.perform();
       if(this.hasError) return;
       this.router.transitionTo('toezicht.inzendingen.index');
