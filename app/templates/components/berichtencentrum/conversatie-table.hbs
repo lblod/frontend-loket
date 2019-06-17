@@ -11,7 +11,7 @@
   {{#t.content as |c|}}
     {{#c.header}}
       {{th-sortable label='Betreft' field='betreft' currentSorting=sort}}
-      {{th-sortable label='Type communicatie' field='typeCommunicatie' currentSorting=sort}}
+      {{th-sortable label='Type communicatie' field='currentTypeCommunicatie' currentSorting=sort}}
       {{th-sortable label='Dossier-nummer' field='dossiernummer' currentSorting=sort class="u-hidden-mobile"}}
       {{#unless renderSmallTable}}
         {{!-- {{th-sortable label='Reactietermijn' field='reactietermijn' currentSorting=sort class="u-visible--desktop-up"}} --}}
@@ -22,7 +22,7 @@
     {{/c.header}}
     {{#c.body data-test-loket="berichtencentrum-body" as |row|}}
       <td>{{row.betreft}}</td>
-      <td>{{row.typeCommunicatie}}</td>
+      <td>{{row.currentTypeCommunicatie}}</td>
       <td class="u-hidden-mobile word-break--break-word">{{row.dossiernummer}}</td>
       {{#unless renderSmallTable}}
 {{!--         <td class="u-visible--desktop-up">
