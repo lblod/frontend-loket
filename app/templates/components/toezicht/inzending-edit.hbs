@@ -97,18 +97,10 @@
         }}Verstuur
           <span class="button__info button__info--below">naar Vlaamse Overheid</span>
         {{/wu-link-button}}
-      {{else}}
-        {{#unless isSent}}
-{{!--           <div class="alert alert--tiny alert--success">
-            <div class="alert__icon" aria-hidden="true"></div>
-            <div class="alert__content">
-              <div class="alert__message">Gelieve per besluit of besluitenlijst één dossier aan te maken.</div>
-            </div>
-          </div> --}}
-          {{#wu-link-button class="button u-spacer--tiny" onClick=(action "send")}}Verstuur
-            <span class="button__info button__info--below">naar Vlaamse Overheid</span>
-          {{/wu-link-button}}
-        {{/unless}}
+      {{else if (not isSent)}}
+        {{#wu-link-button class="button u-spacer--tiny" onClick=(action "send") disabled=true}}Verstuur
+          <span class="button__info button__info--below">naar Vlaamse Overheid</span>
+        {{/wu-link-button}}
       {{/if}}
 
       {{#if isNew}}
