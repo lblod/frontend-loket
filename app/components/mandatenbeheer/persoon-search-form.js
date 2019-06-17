@@ -8,6 +8,8 @@ export default Component.extend({
   store: service(),
   hasSearched: false,
   pageSize: 20,
+  newPersoonRoute: '',
+  showDefaultHead: true,
   noResultsAfterSearch: computed('personen', 'isQuerying', function(){
     if(this.isQuerying)
       return false;

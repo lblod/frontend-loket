@@ -120,6 +120,37 @@
 	        </div>
 	      </div>
       {{/if}}
+
+      {{#if currentSession.canAccessLeidinggevenden}}
+	      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs u-hidden">
+	        <div class="info-tile info-tile--m info-tile--center">
+	          <div>
+	            <div class="info-tile__header">
+	              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+	                <i class="badge__icon vi vi-addressbook" aria-hidden="true"></i>
+	              </div>
+	              <div class="info-tile__header__wrapper">
+	                <h3 class="info-tile__header__title">Leidinggevendenbeheer</h3>
+	              </div>
+	            </div>
+	            <div class="info-tile__content">
+	              <p>Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+	            </div>
+	            <footer class="info-tile__footer">
+	              <p class="u-spacer--tiny">
+	                {{wu-button class="button--narrow" label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
+	              </p>
+{{!-- 	              <p> Nog geen handleiding of specifieke pagina beschikbaar WACHTEN OP PIETER
+	                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank">Meer informatie</a>
+	                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
+	              </p> --}}
+	            </footer>
+	          </div>
+	        </div>
+	      </div>
+      {{/if}}
+
+
     </div>
     <div class="grid">
       <div class="col--10-12 col--6-12--xl col--8-12--l col--10-12--m col--10-12--s col--1-1--xs">

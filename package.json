@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.15.2",
+  "version": "0.17.1",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -27,7 +27,7 @@
     "@lblod/ember-mock-login": "^0.4.6",
     "@lblod/ember-mu-dynamic-forms": "^0.3.5",
     "@lblod/ember-vo-mu-file-upload": "^0.4.1",
-    "@lblod/ember-vo-webuniversum": "^0.20.5",
+    "@lblod/ember-vo-webuniversum": "^0.21.0",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
     "@lblod/ember-vo-webuniversum-widget": "^0.1.4",
     "broccoli-asset-rev": "^2.7.0",
@@ -61,6 +61,7 @@
     "ember-concurrency": "^0.9.0",
     "ember-data": "~3.8.0",
     "ember-export-application-global": "^2.0.0",
+    "ember-fetch": "^6.5.1",
     "ember-inputmask": "^0.6.7",
     "ember-load-initializers": "^1.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
@@ -84,6 +85,6 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "@lblod/ember-toezicht-form-fields": "^0.1.8"
+    "@lblod/ember-toezicht-form-fields": "^0.1.9"
   }
 }

@@ -1,15 +1,17 @@
 <div class="u-padding--trl--small u-border--light--bottom">
-  <div class="grid">
-    <div class="col--7-12">
-      <h2 class="h3">Voeg mandataris toe uit de lijst van verkozenen</h2>
+  {{#if showDefaultHead}}
+    <div class="grid">
+      <div class="col--7-12">
+        <h2 class="h3">Voeg mandataris toe uit de lijst van verkozenen</h2>
+      </div>
+      <div class="col--5-12 u-align--right">
+        {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
+          <span class="u-visually-hidden">Venster sluiten</span>
+        {{/link-to}}
+        <p class="small u-align-right u-spacer--top">{{#link-to 'mandatenbeheer.mandatarissen.new-person'}}<button class="button button--narrow button--small button--alt">Voeg iemand buiten de lijst toe</button>{{/link-to}}</p>
+      </div>
     </div>
-    <div class="col--5-12 u-align--right">
-      {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
-        <span class="u-visually-hidden">Venster sluiten</span>
-      {{/link-to}}
-      <p class="small u-align-right u-spacer--top">{{#link-to 'mandatenbeheer.mandatarissen.new-person'}}<button class="button button--narrow button--small button--alt">Voeg iemand buiten de lijst toe</button>{{/link-to}}</p>
-    </div>
-  </div>
+  {{/if}}
   <div class="u-spacer--bottom--small">
     {{!-- <h3 class="h4 sans-serif u-spacer--bottom--tiny">Zoek een persoon in de lijst</h3> --}}
     <div class="form__row">
@@ -42,27 +44,25 @@
     {{wu-alert message="Fout bij het zoeken, gelieve opnieuw te proberen" onClick=(action 'toggleError') isError=error button="OK"}}
   {{/if}}
 
-  {{#unless hasSearched}}
-  <div class="mandate-new-info">
-    <p class="text-fade u-spacer--round--tiny">Zoek een persoon uit de lijst van verkozenen op naam of op rijksregisternummer,<br>of {{#link-to 'mandatenbeheer.mandatarissen.new-person'}}voeg een nieuwe persoon toe{{/link-to}} buiten de lijst.</p>
-  </div>
-  {{/unless}}
-
   {{#if noResultsAfterSearch}}
-    <div class="mandate-new-unexisting-step-1">
-      <h2 class="h4 u-spacer">De zoektermen "{{searchTerms}}" leverden geen resultaten&nbsp;op.</h2>
-      <p>Zorg dat de naam en/of het rijksregisternummer correct is of
-        {{#link-to 'mandatenbeheer.mandatarissen.new-person'}}voeg een nieuwe persoon toe{{/link-to}} buiten de lijst.
-        <!-- .toggle-mandate-new-unexisting-step-1-->
-      </p>
-    </div>
+  <div class="u-border--light--bottom u-padding--bottom--small u-spacer">
+		<div class="grid">
+		  <div class="col--6-12">
+		    <div class="description-data__value">"{{searchTerms}}" bestaat mogelijk nog niet.</div>
+		    <div class="description-data__label">Kijk uw zoekopdracht na of voeg een nieuwe functionaris toe.</div>
+		  </div>
+		  <div class="col--6-12 u-align--right">
+		     {{#link-to newPersoonRoute class="button button--alt button--narrow"}}Voeg een nieuwe functionaris toe{{/link-to}}
+		  </div>
+		</div>
+	</div>
   {{/if}}
   {{#if isQuerying}}
     <div class="loader-wrapper">
       <div class="loader"> </div>
     </div>
   {{else}}
-    <div class="mandate-new-found">
+    <div>
       {{#each personen as |persoon|}}
         {{mandatenbeheer/persoon-search-result
           persoon=persoon
@@ -82,7 +82,20 @@
         }}
       {{/if}}
     </div>
+		{{#if hasSearched}}
+  		{{#unless noResultsAfterSearch}}
+  			<p class="text-fade small u-spacer--top">Komt het zoekresultaat niet overeen met wat u zocht? Kijk uw zoekopdracht na of {{#link-to newPersoonRoute}}voeg een nieuwe functionaris toe{{/link-to}}.</p>
+  		{{/unless}}
+  	{{/if}}
+
   {{/if}}
+
+  {{#unless hasSearched}}
+	  <div class="mandate-new-info">
+	    <p class="text-fade u-spacer--round--tiny">Zoek een bestaande persoon op naam of op rijksregisternummer,<br>of {{#link-to newPersoonRoute}}voeg een nieuwe functionaris toe{{/link-to}}.</p>
+	  </div>
+  {{/unless}}
+
 </div>
 <div class="u-padding--round--small u-border--light--top">
   {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }} Annuleer {{/wu-button}}

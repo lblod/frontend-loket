@@ -45,6 +45,7 @@ module.exports = function(environment) {
           baseUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/auth',
           scope: 'openid rrn vo profile abb_loketLB',
           redirectUri: 'https://loket.lblod.info/authorization/callback',
+          switchUrl: 'https://loket.lblod.info/switch-login',
           logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout'
         }
       }
@@ -81,6 +82,7 @@ module.exports = function(environment) {
   if (process.env.DEPLOY_ENV === 'production') {
     ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '90a39574-e986-4007-84f2-becf6d9eb481';
     ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/auth';
+    ENV['torii']['providers']['acmidm-oauth2']['switchUrl'] = 'https://loket.lokaalbestuur.vlaanderen.be/switch-login';
     ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://loket.lokaalbestuur.vlaanderen.be/authorization/callback';
     ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/logout';
     ENV['vo-webuniversum']['header'] = '//widgets.vlaanderen.be/widget/live/f91ec2eea9de4de399ef3e0f19db8c58';

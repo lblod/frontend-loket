@@ -6,7 +6,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
   currentSession: service(),
 
   beforeModel() {
-    if (!this.currentSession.canAccessMandaat)
+    if (!this.currentSession.canAccessLeidinggevenden)
       this.transitionTo('index');
   }
+
 });

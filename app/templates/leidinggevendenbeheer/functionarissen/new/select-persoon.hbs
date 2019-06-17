@@ -1,0 +1,18 @@
+<div class="col--1-1--s delete-me-function-edit-new container-flex--contain">
+  <div class="container-flex--contain">
+      {{leidinggevendenbeheer/functionaris-creation-header
+        cancel=(action "cancel")
+      }}
+      <div class="u-padding--rl--small u-border--light--bottom">
+        <div class="col--7-12">
+          <h2 class="h3">1. Kies een functionaris</h2>
+        </div>
+      </div>
+      {{mandatenbeheer/persoon-search-form
+        newPersoonRoute='leidinggevendenbeheer.functionarissen.new.create-persoon'
+        showDefaultHead=false
+        onCancel=(action "cancel")
+        onSelect=(action "setPersoon")
+        class="col--1-1--s mandate-edit-new container-flex--contain"}}
+  </div>
+</div>

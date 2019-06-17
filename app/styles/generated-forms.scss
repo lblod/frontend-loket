@@ -126,6 +126,11 @@
 .form__row--date {
   width: 49%;
   display: inline-block;
+
+  .is-required:after {
+  	position: relative;
+  	top: 0.5rem;
+  }
 }
 
 /* temporary fix to make sure checkbox is aligned correctly */

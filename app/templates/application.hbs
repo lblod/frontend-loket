@@ -30,19 +30,20 @@
                         <li class="side-navigation__item">
                           {{#link-to "mandatenbeheer.mandatarissen"}}Mandatenbeheer{{/link-to}}
                         </li>
-                        <!-- Disable administratieve gegevens
-                             <li class="side-navigation__item">
-                             {{#link-to "administratieve-gegevens.index"}}Administratieve<br>gegevens{{/link-to}}
-                             </li>
-                           -->
+                      {{/if}}
+                      {{#if currentSession.canAccessLeidinggevenden}}
+                        <li class="side-navigation__item u-hidden">
+                          {{#link-to "leidinggevendenbeheer.bestuursfuncties"}}Leidinggevendenbeheer{{/link-to}}
+                        </li>
                       {{/if}}
                     </ul>
                   </div>
                 </nav>
               </div>
               <div class="sidebar__footer u-align-center">
-              	<a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" class="button button--alt button--small button--block u-spacer--tb--tiny"><i class="vi vi-book vi-u-s"></i> Bekijk handleiding</a>
-              	{{acmidm-logout class="button button--link button--small button--block"}}
+                <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" class="button button--alt button--small button--block u-spacer--tb--tiny"><i class="vi vi-book vi-u-s"></i> Bekijk handleiding</a>
+                <!-- {{#wu-button isLoading=loadingSwitch class="button--alt u-spacer--tb--tiny" isBlock=true onClick=(action 'switchUser')}}Kies een ander bestuur{{/wu-button}} -->
+                {{acmidm-logout class="button button--alt button--block"}}
               </div>
             </div>
           </div>

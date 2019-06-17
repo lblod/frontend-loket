@@ -74,6 +74,7 @@ const CreatePersoon = Component.extend({
     });
     if (! this.isValidRijksRegister) {
       this.set('rijksregisternummerError', 'rijksregisternummer is niet geldig.');
+      this.set('hasError', true);
     }
     if (this.hasError)
       return;
