@@ -7,19 +7,9 @@ export default Controller.extend({
 
   page: 0,
   size: 20,
-  showPreferences: false,
 
   hasActiveChildRoute: computed('router.currentRouteName', function() {
     return this.get('router.currentRouteName').startsWith('leidinggevendenbeheer.bestuursfuncties.')
         && this.get('router.currentRouteName') != 'leidinggevendenbeheer.bestuursfuncties.index';
-  }),
-
-  actions: {
-    showPreferences() {
-      this.set('showPreferences', true);
-    },
-    hidePreferences() {
-      this.set('showPreferences', false);
-    }
-  }
+  })
 });
