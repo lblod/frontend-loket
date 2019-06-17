@@ -15,7 +15,6 @@ export default Controller.extend({
       (await this.model.contactinfo).setProperties(this.newAddressData);
     }
     await (await this.model.contactinfo).save();
-    await this.model.save();
   },
 
   hasUnsavedData(){
