@@ -17,5 +17,11 @@ export default Route.extend({
     }
 
     return model;
+  },
+
+  actions: {
+    willTransition() {
+      this.controller.reset();
+    }
   }
 });

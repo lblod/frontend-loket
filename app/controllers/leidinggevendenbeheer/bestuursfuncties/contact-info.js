@@ -1,15 +1,23 @@
 import Controller from '@ember/controller';
+import { computed }  from '@ember/object';
 
 export default Controller.extend({
-  dataIsGettingLost: false,
   newAddressData: null,
-
+  dataIsGettingLost: false,
+  
   exit() {
-    this.set('newAdressData', null);
-    this.set('dataIsGettingLost', false);
     this.transitionToRoute('leidinggevendenbeheer.functionarissen', this.model.id);
   },
 
+  /**
+   * This method will do the housekeeping
+   * It will reset any any unneeded internal state of the controller
+   */
+  reset() {
+    this.set('newAdressData', null);
+    this.set('dataIsGettingLost', false);
+  },
+  
   async saveData(){
     if(this.newAddressData){
       (await this.model.contactinfo).setProperties(this.newAddressData);
@@ -17,28 +25,33 @@ export default Controller.extend({
     await (await this.model.contactinfo).save();
   },
 
-  hasUnsavedData(){
-    return this.model.get('contactinfo.hasDirtyAttributes') || this.newAddressData;
-  },
-
   actions: {
-    annuleer() {
-      this.set('dataIsGettingLost', false);
-    },
-
-    async save() {
+    /**
+     * This action is called for saving to the data store
+     * and navigating back to the bestuurfuncties list.
+     * It is triggered with either the 'Bewaar contactgegeven' button in the main UI
+     * or the 'Bewaar' button in the close confirmation dialog
+     */
+    async bewaar() {
       await this.saveData();
       this.exit();
     },
 
-    cancel(){
-      if (!this.hasUnsavedData()) this.exit();
-      else {
-        this.set('dataIsGettingLost', true);
-      }
+    /**
+     * This action is called when the close button on the top right side 
+     * of the UI is clicked
+     */
+    async gentleCancel(){
+      this.set('dataIsGettingLost', (await this.model.contactinfo).hasDirtyAttributes || this.newAddressData);
+      if (! this.dataIsGettingLost)
+        this.exit();
     },
 
-    async dismissChanges() {
+    /**
+     * This action is called when the 'Verwerp wijzigingen' button is clicked
+     * either in the main UI or in the close confirmation dialog
+     */
+    async immediateCancel() {
       (await this.model.contactinfo).rollbackAttributes();
       this.exit();
     },
