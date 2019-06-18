@@ -14,7 +14,7 @@
     class="container-flex--scroll u-padding--round--small"
   }}
   <div class="u-padding--round--small u-border--light--top">
-    {{wu-button label="Voeg aanstellingsperiode toe" onClick=(action "addPeriod") isNarrow=true}}
+    {{wu-button label="Voeg aanstellingsperiode toe" onClick=(action "bewaar") isNarrow=true}}
     {{wu-button label="Annuleer" onClick=(action "immediateCancel") isAlt=true}}
     {{wu-button label="Vorige stap" onClick=(action "gotoPreviousStep") isLink=true}}
   </div>

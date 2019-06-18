@@ -53,9 +53,10 @@ export default Controller.extend({
     /**
      * This action is called for saving to the data store
      * and navigating back to the list of functionarissen.
-     * It is triggered with the 'Voeg aanstellingsperiode toe' button in the main UI
+     * It is triggered with either the 'Voeg aanstellingsperiode toe' button in the main UI
+     * or the 'Bewaar' button in the close confirmation dialog
      */
-    async addPeriod() {
+    async bewaar() {
       this.set('userHasRequestedToSave', true);
       if(! this.hasErrors) {
         await this.model.save();
@@ -64,17 +65,6 @@ export default Controller.extend({
         //Until a consumer acts on it
         this.send('reloadModelLeidinggevendenbeheerFunctionarissen');
         this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
-      }
-    },
-
-    /**
-     * This action is called when 'Bewaar' button is clicked
-     * in the confirmation dialog
-     */
-    async bewaar(){
-      if(! this.hasErrors) {
-        await this.model.save();
-        this.exit();
       }
     },
 
