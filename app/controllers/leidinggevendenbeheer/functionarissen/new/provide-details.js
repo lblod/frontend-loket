@@ -53,7 +53,7 @@ export default Controller.extend({
     /**
      * This action is called for saving to the data store
      * and navigating back to the list of functionarissen.
-     * It is triggered with the 'Voeg aanstellingsperiode to' button in the main UI
+     * It is triggered with the 'Voeg aanstellingsperiode toe' button in the main UI
      */
     async addPeriod() {
       this.set('userHasRequestedToSave', true);
