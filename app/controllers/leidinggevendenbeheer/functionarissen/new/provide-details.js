@@ -56,6 +56,7 @@ export default Controller.extend({
      * It is triggered with the 'Voeg aanstellingsperiode to' button in the main UI
      */
     async addPeriod() {
+      this.set('userHasRequestedToSave', true);
       if(! this.hasErrors) {
         await this.model.save();
         const bestuursfunctieId = this.model.get('bekleedt.id');
@@ -63,8 +64,6 @@ export default Controller.extend({
         //Until a consumer acts on it
         this.send('reloadModelLeidinggevendenbeheerFunctionarissen');
         this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
-      } else {
-        this.set('userHasRequestedToSave', true);
       }
     },
 
