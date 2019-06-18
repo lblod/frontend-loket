@@ -11,5 +11,11 @@ export default Route.extend({
        */
       initialStatus: await functionaris.status
     };
+  },
+
+  actions: {
+    willTransition() {
+      this.controller.reset();
+    }
   }
 });
