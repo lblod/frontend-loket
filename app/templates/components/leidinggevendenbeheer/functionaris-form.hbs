@@ -1,0 +1,44 @@
+{{leidinggevendenbeheer/persoon-card persoon=functionaris.isBestuurlijkeAliasVan hideHeader=true}}
+<h4 class="h5 u-spacer--tiny">Functie</h4>
+<div class="form__row">
+  <div class="grid">
+    <div class="col--4-12 col--6-12--s col--1-1--xs">
+      <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
+      {{wu-datepicker
+        value=(mut functionaris.start)
+        placeholder="01-01-2019"
+        dateFormat="DD.MM.YYYY"
+        classNames="date-range__datepicker datepicker"
+        style="max-width: none; width:auto"
+      }}
+      {{#if hasErrors}}
+        {{#if shallDisplayErrors}}
+          <div class="form__error">Start aanstellingsperiode is verplicht</div>
+        {{/if}}
+      {{/if}}
+    </div>
+    <div class="col--4-12 col--6-12--s col--1-1--xs">
+      <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
+      {{wu-datepicker
+        value=(mut functionaris.einde)
+        placeholder="31-12-2019"
+        dateFormat="DD.MM.YYYY"
+        classNames="date-range__datepicker datepicker"
+      }}
+    </div>
+  </div>
+</div>
+<div class="form__row">
+  <div class="grid">
+    <div class="col--4-12 col--6-12--s col--1-1--xs">
+      {{wu-radio-button label=aangesteldStatus.label value=aangesteldStatus.id isBlock=true
+      onChange=(action "setStatus")
+      checked=(eq aangesteldStatus.id functionaris.status.id)}}
+    </div>
+    <div class="col--4-12 col--6-12--s col--1-1--xs">
+      {{wu-radio-button label=waarnemendStatus.label value=waarnemendStatus.id isBlock=true
+      onChange=(action "setStatus")
+      checked=(eq waarnemendStatus.id functionaris.status.id)}}
+    </div>
+  </div>
+</div>
