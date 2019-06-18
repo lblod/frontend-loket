@@ -22,7 +22,7 @@
     {{/c.header}}
     {{#c.body data-test-loket="berichtencentrum-body" as |row|}}
       <td>{{row.betreft}}</td>
-      <td>{{row.currentTypeCommunicatie}}</td>
+      <td>{{row.laatsteBericht.typeCommunicatie}}</td>
       <td class="u-hidden-mobile word-break--break-word">{{row.dossiernummer}}</td>
       {{#unless renderSmallTable}}
 {{!--         <td class="u-visible--desktop-up">
