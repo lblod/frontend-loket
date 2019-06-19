@@ -37,7 +37,7 @@ export default Controller.extend({
   }),
 
   exit() {
-    this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
   },
 
   /**
@@ -60,7 +60,7 @@ export default Controller.extend({
       this.set('userHasRequestedToSave', true);
       if(! this.hasErrors) {
         await this.model.save();
-        this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+        this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
       }
     },
 
@@ -77,7 +77,7 @@ export default Controller.extend({
     },
 
     gotoPreviousStep() {
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.select-persoon');
     },
 
     /**

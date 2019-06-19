@@ -3,7 +3,7 @@ import Controller from '@ember/controller';
 export default Controller.extend({
   actions: {
     onCreate(persoon) {
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.provide-details', persoon.id);
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.provide-details', persoon.id);
     },
     /**
      * This is called when the 'Annuleer' button is clicked
@@ -11,10 +11,10 @@ export default Controller.extend({
      * or in the (to be) confirmation dialog
      */
     immediateCancel() {
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
     },
     gotoPreviousStep() {
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen.new.select-persoon');
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.select-persoon');
     },
     /**
      * This is called when the x button is clicked
@@ -24,7 +24,7 @@ export default Controller.extend({
      * However, we currently don't show any. TODO: Discuss with the designer.
      */
     gentleCancel() {
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen');
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
     }
   }
 });

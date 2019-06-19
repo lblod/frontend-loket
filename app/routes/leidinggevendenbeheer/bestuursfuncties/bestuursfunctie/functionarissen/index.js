@@ -14,6 +14,6 @@ export default Route.extend(DataTableRouteMixin, {
   setupController(controller, model) {
     this._super(controller, model);
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
-    controller.set('bestuursfunctie', this.modelFor('leidinggevendenbeheer.functionarissen'));
+    controller.set('bestuursfunctie', this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'));
   }
 });

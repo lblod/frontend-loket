@@ -7,7 +7,7 @@ export default Component.extend({
 
   actions: {
     handleEditAanstellingsperiodesClick() {
-      this.router.transitionTo('leidinggevendenbeheer.functionarissen', this.model.id);
+      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.model.id);
     }
   }
 });

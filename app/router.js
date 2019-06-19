@@ -49,17 +49,17 @@ Router.map(function() {
   });
   this.route('leidinggevendenbeheer', function() {
     this.route('bestuursfuncties', function() {
-      this.route('contact-info', {
-        path: '/:id/contact-info/'
+      this.route('bestuursfunctie', { path: '/:bestuursfunctie_id' }, function() {
+        this.route('contact-info', { path: '/:id/contact-info' });
+        this.route('functionarissen', function() {
+          this.route('new', function() {
+            this.route('select-persoon');
+            this.route('provide-details', { path: '/:persoon_id/provide-details' });
+            this.route('create-persoon');
+          });
+          this.route('edit', { path: '/:functionaris_id/edit' });
+        });
       });
-    });
-    this.route('functionarissen', { path: '/:bestuursfunctie_id/functionarissen' }, function() {
-      this.route('new', function() {
-        this.route('select-persoon');
-        this.route('provide-details',  { path: '/:persoon_id/provide-details' });
-        this.route('create-persoon');
-      });
-      this.route('edit', { path: '/:functionaris_id/edit' });
     });
   });
   this.route('switch-login');

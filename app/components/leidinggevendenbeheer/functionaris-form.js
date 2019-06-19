@@ -38,7 +38,7 @@ export default Component.extend({
       //This is a 'trick/hack' to send an event to refresh the model, which will bubble up.
       //Until a consumer acts on it
       this.send('reloadModelLeidinggevendenbeheerFunctionarissen');
-      this.transitionToRoute('leidinggevendenbeheer.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
     },
   }
 });

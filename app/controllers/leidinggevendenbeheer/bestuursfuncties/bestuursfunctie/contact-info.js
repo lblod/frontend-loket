@@ -6,7 +6,7 @@ export default Controller.extend({
   dataIsGettingLost: false,
   
   exit() {
-    this.transitionToRoute('leidinggevendenbeheer.functionarissen', this.bestuursfunctie.id);
+    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
   },
 
   /**
