@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 export default Route.extend({
 
   async model(params) {
-    const controller = this.controllerFor('leidinggevendenbeheer.bestuursfuncties');
+    const controller = this.controllerFor('leidinggevendenbeheer.bestuursfuncties.contact-info');
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
 
     const model = await this.store.findRecord('bestuursfunctie', params.id);
