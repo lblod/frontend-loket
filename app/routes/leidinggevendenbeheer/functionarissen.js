@@ -6,7 +6,7 @@ export default Route.extend(DataTableRouteMixin, {
   bestuursFunctieId: null,
 
   mergeQueryOptions(params) {
-    const controller = this.controllerFor('leidinggevendenbeheer.bestuursfuncties');
+    const controller = this.controllerFor('leidinggevendenbeheer.functionarissen');
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
     this.set('bestuursFunctieId', params.bestuursfunctie_id);
     return {'filter[bekleedt][id]': params.bestuursfunctie_id, include:'is-bestuurlijke-alias-van'};
