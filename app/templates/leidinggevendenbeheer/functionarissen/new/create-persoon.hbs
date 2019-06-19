@@ -1,6 +1,6 @@
 <div class="col--1-1--s delete-me-function-edit-new container-flex--contain">
   {{leidinggevendenbeheer/functionaris-creation-header
-    cancel=(action "cancel")
+    cancel=(action "gentleCancel")
   }}
   <div class="u-padding--rl--small u-border--light--bottom">
     <div class="col--7-12">
@@ -9,7 +9,7 @@
   </div>
   {{leidinggevendenbeheer/create-persoon
     onCreate=(action "onCreate")
-    onCancel=(action "onCancel")
+    onCancel=(action "immediateCancel")
     gotoPreviousStep=(action "gotoPreviousStep")
   }}
 </div>
