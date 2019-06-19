@@ -6,7 +6,7 @@ export default Controller.extend({
   dataIsGettingLost: false,
   
   exit() {
-    this.transitionToRoute('leidinggevendenbeheer.functionarissen', this.model.id);
+    this.transitionToRoute('leidinggevendenbeheer.functionarissen', this.bestuursfunctie.id);
   },
 
   /**
@@ -20,9 +20,9 @@ export default Controller.extend({
   
   async saveData(){
     if(this.newAddressData){
-      (await this.model.contactinfo).setProperties(this.newAddressData);
+      this.model.setProperties(this.newAddressData);
     }
-    await (await this.model.contactinfo).save();
+    await this.model.save();
   },
 
   actions: {
@@ -42,7 +42,7 @@ export default Controller.extend({
      * of the UI is clicked
      */
     async gentleCancel(){
-      this.set('dataIsGettingLost', (await this.model.contactinfo).hasDirtyAttributes || this.newAddressData);
+      this.set('dataIsGettingLost', (await this.model.hasDirtyAttributes) || this.newAddressData);
       if (! this.dataIsGettingLost)
         this.exit();
     },
@@ -52,7 +52,7 @@ export default Controller.extend({
      * either in the main UI or in the close confirmation dialog
      */
     async immediateCancel() {
-      (await this.model.contactinfo).rollbackAttributes();
+      this.model.rollbackAttributes();
       this.exit();
     },
 

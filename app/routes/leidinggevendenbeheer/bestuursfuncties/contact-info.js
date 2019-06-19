@@ -6,17 +6,23 @@ export default Route.extend({
     const controller = this.controllerFor('leidinggevendenbeheer.bestuursfuncties.contact-info');
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
 
-    const model = await this.store.findRecord('bestuursfunctie', params.id);
+    const bestuursfunctie = await this.store.findRecord('bestuursfunctie', params.id);
+    this.set('bestuursfunctie', bestuursfunctie);
 
-    if (! await model.contactinfo) {
+    if (! await bestuursfunctie.contactinfo) {
       const info = await this.store.createRecord('contact-punt');
       await info.save();
 
-      model.set('contactinfo', info);
-      await model.save();
+      bestuursfunctie.set('contactinfo', info);
+      await bestuursfunctie.save();
     }
 
-    return model;
+    return await bestuursfunctie.contactinfo;
+  },
+
+  setupController(controller, model) {
+    this._super(controller, model)
+    controller.set('bestuursfunctie', this.bestuursfunctie);
   },
 
   actions: {
