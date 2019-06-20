@@ -19,13 +19,6 @@ export default Controller.extend({
     this.set('newAdressData', null);
     this.set('dataIsGettingLost', false);
   },
-  
-  async saveData(){
-    if(this.newAddressData){
-      this.model.setProperties(this.newAddressData);
-    }
-    await this.model.save();
-  },
 
   actions: {
     /**
@@ -35,7 +28,10 @@ export default Controller.extend({
      * or the 'Bewaar' button in the close confirmation dialog
      */
     async bewaar() {
-      await this.saveData();
+      if(this.newAddressData){
+        this.model.setProperties(this.newAddressData);
+      }
+      await this.model.save();
       this.exit();
     },
 
