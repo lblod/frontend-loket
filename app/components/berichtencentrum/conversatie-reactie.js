@@ -61,7 +61,8 @@ export default Component.extend({
           van                     : bestuurseenheid,
           auteur                  : user,
           naar                    : this.originator,
-          bijlagen                : this.bijlagen
+          bijlagen                : this.bijlagen,
+          typeCommunicatie        : this.conversatie.currentTypeCommunicatie
         });
 
         await reactie.save();

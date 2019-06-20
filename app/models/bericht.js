@@ -9,6 +9,7 @@ export default DS.Model.extend({
   van: belongsTo('bestuurseenheid'),
   auteur: belongsTo('gebruiker'),
   naar: belongsTo('bestuurseenheid'),
+  typeCommunicatie: attr('string'),
 
   bijlagen: hasMany('file')
 });
