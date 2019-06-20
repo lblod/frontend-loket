@@ -31,15 +31,5 @@ export default Component.extend({
     if (! await this.functionaris.status) {
       this.functionaris.set('status', this.defaultStatus);
     }
-  },
-
-  actions: {
-    async setStatus(statusId) {
-      if (statusId == this.aangesteldStatus.id) {
-        this.functionaris.set('status', this.aangesteldStatus);
-      } else if (statusId == this.waarnemendStatus.id) {
-        this.functionaris.set('status', this.waarnemendStatus);
-      }
-    }
   }
 });
