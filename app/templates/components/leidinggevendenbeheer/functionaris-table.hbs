@@ -19,9 +19,17 @@
     {{/c.header}}
 
     {{#if (eq content.length 0)}}
-      {{yield}}
+      <tbody>
+        <tr>
+          <td class="u-align-center u-padding--round--small" colspan="6">
+            <p class="u-spacer--tiny">Geen aanstellingsperiode voor de functie {{bestuursfunctie.rol.label}} toegevoegd.</p>
+            {{wu-button label=(concat "Voeg aanstellingsperiode " bestuursfunctie.rol.label " toe")
+              onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
+              isNarrow=true}}
+          </td>
+        </tr>
+      </tbody>
     {{else}}
-
       {{#c.body as |row|}}
         <td>{{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}</td>
         <td>{{row.isBestuurlijkeAliasVan.achternaam}}</td>
