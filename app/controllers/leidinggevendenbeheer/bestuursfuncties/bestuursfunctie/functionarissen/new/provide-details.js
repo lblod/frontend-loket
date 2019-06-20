@@ -3,6 +3,10 @@ import { computed }  from '@ember/object';
 
 export default Controller.extend({
   /**
+   * This property disables the save and cancel buttons while saving is in progress
+   */
+  isSaving: true,
+  /**
    * This is set to true when the close button is clicked
    * on the top right side of the UI
    */
@@ -47,6 +51,7 @@ export default Controller.extend({
   reset(){
     this.set('userHasRequestedToClose', false);
     this.set('userHasRequestedToSave', false);
+    this.set('isSaving', false);
   },
 
   actions: {
@@ -59,6 +64,7 @@ export default Controller.extend({
     async bewaar() {
       this.set('userHasRequestedToSave', true);
       if(! this.hasErrors) {
+        this.set('isSaving', true);
         await this.model.save();
         this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
       }
@@ -69,7 +75,7 @@ export default Controller.extend({
      * of the UI is clicked
      */
     async gentleCancel(){
-      if (! this.hasUnsavedData) {
+      if (!this.isSaving && !this.hasUnsavedData) {
         this.exit();
       } else {
         this.set('userHasRequestedToClose', true);
