@@ -2,6 +2,9 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   newAddressData: null,
+  /**
+   * This property toggles the close confirmation dialog
+   */
   dataIsGettingLost: false,
   
   exit() {
