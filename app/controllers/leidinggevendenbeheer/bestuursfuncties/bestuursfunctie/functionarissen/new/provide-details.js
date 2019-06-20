@@ -5,7 +5,7 @@ export default Controller.extend({
   /**
    * This property disables the save and cancel buttons while saving is in progress
    */
-  isSaving: true,
+  isSaving: false,
   /**
    * This is set to true when the close button is clicked
    * on the top right side of the UI
