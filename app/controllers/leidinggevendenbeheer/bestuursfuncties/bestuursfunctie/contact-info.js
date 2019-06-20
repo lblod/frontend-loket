@@ -6,7 +6,7 @@ export default Controller.extend({
    * This property toggles the close confirmation dialog
    */
   dataIsGettingLost: false,
-  
+
   exit() {
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
   },

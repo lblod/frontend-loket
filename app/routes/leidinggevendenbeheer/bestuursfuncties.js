@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 
 export default Route.extend({
-
   model() {
     const b = this.modelFor('leidinggevendenbeheer');
     const controller = this.controllerFor('leidinggevendenbeheer.bestuursfuncties');
