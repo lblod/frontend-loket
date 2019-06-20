@@ -22,10 +22,6 @@ export default Controller.extend({
       this.exit();
     },
     
-    async bewaar(){
-      await this.model.functionaris.save();
-      this.exit();
-    },
 
     async gentleCancel(){
       const statusHasChanged = this.model.initialStatus != await this.model.functionaris.status;
