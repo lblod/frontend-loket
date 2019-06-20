@@ -9,8 +9,8 @@ export default Component.extend({
   async fetchStatuses() {
     if(!this.aangesteldStatus) {
       const a = await this.store.query('functionaris-status-code', {
-          filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' }
-        });
+        filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' }
+      });
       this.set('aangesteldStatus', a.firstObject);
     }
   
