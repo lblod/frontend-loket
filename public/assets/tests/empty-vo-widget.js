@@ -1,1 +1,1 @@
-function empty(){};
+function empty(){}
