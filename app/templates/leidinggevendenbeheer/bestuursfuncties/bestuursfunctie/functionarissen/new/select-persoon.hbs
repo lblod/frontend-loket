@@ -3,11 +3,9 @@
       {{leidinggevendenbeheer/functionaris-creation-header
         cancel=(action "cancel")
       }}
-      <div class="u-padding--rl--small u-border--light--bottom">
-        <div class="col--7-12">
-          <h2 class="h3">1. Kies een functionaris</h2>
-        </div>
-      </div>
+      {{#leidinggevendenbeheer/functionaris-creation-step}}
+        1. Kies een functionaris
+      {{/leidinggevendenbeheer/functionaris-creation-step}}
       {{mandatenbeheer/persoon-search-form
         newPersoonRoute='leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.create-persoon'
         showDefaultHead=false
