@@ -22,23 +22,12 @@ export default Component.extend({
   },
 
   actions: {
-    async setStatus(statusId){
+    async setStatus(statusId) {
       if (statusId == this.aangesteldStatus.id) {
         this.functionaris.set('status', this.aangesteldStatus);
       } else if (statusId == this.waarnemendStatus.id) {
         this.functionaris.set('status', this.waarnemendStatus);
       }
-      // await this.set('status', this.functionaris.status);
-    },
-
-    async addPeriod() {
-      if(this.checkHasErrors()) return;
-      await this.functionaris.save();
-      const bestuursfunctieId = this.functionaris.get('bekleedt.id');
-      //This is a 'trick/hack' to send an event to refresh the model, which will bubble up.
-      //Until a consumer acts on it
-      this.send('reloadModelLeidinggevendenbeheerFunctionarissen');
-      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', bestuursfunctieId, { queryParams: { page: 0 } });
-    },
+    }
   }
 });
