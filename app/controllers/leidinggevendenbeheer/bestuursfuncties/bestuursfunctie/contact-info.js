@@ -5,16 +5,9 @@ export default Controller.extend({
   showConfirmationDialog: false,
 
   exit() {
-    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
-  },
-
-  /**
-   * This method will do the housekeeping
-   * It will reset any any unneeded internal state of the controller
-   */
-  reset() {
-    this.set('newAddressData', null);
     this.set('showConfirmationDialog', false);
+    this.set('newAddressData', null);
+    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
   },
 
   actions: {
