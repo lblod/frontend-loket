@@ -23,7 +23,7 @@
           <td class="u-align-center u-padding--round--small" colspan="6">
             <p class="u-spacer--tiny">Geen aanstellingsperiode voor de functie {{bestuursfunctie.rol.label}} toegevoegd.</p>
             {{wu-button label=(concat "Voeg aanstellingsperiode " bestuursfunctie.rol.label " toe")
-              onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
+              onClick=onClickNew
               isNarrow=true}}
           </td>
         </tr>

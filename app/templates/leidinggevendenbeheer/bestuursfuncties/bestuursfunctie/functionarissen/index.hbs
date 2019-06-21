@@ -53,12 +53,12 @@
         </div>
       </div>
       {{leidinggevendenbeheer/functionaris-table
-         class="container-flex--contain"
-         content=model
-         sort=sort
-         page=page
-         size=size
-         data-test-loket="leidinggevendenbeheer-table"
+          class="container-flex--contain"
+          content=model
+          sort=sort
+          page=page
+          size=size
+          onClickNew=(action "handleVoegNieuweAanstellingsperiodeClick")
       }}
     </div>
   </div>
