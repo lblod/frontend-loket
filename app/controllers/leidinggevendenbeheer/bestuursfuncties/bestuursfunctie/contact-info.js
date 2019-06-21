@@ -5,7 +5,7 @@ export default Controller.extend({
   newAddressData: null,
   showConfirmationDialog: false,
   
-  isDirty: Ember.computed('model.hasDirtyAttributes', 'newAddress', function() {
+  isDirty: computed('model.hasDirtyAttributes', 'newAddress', function() {
     return this.model.hasDirtyAttributes || this.newAddressData;
   }),
 
