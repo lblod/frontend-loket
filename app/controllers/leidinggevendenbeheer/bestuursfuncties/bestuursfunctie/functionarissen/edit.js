@@ -11,7 +11,7 @@ export default Controller.extend({
   },
 
   actions: {
-    async applyModifications() {
+    async save() {
       this.set('isSaving', true);
       await this.model.functionaris.save();
       this.exit();

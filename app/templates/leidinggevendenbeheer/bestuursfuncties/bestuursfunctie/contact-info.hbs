@@ -80,14 +80,9 @@
 </div>
 {{!-- Modal confirmation dialog --}}
 {{#if showConfirmationDialog}}
-  <div class="modal-overlay modal-overlay-save">
-    <div class="modal-dialog">
-      <h2 class="modal-dialog__title">Wil u de aangebrachte wijzigingen bewaren?</h2>
-      <div class="modal-dialog__content u-spacer">De wijzigingen zullen verloren gaan als u niet op bewaren klikt.</div>
-      {{wu-button label="Bewaar" onClick=(action "save")}}
-      {{wu-button label="Annuleer" onClick=(action (mut showConfirmationDialog false)) isAlt=true isNarrow=true}}
-      <i class="vi vi-cross vi-u-link"></i>
-      {{wu-button label="Verwerp wijzigingen" onClick=(action "resetChanges") isLink=true isNarrow=true}}
-    </div>
-  </div>
+  {{leidinggevendenbeheer/functionaris-close-confirmation
+    cancel=(action (mut showConfirmationDialog false))
+    save=(action "save")
+    reset=(action "resetChanges")
+  }}
 {{/if}}
