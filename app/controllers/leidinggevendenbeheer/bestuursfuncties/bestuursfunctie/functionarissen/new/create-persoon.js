@@ -23,7 +23,7 @@ export default Controller.extend({
      * This is meant to be used for showing a confirmation dialog like the provide-details route.
      * However, we currently don't show any. TODO: Discuss with the designer.
      */
-    gentleCancel() {
+    cancel() {
       this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
     }
   }

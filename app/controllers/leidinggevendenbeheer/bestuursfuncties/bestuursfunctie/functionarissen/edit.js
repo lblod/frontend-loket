@@ -33,7 +33,7 @@ export default Controller.extend({
      * This action is called when the close button on the top right side 
      * of the UI is clicked
      */
-    async gentleCancel(){
+    async cancel(){
       const statusHasChanged = this.model.initialStatus != await this.model.functionaris.status;
       const someOtherDataHasChanged = this.model.functionaris.hasDirtyAttributes;
       this.set('showConfirmationDialog', statusHasChanged || someOtherDataHasChanged);

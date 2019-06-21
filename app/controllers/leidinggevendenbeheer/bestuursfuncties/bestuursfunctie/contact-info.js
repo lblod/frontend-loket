@@ -39,7 +39,7 @@ export default Controller.extend({
      * This action is called when the close button on the top right side 
      * of the UI is clicked
      */
-    gentleCancel(){
+    cancel(){
       this.set('showConfirmationDialog', (this.model.hasDirtyAttributes) || this.newAddressData);
       if (! this.showConfirmationDialog)
         this.exit();
