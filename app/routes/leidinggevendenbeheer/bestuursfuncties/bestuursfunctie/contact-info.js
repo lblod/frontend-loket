@@ -6,7 +6,7 @@ export default Route.extend({
     const controller = this.controllerFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info');
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
 
-    const bestuursfunctie = await this.store.findRecord('bestuursfunctie', params.id);
+    const bestuursfunctie = this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie');
     this.set('bestuursfunctie', bestuursfunctie);
 
     if (! await bestuursfunctie.contactinfo) {
