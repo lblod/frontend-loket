@@ -17,7 +17,7 @@ export default Route.extend({
       await bestuursfunctie.save();
     }
 
-    return await bestuursfunctie.contactinfo;
+    return bestuursfunctie.contactinfo;
   },
 
   setupController(controller, model) {

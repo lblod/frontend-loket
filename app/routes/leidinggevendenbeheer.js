@@ -10,8 +10,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
       this.transitionTo('index');
   },
 
-  async model() {
-    return await this.get('currentSession.group');
+  model() {
+    return this.get('currentSession.group');
   }
 
 });

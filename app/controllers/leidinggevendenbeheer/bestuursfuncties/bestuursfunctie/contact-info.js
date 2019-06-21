@@ -39,8 +39,8 @@ export default Controller.extend({
      * This action is called when the close button on the top right side 
      * of the UI is clicked
      */
-    async gentleCancel(){
-      this.set('dataIsGettingLost', (await this.model.hasDirtyAttributes) || this.newAddressData);
+    gentleCancel(){
+      this.set('dataIsGettingLost', (this.model.hasDirtyAttributes) || this.newAddressData);
       if (! this.dataIsGettingLost)
         this.exit();
     },
@@ -49,7 +49,7 @@ export default Controller.extend({
      * This action is called when the 'Verwerp wijzigingen' button is clicked
      * either in the main UI or in the close confirmation dialog
      */
-    async immediateCancel() {
+    immediateCancel() {
       this.model.rollbackAttributes();
       this.exit();
     },
