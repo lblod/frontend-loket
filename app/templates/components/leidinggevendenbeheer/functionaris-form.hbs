@@ -30,15 +30,12 @@
 </div>
 <div class="form__row">
   <div class="grid">
-    <div class="col--4-12 col--6-12--s col--1-1--xs">
-      {{wu-radio-button label=aangesteldStatus.label value=aangesteldStatus isBlock=true
-      onChange=(action (mut functionaris.status aangesteldStatus))
-      checked=(eq aangesteldStatus.id functionaris.status.id)}}
-    </div>
-    <div class="col--4-12 col--6-12--s col--1-1--xs">
-      {{wu-radio-button label=waarnemendStatus.label value=waarnemendStatus isBlock=true
-      onChange=(action (mut functionaris.status waarnemendStatus))
-      checked=(eq waarnemendStatus.id functionaris.status.id)}}
-    </div>
+    {{#each statusOptions as |status|}}
+      <div class="col--4-12 col--6-12--s col--1-1--xs">
+        {{wu-radio-button label=status.label value=status isBlock=true
+            onChange=(action (mut functionaris.status status))
+            checked=(eq status.id functionaris.status.id)}}
+      </div>
+    {{/each}}
   </div>
 </div>
