@@ -17,14 +17,14 @@ export default Controller.extend({
    * in the main UI
    */
   userHasRequestedToSave: false,
-  
+
   hasUnsavedData: computed('model.start', function() { return this.model.start }),
 
   /**
    * This indicates that all required fields of the functionaris object are set
    */
   hasErrors: computed('model.start', function() { return ! this.model.start }),
-  
+
   /**
    * This indicates that users has made some modifications
    * and has requested to close without saving them
