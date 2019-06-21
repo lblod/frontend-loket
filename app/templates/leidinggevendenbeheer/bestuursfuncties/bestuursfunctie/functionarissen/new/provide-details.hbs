@@ -32,7 +32,7 @@
 </div>
 {{#if showConfirmationDialog}}
   {{leidinggevendenbeheer/functionaris-close-confirmation
-    annuleer=(action (mut userHasRequestedToClose false))
+    cancel=(action (mut userHasRequestedToClose false))
     save=(action "save")
     verwerp=(action "resetChanges")
   }}
