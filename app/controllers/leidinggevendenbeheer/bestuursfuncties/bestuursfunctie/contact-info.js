@@ -40,7 +40,7 @@ export default Controller.extend({
      * of the UI is clicked
      */
     cancel(){
-      this.set('showConfirmationDialog', (this.model.hasDirtyAttributes) || this.newAddressData);
+      this.set('showConfirmationDialog', this.model.hasDirtyAttributes || this.newAddressData);
       if (! this.showConfirmationDialog)
         this.exit();
     },
