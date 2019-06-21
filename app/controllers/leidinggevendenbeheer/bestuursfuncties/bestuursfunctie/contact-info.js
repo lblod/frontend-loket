@@ -16,7 +16,7 @@ export default Controller.extend({
    * It will reset any any unneeded internal state of the controller
    */
   reset() {
-    this.set('newAdressData', null);
+    this.set('newAddressData', null);
     this.set('showConfirmationDialog', false);
   },
 
