@@ -74,7 +74,7 @@ export default Controller.extend({
      * This action is called when the close button on the top right side 
      * of the UI is clicked
      */
-    async gentleCancel(){
+    gentleCancel(){
       if (!this.isSaving && !this.hasUnsavedData) {
         this.exit();
       } else {
