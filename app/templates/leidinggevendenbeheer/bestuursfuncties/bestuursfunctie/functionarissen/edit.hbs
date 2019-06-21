@@ -26,13 +26,13 @@
           {{wu-button label="Corrigeer aanstellingsperiode"
             onClick=(action "applyModifications")
             isNarrow=true
-            classBinding="isSaving:button--disabled"
+            disabled=isSaving
           }}
           {{wu-button label="Verwerp wijzigingen"
             onClick=(action "resetChanges")
             isNarrow=true
             isAlt=true
-            classBinding="isSaving:button--disabled"
+            disabled=isSaving
           }}
         </div>
       </div>

@@ -15,18 +15,18 @@
     {{wu-button label="Voeg aanstellingsperiode toe"
       onClick=(action "save")
       isNarrow=true
-      classBinding="isSaving:button--disabled"
+      disabled=isSaving
     }}
     {{wu-button label="Annuleer"
       onClick=(action "resetChanges")
       isAlt=true
-      classBinding="isSaving:button--disabled"
+      disabled=isSaving
     }}
     {{wu-button
       label="Vorige stap"
       onClick=(action "gotoPreviousStep")
       isLink=true
-      classBinding="isSaving:button--disabled"
+      disabled=isSaving
     }}
   </div>
 </div>
