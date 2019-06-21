@@ -61,7 +61,7 @@ export default Controller.extend({
      * It is triggered with either the 'Voeg aanstellingsperiode toe' button in the main UI
      * or the 'Bewaar' button in the close confirmation dialog
      */
-    async bewaar() {
+    async save() {
       this.set('userHasRequestedToSave', true);
       if(! this.hasErrors) {
         this.set('isSaving', true);

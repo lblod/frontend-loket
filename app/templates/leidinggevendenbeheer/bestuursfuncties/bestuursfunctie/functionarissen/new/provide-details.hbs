@@ -13,7 +13,7 @@
   }}
   <div class="u-padding--round--small u-border--light--top">
     {{wu-button label="Voeg aanstellingsperiode toe"
-      onClick=(action "bewaar")
+      onClick=(action "save")
       isNarrow=true
       classBinding="isSaving:button--disabled"
     }}
@@ -33,7 +33,7 @@
 {{#if showConfirmationDialog}}
   {{leidinggevendenbeheer/functionaris-close-confirmation
     annuleer=(action (mut userHasRequestedToClose false))
-    bewaar=(action "bewaar")
+    save=(action "save")
     verwerp=(action "resetChanges")
   }}
 {{/if}}

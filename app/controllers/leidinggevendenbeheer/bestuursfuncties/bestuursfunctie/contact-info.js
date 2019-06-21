@@ -27,7 +27,7 @@ export default Controller.extend({
      * It is triggered with either the 'Bewaar contactgegeven' button in the main UI
      * or the 'Bewaar' button in the close confirmation dialog
      */
-    async bewaar() {
+    async save() {
       if(this.newAddressData){
         this.model.setProperties(this.newAddressData);
       }
