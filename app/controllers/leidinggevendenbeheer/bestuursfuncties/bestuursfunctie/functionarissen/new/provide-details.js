@@ -4,14 +4,14 @@ import { computed }  from '@ember/object';
 export default Controller.extend({
   isSaving: false,
 
-  hasUnsavedData: computed('model.start', function() { return this.model.start }),
-  hasErrors: computed('model.start', function() { return ! this.model.start }),
+  hasUnsavedData: computed('model.start', function() { return this.model.start; }),
+  hasErrors: computed('model.start', function() { return ! this.model.start; }),
 
   exit() {
     this.set('showConfirmationDialog', false);
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
   },
-  
+
   actions: {
     async save() {
       if(! this.hasErrors) {

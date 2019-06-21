@@ -18,7 +18,7 @@ export default Route.extend({
   },
 
   setupController(controller, model) {
-    this._super(controller, model)
+    this._super(controller, model);
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
     controller.set('bestuursfunctie', this.bestuursfunctie);
   }

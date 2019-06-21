@@ -4,7 +4,7 @@ import { computed }  from '@ember/object';
 export default Controller.extend({
   newAddressData: null,
   showConfirmationDialog: false,
-  
+
   isDirty: computed('model.hasDirtyAttributes', 'newAddress', function() {
     return this.model.hasDirtyAttributes || this.newAddressData;
   }),
@@ -17,7 +17,7 @@ export default Controller.extend({
 
   actions: {
     async save() {
-      if(this.newAddressData){
+      if (this.newAddressData){
         this.model.setProperties(this.newAddressData);
       }
       await this.model.save();
