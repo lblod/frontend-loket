@@ -1,8 +1,13 @@
 import Controller from '@ember/controller';
+import { computed }  from '@ember/object';
 
 export default Controller.extend({
   newAddressData: null,
   showConfirmationDialog: false,
+  
+  isDirty: Ember.computed('model.hasDirtyAttributes', 'newAddress', function() {
+    return this.model.hasDirtyAttributes || this.newAddressData;
+  }),
 
   exit() {
     this.set('showConfirmationDialog', false);
@@ -20,9 +25,10 @@ export default Controller.extend({
     },
 
     cancel(){
-      this.set('showConfirmationDialog', this.model.hasDirtyAttributes || this.newAddressData);
-      if (! this.showConfirmationDialog)
+      if (! this.isDirty)
         this.exit();
+      else
+        this.set('showConfirmationDialog', true);
     },
 
     resetChanges() {

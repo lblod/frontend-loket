@@ -73,8 +73,15 @@
   </div>
   <div class="u-padding--round--small u-border--light--top">
     <div class="button-group">
-      {{wu-button label="Bewaar contactgegevens" onClick=(action "save") isNarrow=true}}
-      {{wu-button isNarrow=true isAlt=true onClick=(action "resetChanges") label="Verwerp wijzigingen"}}
+      {{wu-button label="Bewaar contactgegevens"
+        onClick=(action "save")
+        isNarrow=true
+      }}
+      {{wu-button isNarrow=true
+        isAlt=true onClick=(action "resetChanges")
+        label="Verwerp wijzigingen"
+        disabled=(not isDirty)
+      }}
     </div>
   </div>
 </div>
