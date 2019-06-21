@@ -1,35 +1,35 @@
 import Controller from '@ember/controller';
+import { notEqual, or } from 'ember-awesome-macros';
+import { task } from 'ember-concurrency';
 
 export default Controller.extend({
-  isSaving: false,
   showConfirmationDialog: false,
+
+  statusIsDirty: notEqual('initialStatus.id', 'model.status.id'),
+  isDirty: or('model.hasDirtyAttributes', 'statusIsDirty'),
+
+  save: task(function * () {
+    yield this.model.save();
+    this.exit();
+  }),
 
   exit() {
     this.set('showConfirmationDialog', false);
-    this.set('isSaving', false);
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
   },
 
   actions: {
-    async save() {
-      this.set('isSaving', true);
-      await this.model.functionaris.save();
-      this.exit();
+    cancel(){
+      if (this.isDirty)
+        this.set('showConfirmationDialog', true);
+      else
+        this.exit();
     },
 
-    async cancel(){
-      if (!this.isSaving) {
-        const statusHasChanged = this.model.initialStatus != await this.model.functionaris.status;
-        const someOtherDataHasChanged = this.model.functionaris.hasDirtyAttributes;
-        this.set('showConfirmationDialog', statusHasChanged || someOtherDataHasChanged);
-        if (! this.showConfirmationDialog)
-          this.exit();
-      }
-    },
-
-    resetChanges() {
-      this.model.functionaris.rollbackAttributes();
-      this.model.functionaris.set('status', this.model.initialStatus),
+    async resetChanges() {
+      this.model.rollbackAttributes();
+      const status = await this.initialStatus;
+      this.model.set('status', status),
       this.exit();
     }
   }

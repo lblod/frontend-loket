@@ -2,7 +2,7 @@
   <div class="u-padding--trl--small u-border--light--bottom">
     <div class="grid">
       <div class="col--9-12">
-        <h2 class="h3">Bewerk aanstellingsperiode voor {{model.functionaris.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.functionaris.isBestuurlijkeAliasVan.achternaam}} als {{model.functionaris.bekleedt.rol.label}}</h2>
+        <h2 class="h3">Bewerk aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}}</h2>
       </div>
       <div class="col--3-12 u-align--right">
         <div {{action "cancel"}} class="link--icon--close">
@@ -13,9 +13,7 @@
   </div>
 
   {{leidinggevendenbeheer/functionaris-form
-    functionaris=model.functionaris
-    shallDisplayErrors=false
-    tagName="div"
+    functionaris=model
     class="container-flex--scroll u-padding--round--small"
   }}
 
@@ -24,15 +22,15 @@
       <div class="col--6-12 col--1-1--s">
         <div class="button-group">
           {{wu-button label="Corrigeer aanstellingsperiode"
-            onClick=(action "save")
+            onClick=(perform save)
             isNarrow=true
-            disabled=isSaving
+            disabled=save.isRunning
           }}
           {{wu-button label="Verwerp wijzigingen"
             onClick=(action "resetChanges")
             isNarrow=true
             isAlt=true
-            disabled=isSaving
+            disabled=(or (not isDirty) save.isRunning)
           }}
         </div>
       </div>
@@ -57,7 +55,7 @@
 {{#if showConfirmationDialog}}
   {{leidinggevendenbeheer/functionaris-close-confirmation
     cancel=(action (mut showConfirmationDialog false))
-    save=(action "save")
+    save=(perform save)
     reset=(action "resetChanges")
   }}
 {{/if}}
