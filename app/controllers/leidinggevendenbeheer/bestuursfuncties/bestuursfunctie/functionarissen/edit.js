@@ -2,6 +2,11 @@ import Controller from '@ember/controller';
 
 export default Controller.extend({
   /**
+   * This property disables the save and cancel buttons while saving is in progress
+   */
+  isSaving: false,
+
+  /**
    * This parameter toggles the close confirmation dialog
    */
   showConfirmationDialog: false,
@@ -16,6 +21,7 @@ export default Controller.extend({
    */
   reset(){
     this.set('showConfirmationDialog', false);
+    this.set('isSaving', false);
   },
 
   actions: {
@@ -26,6 +32,7 @@ export default Controller.extend({
      * or the 'Bewaar' button in the close confirmation dialog
      */
     async applyModifications() {
+      this.set('isSaving', true);
       await this.model.functionaris.save();
       this.exit();
     },
@@ -34,11 +41,13 @@ export default Controller.extend({
      * of the UI is clicked
      */
     async cancel(){
-      const statusHasChanged = this.model.initialStatus != await this.model.functionaris.status;
-      const someOtherDataHasChanged = this.model.functionaris.hasDirtyAttributes;
-      this.set('showConfirmationDialog', statusHasChanged || someOtherDataHasChanged);
-      if (! this.showConfirmationDialog)
-        this.exit();
+      if (!this.isSaving) {
+        const statusHasChanged = this.model.initialStatus != await this.model.functionaris.status;
+        const someOtherDataHasChanged = this.model.functionaris.hasDirtyAttributes;
+        this.set('showConfirmationDialog', statusHasChanged || someOtherDataHasChanged);
+        if (! this.showConfirmationDialog)
+          this.exit();
+      }
     },
     /**
      * This action is called when the 'Annuleer' button is clicked

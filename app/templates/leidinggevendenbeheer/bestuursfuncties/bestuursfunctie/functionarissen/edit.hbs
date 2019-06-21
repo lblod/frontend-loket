@@ -23,8 +23,17 @@
     <div class="grid">
       <div class="col--6-12 col--1-1--s">
         <div class="button-group">
-          {{wu-button label="Corrigeer aanstellingsperiode" onClick=(action "applyModifications") isNarrow=true}}
-          {{wu-button label="Verwerp wijzigingen" onClick=(action "resetChanges") isNarrow=true isAlt=true}}
+          {{wu-button label="Corrigeer aanstellingsperiode"
+            onClick=(action "applyModifications")
+            isNarrow=true
+            classBinding="isSaving:button--disabled"
+          }}
+          {{wu-button label="Verwerp wijzigingen"
+            onClick=(action "resetChanges")
+            isNarrow=true
+            isAlt=true
+            classBinding="isSaving:button--disabled"
+          }}
         </div>
       </div>
       <div class="col--6-12 col--1-1--s">
