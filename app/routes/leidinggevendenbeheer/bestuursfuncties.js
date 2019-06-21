@@ -6,10 +6,5 @@ export default Route.extend({
     return this.store.query('bestuursfunctie', {
       'filter[bevat-in][is-tijdsspecialisatie-van][bestuurseenheid][:id:]':this.bestuurseenheid.id
     });
-  },
-  
-  setupController(controller, model) {
-    this._super(controller, model);
-    controller.set('bestuurseenheid', this.bestuurseenheid);
   }
 });
