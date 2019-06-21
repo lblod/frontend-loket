@@ -5,7 +5,7 @@ export default Controller.extend({
   /**
    * This property toggles the close confirmation dialog
    */
-  dataIsGettingLost: false,
+  showConfirmationDialog: false,
 
   exit() {
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
@@ -17,7 +17,7 @@ export default Controller.extend({
    */
   reset() {
     this.set('newAdressData', null);
-    this.set('dataIsGettingLost', false);
+    this.set('showConfirmationDialog', false);
   },
 
   actions: {
@@ -40,8 +40,8 @@ export default Controller.extend({
      * of the UI is clicked
      */
     gentleCancel(){
-      this.set('dataIsGettingLost', (this.model.hasDirtyAttributes) || this.newAddressData);
-      if (! this.dataIsGettingLost)
+      this.set('showConfirmationDialog', (this.model.hasDirtyAttributes) || this.newAddressData);
+      if (! this.showConfirmationDialog)
         this.exit();
     },
 

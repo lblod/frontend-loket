@@ -4,7 +4,7 @@ export default Controller.extend({
   /**
    * This parameter toggles the close confirmation dialog
    */
-  dataIsGettingLost: false,
+  showConfirmationDialog: false,
 
   exit() {
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
@@ -15,7 +15,7 @@ export default Controller.extend({
    * It will reset any any unneeded internal state of the controller
    */
   reset(){
-    this.set('dataIsGettingLost', false);
+    this.set('showConfirmationDialog', false);
   },
 
   actions: {
@@ -36,8 +36,8 @@ export default Controller.extend({
     async gentleCancel(){
       const statusHasChanged = this.model.initialStatus != await this.model.functionaris.status;
       const someOtherDataHasChanged = this.model.functionaris.hasDirtyAttributes;
-      this.set('dataIsGettingLost', statusHasChanged || someOtherDataHasChanged);
-      if (! this.dataIsGettingLost)
+      this.set('showConfirmationDialog', statusHasChanged || someOtherDataHasChanged);
+      if (! this.showConfirmationDialog)
         this.exit();
     },
     /**

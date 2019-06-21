@@ -29,7 +29,7 @@ export default Controller.extend({
    * This indicates that users has made some modifications
    * and has requested to close without saving them
    */
-  dataIsGettingLost: computed('hasUnsavedData', 'userHasRequestedToClose', function(){
+  showConfirmationDialog: computed('hasUnsavedData', 'userHasRequestedToClose', function(){
     return this.hasUnsavedData && this.userHasRequestedToClose;
   }),
 

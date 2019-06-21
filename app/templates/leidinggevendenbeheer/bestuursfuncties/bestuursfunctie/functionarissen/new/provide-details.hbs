@@ -30,7 +30,7 @@
     }}
   </div>
 </div>
-{{#if dataIsGettingLost}}
+{{#if showConfirmationDialog}}
   {{leidinggevendenbeheer/functionaris-close-confirmation
     annuleer=(action (mut userHasRequestedToClose false))
     bewaar=(action "bewaar")
