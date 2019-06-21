@@ -10,7 +10,7 @@ export default Controller.extend({
      * in the main UI
      * or in the (to be) confirmation dialog
      */
-    immediateCancel() {
+    resetChanges() {
       this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
     },
     gotoPreviousStep() {

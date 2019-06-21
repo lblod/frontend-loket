@@ -18,7 +18,7 @@
       classBinding="isSaving:button--disabled"
     }}
     {{wu-button label="Annuleer"
-      onClick=(action "immediateCancel")
+      onClick=(action "resetChanges")
       isAlt=true
       classBinding="isSaving:button--disabled"
     }}
@@ -34,6 +34,6 @@
   {{leidinggevendenbeheer/functionaris-close-confirmation
     annuleer=(action (mut userHasRequestedToClose false))
     bewaar=(action "bewaar")
-    verwerp=(action "immediateCancel")
+    verwerp=(action "resetChanges")
   }}
 {{/if}}

@@ -49,7 +49,7 @@ export default Controller.extend({
      * This action is called when the 'Verwerp wijzigingen' button is clicked
      * either in the main UI or in the close confirmation dialog
      */
-    immediateCancel() {
+    resetChanges() {
       this.model.rollbackAttributes();
       this.exit();
     },

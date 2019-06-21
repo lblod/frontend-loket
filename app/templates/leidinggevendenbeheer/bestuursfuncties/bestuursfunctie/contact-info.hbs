@@ -74,7 +74,7 @@
   <div class="u-padding--round--small u-border--light--top">
     <div class="button-group">
       {{wu-button label="Bewaar contactgegevens" onClick=(action "bewaar") isNarrow=true}}
-      {{wu-button isNarrow=true isAlt=true onClick=(action "immediateCancel") label="Verwerp wijzigingen"}}
+      {{wu-button isNarrow=true isAlt=true onClick=(action "resetChanges") label="Verwerp wijzigingen"}}
     </div>
   </div>
 </div>
@@ -87,7 +87,7 @@
       {{wu-button label="Bewaar" onClick=(action "bewaar")}}
       {{wu-button label="Annuleer" onClick=(action (mut showConfirmationDialog false)) isAlt=true isNarrow=true}}
       <i class="vi vi-cross vi-u-link"></i>
-      {{wu-button label="Verwerp wijzigingen" onClick=(action "immediateCancel") isLink=true isNarrow=true}}
+      {{wu-button label="Verwerp wijzigingen" onClick=(action "resetChanges") isLink=true isNarrow=true}}
     </div>
   </div>
 {{/if}}

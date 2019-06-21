@@ -44,7 +44,7 @@ export default Controller.extend({
      * This action is called when the 'Annuleer' button is clicked
      * either in the main UI or in the close confirmation dialog
      */
-    immediateCancel() {
+    resetChanges() {
       this.model.functionaris.rollbackAttributes();
       this.model.functionaris.set('status', this.model.initialStatus),
       this.exit();
