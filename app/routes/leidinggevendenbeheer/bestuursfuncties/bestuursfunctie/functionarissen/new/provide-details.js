@@ -6,10 +6,5 @@ export default Route.extend({
       bekleedt: this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'),
       isBestuurlijkeAliasVan: await this.store.findRecord('persoon', params.persoon_id)
     });
-  },
-
-  setupController(controller, model) {
-    this._super(controller, model);
-    this.controller.reset();
   }
 });

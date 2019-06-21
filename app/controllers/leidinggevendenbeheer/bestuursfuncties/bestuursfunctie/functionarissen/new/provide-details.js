@@ -17,17 +17,10 @@ export default Controller.extend({
   }),
 
   exit() {
-    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
-  },
-
-  /**
-   * This method will do the housekeeping
-   * It will reset any any unneeded internal state of the controller
-   */
-  reset(){
     this.set('userHasRequestedToClose', false);
     this.set('userHasRequestedToSave', false);
     this.set('isSaving', false);
+    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
   },
 
   actions: {
