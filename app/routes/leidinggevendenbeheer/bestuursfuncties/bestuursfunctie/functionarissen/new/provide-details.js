@@ -8,9 +8,8 @@ export default Route.extend({
     });
   },
 
-  actions: {
-    willTransition() {
-      this.controller.reset();
-    }
+  setupController(controller, model) {
+    this._super(controller, model);
+    this.controller.reset();
   }
 });
