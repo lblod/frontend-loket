@@ -1,0 +1,62 @@
+<div class="col--1-1--s delete-me-function-edit-new container-flex--contain">
+  <div class="u-padding--trl--small">
+    <div class="grid">
+      <div class="col--7-12">
+        <h1 class="h6 uppercase text-fade u-spacer--tiny">Voeg een nieuwe aanstellingsperiode toe</h1>
+      </div>
+      <div class="col--5-12 u-align--right">
+        <div {{action "cancel"}} class="link--icon--close">
+          <span class="u-visually-hidden">Venster sluiten</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{#unless functionaris}}
+    {{#unless isCreatingNewPerson}}
+      {{#leidinggevendenbeheer/functionaris-creation-step}}
+        1. Kies een functionaris
+      {{/leidinggevendenbeheer/functionaris-creation-step}}
+      {{mandatenbeheer/persoon-search-form
+          onSelect=(perform createFunctionaris)
+          onCreateNewPerson=(action (mut isCreatingNewPerson) true)
+          onCancel=(action "cancel")
+          showDefaultHead=false
+          class="col--1-1--s mandate-edit-new container-flex--contain"}}
+    {{else}}
+      {{#leidinggevendenbeheer/functionaris-creation-step}}
+        1. Voeg een nieuwe functionaris toe
+      {{/leidinggevendenbeheer/functionaris-creation-step}}
+      {{leidinggevendenbeheer/create-persoon
+          onCreate=(perform createFunctionaris)
+          onCancel=(action "cancel")
+          gotoPreviousStep=(action (mut isCreatingNewPerson) false)
+      }}
+    {{/unless}}
+  {{else}}
+    {{#leidinggevendenbeheer/functionaris-creation-step}}
+      2. Voeg aanstellingsperiode voor {{functionaris.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{functionaris.isBestuurlijkeAliasVan.achternaam}} als {{functionaris.bekleedt.rol.label}} toe
+    {{/leidinggevendenbeheer/functionaris-creation-step}}
+    {{#leidinggevendenbeheer/functionaris-form
+         model=functionaris
+         as |isValid|}}
+      <div class="u-padding--round--small u-border--light--top">
+        {{wu-button label="Voeg aanstellingsperiode toe"
+            onClick=(perform save)
+            isNarrow=true
+            disabled=(or (not isValid) save.isRunning)
+        }}
+        {{wu-button label="Annuleer"
+            onClick=(action "cancel")
+            isAlt=true
+            disabled=save.isRunning
+        }}
+        {{wu-button
+            label="Vorige stap"
+            onClick=(action "goBackToSearch")
+            isLink=true
+            disabled=save.isRunning
+        }}
+      </div>
+    {{/leidinggevendenbeheer/functionaris-form}}
+  {{/unless}}
+</div>

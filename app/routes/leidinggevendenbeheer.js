@@ -8,6 +8,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
   beforeModel() {
     if (!this.currentSession.canAccessLeidinggevenden)
       this.transitionTo('index');
+  },
+
+  model() {
+    return this.get('currentSession.group');
   }
 
 });

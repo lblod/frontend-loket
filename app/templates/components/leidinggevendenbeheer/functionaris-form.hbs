@@ -1,0 +1,44 @@
+<div class="container-flex--scroll u-padding--round--small">
+  {{leidinggevendenbeheer/persoon-card persoon=model.isBestuurlijkeAliasVan hideHeader=true}}
+
+  <h4 class="h5 u-spacer--tiny">Functie</h4>
+  <div class="form__row">
+    <div class="grid">
+      <div class="col--4-12 col--6-12--s col--1-1--xs">
+        <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
+        {{wu-datepicker
+            value=(mut model.start)
+            placeholder="01.01.2019"
+            dateFormat="DD.MM.YYYY"
+            classNames="date-range__datepicker datepicker"
+            style="max-width: none; width:auto"
+        }}
+        {{#unless model.start}}
+          <div class="form__error">Start aanstellingsperiode is verplicht</div>
+        {{/unless}}
+      </div>
+      <div class="col--4-12 col--6-12--s col--1-1--xs">
+        <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
+        {{wu-datepicker
+            value=(mut model.einde)
+            placeholder="31.12.2019"
+            dateFormat="DD.MM.YYYY"
+            classNames="date-range__datepicker datepicker"
+        }}
+      </div>
+    </div>
+  </div>
+  <div class="form__row">
+    <div class="grid">
+      {{#each statusOptions as |status|}}
+        <div class="col--4-12 col--6-12--s col--1-1--xs">
+          {{wu-radio-button label=status.label value=status isBlock=true
+              onChange=(action (mut model.status status))
+              checked=(eq status.id model.status.id)}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+{{yield isValid}}

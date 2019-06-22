@@ -2,6 +2,15 @@ import Component from '@ember/component';
 import { task, timeout } from 'ember-concurrency';
 import fetch from 'fetch';
 
+const emptyAdresRegister = {
+  land: null, //seriously no land?
+  gemeente: null,
+  postcode: null,
+  adres: null,
+  adresRegisterId: null,
+  adresRegisterUri: null
+}
+
 export default Component.extend({
 
   async didReceiveAttrs(){
@@ -17,16 +26,21 @@ export default Component.extend({
       return addresses['adressen'];
     }
     return [];
-  }),
+  }).keepLatest(),
 
   getDetailForOverviewItem: task(function* (overviewAddress){
     //the api returns only a 'summary', we need to fetch details.
     this.set('_address', null);
-    let result =  yield fetch(`/adressenregister/detail?url=${overviewAddress.detail}`);
-    if (result.ok){
-      let adresRegister = yield result.json();
-      this.set('_address', adresRegister);
-      this.onSelect(this.extractRelevantInfo(adresRegister));
+
+    if (overviewAddress) {
+      let result =  yield fetch(`/adressenregister/detail?url=${overviewAddress.detail}`);
+      if (result.ok){
+        let adresRegister = yield result.json();
+        this.set('_address', adresRegister);
+        this.onSelect(this.extractRelevantInfo(adresRegister));
+      }
+    } else {
+      this.onSelect(emptyAdresRegister);
     }
   }),
 

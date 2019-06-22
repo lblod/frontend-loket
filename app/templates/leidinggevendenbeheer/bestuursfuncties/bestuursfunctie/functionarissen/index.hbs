@@ -1,6 +1,5 @@
-{{title bestuurseenheid.classificatie.label " " bestuurseenheid.naam " " model.bestuursfunctie.rol.label}}
-{{#unless hasActiveChildRoute}}
-  <div class="col--9-12--m col--1-1--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12"}}">
+{{title bestuurseenheid.classificatie.label " " bestuurseenheid.naam " " bestuursfunctie.rol.label}}
+<div class="col--9-12--m col--1-1--s u-border--light--right col--10-12">
     <div class="container-flex--contain">
       <div class="u-border--light--bottom">
         <ul class="inline-list inline-list--bordered smaller u-background--gray-lightest u-padding--rl--small u-padding--tb--tiny">
@@ -38,7 +37,7 @@
               </li>
               <li>
                 <p>
-                  {{#link-to "leidinggevendenbeheer.bestuursfuncties.contact-info" bestuursfunctie.id}}
+                  {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id}}
                     <button class="button button--link button--small button--narrow u-spacer--left--small delete-me-toggle-contactdetails-edit"><i class="vi vi-edit button__icon"></i><span class="u-padding--left--tiny">Bewerk</span></button>
                   {{/link-to}}
                 </p>
@@ -53,29 +52,14 @@
           </div>
         </div>
       </div>
-      {{#leidinggevendenbeheer/functionaris-table
-         class="container-flex--contain"
-         content=model
-         sort=sort
-         page=page
-         size=size
-         displaySubset=hasActiveChildRoute
-         filter=filter
-         renderSmallTable=hasActiveChildRoute
-         data-test-loket="leidinggevendenbeheer-table"
+      {{leidinggevendenbeheer/functionaris-table
+          class="container-flex--contain"
+          content=model
+          sort=sort
+          page=page
+          size=size
+          onClickNew=(action "handleVoegNieuweAanstellingsperiodeClick")
       }}
-          <tbody>
-            <tr>
-              <td class="u-align-center u-padding--round--small" colspan="6">
-                <p class="u-spacer--tiny">Geen aanstellingsperiode voor de functie {{bestuursfunctie.rol.label}} toegevoegd.</p>
-                {{wu-button label=(concat "Voeg aanstellingsperiode " bestuursfunctie.rol.label " toe")
-                  onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
-                  isNarrow=true}}
-              </td>
-            </tr>
-          </tbody>
-      {{/leidinggevendenbeheer/functionaris-table}}
     </div>
   </div>
-{{/unless}}
 {{outlet}}

@@ -2,7 +2,7 @@
   <div class="u-padding--trl--small">
     <div class="grid">
       <div class="col--9-12">
-        <h2 class="h3">Bewerk algemene contactgegevens {{model.rol.label}} {{bestuurseenheid.naam}}</h2>
+        <h2 class="h3">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</h2>
       </div>
       <div class="col--3-12 u-align--right">
         <div {{action "cancel"}} class="link--icon--close">
@@ -17,13 +17,13 @@
         <div class="grid u-spacer--small">
           <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
             <label class="form__label" for="mailadres">Mailadres</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="mail@adres.be" inputmode="email" value=(mut model.contactinfo.email)}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="mail@adres.be" inputmode="email" value=(mut model.email)}}
           </div>
         </div>
         <div class="grid">
           <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
             <label class="form__label" for="telefoonnummer">Telefoonnummer</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="+32484738324" inputmode="tel" type="tel" value=(mut model.contactinfo.telephone)}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-telephone" placeholder="+32484738324" inputmode="tel" type="tel" value=(mut model.telephone)}}
           </div>
         </div>
 
@@ -32,7 +32,7 @@
       <div class="form__row">
         <div class="grid">
           <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
-            {{adressenregister-selector adres=model.contactinfo.adres onSelect=(action "addressSelected")}}
+            {{adressenregister-selector adres=model.adres onSelect=(action "addressSelected") allowClear=true}}
           </div>
         </div>
       </div>
@@ -73,21 +73,23 @@
   </div>
   <div class="u-padding--round--small u-border--light--top">
     <div class="button-group">
-      {{wu-button label="Bewaar contactgegevens" onClick=(action "save") isNarrow=true}}
-      {{wu-button isNarrow=true isAlt=true onClick=(action "cancel") label="Verwerp wijzigingen"}}
+      {{wu-button label="Bewaar contactgegevens"
+        onClick=(action "save")
+        isNarrow=true
+      }}
+      {{wu-button isNarrow=true
+        isAlt=true onClick=(action "resetChanges")
+        label="Verwerp wijzigingen"
+        disabled=(not isDirty)
+      }}
     </div>
   </div>
 </div>
-<!-- Modal confirmation dialog -->
-{{#if dataIsGettingLost}}
-  <div class="modal-overlay modal-overlay-save">
-    <div class="modal-dialog">
-      <h2 class="modal-dialog__title">Wil u de aangebrachte wijzigingen bewaren?</h2>
-      <div class="modal-dialog__content u-spacer">De wijzigingen zullen verloren gaan als u niet op bewaren klikt.</div>
-      {{wu-button label="Bewaar" onClick=(action "save")}}
-      {{wu-button label="Annuleer" onClick=(action "annuleer") isAlt=true isNarrow=true}}
-      <i class="vi vi-cross vi-u-link"></i>
-      {{wu-button label="Verwerp wijzigingen" onClick=(action "dismissChanges") isLink=true isNarrow=true}}
-    </div>
-  </div>
+{{!-- Modal confirmation dialog --}}
+{{#if showConfirmationDialog}}
+  {{leidinggevendenbeheer/functionaris-close-confirmation
+    cancel=(action (mut showConfirmationDialog false))
+    save=(action "save")
+    reset=(action "resetChanges")
+  }}
 {{/if}}
