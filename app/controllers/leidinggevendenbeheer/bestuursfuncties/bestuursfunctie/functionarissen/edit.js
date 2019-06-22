@@ -3,8 +3,6 @@ import { notEqual, or } from 'ember-awesome-macros';
 import { task } from 'ember-concurrency';
 
 export default Controller.extend({
-  showConfirmationDialog: false,
-
   statusIsDirty: notEqual('initialStatus.id', 'model.status.id'),
   isDirty: or('model.hasDirtyAttributes', 'statusIsDirty'),
 
@@ -14,16 +12,12 @@ export default Controller.extend({
   }),
 
   exit() {
-    this.set('showConfirmationDialog', false);
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
   },
 
   actions: {
     cancel(){
-      if (this.isDirty)
-        this.set('showConfirmationDialog', true);
-      else
-        this.exit();
+      this.exit();
     },
 
     async resetChanges() {

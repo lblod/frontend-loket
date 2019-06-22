@@ -28,7 +28,7 @@
     "@lblod/ember-mu-dynamic-forms": "^0.3.5",
     "@lblod/ember-toezicht-form-fields": "^0.2.0",
     "@lblod/ember-vo-mu-file-upload": "^0.4.1",
-    "@lblod/ember-vo-webuniversum": "^0.21.0",
+    "@lblod/ember-vo-webuniversum": "^0.21.3",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
     "@lblod/ember-vo-webuniversum-widget": "^0.1.4",
     "broccoli-asset-rev": "^2.7.0",

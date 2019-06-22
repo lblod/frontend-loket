@@ -52,11 +52,7 @@ Router.map(function() {
       this.route('bestuursfunctie', { path: '/:bestuursfunctie_id' }, function() {
         this.route('contact-info', { path: '/contact-info' });
         this.route('functionarissen', function() {
-          this.route('new', function() {
-            this.route('select-persoon');
-            this.route('provide-details', { path: '/:persoon_id/provide-details' });
-            this.route('create-persoon');
-          });
+          this.route('new', function() {});
           this.route('edit', { path: '/:functionaris_id/edit' });
         });
       });

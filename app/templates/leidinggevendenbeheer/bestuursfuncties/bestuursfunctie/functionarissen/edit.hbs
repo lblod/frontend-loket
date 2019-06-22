@@ -12,50 +12,42 @@
     </div>
   </div>
 
-  {{leidinggevendenbeheer/functionaris-form
-    functionaris=model
-    class="container-flex--scroll u-padding--round--small"
+  {{#leidinggevendenbeheer/functionaris-form
+      model=model
+      as |isValid|
   }}
-
-  <div class="u-padding--round--small u-border--light--top">
-    <div class="grid">
-      <div class="col--6-12 col--1-1--s">
-        <div class="button-group">
-          {{wu-button label="Corrigeer aanstellingsperiode"
-            onClick=(perform save)
-            isNarrow=true
-            disabled=save.isRunning
-          }}
-          {{wu-button label="Verwerp wijzigingen"
-            onClick=(action "resetChanges")
-            isNarrow=true
-            isAlt=true
-            disabled=(or (not isDirty) save.isRunning)
-          }}
+    <div class="u-padding--round--small u-border--light--top">
+      <div class="grid">
+        <div class="col--6-12 col--1-1--s">
+          <div class="button-group">
+            {{wu-button label="Corrigeer aanstellingsperiode"
+                onClick=(perform save)
+                isNarrow=true
+                disabled=(or (not isValid) save.isRunning)
+            }}
+            {{wu-button label="Verwerp wijzigingen"
+                onClick=(action "resetChanges")
+                isNarrow=true
+                isAlt=true
+                disabled=(or (not isDirty) save.isRunning)
+            }}
+          </div>
         </div>
-      </div>
-      <div class="col--6-12 col--1-1--s">
-        <div class="alert alert--tiny">
-          <div class="alert__icon" aria-hidden="true"></div>
-          <div class="alert__content">
-            <div class="alert__message">
-              <p>Hou de <strong>historiek</strong> van afgelopen aanstellingsperiodes bij.</p>
-              <ul class="bullet-list">
-                <li><small>Nieuwe aanstellingsperiode of status: &nbsp;{{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen"}}voeg een nieuwe aanstellingsperiode toe{{/link-to}}.</small></li>
-                <li><small>Aanstellingsperiode verwijderen: &nbsp;<a>neem contact op met ons</a>.</small></li>
-              </ul>
+        <div class="col--6-12 col--1-1--s">
+          <div class="alert alert--tiny">
+            <div class="alert__icon" aria-hidden="true"></div>
+            <div class="alert__content">
+              <div class="alert__message">
+                <p>Hou de <strong>historiek</strong> van afgelopen aanstellingsperiodes bij.</p>
+                <ul class="bullet-list">
+                  <li><small>Nieuwe aanstellingsperiode of status: &nbsp;{{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen"}}voeg een nieuwe aanstellingsperiode toe{{/link-to}}.</small></li>
+                  <li><small>Aanstellingsperiode verwijderen: &nbsp;<a>neem contact op met ons</a>.</small></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  {{/leidinggevendenbeheer/functionaris-form}}
 </div>
-{{!-- Modal confirmation dialog --}}
-{{#if showConfirmationDialog}}
-  {{leidinggevendenbeheer/functionaris-close-confirmation
-    cancel=(action (mut showConfirmationDialog false))
-    save=(perform save)
-    reset=(action "resetChanges")
-  }}
-{{/if}}

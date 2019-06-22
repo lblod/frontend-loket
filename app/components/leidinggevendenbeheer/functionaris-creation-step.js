@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 
 export default Component.extend({
-  tagName: '',
-  classNames: 'u-padding--rl--small u-border--light--bottom'
+  tagName: ''
 });

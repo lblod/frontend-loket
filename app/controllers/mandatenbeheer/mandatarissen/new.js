@@ -5,6 +5,9 @@ export default Controller.extend({
     this.transitionToRoute('mandatenbeheer.mandatarissen.edit', persoon.get('id'));
   },
   actions: {
+    createNewPerson() {
+      this.transitionToRoute('mandatenbeheer.mandatarissen.new-person');
+    },
     cancel(){
       this.transitionToRoute('mandatenbeheer.mandatarissen');
     }

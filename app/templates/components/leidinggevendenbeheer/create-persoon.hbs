@@ -27,24 +27,6 @@
       {{/if}}
     <label for="mandataris-geboorte">Geboortedatum</label>
     {{wu-datepicker class="input-field--block u-spacer--small" dateFormat="DD.MM.YYYY" value=(mut birthDate) minDate=minDate maxDate=maxDate}}
-    {{!-- <label>Geslacht</label>
-    <div class="grid u-spacer--bottom--tiny">
-      <div class="col--6-12">
-        <label class="radio">
-          <input class="radio__toggle" name="radio-buttons" onclick={{action 'setGender'}} value="{{female}}" checked={{isFemale}} type="radio">
-          <span></span>Vrouw
-        </label>
-      </div>
-      <div class="col--6-12">
-        <label class="radio">
-          <input class="radio__toggle" name="radio-buttons" onclick={{action 'setGender'}} value={{male}} checked={{isMale}} type="radio">
-          <span></span>Man
-        </label>
-      </div>
-      {{#if geslachtError}}
-        <div class="form__error">{{geslachtError}}</div>
-      {{/if}}
-    </div> --}}
     {{#if saveError}}
       <br>
       {{#wu-alert title="Fout bij opslaan" isError=true}}

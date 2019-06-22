@@ -9,7 +9,7 @@ export default Controller.extend({
 
   actions: {
     handleVoegNieuweAanstellingsperiodeClick() {
-      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.select-persoon');
+      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new');
     }
   }
 });
