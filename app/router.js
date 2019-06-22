@@ -44,13 +44,13 @@ Router.map(function() {
   });
   this.route('berichtencentrum', function() {
     this.route('berichten', function() {
-      this.route('conversatie', { path: ':id' }, function() {});
+      this.route('conversatie', { path: '/:id' }, function() {});
     });
   });
   this.route('leidinggevendenbeheer', function() {
     this.route('bestuursfuncties', function() {
       this.route('bestuursfunctie', { path: '/:bestuursfunctie_id' }, function() {
-        this.route('contact-info', { path: '/contact-info' });
+        this.route('contact-info');
         this.route('functionarissen', function() {
           this.route('new', function() {});
           this.route('edit', { path: '/:functionaris_id/edit' });
