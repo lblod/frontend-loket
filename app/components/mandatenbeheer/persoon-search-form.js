@@ -2,19 +2,14 @@ import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 import { computed } from '@ember/object';
+import { gt } from '@ember/object/computed';
 import { A } from '@ember/array';
 
 export default Component.extend({
   store: service(),
-  hasSearched: false,
+  hasSearched: gt('search.performCount', 0),
   pageSize: 20,
-  newPersoonRoute: '',
   showDefaultHead: true,
-  noResultsAfterSearch: computed('personen', 'isQuerying', function(){
-    if(this.isQuerying)
-      return false;
-    return this.hasSearched && this.get('personen.length') === 0;
-  }),
   searchTerms: computed('gebruikteVoornaam', 'achternaam', 'identificator', function(){
     return [this.gebruikteVoornaam, this.achternaam, this.identificator].filter( t => t ).join(', ');
   }),
@@ -28,7 +23,6 @@ export default Component.extend({
   },
 
   search: task(function* () {
-    this.set('hasSearched', true);
     yield timeout(300);
 
     if(!(this.achternaam || this.gebruikteVoornaam || this.identificator)){
@@ -66,7 +60,7 @@ export default Component.extend({
 
   resetAfterError(){
     this.set('error', false);
-    this.set('hasSearched', false);
+    this.search.cancelAll({ resetState: true });
   },
 
   actions: {
