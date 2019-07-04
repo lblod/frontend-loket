@@ -7,6 +7,35 @@
         <div class="col--2-12 col--3-12--m u-hidden--s">
           <div class="container-flex--contain">
             <div class="sidebar">
+              <div class="sidebar__header">
+								<div class="user-toggle">
+								  <nav class="text-left u-align-left">
+                    {{#wu-popover as |p|}}
+                      {{#p.toggle}}
+			                  <div class="user-toggle__name--label">{{currentSession._user.voornaam}} {{currentSession._user.achternaam}}</div>
+                        <div class="user-toggle__name">
+                          {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}
+                        </div>
+                        <button class="vi vi-arrow vi-u-90deg vi-u-badge vi-u-badge--xsmall vi-u-badge--neutral"></button>
+                      {{/p.toggle}}
+                      {{#p.content tagName="ul"}}
+                          <li>
+                            {{#acmidm-switch tagName="a" class="popover__link"}}
+	                            <i class="fa fa-retweet button__icon"></i>
+	                            <span>Wissel van bestuurseenheid</span>
+                            {{/acmidm-switch}}
+                          </li>
+                          <li>
+                            {{#acmidm-logout tagName="a" class="popover__link"}}
+	                            <i class="button__icon fa fa-power-off"></i>
+                            	<span>Meld u af</span>
+                            {{/acmidm-logout}}
+                          </li>
+                      {{/p.content}}
+                    {{/wu-popover}}
+								  </nav>
+								</div>
+              </div>
               <div class="sidebar__content">
                 <nav class="side-navigation">
                   <div class="side-navigation__content">
@@ -42,8 +71,6 @@
               </div>
               <div class="sidebar__footer u-align-center">
                 <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" class="button button--alt button--small button--block u-spacer--tb--tiny"><i class="vi vi-book vi-u-s"></i> Bekijk handleiding</a>
-                <!-- {{#wu-button isLoading=loadingSwitch class="button--alt u-spacer--tb--tiny" isBlock=true onClick=(action 'switchUser')}}Kies een ander bestuur{{/wu-button}} -->
-                {{acmidm-logout class="button button--alt button--block"}}
               </div>
             </div>
           </div>

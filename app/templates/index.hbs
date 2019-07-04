@@ -1,154 +1,167 @@
 <div class="container-flex--scroll">
-  <div class="u-padding--round">
-    <h1 class="h1">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</h1>
-    <h2 class="h4 u-spacer--tiny">U heeft toegang tot volgende onderdelen</h2>
-    <p class="small u-spacer">Mist u toegang tot een onderdeel? Neem contact op met uw <strong>interne beheerder</strong>.<br>
-    	Werkt het nog steeds niet? Neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
+  <div class="u-padding--round loket-onderdeel__header">
+  	<div class="grid">
+  		<div class="col--8-12 col--1-1--m">
+		    <h1 class="h3 u-spacer">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</h1>
+		    <p class="small u-spacer">Mist u toegang tot een onderdeel? Neem contact op met uw <strong>interne beheerder</strong>.<br>
+		    	Werkt het nog steeds niet? Neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
+	    </div>
+	  </div>
     <div class="grid grid--is-stacked u-spacer">
-      {{#if currentSession.canAccessToezicht}}
-        <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-          <div class="info-tile info-tile--m info-tile--center">
-            <div>
-              <div class="info-tile__header">
-                <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                  <i class="badge__icon vi vi-book" aria-hidden="true"></i>
-                </div>
-                <div class="info-tile__header__wrapper">
-                  <h3 class="info-tile__header__title">Toezicht</h3>
-                </div>
+      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
+        <div class="info-tile info-tile--m info-tile--center">
+          <div>
+            <div class="info-tile__header">
+              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+                <i class="badge__icon vi vi-book" aria-hidden="true"></i>
               </div>
-              <div class="info-tile__content">
-                <p>Bezorg besluiten en overzichtslijsten elektronisch aan de toezichthoudende overheid.</p>
+              <div class="info-tile__header__wrapper">
+                <h3 class="info-tile__header__title">Toezicht</h3>
               </div>
-              <footer class="info-tile__footer">
-                <p class="u-spacer--tiny">
-                  {{wu-button class="button--narrow" label="Ga naar toezicht" onClick=(action "goToToezicht")}}
-                </p>
-                <p>
-                  <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mijn-binnenland" target="_blank">Meer informatie</a>
-                  <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
-                </p>
-              </footer>
             </div>
+            <div class="info-tile__content">
+              <p>Bezorg besluiten en overzichtslijsten elektronisch aan de toezichthoudende overheid.</p>
+            </div>
+            <footer class="info-tile__footer">
+              <p class="u-spacer--tiny">
+						    {{#if currentSession.canAccessToezicht}}
+	                {{wu-button isNarrow=true label="Ga naar toezicht" onClick=(action "goToToezicht")}}
+					      {{else}}
+	                {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToToezicht")}}
+					      {{/if}}
+              </p>
+              <p>
+                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mijn-binnenland" target="_blank">Meer informatie</a>
+                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
+              </p>
+            </footer>
           </div>
         </div>
-      {{/if}}
+      </div>
 
-      {{#if currentSession.canAccessBerichten}}
-        <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-          <div class="info-tile info-tile--m info-tile--center">
-            <div>
-              <div class="info-tile__header">
-                <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                  <i class="badge__icon vi vi-mail" aria-hidden="true"></i>
-                </div>
-                <div class="info-tile__header__wrapper">
-                  <h3 class="info-tile__header__title">Berichtencentrum</h3>
-                </div>
+      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
+        <div class="info-tile info-tile--m info-tile--center">
+          <div>
+            <div class="info-tile__header">
+              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+                <i class="badge__icon vi vi-mail" aria-hidden="true"></i>
               </div>
-              <div class="info-tile__content">
-                <p>Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+              <div class="info-tile__header__wrapper">
+                <h3 class="info-tile__header__title">Berichtencentrum</h3>
               </div>
-              <footer class="info-tile__footer">
-                <p class="u-spacer--tiny">
-                  {{wu-button class="button--narrow" label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
-                </p>
-                <p>
-                  <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank">Meer informatie</a>
-                  <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum" target="_blank">Handleiding</a>
-                </p>
-              </footer>
             </div>
+            <div class="info-tile__content">
+              <p>Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+            </div>
+            <footer class="info-tile__footer">
+	            <p class="u-spacer--tiny">
+					    	{{#if currentSession.canAccessBerichten}}
+	                {{wu-button isNarrow=true label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
+					      {{else}}
+	                {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToBerichtencentrum")}}
+					      {{/if}}
+					    </p>
+              <p>
+                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank">Meer informatie</a>
+                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum" target="_blank">Handleiding</a>
+              </p>
+            </footer>
           </div>
         </div>
-      {{/if}}
+      </div>
 
-      {{#if currentSession.canAccessBbcdr}}
-        <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-          <div class="info-tile info-tile--m info-tile--center">
-            <div>
-              <div class="info-tile__header">
-                <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                  <i class="badge__icon vi vi-paperclip" aria-hidden="true"></i>
-                </div>
-                <div class="info-tile__header__wrapper">
-                  <h3 class="info-tile__header__title">BBC-DR</h3>
-                </div>
+      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
+        <div class="info-tile info-tile--m info-tile--center">
+          <div>
+            <div class="info-tile__header">
+              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+                <i class="badge__icon vi vi-paperclip" aria-hidden="true"></i>
               </div>
-              <div class="info-tile__content">
-                <p>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus (BBC).</p>
+              <div class="info-tile__header__wrapper">
+                <h3 class="info-tile__header__title">BBC-DR</h3>
               </div>
-              <footer class="info-tile__footer">
-                <p class="u-spacer--tiny">
-                  {{wu-button class="button--narrow" label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
-                </p>
-                <p>
-                  <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank">Meer informatie</a>
-                  <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr" target="_blank">Handleiding</a>
-                </p>
-              </footer>
             </div>
+            <div class="info-tile__content">
+              <p>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus (BBC).</p>
+            </div>
+            <footer class="info-tile__footer">
+	            <p class="u-spacer--tiny">
+					    	{{#if currentSession.canAccessBbcdr}}
+	                {{wu-button isNarrow=true label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
+					      {{else}}
+	                {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToBbcdr")}}
+					      {{/if}}
+	            </p>
+              <p>
+                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank">Meer informatie</a>
+                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr" target="_blank">Handleiding</a>
+              </p>
+            </footer>
           </div>
         </div>
-      {{/if}}
+      </div>
 
-      {{#if currentSession.canAccessMandaat}}
-	      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-	        <div class="info-tile info-tile--m info-tile--center">
-	          <div>
-	            <div class="info-tile__header">
-	              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-	                <i class="badge__icon vi vi-addressbook" aria-hidden="true"></i>
-	              </div>
-	              <div class="info-tile__header__wrapper">
-	                <h3 class="info-tile__header__title">Mandatenbeheer</h3>
-	              </div>
-	            </div>
-	            <div class="info-tile__content">
-	              <p>Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
-	            </div>
-	            <footer class="info-tile__footer">
-	              <p class="u-spacer--tiny">
-	                {{wu-button class="button--narrow" label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
-	              </p>
-	              <p>
-	                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank">Meer informatie</a>
-	                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
-	              </p>
-	            </footer>
-	          </div>
-	        </div>
-	      </div>
-      {{/if}}
+      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
+        <div class="info-tile info-tile--m info-tile--center">
+          <div>
+            <div class="info-tile__header">
+              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+                <i class="badge__icon vi vi-addressbook" aria-hidden="true"></i>
+              </div>
+              <div class="info-tile__header__wrapper">
+                <h3 class="info-tile__header__title">Mandatenbeheer</h3>
+              </div>
+            </div>
+            <div class="info-tile__content">
+              <p>Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
+            </div>
+            <footer class="info-tile__footer">
+	            <p class="u-spacer--tiny">
+					    	{{#if currentSession.canAccessMandaat}}
+	                {{wu-button isNarrow=true label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
+						    {{else}}
+	                {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToMandatenbeheer")}}
+					      {{/if}}
+	            </p>
+              <p>
+                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank">Meer informatie</a>
+                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
+              </p>
+            </footer>
+          </div>
+        </div>
+      </div>
 
-      {{#if currentSession.canAccessLeidinggevenden}}
-	      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs u-hidden">
-	        <div class="info-tile info-tile--m info-tile--center">
-	          <div>
-	            <div class="info-tile__header">
-	              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-	                <i class="badge__icon vi vi-addressbook" aria-hidden="true"></i>
-	              </div>
-	              <div class="info-tile__header__wrapper">
-	                <h3 class="info-tile__header__title">Leidinggevendenbeheer</h3>
-	              </div>
-	            </div>
-	            <div class="info-tile__content">
-	              <p>Hou hier de leidinggevende functies voor uw bestuur bij.</p>
-	            </div>
-	            <footer class="info-tile__footer">
-	              <p class="u-spacer--tiny">
-	                {{wu-button class="button--narrow" label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
-	              </p>
+      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs u-hidden">
+        <div class="info-tile info-tile--m info-tile--center">
+          <div>
+            <div class="info-tile__header">
+              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+                <i class="badge__icon vi vi-addressbook" aria-hidden="true"></i>
+              </div>
+              <div class="info-tile__header__wrapper">
+                <h3 class="info-tile__header__title">Leidinggevendenbeheer</h3>
+              </div>
+            </div>
+            <div class="info-tile__content">
+              <p>Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+            </div>
+            <footer class="info-tile__footer">
+	            <p class="u-spacer--tiny">
+					      {{#if currentSession.canAccessLeidinggevenden}}
+		              {{wu-button isNarrow=true label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
+					      {{else}}
+		              {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToLeidinggevendenbeheer")}}
+					      {{/if}}
+					    </p>
 {{!-- 	              <p> Nog geen handleiding of specifieke pagina beschikbaar WACHTEN OP PIETER
-	                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank">Meer informatie</a>
-	                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
-	              </p> --}}
-	            </footer>
-	          </div>
-	        </div>
-	      </div>
-      {{/if}}
+                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank">Meer informatie</a>
+                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
+              </p> --}}
+            </footer>
+          </div>
+        </div>
+      </div>
 
 
     </div>
