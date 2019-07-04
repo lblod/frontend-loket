@@ -9,15 +9,5 @@ export default Controller.extend({
   init() {
     this._super(...arguments);
     this.set('header', ENV['vo-webuniversum']['header']);
-  },
-  actions: {
-    async switchUser() {
-      const logoutUrl = ENV.torii.providers['acmidm-oauth2'].logoutUrl;
-      const clientId = ENV.torii.providers['acmidm-oauth2'].apiKey;
-      const returnUrl= ENV.torii.providers['acmidm-oauth2'].switchUrl;
-      this.set('loadingSwitch', true);
-      await this.ajax.del('/sessions/current');
-      window.location.replace(`${logoutUrl}?switch=true&clientid=${clientId}&returnurl=${encodeURIComponent(returnUrl)}`);
-    }
   }
 });

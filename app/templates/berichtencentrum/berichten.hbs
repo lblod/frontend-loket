@@ -2,15 +2,15 @@
 <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
   <div class="container-flex--contain">
     <div class="u-border--light--bottom">
-      <div class="u-padding--round--small mandate-edit-table__header">
-        <h1 class="h4 u-spacer--tiny">Berichtencentrum {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}</h1>
+      <div class="u-padding--round--small loket-onderdeel__header">
         <div class="grid">
           <div class="col--6-12 col--1-1--s">
-            <!-- Search field -->
+		        <h1 class="h4 u-spacer--tiny">Berichtencentrum</h1>
+            {{!-- Search field --}}
           </div>
           <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
             <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
-              <i class="fa fa-cog"></i>Ontvang mails bij nieuwe berichten
+              <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
             </button>
           </div>
         </div>
