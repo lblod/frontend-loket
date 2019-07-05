@@ -34,6 +34,16 @@ export default Component.extend({
     return !this.isSent || this.get('fileAddresses.length') > 0;
   }),
 
+  invalidFileAddresses: computed('fileAddresses.@each.address', function() {
+    return this.fileAddresses.filter(fileAddress => {
+      try {
+        new URL(fileAddress.address);
+        return false;
+      }
+      catch(err) { return true }
+    })
+  }),
+  
   flushErrors() {
     this.set('errorMsg', '');
   },
@@ -71,16 +81,6 @@ export default Component.extend({
     const lastModifier = yield this.currentSession.get('user');
     inzending.set('lastModifier', lastModifier);
     return inzending.save();
-  }),
-
-  invalidFileAddresses: computed('fileAddresses.@each.address', function() {
-    return this.fileAddresses.filter(fileAddress => {
-      try {
-        new URL(fileAddress.address);
-        return false;
-      }
-      catch(err) { return true }
-    })
   }),
 
   validate: task(function*() {
