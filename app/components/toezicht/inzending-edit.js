@@ -77,7 +77,7 @@ export default Component.extend({
     this.flushErrors();
     const errors = [];
     const states = yield this.get('dynamicForm.formNode.unionStates');
-    if (states.filter((s) => s == 'noSend').length)
+    if (states.some(s => s == 'noSend'))
       errors.push('Gelieve alle verplichte velden in te vullen.');
 
     if ((yield this.files).length == 0 && this.allEmptyFileAddresses)
