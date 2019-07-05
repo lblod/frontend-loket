@@ -73,6 +73,16 @@ export default Component.extend({
     return inzending.save();
   }),
 
+  invalidFileAddresses: computed('fileAddresses.@each.address', function() {
+    return this.fileAddresses.filter(fileAddress => {
+      try {
+        new URL(fileAddress.address);
+        return false;
+      }
+      catch(err) { return true }
+    })
+  }),
+
   validate: task(function*() {
     this.flushErrors();
     const errors = [];
@@ -82,6 +92,10 @@ export default Component.extend({
 
     if ((yield this.files).length == 0 && this.allEmptyFileAddresses)
       errors.push('Gelieve minstens één bestand of link naar document op te laden.');
+
+    this.invalidFileAddresses.forEach(fileAddress => {
+        errors.push(`[Ongelgide link: ${fileAddress.address}.]`);
+    });
 
     this.set('errorMsg', errors.join(' '));
   }),
