@@ -10,7 +10,6 @@ export default Component.extend({
   classNames: ['col--10-12 col--9-12--m col--12-12--s container-flex--contain'],
   router: service(),
   store: service(),
-  formVersionTracker: service('toezicht/form-version-tracker'),
   currentSession: service(),
   files: null,
   addresses: null,
@@ -125,12 +124,6 @@ export default Component.extend({
   }).drop(),
 
   actions: {
-    async setFormVersion(formVersion) {
-      const formNode = await formVersion.get('formNode');
-      this.set('model.formNode', formNode);
-      this.formVersionTracker.updateFormVersion(formVersion);
-    },
-
     async create() {
       await this.save.perform();
       if (this.hasError) return;
