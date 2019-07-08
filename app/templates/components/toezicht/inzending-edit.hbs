@@ -2,7 +2,13 @@
 
 {{#if deleteModal}}{{toezicht/inzending-delete-modal onCancel=(action (mut deleteModal) false) onConfirm=(action "confirmDelete")}} {{/if}}
 {{#if hasError}}
-  {{wu-alert message=errorMsg isError=true data-test-loket="warning-message"}}
+  {{#wu-alert isError=true data-test-loket="warning-message"}}
+    <ul>
+      {{#each errorMsg as |msg|}}
+        <li>{{msg}}</li>
+      {{/each}}
+    </ul>
+  {{/wu-alert}}
 {{/if}}
 
 <div class="u-padding--round--small container-flex--scroll">

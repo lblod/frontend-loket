@@ -97,7 +97,7 @@ export default Component.extend({
         errors.push(`Ongeldige link: ${fileAddress.address}.`);
     });
 
-    this.set('errorMsg', errors.join(' '));
+    this.set('errorMsg', errors);
   }),
 
   save: task(function*() {
