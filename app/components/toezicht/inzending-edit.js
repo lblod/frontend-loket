@@ -43,7 +43,7 @@ export default Component.extend({
       catch(err) { return true }
     })
   }),
-  
+
   flushErrors() {
     this.set('errorMsg', '');
   },
@@ -94,7 +94,7 @@ export default Component.extend({
       errors.push('Gelieve minstens één bestand of link naar document op te laden.');
 
     this.invalidFileAddresses.forEach(fileAddress => {
-        errors.push(`[Ongelgide link: ${fileAddress.address}.]`);
+        errors.push(`Ongeldige link: ${fileAddress.address}.`);
     });
 
     this.set('errorMsg', errors.join(' '));
