@@ -34,11 +34,17 @@ export default Component.extend({
     return !this.isSent || this.get('fileAddresses.length') > 0;
   }),
 
+  /**
+   * An invalid FileAddress is one which has an invalid address.
+   * An invalid address is either a malformed url or a url with an
+   * unsupported protocol.
+   */
   invalidFileAddresses: computed('fileAddresses.@each.address', function() {
     return this.fileAddresses.filter(fileAddress => {
       try {
-        new URL(fileAddress.address);
-        return false;
+        const url = new URL(fileAddress.address);
+        const supportedProtocols = ['http:', 'https:', 'ftp:', 'sftp:'];
+        return ! supportedProtocols.includes(url.protocol);
       }
       catch(err) { return true }
     })
