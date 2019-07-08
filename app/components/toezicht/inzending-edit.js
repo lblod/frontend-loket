@@ -74,7 +74,7 @@ export default Component.extend({
     (yield inzending.get('files')).setObjects(this.files);
 
     // TODO add stricter validation on URLs
-    this.fileAddresses.forEach(a => a.set('address', a.address && a.address.trim()));
+    this.fileAddresses.forEach(a => a.set('address', a.address));
     yield Promise.all(this.fileAddresses.map(a => a.save()));
     (yield inzending.get('fileAddresses')).setObjects(this.fileAddresses);
 
