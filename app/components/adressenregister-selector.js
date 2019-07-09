@@ -15,7 +15,7 @@ export default Component.extend({
 
   async didReceiveAttrs(){
     if(await this.adres) {
-      this.set('_address', { volledigAdres : { geografischeNaam : { spelling: this.adres.volledigAdres } } });
+      this.set('_address', { volledigAdres : { geografischeNaam : { spelling: this.adres.get('volledigAdres') } } });
     }
   },
 
@@ -34,7 +34,7 @@ export default Component.extend({
     this.set('_address', null);
 
     if (overviewAddress) {
-      let result =  yield fetch(`/adressenregister/detail?url=${overviewAddress.detail}`);
+      let result =  yield fetch(`/adressenregister/detail?uri=${overviewAddress.detail}`);
       if (result.ok){
         let adresRegister = yield result.json();
         this.set('_address', adresRegister);
@@ -48,9 +48,10 @@ export default Component.extend({
   extractRelevantInfo(adresRegister){
     return {
       land: null, //seriously no land?
+      // And also adding house number etc etc
       gemeente: adresRegister['gemeente']['gemeentenaam']['geografischeNaam']['spelling'],
       postcode: adresRegister['postinfo']['objectId'],
-      adres: adresRegister['volledigAdres']['geografischeNaam']['spelling'],
+      volledigAdres: adresRegister['volledigAdres']['geografischeNaam']['spelling'],
       adresRegisterId: adresRegister['identificator']['objectId'],
       adresRegisterUri: adresRegister['identificator']['id']
     };

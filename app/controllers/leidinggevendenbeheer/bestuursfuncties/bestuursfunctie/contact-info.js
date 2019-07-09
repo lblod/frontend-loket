@@ -20,7 +20,6 @@ export default Controller.extend({
       if (this.newAddressData){
         var adres = await this.model.adres;
         adres.setProperties(this.newAddressData);
-        console.log(adres);
       }
       await adres.save();
       this.model.set('adres', adres);
