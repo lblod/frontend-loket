@@ -6,11 +6,19 @@ export default Route.extend({
     const bestuursfunctie = this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie');
     this.set('bestuursfunctie', bestuursfunctie);
 
-    if (! await bestuursfunctie.contactinfo) {
+    if (!await bestuursfunctie.contactinfo) {
       const info = await this.store.createRecord('contact-punt');
       await info.save();
 
       bestuursfunctie.set('contactinfo', info);
+      await bestuursfunctie.save();
+    }
+
+    if (!await bestuursfunctie.get('contactinfo.adres')) {
+      const adres = await this.store.createRecord('adres');
+      await adres.save();
+
+      bestuursfunctie.set('contactinfo.adres', adres);
       await bestuursfunctie.save();
     }
 

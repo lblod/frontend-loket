@@ -18,9 +18,14 @@ export default Controller.extend({
   actions: {
     async save() {
       if (this.newAddressData){
-        this.model.setProperties(this.newAddressData);
+        var adres = await this.model.adres;
+        adres.setProperties(this.newAddressData);
+        console.log(adres);
       }
+      await adres.save();
+      this.model.set('adres', adres);
       await this.model.save();
+
       this.exit();
     },
 

@@ -14,8 +14,9 @@ const emptyAdresRegister = {
 export default Component.extend({
 
   async didReceiveAttrs(){
-    if(this.adres)
-      this.set('_address', { volledigAdres : { geografischeNaam : { spelling: this.adres } } });
+    if(await this.adres) {
+      this.set('_address', { volledigAdres : { geografischeNaam : { spelling: this.adres.volledigAdres } } });
+    }
   },
 
   search: task(function* (searchData) {
