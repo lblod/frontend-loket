@@ -4,22 +4,20 @@ import DataTableRouteMixin from 'ember-data-table/mixins/route';
 export default Route.extend(DataTableRouteMixin, {
   modelName: 'mandataris',
 
-  async beforeModel(){
-    const mandatenbeheer = await this.modelFor('mandatenbeheer');
+  beforeModel(){
+    const mandatenbeheer = this.modelFor('mandatenbeheer');
     this.set('mandatenbeheer', mandatenbeheer);
-    this.set('bestuurseenheid', mandatenbeheer.bestuurseenheid);
-    const bestuursorganen = mandatenbeheer.bestuursorganen;
-    this.set('bestuursorganen', bestuursorganen);
-    this.set('bestuursorganenIds', bestuursorganen.map(o => o.get('id')));
   },
 
   mergeQueryOptions(params){
+    const bestuursorganenIds = this.mandatenbeheer.bestuursorganen.map(o => o.get('id'));
+
     const queryParams = {
       sort: params.sort,
       filter: {
         bekleedt: {
           'bevat-in': {
-            id: this.bestuursorganenIds.join(',')
+            id: bestuursorganenIds.join(',')
           }
         }
       },
@@ -40,8 +38,6 @@ export default Route.extend(DataTableRouteMixin, {
     this._super(controller, model);
     controller.set('searchData', this.paramsFor('mandatenbeheer.mandatarissen')['filter']);
     controller.set('mandatenbeheer', this.mandatenbeheer);
-    controller.set('bestuurseenheid', this.bestuurseenheid);
-    controller.set('bestuursorganen', this.bestuursorganen);
   },
 
   actions: {

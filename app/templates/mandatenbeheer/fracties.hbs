@@ -14,28 +14,26 @@
           <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
             <div class="power-select power-select--small power-select--inline">
               {{mandatenbeheer/bestuursperioden-selector
-                options=orgPerioden
-                selected=selectedOrgPeriode
-                onSelect=(action 'selectPeriode')
+                  options=bestuursperioden
+                  selectedStartDate=startDate
+                  onSelect=(action 'selectPeriod')
               }}
             </div>
           </div>
           <div class="col--6-12">
-            {{!-- <div class="input-field-icon-container--right">
-              <input class="input-field input-field--block" id="input-field" type="text" placeholder="Fractie" style="min-width: 35rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-            </div> --}}
           </div>
           <div class="col--6-12 u-align-right">
-            {{wu-button
-              label="Voeg fractie toe"
-              onClick=(action "addFractie")
-              isNarrow=true}}
+	          {{wu-button
+	              label="Voeg fractie toe"
+	              onClick=(action "createNewFractie")
+	              isNarrow=true
+            }}
           </div>
         </div>
       </div>
     </div>
 
-    {{#if isBusy}}
+    {{#if saveFractie.isRunning}}
       <div class="loader-wrapper">
         <div class="loader">
           <span class="u-visually-hidden">Bezig...</span>
@@ -46,40 +44,43 @@
         <table class="data-table data-table--nowrap">
           <thead>
             <tr class="data-table__header">
-              <th class="data-table__header-title"><a class="data-table__header-title--sortable data-table__header-title--sortable-active" href="#" title="sort">Fractienaam<i class="data-table__header-title__sort-icon vi vi-u-link-after vi-long-arrow"></i></a></th>
+              <th>Fractienaam</th>
               <th>Bestuursperiode</th>
               <th></th>
               <th>Gelinkt notuleren</th>
             </tr>
           </thead>
           <tbody>
-            {{#if isAdding}}
-              {{mandatenbeheer/fractie-table-row onEditFinish=(action "createFractie") isAdding=true periode=selectedOrgPeriode isBusy=isBusy}}
+            {{#if newFractie}}
+              {{mandatenbeheer/fractie-table-row
+                  onCancel=(action "cancelEdit")
+                  onSave=(perform saveFractie)
+                  fractie=newFractie
+                  editMode=true
+              }}
             {{/if}}
 
             {{#each model as |row|}}
-              {{mandatenbeheer/fractie-table-row onEditFinish=(action "updateFractie") fractie=row isBusy=isBusy}}
+              {{mandatenbeheer/fractie-table-row
+                  onCancel=(action "cancelEdit")
+                  onSave=(perform saveFractie)
+                  fractie=row
+              }}
             {{else}}
-              {{#unless isAdding}}
+              {{#unless newFractie}}
                 <tr>
                   <td colspan="3">
                     Geen fracties gevonden.
                     {{wu-button
-                      class="button button--link"
-                      label="Voeg een nieuwe fractie toe"
-                      onClick=(action "addFractie")
-                      isNarrow=true}}
+                        label="Voeg een nieuwe fractie toe"
+                        onClick=(action "createNewFractie")
+                        isNarrow=true
+                        isLink=true
+                    }}
                   </td>
                 </tr>
               {{/unless}}
             {{/each}}
-            <!--
-              <tr>
-              <td><strong>Onafhankelijk</strong></td>
-              <td>2019 — heden</td>
-              <td class="u-align-right"></td>
-            </tr>
-            -->
           </tbody>
         </table>
       </div>
