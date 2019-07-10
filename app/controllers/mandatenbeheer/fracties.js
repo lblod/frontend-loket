@@ -1,69 +1,50 @@
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import moment from 'moment';
-export default Controller.extend({
-  page: 0,
-  size: 20,
+import { computed } from '@ember/object';
+import { alias } from '@ember/object/computed';
 
-  isAdding: false,
+export default Controller.extend({
+  newFractie: null,
   isBusy: false,
 
-  saveNewFractie: task(function * (fractieNaam) {
-    //get correct type fractie;
-    let samenwerkingsverband = (yield this.store.query('fractietype', {
-      'filter[:uri:]': 'http://data.vlaanderen.be/id/concept/Fractietype/Samenwerkingsverband'
-    })).firstObject;
+  startDate: alias('mandatenbeheer.startDate'),
+  bestuursperioden: alias('mandatenbeheer.bestuursperioden'),
+  bestuurseenheid: alias('mandatenbeheer.bestuurseenheid'),
+  bestuursorganen: alias('mandatenbeheer.bestuursorganen'),
 
-    let fractie = this.store.createRecord('fractie', {
-      naam: fractieNaam,
-      fractietype: samenwerkingsverband,
-      bestuursorganenInTijd: this.bestuursorganen,
-      bestuurseenheid: yield this.bestuurseenheid
-    });
-    yield this.updateExistingFractie.perform(fractie);
-  }),
-
-  updateExistingFractie: task(function * (fractie) {
-    this.set('isBusy', true);
+  saveFractie: task(function * (fractie) {
+    const isNew = fractie.isNew;
     yield fractie.save();
-    this.set('isBusy', false);
-    this.exitAddMode();
-    this.send('reloadModel');
+
+    if (isNew) {
+      this.send('reloadModel');
+      this.set('newFractie', null);
+    }
   }),
-
-  exitAddMode() {
-    this.set("isAdding", false);
-  },
-
-  async updateFractiesOnChangeBestuursPeriode(periode){
-    this.transitionToRoute('mandatenbeheer.fracties', {
-      queryParams: {
-        startDate: moment(periode.bindingStart).format('YYYY-MM-DD')
-      }
-    });
-  },
 
   actions: {
-
-    addFractie() {
-      this.set("isAdding", true);
+    cancelEdit(fractie) {
+      if (fractie.isNew)
+        this.set('newFractie', null);
+      fractie.rollbackAttributes(); // removes model from store if it's new
     },
+    createNewFractie() {
+      const fractie = this.store.createRecord('fractie', {
+        fractietype: this.defaultFractieType,
+        bestuursorganenInTijd: this.bestuursorganen,
+        bestuurseenheid: this.bestuurseenheid
+      });
 
-    async createFractie(fractieNaam) {
-      if (fractieNaam != '') {
-        await this.saveNewFractie.perform(fractieNaam);
-      } else {
-        this.exitAddMode();
-      }
+      this.set('newFractie', fractie);
     },
-
-    updateFractie(fractie) {
-      this.updateExistingFractie.perform(fractie);
-    },
-
-    selectPeriode(periode) {
-      this.set('selectedOrgPeriode', periode);
-      this.updateFractiesOnChangeBestuursPeriode(periode);
+    selectPeriod(startDate) {
+      this.transitionToRoute('mandatenbeheer.fracties', {
+        queryParams: {
+          page: 0,
+          startDate: startDate
+        }
+      });
     }
   }
 });

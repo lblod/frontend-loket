@@ -11,32 +11,58 @@
           <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
             <div class="power-select power-select--small power-select--inline">
               {{mandatenbeheer/bestuursperioden-selector
-                  options=descSortedBestuursorgaanWithBestuursperioden
-                  selected=selectedBestuursorgaan
-                  onSelect=(action 'selectBestuursorgaan')
+                  options=bestuursperioden
+                  selectedStartDate=startDate
+                  onSelect=(action 'selectPeriod')
               }}
             </div>
           </div>
         </div>
 
-        {{mandatenbeheer/mandatarissen-totals class="js-accordion u-spacer--bottom--small" bestuursorganen=bestuursorganen}}
+        {{mandatenbeheer/mandatarissen-totals
+            class="js-accordion u-spacer--bottom--small"
+            bestuursorganen=bestuursorganen
+        }}
 
         <div class="grid">
           <div class="col--4-12 col--1-1--xs">
             <div class="input-field-icon-container--right">
-              {{input class="input-field input-field--block u-spacer--tiny" value=searchData type="text" placeholder="Zoek mandataris" key-up=(perform search)}}
+              {{input
+                  type="text"
+                  placeholder="Zoek mandataris"
+                  key-up=(perform search)
+                  value=searchData
+                  class="input-field input-field--block u-spacer--tiny"
+              }}
               <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
             </div>
           </div>
           <div class="col--8-12 col--1-1--xs u-align-right--tablet-portrait-up">
-            <!--<a class="button button--narrow button--link button--link--dark delete-me-toggle-overview-personen delete-me-mandate-edit-data">Bekijk gegevens mandatarissen</a>-->
-            {{wu-button label="Beheer fracties" onClick=(action "handleBeheerFractiesClick") isNarrow=true class="button--alt"}}
-            {{wu-button label="Voeg mandataris toe" onClick=(action "handleAddMandatarisClick") isNarrow=true}}
+            {{wu-button
+                label="Beheer fracties"
+                onClick=(action "handleBeheerFractiesClick")
+                isNarrow=true
+                isAlt=true
+            }}
+            {{wu-button
+                label="Voeg mandataris toe"
+                onClick=(action "handleAddMandatarisClick")
+                isNarrow=true
+            }}
           </div>
         </div>
       </div>
     </div>
-    {{mandatenbeheer/mandataris-table class="container-flex--contain" content=model isLoading=isLoadingModel sort=sort page=page size=size editRoute="mandatenbeheer.mandatarissen.edit" displaySubset=hasActiveChildRoute}}
+    {{mandatenbeheer/mandataris-table
+        class="container-flex--contain"
+        content=model
+        isLoading=isLoadingModel
+        sort=sort
+        page=page
+        size=size
+        editRoute="mandatenbeheer.mandatarissen.edit"
+        displaySubset=hasActiveChildRoute
+    }}
   </div>
 </div>
 {{outlet}}
