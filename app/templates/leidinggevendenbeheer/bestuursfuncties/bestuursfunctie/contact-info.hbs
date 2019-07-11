@@ -37,6 +37,16 @@
         </div>
       </div>
 
+      {{#if multipleMatchAddresses}}
+        <div class="form__row">
+          <div class="grid">
+            <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
+              {{specific-address-selector adres=model.adres options=matchAddresses onSelect=(action "matchAddressSelected") allowClear=true}}
+            </div>
+          </div>
+        </div>
+      {{/if}}
+
 
       {{!-- ************************************************** WILL BE REFINED ONCE INTEGRATED WITH CRAB  ************************************************** --}}
       {{!-- <h4 class="h5 u-spacer--tiny">Adres</h4>

@@ -3,7 +3,7 @@ import { task, timeout } from 'ember-concurrency';
 import fetch from 'fetch';
 
 export default Component.extend({
-  async didReceiveAttrs(){
+  async didReceiveAttrs() {
     if(this.adres.get('volledigAdres')) {
       this.set('_address', { FormattedAddress : await this.adres.get('volledigAdres') });
     }
@@ -20,7 +20,7 @@ export default Component.extend({
   }).keepLatest(),
 
   actions: {
-    async select(selectedAddress){
+    select(selectedAddress) {
       this.onSelect(selectedAddress);
       this.set('_address', selectedAddress);
     }

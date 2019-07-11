@@ -13,6 +13,7 @@ const emptyAdresRegister = {
 export default Controller.extend({
   newAddressData: null,
   showConfirmationDialog: false,
+  multipleMatchAddresses: false,
 
   isDirty: computed('model.hasDirtyAttributes', 'newAddress', function() {
     return this.model.hasDirtyAttributes || this.newAddressData;
@@ -38,32 +39,37 @@ export default Controller.extend({
   actions: {
     async save() {
       if (this.newAddressData) {
-        // Match the selected address with the register and get its details
-        let adresRegister = null;
         const matchResult = await fetch(`/adressenregister/match?municipality=${this.newAddressData.Municipality}&zipcode=${this.newAddressData.Zipcode}&thoroughfarename=${this.newAddressData.Thoroughfarename}&housenumber=${this.newAddressData.Housenumber}`);
         if (matchResult.ok) {
-          const matchedAddress = await matchResult.json();
-          if (matchedAddress) {
-            const detailResult = await fetch(`/adressenregister/detail?uri=${matchedAddress.detail}`);
-            if (detailResult.ok) {
-              adresRegister = await detailResult.json();
-              adresRegister = this.extractRelevantInfo(adresRegister);
-            }
+          const matchAddresses = await matchResult.json();
+          if (matchAddresses.length > 1) {
+            this.set('multipleMatchAddresses', true);
+            this.set('matchAddresses', matchAddresses);
+          } else {
+            this.set('newMatchAddressData', matchAddresses[0]);
           }
         }
+      }
 
-        let adres = await this.model.adres;
-        if (adresRegister) {
-          adres.setProperties(adresRegister);
-        } else {
-          adres.setProperties(emptyAdresRegister);
+      if (this.newMatchAddressData) {
+        const detailResult = await fetch(`/adressenregister/detail?uri=${this.newMatchAddressData.detail}`);
+        if (detailResult.ok) {
+          let adresRegister = await detailResult.json();
+          adresRegister = this.extractRelevantInfo(adresRegister);
+
+          let adres = await this.model.adres;
+          if (adresRegister) {
+            adres.setProperties(adresRegister);
+          } else {
+            adres.setProperties(emptyAdresRegister);
+          }
+          await adres.save();
+
+          this.model.set('adres', adres);
+          await this.model.save();
+
+          this.exit();
         }
-        await adres.save();
-
-        this.model.set('adres', adres);
-        await this.model.save();
-
-        this.exit();
       }
     },
 
@@ -81,6 +87,10 @@ export default Controller.extend({
 
     addressSelected(addressData){
       this.set('newAddressData', addressData);
+    },
+
+    matchAddressSelected(addressData){
+      this.set('newMatchAddressData', addressData);
     }
   }
 });
