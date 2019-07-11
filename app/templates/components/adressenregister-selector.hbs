@@ -9,5 +9,11 @@
    noMatchesMessage="Geen resultaten"
    searchMessage="Typ om te zoeken"
    as |address|}}
-  {{address.volledigAdres.geografischeNaam.spelling}}
+  {{address.FormattedAddress}}
 {{/power-select}}
+
+{{#if addressUncomplete}}
+  <div>
+    Vul een volledig adres in.
+  </div>
+{{/if}}
