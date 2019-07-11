@@ -1,54 +1,45 @@
-{{#if isAdding}}
-  <td>{{input  value=tempValue  placeholder="Edit fractienaam" class="input-field input-field--block"}}</td>
-  <td>
-  	{{moment-format periode.bindingStart 'YYYY'}} -
-	  {{#if periode.bindingEinde}}
-			{{moment-format periode.bindingEinde 'YYYY'}}
-		{{else}}
-			heden
-		{{/if}}
-	</td>
-  <td class="u-align-right">
+<td>
+  {{#if editMode}}
+    {{input
+        value=fractie.naam
+        placeholder="Fractienaam"
+        class="input-field input-field--block"
+    }}
+  {{else}}
+    <strong>{{fractie.naam}}</strong>
+  {{/if}}
+</td>
+
+<td>
+  {{moment-format bestuursperiodeStart 'YYYY'}} -
+	{{#if bestuursperiodeEnd}}
+		{{moment-format bestuursperiodeEnd 'YYYY'}}
+	{{else}}
+		heden
+	{{/if}}
+</td>
+
+<td class="u-align-right">
+  {{#if editMode}}
     <div class="button-group">
-      {{wu-button  class="button button--narrow button--alt" isNarrow=true
-        label='Annuleer'
-        onClick=(action "cancelFractieEdit")}}
-      {{wu-button  class="button button--narrow" isNarrow=true
-        label='Bewaar'
-        onClick=(action "approveFractieEdit")
-        disabled=(eq tempValue '')}}
+      {{wu-button
+          label="Annuleer"
+          onClick=(action "cancel")
+          isNarrow=true
+          isAlt=true
+      }}
+      {{wu-button
+          label="Bewaar"
+          onClick=(action "save")
+          isNarrow=true
+          disabled=(not isValid)
+      }}
     </div>
-  </td>
-{{else if isEditing}}
-  <td>{{input value=fractie.naam  placeholder="Edit fractienaam" class="input-field input-field--block"}}</td>
-  <td>
-  	{{moment-format bestuursorganenInTijdStart 'YYYY'}} -
-	  {{#if periode.bindingEinde}}
-			{{moment-format bestuursorganenInTijdEinde 'YYYY'}}
-		{{else}}
-			heden
-		{{/if}}
-	</td>
-  <td class="u-align-right">
-    <div class="button-group">
-      {{wu-button  class="button button--narrow button--alt" isNarrow=true
-        label='Verwerp wijzigingen'
-        onClick=(action "cancelFractieEdit")}}
-      {{wu-button  class="button button--narrow" isNarrow=true
-	      label='Bewaar'
-	      onClick=(action "approveFractieEdit")
-	      disabled=(or (eq fractie.naam '') (eq fractie.naam nameBeforeEdit))}}
-    </div>
-  </td>
-{{else}}
-  <td><strong>{{fractie.naam}}</strong></td>
-  <td>
-  	{{moment-format bestuursorganenInTijdStart 'YYYY'}} -
-	  {{#if periode.bindingEinde}}
-			{{moment-format bestuursorganenInTijdEinde 'YYYY'}}
-		{{else}}
-			heden
-		{{/if}}
-	</td>
-  <td class="u-align-right"><a onClick={{action "startFractieEdit"}}>Bewerk</a></td>
-{{/if}}
+  {{else}}
+    {{wu-button
+        label="Bewerk"
+        onClick=(action (mut editMode) true)
+        isLink=true
+    }}
+  {{/if}}
+</td>
