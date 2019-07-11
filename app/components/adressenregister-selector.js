@@ -3,8 +3,6 @@ import { task, timeout } from 'ember-concurrency';
 import fetch from 'fetch';
 
 export default Component.extend({
-  addressUncomplete: false,
-
   async didReceiveAttrs(){
     if(this.adres.get('volledigAdres')) {
       this.set('_address', { FormattedAddress : await this.adres.get('volledigAdres') });
@@ -23,13 +21,8 @@ export default Component.extend({
 
   actions: {
     async select(selectedAddress){
-      if (!selectedAddress.Housenumber) {
-        this.set('addressUncomplete', true);
-      } else {
-        this.set('addressUncomplete', false);
-        this.onSelect(selectedAddress);
-        this.set('_address', selectedAddress);
-      }
+      this.onSelect(selectedAddress);
+      this.set('_address', selectedAddress);
     }
   }
 });

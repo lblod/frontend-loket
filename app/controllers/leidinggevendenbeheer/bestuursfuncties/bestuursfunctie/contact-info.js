@@ -37,10 +37,8 @@ export default Controller.extend({
 
   actions: {
     async save() {
-      // Make is a task ?
-
       if (this.newAddressData) {
-        // Locate precisely the new address
+        // Match the selected address with the register and get its details
         let adresRegister = null;
         const matchResult = await fetch(`/adressenregister/match?municipality=${this.newAddressData.Municipality}&zipcode=${this.newAddressData.Zipcode}&thoroughfarename=${this.newAddressData.Thoroughfarename}&housenumber=${this.newAddressData.Housenumber}`);
         if (matchResult.ok) {
@@ -54,7 +52,6 @@ export default Controller.extend({
           }
         }
 
-        // Save the address
         let adres = await this.model.adres;
         if (adresRegister) {
           adres.setProperties(adresRegister);
@@ -68,7 +65,6 @@ export default Controller.extend({
 
         this.exit();
       }
-
     },
 
     cancel(){

@@ -14,15 +14,16 @@ export default Route.extend({
       await bestuursfunctie.save();
     }
 
-    if (!await bestuursfunctie.get('contactinfo.adres')) {
+    const contactinfo = await bestuursfunctie.get('contactinfo');
+    if (!(await contactinfo.adres)) {
       const adres = await this.store.createRecord('adres');
       await adres.save();
 
-      bestuursfunctie.set('contactinfo.adres', adres);
-      await bestuursfunctie.save();
+      contactinfo.set('adres', adres);
+      await contactinfo.save();
     }
 
-    return bestuursfunctie.contactinfo;
+    return contactinfo;
   },
 
   setupController(controller, model) {
