@@ -3,7 +3,7 @@
   {{#t.content as |c|}}
     {{#c.header}}
       {{#unless displaySubset}}
-        {{th-sortable label='Orgaan' field='decidedBy.label' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+        {{th-sortable label='Orgaan' field='bestuursorgaan.naam' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
       {{th-sortable label='Type dossier' field='besluitType.label' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{!--{{#unless displaySubset}}
