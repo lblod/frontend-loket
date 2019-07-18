@@ -15,17 +15,17 @@
               {{/if}}
             </li>
             <li>
-              {{#if model.contactinfo.telephone}}
-                <a class="link--dark" href="tel:{{model.contactinfo.telephone}}">
-                  {{model.contactinfo.telephone}}
+              {{#if model.contactinfo.telefoon}}
+                <a class="link--dark" href="tel:{{model.contactinfo.telefoon}}">
+                  {{model.contactinfo.telefoon}}
                 </a>
               {{else}}
                 <span class="text-fade">geen telefoonnummer</span>
               {{/if}}
             </li>
             <li>
-              {{#if model.contactinfo.adres}}
-                <span>{{model.contactinfo.adres}}</span>
+              {{#if model.contactinfo.adres.volledigAdres}}
+                <span>{{model.contactinfo.adres.volledigAdres}}</span>
               {{else}}
                 <span class="text-fade">geen adres</span>
               {{/if}}

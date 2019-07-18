@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { task, timeout } from 'ember-concurrency';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
-import { sort, alias } from '@ember/object/computed';
+import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
   router: service(),

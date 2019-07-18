@@ -1,0 +1,23 @@
+{{title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+<div class="col--12-12--s u-border--light--right col--10-12">
+  <div class="container-flex--contain">
+    <div class="u-border--light--bottom">
+      <div class="u-padding--round--small loket-onderdeel__header"  data-test-mn="inzendingen-page-title-parent-node">
+        <div class="grid">
+          <div class="col--6-12 col--12-12--s">
+        		<h1 class="h4 u-spacer--tiny" data-test-loket="inzendingen-page-title">Toezicht</h1>
+{{!--             <div class="input-field-icon-container--right u-spacer--bottom--tiny">
+            </div> --}}
+          </div>
+          <div class="col--6-12 col--12-12--s u-align-right--tablet-portrait-up">
+            {{wu-button label="Maak nieuwe melding" onClick=(action "goToNewInzending") isNarrow=true data-test-loket="new-melding-button"}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{toezicht/inzendingen-table class="container-flex--contain" content=model sort=sort page=page size=size}}
+
+  </div>
+</div>
+
+{{outlet}}

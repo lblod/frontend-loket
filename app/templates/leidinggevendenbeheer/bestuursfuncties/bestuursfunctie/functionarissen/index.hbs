@@ -22,15 +22,15 @@
                 {{/if}}
               </li>
               <li>
-                {{#if bestuursfunctie.contactinfo.telephone}}
-                  {{bestuursfunctie.contactinfo.telephone}}
+                {{#if bestuursfunctie.contactinfo.telefoon}}
+                  {{bestuursfunctie.contactinfo.telefoon}}
                 {{else}}
                   <span class="text-fade">geen telefoonnummer</span>
                 {{/if}}
               </li>
               <li>
                 {{#if bestuursfunctie.contactinfo.adres}}
-                  <span>{{bestuursfunctie.contactinfo.adres}}</span>
+                  <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
                 {{else}}
                   <span class="text-fade">geen adres</span>
                 {{/if}}

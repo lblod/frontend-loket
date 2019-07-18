@@ -1,6 +1,7 @@
 import attr from 'ember-data/attr';
 import Model from 'ember-data/model';
 import { collect } from '@ember/object/computed';
+import { belongsTo } from 'ember-data/relationships';
 
 export default Model.extend({
   // A string representation of this model, based on its attributes.
@@ -8,14 +9,11 @@ export default Model.extend({
   stringRep: collect.apply(this,['id', 'land', 'gemeente', 'adres', 'postcode', 'email', 'telephone', 'fax', 'website']),
 
   uri: attr(),
-  land: attr(),
-  gemeente: attr(),
-  adres: attr(),
-  postcode: attr(),
+  aanschrijfprefix: attr(),
   email: attr(),
-  telephone: attr(),
   fax: attr(),
+  naam: attr(),
   website: attr(),
-  adresRegisterId: attr(),
-  adresRegisterUri: attr()
+  telefoon: attr(),
+  adres: belongsTo('adres', { inverse: null })
 });

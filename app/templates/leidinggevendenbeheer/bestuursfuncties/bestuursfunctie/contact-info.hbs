@@ -23,7 +23,7 @@
         <div class="grid">
           <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
             <label class="form__label" for="telefoonnummer">Telefoonnummer</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-telephone" placeholder="+32484738324" inputmode="tel" type="tel" value=(mut model.telephone)}}
+            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-telefoon" placeholder="+32484738324" inputmode="tel" type="tel" value=(mut model.telefoon)}}
           </div>
         </div>
 
@@ -36,6 +36,16 @@
           </div>
         </div>
       </div>
+
+      {{#if multipleMatchAddresses}}
+        <div class="form__row">
+          <div class="grid">
+            <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
+              {{specific-address-selector adres=model.adres options=matchAddresses onSelect=(action "matchAddressSelected") allowClear=true}}
+            </div>
+          </div>
+        </div>
+      {{/if}}
 
 
       {{!-- ************************************************** WILL BE REFINED ONCE INTEGRATED WITH CRAB  ************************************************** --}}
