@@ -28,17 +28,19 @@
       </div>
     </div>
   </div>
-  <div class="form__row">
-    <div class="grid">
-      {{#each statusOptions as |status|}}
-        <div class="col--4-12 col--6-12--s col--1-1--xs">
-          {{wu-radio-button label=status.label value=status isBlock=true
-              onChange=(action (mut model.status status))
-              checked=(eq status.id model.status.id)}}
-        </div>
-      {{/each}}
+  {{#if (gt statusOptions.length 1)}}
+    <div class="form__row">
+      <div class="grid">
+        {{#each statusOptions as |status|}}
+          <div class="col--4-12 col--6-12--s col--1-1--xs">
+            {{wu-radio-button label=status.label value=status isBlock=true
+                onChange=(action (mut model.status status))
+                checked=(eq status.id model.status.id)}}
+          </div>
+        {{/each}}
+      </div>
     </div>
-  </div>
+  {{/if}}
 </div>
 
 {{yield isValid}}
