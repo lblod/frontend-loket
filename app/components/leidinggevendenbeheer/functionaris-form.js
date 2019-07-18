@@ -13,10 +13,9 @@ export default Component.extend({
     this._super(...arguments);
     const bestuursfunctie = await this.model.bekleedt;
     const bestuursfunctieCode = await bestuursfunctie.rol;
-    const bestuursfunctieCodeUri = await bestuursfunctieCode.uri;
 
     let queryParams = {};
-    if (bestuursfunctieCodeUri == 'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/855489b9-b584-4f34-90b2-39aea808cd9f') { // Leidend ambtenaar
+    if (bestuursfunctieCode.isLeidinggevendAmbtenaar) {
       queryParams =  {
         filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' } // aangesteld
       };
