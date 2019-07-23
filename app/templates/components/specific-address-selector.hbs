@@ -7,5 +7,9 @@
    loadingMessage="Aan het laden..."
    noMatchesMessage="Geen resultaten"
    as |address|}}
-  {{address.volledigAdres.geografischeNaam.spelling}}
+  {{#if address.busnummer}}
+    Bus {{address.busnummer}}
+  {{else}}
+    Geen busnummer
+  {{/if}}
 {{/power-select}}

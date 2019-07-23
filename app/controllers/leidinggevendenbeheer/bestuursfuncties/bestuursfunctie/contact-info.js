@@ -44,7 +44,7 @@ export default Controller.extend({
         const matchAddresses = yield matchResult.json();
         if (matchAddresses.length > 1) {
           this.set('multipleMatchAddresses', true);
-          this.set('matchAddresses', matchAddresses);
+          this.set('matchAddresses', matchAddresses.sortBy('busnummer'));
         } else {
           this.set('newMatchAddressData', matchAddresses[0]);
         }
