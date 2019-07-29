@@ -13,6 +13,7 @@ const emptyAdresRegister = {
 
 export default Controller.extend({
   newAddressData: null,
+  isNewAddress: false,
   showConfirmationDialog: false,
   busnummerSelectDisabled: true,
 
@@ -22,8 +23,8 @@ export default Controller.extend({
     }
   }),
 
-  isDirty: computed('model.hasDirtyAttributes', 'newAddressData', function() {
-    return this.model.hasDirtyAttributes || this.newAddressData;
+  isDirty: computed('model.hasDirtyAttributes', 'isNewAddress', 'newAddressData', function() {
+    return this.model.hasDirtyAttributes || this.isNewAddress || this.newAddressData;
   }),
 
   extractRelevantInfo(adresRegister) {
@@ -39,11 +40,13 @@ export default Controller.extend({
 
   exit() {
     this.set('showConfirmationDialog', false);
+    this.set('isNewAddress', false);
     this.set('newAddressData', null);
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
   },
 
   fetchAddressMatches: task(function* (addressData) {
+    this.set('isNewAddress', true);
     this.set('newAddressData', addressData);
     this.set('busnumberAddress', null);
     if (addressData) {
