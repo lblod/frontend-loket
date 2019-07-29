@@ -62,7 +62,8 @@
   margin-right: 8rem;
 }
 
-.is-required {
+.is-required,
+.is-optional {
   position: relative;
 
   &:after {
@@ -79,6 +80,13 @@
     border-radius: 3px;
     padding: 0.5rem 0.3rem 0.3rem 0.4rem;
     line-height: 1;
+  }
+}
+
+.is-optional {
+
+  &:after {
+    content: "Optioneel";
   }
 }
 
