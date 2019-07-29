@@ -14,7 +14,7 @@ const emptyAdresRegister = {
 export default Controller.extend({
   newAddressData: null,
   showConfirmationDialog: false,
-  multipleMatchAddresses: false,
+  busnummerSelectDisabled: true,
 
   isDirty: computed('model.hasDirtyAttributes', 'newAddress', function() {
     return this.model.hasDirtyAttributes || this.newAddressData;
@@ -37,16 +37,18 @@ export default Controller.extend({
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
   },
 
-  fetchAddressMatches: task(function* () {
-    if (this.newAddressData) {
+  fetchAddressMatches: task(function* (addressData) {
+    if (addressData) {
+      this.set('newAddressData', addressData);
       const matchResult = yield fetch(`/adressenregister/match?municipality=${this.newAddressData.Municipality}&zipcode=${this.newAddressData.Zipcode}&thoroughfarename=${this.newAddressData.Thoroughfarename}&housenumber=${this.newAddressData.Housenumber}`);
       if (matchResult.ok) {
         const matchAddresses = yield matchResult.json();
         if (matchAddresses.length > 1) {
-          this.set('multipleMatchAddresses', true);
           this.set('matchAddresses', matchAddresses.sortBy('busnummer'));
+          this.set('busnummerSelectDisabled', false);
         } else {
           this.set('newMatchAddressData', matchAddresses[0]);
+          this.set('busnummerSelectDisabled', true);
         }
       }
     }
@@ -80,11 +82,10 @@ export default Controller.extend({
 
   actions: {
     async save() {
-      await this.fetchAddressMatches.perform();
       await this.processAddressDetails.perform();
     },
 
-    cancel(){
+    cancel() {
       if (!this.isDirty)
         this.exit();
       else
@@ -96,11 +97,11 @@ export default Controller.extend({
       this.exit();
     },
 
-    addressSelected(addressData){
-      this.set('newAddressData', addressData);
+    addressSelected(addressData) {
+      this.fetchAddressMatches.perform(addressData);
     },
 
-    matchAddressSelected(addressData){
+    matchAddressSelected(addressData) {
       this.set('newMatchAddressData', addressData);
     }
   }
