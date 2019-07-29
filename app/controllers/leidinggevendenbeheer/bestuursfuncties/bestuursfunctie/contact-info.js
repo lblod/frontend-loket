@@ -16,13 +16,13 @@ export default Controller.extend({
   showConfirmationDialog: false,
   busnummerSelectDisabled: true,
 
-	busnummerSelectPlaceholder: computed('busnummerSelectDisabled', function() {
-		if (busnummerSelectDisabled) {
-			return "Geen busnummer beschikbaar bij dit adres.";
-		}
-	}),
+  busnummerSelectPlaceholder: computed('busnummerSelectDisabled', function() {
+    if (this.busnummerSelectDisabled) {
+      return "Geen busnummer beschikbaar bij dit adres.";
+    }
+  }),
 
-  isDirty: computed('model.hasDirtyAttributes', 'newAddress', function() {
+  isDirty: computed('model.hasDirtyAttributes', 'newAddressData', function() {
     return this.model.hasDirtyAttributes || this.newAddressData;
   }),
 
