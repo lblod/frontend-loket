@@ -44,8 +44,8 @@ export default Controller.extend({
   },
 
   fetchAddressMatches: task(function* (addressData) {
+    this.set('newAddressData', addressData);
     if (addressData) {
-      this.set('newAddressData', addressData);
       const matchResult = yield fetch(`/adressenregister/match?municipality=${this.newAddressData.Municipality}&zipcode=${this.newAddressData.Zipcode}&thoroughfarename=${this.newAddressData.Thoroughfarename}&housenumber=${this.newAddressData.Housenumber}`);
       if (matchResult.ok) {
         const matchAddresses = yield matchResult.json();
