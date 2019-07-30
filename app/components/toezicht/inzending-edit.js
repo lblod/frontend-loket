@@ -1,7 +1,5 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
-import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 import { and, gte, not, or } from 'ember-awesome-macros';
@@ -11,9 +9,6 @@ export default Component.extend({
   router: service(),
   store: service(),
   currentSession: service(),
-  files: null,
-  addresses: null,
-  fileAddresses: null,
   errorMsg: '',
   hasError: gte('errorMsg.length', 1),
   deleteModal: false,
@@ -22,50 +17,15 @@ export default Component.extend({
   isSent: alias('model.inzendingVoorToezicht.status.isVerstuurd'),
   canSave: not('isSent'),
   canDelete: and(not('model.isNew'), 'canSave'),
-  canSend: and('canSave', or('files.length', not('allEmptyFileAddresses'))),
   isWorking: or('save.isRunning', 'delete.isRunning', 'send.isRunning'),
-
-  allEmptyFileAddresses: computed('fileAddresses', 'fileAddresses.{[],@each.address}', function() {
-    return !(this.fileAddresses || []).any(a => a.address && a.address.length > 0);
-  }),
-
-  needsUrlBox: computed('isSent', 'fileAddresses.length', function() {
-    return !this.isSent || this.get('fileAddresses.length') > 0;
-  }),
 
   flushErrors() {
     this.set('errorMsg', '');
   },
 
-  init() {
-    this._super(...arguments);
-    this.set('files', A());
-    this.set('fileAddresses', A([]));
-  },
-
-  async didReceiveAttrs() {
-    try {
-      this._super(...arguments);
-      const files = await this.inzending.get('files');
-      if (files)
-        this.files.setObjects(files.toArray());
-      const fileAddresses = await this.inzending.get('fileAddresses');
-      if (fileAddresses)
-        this.fileAddresses.setObjects(fileAddresses.toArray());
-    } catch (e) {
-      this.set('errorMsg', `Fout bij het inladen: ${e.message}. Gelieve opnieuw te proberen.`);
-    }
-  },
-
   updateInzendingAttachments: task(function*() {
     const inzending = yield this.inzending;
     inzending.set('modified', new Date());
-    (yield inzending.get('files')).setObjects(this.files);
-
-    // TODO add stricter validation on URLs
-    this.fileAddresses.forEach(a => a.set('address', a.address && a.address.trim()));
-    yield Promise.all(this.fileAddresses.map(a => a.save()));
-    (yield inzending.get('fileAddresses')).setObjects(this.fileAddresses);
 
     const lastModifier = yield this.currentSession.get('user');
     inzending.set('lastModifier', lastModifier);
@@ -74,15 +34,9 @@ export default Component.extend({
 
   validate: task(function*() {
     this.flushErrors();
-    const errors = [];
     const states = yield this.get('dynamicForm.formNode.unionStates');
     if (states.filter((s) => s == 'noSend').length)
-      errors.push('Gelieve alle verplichte velden in te vullen.');
-
-    if ((yield this.files).length == 0 && this.allEmptyFileAddresses)
-      errors.push('Gelieve minstens één bestand of link naar document op te laden.');
-
-    this.set('errorMsg', errors.join(' '));
+      this.set('errorMsg', 'Gelieve alle verplichte velden in te vullen.');
   }),
 
   save: task(function*() {
@@ -114,9 +68,7 @@ export default Component.extend({
 
   delete: task(function*() {
     try {
-      const files = yield this.model.get('inzendingVoorToezicht.files');
       yield(yield this.model.get('inzendingVoorToezicht')).destroyRecord();
-      yield Promise.all(files.map(f => f.destroyRecord()));
       yield this.model.destroyRecord();
     } catch (e) {
       this.set('errorMsg', `Fout bij het verwijderen: ${e.message}`);
@@ -144,18 +96,6 @@ export default Component.extend({
       await this.delete.perform();
       if (this.hasError) return;
       this.router.transitionTo('toezicht.inzendingen.index');
-    },
-
-    addFile(file) {
-      this.files.pushObject(file);
-    },
-
-    deleteFile(file) {
-      this.files.removeObject(file);
-    },
-
-    deleteFileAddress(fileAddress) {
-      this.fileAddresses.removeObject(fileAddress);
     },
 
     close() {
