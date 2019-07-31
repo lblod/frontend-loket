@@ -31,8 +31,8 @@
           </div>
         </div>
       </div>
-      <label for="mandataris-pattern">Zoek rijksregisternummer <span class="text-fade small">(optioneel)</span></label>
-      <div class="input-field-icon-container--right input-field-icon-container--block">
+      <label for="mandataris-pattern">Zoek rijksregisternummer</label>
+      <div class="input-field-icon-container--right input-field-icon-container--block is-optional">
         {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search)}}
         <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
       </div>
@@ -51,7 +51,7 @@
   {{else}}
     {{#unless hasSearched}}
 	    <div class="mandate-new-info">
-	      <p class="text-fade u-spacer--round--tiny">Zoek een bestaande persoon op naam of op rijksregisternummer,<br>of <a {{action onCreateNewPerson}}>voeg een nieuwe persoon toe</a>.</p>
+	      <p class="text-fade u-spacer--round--tiny">Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of <a {{action onCreateNewPerson}}>voeg een nieuwe persoon toe</a>.</p>
 	    </div>
     {{else}}
       {{#if personen}}
