@@ -8,22 +8,17 @@ const emptyAdresRegister = {
   postcode: null,
   adres: null,
   adresRegisterId: null,
-  adresRegisterUri: null
+  adresRegisterUri: null,
+  volledigAdres: null,
 }
 
 export default Controller.extend({
-  newAddressData: null,
+  matchedAddress: null,
+  isNewAddress: false,
   showConfirmationDialog: false,
-  busnummerSelectDisabled: true,
 
-  busnummerSelectPlaceholder: computed('busnummerSelectDisabled', function() {
-    if (this.busnummerSelectDisabled) {
-      return "Geen busnummer beschikbaar bij dit adres.";
-    }
-  }),
-
-  isDirty: computed('model.hasDirtyAttributes', 'newAddressData', function() {
-    return this.model.hasDirtyAttributes || this.newAddressData;
+  isDirty: computed('model.hasDirtyAttributes', 'isNewAddress', 'matchedAddress', function() {
+    return this.model.hasDirtyAttributes || this.isNewAddress || this.matchedAddress;
   }),
 
   extractRelevantInfo(adresRegister) {
@@ -39,35 +34,21 @@ export default Controller.extend({
 
   exit() {
     this.set('showConfirmationDialog', false);
-    this.set('newAddressData', null);
+    this.set('isNewAddress', false);
+    this.set('matchedAddress', null);
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
   },
 
-  fetchAddressMatches: task(function* (addressData) {
-    if (addressData) {
-      this.set('newAddressData', addressData);
-      const matchResult = yield fetch(`/adressenregister/match?municipality=${this.newAddressData.Municipality}&zipcode=${this.newAddressData.Zipcode}&thoroughfarename=${this.newAddressData.Thoroughfarename}&housenumber=${this.newAddressData.Housenumber}`);
-      if (matchResult.ok) {
-        const matchAddresses = yield matchResult.json();
-        if (matchAddresses.length > 1) {
-          this.set('matchAddresses', matchAddresses.sortBy('busnummer'));
-          this.set('busnummerSelectDisabled', false);
-        } else {
-          this.set('newMatchAddressData', matchAddresses[0]);
-          this.set('busnummerSelectDisabled', true);
-        }
-      }
-    }
-  }),
-
   processAddressDetails: task(function* () {
-    if (this.newMatchAddressData) {
-      const detailResult = yield fetch(`/adressenregister/detail?uri=${this.newMatchAddressData.detail}`);
+    if (this.matchedAddress) {
+      const detailResult = yield fetch(`/adressenregister/detail?uri=${this.matchedAddress.detail}`);
       if (detailResult.ok) {
         let adresRegister = yield detailResult.json();
         adresRegister = this.extractRelevantInfo(adresRegister);
         this.saveAddress.perform(adresRegister);
       }
+    } else {
+      this.saveAddress.perform(null);
     }
   }),
 
@@ -101,14 +82,6 @@ export default Controller.extend({
     resetChanges() {
       this.model.rollbackAttributes();
       this.exit();
-    },
-
-    addressSelected(addressData) {
-      this.fetchAddressMatches.perform(addressData);
-    },
-
-    matchAddressSelected(addressData) {
-      this.set('newMatchAddressData', addressData);
     }
   }
 });
