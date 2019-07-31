@@ -13,7 +13,7 @@ export default DS.Model.extend({
       return supportedProtocols.includes(url.protocol);
     }
     catch(err) {
-      return false
+      return false;
     }
   })
 });
