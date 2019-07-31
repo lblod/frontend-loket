@@ -29,49 +29,17 @@
 
       </div>
       <h4 class="h5 u-spacer--tiny">Adres</h4>
-      {{adressenregister-selector adres=model.adres matchedAddress=matchedAddress isNewAddress=isNewAddress}}
-
-      {{!-- ************************************************** WILL BE REFINED ONCE INTEGRATED WITH CRAB  ************************************************** --}}
-      {{!-- <h4 class="h5 u-spacer--tiny">Adres</h4>
-        <div class="form__row">
-        <div class="grid">
-        <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
-        <label class="form__label" for="straat">Straat</label>
-        {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Veldstraat" value=(mut model.contactinfo.adres) disabled=true}}
-        </div>
-        <div class="col--2-12 col--2-12--m col--2-12--s col--6-12--xs">
-        <label class="form__label" for="nummer">Nummer</label>
-        {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-phone" placeholder="+32484738324" type="number" disabled=true}}
-        </div>
-        <div class="col--2-12 col--2-12--m col--2-12--s col--6-12--xs">
-        <label class="form__label" for="toevoeging">Toevoeging</label>
-        {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="" disabled=true}}
-        </div>
-        </div>
-        </div>
-        <div class="form__row">
-        <div class="grid">
-        <div class="col--2-12 col--3-12--m col--3-12--s col--1-1--xs">
-        <label class="form__label" for="straat">Postcode</label>
-        {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="9000" type="number" value=(mut model.contactinfo.postcode) disabled=true}}
-        </div>
-        <div class="col--5-12 col--6-12--m col--8-12--s col--1-1--xs">
-        <label class="form__label" for="gemeente">Gemeente of stad</label>
-        {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder="Gent" value=(mut model.contactinfo.gemeente) disabled=true}}
-        </div>
-        </div>
-        </div> --}}
-      {{!-- **************************************************   END WILL BE REFINED ONCE INTEGRATED WITH CRAB  **************************************************--}}
+      {{adressenregister-selector address=model.adres onChange=(perform updateAdres)}}
     </div>
   </div>
   <div class="u-padding--round--small u-border--light--top">
     <div class="button-group">
       {{wu-button label="Bewaar contactgegevens"
-        onClick=(action "save")
+        onClick=(perform save)
         isNarrow=true
       }}
       {{wu-button isNarrow=true
-        isAlt=true onClick=(action "resetChanges")
+        isAlt=true onClick=(perform resetChanges)
         label="Verwerp wijzigingen"
         disabled=(not isDirty)
       }}
@@ -82,7 +50,7 @@
 {{#if showConfirmationDialog}}
   {{leidinggevendenbeheer/functionaris-close-confirmation
     cancel=(action (mut showConfirmationDialog false))
-    save=(action "save")
-    reset=(action "resetChanges")
+    save=(perform save)
+    reset=(perform resetChanges)
   }}
 {{/if}}

@@ -5,13 +5,13 @@
          allowClear=true
          disabled=disabled
          search=(perform search)
-         selected=selectedAddress
-         onchange=(action "select")
+         selected=addressSuggestion
+         onchange=(perform selectSuggestion)
          loadingMessage="Aan het laden..."
          noMatchesMessage="Geen resultaten"
          searchMessage="Typ om te zoeken"
-         as |address|}}
-        {{address.FormattedAddress}}
+         as |suggestion|}}
+        {{suggestion.fullAddress}}
       {{/power-select}}
     </div>
   </div>
@@ -20,7 +20,13 @@
   <div class="grid">
     <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
       <label class="u-spacer--tiny">Busnummer</label>
-      {{specific-address-selector adres=model.adres _address=busnumberAddress options=matchAddresses onSelect=(action "matchAddressSelected") allowClear=true disabled=busnummerSelectDisabled placeholder=busnummerSelectPlaceholder}}
+      {{adressenregister-busnumber-selector
+          address=addressWithBusnumber
+          options=addressesWithBusnumbers
+          onChange=(action "selectAddressWithBusnumber")
+          disabled=isDisabledBusnumberSelect
+          allowClear=false
+      }}
       <p class="text-fade">Staat het correcte busnummer niet in de lijst? <a href="mailto:LoketLokaalBestuur@vlaanderen.be">Mail ons</a></p>
     </div>
   </div>
