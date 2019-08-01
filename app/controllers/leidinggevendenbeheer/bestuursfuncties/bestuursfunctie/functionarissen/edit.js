@@ -11,20 +11,16 @@ export default Controller.extend({
     this.exit();
   }),
 
+  resetChanges: task(function * () {
+    if (this.isDirty) {
+      this.model.rollbackAttributes();
+      const status = yield this.initialStatus;
+      this.model.set('status', status);
+    }
+    this.exit();
+  }),
+
   exit() {
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
-  },
-
-  actions: {
-    cancel(){
-      this.exit();
-    },
-
-    async resetChanges() {
-      this.model.rollbackAttributes();
-      const status = await this.initialStatus;
-      this.model.set('status', status),
-      this.exit();
-    }
   }
 });
