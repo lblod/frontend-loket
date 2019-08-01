@@ -1,0 +1,18 @@
+{{#power-select
+     allowClear=allowClear
+     disabled=disabled
+     placeholder=placeholder
+     selected=address
+     options=options
+     tagName=div
+     class="is-optional"
+     onchange=onChange
+     loadingMessage="Aan het laden..."
+     noMatchesMessage="Geen resultaten"
+     as |address|}}
+  {{#if address.busnumber}}
+    Bus {{address.busnumber}}
+  {{else}}
+    Geen busnummer
+  {{/if}}
+{{/power-select}}
