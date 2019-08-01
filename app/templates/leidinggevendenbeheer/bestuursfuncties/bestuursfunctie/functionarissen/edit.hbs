@@ -5,7 +5,7 @@
         <h2 class="h3">Bewerk aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}}</h2>
       </div>
       <div class="col--3-12 u-align--right">
-        <div {{action "cancel"}} class="link--icon--close">
+        <div {{action (perform resetChanges)}} class="link--icon--close">
           <span class="u-visually-hidden">Venster sluiten</span>
         </div>
       </div>
@@ -26,7 +26,7 @@
                 disabled=(or (not isValid) save.isRunning)
             }}
             {{wu-button label="Verwerp wijzigingen"
-                onClick=(action "resetChanges")
+                onClick=(perform resetChanges)
                 isNarrow=true
                 isAlt=true
                 disabled=(or (not isDirty) save.isRunning)
