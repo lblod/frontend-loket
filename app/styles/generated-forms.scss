@@ -62,6 +62,11 @@
   margin-right: 8rem;
 }
 
+// .form__label.small {
+// 	font-size: 1.5rem;
+// 	color: #333;
+// }
+
 .is-required,
 .is-optional {
   position: relative;
@@ -88,10 +93,6 @@
   &:after {
     content: "Optioneel";
   }
-}
-
-.form__row--date .is-required:after {
-  top: -2.3rem;
 }
 
 .upload.is-required:after {
@@ -134,10 +135,11 @@
 .form__row--date {
   width: 49%;
   display: inline-block;
+  margin-bottom: 3rem;
 
   .is-required:after {
   	position: relative;
-  	top: 0.5rem;
+  	top: 0.15rem;
   }
 }
 
@@ -158,4 +160,10 @@
   .checkbox {
     margin-right: 0rem;
   }
+}
+
+/* Styling the links and files fields */
+
+.form__row--file-addresses .data-table {
+	background-color: #F3F5F6 !important;
 }
