@@ -37,6 +37,8 @@
       {{wu-button label="Bewaar contactgegevens"
         onClick=(perform save)
         isNarrow=true
+        class=(if (not save.isIdle) "button button--loading")
+        disabled=(not save.isIdle)
       }}
       {{wu-button isNarrow=true
         isAlt=true onClick=(perform resetChanges)
