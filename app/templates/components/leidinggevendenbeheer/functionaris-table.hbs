@@ -48,6 +48,7 @@
           {{/if}}
         </td>
         <td>{{#link-to 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.edit' row.id}}Bewerk periode{{/link-to}}</td>
+        <td>{{#wu-button isWarning=true size="small" onClick=(action "removeFunctionaris" row)}}Verwijder{{/wu-button}}</td>
       {{/c.body}}
     {{/if}}
 
