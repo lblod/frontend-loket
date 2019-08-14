@@ -42,6 +42,7 @@ export default Component.extend({
         const sortedBusNumbers = addresses.sortBy('busnumber');
         this.set('addressesWithBusnumbers', sortedBusNumbers);
         this.set('addressWithBusnumber', sortedBusNumbers[0]);
+        this.onChange(this.addressWithBusnumber.adresProperties);
       }
     } else {
       this.onChange(null);
