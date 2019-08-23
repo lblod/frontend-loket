@@ -58,25 +58,13 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   /*
    * Get all the bestuursorganen in tijd of a bestuursorgaan with at least 1 political mandate.
-   * We assume the bestuursorganen in tijd of the other bestuursorganen have the same periods.
-   *
    * @return Array of bestuursorganen in tijd ressembling the bestuursperiodes
    */
   getBestuursperioden: async function(bestuurseenheidId){
-    const bestuursorganen = await this.store.query('bestuursorgaan', {
-      page: { size: 1 },
-      'filter[bestuurseenheid][id]': bestuurseenheidId,
-      'filter[heeft-tijdsspecialisaties][:has:bevat]': true // only organs with a political mandate
-    });
-    return this.getBestuursorganenInTijd(bestuursorganen.firstObject.get('id'));
-  },
-
-  getBestuursorganenInTijd: async function(bestuursorgaanId){
-    const organenInTijd = await this.store.query('bestuursorgaan', {
-      page: { size: 1000 },
-      sort: '-binding-start',
-      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId
-    });
-    return organenInTijd;
+    return (await this.store.query('bestuursorgaan', {
+      'filter[is-tijdsspecialisatie-van][bestuurseenheid][id]': bestuurseenheidId,
+      'filter[:has:bevat]': true // only organs with a political mandate
+    }));
   }
+
 });
