@@ -150,7 +150,7 @@
   flex-direction: row-reverse;
 
   .form__input {
-    flex: 1 0 auto;
+    flex: 0 0 auto;
   }
 
   .form__label {
@@ -164,6 +164,7 @@
 
 /* Styling the links and files fields */
 
+.form__row--taxrates-input .data-table .data-table__add-row,
 .form__row--file-addresses .data-table {
 	background-color: #F3F5F6 !important;
 }
