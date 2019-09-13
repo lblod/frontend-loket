@@ -7,13 +7,6 @@ export default DS.Model.extend({
   replicatedFile: belongsTo('file', { inverse: null }),
 
   isValidAddress: computed('address', function() {
-    try {
-      const url = new URL(this.address);
-      const supportedProtocols = ['http:', 'https:', 'ftp:', 'sftp:'];
-      return supportedProtocols.includes(url.protocol);
-    }
-    catch(err) {
-      return false;
-    }
+    return this.address && this.address.match(/^(http|ftp)s?:\/\/[\w\.]+\.\w+\/.*/);
   })
 });
