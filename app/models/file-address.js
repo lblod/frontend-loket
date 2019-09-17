@@ -7,6 +7,9 @@ export default DS.Model.extend({
   replicatedFile: belongsTo('file', { inverse: null }),
 
   isValidAddress: computed('address', function() {
-    return this.address && this.address.match(/^(http|ftp)s?:\/\/[\w\.]+\.\w+\/.*/);
+    if (this.address && this.address.match(/^(http|ftp)s?:\/\/[\w\.]+\.\w+\/.*/))
+      return true;
+    else
+      return false;
   })
 });
