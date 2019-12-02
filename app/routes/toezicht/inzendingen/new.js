@@ -14,7 +14,7 @@ export default Route.extend({
     let inzendingVoorToezicht = this.store.createRecord('inzendingVoorToezicht', {status, bestuurseenheid, created: new Date()});
 
     //Only get latest form version.
-    let formVersion = await this.store.findRecord('inzending-voor-toezicht-form-version', 'b925a87f-90dd-4f5a-8f14-c078ef2c3e3f');
+    let formVersion = await this.store.findRecord('inzending-voor-toezicht-form-version', '05c57835-6eb8-4662-9bf0-27cdcf229989');
     let formNode = await formVersion.get('formNode');
     this.formVersionTracker.updateFormVersion(formVersion); //tracker still required since behaviour components depend on it.
 
