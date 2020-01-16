@@ -1,0 +1,104 @@
+{{#unless initTable.isRunning}}
+  <table class="data-table data-table--matrix data-table--lined data-table--zebra">
+    <thead>
+      <tr>
+        <th rowspan="3" style="max-width: 12rem;">Niveau</th>
+        {{#each workingTimeCategories as |category|}}
+          <th colspan="4">{{category.label}}</th>
+        {{/each}}
+        <th rowspan="2"></th>
+      </tr>
+      <tr>
+        {{#each (repeat workingTimeCategories.length) as |i|}}
+          {{#each legalStatuses as |status|}}
+            <th colspan="2">{{status.label}}</th>
+          {{/each}}
+        {{/each}}
+      </tr>
+      <tr>
+        {{#each (repeat workingTimeCategories.length) as |i|}}
+          {{#each (repeat legalStatuses.length) as |j|}}
+            {{#each sexes as |sex|}}
+              {{#if sex.isMale}}
+                <th><i class="fa fa-male"></i> Mannen</th>
+              {{else}}
+                <th><i class="fa fa-female"></i> Vrouwen</th>
+              {{/if}}
+            {{/each}}
+          {{/each}}
+        {{/each}}
+        <th>Totaal<br>VTE's</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each educationalLevels as |level|}}
+        <tr>
+          <th style="max-width: 12rem;">{{level.label}}</th>
+          {{#each workingTimeCategories as |category|}}
+            {{#each legalStatuses as |status|}}
+              {{#each sexes as |sex|}}
+                {{personeelsdatabank/employee-observation-table-cell
+                    observations=observations
+                    unitMeasure=unitMeasure
+                    educationalLevel=level
+                    workingTimeCategory=category
+                    legalStatus=status
+                    sex=sex
+                }}
+              {{/each}}
+            {{/each}}
+          {{/each}}
+          <td><strong>
+            {{personeelsdatabank/employee-observation-table-total
+                observations=observations
+                aggregations=(array (hash groupBy="educationalLevel" concept=level))
+            }}
+          </strong></td>
+        </tr>
+      {{/each}}
+
+      <tr>
+        <th style="max-width: 12rem;">Totaal</th>
+        {{#each workingTimeCategories as |category|}}
+          {{#each legalStatuses as |status|}}
+            {{#each sexes as |sex|}}
+              <th>
+                {{personeelsdatabank/employee-observation-table-total
+                    observations=observations
+                    aggregations=(array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status) (hash groupBy="sex" concept=sex))
+                }} {{#if sex.isMale}}Mannen{{else}}Vouwen{{/if}}
+              </th>
+            {{/each}}
+          {{/each}}
+        {{/each}}
+        <th><strong>{{total}}</strong></th>
+      </tr>
+      <tr>
+        <th style="max-width: 12rem;">Totaal</th>
+        {{#each workingTimeCategories as |category|}}
+          {{#each legalStatuses as |status|}}
+            <th colspan="2">
+              {{personeelsdatabank/employee-observation-table-total
+                  observations=observations
+                  aggregations=(array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status))
+              }} {{status.label}}
+            </th>
+          {{/each}}
+        {{/each}}
+        <th><strong>{{total}}</strong></th>
+      </tr>
+      <tr>
+        <th style="max-width: 12rem;">Totaal</th>
+        {{#each workingTimeCategories as |category|}}
+          <th colspan="4">
+            {{personeelsdatabank/employee-observation-table-total
+                observations=observations
+                aggregations=(array (hash groupBy="workingTimeCategory" concept=category))
+            }} {{category.label}}
+          </th>
+        {{/each}}
+        <th><strong>{{total}}</strong></th>
+      </tr>
+    </tbody>
+  </table>
+{{/unless}}

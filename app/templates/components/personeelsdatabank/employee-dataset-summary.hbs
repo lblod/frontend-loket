@@ -1,0 +1,11 @@
+{{#if calculateTotals.isRunning}}
+  <div class="loader-wrapper"> <div class="loader"></div></div>
+{{else}}
+  <ul class="inline-list inline-list--bordered small">
+    {{#each summary as |entry|}}
+      <li>
+        {{entry.total}} {{entry.label}}
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}

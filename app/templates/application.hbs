@@ -65,6 +65,11 @@
                           {{#link-to "leidinggevendenbeheer.bestuursfuncties"}}Leidinggevendenbeheer{{/link-to}}
                         </li>
                       {{/if}}
+                      {{#if currentSession.canAccessPersoneelsbeheer}}
+                        <li class="side-navigation__item">
+                        {{#link-to "personeelsdatabank.personeelsaantallen.index"}}Personeelsbeheer{{/link-to}}
+                        </li>
+                      {{/if}}
                     </ul>
                   </div>
                 </nav>
