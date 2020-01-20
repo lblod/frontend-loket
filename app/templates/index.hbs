@@ -179,21 +179,21 @@
             <footer class="info-tile__footer">
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessPersoneelsbeheer}}
-                  {{wu-button isNarrow=true label="Ga naar personeelsaantallenbeheer" onClick=(action "goToPersoneelsdatabank")}}
+                  {{wu-button isNarrow=true label="Ga naar personeelsbeheer" onClick=(action "goToPersoneelsdatabank")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
                 {{/if}}
               </p>
-{{!--                 <p> Nog geen handleiding of specifieke pagina beschikbaar WACHTEN OP PIETER
-                <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank">Meer informatie</a>
-                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank">Handleiding</a>
-              </p> --}}
+              <p>
+                {{!-- Nog geen specifieke pagina beschikbaar WACHTEN OP PIETER <a class="button button--small button--link button--link--dark" href="https://lokaalbestuur.vlaanderen.be/personeelsbeheer" target="_blank">Meer informatie</a> --}}
+                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank">Handleiding</a>
+              </p>
             </footer>
           </div>
         </div>
       </div>
 
-      
+
     </div>
     <div class="grid">
       <div class="col--10-12 col--6-12--xl col--8-12--l col--10-12--m col--10-12--s col--1-1--xs">
