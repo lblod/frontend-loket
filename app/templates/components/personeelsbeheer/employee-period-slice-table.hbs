@@ -37,7 +37,7 @@
           {{#each workingTimeCategories as |category|}}
             {{#each legalStatuses as |status|}}
               {{#each sexes as |sex|}}
-                {{personeelsdatabank/employee-observation-table-cell
+                {{personeelsbeheer/employee-observation-table-cell
                     observations=observations
                     unitMeasure=unitMeasure
                     educationalLevel=level
@@ -49,7 +49,7 @@
             {{/each}}
           {{/each}}
           <td><strong>
-            {{personeelsdatabank/employee-observation-table-total
+            {{personeelsbeheer/employee-observation-table-total
                 observations=observations
                 aggregations=(array (hash groupBy="educationalLevel" concept=level))
             }}
@@ -63,7 +63,7 @@
           {{#each legalStatuses as |status|}}
             {{#each sexes as |sex|}}
               <th>
-                {{personeelsdatabank/employee-observation-table-total
+                {{personeelsbeheer/employee-observation-table-total
                     observations=observations
                     aggregations=(array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status) (hash groupBy="sex" concept=sex))
                 }} {{#if sex.isMale}}Mannen{{else}}Vouwen{{/if}}
@@ -78,7 +78,7 @@
         {{#each workingTimeCategories as |category|}}
           {{#each legalStatuses as |status|}}
             <th colspan="2">
-              {{personeelsdatabank/employee-observation-table-total
+              {{personeelsbeheer/employee-observation-table-total
                   observations=observations
                   aggregations=(array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status))
               }} {{status.label}}
@@ -91,7 +91,7 @@
         <th style="max-width: 12rem;">Totaal</th>
         {{#each workingTimeCategories as |category|}}
           <th colspan="4">
-            {{personeelsdatabank/employee-observation-table-total
+            {{personeelsbeheer/employee-observation-table-total
                 observations=observations
                 aggregations=(array (hash groupBy="workingTimeCategory" concept=category))
             }} {{category.label}}

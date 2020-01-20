@@ -16,7 +16,7 @@ export default Route.extend({
 
   setupController(controller) {
     this._super(...arguments);
-    const dataset = this.modelFor('personeelsdatabank.personeelsaantallen.periodes');
+    const dataset = this.modelFor('personeelsbeheer.personeelsaantallen.periodes');
     controller.set('dataset', dataset);
   }
 });

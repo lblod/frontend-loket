@@ -61,7 +61,7 @@ Router.map(function() {
     });
   });
 
-  this.route('personeelsdatabank', function() {
+  this.route('personeelsbeheer', function() {
     this.route('personeelsaantallen', function() {
       this.route('latest', { path: '/:dataset_id/latest' });
       this.route('periodes', { path: '/:dataset_id/periodes' }, function() {

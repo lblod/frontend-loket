@@ -9,7 +9,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
     if (!this.currentSession.canAccessPersoneelsbeheer)
       this.transitionTo('index');
     else
-      this.transitionTo('personeelsdatabank.personeelsaantallen.index');
+      this.transitionTo('personeelsbeheer.personeelsaantallen.index');
   },
 
   model(){

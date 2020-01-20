@@ -12,6 +12,6 @@ export default Route.extend({
   },
 
   afterModel(model) {
-    this.transitionTo('personeelsdatabank.personeelsaantallen.periodes.edit', this.datasetId, model.id);
+    this.transitionTo('personeelsbeheer.personeelsaantallen.periodes.edit', this.datasetId, model.id);
   }
 });
