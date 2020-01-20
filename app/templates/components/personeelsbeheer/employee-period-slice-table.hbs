@@ -27,7 +27,13 @@
             {{/each}}
           {{/each}}
         {{/each}}
-        <th>Totaal<br>VTE's</th>
+        <th>Totaal<br>
+          {{#if isFTEDataset}}
+        		VTE's
+      		{{else}}
+      			koppen
+      		{{/if}}
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -66,7 +72,7 @@
                 {{personeelsbeheer/employee-observation-table-total
                     observations=observations
                     aggregations=(array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status) (hash groupBy="sex" concept=sex))
-                }} {{#if sex.isMale}}Mannen{{else}}Vouwen{{/if}}
+                }} {{#if sex.isMale}}Mannen{{else}}Vrouwen{{/if}}
               </th>
             {{/each}}
           {{/each}}

@@ -18,10 +18,10 @@
           </h1>
         </div>
         <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-{{!--           <div class="button-group">
+          <div class="button-group">
             <button class="button button--alt button--narrow" {{action (perform this.cancel)}}>Verwerp wijzigingen</button>
             <button class="button button--narrow" {{action (perform this.save)}}>Bewaar</button>
-          </div> --}}
+          </div>
           <p class="text-fade smaller">
             {{#if this.dataset.modified}}
               <span> Laatst aangepast op {{moment-format this.dataset.modified}} </span>
