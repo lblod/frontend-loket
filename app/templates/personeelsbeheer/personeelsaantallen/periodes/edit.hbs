@@ -9,22 +9,19 @@
       <li>{{this.dataset.title}}</li>
     </ul>
   </div>
-  <div class="u-border--light--bottom">
+  <div class="u-border--light--bottom loket-onderdeel__header">
     <div class="u-padding--round--small">
       <div class="grid">
         <div class="col--6-12 col--1-1--s">
           <h1 class="h4 u-spacer--tiny">
-            {{this.dataset.bestuurseenheid.classificatie.label}}
-            {{this.dataset.bestuurseenheid.naam}}
-            {{this.dataset.title}}
+            Personeelsbeheer: {{this.dataset.title}}
           </h1>
-          <p class="text-light"></p>
         </div>
         <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-          <div class="button-group">
+{{!--           <div class="button-group">
             <button class="button button--alt button--narrow" {{action (perform this.cancel)}}>Verwerp wijzigingen</button>
             <button class="button button--narrow" {{action (perform this.save)}}>Bewaar</button>
-          </div>
+          </div> --}}
           <p class="text-fade smaller">
             {{#if this.dataset.modified}}
               <span> Laatst aangepast op {{moment-format this.dataset.modified}} </span>
@@ -59,7 +56,7 @@
         </div>
       </div>
 
-      {{personeelsbeheer/employee-period-slice-table observations=model}}
+      {{personeelsbeheer/employee-period-slice-table observations=model isFTEDataset=isFTEDataset}}
 
     </div>
   </div>
