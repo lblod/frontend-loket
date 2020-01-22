@@ -12,22 +12,27 @@ export default Component.extend({
     this._super(...arguments);
     if (this.observations && this.unitMeasure && this.educationalLevel && this.workingTimeCategory && this.legalStatus && this.sex) {
       const observation = this.observations.find(obs => obs.unitMeasure.get('uri') == this.unitMeasure.get('uri')
-                                                 && obs.educationalLevel.get('uri') == this.educationalLevel.get('uri')
-                                                 && obs.workingTimeCategory.get('uri') == this.workingTimeCategory.get('uri')
-                                                 && obs.legalStatus.get('uri') == this.legalStatus.get('uri')
-                                                 && obs.sex.get('uri') == this.sex.get('uri'));
+        && obs.educationalLevel.get('uri') == this.educationalLevel.get('uri')
+        && obs.workingTimeCategory.get('uri') == this.workingTimeCategory.get('uri')
+        && obs.legalStatus.get('uri') == this.legalStatus.get('uri')
+        && obs.sex.get('uri') == this.sex.get('uri'));
       this.set('observation', observation);
     }
   },
 
   actions: {
     setValue(value) {
+      if (value < 0)
+        value = 0;
+
       if (this.isFloat) {
-        this.observation.set('value', value);
+        const float = Number.parseFloat(value).toFixed(2);
+        this.observation.set('value', float);
       } else {
         const int = Math.ceil(value);
         this.observation.set('value', int);
       }
+      this.onChange(this.observation);
     }
   }
 });

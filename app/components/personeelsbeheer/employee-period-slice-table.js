@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import { reads } from '@ember/object/computed';
 import { task } from 'ember-concurrency';
 
 export default Component.extend({
@@ -8,12 +9,14 @@ export default Component.extend({
 
   store: service(),
 
+  isFTEDataset: reads('observations.firstObject.unitMeasure.isFTE'),
+
   didReceiveAttrs() {
     this._super(...arguments);
     this.initTable.perform();
   },
 
-  initTable: task(function * () {
+  initTable: task(function*() {
     const sexes = yield this.store.query('geslacht-code', {
       page: { size: 10 },
       sort: 'label',

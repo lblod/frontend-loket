@@ -16,19 +16,31 @@
           <h1 class="h4 u-spacer--tiny">
             Personeelsbeheer: {{this.dataset.title}}
           </h1>
+          {{#if save.last.isError}}
+            <div class="alert alert--tiny alert--warning u-spacer--top--small u-spacer--bottom--none">
+              <div class="alert__icon" aria-hidden="true"></div>
+              <div class="alert__content">
+                <div class="alert__title">Wijzigingen niet opgeslagen, probeer later opnieuw.</div>
+              </div>
+            </div>
+          {{/if}}
         </div>
         <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-          <div class="button-group">
-            <button class="button button--alt button--narrow" {{action (perform this.cancel)}}>Verwerp wijzigingen</button>
-            <button class="button button--narrow" {{action (perform this.save)}}>Bewaar</button>
-          </div>
-          <p class="text-fade smaller">
-            {{#if this.dataset.modified}}
-              <span> Laatst aangepast op {{moment-format this.dataset.modified}} </span>
-            {{else}}
-              <label class="pill pill--primary-yellow">Aantallen niet actueel</label>
-            {{/if}}
-          </p>
+          {{#unless this.dataset.modified}}
+            <p class="text-fade smaller u-spacer--tiny">
+              <label class="pill pill--primary-yellow">Aantallen niet actueel</label> {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
+            </p>
+          {{/unless}}
+          {{#if isSaving}}
+            <p class="text-fade smaller" aria-label="Alle aanpassingen worden automatisch opgeslagen">
+              Wijzigingen opslaan...
+            </p>
+          {{/if}}
+          {{#if this.dataset.modified}}
+            <p class="text-fade smaller" aria-label="Alle aanpassingen worden automatisch opgeslagen">
+              Laatst opgeslagen op {{moment-format this.dataset.modified}}
+            </p>
+          {{/if}}
         </div>
       </div>
     </div>
@@ -56,7 +68,7 @@
         </div>
       </div>
 
-      {{personeelsbeheer/employee-period-slice-table observations=model isFTEDataset=isFTEDataset}}
+      {{personeelsbeheer/employee-period-slice-table observations=model onChangeObservation=(perform save)}}
 
     </div>
   </div>

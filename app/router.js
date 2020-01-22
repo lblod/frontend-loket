@@ -18,11 +18,11 @@ Router.map(function() {
     this.route('cookieverklaring');
   });
 
-  this.route('mandatenbeheer', function(){
-    this.route('mandatarissen', function(){
+  this.route('mandatenbeheer', function() {
+    this.route('mandatarissen', function() {
       this.route('new');
       this.route('new-person');
-      this.route('edit', {path: '/:id/edit'});
+      this.route('edit', { path: '/:id/edit' });
     });
 
     this.route('personen', function() {});
@@ -73,8 +73,6 @@ Router.map(function() {
   this.route('route-not-found', {
     path: '/*wildcard'
   });
-
-  this.route('personeelsaantallen', function() {});
 });
 
 export default Router;
