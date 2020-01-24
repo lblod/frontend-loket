@@ -30,7 +30,7 @@ export default Component.extend({
         });
         const total = observations.reduce((acc, obs) => { return acc + parseFloat(obs.value || 0); }, 0);
 
-        return { label: category.label, total };
+        return { label: category.label, total: total.toFixed(2) };
       }));
 
       this.set('summary', summary);

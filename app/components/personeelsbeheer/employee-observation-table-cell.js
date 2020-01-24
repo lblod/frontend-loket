@@ -22,7 +22,7 @@ export default Component.extend({
 
   actions: {
     setValue(value) {
-      if (value < 0)
+      if (value < 0 || value === "")
         value = 0;
 
       if (this.isFloat) {
