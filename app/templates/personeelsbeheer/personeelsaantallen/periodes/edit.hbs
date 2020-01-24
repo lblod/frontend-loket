@@ -27,17 +27,17 @@
         </div>
         <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
           {{#unless this.dataset.modified}}
-            <p class="text-fade smaller u-spacer--tiny">
+            <p class="smaller u-spacer--tiny">
               <label class="pill pill--primary-yellow">Aantallen niet actueel</label> {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
             </p>
           {{/unless}}
           {{#if isSaving}}
-            <p class="text-fade smaller" aria-label="Alle aanpassingen worden automatisch opgeslagen">
+            <p class="smaller" aria-label="Alle aanpassingen worden automatisch opgeslagen">
               Wijzigingen opslaan...
             </p>
           {{/if}}
           {{#if this.dataset.modified}}
-            <p class="text-fade smaller" aria-label="Alle aanpassingen worden automatisch opgeslagen">
+            <p class="smaller" aria-label="Alle aanpassingen worden automatisch opgeslagen">
               Laatst opgeslagen op {{moment-format this.dataset.modified}}
             </p>
           {{/if}}
