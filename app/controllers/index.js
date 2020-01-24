@@ -21,6 +21,9 @@ export default Controller.extend({
 		},
 		goToLeidinggevendenbeheer() {
 			this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties');
+		},
+		goToPersoneelsbeheer() {
+			this.transitionToRoute('personeelsbeheer.personeelsaantallen.index');
 		}
 	}
 });
