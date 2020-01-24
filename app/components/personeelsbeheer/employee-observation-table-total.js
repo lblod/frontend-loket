@@ -12,9 +12,13 @@ export default Component.extend({
 
   total: computed('observations.@each.value', 'aggregations', function() {
     if (this.observations && this.aggregations) {
-      return this.observations.filter(obs => aggregate(this.aggregations, obs)).reduce((acc, obs) => {
-        return acc + parseFloat(obs.value || 0);
-      }, 0);
+      return this
+        .observations
+        .filter(obs => aggregate(this.aggregations, obs))
+        .reduce((acc, obs) => {
+          return acc + parseFloat(obs.value || 0);
+        }, 0)
+        .toFixed(2);
     } else {
       return 0;
     }
