@@ -35,9 +35,14 @@ export default Component.extend({
     this.set('unitMeasure', unitMeasure);
   }).keepLatest(),
 
-  total: computed('observations.@each.value', function() {
-    return (this.observations || []).reduce((acc, obs) => {
+  total: computed('observations.@each.value', 'isFTEDataset', function() {
+    const totalValue = (this.observations || []).reduce((acc, obs) => {
       return acc + parseFloat(obs.value || 0);
     }, 0);
+
+    if( this.isFTEDataset )
+      return totalValue.toFixed(2);
+    else
+      return parseInt( totalValue );
   })
 });

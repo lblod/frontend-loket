@@ -1,3 +1,4 @@
+import { get } from '@ember/object';
 import Component from '@ember/component';
 import { task, all } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
@@ -28,9 +29,18 @@ export default Component.extend({
           'filter[slice][id]': latestPeriod.id,
           'filter[working-time-category][id]': category.id
         });
-        const total = observations.reduce((acc, obs) => { return acc + parseFloat(obs.value || 0); }, 0);
+        let total = observations.reduce((acc, obs) => { return acc + parseFloat(obs.value || 0); }, 0);
 
-        return { label: category.label, total: total.toFixed(2) };
+        let datasetSubjects = await get( this, "dataset.subjects" );
+
+        const isFloat = get( datasetSubjects, "firstObject" ) ? get( datasetSubjects, "firstObject.isFTE" ) : false;
+
+        if( isFloat )
+          total = total.toFixed(2);
+        else
+          total = parseInt( total );
+
+        return { label: category.label, total };
       }));
 
       this.set('summary', summary);
