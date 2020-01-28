@@ -5,9 +5,9 @@
         <h1 class="h3">Bewerk aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}}</h1>
       </div>
       <div class="col--3-12 u-align--right">
-        <div {{action (perform resetChanges)}} class="link--icon--close">
+        <button {{action (perform resetChanges)}} class="link--icon--close">
           <span class="u-visually-hidden">Venster sluiten</span>
-        </div>
+        </button>
       </div>
     </div>
   </div>
