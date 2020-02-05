@@ -1,43 +1,43 @@
 {{title "Berichtencentrum " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
+<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--7-12 u-visible--tablet-landscape-up" "col--12-12"}}">
   <div class="container-flex--contain">
-    <div class="u-border--light--bottom">
-      <div class="u-padding--round--small loket-onderdeel__header">
-        <div class="grid">
-          <div class="col--6-12 col--1-1--s">
-		        <h1 class="h4 u-spacer--tiny">Berichtencentrum</h1>
-            {{!-- Search field --}}
-          </div>
-          <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-            <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
-              <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
-            </button>
-          </div>
+    <div class="u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header u-border--light--bottom">
+      {{#link-to 'index' class="link link--dark smaller"}}
+        &leftarrow; Terug naar modules
+      {{/link-to}}
+      <div class="grid">
+        <div class="col--6-12 col--1-1--s">
+	        <h1 class="h4 u-spacer--tb--tinier">Berichtencentrum</h1>
         </div>
+        <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
+          <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
+            <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
+          </button>
+        </div>
+      </div>
 
-        <!-- Hiding search options b/c they're not implemented yet -->
-        <div class="grid u-hidden-mobile u-hidden">
-          <div class="col--12-12">
+      <!-- Hiding search options b/c they're not implemented yet -->
+      <div class="grid u-hidden-mobile u-hidden">
+        <div class="col--12-12">
+          <div class="input-field-icon-container--right u-spacer--bottom--tiny">
+            <input class="input-field input-field--block" id="input-field" type="text" placeholder="Type communicatie, dossiernummer, ..." style="min-width: 25rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+          </div>
+          <div class="popover js-popover">
             <div class="input-field-icon-container--right u-spacer--bottom--tiny">
-              <input class="input-field input-field--block" id="input-field" type="text" placeholder="Type communicatie, dossiernummer, ..." style="min-width: 25rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-            </div>
-            <div class="popover js-popover">
-              <div class="input-field-icon-container--right u-spacer--bottom--tiny">
-                <input class="input-field input-field--block js-popover__toggle" name="datepicker-range" type="text" placeholder="01.01.2017 - heden"><i class="input-field__icon vi vi-calendar" aria-hidden="true"></i>
-                <div class="popover__content u-padding--round--tiny">
-                  <form class="form" action="">
-                    <div class="date-range">
-                      <label class="date-range__label u-spacer--tiny" for="datepicker-from">van</label>
-                      <div class="date-range__datepicker datepicker">
-                        <input class="input-field input-field--block" id="datepicker-from" type="text" placeholder="01.01.2016" name="datepicker-from" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2017">
-                      </div>
-                      <label class="date-range__label" for="datepicker-to">tot</label>
-                      <div class="date-range__datepicker datepicker">
-                        <input class="input-field input-field--block" id="datepicker-to" type="text" placeholder="01.01.2017" name="datepicker-to" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2018">
-                      </div>
+              <input class="input-field input-field--block js-popover__toggle" name="datepicker-range" type="text" placeholder="01.01.2017 - heden"><i class="input-field__icon vi vi-calendar" aria-hidden="true"></i>
+              <div class="popover__content u-padding--round--tiny">
+                <form class="form" action="">
+                  <div class="date-range">
+                    <label class="date-range__label u-spacer--tiny" for="datepicker-from">van</label>
+                    <div class="date-range__datepicker datepicker">
+                      <input class="input-field input-field--block" id="datepicker-from" type="text" placeholder="01.01.2016" name="datepicker-from" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2017">
                     </div>
-                  </form>
-                </div>
+                    <label class="date-range__label" for="datepicker-to">tot</label>
+                    <div class="date-range__datepicker datepicker">
+                      <input class="input-field input-field--block" id="datepicker-to" type="text" placeholder="01.01.2017" name="datepicker-to" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2018">
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

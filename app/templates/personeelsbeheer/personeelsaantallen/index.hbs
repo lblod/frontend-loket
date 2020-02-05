@@ -1,14 +1,10 @@
-<div class="container-flex--contain">
-  <div class="u-border--light--bottom loket-onderdeel__header">
-    <div class="u-padding--round--small">
-      <h1 class="h4 u-spacer--tiny">Personeelsbeheer {{this.model.bestuurseenheid.classificatie.label}} {{this.model.bestuurseenheid.naam}}</h1>
-      <div class="grid">
-        <div class="col--6-12 col--1-1--s">
-          <p class="text-light">Overzicht aantallen</p>
-        </div>
-        <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-        </div>
-      </div>
+<div class="col--12-12">
+  <div class="container-flex--contain">
+    <div class="u-border--light--bottom u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header">
+      {{#link-to 'index' class="link link--dark smaller"}}
+        &leftarrow; Terug naar modules
+      {{/link-to}}
+      <h1 class="h4 u-spacer--tb--tinier">Personeelsbeheer &mdash; Overzicht aantallen</h1>
 
       {{!--
          TODO
@@ -24,30 +20,30 @@
          --}}
 
     </div>
-  </div>
 
-  <div class="container-flex--scroll u-padding--round--small">
-    {{#each model.datasets as |dataset|}}
-      <div class="u-spacer">
-        <div class="u-padding--tb--small u-border--light--bottom">
-          <div class="grid">
-            <div class="col--8-12 col--1-1--m">
-              <h2 class="h5 u-spacer--tiny">{{dataset.title}}</h2>
-              {{personeelsbeheer/employee-dataset-summary dataset=dataset}}
-            </div>
-            <div class="col--4-12 col--1-1--m u-align-right--tablet-portrait-up">
-              {{#link-to "personeelsbeheer.personeelsaantallen.latest" dataset.id class="button button--small button--narrow u-spacer--tiny"}}<i class="vi vi-arrow button__icon">&nbsp;</i>Bekijk en bewerk aantallen{{/link-to}}
-              <p class="text-fade smaller">
-                {{#if dataset.modified}}
-                  <span> Laatst aangepast op {{moment-format dataset.modified}} </span>
-                {{else}}
-                  <label class="pill pill--primary-yellow">Aantallen niet actueel</label>
-                {{/if}}
-              </p>
+    <div class="container-flex--scroll u-padding--round--small">
+      {{#each model.datasets as |dataset|}}
+        <div class="u-spacer">
+          <div class="u-padding--tb--small u-border--light--bottom">
+            <div class="grid">
+              <div class="col--8-12 col--1-1--s">
+                <h2 class="h5 u-spacer--tiny">{{dataset.title}}</h2>
+                {{personeelsbeheer/employee-dataset-summary dataset=dataset}}
+              </div>
+              <div class="col--4-12 col--1-1--s u-align-right--tablet-portrait-up">
+                {{#link-to "personeelsbeheer.personeelsaantallen.latest" dataset.id class="button button--small button--narrow u-spacer--tiny"}}<i class="vi vi-arrow button__icon">&nbsp;</i>Bekijk en bewerk aantallen{{/link-to}}
+                <p class="text-fade smaller">
+                  {{#if dataset.modified}}
+                    <span> Laatst aangepast op {{moment-format dataset.modified}} </span>
+                  {{else}}
+                    <label class="pill pill--primary-yellow">Aantallen niet actueel</label>
+                  {{/if}}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    {{/each}}
+      {{/each}}
+    </div>
   </div>
 </div>

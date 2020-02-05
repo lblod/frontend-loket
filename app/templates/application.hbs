@@ -2,9 +2,84 @@
 <div class="container">
   {{wu-widget src=header class="vo-header-widget"}}
   {{#if session.isAuthenticated}}
+
+    <div class="subbar">
+      <div class="grid">
+        <div class="col--6-12">
+          <ul class="inline-list inline-list--bordered small">
+            <li>
+              <span class="user-toggle">
+                {{#wu-popover isAlignCenter="true" as |p|}}
+                  {{#p.toggle}}
+                    Modules
+                    <button class="js-popover__toggle vi vi-arrow vi-u-90deg vi-u-badge vi-u-badge--xsmall vi-u-badge--neutral"><span class="u-visually-hidden">Navigeer naar andere modules</span></button>
+                  {{/p.toggle}}
+                  {{#p.content tagName="ul"}}
+                    <li>
+                      {{#link-to "toezicht.inzendingen" tagName="a" class="popover__link u-padding--tb--tiny"}}<i class="vi vi-calendar" aria-hidden="true"></i><span>Toezicht</span>{{/link-to}}
+                    </li>
+                    <li>
+                      {{#link-to "berichtencentrum.berichten" tagName="a" class="popover__link u-padding--tb--tiny"}}<i class="fa fa-envelope-o" aria-hidden="true"></i><span>Berichtencentrum</span>{{/link-to}}
+                    </li>
+                    <li>
+                      {{#link-to "bbcdr.rapporten" tagName="a" class="popover__link u-padding--tb--tiny"}}<i class="vi vi-paperclip" aria-hidden="true"></i><span>BBC-DR</span>{{/link-to}}
+                    </li>
+                    <li>
+                      {{#link-to "leidinggevendenbeheer.bestuursfuncties" tagName="a" class="popover__link u-padding--tb--tiny"}}<i class="vi vi-id" aria-hidden="true"></i><span>Leidinggevenden</span>{{/link-to}}
+                    </li>
+                    <li>
+                      {{#link-to "mandatenbeheer.mandatarissen" tagName="a" class="popover__link u-padding--tb--tiny"}}<i class="vi vi-diagram" aria-hidden="true"></i><span>Mandaten</span>{{/link-to}}
+                    </li>
+                    <li>
+                      {{#link-to "personeelsbeheer.personeelsaantallen.index" tagName="a" class="popover__link u-padding--tb--tiny"}}<i class="vi vi-addressbook" aria-hidden="true"></i><span>Personeelsbeheer</span>{{/link-to}}
+                    </li>
+{{!--                     <li>
+                      {{#link-to "subsidiebeheer.subsidies" tagName="a" class="popover__link u-padding--tb--tiny"}}<i class="vi vi-news" aria-hidden="true"></i>Subsidies{{/link-to}}
+                    </li> --}}
+                    <li class="u-border--light--top u-padding--top--tiny">
+                      {{#link-to "index" tagName="a" class="popover__link u-padding--tb--tiny"}}<i aria-hidden="true">&leftarrow;</i><span>Alle modules en handleidingen</span>{{/link-to}}
+                    </li>
+                  {{/p.content}}
+                {{/wu-popover}}
+              </span>
+            </li>
+            {{!-- <li>Subsidiebeheer</li> --}}
+          </ul>
+        </div>
+        <div class="col--6-12 u-align-right">
+          <div class="user-toggle">
+            <nav>
+              {{#wu-popover as |p|}}
+                {{#p.toggle}}
+                  <div class="user-toggle__name">
+                    {{currentSession._user.voornaam}} {{currentSession._user.achternaam}} &mdash; <strong>{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</strong>
+                    <button class="js-popover__toggle vi vi-arrow vi-u-90deg vi-u-badge vi-u-badge--xsmall vi-u-badge--neutral"><span class="u-visually-hidden">Navigeer in gebruikersmenu</span></button>
+                  </div>
+                {{/p.toggle}}
+                {{#p.content tagName="ul"}}
+                    <li>
+                      {{#acmidm-switch tagName="a" class="popover__link"}}
+                        <i class="fa fa-retweet button__icon" aria-hidden="true"></i>
+                        <span>Wissel van bestuurseenheid</span>
+                      {{/acmidm-switch}}
+                    </li>
+                    <li>
+                      {{#acmidm-logout tagName="a" class="popover__link"}}
+                        <i class="button__icon fa fa-power-off" aria-hidden="true"></i>
+                        <span>Meld u af</span>
+                      {{/acmidm-logout}}
+                    </li>
+                {{/p.content}}
+              {{/wu-popover}}
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="container-flex--contain">
       <div class="grid grid--collapse">
-        <div class="col--2-12 col--3-12--m u-hidden--s">
+{{!--         <div class="col--2-12 col--3-12--m u-hidden--s">
           <div class="container-flex--contain">
             <div class="sidebar">
               <div class="sidebar__header">
@@ -21,13 +96,13 @@
                       {{#p.content tagName="ul"}}
                           <li>
                             {{#acmidm-switch tagName="a" class="popover__link"}}
-	                            <i class="fa fa-retweet button__icon"></i>
+	                            <i class="fa fa-retweet button__icon" aria-hidden="true"></i>
 	                            <span>Wissel van bestuurseenheid</span>
                             {{/acmidm-switch}}
                           </li>
                           <li>
                             {{#acmidm-logout tagName="a" class="popover__link"}}
-	                            <i class="button__icon fa fa-power-off"></i>
+	                            <i class="button__icon fa fa-power-off" aria-hidden="true"></i>
                             	<span>Meld u af</span>
                             {{/acmidm-logout}}
                           </li>
@@ -75,11 +150,11 @@
                 </nav>
               </div>
               <div class="sidebar__footer u-align-center">
-                <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" class="button button--alt button--small button--block u-spacer--tb--tiny"><i class="vi vi-book vi-u-s"></i> Bekijk handleiding</a>
+                <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" class="button button--alt button--small button--block u-spacer--tb--tiny"><i class="vi vi-book vi-u-s" aria-hidden="true"></i> Bekijk handleiding</a>
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
         {{outlet}}
       </div>
     </div>
