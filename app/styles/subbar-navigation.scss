@@ -1,0 +1,46 @@
+/* subbar navigation
+ ========================================================================== */
+
+.subbar {
+  padding: 0.75rem;
+  background-color: #E8EBEE;
+  border-bottom: 1px solid #cbd2da;
+}
+
+/* styling user-toggle in subbar */
+
+.subbar {
+  .user-toggle {
+    padding-top: 0.2rem;
+    font-size: 1.6rem;
+  }
+
+  .user-toggle__name--label,
+  .user-toggle__name {
+    font-family: flanders-sans, sans-serif;
+    font-size: 1.6rem;
+  }
+
+  .user-toggle__name {
+    font-weight: 400;
+  }
+
+  /* popover links for subbar */
+
+  .popover__link span,
+  .popover__link i {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .popover__link i {
+    margin-top: 0.2rem;
+    width: 15%;
+  }
+
+  .popover__link span {
+    width: 80%;
+  }
+
+
+}
