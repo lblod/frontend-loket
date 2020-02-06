@@ -51,7 +51,12 @@
 		&:hover .vi-u-badge {
 			background-color: $primary-blue;
 			color: $white;
-		}
+    }
+
+    &:focus-within {
+      outline: 2px solid $orange;
+      outline-offset: .5rem;
+    }
 	}
 
 /* position toggle button for sidebar */
