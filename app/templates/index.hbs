@@ -27,7 +27,7 @@
         <div class="info-tile info-tile--s">
           <div class="info-tile__header">
             <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
                 <i class="badge__icon vi vi-calendar vi-u-m" aria-hidden="true"></i>
               </div>
             </div>
@@ -36,7 +36,7 @@
               <p class="info-tile__header__subtitle u-spacer--small">Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessToezicht}}
-                  {{wu-button isNarrow=true label="Ga naar toezicht" onClick=(action "goToToezicht")}}
+                  {{wu-button isNarrow=true isSmall=true label="Ga naar toezicht" onClick=(action "goToToezicht")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToToezicht")}}
                 {{/if}}
@@ -54,7 +54,7 @@
         <div class="info-tile info-tile--s">
           <div class="info-tile__header">
             <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
                 <i class="badge__icon vi vi-mail" aria-hidden="true"></i>
               </div>
             </div>
@@ -63,7 +63,7 @@
               <p class="info-tile__header__subtitle u-spacer--small">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessBerichten}}
-                  {{wu-button isNarrow=true label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
+                  {{wu-button isNarrow=true isSmall=true label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToBerichtencentrum")}}
                 {{/if}}
@@ -81,7 +81,7 @@
         <div class="info-tile info-tile--s">
           <div class="info-tile__header">
             <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
                 <i class="badge__icon vi vi-u-l vi-paperclip" aria-hidden="true"></i>
               </div>
             </div>
@@ -90,7 +90,7 @@
               <p class="info-tile__header__subtitle u-spacer--small">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessBbcdr}}
-                  {{wu-button isNarrow=true label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
+                  {{wu-button isNarrow=true isSmall=true label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToBbcdr")}}
                 {{/if}}
@@ -108,7 +108,7 @@
         <div class="info-tile info-tile--s">
           <div class="info-tile__header">
             <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
                 <i class="badge__icon vi vi-u-l vi-diagram" aria-hidden="true"></i>
               </div>
             </div>
@@ -117,7 +117,7 @@
               <p class="info-tile__header__subtitle u-spacer--small">Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessMandaat}}
-                  {{wu-button isNarrow=true label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
+                  {{wu-button isNarrow=true isSmall=true label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToMandatenbeheer")}}
                 {{/if}}
@@ -135,7 +135,7 @@
         <div class="info-tile info-tile--s">
           <div class="info-tile__header">
             <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
                 <i class="badge__icon vi vi-u-l vi-id" aria-hidden="true"></i>
               </div>
             </div>
@@ -144,7 +144,7 @@
               <p class="info-tile__header__subtitle u-spacer--small">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessLeidinggevenden}}
-                  {{wu-button isNarrow=true label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
+                  {{wu-button isNarrow=true isSmall=true label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToLeidinggevendenbeheer")}}
                 {{/if}}
@@ -162,7 +162,7 @@
         <div class="info-tile info-tile--s">
           <div class="info-tile__header">
             <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
                 <i class="badge__icon vi vi-u-l vi-addressbook" aria-hidden="true"></i>
               </div>
             </div>
@@ -171,7 +171,7 @@
               <p class="info-tile__header__subtitle u-spacer--small">Hou hier de personeelsaantallen voor uw bestuur bij.</p>
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessPersoneelsbeheer}}
-                  {{wu-button isNarrow=true label="Ga naar personeelsbeheer" onClick=(action "goToPersoneelsbeheer")}}
+                  {{wu-button isNarrow=true isSmall=true label="Ga naar personeelsbeheer" onClick=(action "goToPersoneelsbeheer")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
                 {{/if}}
@@ -188,7 +188,7 @@
         <div class="info-tile info-tile--s">
           <div class="info-tile__header">
             <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
                 <i class="badge__icon vi vi-news" aria-hidden="true"></i>
               </div>
               </div>
@@ -197,7 +197,7 @@
               <p class="info-tile__header__subtitle u-spacer--small">Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad.</p>
               <p class="u-spacer--tiny">
                 {{#if currentSession.canAccessSubsidiebeheer}}
-                  {{wu-button isNarrow=true label="Ga naar subsidiebeheer" onClick=(action "goToSubsidiebeheer")}}
+                  {{wu-button isNarrow=true isSmall=true label="Ga naar subsidiebeheer" onClick=(action "goToSubsidiebeheer")}}
                 {{else}}
                   {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
                 {{/if}}
