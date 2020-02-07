@@ -38,7 +38,11 @@
                 {{#if currentSession.canAccessToezicht}}
                   {{wu-button isNarrow=true isSmall=true label="Ga naar toezicht" onClick=(action "goToToezicht")}}
                 {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToToezicht")}}
+                  <div class="alert alert--tiny">
+                    <div class="alert__message">
+                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                    </div>
+                  </div>
                 {{/if}}
               </p>
               <p>
@@ -65,7 +69,11 @@
                 {{#if currentSession.canAccessBerichten}}
                   {{wu-button isNarrow=true isSmall=true label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
                 {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToBerichtencentrum")}}
+                  <div class="alert alert--tiny">
+                    <div class="alert__message">
+                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                    </div>
+                  </div>
                 {{/if}}
               </p>
               <p>
@@ -92,7 +100,11 @@
                 {{#if currentSession.canAccessBbcdr}}
                   {{wu-button isNarrow=true isSmall=true label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
                 {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToBbcdr")}}
+                  <div class="alert alert--tiny">
+                    <div class="alert__message">
+                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                    </div>
+                  </div>
                 {{/if}}
               </p>
               <p>
@@ -119,7 +131,11 @@
                 {{#if currentSession.canAccessMandaat}}
                   {{wu-button isNarrow=true isSmall=true label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
                 {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToMandatenbeheer")}}
+                  <div class="alert alert--tiny">
+                    <div class="alert__message">
+                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                    </div>
+                  </div>
                 {{/if}}
               </p>
               <p>
@@ -146,7 +162,11 @@
                 {{#if currentSession.canAccessLeidinggevenden}}
                   {{wu-button isNarrow=true isSmall=true label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
                 {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang" onClick=(action "goToLeidinggevendenbeheer")}}
+                  <div class="alert alert--tiny">
+                    <div class="alert__message">
+                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                    </div>
+                  </div>
                 {{/if}}
               </p>
               <p>
@@ -173,7 +193,11 @@
                 {{#if currentSession.canAccessPersoneelsbeheer}}
                   {{wu-button isNarrow=true isSmall=true label="Ga naar personeelsbeheer" onClick=(action "goToPersoneelsbeheer")}}
                 {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
+                  <div class="alert alert--tiny">
+                    <div class="alert__message">
+                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                    </div>
+                  </div>
                 {{/if}}
               </p>
               <p>
@@ -183,33 +207,6 @@
           </div>
         </div>
       </div>
-
-{{!--       <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--s">
-          <div class="info-tile__header">
-            <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
-                <i class="badge__icon vi vi-news" aria-hidden="true"></i>
-              </div>
-              </div>
-            <div class="info-tile__header__wrapper">
-              <h2 class="info-tile__header__title u-spacer--top--tinier">Subsidiebeheer</h2>
-              <p class="info-tile__header__subtitle u-spacer--small">Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad.</p>
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessSubsidiebeheer}}
-                  {{wu-button isNarrow=true isSmall=true label="Ga naar subsidiebeheer" onClick=(action "goToSubsidiebeheer")}}
-                {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
-                {{/if}}
-              </p>
-              <p>
-                <a class="link link--dark u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank" rel="noopener">Handleiding</a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div> --}}
-
     </div>
 
     <div class="grid">

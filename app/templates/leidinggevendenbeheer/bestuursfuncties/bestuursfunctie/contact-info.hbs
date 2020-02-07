@@ -2,7 +2,7 @@
   <div class="u-padding--trl--small loket-onderdeel__header">
     <div class="grid">
       <div class="col--9-12">
-        <h2 class="h4">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</h2>
+        <h1 class="h4">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</h1>
       </div>
       <div class="col--3-12 u-align--right">
         <div {{action "cancel"}} class="link--icon--close">
@@ -28,7 +28,7 @@
         </div>
 
       </div>
-      <h4 class="h5 u-spacer--tiny">Adres</h4>
+      <h2 class="h5 u-spacer--tiny">Adres</h2>
       {{adressenregister-selector address=model.adres onChange=(perform updateAdres)}}
     </div>
   </div>

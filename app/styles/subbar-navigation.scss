@@ -13,6 +13,11 @@
   .user-toggle {
     padding-top: 0.2rem;
     font-size: 1.6rem;
+
+    &:focus-within {
+      outline: 2px solid $orange;
+      outline-offset: .5rem;
+    }
   }
 
   .user-toggle__name--label,
@@ -41,6 +46,4 @@
   .popover__link span {
     width: 80%;
   }
-
-
 }
