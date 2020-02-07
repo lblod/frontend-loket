@@ -46,4 +46,26 @@
   .popover__link span {
     width: 80%;
   }
+
+  button.button.button--link {
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-blue;
+      background-color: $blue-gray-lightest
+    }
+  }
+
+  .button i {
+    width: 15%;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -0.2rem;
+  }
+
+  .button span {
+    overflow: visible;
+    display: inline-block;
+  }
 }
