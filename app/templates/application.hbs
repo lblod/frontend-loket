@@ -16,7 +16,9 @@
                         <div class="user-toggle__name">
                           {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}
                         </div>
-                        <button class="vi vi-arrow vi-u-90deg vi-u-badge vi-u-badge--xsmall vi-u-badge--neutral"></button>
+                        <button class="vi vi-arrow vi-u-90deg vi-u-badge vi-u-badge--xsmall vi-u-badge--neutral">
+                          <span class="u-visually-hidden">Account settings</span>
+                        </button>
                       {{/p.toggle}}
                       {{#p.content tagName="ul"}}
                           <li>
