@@ -1,7 +1,7 @@
 {{berichtencentrum/conversatie-view-header conversatie=model close=close data-test-loket="berichtencentrum-conversatie-header"}}
 
 <div class="container-flex--scroll u-padding--round--small">
-  {{#each (sort-by 'verzonden' model.berichten) as |bericht|}}
+  {{#each berichten as |bericht|}}
     {{berichtencentrum/bericht-view bericht=bericht conversatie=model data-test-loket="berichtencentrum-bericht-view"}}
     <div class="u-hr u-spacer--tb--small"></div>
   {{/each}}
