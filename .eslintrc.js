@@ -3,9 +3,13 @@ module.exports = {
     server: true,
   },
   root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      legacyDecorators: true
+    }
   },
   plugins: [
     'ember'
@@ -18,7 +22,8 @@ module.exports = {
     browser: true
   },
   rules: {
-    'ember/use-brace-expansion': 'off'
+    'ember/use-brace-expansion': 'off',
+    'ember/no-jquery': 'error'
   },
   overrides: [
     // node files
