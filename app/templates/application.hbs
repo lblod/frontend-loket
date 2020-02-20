@@ -8,11 +8,11 @@
           <div class="container-flex--contain">
             <div class="sidebar">
               <div class="sidebar__header">
-								<div class="user-toggle">
-								  <nav class="text-left u-align-left">
+                <div class="user-toggle">
+                  <nav class="text-left u-align-left">
                     {{#wu-popover as |p|}}
                       {{#p.toggle}}
-			                  <div class="user-toggle__name--label">{{currentSession._user.voornaam}} {{currentSession._user.achternaam}}</div>
+                        <div class="user-toggle__name--label">{{currentSession._user.voornaam}} {{currentSession._user.achternaam}}</div>
                         <div class="user-toggle__name">
                           {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}
                         </div>
@@ -21,22 +21,22 @@
                         </button>
                       {{/p.toggle}}
                       {{#p.content tagName="ul"}}
-                          <li>
-                            {{#acmidm-switch tagName="button" class="button button--block u-align-left button--link button--link--dark popover__link"}}
-	                            <i class="fa fa-retweet button__icon"></i>
-	                            <span>Wissel van bestuurseenheid</span>
-                            {{/acmidm-switch}}
-                          </li>
-                          <li>
-                            {{#acmidm-logout tagName="button" class="button button--block u-align-left button--link button--link--dark popover__link"}}
-	                            <i class="button__icon fa fa-power-off"></i>
-                            	<span>Meld u af</span>
-                            {{/acmidm-logout}}
-                          </li>
+                        <li>
+                          {{#acmidm-switch tagName="button" class="button button--block u-align-left button--link button--link--dark popover__link"}}
+                            <i class="fa fa-retweet button__icon"></i>
+                            <span>Wissel van bestuurseenheid</span>
+                          {{/acmidm-switch}}
+                        </li>
+                        <li>
+                          {{#acmidm-logout tagName="button" class="button button--block u-align-left button--link button--link--dark popover__link"}}
+                            <i class="button__icon fa fa-power-off"></i>
+                            <span>Meld u af</span>
+                          {{/acmidm-logout}}
+                        </li>
                       {{/p.content}}
                     {{/wu-popover}}
-								  </nav>
-								</div>
+                  </nav>
+                </div>
               </div>
               <div class="sidebar__content">
                 <nav class="side-navigation">
@@ -69,7 +69,7 @@
                       {{/if}}
                       {{#if currentSession.canAccessPersoneelsbeheer}}
                         <li class="side-navigation__item">
-                        {{#link-to "personeelsbeheer.personeelsaantallen.index"}}Personeelsbeheer{{/link-to}}
+                          {{#link-to "personeelsbeheer.personeelsaantallen.index"}}Personeelsbeheer{{/link-to}}
                         </li>
                       {{/if}}
                     </ul>
