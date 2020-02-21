@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.24.1",
+  "version": "0.24.2",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -28,7 +28,7 @@
     "@lblod/ember-mu-dynamic-forms": "^0.3.6",
     "@lblod/ember-toezicht-form-fields": "^0.5.1",
     "@lblod/ember-vo-mu-file-upload": "^0.4.1",
-    "@lblod/ember-vo-webuniversum": "^0.21.3",
+    "@lblod/ember-vo-webuniversum": "^0.22.7",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
     "@lblod/ember-vo-webuniversum-widget": "^0.1.4",
     "broccoli-asset-rev": "^2.7.0",

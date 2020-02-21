@@ -77,10 +77,6 @@
 
 /* style width and links popover for sidebar */
 
-.popover__content {
-	max-width: 20rem;
-}
-
 .popover__link {
 	line-height: 1;
 
@@ -94,4 +90,29 @@
 		width: 80%;
 		display: inline-block;
 	}
+}
+
+/* Temporary fix tabindex in user menu */
+
+
+button.button.button--link.popover__link {
+  text-decoration: none;
+
+  &:hover {
+    color: $primary-blue;
+    background-color: $blue-gray-lightest
+  }
+}
+
+.button.button.button--link.popover__link i {
+  width: 15%;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -0.2rem;
+}
+
+button.button.button--link.popover__link span {
+  overflow: visible;
+  display: inline-block;
 }
