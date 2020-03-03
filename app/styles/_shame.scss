@@ -1,0 +1,52 @@
+/* ==========================================================================
+   #SHAME
+   Dirty temporary css for demo purposes.
+   Some parts will be reused, but most of them will not.
+   ========================================================================== */
+
+// Override data table actions
+.data-table__actions { // reformat
+  padding: 0;
+}
+
+// Override typography
+.loket-onderdeel__header .h3,
+.loket-onderdeel__header .h4 {
+  font-weight: 400;
+}
+
+sup {
+  line-height: 0.5;
+  vertical-align: text-top;
+  font-size: smaller;
+}
+
+// Temporary focus overrides for focus area's
+// @TODO: discuss where to put this or how to fix this focus style.
+#main:focus,
+#content:focus {
+  outline: 0;
+}
+
+// Fix light font-weights conflict with appuniversum
+.text-fade,
+.text-light {
+  font-weight: 400;
+}
+
+
+.input-field::placeholder {
+  font-weight: 400 !important;
+}
+
+.input-field::-webkit-input-placeholder {
+  font-weight: 400 !important;
+}
+
+.input-field::-moz-placeholder {
+  font-weight: 400 !important;
+}
+
+.input-field:-ms-input-placeholder {
+  font-weight: 400 !important;
+}
