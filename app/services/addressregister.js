@@ -1,4 +1,5 @@
-import Service, { inject as service } from '@ember/service';
+import Service from '@ember/service';
+import fetch from 'fetch';
 
 class AddressSuggestion {
   constructor({ id, street, housenumber, zipCode, municipality, fullAddress }) {
@@ -39,10 +40,8 @@ class Address {
 }
 
 export default Service.extend({
-  ajax: service(),
-
   async suggest(query) {
-    const results = await this.ajax.request(`/adressenregister/search?query=${query}`);
+    const results = await (await fetch(`/adressenregister/search?query=${query}`)).json();
     const addressSuggestions = results.adressen.map( function(result) {
       return new AddressSuggestion({
         id: result.ID,
@@ -57,7 +56,7 @@ export default Service.extend({
   },
 
   async findAll(suggestion) {
-    const results = await this.ajax.request(`/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`);
+    const results = await (await fetch(`/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`)).json();
     const addresses = results.map( function(result) {
       return new Address({
         uri: result.identificator.id,
