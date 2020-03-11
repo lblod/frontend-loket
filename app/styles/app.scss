@@ -1,8 +1,5 @@
-
-
-
 /* ==================================
-   #APPUNIVERSUM POC
+   #APPUNIVERSUM
    ================================== */
 
 /**
@@ -27,6 +24,10 @@
 @import "appuniversum/s-colors";
 @import "appuniversum/s-global";
 @import "appuniversum/s-utilities";
+
+
+// PROJECT SPECIFIC VARIABLES
+@import "project/s-global";
 
 
 // MIXINS
@@ -57,22 +58,25 @@
 @import 'ember-vo-webuniversum';
 
 // CUSTOM COMPONENTS (DEPRECATED)
-@import 'document-status-pills';
-@import 'generated-forms';
-@import 'user-toggle';
+@import 'deprecated/document-status-pills';
+@import 'deprecated/generated-forms';
+@import 'deprecated/user-toggle';
 
 // COMPONENTS
-@import "appuniversum/c-container";
-@import "appuniversum/c-brand";
-@import "appuniversum/c-header";
-@import "appuniversum/c-button-link";
-@import "appuniversum/c-button";
-@import "appuniversum/c-link";
-@import "appuniversum/c-icon";
-@import "appuniversum/c-list-horizontal";
-@import "appuniversum/c-list-navigation";
-@import "appuniversum/c-popover";
-@import "appuniversum/c-sidebar";
+@import "ember-appuniversum/c-brand";
+@import "ember-appuniversum/c-button";
+@import "ember-appuniversum/c-button-link";
+@import "ember-appuniversum/c-link";
+@import "ember-appuniversum/c-icon";
+@import "ember-appuniversum/c-list-horizontal";
+@import "ember-appuniversum/c-list-navigation";
+@import "ember-appuniversum/c-popover";
+@import "ember-appuniversum/c-header";
+@import "ember-appuniversum/c-sidebar";
+
+
+// PROJECT COMPONENTS
+@import "project/c-container";
 
 
 // UTILITIES
