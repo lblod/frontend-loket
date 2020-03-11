@@ -23,7 +23,7 @@
   "devDependencies": {
     "@ember/optional-features": "^1.1.0",
     "@glimmer/component": "^1.0.0",
-    "@lblod/ember-acmidm-login": "^1.0.0",
+    "@lblod/ember-acmidm-login": "^1.1.0",
     "@lblod/ember-mock-login": "^0.4.6",
     "@lblod/ember-mu-dynamic-forms": "^0.3.6",
     "@lblod/ember-toezicht-form-fields": "^0.5.1",
