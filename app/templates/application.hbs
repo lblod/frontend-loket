@@ -24,7 +24,7 @@
   </AuHeader>
 
   {{#if session.isAuthenticated}}
-  <main id="main" class="au-c-container">
+  <main id="main" class="au-c-main-container">
     <div class="au-o-grid au-o-grid--flush au-o-grid--stretch">
       <div class="au-o-grid__item au-u-1-4@small au-u-1-5@medium au-u-1-6@large au-u-hide-on-print">
         <div class="au-c-sidebar">
@@ -104,7 +104,7 @@
         </div>
       </div>
       <div id="content" class="au-o-grid__item au-u-3-4@small au-u-4-5@medium au-u-5-6@large au-u-wide-on-print" tabindex="-1">
-        <div class="au-c-container__content">
+        <div class="au-c-main-container__content">
           <div class="grid grid--collapse">
             {{outlet}}
           </div>
