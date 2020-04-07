@@ -52,10 +52,20 @@ sup {
 }
 
 
-// Fix container height
+// Fix container height and scrolling
+// @TODO: fix in container component and/or remove .container-flex--contain
 .au-c-main-container__content {
+  overflow: hidden;
+  height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+
   > .grid {
-    height: 100%;
+    height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+  }
+
+  > .grid > div > .container-flex--contain {
+    position: relative;
+    overflow: auto;
+    height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
   }
 }
 
