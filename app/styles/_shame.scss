@@ -58,3 +58,26 @@ sup {
     height: 100%;
   }
 }
+
+// Fix ACMIDM login alerts/loading in header
+// @TODO: rework ACMIDM components to work with appuniversum classes
+.au-c-main-header__actions .alert {
+  position: absolute;
+  right: $au-unit-small;
+  max-width: 480px;
+  top: $au-unit-large + $au-unit-tiny;
+}
+
+// Position ACMIDM login loader
+.au-c-main-header__actions .u-padding--round--small {
+  position: absolute;
+  right: 0;
+  max-width: 480px;
+  top: $au-unit-large - $au-unit-tiny/2;
+  padding: 0;
+  background-color: $au-white;
+
+  .loader-wrapper {
+    padding: 0;
+  }
+}
