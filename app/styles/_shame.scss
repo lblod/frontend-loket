@@ -91,3 +91,39 @@ sup {
     padding: 0;
   }
 }
+
+// Fix popover width overflow
+// @TODO: port to main-header component
+.au-c-main-header__actions .au-c-popover__name {
+  max-width: $au-unit-large;
+
+  @include mq(xsmall) {
+    max-width: $au-unit-huge;
+  }
+
+  @include mq(small) {
+    max-width: $au-unit-huge*2;
+  }
+
+  @include mq(medium) {
+    max-width: $au-unit-huge*3;
+  }
+}
+
+// Fix app title width overflow
+// @TODO: port to brand component
+.au-c-main-header__title.au-c-main-header__title--link {
+  max-width: $au-unit-huge;
+
+  @include mq(xsmall) {
+    max-width: $au-unit-huge*1.5;
+  }
+
+  @include mq(small) {
+    max-width: $au-unit-huge*2;
+  }
+
+  @include mq(medium) {
+    max-width: initial;
+  }
+}
