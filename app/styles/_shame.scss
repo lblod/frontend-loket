@@ -54,18 +54,36 @@ sup {
 
 // Fix container height and scrolling
 // @TODO: fix in container component and/or remove .container-flex--contain
-.au-c-main-container__content {
-  overflow: hidden;
-  height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
-
-  > .grid {
-    height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+.au-c-main-container {
+  .au-o-grid {
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: auto;
   }
 
-  > .grid > div > .container-flex--contain {
-    position: relative;
-    overflow: auto;
+  @include mq(small) {
+    .au-o-grid {
+      align-items: stretch;
+      height: 100%;
+    }
+  }
+}
+
+.au-c-main-container__content {
+
+  @include mq(medium) {
+    overflow: hidden;
     height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+
+    > .grid {
+      height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+    }
+
+    > .grid > div > .container-flex--contain {
+      position: relative;
+      overflow: auto;
+      height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+    }
   }
 }
 
@@ -92,8 +110,8 @@ sup {
   }
 }
 
-
-// Fix temporary for popover alignment @TODO: Put in ember-appuniversum;
+// Fix temporary for popover alignment
+// @TODO: port to popover component
 
 .au-c-popover--left {
 
@@ -124,5 +142,39 @@ sup {
   .au-c-list-navigation__link.active {
     background-color: transparent;
     box-shadow: none;
+
+// Fix popover width overflow
+// @TODO: port to main-header component
+.au-c-main-header__actions .au-c-popover__name {
+  max-width: $au-unit-large;
+
+  @include mq(xsmall) {
+    max-width: $au-unit-huge;
+  }
+
+  @include mq(small) {
+    max-width: $au-unit-huge*2;
+  }
+
+  @include mq(medium) {
+    max-width: $au-unit-huge*3;
+  }
+}
+
+// Fix app title width overflow
+// @TODO: port to brand component
+.au-c-main-header__title.au-c-main-header__title--link {
+  max-width: $au-unit-huge;
+
+  @include mq(xsmall) {
+    max-width: $au-unit-huge*1.5;
+  }
+
+  @include mq(small) {
+    max-width: $au-unit-huge*2;
+  }
+
+  @include mq(medium) {
+    max-width: initial;
   }
 }
