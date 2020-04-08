@@ -44,7 +44,12 @@
                     <ul class="side-navigation__group">
                       {{#if currentSession.canAccessToezicht}}
                         <li class="side-navigation__item">
-                          {{#link-to "toezicht.inzendingen"}}Toezicht{{/link-to}}
+                          {{#link-to "supervision.submissions"}}Toezicht{{/link-to}}
+                        </li>
+                      {{/if}}
+                      {{#if currentSession.canAccessToezicht}}
+                        <li class="side-navigation__item">
+                          {{#link-to "toezicht.inzendingen"}}Toezicht (oud){{/link-to}}
                         </li>
                       {{/if}}
                       {{#if currentSession.canAccessBerichten}}
