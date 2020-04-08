@@ -9,6 +9,17 @@ export default Component.extend({
   rangorde: reads('mandataris.rangorde.content'),
   status: reads('mandataris.status.label'),
   beleidsdomein: reads('mandataris.beleidsdomein'),
+
+  async didReceiveAttrs() {
+    const beleidsdomein = await this.beleidsdomein;
+    if (beleidsdomein.length) {
+      const mappedBeleidsdomein = beleidsdomein.map(item => item.label);
+      this.set('formattedBeleidsdomein', mappedBeleidsdomein.join(', '));
+    } else {
+      this.set('formattedBeleidsdomein', []);
+    }
+  },
+
   actions: {
     edit(){
       this.onEdit();

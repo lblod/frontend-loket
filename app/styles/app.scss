@@ -1,22 +1,90 @@
+/* ==================================
+   #APPUNIVERSUM
+   ================================== */
+
+/**
+ * A design universe for Flanders GOV applications
+ */
+
+/**
+ * CONTENTS
+ * ---
+ * SETTINGS: Project settings and variables
+ * TOOLS: Mixins
+ * GENERIC: Reset, global box-sizing and font-styles
+ * ELEMENTS: Plain html tag styling
+ * OBJECTS: OOCSS unstyled objects (namespace: '.au-o-...')
+ * COMPONENTS: Components (namespace: '.au-c-...')
+ * UTILITIES: Single function helper classes (namespace: '.au-u-...')
+ * SHAME: Temporary hacks and quickfixes
+ */
+
+
+// VARIABLES
+@import "appuniversum/s-colors";
+@import "appuniversum/s-global";
+@import "appuniversum/s-utilities";
+
+
+// PROJECT SPECIFIC VARIABLES
+@import "project/s-global";
+
+
+// MIXINS
+@import "appuniversum/t-font-size";
+@import "appuniversum/t-sass-mq";
+
+
+// GENERIC
+@import "appuniversum/g-reset";
+@import "appuniversum/g-box-sizing";
+@import "appuniversum/g-font";
+
+
+// ELEMENTS
+@import "appuniversum/e-page";
+
+
+// OBJECTS
+@import "appuniversum/o-box";
+@import "appuniversum/o-grid";
+@import "appuniversum/o-layout";
+@import "appuniversum/o-region";
+
+
+// WU COMPONENTS (DEPRECATED)
 @import 'ember-vo-webuniversum-data-table';
 @import 'ember-power-select';
 @import 'ember-vo-webuniversum';
 
-@import 'document-status-pills';
-@import 'generated-forms';
-@import 'subbar-navigation';
+// CUSTOM COMPONENTS (DEPRECATED)
+@import 'deprecated/document-status-pills';
+@import 'deprecated/generated-forms';
+@import 'deprecated/user-toggle';
 
-.data-table__actions { // reformat
-  padding: 0;
-}
+// COMPONENTS
+@import "ember-appuniversum/c-brand";
+@import "ember-appuniversum/c-button";
+@import "ember-appuniversum/c-button-link";
+@import "ember-appuniversum/c-link";
+@import "ember-appuniversum/c-icon";
+@import "ember-appuniversum/c-list-horizontal";
+@import "ember-appuniversum/c-list-navigation";
+@import "ember-appuniversum/c-popover";
+@import "ember-appuniversum/c-main-header";
+@import "ember-appuniversum/c-main-container";
+@import "ember-appuniversum/c-sidebar";
 
-.loket-onderdeel__header .h3,
-.loket-onderdeel__header .h4 {
-	font-weight: 400;
-}
+// UTILITIES
+@import "appuniversum/u-headings";
+@import "appuniversum/u-font-weights";
+@import "appuniversum/u-font-family";
+@import "appuniversum/u-widths";
+@import "appuniversum/u-spacings";
+@import "appuniversum/u-responsive-spacings";
+@import "appuniversum/u-hide";
+@import "appuniversum/u-print";
 
-sup {
-	line-height: 0.5;
-	vertical-align: text-top;
-	font-size: smaller;
-}
+
+// TEMPORARY HACKS AND QUICKFIXES
+@import 'shame';
