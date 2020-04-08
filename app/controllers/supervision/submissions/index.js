@@ -4,11 +4,11 @@ import { action } from '@ember/object';
 export default class SupervisionSubmissionsIndexController extends Controller {
   page = 0
   size = 20
-  sort = 'status.label,-sent-date'
+  sort = 'status.label,-sent-date,-modified'
 
 
   @action
   goToNewSubmission() {
-    this.transitionToRoute('toezicht.inzendingen.new');
+    this.transitionToRoute('supervision.submissions.new');
   }
 }

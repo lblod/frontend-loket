@@ -1,0 +1,61 @@
+<main class="container">
+  <main class="container-flex--contain">
+    <header class="au-u-padding-top-large au-u-padding-bottom au-u-padding-left au-u-padding-right u-border--light--bottom">
+      <LinkTo @route="index" class="au-c-button-link au-c-button-link--neutral au-u-margin-bottom-small">&leftarrow;
+        Terug naar overzicht
+      </LinkTo>
+      <h1 class="au-u-h2 au-u-margin-bottom">Bekijk aanlevering dossier</h1>
+      <div class="au-o-grid">
+        <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuLabel>Gewijzigd door</AuLabel>
+          <p>{{this.model.submission.lastModifier.fullName}}</p>
+        </div>
+        <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuLabel>Aangemaakt op</AuLabel>
+          <p>{{moment-format this.model.submission.created 'DD-MM-YYYY'}}</p>
+        </div>
+        <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuLabel>Bewerkt op</AuLabel>
+          <p>{{moment-format this.model.submission.modified 'DD-MM-YYYY'}}</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-flex--scroll">
+      <div class="au-u-padding-top-large au-u-padding-left au-u-padding-right au-u-padding-bottom-large">
+        <Form @form={{this.form}}
+              @show={{this.model.submitted}}
+              @graphs={{this.graphs}}
+              @sourceNode={{this.sourceNode}}
+              @formStore={{this.formStore}} />
+      </div>
+    </div>
+
+    <footer class="au-u-padding-top au-u-padding-bottom-large au-u-padding-left au-u-padding-right u-border--light--top">
+      {{#if this.model.submitted}}
+        <div class="u-spacer--bottom--small">
+          <div class="alert alert--tiny alert--success">
+            <div class="alert__icon" aria-hidden="true"></div>
+            <p class="alert__title">Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate
+                                                                                  'DD-MM-YYYY'}}</p>
+          </div>
+        </div>
+      {{else}}
+        <div class="alert alert--tiny alert--success">
+          <div class="alert__icon" aria-hidden="true"></div>
+          <div class="alert__content">
+            <div class="alert__message">Gelieve per besluit of besluitenlijst één dossier aan te maken.</div>
+          </div>
+        </div>
+      {{/if}}
+
+      <div class="button-group">
+        {{#unless this.model.submitted}}
+          <AuButton {{on "click" (perform this.save)}}>Bewaar</AuButton>
+          <AuButton @skin={{"ghost"}} {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
+          <AuButton @skin={{"ghost"}} {{on "click" (perform this.delete)}}>Verwijder</AuButton>
+        {{/unless}}
+      </div>
+    </footer>
+  </main>
+</main>

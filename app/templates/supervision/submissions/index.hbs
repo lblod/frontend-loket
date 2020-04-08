@@ -11,6 +11,7 @@
           <div class="col--6-12 col--12-12--s u-align-right--tablet-portrait-up">
             <div class="au-o-grid__item au-u-1-2@medium au-u-text-right">
               {{!-- TODO button to add new submission --}}
+              <LinkTo @route="supervision.submissions.new" class="au-c-button" type="button">Maak nieuw formulier aan</LinkTo>
             </div>
           </div>
         </div>
@@ -35,7 +36,7 @@
           {{!--<th>Aangemaakt door</th>  @TODO: Add the way this dossier has been added --}}
           {{!--<th>Aangemaakt in</th>  @TODO: Add the way this dossier has been added --}}
           <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status" />
-          {{!-- <th></th> @TODO add link to edit back --}}
+          <th></th>
         </c.header>
         <c.body as |row|>
           <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
@@ -45,7 +46,7 @@
           {{!--<td>Voornaam Naam</td> @TODO: Add *by who* this dossier has been added --}}
           {{!--<td>Gelinkt Notuleren</td> @TODO: Add the *way* this dossier has been added --}}
           <td><AuPill>{{row.status.label}}</AuPill></td>  {{!-- Add warning skin for concepts and success skin for sent @skin="warning" --}}
-          {{!-- <td><LinkTo @route="forms.edit" @model={{row.id}}>Bekijk</LinkTo></td> @TODO add link to edit back --}}
+          <td><LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo></td>
         </c.body>
       </t.content>
     </DataTable>
