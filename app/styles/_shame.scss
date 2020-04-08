@@ -91,3 +91,38 @@ sup {
     padding: 0;
   }
 }
+
+
+// Fix temporary for popover alignment @TODO: Put in ember-appuniversum;
+
+.au-c-popover--left {
+
+  .au-c-popover__menu {
+    left: 0;
+    right: auto;
+  }
+
+  .au-c-popover__menu:after {
+    left: $au-unit-small;
+    right: auto;
+  }
+
+  .au-c-popover__menu:before {
+    left: $au-unit-small - .1rem;
+    right: auto;
+  }
+
+  .au-c-popover__toggle {
+    flex-direction: row-reverse;
+  }
+
+  .au-c-popover__button {
+    margin-left: 0;
+    margin-right: $au-unit-tiny;
+  }
+
+  .au-c-list-navigation__link.active {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
