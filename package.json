@@ -21,7 +21,10 @@
     "test": "ember test"
   },
   "devDependencies": {
+    "@appuniversum/appuniversum": "^0.0.5",
+    "@appuniversum/ember-appuniversum": "^0.0.12",
     "@ember/optional-features": "^1.3.0",
+    "@ember/render-modifiers": "^1.0.2",
     "@glimmer/component": "^1.0.0",
     "@glimmer/tracking": "^1.0.0",
     "@lblod/ember-acmidm-login": "^1.1.1",
@@ -61,6 +64,7 @@
     "ember-cli-uglify": "^3.0.0",
     "ember-cli-update": "^0.34.10",
     "ember-concurrency": "^1.1.5",
+    "ember-concurrency-decorators": "^1.0.0",
     "ember-data": "~3.16.0",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^7.0.0",
