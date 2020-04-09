@@ -18,17 +18,16 @@
       </div>
       <DataTable @content={{this.model}}
                  @isLoading={{this.isLoadingModel}}
-                 @filter={{this.filter}}
-                 @sort={{this.sort}}
-                 @page={{this.page}}
-                 @size={{this.size}}
+                 @sort={{sort}}
+                 @page={{page}}
+                 @size={{size}}
                  as |t| >
         <t.content as |c|>
           <c.header>
-            <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}}
+            <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{sort}}
                         @label="Orgaan"/>
             <th>Type dossier</th>
-            <ThSortable @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}}
+            <ThSortable @field="formData.sessionStartedAtTime" @currentSorting={{sort}}
                         @label="Datum zitting/besluit"/>
             <ThSortable @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
             {{!--<th>Aangemaakt door</th>  @TODO: Add the way this dossier has been added --}}

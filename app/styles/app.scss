@@ -38,7 +38,7 @@
 // GENERIC
 @import "appuniversum/g-reset";
 @import "appuniversum/g-box-sizing";
-@import "appuniversum/g-font";
+// @import "appuniversum/g-font"; // (BREAKING CHANGE | CONFLICT IN FONT WEIGHTS)
 
 
 // ELEMENTS
