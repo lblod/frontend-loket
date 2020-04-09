@@ -1,11 +1,11 @@
-{{#mandatenbeheer/power-select
-   allowClear=allowClear
-   disabled=disabled
-   placeholder="Titelvoerend, effectief, waarnemend, verhinderd"
-   options=statusCodes
-   selected=_statusCode
-   searchField="label"
-   onchange=(action "select")
-   as |status|}}
+<Mandatenbeheer::PowerSelect
+        @allowClear={{allowClear}}
+        @disabled={{disabled}}
+        @placeholder="Titelvoerend, effectief, waarnemend, verhinderd"
+        @options={{statusCodes}}
+        @selected={{_statusCode}}
+        @searchField="label"
+        @onChange={{action "select"}}
+        as |status|>
   {{status.label}}
-{{/mandatenbeheer/power-select}}
+</Mandatenbeheer::PowerSelect>

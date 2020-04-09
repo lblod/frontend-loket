@@ -1,18 +1,18 @@
 <div class="form__row">
   <div class="grid">
     <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
-      {{#power-select
-         allowClear=true
-         disabled=disabled
-         search=(perform search)
-         selected=addressSuggestion
-         onchange=(perform selectSuggestion)
-         loadingMessage="Aan het laden..."
-         noMatchesMessage="Geen resultaten"
-         searchMessage="Typ om te zoeken"
-         as |suggestion|}}
+      <PowerSelect
+              @allowClear={{true}}
+              @disabled={{disabled}}
+              @search={{perform search}}
+              @selected={{addressSuggestion}}
+              @onChange={{onChange}}
+              @loadingMessage={{"Aan het laden..."}}
+              @noMatchesMessage={{"Geen resultaten"}}
+              @searchMessage={{"Typ om te zoeken"}}
+              as |suggestion|>
         {{suggestion.fullAddress}}
-      {{/power-select}}
+      </PowerSelect>
     </div>
   </div>
 </div>

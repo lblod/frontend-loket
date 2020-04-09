@@ -1,11 +1,12 @@
-{{#mandatenbeheer/power-select
-   allowClear=allowClear
-   disabled=disabled
-   placeholder="Zoek mandaat"
-   options=mandaten
-   selected=_mandaat
-   searchField="bestuursfunctie.label"
-   onchange=(action "select")
-   as |mandaat|}}
+<Mandatenbeheer::PowerSelect
+        @allowClear={{allowClear}}
+        @disabled={{disabled}}
+        @placeholder="Zoek mandaat"
+        @options={{mandaten}}
+        @selected={{_mandaat}}
+        @searchField="bestuursfunctie.label"
+        @onChange={{action "select"}}
+        as |mandaat|>
   {{mandaat.bestuursfunctie.label}}
-{{/mandatenbeheer/power-select}}
+</Mandatenbeheer::PowerSelect>
+

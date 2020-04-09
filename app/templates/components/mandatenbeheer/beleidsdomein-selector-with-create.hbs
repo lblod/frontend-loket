@@ -1,15 +1,14 @@
-{{#power-select-multiple-with-create
-   disabled=disabled
-   placeholder=" Zoek beleidsdomein"
-   search=(perform searchByName)
-   selected=_beleidsdomeinen
-   onchange=(action "select")
-   oncreate=(action "create")
-   buildSuggestion=(action "suggest")
-   showCreatePosition='bottom'
-   searchMessage="Typ om te zoeken"
-   loadingMessage="Aan het laden..."
-   noMatchesMessage="Geen resultaten"
-   as |beleidsdomein|}}
+<PowerSelectMultipleWithCreate
+        @disabled={{disabled}}
+        @placeholder={{" Zoek beleidsdomein"}}
+        @search={{perform searchByName}}
+        @selected={{_beleidsdomeinen}}
+        @onChange={{action "select"}}
+        @onCreate={{action "create"}}
+        @buildSuggestion={{action "suggest"}}
+        @showCreatePosition={{"bottom"}}
+        @loadingMessage={{"Aan het laden..."}}
+        @noMatchesMessage={{"Geen resultaten"}}
+        as |beleidsdomein|>
   {{beleidsdomein.label}}
-  {{/power-select-multiple-with-create}}
+</PowerSelectMultipleWithCreate>

@@ -22,6 +22,15 @@
 					}}
 						{{version.description}}
 				  {{/mandatenbeheer/power-select}}
+          <Mandatenbeheer::PowerSelect
+                  @allowClear={{allowClear}}
+                  @disabled={{disabled}}
+                  @options={{options}}
+                  @selected={{_selected}}
+                  @onChange={{action "select"}}
+                  as |version|>
+            {{version.description}}
+          </Mandatenbeheer::PowerSelect>
 				</div>
 			</div>
 		</div>
