@@ -7,10 +7,7 @@ export default class SupervisionRoute extends Route.extend(AuthenticatedRouteMix
   currentSession
 
   beforeModel() {
-    console.log("entered supervision route");
-    if (!this.currentSession.canAccessToezicht) {
-      console.log("not a toezicht member, can not reach this page");
+    if (!this.currentSession.canAccessToezicht)
       this.transitionTo('index');
-    }
   }
 }

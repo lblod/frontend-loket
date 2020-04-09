@@ -77,7 +77,7 @@
     "ember-mu-transform-helpers": "^2.0.0",
     "ember-page-title": "^5.0.1",
     "ember-power-select": "^3.0.6",
-    "ember-power-select-with-create": "^0.6.1",
+    "ember-power-select-with-create": "^0.7.0",
     "ember-promise-helpers": "^1.0.6",
     "ember-qunit": "^4.6.0",
     "ember-resolver": "^7.0.0",
