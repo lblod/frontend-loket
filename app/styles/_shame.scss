@@ -66,6 +66,11 @@ sup {
       align-items: stretch;
       height: 100%;
     }
+
+    .au-c-form .au-o-grid {
+      align-items: flex-start;
+      height: initial;
+    }
   }
 }
 

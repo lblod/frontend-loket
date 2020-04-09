@@ -109,7 +109,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
     yield this.model.submission.save();
 
     yield this.deleteSubmissionForm.perform();
-    this.transitionToRoute('supervision.submissions.index');
+    this.transitionToRoute('supervision.submissions');
   }
 
   @task
@@ -133,7 +133,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
     else {
       yield this.saveSubmissionForm.perform();
       yield this.submitSubmissionForm.perform();
-      this.transitionToRoute('supervision.submissions.index');
+      this.transitionToRoute('supervision.submissions');
     }
   }
 }
