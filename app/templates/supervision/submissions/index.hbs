@@ -1,56 +1,60 @@
-{{!-- TODO translate this to octane --}}
-{{!-- title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam --}}
-<div class="col--12-12--s u-border--light--right col--10-12">
-  <div class="container-flex--contain">
-    <div class="u-border--light--bottom">
-      <div class="u-padding--round--small loket-onderdeel__header" data-test-mn="inzendingen-page-title-parent-node">
+{{title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+<div class="grid grid--collapse">
+  <div class="col--12-12--s u-border--light--right col--12-12">
+    <div class="container-flex--contain">
+      <div class="u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header u-border--light--bottom"
+           data-test-mn="inzendingen-page-title-parent-node">
         <div class="grid">
           <div class="col--6-12 col--12-12--s">
-            <h1 class="h4 u-spacer--tiny" data-test-loket="inzendingen-page-title">Toezicht</h1>
+            <h1 class="h4 u-spacer--tb--tinier" data-test-loket="inzendingen-page-title">Toezicht</h1>
           </div>
           <div class="col--6-12 col--12-12--s u-align-right--tablet-portrait-up">
-            <div class="au-o-grid__item au-u-1-2@medium au-u-text-right">
-              {{!-- TODO button to add new submission --}}
-              <LinkTo @route="supervision.submissions.new" class="au-c-button" type="button">Maak nieuw formulier aan</LinkTo>
-            </div>
+            <WuButtonGroup>
+              {{wu-button label="Maak nieuwe melding" onClick=(action "goToNewSubmission") isNarrow=true
+                          data-test-loket="new-melding-button"}}
+            </WuButtonGroup>
           </div>
         </div>
       </div>
+      <DataTable @content={{this.model}}
+                 @isLoading={{this.isLoadingModel}}
+                 @filter={{this.filter}}
+                 @sort={{this.sort}}
+                 @page={{this.page}}
+                 @size={{this.size}}
+                 as |t| >
+        <t.content as |c|>
+          <c.header>
+            <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}}
+                        @label="Orgaan"/>
+            <th>Type dossier</th>
+            <ThSortable @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}}
+                        @label="Datum zitting/besluit"/>
+            <ThSortable @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
+            {{!--<th>Aangemaakt door</th>  @TODO: Add the way this dossier has been added --}}
+            {{!--<th>Aangemaakt in</th>  @TODO: Add the way this dossier has been added --}}
+            <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
+            <th></th>
+          </c.header>
+          <c.body as |row|>
+            <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
+            <td>
+              <Toezicht::SubmissionType @formData={{row.formData}} />
+            </td>
+            <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
+            <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
+            {{!--<td>Voornaam Naam</td> @TODO: Add *by who* this dossier has been added --}}
+            {{!--<td>Gelinkt Notuleren</td> @TODO: Add the *way* this dossier has been added --}}
+            <td>
+              <AuPill>{{row.status.label}}</AuPill>
+            </td>  {{!-- Add warning skin for concepts and success skin for sent @skin="warning" --}}
+            <td>
+              <LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo>
+            </td>
+          </c.body>
+        </t.content>
+      </DataTable>
     </div>
-    {{!-- TODO add table with all submissions--}}
-    <DataTable
-            @content={{this.model}}
-            @isLoading={{this.isLoadingModel}}
-            @filter={{this.filter}}
-            @sort={{this.sort}}
-            @page={{this.page}}
-            @size={{this.size}}
-            as |t|
-    >
-      <t.content as |c|>
-        <c.header>
-          <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan" />
-          <th>Type dossier</th>
-          <ThSortable @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit" />
-          <ThSortable @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd" />
-          {{!--<th>Aangemaakt door</th>  @TODO: Add the way this dossier has been added --}}
-          {{!--<th>Aangemaakt in</th>  @TODO: Add the way this dossier has been added --}}
-          <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status" />
-          <th></th>
-        </c.header>
-        <c.body as |row|>
-          <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
-          <td><Toezicht::SubmissionType @formData={{row.formData}} /></td>
-          <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
-          <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
-          {{!--<td>Voornaam Naam</td> @TODO: Add *by who* this dossier has been added --}}
-          {{!--<td>Gelinkt Notuleren</td> @TODO: Add the *way* this dossier has been added --}}
-          <td><AuPill>{{row.status.label}}</AuPill></td>  {{!-- Add warning skin for concepts and success skin for sent @skin="warning" --}}
-          <td><LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo></td>
-        </c.body>
-      </t.content>
-    </DataTable>
-    {{! --toezicht/inzendingen-table class="container-flex--contain" content=model sort=sort page=page size=size --}}
   </div>
 </div>
 
