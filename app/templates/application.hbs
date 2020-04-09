@@ -1,6 +1,6 @@
 {{head-layout}}
 <div class="container">
-  <AuHeader @appTitle="Loket voor lokale besturen" @contactLink="https://loket.lblod.info/contact">
+  <AuHeader @brandLink="{{unless session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen" @contactRoute="contact">
     {{#if session.isAuthenticated}}
     <AuPopover @popoverTitle="{{currentSession._user.voornaam}} {{currentSession._user.achternaam}} - {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}" @popoverButtonLabel="Account settings">
       <AcmidmSwitch @tagName="button" class="au-c-popover__item" role="menuitem">
