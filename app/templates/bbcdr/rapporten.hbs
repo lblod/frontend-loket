@@ -1,12 +1,11 @@
 {{title "BBC DR " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
-  <div class="container-flex--contain">
-    <div class="u-border--light--bottom">
-      <div class="u-padding--round--small loket-onderdeel__header">
+<div class="grid grid--collapse">
+  <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--8-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
+    <div class="container-flex--contain">
+      <div class="u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header u-border--light--bottom">
         <div class="grid">
           <div class="col--6-12 col--1-1--s">
-		        <h1 class="h4 u-spacer--tiny">BBC DR</h1>
-            {{!-- Search field --}}
+  	        <h1 class="h4 u-spacer--tb--tinier">BBC DR</h1>
           </div>
           <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
             {{wu-button
@@ -17,13 +16,12 @@
           </div>
         </div>
       </div>
+      {{bbcdr/report-table
+          content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
+          class="container-flex--contain data-table--nowrap"
+          data-test-loket='bbcdr-report-table'
+      }}
     </div>
-    {{bbcdr/report-table
-        content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
-        class="container-flex--contain data-table--nowrap"
-        data-test-loket='bbcdr-report-table'
-    }}
   </div>
+  {{outlet}}
 </div>
-
-{{outlet}}

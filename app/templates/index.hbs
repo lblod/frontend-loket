@@ -1,259 +1,405 @@
-<div class="container-flex--scroll">
-  <div class="u-padding--round loket-onderdeel__header">
-    <div class="grid">
-      <div class="col--8-12 col--1-1--m">
-        <h1 class="h3 u-spacer">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</h1>
-        <p class="small u-spacer">Mist u toegang tot een onderdeel? Neem contact op met uw <strong>interne beheerder</strong>.<br>
-          Werkt het nog steeds niet? Neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
+<div class="au-o-grid au-o-grid--flush au-o-grid--stretch">
+  <div class="au-o-grid__item au-u-1-4@small au-u-1-5@medium au-u-1-6@large au-u-hide-on-print">
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+        <nav>
+          <ul class="au-c-list-navigation">
+            <li class="au-c-list-navigation__item au-u-margin-left-small au-u-margin-top-small au-u-margin-bottom-small">
+              <h6>Menu modules</h6>
+            </li>
+            {{#if currentSession.canAccessToezicht}}
+              <li class="au-c-list-navigation__item">
+                <AuNavigationLink @linkRoute="supervision.submissions">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                    <path d="M20.9375,15.625 C18.005,15.625 15.625,18.005 15.625,20.9375 C15.625,23.87 18.005,26.25 20.9375,26.25 C23.87,26.25 26.25,23.87 26.25,20.9375 C26.25,18.005 23.87,15.625 20.9375,15.625 Z M39,5 L5,5 C2.651875,5 0.75,6.901875 0.75,9.25 L0.75,34.75 C0.75,37.098125 2.651875,39 5,39 L39,39 C41.348125,39 43.25,37.098125 43.25,34.75 L43.25,9.25 C43.25,6.901875 41.348125,5 39,5 Z M32.189375,35.185625 L26.01625,29.0125 C24.539375,29.9475 22.8075,30.5 20.9375,30.5 C15.656875,30.5 11.375,26.218125 11.375,20.9375 C11.375,15.656875 15.656875,11.375 20.9375,11.375 C26.218125,11.375 30.5,15.656875 30.5,20.9375 C30.5,22.8075 29.9475,24.539375 29.0125,26.005625 L35.19625,32.168125 L32.189375,35.185625 Z"/>
+                  </svg>
+                  Toezicht
+                </AuNavigationLink>
+              </li>
+              <li class="au-c-list-navigation__item">
+                <AuNavigationLink @linkRoute="toezicht.inzendingen">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                    <path d="M20.9375,15.625 C18.005,15.625 15.625,18.005 15.625,20.9375 C15.625,23.87 18.005,26.25 20.9375,26.25 C23.87,26.25 26.25,23.87 26.25,20.9375 C26.25,18.005 23.87,15.625 20.9375,15.625 Z M39,5 L5,5 C2.651875,5 0.75,6.901875 0.75,9.25 L0.75,34.75 C0.75,37.098125 2.651875,39 5,39 L39,39 C41.348125,39 43.25,37.098125 43.25,34.75 L43.25,9.25 C43.25,6.901875 41.348125,5 39,5 Z M32.189375,35.185625 L26.01625,29.0125 C24.539375,29.9475 22.8075,30.5 20.9375,30.5 C15.656875,30.5 11.375,26.218125 11.375,20.9375 C11.375,15.656875 15.656875,11.375 20.9375,11.375 C26.218125,11.375 30.5,15.656875 30.5,20.9375 C30.5,22.8075 29.9475,24.539375 29.0125,26.005625 L35.19625,32.168125 L32.189375,35.185625 Z"/>
+                  </svg>
+                  Toezicht
+                </AuNavigationLink>
+              </li>
+            {{/if}}
+            {{#if currentSession.canAccessBerichten}}
+              <li class="au-c-list-navigation__item">
+                <AuNavigationLink @linkRoute="berichtencentrum.berichten">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                    <path d="M38.4,1.5 C40.66525,1.5 42.5,3.33475 42.5,5.6 L42.5,5.6 L42.5,30.2 C42.5,32.46525 40.66525,34.3 38.4,34.3 L38.4,34.3 L9.7,34.3 L1.5,42.5 L1.5205,5.6 C1.5205,3.33475 3.33475,1.5 5.6,1.5 L5.6,1.5 Z M37,22.9394531 L7,22.9394531 L7,26.980957 L37,26.980957 L37,22.9394531 Z M37,15.5634766 L7,15.5634766 L7,19.6049805 L37,19.6049805 L37,15.5634766 Z M37,8.1875 L7,8.1875 L7,12.2290039 L37,12.2290039 L37,8.1875 Z"/>
+                  </svg>
+                  Berichtencentrum
+                </AuNavigationLink>
+              </li>
+            {{/if}}
+            {{#if currentSession.canAccessBbcdr}}
+              <li class="au-c-list-navigation__item">
+                <AuNavigationLink @linkRoute="bbcdr.rapporten">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                    <path d="M9.4,1 C7.0795,1 5.221,2.8795 5.221,5.2 L5.2,38.8 C5.2,41.1205 7.0585,43 9.379,43 L34.6,43 C36.9205,43 38.8,41.1205 38.8,38.8 L38.8,13.6 L26.2,1 L9.4,1 Z M24.1,15.7 L24.1,4.15 L35.65,15.7 L24.1,15.7 Z"/>
+                  </svg>
+                  BBC DR
+                </AuNavigationLink>
+              </li>
+            {{/if}}
+            {{#if currentSession.canAccessMandaat}}
+              <li class="au-c-list-navigation__item">
+                <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                    <path d="M22,22 C27.24875,22 31.5,17.736875 31.5,12.5 C31.5,7.25125 27.24875,3 22,3 C16.75125,3 12.5,7.25125 12.5,12.5 C12.5,17.736875 16.75125,22 22,22 Z M22,26.75 C15.670625,26.75 3,29.920625 3,36.25 L3,41 L41,41 L41,36.25 C41,29.920625 28.329375,26.75 22,26.75 Z"/>
+                  </svg>
+                  Mandatenbeheer
+                </AuNavigationLink>
+              </li>
+            {{/if}}
+            {{#if currentSession.canAccessLeidinggevenden}}
+              <li class="au-c-list-navigation__item">
+                <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                    <path d="M36,1.41666667 L8,1.41666667 C5.79,1.41666667 4,3.20666667 4,5.41666667 L4,33.4166667 C4,35.6266667 5.79,37.4166667 8,37.4166667 L16,37.4166667 L22,43.4166667 L28,37.4166667 L36,37.4166667 C38.21,37.4166667 40,35.6266667 40,33.4166667 L40,5.41666667 C40,3.20666667 38.21,1.41666667 36,1.41666667 Z M22,8.01666667 C24.98,8.01666667 27.4,10.4366667 27.4,13.4166667 C27.4,16.3966667 24.98,18.8166667 22,18.8166667 C19.02,18.8166667 16.6,16.3966667 16.6,13.4166667 C16.6,10.4366667 19.02,8.01666667 22,8.01666667 Z M34,29.4166667 L10,29.4166667 L10,27.6166667 C10,23.6166667 18,21.4166667 22,21.4166667 C26,21.4166667 34,23.6166667 34,27.6166667 L34,29.4166667 Z"/>
+                  </svg>
+                  Leidinggevendenbeheer
+                </AuNavigationLink>
+              </li>
+            {{/if}}
+            {{#if currentSession.canAccessPersoneelsbeheer}}
+              <li class="au-c-list-navigation__item">
+                <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                    <path d="M30,20 C33.31,20 35.98,17.31 35.98,14 C35.98,10.69 33.31,8 30,8 C26.69,8 24,10.69 24,14 C24,17.31 26.69,20 30,20 Z M14,20 C17.31,20 19.98,17.31 19.98,14 C19.98,10.69 17.31,8 14,8 C10.69,8 8,10.69 8,14 C8,17.31 10.69,20 14,20 Z M14,24 C9.33,24 0,26.34 0,31 L0,36 L28,36 L28,31 C28,26.34 18.67,24 14,24 Z M30,24 C29.42,24 28.77,24.04 28.07,24.11 C30.39,25.78 32,28.03 32,31 L32,36 L44,36 L44,31 C44,26.34 34.67,24 30,24 Z"/>
+                  </svg>
+                  Personeelsbeheer
+                </AuNavigationLink>
+              </li>
+            {{/if}}
+          </ul>
+        </nav>
+      </div>
+      <div class="au-c-sidebar__footer">
+        <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" rel="noopener noreferrer" class="au-c-link au-c-link--neutral au-c-link--icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+            <path d="M7.33333333,11 L3.66666667,11 L3.66666667,36.6666667 C3.66666667,38.6925 5.3075,40.3333333 7.33333333,40.3333333 L33,40.3333333 L33,36.6666667 L7.33333333,36.6666667 L7.33333333,11 Z M36.6666667,3.66666667 L14.6666667,3.66666667 C12.6408333,3.66666667 11,5.3075 11,7.33333333 L11,29.3333333 C11,31.3591667 12.6408333,33 14.6666667,33 L36.6666667,33 C38.6925,33 40.3333333,31.3591667 40.3333333,29.3333333 L40.3333333,7.33333333 C40.3333333,5.3075 38.6925,3.66666667 36.6666667,3.66666667 Z M34.8333333,20.1666667 L16.5,20.1666667 L16.5,16.5 L34.8333333,16.5 L34.8333333,20.1666667 Z M27.5,27.5 L16.5,27.5 L16.5,23.8333333 L27.5,23.8333333 L27.5,27.5 Z M34.8333333,12.8333333 L16.5,12.8333333 L16.5,9.16666667 L34.8333333,9.16666667 L34.8333333,12.8333333 Z"/>
+          </svg> Bekijk handleiding
+        </a>
       </div>
     </div>
-
-    <div class="grid grid--is-stacked u-spacer">
-
-      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-calendar vi-u-m" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h2 class="info-tile__header__title">Toezicht</h2>
-              </div>
+  </div>
+  <div id="content" class="au-o-grid__item au-u-3-4@small au-u-4-5@medium au-u-5-6@large au-u-wide-on-print" tabindex="-1">
+    <div class="au-c-main-container__content">
+      <div class="container-flex--scroll">
+        <div class="u-padding--round loket-onderdeel__header">
+          <div class="grid">
+            <div class="col--6-12 col--1-1--m">
+              <h1 class="h3 u-spacer">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</h1>
+              <p class="small u-spacer">Mist u toegang tot een onderdeel? Neem contact op met uw <strong>interne beheerder</strong>.<br>
+                Werkt het nog steeds niet? Neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
             </div>
-            <div class="info-tile__content">
-              <p>Bezorg besluiten en overzichtslijsten elektronisch aan de toezichthoudende overheid.</p>
+            <div class="col--6-12 col--1-1--m">
+              <AuAlert @alertTitle="Een minder prominente navigatie: meer plaats" @alertskin={{"info"}} class="au-u-margin-bottom-large">
+                <p class="au-u-margin-bottom-small au-u-margin-top-small">De nieuwe navigatie geeft meer ruimte om gericht taken te volbrengen. Wissel in modules van module door bovenaan op
+                  <AuPopover class="au-c-popover--left" @popoverTitle="Menu modules" @popoverButtonLabel="Account settings">
+                    {{#if currentSession.canAccessToezicht}}
+                      <AuNavigationLink @linkRoute="toezicht.inzendingen">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                          <path d="M20.9375,15.625 C18.005,15.625 15.625,18.005 15.625,20.9375 C15.625,23.87 18.005,26.25 20.9375,26.25 C23.87,26.25 26.25,23.87 26.25,20.9375 C26.25,18.005 23.87,15.625 20.9375,15.625 Z M39,5 L5,5 C2.651875,5 0.75,6.901875 0.75,9.25 L0.75,34.75 C0.75,37.098125 2.651875,39 5,39 L39,39 C41.348125,39 43.25,37.098125 43.25,34.75 L43.25,9.25 C43.25,6.901875 41.348125,5 39,5 Z M32.189375,35.185625 L26.01625,29.0125 C24.539375,29.9475 22.8075,30.5 20.9375,30.5 C15.656875,30.5 11.375,26.218125 11.375,20.9375 C11.375,15.656875 15.656875,11.375 20.9375,11.375 C26.218125,11.375 30.5,15.656875 30.5,20.9375 C30.5,22.8075 29.9475,24.539375 29.0125,26.005625 L35.19625,32.168125 L32.189375,35.185625 Z"/>
+                          </svg>
+                        Toezicht
+                      </AuNavigationLink>
+                    {{/if}}
+                    {{#if currentSession.canAccessBerichten}}
+                      <AuNavigationLink @linkRoute="berichtencentrum.berichten">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                          <path d="M38.4,1.5 C40.66525,1.5 42.5,3.33475 42.5,5.6 L42.5,5.6 L42.5,30.2 C42.5,32.46525 40.66525,34.3 38.4,34.3 L38.4,34.3 L9.7,34.3 L1.5,42.5 L1.5205,5.6 C1.5205,3.33475 3.33475,1.5 5.6,1.5 L5.6,1.5 Z M37,22.9394531 L7,22.9394531 L7,26.980957 L37,26.980957 L37,22.9394531 Z M37,15.5634766 L7,15.5634766 L7,19.6049805 L37,19.6049805 L37,15.5634766 Z M37,8.1875 L7,8.1875 L7,12.2290039 L37,12.2290039 L37,8.1875 Z"/>
+                        </svg>
+                        Berichtencentrum
+                      </AuNavigationLink>
+                    {{/if}}
+                    {{#if currentSession.canAccessBbcdr}}
+                      <AuNavigationLink @linkRoute="bbcdr.rapporten">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                          <path d="M9.4,1 C7.0795,1 5.221,2.8795 5.221,5.2 L5.2,38.8 C5.2,41.1205 7.0585,43 9.379,43 L34.6,43 C36.9205,43 38.8,41.1205 38.8,38.8 L38.8,13.6 L26.2,1 L9.4,1 Z M24.1,15.7 L24.1,4.15 L35.65,15.7 L24.1,15.7 Z"/>
+                        </svg>
+                        BBC DR
+                      </AuNavigationLink>
+                    {{/if}}
+                    {{#if currentSession.canAccessMandaat}}
+                      <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                          <path d="M22,22 C27.24875,22 31.5,17.736875 31.5,12.5 C31.5,7.25125 27.24875,3 22,3 C16.75125,3 12.5,7.25125 12.5,12.5 C12.5,17.736875 16.75125,22 22,22 Z M22,26.75 C15.670625,26.75 3,29.920625 3,36.25 L3,41 L41,41 L41,36.25 C41,29.920625 28.329375,26.75 22,26.75 Z"/>
+                        </svg>
+                        Mandatenbeheer
+                      </AuNavigationLink>
+                    {{/if}}
+                    {{#if currentSession.canAccessLeidinggevenden}}
+                      <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                          <path d="M36,1.41666667 L8,1.41666667 C5.79,1.41666667 4,3.20666667 4,5.41666667 L4,33.4166667 C4,35.6266667 5.79,37.4166667 8,37.4166667 L16,37.4166667 L22,43.4166667 L28,37.4166667 L36,37.4166667 C38.21,37.4166667 40,35.6266667 40,33.4166667 L40,5.41666667 C40,3.20666667 38.21,1.41666667 36,1.41666667 Z M22,8.01666667 C24.98,8.01666667 27.4,10.4366667 27.4,13.4166667 C27.4,16.3966667 24.98,18.8166667 22,18.8166667 C19.02,18.8166667 16.6,16.3966667 16.6,13.4166667 C16.6,10.4366667 19.02,8.01666667 22,8.01666667 Z M34,29.4166667 L10,29.4166667 L10,27.6166667 C10,23.6166667 18,21.4166667 22,21.4166667 C26,21.4166667 34,23.6166667 34,27.6166667 L34,29.4166667 Z"/>
+                        </svg>
+                        Leidinggevendenbeheer
+                      </AuNavigationLink>
+                    {{/if}}
+                    {{#if currentSession.canAccessPersoneelsbeheer}}
+                      <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                          <path d="M30,20 C33.31,20 35.98,17.31 35.98,14 C35.98,10.69 33.31,8 30,8 C26.69,8 24,10.69 24,14 C24,17.31 26.69,20 30,20 Z M14,20 C17.31,20 19.98,17.31 19.98,14 C19.98,10.69 17.31,8 14,8 C10.69,8 8,10.69 8,14 C8,17.31 10.69,20 14,20 Z M14,24 C9.33,24 0,26.34 0,31 L0,36 L28,36 L28,31 C28,26.34 18.67,24 14,24 Z M30,24 C29.42,24 28.77,24.04 28.07,24.11 C30.39,25.78 32,28.03 32,31 L32,36 L44,36 L44,31 C44,26.34 34.67,24 30,24 Z"/>
+                        </svg>
+                        Personeelsbeheer
+                      </AuNavigationLink>
+                    {{/if}}
+                    <AuNavigationLink @linkRoute="index" class="u-border--light--top">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                        <path d="M0 0h48v48H0z" fill="none"></path><path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"></path>
+                      </svg>
+                      Overzicht modules
+                    </AuNavigationLink>
+                  </AuPopover> te klikken.
+                </p>
+                <p>Vragen of opmerkingen? {{#link-to "contact" tagName="a"}}Neem contact met ons op{{/link-to}}.</p>
+              </AuAlert>
             </div>
-            <footer class="info-tile__footer">
-              <div class="u-spacer--tiny">
-                {{#if currentSession.canAccessToezicht}}
-                  {{wu-button isNarrow=true label="Ga naar toezicht" onClick=(action "goToToezicht")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+          </div>
+
+          <div class="grid grid--is-stacked u-spacer">
+
+            <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">
+              <div class="info-tile info-tile--s">
+                <div class="info-tile__header">
+                  <div class="info-tile__badge__wrapper">
+                    <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="badge__icon" aria-hidden="true">
+                        <path d="M20.9375,15.625 C18.005,15.625 15.625,18.005 15.625,20.9375 C15.625,23.87 18.005,26.25 20.9375,26.25 C23.87,26.25 26.25,23.87 26.25,20.9375 C26.25,18.005 23.87,15.625 20.9375,15.625 Z M39,5 L5,5 C2.651875,5 0.75,6.901875 0.75,9.25 L0.75,34.75 C0.75,37.098125 2.651875,39 5,39 L39,39 C41.348125,39 43.25,37.098125 43.25,34.75 L43.25,9.25 C43.25,6.901875 41.348125,5 39,5 Z M32.189375,35.185625 L26.01625,29.0125 C24.539375,29.9475 22.8075,30.5 20.9375,30.5 C15.656875,30.5 11.375,26.218125 11.375,20.9375 C11.375,15.656875 15.656875,11.375 20.9375,11.375 C26.218125,11.375 30.5,15.656875 30.5,20.9375 C30.5,22.8075 29.9475,24.539375 29.0125,26.005625 L35.19625,32.168125 L32.189375,35.185625 Z"/>
+                      </svg>
                     </div>
                   </div>
-                {{/if}}
+                  <div class="info-tile__header__wrapper">
+                    <h2 class="info-tile__header__title u-spacer--top--tinier">Toezicht</h2>
+                    <p class="info-tile__header__subtitle u-spacer--small">Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
+                    <p class="u-spacer--tiny">
+                      {{#if currentSession.canAccessToezicht}}
+                        {{wu-button isNarrow=true isSmall=true label="Ga naar toezicht" onClick=(action "goToToezicht")}}
+                      {{else}}
+                        <div class="alert alert--tiny">
+                          <div class="alert__message">
+                            <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </p>
+                    <p>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/mijn-binnenland" target="_blank" rel="noopener">Meer informatie</a>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank" rel="noopener">Handleiding</a>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p class="small">
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after u-spacer--right--small" href="https://lokaalbestuur.vlaanderen.be/mijn-binnenland" target="_blank" rel="noopener">Meer inhoudelijke informatie</a>
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank" rel="noopener">Handleiding</a>
-              </p>
-            </footer>
-          </div>
-        </div>
-      </div>
+            </div>
 
-      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-mail" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h2 class="info-tile__header__title">Berichtencentrum</h2>
-              </div>
-            </div>
-            <div class="info-tile__content">
-              <p>Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
-            </div>
-            <footer class="info-tile__footer">
-              <div class="u-spacer--tiny">
-                {{#if currentSession.canAccessBerichten}}
-                  {{wu-button isNarrow=true label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+
+            <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">
+              <div class="info-tile info-tile--s">
+                <div class="info-tile__header">
+                  <div class="info-tile__badge__wrapper">
+                    <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="badge__icon" aria-hidden="true">
+                        <path d="M38.4,1.5 C40.66525,1.5 42.5,3.33475 42.5,5.6 L42.5,5.6 L42.5,30.2 C42.5,32.46525 40.66525,34.3 38.4,34.3 L38.4,34.3 L9.7,34.3 L1.5,42.5 L1.5205,5.6 C1.5205,3.33475 3.33475,1.5 5.6,1.5 L5.6,1.5 Z M37,22.9394531 L7,22.9394531 L7,26.980957 L37,26.980957 L37,22.9394531 Z M37,15.5634766 L7,15.5634766 L7,19.6049805 L37,19.6049805 L37,15.5634766 Z M37,8.1875 L7,8.1875 L7,12.2290039 L37,12.2290039 L37,8.1875 Z"/>
+                      </svg>
                     </div>
                   </div>
-                {{/if}}
+                  <div class="info-tile__header__wrapper">
+                    <h2 class="info-tile__header__title u-spacer--top--tinier">Berichtencentrum</h2>
+                    <p class="info-tile__header__subtitle u-spacer--small">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+                    <p class="u-spacer--tiny">
+                      {{#if currentSession.canAccessBerichten}}
+                        {{wu-button isNarrow=true isSmall=true label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
+                      {{else}}
+                        <div class="alert alert--tiny">
+                          <div class="alert__message">
+                            <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </p>
+                    <p>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank" rel="noopener">Meer informatie</a>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum" target="_blank" rel="noopener">Handleiding</a>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p class="small">
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after u-spacer--right--small" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank" rel="noopener">Meer inhoudelijke informatie</a>
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum" target="_blank" rel="noopener">Handleiding</a>
-              </p>
-            </footer>
-          </div>
-        </div>
-      </div>
+            </div>
 
-      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-paperclip" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h2 class="info-tile__header__title">BBC-DR</h2>
-              </div>
-            </div>
-            <div class="info-tile__content">
-              <p>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus (BBC).</p>
-            </div>
-            <footer class="info-tile__footer">
-              <div class="u-spacer--tiny">
-                {{#if currentSession.canAccessBbcdr}}
-                  {{wu-button isNarrow=true label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+            <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">
+              <div class="info-tile info-tile--s">
+                <div class="info-tile__header">
+                  <div class="info-tile__badge__wrapper">
+                    <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="badge__icon" aria-hidden="true">
+                        <path d="M9.4,1 C7.0795,1 5.221,2.8795 5.221,5.2 L5.2,38.8 C5.2,41.1205 7.0585,43 9.379,43 L34.6,43 C36.9205,43 38.8,41.1205 38.8,38.8 L38.8,13.6 L26.2,1 L9.4,1 Z M24.1,15.7 L24.1,4.15 L35.65,15.7 L24.1,15.7 Z"/>
+                      </svg>
                     </div>
                   </div>
-                {{/if}}
+                  <div class="info-tile__header__wrapper">
+                    <h2 class="info-tile__header__title u-spacer--top--tinier">BBC-DR</h2>
+                    <p class="info-tile__header__subtitle u-spacer--small">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
+                    <p class="u-spacer--tiny">
+                      {{#if currentSession.canAccessBbcdr}}
+                        {{wu-button isNarrow=true isSmall=true label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
+                      {{else}}
+                        <div class="alert alert--tiny">
+                          <div class="alert__message">
+                            <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </p>
+                    <p>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank" rel="noopener">Meer informatie</a>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr" target="_blank" rel="noopener">Handleiding</a>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p class="small">
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after u-spacer--right--small" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank" rel="noopener">Meer inhoudelijke informatie</a>
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr" target="_blank" rel="noopener">Handleiding</a>
-              </p>
-            </footer>
-          </div>
-        </div>
-      </div>
+            </div>
 
-      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-diagram" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h2 class="info-tile__header__title">Mandatenbeheer</h2>
-              </div>
-            </div>
-            <div class="info-tile__content">
-              <p>Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
-            </div>
-            <footer class="info-tile__footer">
-              <div class="u-spacer--tiny">
-                {{#if currentSession.canAccessMandaat}}
-                  {{wu-button isNarrow=true label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+            <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">
+              <div class="info-tile info-tile--s">
+                <div class="info-tile__header">
+                  <div class="info-tile__badge__wrapper">
+                    <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="badge__icon" aria-hidden="true">
+                        <path d="M22,22 C27.24875,22 31.5,17.736875 31.5,12.5 C31.5,7.25125 27.24875,3 22,3 C16.75125,3 12.5,7.25125 12.5,12.5 C12.5,17.736875 16.75125,22 22,22 Z M22,26.75 C15.670625,26.75 3,29.920625 3,36.25 L3,41 L41,41 L41,36.25 C41,29.920625 28.329375,26.75 22,26.75 Z"/>
+                      </svg>
                     </div>
                   </div>
-                {{/if}}
+                  <div class="info-tile__header__wrapper">
+                    <h2 class="info-tile__header__title u-spacer--top--tinier">Mandatenbeheer</h2>
+                    <p class="info-tile__header__subtitle u-spacer--small">Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
+                    <p class="u-spacer--tiny">
+                      {{#if currentSession.canAccessMandaat}}
+                        {{wu-button isNarrow=true isSmall=true label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
+                      {{else}}
+                        <div class="alert alert--tiny">
+                          <div class="alert__message">
+                            <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </p>
+                    <p>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank" rel="noopener">Meer informatie</a>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#mandatenbeheer" target="_blank" rel="noopener">Handleiding</a>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p class="small">
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after u-spacer--right--small" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank" rel="noopener">Meer inhoudelijke informatie</a>
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#mandatenbeheer" target="_blank" rel="noopener">Handleiding</a>
-              </p>
-            </footer>
-          </div>
-        </div>
-      </div>
+            </div>
 
-      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-id" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h2 class="info-tile__header__title">Leidinggevendenbeheer</h2>
-              </div>
-            </div>
-            <div class="info-tile__content">
-              <p>Hou hier de leidinggevende functies voor uw bestuur bij.</p>
-            </div>
-            <footer class="info-tile__footer">
-              <div class="u-spacer--tiny">
-                {{#if currentSession.canAccessLeidinggevenden}}
-                  {{wu-button isNarrow=true label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+            <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">
+              <div class="info-tile info-tile--s">
+                <div class="info-tile__header">
+                  <div class="info-tile__badge__wrapper">
+                    <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="badge__icon" aria-hidden="true">
+                        <path d="M36,1.41666667 L8,1.41666667 C5.79,1.41666667 4,3.20666667 4,5.41666667 L4,33.4166667 C4,35.6266667 5.79,37.4166667 8,37.4166667 L16,37.4166667 L22,43.4166667 L28,37.4166667 L36,37.4166667 C38.21,37.4166667 40,35.6266667 40,33.4166667 L40,5.41666667 C40,3.20666667 38.21,1.41666667 36,1.41666667 Z M22,8.01666667 C24.98,8.01666667 27.4,10.4366667 27.4,13.4166667 C27.4,16.3966667 24.98,18.8166667 22,18.8166667 C19.02,18.8166667 16.6,16.3966667 16.6,13.4166667 C16.6,10.4366667 19.02,8.01666667 22,8.01666667 Z M34,29.4166667 L10,29.4166667 L10,27.6166667 C10,23.6166667 18,21.4166667 22,21.4166667 C26,21.4166667 34,23.6166667 34,27.6166667 L34,29.4166667 Z"/>
+                      </svg>
                     </div>
                   </div>
-                {{/if}}
+                  <div class="info-tile__header__wrapper">
+                    <h2 class="info-tile__header__title u-spacer--top--tinier">Leidinggevendenbeheer</h2>
+                    <p class="info-tile__header__subtitle u-spacer--small">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+                    <p class="u-spacer--tiny">
+                      {{#if currentSession.canAccessLeidinggevenden}}
+                        {{wu-button isNarrow=true isSmall=true label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
+                      {{else}}
+                        <div class="alert alert--tiny">
+                          <div class="alert__message">
+                            <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </p>
+                    <p>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/personeel/databank-leidinggevenden" target="_blank" rel="noopener">Meer informatie</a>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#leidinggevendenbeheer" target="_blank" rel="noopener">Handleiding</a>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <p class="small">
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after u-spacer--right--small" href="https://lokaalbestuur.vlaanderen.be/personeel/databank-leidinggevenden" target="_blank" rel="noopener">Meer inhoudelijke informatie</a>
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#leidinggevendenbeheer" target="_blank" rel="noopener">Handleiding</a>
-              </p>
-            </footer>
-          </div>
-        </div>
-      </div>
+            </div>
 
-      <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-addressbook" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h2 class="info-tile__header__title">Personeelsbeheer</h2>
-              </div>
-            </div>
-            <div class="info-tile__content">
-              <p>Hou hier de personeelsaantallen voor uw bestuur bij.</p>
-            </div>
-            <footer class="info-tile__footer">
-              <div class="u-spacer--tiny">
-                {{#if currentSession.canAccessPersoneelsbeheer}}
-                  {{wu-button isNarrow=true label="Ga naar personeelsbeheer" onClick=(action "goToPersoneelsbeheer")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+            <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">
+              <div class="info-tile info-tile--s">
+                <div class="info-tile__header">
+                  <div class="info-tile__badge__wrapper">
+                    <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="badge__icon" aria-hidden="true">
+                        <path d="M30,20 C33.31,20 35.98,17.31 35.98,14 C35.98,10.69 33.31,8 30,8 C26.69,8 24,10.69 24,14 C24,17.31 26.69,20 30,20 Z M14,20 C17.31,20 19.98,17.31 19.98,14 C19.98,10.69 17.31,8 14,8 C10.69,8 8,10.69 8,14 C8,17.31 10.69,20 14,20 Z M14,24 C9.33,24 0,26.34 0,31 L0,36 L28,36 L28,31 C28,26.34 18.67,24 14,24 Z M30,24 C29.42,24 28.77,24.04 28.07,24.11 C30.39,25.78 32,28.03 32,31 L32,36 L44,36 L44,31 C44,26.34 34.67,24 30,24 Z"/>
+                      </svg>
                     </div>
                   </div>
-                {{/if}}
-              </div>
-              <p class="small">
-                <a class="link link--dark link--icon--external link--icon--inline link--icon--after u-spacer--right--small" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener">Handleiding</a>
-              </p>
-            </footer>
-          </div>
-        </div>
-      </div>
-
-{{!--       <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-news" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h3 class="info-tile__header__title">Subsidiebeheer</h3>
+                  <div class="info-tile__header__wrapper">
+                    <h2 class="info-tile__header__title u-spacer--top--tinier">Personeelsbeheer</h2>
+                    <p class="info-tile__header__subtitle u-spacer--small">Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
+                    <p class="u-spacer--tiny">
+                      {{#if currentSession.canAccessPersoneelsbeheer}}
+                        {{wu-button isNarrow=true isSmall=true label="Ga naar personeelsbeheer" onClick=(action "goToPersoneelsbeheer")}}
+                      {{else}}
+                        <div class="alert alert--tiny">
+                          <div class="alert__message">
+                            <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
+                          </div>
+                        </div>
+                      {{/if}}
+                    </p>
+                    <p>
+                      <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener">Handleiding</a>
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="info-tile__content">
-              <p>Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad.</p>
+
+      {{!--       <div class="col--6-12 col--6-12--l col--6-12--m col--6-12--s col--1-1--xs">
+              <div class="info-tile info-tile--m info-tile--center">
+                <div>
+                  <div class="info-tile__header">
+                    <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
+                      <i class="badge__icon vi vi-news" aria-hidden="true"></i>
+                    </div>
+                    <div class="info-tile__header__wrapper">
+                      <h3 class="info-tile__header__title">Subsidiebeheer</h3>
+                    </div>
+                  </div>
+                  <div class="info-tile__content">
+                    <p>Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad.</p>
+                  </div>
+                  <footer class="info-tile__footer">
+                    <p class="u-spacer--tiny">
+                      {{#if currentSession.canAccessSubsidiebeheer}}
+                        {{wu-button isNarrow=true label="Ga naar subsidiebeheer" onClick=(action "goToSubsidiebeheer")}}
+                      {{else}}
+                        {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
+                      {{/if}}
+                    </p>
+                    <p>
+                      <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank">Handleiding</a>
+                    </p>
+                  </footer>
+                </div>
+              </div>
+            </div> --}}
+
+          </div>
+
+          <div class="grid">
+            <div class="col--10-12 col--6-12--xl col--8-12--l col--10-12--m col--10-12--s col--1-1--xs">
+              <p>Indien u toegang mist tot een van de onderdelen in het loket, neem contact op met uw interne beheerder. Indien u toegang heeft gekregen, maar er zich een probleem voordoet, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
             </div>
-            <footer class="info-tile__footer">
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessSubsidiebeheer}}
-                  {{wu-button isNarrow=true label="Ga naar subsidiebeheer" onClick=(action "goToSubsidiebeheer")}}
-                {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
-                {{/if}}
-              </p>
-              <p>
-                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank">Handleiding</a>
-              </p>
-            </footer>
           </div>
         </div>
-      </div> --}}
-
-    </div>
-
-    <div class="grid">
-      <div class="col--10-12 col--6-12--xl col--8-12--l col--10-12--m col--10-12--s col--1-1--xs">
-        <p>Indien u toegang mist tot een van de onderdelen in het loket, neem contact op met uw interne beheerder. Indien u toegang heeft gekregen, maar er zich een probleem voordoet, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
       </div>
     </div>
   </div>
