@@ -11,6 +11,7 @@ export default class Submission extends Model {
 
   @attr('datetime') sentDate;
   @attr('datetime') receivedDate;
+  @belongsTo('gebruiker') creator;
   @belongsTo('gebruiker') lastModifier;
   @belongsTo('form-data') formData;
   @attr source;
@@ -23,5 +24,13 @@ export default class Submission extends Model {
   @belongsTo('submission-document-status') status;
   @hasMany('file') files;
   @belongsTo('automatic-submission-task') task;
+
+  get creatorLabel() {
+    return this.task.get('created') ? 'Automatisch bij publicatie' : this.creator.get('fullName');
+  }
+
+  get lastModifierLabel() {
+    return this.lastModifier.get('fullName') ? this.lastModifier.get('fullName') : 'Automatisch aangemaakt bij publicatie';
+  }
 }
 

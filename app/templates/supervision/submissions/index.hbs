@@ -30,8 +30,8 @@
             <ThSortable @field="formData.sessionStartedAtTime" @currentSorting={{sort}}
                         @label="Datum zitting/besluit"/>
             <ThSortable @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
-            {{!--<th>Aangemaakt door</th>  @TODO: Add the way this dossier has been added --}}
-            {{!--<th>Aangemaakt in</th>  @TODO: Add the way this dossier has been added --}}
+            <th>Aangemaakt door</th>
+            <th>Laatst gewijzigd door</th>
             <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
             <th></th>
           </c.header>
@@ -42,8 +42,8 @@
             </td>
             <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
             <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
-            {{!--<td>Voornaam Naam</td> @TODO: Add *by who* this dossier has been added --}}
-            {{!--<td>Gelinkt Notuleren</td> @TODO: Add the *way* this dossier has been added --}}
+            <td>{{row.creatorLabel}}</td>
+            <td>{{row.lastModifierLabel}}</td>
             <td>
               <AuPill>{{row.status.label}}</AuPill>
             </td>  {{!-- Add warning skin for concepts and success skin for sent @skin="warning" --}}
