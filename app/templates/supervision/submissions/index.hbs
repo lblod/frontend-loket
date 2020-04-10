@@ -42,8 +42,20 @@
             </td>
             <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
             <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
-            <td>{{row.creatorLabel}}</td>
-            <td>{{row.lastModifierLabel}}</td>
+            <td>
+              {{#if row.task.created }}
+               Automatisch bij publicatie
+              {{else}}
+              {{row.creator.fullName}}
+              {{/if}}
+            </td>
+            <td>
+              {{#if row.lastModifier.fullName}}
+               {{row.lastModifier.fullName}}
+              {{else if row.task.created}}
+                Automatisch aangemaakt bij publicatie
+              {{/if}}
+            </td>
             <td>
               <AuPill>{{row.status.label}}</AuPill>
             </td>  {{!-- Add warning skin for concepts and success skin for sent @skin="warning" --}}

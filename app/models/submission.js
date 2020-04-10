@@ -24,13 +24,5 @@ export default class Submission extends Model {
   @belongsTo('submission-document-status') status;
   @hasMany('file') files;
   @belongsTo('automatic-submission-task') task;
-
-  get creatorLabel() {
-    return this.task.get('created') ? 'Automatisch bij publicatie' : this.creator.get('fullName');
-  }
-
-  get lastModifierLabel() {
-    return this.lastModifier.get('fullName') ? this.lastModifier.get('fullName') : 'Automatisch aangemaakt bij publicatie';
-  }
 }
 
