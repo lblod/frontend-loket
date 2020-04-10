@@ -1,29 +1,27 @@
-import DS from 'ember-data';
-const { Model, attr, belongsTo, hasMany } = DS;
+import Model, {attr, belongsTo, hasMany} from '@ember-data/model';
 
-export default Model.extend({
-  created: attr('datetime',  {
-    defaultValue(){
-      return new Date();
-    }
-  }),
-  modified: attr('datetime',  {
-    defaultValue(){
-      return new Date();
-    }
-  }),
-  sentDate: attr('datetime'),
-  receivedDate: attr('datetime'),
-  lastModifier: belongsTo('gebruiker'),
-  formData: belongsTo('form-data'),
-  source: attr(),
+export default class Submission extends Model {
+  @attr('datetime', {
+    defaultValue(){ return new Date();}
+  }) created;
 
-  uri: attr(),
-  href: attr(),
-  organization: belongsTo('bestuurseenheid'),
-  publisher: belongsTo('vendor'),
-  submissionDocument: belongsTo('submission-document'),
-  status: belongsTo('submission-document-status'),
-  files: hasMany('file'),
-  task: belongsTo('automatic-submission-task')
-});
+  @attr('datetime', {
+    defaultValue(){ return new Date();}
+  }) modified;
+
+  @attr('datetime') sentDate;
+  @attr('datetime') receivedDate;
+  @belongsTo('gebruiker') lastModifier;
+  @belongsTo('form-data') formData;
+  @attr source;
+
+  @attr uri;
+  @attr href;
+  @belongsTo('bestuurseenheid') organization;
+  @belongsTo('vendor') publisher;
+  @belongsTo('submission-document') submissionDocument;
+  @belongsTo('submission-document-status') status;
+  @hasMany('file') files;
+  @belongsTo('automatic-submission-task') task;
+}
+

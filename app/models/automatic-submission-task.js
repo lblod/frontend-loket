@@ -1,7 +1,6 @@
-import DS from 'ember-data';
-const { Model, attr, belongsTo } = DS;
+import Model, {attr, belongsTo} from '@ember-data/model';
 
-export default Model.extend({
-  created: attr(),
-  submission: belongsTo('submission')
-});
+export default class AutomaticSubmissionTask extends Model {
+  @attr created;
+  @belongsTo('submission') submission;
+}

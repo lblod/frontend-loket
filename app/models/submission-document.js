@@ -1,7 +1,6 @@
-import DS from 'ember-data';
-const { Model, attr, belongsTo } = DS;
+import Model, {attr, belongsTo} from '@ember-data/model';
 
-export default Model.extend({
-  uri: attr(),
-  submission: belongsTo('submission')
-});
+export default class SubmissionDocument extends Model {
+  @attr uri;
+  @belongsTo('submission') submission;
+}

@@ -1,7 +1,6 @@
-import DS from 'ember-data';
-const { Model, attr } = DS;
+import Model, {attr} from '@ember-data/model';
 
-export default Model.extend({
-  name: attr('string'),
-  key: attr('string')
-});
+export default class Vendor extends Model {
+  @attr('string') name;
+  @attr('string') key;
+}
