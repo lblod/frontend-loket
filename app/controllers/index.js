@@ -5,7 +5,10 @@ export default Controller.extend({
 	currentSession: service(),
 
 	actions: {
-		goToToezicht() {
+    goToToezicht() {
+      this.transitionToRoute('supervision.submissions');
+    },
+		goToToezichtOld() {
 			this.transitionToRoute('toezicht.inzendingen');
 		},
 		goToBbcdr() {
