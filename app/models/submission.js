@@ -11,6 +11,7 @@ export default class Submission extends Model {
 
   @attr('datetime') sentDate;
   @attr('datetime') receivedDate;
+  @belongsTo('gebruiker') creator;
   @belongsTo('gebruiker') lastModifier;
   @belongsTo('form-data') formData;
   @attr source;

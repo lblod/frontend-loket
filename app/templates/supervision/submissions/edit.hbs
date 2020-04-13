@@ -4,7 +4,11 @@
   <div class="au-o-grid">
     <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
       <AuLabel>Gewijzigd door</AuLabel>
-      <p>{{this.model.submission.lastModifier.fullName}}</p>
+      {{#if this.model.submission.lastModifier.fullName}}
+        <p>{{this.model.submission.lastModifier.fullName}}</p>
+      {{else if this.model.submission.task.created}}
+        <p>Automatisch aangemaakt bij publicatie</p>
+      {{/if}}
     </div>
     <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
       <AuLabel>Aangemaakt op</AuLabel>
