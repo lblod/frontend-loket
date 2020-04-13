@@ -4,11 +4,11 @@
         @placeholder={{placeholder}}
         @selected={{address}}
         @options={{options}}
-        @tagName={{div}}
-        @class={{"is-optional"}}
+        @class="is-optional"
         @onChange={{onChange}}
-        @loadingMessage={{"Aan het laden..."}}
-        @noMatchesMessage={{"Geen resultaten"}}
+        @searchEnabled={{true}}
+        @loadingMessage="Aan het laden..."
+        @noMatchesMessage="Geen resultaten"
         as |address|>
   {{#if address.busnumber}}
     Bus {{address.busnumber}}

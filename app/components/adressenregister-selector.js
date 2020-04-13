@@ -14,7 +14,6 @@ export default Component.extend({
   async init() {
     this._super(...arguments);
     const address = await this.address;
-
     if (address) {
       this.set('addressSuggestion', this.addressregister.toAddressSuggestion(address));
       const addresses = await this.addressregister.findAll(this.addressSuggestion);

@@ -6,10 +6,11 @@
               @disabled={{disabled}}
               @search={{perform search}}
               @selected={{addressSuggestion}}
-              @loadingMessage={{"Aan het laden..."}}
-              @noMatchesMessage={{"Geen resultaten"}}
-              @searchMessage={{"Typ om te zoeken"}}
               @onChange={{perform selectSuggestion}}
+               @loadingMessage="Aan het laden..."
+               @searchEnabled={{true}}
+              @noMatchesMessage="Geen resultaten"
+              @searchMessage="Typ om te zoeken"
               as |suggestion|>
         {{suggestion.fullAddress}}
       </PowerSelect>
