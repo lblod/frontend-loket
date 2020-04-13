@@ -75,7 +75,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
     // Since the form data and related entities are not updated via ember-data
     // we need to manually reload those to keep the index page up-to-date
     const formData = yield this.model.submission.belongsTo('formData').reload();
-    yield formData.hasMany('types').reload()
+    yield formData.hasMany('types').reload();
     yield formData.belongsTo('passedBy').reload();
   }
 
