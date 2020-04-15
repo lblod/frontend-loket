@@ -14,6 +14,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
   @tracked datasetTriples = []
   @tracked addedTriples = []
   @tracked removedTriples = []
+  @tracked forceShowErrors = false
 
   constructor() {
     super(...arguments);
@@ -129,6 +130,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
     const isValid = validateForm(this.form, options);
     if (!isValid) {
       alert('Gelieve het formulier correct in te vullen');
+      this.forceShowErrors = true;
     }
     else {
       yield this.saveSubmissionForm.perform();
