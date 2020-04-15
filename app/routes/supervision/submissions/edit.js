@@ -78,4 +78,10 @@ export default class SupervisionSubmissionsEditRoute extends Route {
     const dossiersToRemove = typeDossiers.filter(t => !typeDossiersForEenheid.any(td => td.subject.equals(t.subject)));
     formStore.removeStatements( dossiersToRemove );
   }
+
+  setupController(controller) {
+    super.setupController(...arguments);
+    controller.isValidForm = true;
+    controller.forceShowErrors = false;
+  }
 }

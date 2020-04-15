@@ -15,6 +15,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
   @tracked addedTriples = []
   @tracked removedTriples = []
   @tracked forceShowErrors = false
+  @tracked isValidForm = true
 
   constructor() {
     super(...arguments);
@@ -121,18 +122,15 @@ export default class SupervisionSubmissionsEditController extends Controller {
     this.model.submission.modified = new Date();
     this.model.submission.lastModifier = user;
     yield this.model.submission.save();
-    alert('Succesvol opgeslagen'); // TODO replace with toast
   }
 
   @task
   *submit() {
     const options = { ...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
-    const isValid = validateForm(this.form, options);
-    if (!isValid) {
-      alert('Gelieve het formulier correct in te vullen');
+    this.isValidForm = validateForm(this.form, options);
+    if (!this.isValidForm) {
       this.forceShowErrors = true;
-    }
-    else {
+    } else {
       yield this.saveSubmissionForm.perform();
       yield this.submitSubmissionForm.perform();
       this.transitionToRoute('supervision.submissions');

@@ -53,20 +53,31 @@
 
 <footer class="au-u-padding-top au-u-padding-bottom-large au-u-padding-left au-u-padding-right u-border--light--top">
   {{#if this.model.submitted}}
-  <div class="au-o-grid">
-    <div class="au-o-grid__item au-u-1-2">
-      <div class="u-spacer--bottom--small">
-        <div class="alert alert--tiny alert--success">
-          <div class="alert__icon" aria-hidden="true"></div>
-          <p class="alert__title">Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate
-                                                                                'DD-MM-YYYY'}}</p>
+    <div class="au-o-grid">
+      <div class="au-o-grid__item au-u-1-2">
+        <div class="u-spacer--bottom--small">
+          <div class="alert alert--tiny alert--success">
+            <div class="alert__icon" aria-hidden="true"></div>
+            <p class="alert__title">Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  {{/if}}
-  <div class="button-group">
-    {{#unless this.model.submitted}}
+  {{else}}
+    {{#if (and this.forceShowErrors (not this.isValidForm))}}
+      {{!-- TODO DESIGNER: make this an alert message instead of a success message --}}
+      <div class="au-o-grid">
+        <div class="au-o-grid__item au-u-1-2">
+          <div class="u-spacer--bottom--small">
+            <div class="alert alert--tiny alert--success">
+              <div class="alert__icon" aria-hidden="true"></div>
+              <p class="alert__title">Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+    <div class="button-group">
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "disabled"}}
         @loading={{if this.submit.isRunning "loading" ""}}
         {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
@@ -78,6 +89,6 @@
         @loading={{if this.delete.isRunning "loading" ""}}
         @skin={{"ghost"}}
         {{on "click" (perform this.delete)}}>Verwijder</AuButton>
-    {{/unless}}
-  </div>
+    </div>
+  {{/if}}
 </footer>
