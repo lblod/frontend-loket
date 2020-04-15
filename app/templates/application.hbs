@@ -3,10 +3,10 @@
   <AuHeader @brandLink="{{unless session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen" @contactRoute="contact">
     {{#if session.isAuthenticated}}
       <AuDropdown @dropdownTitle="{{currentSession._user.voornaam}} {{currentSession._user.achternaam}} - {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
-        <AcmidmSwitch @tagName="button" class="au-c-popover__item au-c-button au-c-button--tertiary" role="menuitem">
+        <AcmidmSwitch @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
           <AuIcon @icon="renew" @alignment="left" />Wissel van bestuurseenheid
         </AcmidmSwitch>
-        <AcmidmLogout @tagName="button" class="au-c-popover__item au-c-button au-c-button--tertiary" role="menuitem">
+        <AcmidmLogout @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
           <AuIcon @icon="logout" @alignment="left" />Afmelden
         </AcmidmLogout>
       </AuDropdown>
@@ -22,7 +22,7 @@
     <div class="container-flex--contain">
       {{#unless this.isIndex}}
         <div class="au-u-margin-left-small au-u-margin-bottom-tiny au-u-margin-top-small">
-          <AuPopover class="au-c-popover--left" @popoverTitle="Menu modules" @popoverButtonLabel="Account settings">
+          <AuDropdown @alignment="left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
             {{#if currentSession.canAccessToezicht}}
               <AuNavigationLink @linkRoute="toezicht.inzendingen" role="menuitem">
                 <AuIcon @icon="search-folder" @alignment="left" /> Toezicht
@@ -59,7 +59,7 @@
               </svg>
               Overzicht modules
             </AuNavigationLink>
-          </AuPopover>
+          </AuDropdown>
         </div>
       {{/unless}}
       <div id="content" class="container-flex--contain" tabindex="-1">

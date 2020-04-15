@@ -110,59 +110,6 @@ sup {
   }
 }
 
-// Fix temporary for popover alignment
-// @TODO: port to popover component
-
-.au-c-popover--left {
-
-  .au-c-popover__menu {
-    left: 0;
-    right: auto;
-  }
-
-  .au-c-popover__menu:after {
-    left: $au-unit-small;
-    right: auto;
-  }
-
-  .au-c-popover__menu:before {
-    left: $au-unit-small - .1rem;
-    right: auto;
-  }
-
-  .au-c-popover__toggle {
-    flex-direction: row-reverse;
-  }
-
-  .au-c-popover__button {
-    margin-left: 0;
-    margin-right: $au-unit-tiny;
-  }
-
-  .au-c-list-navigation__link.active {
-    background-color: transparent;
-    box-shadow: none;
-  }
-}
-
-// Fix popover width overflow
-// @TODO: port to main-header component
-.au-c-main-header__actions .au-c-popover__name {
-  max-width: $au-unit-large;
-
-  @include mq(xsmall) {
-    max-width: $au-unit-huge;
-  }
-
-  @include mq(small) {
-    max-width: $au-unit-huge*2;
-  }
-
-  @include mq(medium) {
-    max-width: $au-unit-huge*3;
-  }
-}
-
 // Fix app title width overflow
 // @TODO: port to brand component
 .au-c-main-header__title.au-c-main-header__title--link {

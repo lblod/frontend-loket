@@ -78,7 +78,7 @@
             <div class="col--6-12 col--1-1--m">
               <AuAlert @alertIcon="info-circle" @alertTitle="Een minder prominente navigatie: meer plaats" @alertskin={{"info"}} class="au-u-margin-bottom-large">
                 <p class="au-u-margin-bottom-small au-u-margin-top-small">De nieuwe navigatie geeft meer ruimte om gericht taken te volbrengen. Wissel in modules van module door bovenaan op
-                  <AuPopover class="au-c-popover--left" @popoverTitle="Menu modules" @popoverButtonLabel="Account settings">
+                  <AuDropdown class="au-c-dropdown--left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
                     {{#if currentSession.canAccessToezicht}}
                       <AuNavigationLink @linkRoute="toezicht.inzendingen">
                         <AuIcon @icon="search-folder" @alignment="left" />
@@ -119,7 +119,7 @@
                       <AuIcon @icon="arrow-left" @alignment="left" />
                       Overzicht modules
                     </AuNavigationLink>
-                  </AuPopover> te klikken.
+                  </AuDropdown> te klikken.
                 </p>
                 <p>Vragen of opmerkingen? {{#link-to "contact" tagName="a"}}Neem contact met ons op{{/link-to}}.</p>
               </AuAlert>
