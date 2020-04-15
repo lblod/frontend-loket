@@ -57,8 +57,8 @@
               {{/if}}
             </td>
             <td>
-              <AuPill>{{row.status.label}}</AuPill>
-            </td>  {{!-- Add warning skin for concepts and success skin for sent @skin="warning" --}}
+              <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
+            </td>
             <td>
               <LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo>
             </td>
