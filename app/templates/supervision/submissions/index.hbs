@@ -1,72 +1,62 @@
 {{title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="grid grid--collapse">
-  <div class="col--12-12--s u-border--light--right col--12-12">
-    <div class="container-flex--contain">
-      <div class="u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header u-border--light--bottom"
-           data-test-mn="inzendingen-page-title-parent-node">
-        <div class="grid">
-          <div class="col--6-12 col--12-12--s">
-            <h1 class="h4 u-spacer--tb--tinier" data-test-loket="inzendingen-page-title">Toezicht</h1>
-          </div>
-          <div class="col--6-12 col--12-12--s u-align-right--tablet-portrait-up">
-            <WuButtonGroup>
-              {{wu-button label="Maak nieuwe melding" onClick=(action "goToNewSubmission") isNarrow=true
-                          data-test-loket="new-melding-button"}}
-            </WuButtonGroup>
-          </div>
-        </div>
-      </div>
-      <DataTable @content={{this.model}}
-                 @isLoading={{this.isLoadingModel}}
-                 @sort={{sort}}
-                 @page={{page}}
-                 @size={{size}}
-                 as |t| >
-        <t.content as |c|>
-          <c.header>
-            <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{sort}}
-                        @label="Orgaan"/>
-            <th>Type dossier</th>
-            <ThSortable @field="formData.sessionStartedAtTime" @currentSorting={{sort}}
-                        @label="Datum zitting/besluit"/>
-            <ThSortable @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
-            <th>Aangemaakt door</th>
-            <th>Laatst gewijzigd door</th>
-            <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
-            <th></th>
-          </c.header>
-          <c.body as |row|>
-            <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
-            <td>
-              <Toezicht::SubmissionType @formData={{row.formData}} />
-            </td>
-            <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
-            <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
-            <td>
-              {{#if row.task.created }}
-               Automatisch bij publicatie
-              {{else}}
-              {{row.creator.fullName}}
-              {{/if}}
-            </td>
-            <td>
-              {{#if row.lastModifier.fullName}}
-               {{row.lastModifier.fullName}}
-              {{else if row.task.created}}
-                Automatisch aangemaakt bij publicatie
-              {{/if}}
-            </td>
-            <td>
-              <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
-            </td>
-            <td>
-              <LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo>
-            </td>
-          </c.body>
-        </t.content>
-      </DataTable>
+
+<div class="au-u-padding-top-large au-u-padding-left au-u-padding-right">
+  <div class="au-o-grid">
+    <div class="au-o-grid__item au-u-1-2@medium">
+      <h1 class="au-u-h1 au-u-margin-bottom">Toezicht</h1>
+    </div>
+    <div class="au-o-grid__item au-u-1-2@medium au-u-text-right">
+      <LinkTo @route="supervision.submissions.new" class="au-c-button" type="button">Maak nieuw formulier aan</LinkTo>
     </div>
   </div>
+
+  <DataTable @content={{this.model}}
+    @isLoading={{this.isLoadingModel}}
+    @sort={{sort}}
+    @page={{page}}
+    @size={{size}}
+    as |t| >
+    <t.content as |c|>
+      <c.header>
+        <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
+        <th>Type dossier</th>
+        <ThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
+        <th class="au-u-visible-medium-up">Aangemaakt door</th>
+        <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
+        <ThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
+        <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
+        <th></th>
+      </c.header>
+      <c.body as |row|>
+        <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
+        <td>
+          <Toezicht::SubmissionType @formData={{row.formData}} />
+        </td>
+        <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
+        <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
+        <td>
+          {{#if row.task.created }}
+            Automatisch bij publicatie
+          {{else}}
+            {{row.creator.fullName}}
+          {{/if}}
+        </td>
+        <td>
+          {{#if row.lastModifier.fullName}}
+            {{row.lastModifier.fullName}}
+          {{else if row.task.created}}
+            Automatisch aangemaakt bij publicatie
+          {{/if}}
+        </td>
+        <td>
+          <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
+        </td>
+        <td>
+          <LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo>
+        </td>
+      </c.body>
+    </t.content>
+  </DataTable>
 </div>
 
 {{outlet}}
