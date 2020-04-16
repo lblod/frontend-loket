@@ -20,17 +20,17 @@
     </div>
     {{#if this.save.isRunning}}
       <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-        <AuAlert @alertsize="small" @alertIcon="info" @alertTitle="Aan het opslaan..."  @alertskin="info" class="au-u-margin-bottom-none"></AuAlert> {{!-- Todo fix icons --}}
+        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
       </div>
     {{/if}}
     {{#if this.submit.isRunning}}
       <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-        <AuAlert @alertsize="small" @alertIcon="info" @alertTitle="Aan het versturen..."  @alertskin="info" class="au-u-margin-bottom-none"></AuAlert> {{!-- Todo fix icons --}}
+        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het versturen..."  @alertskin="info" @alertsize="small"></AuAlert>
       </div>
     {{/if}}
     {{#if this.delete.isRunning}}
       <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-        <AuAlert @alertsize="small" @alertIcon="info" @alertTitle="Aan het verwijderen..."  @alertskin="info" class="au-u-margin-bottom-none"></AuAlert> {{!-- Todo fix icons --}}
+        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
       </div>
     {{/if}}
   </div>
