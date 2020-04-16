@@ -13,15 +13,15 @@
   @sort={{sort}}
   @page={{page}}
   @size={{size}}
-  as |t|>
+  as |t| >
   <t.content as |c|>
     <c.header>
       <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
       <th>Type dossier</th>
       <ThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
+      <ThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
       <th class="au-u-visible-medium-up">Aangemaakt door</th>
       <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
-      <ThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
       <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th></th>
     </c.header>
