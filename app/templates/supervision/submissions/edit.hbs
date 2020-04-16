@@ -1,5 +1,4 @@
-<header class="au-u-padding-top-large au-u-padding-bottom au-u-padding-left au-u-padding-right u-border--light--bottom">
-  <LinkTo @route="supervision.submissions.index" class="au-c-button-link au-c-button-link--neutral au-u-margin-bottom-small">&leftarrow;  Terug naar overzicht</LinkTo> {{!-- Todo make closeable --}}
+<header class="au-u-padding-top au-u-padding-bottom au-u-padding-left-large au-u-padding-right u-border--light--bottom">
   <h1 class="au-u-h2 au-u-margin-bottom">Bekijk aanlevering dossier</h1>
   <div class="au-o-grid">
     <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
@@ -48,54 +47,39 @@
   </div>
 </div>
 
-<footer class="au-u-padding-top au-u-padding-bottom-large au-u-padding-left au-u-padding-right u-border--light--top">
-  {{#if this.model.submitted}}
-    <div class="au-o-grid">
-      <div class="au-o-grid__item au-u-1-2">
-        <div class="u-spacer--bottom--small">
-          <AuAlert @alertIcon="check" @alertTitle="Dossier verstuurd"  @alertskin={{"success"}} class="au-u-margin-bottom-none">
-            <p>Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
-          </AuAlert>
-        </div>
-      </div>
-    </div>
-  {{/if}}
-  {{#if (and this.forceShowErrors (not this.isValidForm))}}
-    <div class="au-o-grid">
-      <div class="au-o-grid__item au-u-1-2">
-        <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin={{"error"}} class="au-u-margin-bottom-none">
-          <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
-        </AuAlert>
-      </div>
-    </div>
-  {{/if}}
+<AuToolbar @border="top" @size="large" class="au-u-padding-left-large">
+  <AuToolbarGroup>
+    {{#if this.model.submitted}}
+      <AuAlert @alertIcon="check" @alertTitle="Dossier verstuurd" @alertskin="success" @alertsize="small" class="au-u-margin-bottom-none">
+        <p>Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
+      </AuAlert>
+    {{/if}}
+    {{#if (and this.forceShowErrors (not this.isValidForm))}}
+      <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin="error" @alertsize="small" class="au-u-margin-bottom-none">
+        <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
+      </AuAlert>
+    {{/if}}
+    {{#unless this.model.submitted}}
+      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                @loading={{if this.submit.isRunning "true"}}
+                {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
+      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                @loading={{if this.save.isRunning "true"}}
+                @skin={{"secondary"}}
+                {{on "click" (perform this.save)}}>Bewaar</AuButton>
+      <AuLink @linkRoute="supervision.submissions.index" @skin="secondary">Annuleer</AuLink>
+    {{else}}
+      <AuLink @linkRoute="supervision.submissions.index" @skin="secondary">Sluit</AuLink>
+    {{/unless}}
+  </AuToolbarGroup>
 
-  <div class="au-o-grid">
-    <div class="au-o-grid__item au-u-1-2">
-      <div class="button-group">
-        {{#unless this.model.submitted}}
-          <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                    @loading={{if this.submit.isRunning "true"}}
-                    {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
-          <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                    @loading={{if this.save.isRunning "true"}}
-                    @skin={{"secondary"}}
-                    {{on "click" (perform this.save)}}>Bewaar</AuButton>
-        {{/unless}}
-      </div>
-    </div>
-    <div class="au-o-grid__item au-u-1-2 au-u-text-right">
-      <div class="button-group">
-        {{#unless this.model.submitted}}
-          <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                    @loading={{if this.delete.isRunning "true"}}
-                    @skin={{"tertiary"}}
-                    @alert={{"true"}}
-                    {{on "click" (perform this.delete)}}>
-                    <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
-                    </AuButton>
-        {{/unless}}
-      </div>
-    </div>
-  </div>
-</footer>
+  {{#unless this.model.submitted}}
+    <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+              @loading={{if this.delete.isRunning "true"}}
+              @skin={{"tertiary"}}
+              @alert={{"true"}}
+              {{on "click" (perform this.delete)}}>
+              <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
+              </AuButton>
+  {{/unless}}
+</AuToolbar>
