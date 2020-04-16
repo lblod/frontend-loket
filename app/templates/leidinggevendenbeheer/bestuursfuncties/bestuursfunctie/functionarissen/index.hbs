@@ -2,103 +2,49 @@
 <div class="grid">
   <div class="col--12-12">
     <div class="container-flex--contain">
-      <div class="u-border--light--bottom u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header">
-        {{#link-to 'leidinggevendenbeheer.bestuursfuncties' class="link link--dark smaller"}}
-          &leftarrow; Terug naar leidinggevendenbeheer overzicht
-        {{/link-to}}
-        <div class="grid">
-          <div class="col--8-12 col--1-1--m">
-            <h1 class="h4 u-spacer--tb--tinier">Leidinggevendenbeheer &mdash; {{bestuursfunctie.rol.label}}</h1>
 
-            <ul class="inline-list inline-list--bordered small text-light u-spacer--top--small">
-              <li>
-                {{#if bestuursfunctie.contactinfo.email}}
-                  {{bestuursfunctie.contactinfo.email}}
-                {{else}}
-                  <span class="text-fade">Geen mailadres</span>
-                {{/if}}
-              </li>
-              <li>
-                {{#if bestuursfunctie.contactinfo.telefoon}}
-                  {{bestuursfunctie.contactinfo.telefoon}}
-                {{else}}
-                  <span class="text-fade">geen telefoonnummer</span>
-                {{/if}}
-              </li>
-              <li>
-                {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
-                  <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
-                {{else}}
-                  <span class="text-fade">geen adres</span>
-                {{/if}}
-              </li>
-              <li>
-                {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="button button--link button--small button--narrow"}}
-                  <i class="vi vi-edit button__icon"></i><span class="u-padding--left--tiny">Bewerk</span>
-                {{/link-to}}
-              </li>
-            </ul>
-          </div>
-          <div class="col--4-12 col--1-1--m u-align-right--tablet-landscape-up">
-            {{#wu-button
-               onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
-               isNarrow=true}}<i class="vi vi-plus"></i>Voeg nieuwe aanstellingsperiode toe{{/wu-button}}
-  {{!-- =======
-  <div class="col--12-12--m col--1-1--s u-border--light--right col--12-12">
-      <div class="container-flex--contain">
-        <div class="u-border--light--bottom">
-          <ul class="inline-list inline-list--bordered smaller u-background--gray-lightest u-padding--rl--small u-padding--tb--tiny">
-            <li>{{#link-to "leidinggevendenbeheer.bestuursfuncties"}}Leidinggevenden functies {{/link-to}}</li>
-            <li>{{bestuursfunctie.rol.label}}</li>
+      <AuToolbar @border="bottom" @size="large">
+        <div>
+          {{#link-to 'leidinggevendenbeheer.bestuursfuncties' class="link link--dark smaller"}}
+            &leftarrow; Terug naar leidinggevendenbeheer overzicht
+          {{/link-to}}
+          <h1 class="au-u-h3 u-spacer--tb--tinier">Toezicht</h1>
+          <ul class="inline-list inline-list--bordered small text-light u-spacer--top--small">
+            <li>
+              {{#if bestuursfunctie.contactinfo.email}}
+                {{bestuursfunctie.contactinfo.email}}
+              {{else}}
+                <span class="text-fade">Geen mailadres</span>
+              {{/if}}
+            </li>
+            <li>
+              {{#if bestuursfunctie.contactinfo.telefoon}}
+                {{bestuursfunctie.contactinfo.telefoon}}
+              {{else}}
+                <span class="text-fade">geen telefoonnummer</span>
+              {{/if}}
+            </li>
+            <li>
+              {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
+                <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
+              {{else}}
+                <span class="text-fade">geen adres</span>
+              {{/if}}
+            </li>
+            <li>
+              {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="button button--link button--small button--narrow"}}
+                <i class="vi vi-edit button__icon"></i><span class="u-padding--left--tiny">Bewerk</span>
+              {{/link-to}}
+            </li>
           </ul>
         </div>
-        <div class="u-border--light--bottom u-padding--round--small loket-onderdeel__header">
-          <div class="grid">
-            <div class="col--12-12">
-              <h1 class="h4 u-spacer--tiny">Leidinggevendenbeheer: {{bestuursfunctie.rol.label}}</h1>
-            </div>
-            <div class="col--8-12">
-              <ul class="inline-list inline-list--bordered small text-light">
-                <li>
-                  {{#if bestuursfunctie.contactinfo.email}}
-                    {{bestuursfunctie.contactinfo.email}}
-                  {{else}}
-                    <span class="text-fade">Geen mailadres</span>
-                  {{/if}}
-                </li>
-                <li>
-                  {{#if bestuursfunctie.contactinfo.telefoon}}
-                    {{bestuursfunctie.contactinfo.telefoon}}
-                  {{else}}
-                    <span class="text-fade">geen telefoonnummer</span>
-                  {{/if}}
-                </li>
-                <li>
-                  {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
-                    <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
-                  {{else}}
-                    <span class="text-fade">geen adres</span>
-                  {{/if}}
-                </li>
-                <li>
-                  <p>
-                    {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id}}
-                      <button class="button button--link button--small button--narrow u-spacer--left--small delete-me-toggle-contactdetails-edit"><i class="vi vi-edit button__icon"></i><span class="u-padding--left--tiny">Bewerk</span></button>
-                    {{/link-to}}
-                  </p>
-                </li>
-              </ul>
-            </div>
-            <div class="col--4-12 col--1-1--xs u-align-right--tablet-portrait-up">
-              {{#wu-button
-                 onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
-                 isNarrow=true
-                 size="small"}}<i class="vi vi-plus"></i>Voeg nieuwe aanstellingsperiode toe{{/wu-button}}
-            </div>
-  >>>>>>> 2cc2c092ce3b842f0f5ad41c60dc8824330066be --}}
-          </div>
-        </div>
-      </div>
+        <AuToolbarGroup>
+          {{#wu-button
+             onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
+             isNarrow=true}}<i class="vi vi-plus"></i>Voeg nieuwe aanstellingsperiode toe{{/wu-button}}
+        </AuToolbarGroup>
+      </AuToolbar>
+
       {{leidinggevendenbeheer/functionaris-table
           class="container-flex--contain"
           content=model

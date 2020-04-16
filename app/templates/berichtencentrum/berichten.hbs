@@ -2,20 +2,17 @@
 <div class="grid grid--collapse">
   <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--7-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
     <div class="container-flex--contain">
-      <div class="u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header u-border--light--bottom">
-        <div class="grid">
-          <div class="col--6-12 col--1-1--s">
-  	        <h1 class="h4 u-spacer--tb--tinier">Berichtencentrum</h1>
-          </div>
-          <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-            <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
-              <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
-            </button>
-          </div>
-        </div>
+
+      <AuToolbar @border="bottom" @size="large">
+        <h1 class="au-u-h3 u-spacer--tb--tinier">Berichtencentrum</h1>
+        <AuToolbarGroup>
+          <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
+            <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
+          </button>
+        </AuToolbarGroup>
 
         <!-- Hiding search options b/c they're not implemented yet -->
-        <div class="grid u-hidden-mobile u-hidden">
+{{!--         <div class="grid u-hidden-mobile u-hidden">
           <div class="col--12-12">
             <div class="input-field-icon-container--right u-spacer--bottom--tiny">
               <input class="input-field input-field--block" id="input-field" type="text" placeholder="Type communicatie, dossiernummer, ..." style="min-width: 25rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
@@ -40,8 +37,9 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> --}}
+      </AuToolbar>
+
       {{berichtencentrum/conversatie-table
         class="container-flex--contain"
         content=model

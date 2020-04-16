@@ -2,44 +2,36 @@
 <div class="grid grid--collapse">
   <div class="col--12-12--m col--1-1--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--12-12"}}">
     <div class="container-flex--contain">
-      <div class="u-border--light--bottom u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header">
-        <div class="grid">
-          <div class="col--4-12">
-            <h1 class="h4 u-spacer--tb--tinier">Mandatenbeheer</h1>
-          </div>
-          <div class="col--1-1--s {{if hasActiveChildRoute "col--12-12" "col--8-12"}}">
-            <div class="grid grid--align-right">
 
-              <div class="{{if hasActiveChildRoute "col--12-12" "col--4-12 col--1-1--m"}}">
-                <div class="power-select power-select--small power-select--inline u-spacer--top--tinier u-align-right--tablet-portrait-up">
-                  {{mandatenbeheer/bestuursperioden-selector
-                    options=bestuursperioden
-                    selectedStartDate=startDate
-                    onSelect=(action 'selectPeriod')
-                  }}
-                </div>
-              </div>
-              <div class="col--12-12 {{if hasActiveChildRoute "" "u-align-right--tablet-portrait-up"}}">
-                {{mandatenbeheer/mandatarissen-totals
-                  class="js-accordion u-spacer--bottom--tiny"
-                  bestuursorganen=bestuursorganen
-                }}
-              </div>
-            </div>
+
+      <AuToolbar @border="bottom" @size="large">
+        <div>
+          <h1 class="au-u-h3 u-spacer--tb--tinier">Mandatenbeheer</h1>
+          {{mandatenbeheer/mandatarissen-totals
+            class="js-accordion au-u-margin-bottom"
+            bestuursorganen=bestuursorganen
+          }}
+          <div class="input-field-icon-container--right">
+            {{input
+                type="text"
+                placeholder="Zoek mandataris"
+                key-up=(perform search)
+                value=searchData
+                class="input-field input-field--block u-spacer--tiny"
+            }}
+            <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
           </div>
-          <div class="col--4-12 col--1-1--s">
-            <div class="input-field-icon-container--right">
-              {{input
-                  type="text"
-                  placeholder="Zoek mandataris"
-                  key-up=(perform search)
-                  value=searchData
-                  class="input-field input-field--block u-spacer--tiny"
+        </div>
+
+        <AuToolbarGroup>
+          <div>
+            <div class="power-select power-select--small power-select--inline u-spacer--top--tinier u-align-right--tablet-portrait-up">
+              {{mandatenbeheer/bestuursperioden-selector
+                options=bestuursperioden
+                selectedStartDate=startDate
+                onSelect=(action 'selectPeriod')
               }}
-              <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
             </div>
-          </div>
-          <div class="col--8-12 col--1-1--s u-align-right--tablet-portrait-up">
             <WuButtonGroup>
               {{wu-button
                   label="Beheer fracties"
@@ -54,9 +46,8 @@
               }}
             </WuButtonGroup>
           </div>
-        </div>
-
-      </div>
+        </AuToolbarGroup>
+      </AuToolbar>
       {{mandatenbeheer/mandataris-table
           class="container-flex--contain"
           content=model
