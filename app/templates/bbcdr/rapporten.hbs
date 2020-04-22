@@ -2,20 +2,17 @@
 <div class="grid grid--collapse">
   <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--8-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
     <div class="container-flex--contain">
-      <div class="u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header u-border--light--bottom">
-        <div class="grid">
-          <div class="col--6-12 col--1-1--s">
-  	        <h1 class="h4 u-spacer--tb--tinier">BBC DR</h1>
-          </div>
-          <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-            {{wu-button
-                label="Lever nieuw rapport aan"
-                onClick=(action "createNewReport")
-                isNarrow=true
-                data-test-loket='bbcdr-create-report-btn'}}
-          </div>
-        </div>
-      </div>
+      <AuToolbar @border="bottom" @size="large">
+        <h1 class="au-u-h3 u-spacer--tb--tinier">BBC DR</h1>
+        <AuToolbarGroup>
+          {{wu-button
+              label="Lever nieuw rapport aan"
+              onClick=(action "createNewReport")
+              isNarrow=true
+              data-test-loket='bbcdr-create-report-btn'}}
+        </AuToolbarGroup>
+      </AuToolbar>
+
       {{bbcdr/report-table
           content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
           class="container-flex--contain data-table--nowrap"
