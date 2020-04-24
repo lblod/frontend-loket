@@ -12,6 +12,7 @@ export default Controller.extend({
   // @TODO use isActive for less maintenance
   isToezicht: equal('router.currentRouteName', 'toezicht.inzendingen.index'),
   isToezichtDossier: equal('router.currentRouteName', 'toezicht.inzendingen.edit'),
+  isToezichtDossierNew: equal('router.currentRouteName', 'toezicht.inzendingen.new'),
 
   isBerichten: equal('router.currentRouteName', 'berichtencentrum.berichten.index'),
   isBerichtenDossier: equal('router.currentRouteName', 'berichtencentrum.berichten.conversatie.index'),

@@ -77,7 +77,16 @@
                 </AuLink>
               </li>
               <li class="au-c-list-horizontal__item">
-                Melding
+                Bekijk melding
+              </li>
+            {{else if this.isToezichtDossierNew}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="toezicht.inzendingen" role="menuitem">
+                  Toezicht
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Nieuwe melding
               </li>
             {{else if this.isBerichten}}
               <li class="au-c-list-horizontal__item">
