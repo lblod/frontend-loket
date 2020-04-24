@@ -4,7 +4,7 @@
     {{#if session.isAuthenticated}}
       <AuDropdown @dropdownTitle="{{currentSession._user.voornaam}} {{currentSession._user.achternaam}} - {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
         <AcmidmSwitch @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
-          <AuIcon @icon="renew" @alignment="left" />Wissel van bestuurseenheid
+          <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
         </AcmidmSwitch>
         <AcmidmLogout @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
           <AuIcon @icon="logout" @alignment="left" />Afmelden
@@ -21,52 +21,200 @@
   <main id="main" class="au-c-main-container">
     <div class="container-flex--contain">
       {{#unless this.isIndex}}
-        <div class="au-u-margin-left-small au-u-margin-bottom-tiny au-u-margin-top-small">
-          <AuDropdown @alignment="left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
-            {{#if currentSession.canAccessToezicht}}
-              <AuNavigationLink @linkRoute="supervision.submissions" role="menuitem">
+        <AuToolbar class="au-u-padding-top-small au-u-padding-left-small au-u-padding-bottom-small">
+          <ul class="au-c-list-horizontal">
+            <li class="au-c-list-horizontal__item">
+              <AuLink @linkRoute="index" role="menuitem">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
-                  <path d="M20.9375,15.625 C18.005,15.625 15.625,18.005 15.625,20.9375 C15.625,23.87 18.005,26.25 20.9375,26.25 C23.87,26.25 26.25,23.87 26.25,20.9375 C26.25,18.005 23.87,15.625 20.9375,15.625 Z M39,5 L5,5 C2.651875,5 0.75,6.901875 0.75,9.25 L0.75,34.75 C0.75,37.098125 2.651875,39 5,39 L39,39 C41.348125,39 43.25,37.098125 43.25,34.75 L43.25,9.25 C43.25,6.901875 41.348125,5 39,5 Z M32.189375,35.185625 L26.01625,29.0125 C24.539375,29.9475 22.8075,30.5 20.9375,30.5 C15.656875,30.5 11.375,26.218125 11.375,20.9375 C11.375,15.656875 15.656875,11.375 20.9375,11.375 C26.218125,11.375 30.5,15.656875 30.5,20.9375 C30.5,22.8075 29.9475,24.539375 29.0125,26.005625 L35.19625,32.168125 L32.189375,35.185625 Z"/>
+                  <path d="M0 0h48v48H0z" fill="none"></path><path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"></path>
                 </svg>
+                Overzicht modules
+              </AuLink>
+            </li>
+            <li class="au-c-list-horizontal__item">
+              <AuDropdown @alignment="left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
+                {{#if currentSession.canAccessToezicht}}
+                  <AuNavigationLink @linkRoute="supervision.submissions" role="menuitem">
+                    <AuIcon @icon="search-folder" @alignment="left" /> Toezicht
+                  </AuNavigationLink>
+                  <AuNavigationLink @linkRoute="toezicht.inzendingen" role="menuitem">
+                    <AuIcon @icon="search-folder" @alignment="left" /> Toezicht
+                  </AuNavigationLink>
+                {{/if}}
+                {{#if currentSession.canAccessBerichten}}
+                  <AuNavigationLink @linkRoute="berichtencentrum.berichten" role="menuitem">
+                    <AuIcon @icon="message" @alignment="left" /> Berichtencentrum
+                  </AuNavigationLink>
+                {{/if}}
+                {{#if currentSession.canAccessBbcdr}}
+                  <AuNavigationLink @linkRoute="bbcdr.rapporten" role="menuitem">
+                    <AuIcon @icon="document" @alignment="left" /> BBC DR
+                  </AuNavigationLink>
+                {{/if}}
+                {{#if currentSession.canAccessMandaat}}
+                  <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+                    <AuIcon @icon="user-fill" @alignment="left" /> Mandatenbeheer
+                  </AuNavigationLink>
+                {{/if}}
+                {{#if currentSession.canAccessLeidinggevenden}}
+                  <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+                    <AuIcon @icon="user-popup" @alignment="left" /> Leidinggevendenbeheer
+                  </AuNavigationLink>
+                {{/if}}
+                {{#if currentSession.canAccessPersoneelsbeheer}}
+                  <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index" role="menuitem">
+                    <AuIcon @icon="users" @alignment="left" /> Personeelsbeheer
+                  </AuNavigationLink>
+                {{/if}}
+              </AuDropdown>
+            </li>
+            {{!-- @TODO use isActive for less maintenance --}}
+            {{#if this.isSupervision}}
+              <li class="au-c-list-horizontal__item">
                 Toezicht
-              </AuNavigationLink>
-              <AuNavigationLink @linkRoute="toezicht.inzendingen" role="menuitem">
-                <AuIcon @icon="search-folder" @alignment="left" /> Toezicht (old)
-              </AuNavigationLink>
+              </li>
+            {{else if this.isSupervisionSubmission}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="toezicht.inzendingen" role="menuitem">
+                  Toezicht
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Melding
+              </li>
+            {{else if this.isToezicht}}
+              <li class="au-c-list-horizontal__item">
+                Toezicht (old)
+              </li>
+            {{else if this.isToezichtDossier}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="toezicht.inzendingen" role="menuitem">
+                  Toezicht (old)
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Melding
+              </li>
+            {{else if this.isBerichten}}
+              <li class="au-c-list-horizontal__item">
+                Berichtencentrum
+              </li>
+            {{else if this.isBerichtenDossier}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="berichtencentrum.berichten" role="menuitem">
+                  Berichtencentrum
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Dossier
+              </li>
+            {{else if this.isBbcdr}}
+              <li class="au-c-list-horizontal__item">
+                BBCDR Beleids- en Beheercyclus
+              </li>
+            {{else if this.isBbcdrDossier}}
+              <li class="au-c-list-horizontal__item">
+                BBCDR Beleids- en Beheercyclus
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Rapport
+              </li>
+            {{else if this.isMandaten}}
+              <li class="au-c-list-horizontal__item">
+                Mandatenbeheer
+              </li>
+            {{else if this.isMandaatBewerk}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+                  Mandatenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Bewerk
+              </li>
+            {{else if this.isMandaatNieuw}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+                  Mandatenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Voeg mandaat toe
+              </li>
+            {{else if this.isNieuwePersoon}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+                  Mandatenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Voeg nieuwe persoon toe
+              </li>
+            {{else if this.isFracties}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+                  Mandatenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Beheer fracties
+              </li>
+            {{else if this.isLeidinggevenden}}
+              <li class="au-c-list-horizontal__item">
+                Leidinggevendenbeheer
+              </li>
+            {{else if this.isFunctionaris}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+                  Leidinggevendenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Functionaris
+              </li>
+            {{else if this.isFunctionarisBewerk}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+                  Leidinggevendenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Bewerk functionaris
+              </li>
+            {{else if this.isFunctionarisNieuweAanstellingsperiode}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+                  Leidinggevendenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Nieuwe aanstellingsperiode
+              </li>
+            {{else if this.isFunctionarisContact}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+                  Leidinggevendenbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Bewerk contactgegevens
+              </li>
+            {{else if this.isPersoneel}}
+              <li class="au-c-list-horizontal__item">
+                Personeelsbeheer
+              </li>
+            {{else if this.isPersoneelAantallen}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="personeelsbeheer.personeelsaantallen.index" role="menuitem">
+                  Personeelsbeheer
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Bewerk aantallen
+              </li>
             {{/if}}
-            {{#if currentSession.canAccessBerichten}}
-              <AuNavigationLink @linkRoute="berichtencentrum.berichten" role="menuitem">
-                <AuIcon @icon="message" @alignment="left" /> Berichtencentrum
-              </AuNavigationLink>
-            {{/if}}
-            {{#if currentSession.canAccessBbcdr}}
-              <AuNavigationLink @linkRoute="bbcdr.rapporten" role="menuitem">
-                <AuIcon @icon="document" @alignment="left" /> BBC DR
-              </AuNavigationLink>
-            {{/if}}
-            {{#if currentSession.canAccessMandaat}}
-              <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
-                <AuIcon @icon="user-fill" @alignment="left" /> Mandatenbeheer
-              </AuNavigationLink>
-            {{/if}}
-            {{#if currentSession.canAccessLeidinggevenden}}
-              <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
-                <AuIcon @icon="user-popup" @alignment="left" /> Leidinggevendenbeheer
-              </AuNavigationLink>
-            {{/if}}
-            {{#if currentSession.canAccessPersoneelsbeheer}}
-              <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index" role="menuitem">
-                <AuIcon @icon="users" @alignment="left" /> Personeelsbeheer
-              </AuNavigationLink>
-            {{/if}}
-            <AuNavigationLink @linkRoute="index" class="u-border--light--top" role="menuitem">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
-                <path d="M0 0h48v48H0z" fill="none"></path><path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"></path>
-              </svg>
-              Overzicht modules
-            </AuNavigationLink>
-          </AuDropdown>
-        </div>
+          </ul>
+        </AuToolbar>
       {{/unless}}
       <div id="content" class="container-flex--contain" tabindex="-1">
         {{outlet}}

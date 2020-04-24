@@ -25,11 +25,10 @@
                 isNarrow=true
                 disabled=(or (not isValid) save.isRunning)
             }}
-            {{wu-button label="Verwerp wijzigingen"
+            {{wu-button label="Annuleer"
                 onClick=(perform resetChanges)
                 isNarrow=true
                 isAlt=true
-                disabled=(or (not isDirty) save.isRunning)
             }}
           </div>
         </div>
