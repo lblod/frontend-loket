@@ -20,4 +20,6 @@ export default class FormDataModel extends Model {
   @belongsTo("submission") submission;
   @belongsTo("bestuurseenheid") isAbout;
   @belongsTo("bestuursorgaan") passedBy;
+  @belongsTo("concept") decisionType;
+  @belongsTo("concept") regulationType;
 }

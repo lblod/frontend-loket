@@ -17,7 +17,7 @@
   <t.content as |c|>
     <c.header>
       <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
-      <th>Type dossier</th>
+      <ThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
       <ThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
       <ThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
       <th class="au-u-visible-medium-up">Aangemaakt door</th>
@@ -28,7 +28,12 @@
     <c.body as |row|>
       <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
       <td>
-        <Toezicht::SubmissionType @formData={{row.formData}} />
+        {{#if row.formData.decisionType}}
+          <p>{{row.formData.decisionType.label}}</p>
+        {{else}}
+          <p class="text-fade">Geen type</p>
+        {{/if}}
+        <p class="text-fade">{{row.formData.regulationType.label}}</p>
       </td>
       <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
       <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
