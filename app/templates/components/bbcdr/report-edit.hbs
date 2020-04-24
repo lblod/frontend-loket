@@ -32,6 +32,9 @@
       {{wu-link-button label="Bewaar" isNarrow=true isAlt=true onClick=(action "tempSave")}}
       {{wu-link-button label="Verwijder" isNarrow=true isAlt=true onClick=(action "deleteReport") class="button--alt--warning"}}
     {{/if}}
+    {{#unless report.status.isConcept}}
+      <AuAlert @alertIcon="check" @alertTitle="Rapport verstuurd" @alertsize="small" @alertskin="success" />
+    {{/unless}}
     {{#link-to 'bbcdr.rapporten.index' class="button button--narrow button--alt" data-test-loket="bbcdr-close-panel-btn"}}Sluit{{/link-to}}
   {{/if}}
 </div>
