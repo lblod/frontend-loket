@@ -107,10 +107,21 @@
               </li>
             {{else if this.isBbcdrDossier}}
               <li class="au-c-list-horizontal__item">
-                BBCDR Beleids- en Beheercyclus
+                <AuLink @linkRoute="bbcdr.rapporten" role="menuitem">
+                  BBCDR Beleids- en Beheercyclus
+                </AuLink>
               </li>
               <li class="au-c-list-horizontal__item">
                 Rapport
+              </li>
+            {{else if this.isBbcdrDossierNew}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="bbcdr.rapporten" role="menuitem">
+                  BBCDR Beleids- en Beheercyclus
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Nieuw rapport
               </li>
             {{else if this.isMandaten}}
               <li class="au-c-list-horizontal__item">

@@ -19,6 +19,7 @@ export default Controller.extend({
 
   isBbcdr: equal('router.currentRouteName', 'bbcdr.rapporten.index'),
   isBbcdrDossier: equal('router.currentRouteName', 'bbcdr.rapporten.edit'),
+  isBbcdrDossierNew: equal('router.currentRouteName', 'bbcdr.rapporten.new'),
 
   isMandaten: equal('router.currentRouteName', 'mandatenbeheer.mandatarissen.index'),
   isMandaatBewerk: equal('router.currentRouteName', 'mandatenbeheer.mandatarissen.edit'),
