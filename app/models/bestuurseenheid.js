@@ -10,7 +10,7 @@ export default class Bestuurseenheid extends Model {
   @attr naam;
   @attr('string') mailAdres;
   @attr('boolean') wilMailOntvangen;
-  @attr submissionTrailUser;
+  @attr submissionTrialUser;
 
   @belongsTo('werkingsgebied', {inverse: 'bestuurseenheid'}) werkingsgebied;
   @belongsTo('bestuurseenheid-classificatie-code', {inverse: null}) classificatie;
@@ -26,7 +26,7 @@ export default class Bestuurseenheid extends Model {
   }
 
   get submissionRoute() {
-    if (this.submissionTrailUser) return 'supervision.submissions';
+    if (this.submissionTrialUser) return 'supervision.submissions';
     return 'toezicht.inzendingen';
   }
 }
