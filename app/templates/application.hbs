@@ -80,7 +80,7 @@
                 </AuLink>
               </li>
               <li class="au-c-list-horizontal__item">
-                Melding
+                Bekijk melding
               </li>
             {{else if this.isToezicht}}
               <li class="au-c-list-horizontal__item">
@@ -94,6 +94,15 @@
               </li>
               <li class="au-c-list-horizontal__item">
                 Melding
+              </li>
+            {{else if this.isToezichtDossierNew}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="toezicht.inzendingen" role="menuitem">
+                  Toezicht (old)
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Nieuwe melding
               </li>
             {{else if this.isBerichten}}
               <li class="au-c-list-horizontal__item">
@@ -114,10 +123,21 @@
               </li>
             {{else if this.isBbcdrDossier}}
               <li class="au-c-list-horizontal__item">
-                BBCDR Beleids- en Beheercyclus
+                <AuLink @linkRoute="bbcdr.rapporten" role="menuitem">
+                  BBCDR Beleids- en Beheercyclus
+                </AuLink>
               </li>
               <li class="au-c-list-horizontal__item">
                 Rapport
+              </li>
+            {{else if this.isBbcdrDossierNew}}
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="bbcdr.rapporten" role="menuitem">
+                  BBCDR Beleids- en Beheercyclus
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                Nieuw rapport
               </li>
             {{else if this.isMandaten}}
               <li class="au-c-list-horizontal__item">
