@@ -32,38 +32,7 @@
               </AuLink>
             </li>
             <li class="au-c-list-horizontal__item">
-              <AuDropdown @alignment="left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
-                {{#if currentSession.canAccessToezicht}}
-                  <AuNavigationLink @linkRoute="toezicht.inzendingen" role="menuitem">
-                    <AuIcon @icon="search-folder" @alignment="left" /> Toezicht
-                  </AuNavigationLink>
-                {{/if}}
-                {{#if currentSession.canAccessBerichten}}
-                  <AuNavigationLink @linkRoute="berichtencentrum.berichten" role="menuitem">
-                    <AuIcon @icon="message" @alignment="left" /> Berichtencentrum
-                  </AuNavigationLink>
-                {{/if}}
-                {{#if currentSession.canAccessBbcdr}}
-                  <AuNavigationLink @linkRoute="bbcdr.rapporten" role="menuitem">
-                    <AuIcon @icon="document" @alignment="left" /> BBC DR
-                  </AuNavigationLink>
-                {{/if}}
-                {{#if currentSession.canAccessMandaat}}
-                  <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
-                    <AuIcon @icon="user-fill" @alignment="left" /> Mandatenbeheer
-                  </AuNavigationLink>
-                {{/if}}
-                {{#if currentSession.canAccessLeidinggevenden}}
-                  <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
-                    <AuIcon @icon="user-popup" @alignment="left" /> Leidinggevendenbeheer
-                  </AuNavigationLink>
-                {{/if}}
-                {{#if currentSession.canAccessPersoneelsbeheer}}
-                  <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index" role="menuitem">
-                    <AuIcon @icon="users" @alignment="left" /> Personeelsbeheer
-                  </AuNavigationLink>
-                {{/if}}
-              </AuDropdown>
+              <Shared::SideMenu/>
             </li>
             {{!-- @TODO use isActive for less maintenance --}}
             {{#if this.isToezicht}}
