@@ -259,3 +259,14 @@ $au-non-editable-background    : $au-gray-100 !default;
     background: $au-input-disabled-color;
   }
 }
+
+/* ==================================
+   #TEMPORARY DISABLE YEAR PICKER IN DATEPICKER
+  this datepicker is part of webuniversum and the year picker requires setting an end- and start date to use the year picker.
+   ================================== */
+
+.pika-label + .pika-label {
+  pointer-events: none;
+  text-decoration: none;
+  color: $au-gray-900;
+}

@@ -12,12 +12,14 @@ export default Controller.extend({
   // @TODO use isActive for less maintenance
   isToezicht: equal('router.currentRouteName', 'toezicht.inzendingen.index'),
   isToezichtDossier: equal('router.currentRouteName', 'toezicht.inzendingen.edit'),
+  isToezichtDossierNew: equal('router.currentRouteName', 'toezicht.inzendingen.new'),
 
   isBerichten: equal('router.currentRouteName', 'berichtencentrum.berichten.index'),
   isBerichtenDossier: equal('router.currentRouteName', 'berichtencentrum.berichten.conversatie.index'),
 
   isBbcdr: equal('router.currentRouteName', 'bbcdr.rapporten.index'),
   isBbcdrDossier: equal('router.currentRouteName', 'bbcdr.rapporten.edit'),
+  isBbcdrDossierNew: equal('router.currentRouteName', 'bbcdr.rapporten.new'),
 
   isMandaten: equal('router.currentRouteName', 'mandatenbeheer.mandatarissen.index'),
   isMandaatBewerk: equal('router.currentRouteName', 'mandatenbeheer.mandatarissen.edit'),

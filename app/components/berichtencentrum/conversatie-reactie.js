@@ -25,7 +25,7 @@ export default Component.extend({
   },
 
   isExpanded: false,
-  cantSend: or('ensureOriginator.isRunning', empty('bijlagen')),
+  cantSend: or('ensureOriginator.isRunning', empty('bijlagen.[]')),
   currentUser: oneWay('currentSession.userContent'),
   bestuursEenheidNaam: oneWay('currentSession.groupContent.naam'),
 
