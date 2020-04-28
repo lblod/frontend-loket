@@ -1,0 +1,151 @@
+{{#if this.isToezicht}}
+  <li class="au-c-list-horizontal__item">
+    Toezicht
+  </li>
+{{else if this.isToezichtDossier}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="toezicht.inzendingen" role="menuitem">
+      Toezicht
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Bekijk melding
+  </li>
+{{else if this.isToezichtDossierNew}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="toezicht.inzendingen" role="menuitem">
+      Toezicht
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Nieuwe melding
+  </li>
+{{else if this.isBerichten}}
+  <li class="au-c-list-horizontal__item">
+    Berichtencentrum
+  </li>
+{{else if this.isBerichtenDossier}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="berichtencentrum.berichten" role="menuitem">
+      Berichtencentrum
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Dossier
+  </li>
+{{else if this.isBbcdr}}
+  <li class="au-c-list-horizontal__item">
+    BBCDR Beleids- en Beheercyclus
+  </li>
+{{else if this.isBbcdrDossier}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="bbcdr.rapporten" role="menuitem">
+      BBCDR Beleids- en Beheercyclus
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Rapport
+  </li>
+{{else if this.isBbcdrDossierNew}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="bbcdr.rapporten" role="menuitem">
+      BBCDR Beleids- en Beheercyclus
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Nieuw rapport
+  </li>
+{{else if this.isMandaten}}
+  <li class="au-c-list-horizontal__item">
+    Mandatenbeheer
+  </li>
+{{else if this.isMandaatBewerk}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+      Mandatenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Bewerk
+  </li>
+{{else if this.isMandaatNieuw}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+      Mandatenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Voeg mandaat toe
+  </li>
+{{else if this.isNieuwePersoon}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+      Mandatenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Voeg nieuwe persoon toe
+  </li>
+{{else if this.isFracties}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+      Mandatenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Beheer fracties
+  </li>
+{{else if this.isLeidinggevenden}}
+  <li class="au-c-list-horizontal__item">
+    Leidinggevendenbeheer
+  </li>
+{{else if this.isFunctionaris}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+      Leidinggevendenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Functionaris
+  </li>
+{{else if this.isFunctionarisBewerk}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+      Leidinggevendenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Bewerk functionaris
+  </li>
+{{else if this.isFunctionarisNieuweAanstellingsperiode}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+      Leidinggevendenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Nieuwe aanstellingsperiode
+  </li>
+{{else if this.isFunctionarisContact}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+      Leidinggevendenbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Bewerk contactgegevens
+  </li>
+{{else if this.isPersoneel}}
+  <li class="au-c-list-horizontal__item">
+    Personeelsbeheer
+  </li>
+{{else if this.isPersoneelAantallen}}
+  <li class="au-c-list-horizontal__item">
+    <AuLink @linkRoute="personeelsbeheer.personeelsaantallen.index" role="menuitem">
+      Personeelsbeheer
+    </AuLink>
+  </li>
+  <li class="au-c-list-horizontal__item">
+    Bewerk aantallen
+  </li>
+{{/if}}
