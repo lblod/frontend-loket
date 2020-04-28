@@ -6,11 +6,8 @@ export default Controller.extend({
 
 	actions: {
     goToToezicht() {
-      this.transitionToRoute('supervision.submissions');
+      this.transitionToRoute(this.currentSession._group.submissionRoute);
     },
-		goToToezichtOld() {
-			this.transitionToRoute('toezicht.inzendingen');
-		},
 		goToBbcdr() {
 			this.transitionToRoute('bbcdr.rapporten');
 		},

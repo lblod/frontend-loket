@@ -34,11 +34,9 @@
             <li class="au-c-list-horizontal__item">
               <AuDropdown @alignment="left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
                 {{#if currentSession.canAccessToezicht}}
-                  <AuNavigationLink @linkRoute="supervision.submissions" role="menuitem">
-                    <AuIcon @icon="search-folder" @alignment="left" /> Toezicht
-                  </AuNavigationLink>
-                  <AuNavigationLink @linkRoute="toezicht.inzendingen" role="menuitem">
-                    <AuIcon @icon="search-folder" @alignment="left" /> Toezicht
+                  <AuNavigationLink @linkRoute="{{currentSession._group.submissionRoute}}">
+                    <AuIcon @icon="search-folder" @alignment="left" />
+                    Toezicht
                   </AuNavigationLink>
                 {{/if}}
                 {{#if currentSession.canAccessBerichten}}

@@ -7,7 +7,10 @@ export default class SupervisionRoute extends Route.extend(AuthenticatedRouteMix
   currentSession
 
   beforeModel() {
-    if (!this.currentSession.canAccessToezicht)
+    if (!this.currentSession.canAccessToezicht){
       this.transitionTo('index');
+    } else {
+      this.transitionTo(this.currentSession._group.submissionRoute);
+    }
   }
 }
