@@ -2,61 +2,7 @@
   <div class="au-o-grid__item au-u-1-4@small au-u-1-5@medium au-u-1-6@large au-u-hide-on-print">
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content">
-        <nav>
-          <ul class="au-c-list-navigation">
-            <li class="au-c-list-navigation__item au-u-margin-left-small au-u-margin-top-small au-u-margin-bottom-small">
-              <h6>Menu modules</h6>
-            </li>
-            {{#if currentSession.canAccessToezicht}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="toezicht.inzendingen">
-                  <AuIcon @icon="search-folder" @alignment="left" />
-                  Toezicht
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessBerichten}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="berichtencentrum.berichten">
-                  <AuIcon @icon="message" @alignment="left" />
-                  Berichtencentrum
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessBbcdr}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="bbcdr.rapporten">
-                  <AuIcon @icon="document" @alignment="left" />
-                  BBC DR
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessMandaat}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
-                  <AuIcon @icon="user-fill" @alignment="left" />
-                  Mandatenbeheer
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessLeidinggevenden}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
-                  <AuIcon @icon="user-popup" @alignment="left" />
-                  Leidinggevendenbeheer
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessPersoneelsbeheer}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
-                  <AuIcon @icon="users" @alignment="left" />
-                  Personeelsbeheer
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-          </ul>
-        </nav>
+        <Shared::MainMenu/>
       </div>
       <div class="au-c-sidebar__footer">
         <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" rel="noopener noreferrer" class="au-c-link au-c-link--neutral au-c-link--icon">
