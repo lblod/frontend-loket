@@ -2,61 +2,7 @@
   <div class="au-o-grid__item au-u-1-4@small au-u-1-5@medium au-u-1-6@large au-u-hide-on-print">
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content">
-        <nav>
-          <ul class="au-c-list-navigation">
-            <li class="au-c-list-navigation__item au-u-margin-left-small au-u-margin-top-small au-u-margin-bottom-small">
-              <h6>Menu modules</h6>
-            </li>
-            {{#if currentSession.canAccessToezicht}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="toezicht.inzendingen">
-                  <AuIcon @icon="search-folder" @alignment="left" />
-                  Toezicht
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessBerichten}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="berichtencentrum.berichten">
-                  <AuIcon @icon="message" @alignment="left" />
-                  Berichtencentrum
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessBbcdr}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="bbcdr.rapporten">
-                  <AuIcon @icon="document" @alignment="left" />
-                  BBC DR
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessMandaat}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
-                  <AuIcon @icon="user-fill" @alignment="left" />
-                  Mandatenbeheer
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessLeidinggevenden}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
-                  <AuIcon @icon="user-popup" @alignment="left" />
-                  Leidinggevendenbeheer
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-            {{#if currentSession.canAccessPersoneelsbeheer}}
-              <li class="au-c-list-navigation__item">
-                <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
-                  <AuIcon @icon="users" @alignment="left" />
-                  Personeelsbeheer
-                </AuNavigationLink>
-              </li>
-            {{/if}}
-          </ul>
-        </nav>
+        <Shared::MainMenu/>
       </div>
       <div class="au-c-sidebar__footer">
         <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" rel="noopener noreferrer" class="au-c-link au-c-link--neutral au-c-link--icon">
@@ -75,51 +21,14 @@
             </div>
             <div class="col--6-12 col--1-1--m">
               <AuAlert @alertIcon="info-circle" @alertTitle="Een minder prominente navigatie: meer plaats" @alertskin={{"info"}} class="au-u-margin-bottom-large">
-                <p class="au-u-margin-bottom-small au-u-margin-top-small">De nieuwe navigatie geeft meer ruimte om gericht taken te volbrengen. Wissel in modules van module door links bovenaan op
-                  <AuDropdown class="au-c-dropdown--left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
-                    {{#if currentSession.canAccessToezicht}}
-                      <AuNavigationLink @linkRoute="toezicht.inzendingen">
-                        <AuIcon @icon="search-folder" @alignment="left" />
-                        Toezicht
-                      </AuNavigationLink>
-                    {{/if}}
-                    {{#if currentSession.canAccessBerichten}}
-                      <AuNavigationLink @linkRoute="berichtencentrum.berichten">
-                        <AuIcon @icon="message" @alignment="left" />
-                        Berichtencentrum
-                      </AuNavigationLink>
-                    {{/if}}
-                    {{#if currentSession.canAccessBbcdr}}
-                      <AuNavigationLink @linkRoute="bbcdr.rapporten">
-                        <AuIcon @icon="document" @alignment="left" />
-                        BBC DR
-                      </AuNavigationLink>
-                    {{/if}}
-                    {{#if currentSession.canAccessMandaat}}
-                      <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
-                        <AuIcon @icon="user-fill" @alignment="left" />
-                        Mandatenbeheer
-                      </AuNavigationLink>
-                    {{/if}}
-                    {{#if currentSession.canAccessLeidinggevenden}}
-                      <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
-                        <AuIcon @icon="user-popup" @alignment="left" />
-                        Leidinggevendenbeheer
-                      </AuNavigationLink>
-                    {{/if}}
-                    {{#if currentSession.canAccessPersoneelsbeheer}}
-                      <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
-                        <AuIcon @icon="users" @alignment="left" />
-                        Personeelsbeheer
-                      </AuNavigationLink>
-                    {{/if}}
-                  </AuDropdown> te klikken.
+                <p class="au-u-margin-bottom-small au-u-margin-top-small">
+                  De nieuwe navigatie geeft meer ruimte om gericht taken te volbrengen.
+                  Wissel in modules van module door links bovenaan op <Shared::CompactMenu/> te klikken.
                 </p>
                 <p>Vragen of opmerkingen? {{#link-to "contact" tagName="a"}}Neem contact met ons op{{/link-to}}.</p>
               </AuAlert>
             </div>
           </div>
-
           <div class="grid grid--is-stacked u-spacer">
 
             <div class="col--6-12 col--4-12--l col--6-12--m col--6-12--s col--1-1--xs">

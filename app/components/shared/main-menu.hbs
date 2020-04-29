@@ -1,0 +1,55 @@
+<nav>
+  <ul class="au-c-list-navigation">
+    <li class="au-c-list-navigation__item au-u-margin-left-small au-u-margin-top-small au-u-margin-bottom-small">
+      <h6>Menu modules</h6>
+    </li>
+    {{#if this.currentSession.canAccessToezicht}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="toezicht.inzendingen">
+          <AuIcon @icon="search-folder" @alignment="left" />
+          Toezicht
+        </AuNavigationLink>
+      </li>
+    {{/if}}
+    {{#if this.currentSession.canAccessBerichten}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="berichtencentrum.berichten">
+          <AuIcon @icon="message" @alignment="left" />
+          Berichtencentrum
+        </AuNavigationLink>
+      </li>
+    {{/if}}
+    {{#if this.currentSession.canAccessBbcdr}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="bbcdr.rapporten">
+          <AuIcon @icon="document" @alignment="left" />
+          BBC DR
+        </AuNavigationLink>
+      </li>
+    {{/if}}
+    {{#if this.currentSession.canAccessMandaat}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
+          <AuIcon @icon="user-fill" @alignment="left" />
+          Mandatenbeheer
+        </AuNavigationLink>
+      </li>
+    {{/if}}
+    {{#if this.currentSession.canAccessLeidinggevenden}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
+          <AuIcon @icon="user-popup" @alignment="left" />
+          Leidinggevendenbeheer
+        </AuNavigationLink>
+      </li>
+    {{/if}}
+    {{#if this.currentSession.canAccessPersoneelsbeheer}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
+          <AuIcon @icon="users" @alignment="left" />
+          Personeelsbeheer
+        </AuNavigationLink>
+      </li>
+    {{/if}}
+  </ul>
+</nav>
