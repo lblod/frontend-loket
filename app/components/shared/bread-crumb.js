@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import {equal} from '@ember/object/computed';
 import {inject as service} from '@ember/service';
 
 export default class SharedBreadCrumbComponent extends Component {
