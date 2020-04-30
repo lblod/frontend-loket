@@ -35,16 +35,16 @@
         {{/if}}
         <p class="text-fade">{{row.formData.regulationType.label}}</p>
       </td>
-      <td>{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
-      <td>{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
-      <td>
+      <td class="au-u-visible-small-up">{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
+      <td class="au-u-visible-large-up">{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
+      <td class="au-u-visible-medium-up">
         {{#if row.task.created }}
           Automatisch bij publicatie
         {{else}}
           {{row.creator.fullName}}
         {{/if}}
       </td>
-      <td>
+      <td class="au-u-visible-small-up">
         {{#if row.lastModifier.fullName}}
           {{row.lastModifier.fullName}}
         {{else if row.task.created}}
