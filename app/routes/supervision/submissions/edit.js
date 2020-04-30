@@ -54,31 +54,6 @@ export default class SupervisionSubmissionsEditRoute extends Route {
     };
   }
 
-  /*
-   * For displaying purposes to the end user,
-   * we remove type dossiers which are not relevant to bestuurseenheid.
-   * This is not equal to validation!
-   */
-  async afterModel(model) {
-    const bestuurseenheid = await model.submission.organization;
-    const classificatie = await bestuurseenheid.classificatie;
-
-    const classificatieUri = new rdflib.NamedNode(classificatie.uri);
-    const decidableBy = new rdflib.NamedNode('http://lblod.data.gift/vocabularies/besluit/decidableBy');
-    const inScheme = new rdflib.NamedNode('http://www.w3.org/2004/02/skos/core#inScheme');
-    const typeDossierScheme = new rdflib.NamedNode('http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5');
-
-    const formStore = model.formStore;
-    const metaGraph = model.graphs.metaGraph;
-    const typeDossiersForEenheid = formStore
-      .match(undefined, decidableBy, classificatieUri, metaGraph)
-      .filter(t => formStore.any(t.subject, inScheme, typeDossierScheme, metaGraph)); //In case usage of decidableBy changes;
-    const typeDossiers = formStore.match(undefined, inScheme, typeDossierScheme, metaGraph);
-
-    const dossiersToRemove = typeDossiers.filter(t => !typeDossiersForEenheid.any(td => td.subject.equals(t.subject)));
-    formStore.removeStatements( dossiersToRemove );
-  }
-
   setupController(controller) {
     super.setupController(...arguments);
     controller.isValidForm = true;
