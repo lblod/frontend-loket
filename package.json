@@ -96,5 +96,8 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "svgxuse": "^1.2.6"
   }
 }

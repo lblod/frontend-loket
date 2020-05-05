@@ -275,3 +275,24 @@ $au-non-editable-background    : $au-gray-100 !default;
   text-decoration: none;
   color: $au-gray-900;
 }
+
+/* ==================================
+   #QUICKFIX FOR ALERTS
+  we have overflow issues in IE11
+  ================================== */
+
+.au-c-alert__content {
+  display: block;
+}
+
+/* ==================================
+  #IE 11 appuniversum fixes
+  @TODO: update in appuniversum
+  ================================== */
+
+div:focus,
+span:focus,
+table:focus,
+td:focus {
+  outline: 0 !important;
+}
