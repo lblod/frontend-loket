@@ -85,7 +85,7 @@ export default class SharedBreadCrumbComponent extends Component {
     },
     {
       route: 'personeelsbeheer.personeelsaantallen.periodes.edit',
-      crumbs: [{label: 'Leidinggevendenbeheer',link: 'personeelsbeheer.personeelsaantallen.index'},{label: 'Bewerk aantallen'}]
+      crumbs: [{label: 'Personeelsbeheer',link: 'personeelsbeheer.personeelsaantallen.index'},{label: 'Bewerk aantallen'}]
     },
   ]
 
