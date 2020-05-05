@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.25.0-beta.4",
+  "version": "0.25.0-beta.6",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -88,6 +88,7 @@
     "eslint-plugin-ember": "^7.7.2",
     "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
+    "moment": "~2.24.0",
     "postscribe": "^2.0.8",
     "qunit-dom": "^1.0.0",
     "svgxuse": "^1.2.6"
