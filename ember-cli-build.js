@@ -16,6 +16,8 @@ module.exports = function(defaults) {
     }
   });
 
+  app.import('node_modules/svgxuse/svgxuse.js');
+
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //
