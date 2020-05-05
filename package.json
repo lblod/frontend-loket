@@ -89,15 +89,13 @@
     "eslint-plugin-node": "^11.0.0",
     "loader.js": "^4.7.0",
     "postscribe": "^2.0.8",
-    "qunit-dom": "^1.0.0"
+    "qunit-dom": "^1.0.0",
+    "svgxuse": "^1.2.6"
   },
   "engines": {
     "node": "10.* || >= 12"
   },
   "ember": {
     "edition": "octane"
-  },
-  "dependencies": {
-    "svgxuse": "^1.2.6"
   }
 }
