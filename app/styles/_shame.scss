@@ -270,3 +270,12 @@ $au-non-editable-background    : $au-gray-100 !default;
   text-decoration: none;
   color: $au-gray-900;
 }
+
+/* ==================================
+   #QUICKFIX FOR ALERTS
+  we have overflow issues in IE11
+  ================================== */
+
+.au-c-alert__content {
+  overflow: hidden;
+}
