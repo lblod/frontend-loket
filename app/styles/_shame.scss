@@ -285,6 +285,9 @@ $au-non-editable-background    : $au-gray-100 !default;
   @TODO: update in appuniversum
   ================================== */
 
-:focus {
+div:focus,
+span:focus,
+table:focus,
+td:focus {
   outline: 0 !important;
 }
