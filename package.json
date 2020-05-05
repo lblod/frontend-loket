@@ -30,7 +30,7 @@
     "@lblod/ember-acmidm-login": "^1.1.1",
     "@lblod/ember-mock-login": "^0.4.6",
     "@lblod/ember-mu-dynamic-forms": "^0.3.6",
-    "@lblod/ember-toezicht-form-fields": "^0.5.1",
+    "@lblod/ember-toezicht-form-fields": "^0.5.2",
     "@lblod/ember-vo-mu-file-upload": "^0.4.1",
     "@lblod/ember-vo-webuniversum": "^0.22.7",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
