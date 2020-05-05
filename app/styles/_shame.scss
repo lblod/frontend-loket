@@ -277,5 +277,14 @@ $au-non-editable-background    : $au-gray-100 !default;
   ================================== */
 
 .au-c-alert__content {
-  overflow: hidden;
+  display: block;
+}
+
+/* ==================================
+  #IE 11 appuniversum fixes
+  @TODO: update in appuniversum
+  ================================== */
+
+:focus {
+  outline: 0 !important;
 }
