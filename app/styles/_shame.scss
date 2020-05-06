@@ -277,22 +277,21 @@ $au-non-editable-background    : $au-gray-100 !default;
 }
 
 /* ==================================
-   #QUICKFIX FOR ALERTS
-  we have overflow issues in IE11
+  #IE 11 appuniversum fixes
+  @TODO: update in appuniversum
   ================================== */
 
 .au-c-alert__content {
   display: block;
 }
 
-/* ==================================
-  #IE 11 appuniversum fixes
-  @TODO: update in appuniversum
-  ================================== */
-
 div:focus,
 span:focus,
 table:focus,
 td:focus {
   outline: 0 !important;
+}
+
+.checkbox + .au-c-label {
+  display: inline-block;
 }
