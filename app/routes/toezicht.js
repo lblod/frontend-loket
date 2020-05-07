@@ -8,8 +8,8 @@ export default Route.extend( AuthenticatedRouteMixin, {
   beforeModel() {
     if (!this.currentSession.canAccessToezicht){
       this.transitionTo('index');
-    } else {
-      this.transitionTo(this.currentSession._group.submissionRoute);
+    } else if(this.currentSession._group.submissionTrialUser){
+      this.transitionTo('supervision.submissions.index');
     }
   }
 });

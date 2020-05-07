@@ -9,8 +9,8 @@ export default class SupervisionRoute extends Route.extend(AuthenticatedRouteMix
   beforeModel() {
     if (!this.currentSession.canAccessToezicht){
       this.transitionTo('index');
-    } else {
-      this.transitionTo(this.currentSession._group.submissionRoute);
+    } else if(!this.currentSession._group.submissionTrialUser){
+      this.transitionTo('toezicht.inzendingen.index');
     }
   }
 }
