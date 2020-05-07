@@ -31,7 +31,7 @@
     "@lblod/ember-mock-login": "^0.4.6",
     "@lblod/ember-mu-dynamic-forms": "^0.3.6",
     "@lblod/ember-toezicht-form-fields": "^0.6.1",
-    "@lblod/ember-submission-form-fields": "^0.5.4",
+    "@lblod/ember-submission-form-fields": "^0.5.5",
     "@lblod/ember-vo-mu-file-upload": "^0.4.1",
     "@lblod/ember-vo-webuniversum": "^0.22.7",
     "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
