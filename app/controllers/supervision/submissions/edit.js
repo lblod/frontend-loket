@@ -131,6 +131,10 @@ export default class SupervisionSubmissionsEditController extends Controller {
     if (!this.isValidForm) {
       this.forceShowErrors = true;
     } else {
+      const user = yield this.currentSession.user;
+      this.model.submission.modified = new Date();
+      this.model.submission.lastModifier = user;
+
       yield this.saveSubmissionForm.perform();
       yield this.submitSubmissionForm.perform();
       this.transitionToRoute('supervision.submissions');
