@@ -137,6 +137,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
       yield this.saveSubmissionForm.perform();
       yield this.submitSubmissionForm.perform();
+      yield this.model.submission.save();
       this.transitionToRoute('supervision.submissions');
     }
   }
