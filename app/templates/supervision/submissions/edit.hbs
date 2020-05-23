@@ -1,0 +1,89 @@
+<header class="au-u-padding-top au-u-padding-bottom au-u-padding-left-large au-u-padding-right u-border--light--bottom">
+  <h1 class="au-u-h2 au-u-margin-bottom">Bekijk aanlevering dossier</h1>
+  <div class="au-o-grid">
+    <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+      <AuLabel>Gewijzigd door</AuLabel>
+      {{#if this.model.submission.lastModifier.fullName}}
+        <p>{{this.model.submission.lastModifier.fullName}}</p>
+      {{else if this.model.submission.task.created}}
+        <p>Automatisch aangemaakt bij publicatie</p>
+      {{/if}}
+    </div>
+    <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+      <AuLabel>Aangemaakt op</AuLabel>
+      <p>{{moment-format this.model.submission.created 'DD-MM-YYYY'}}</p>
+    </div>
+    <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+      <AuLabel>Bewerkt op</AuLabel>
+      <p>{{moment-format this.model.submission.modified 'DD-MM-YYYY'}}</p>
+    </div>
+    {{#if this.save.isRunning}}
+      <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
+      </div>
+    {{/if}}
+    {{#if this.submit.isRunning}}
+      <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het versturen..."  @alertskin="info" @alertsize="small"></AuAlert>
+      </div>
+    {{/if}}
+    {{#if this.delete.isRunning}}
+      <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
+      </div>
+    {{/if}}
+  </div>
+</header>
+
+<div class="container-flex--scroll">
+  <div class="au-u-padding-top-large au-u-padding-left-large au-u-padding-right au-u-padding-bottom-large {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}} {{if this.delete.isRunning "au-c-form--disabled"}}">
+    <div class="au-o-grid">
+      <div class="au-o-grid__item au-u-1-2@medium au-u-1-1">
+        <SubmissionForm
+          @form={{this.form}}
+          @show={{this.model.submitted}}
+          @graphs={{this.graphs}}
+          @sourceNode={{this.sourceNode}}
+          @formStore={{this.formStore}}
+          @forceShowErrors={{this.forceShowErrors}} />
+      </div>
+    </div>
+  </div>
+</div>
+
+<AuToolbar @border="top" @size="large" class="au-u-padding-left-large">
+  <AuToolbarGroup>
+    {{#if this.model.submitted}}
+      <AuAlert @alertIcon="check" @alertTitle="Dossier verstuurd" @alertskin="success" @alertsize="small" class="au-u-margin-bottom-none">
+        <p>Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
+      </AuAlert>
+    {{/if}}
+    {{#if (and this.forceShowErrors (not this.isValidForm))}}
+      <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin="error" @alertsize="small" class="au-u-margin-bottom-none">
+        <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
+      </AuAlert>
+    {{/if}}
+    {{#unless this.model.submitted}}
+      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                @loading={{if this.submit.isRunning "true"}}
+                {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
+      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                @loading={{if this.save.isRunning "true"}}
+                @skin={{"secondary"}}
+                {{on "click" (perform this.save)}}>Bewaar</AuButton>
+      <AuLink @linkRoute="supervision.submissions.index" @skin="secondary">Annuleer</AuLink>
+    {{else}}
+      <AuLink @linkRoute="supervision.submissions.index" @skin="secondary">Sluit</AuLink>
+    {{/unless}}
+  </AuToolbarGroup>
+
+  {{#unless this.model.submitted}}
+    <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+              @loading={{if this.delete.isRunning "true"}}
+              @skin={{"tertiary"}}
+              @alert={{"true"}}
+              {{on "click" (perform this.delete)}}>
+              <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
+              </AuButton>
+  {{/unless}}
+</AuToolbar>

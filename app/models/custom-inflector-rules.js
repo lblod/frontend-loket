@@ -61,5 +61,11 @@ inflector.irregular('employee-unit-measure', 'employee-unit-measures');
 inflector.irregular('educational-level', 'educational-levels');
 inflector.irregular('working-time-category', 'working-time-categories');
 inflector.irregular('employee-legal-status', 'employee-legal-statuses');
+inflector.irregular('submission', 'submissions');
+inflector.irregular('remote-url', 'remote-urls');
+inflector.irregular('submission-document', 'submission-documents');
+inflector.irregular('form-data', 'form-data');
+inflector.irregular('concept', 'concepts');
+inflector.irregular('concept-scheme', 'concept-schemes');
 // Meet Ember Inspector's expectation of an export
 export default {};

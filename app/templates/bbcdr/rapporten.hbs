@@ -1,29 +1,24 @@
 {{title "BBC DR " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--6-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
-  <div class="container-flex--contain">
-    <div class="u-border--light--bottom">
-      <div class="u-padding--round--small loket-onderdeel__header">
-        <div class="grid">
-          <div class="col--6-12 col--1-1--s">
-		        <h1 class="h4 u-spacer--tiny">BBC DR</h1>
-            {{!-- Search field --}}
-          </div>
-          <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-            {{wu-button
-                label="Lever nieuw rapport aan"
-                onClick=(action "createNewReport")
-                isNarrow=true
-                data-test-loket='bbcdr-create-report-btn'}}
-          </div>
-        </div>
-      </div>
-    </div>
-    {{bbcdr/report-table
-        content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
-        class="container-flex--contain data-table--nowrap"
-        data-test-loket='bbcdr-report-table'
-    }}
-  </div>
-</div>
+<div class="grid grid--collapse">
+  <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--8-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
+    <div class="container-flex--contain">
+      <AuToolbar @border="bottom" @size="large">
+        <h1 class="au-u-h3 u-spacer--tb--tinier">BBC DR</h1>
+        <AuToolbarGroup>
+          {{wu-button
+              label="Lever nieuw rapport aan"
+              onClick=(action "createNewReport")
+              isNarrow=true
+              data-test-loket='bbcdr-create-report-btn'}}
+        </AuToolbarGroup>
+      </AuToolbar>
 
-{{outlet}}
+      {{bbcdr/report-table
+          content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
+          class="container-flex--contain data-table--nowrap"
+          data-test-loket='bbcdr-report-table'
+      }}
+    </div>
+  </div>
+  {{outlet}}
+</div>

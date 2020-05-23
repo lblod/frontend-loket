@@ -6,7 +6,10 @@ export default Route.extend( AuthenticatedRouteMixin, {
   currentSession: service(),
 
   beforeModel() {
-    if (!this.currentSession.canAccessToezicht)
+    if (!this.currentSession.canAccessToezicht){
       this.transitionTo('index');
+    } else if(this.currentSession._group.submissionTrialUser){
+      this.transitionTo('supervision.submissions.index');
+    }
   }
 });

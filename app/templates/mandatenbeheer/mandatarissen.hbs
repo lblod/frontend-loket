@@ -1,68 +1,64 @@
 {{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="col--9-12--m col--1-1--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12"}}">
-  <div class="container-flex--contain">
-    <div class="u-border--light--bottom">
-      <div class="u-padding--round--small loket-onderdeel__header">
+<div class="grid grid--collapse">
+  <div class="col--12-12--m col--1-1--s u-border--light--right {{if hasActiveChildRoute "u-hidden" "col--12-12"}}">
+    <div class="container-flex--contain">
 
-        <div class="grid">
-          <div class="col--6-12 col--1-1--xs">
-            <h1 class="h4 u-spacer--none">Mandatenbeheer</h1>
-          </div>
-          <div class="col--6-12 col--1-1--xs u-align-right--tablet-portrait-up">
-            <div class="power-select power-select--small power-select--inline">
-              {{mandatenbeheer/bestuursperioden-selector
-                  options=bestuursperioden
-                  selectedStartDate=startDate
-                  onSelect=(action 'selectPeriod')
-              }}
-            </div>
-          </div>
-        </div>
 
-        {{mandatenbeheer/mandatarissen-totals
-            class="js-accordion u-spacer--bottom--small"
+      <AuToolbar @border="bottom" @size="large">
+        <div>
+          <h1 class="au-u-h3 u-spacer--tb--tinier">Mandatenbeheer</h1>
+          {{mandatenbeheer/mandatarissen-totals
+            class="js-accordion au-u-margin-bottom"
             bestuursorganen=bestuursorganen
-        }}
-
-        <div class="grid">
-          <div class="col--4-12 col--1-1--xs">
-            <div class="input-field-icon-container--right">
-              {{input
-                  type="text"
-                  placeholder="Zoek mandataris"
-                  key-up=(perform search)
-                  value=searchData
-                  class="input-field input-field--block u-spacer--tiny"
-              }}
-              <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div class="col--8-12 col--1-1--xs u-align-right--tablet-portrait-up">
-            {{wu-button
-                label="Beheer fracties"
-                onClick=(action "handleBeheerFractiesClick")
-                isNarrow=true
-                isAlt=true
+          }}
+          <div class="input-field-icon-container--right">
+            {{input
+                type="text"
+                placeholder="Zoek mandataris"
+                key-up=(perform search)
+                value=searchData
+                class="input-field input-field--block u-spacer--tiny"
             }}
-            {{wu-button
-                label="Voeg mandataris toe"
-                onClick=(action "handleAddMandatarisClick")
-                isNarrow=true
-            }}
+            <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
           </div>
         </div>
-      </div>
+
+        <AuToolbarGroup>
+          <div>
+            <div class="power-select power-select--small power-select--inline u-spacer--top--tinier u-align-right--tablet-portrait-up">
+              {{mandatenbeheer/bestuursperioden-selector
+                options=bestuursperioden
+                selectedStartDate=startDate
+                onSelect=(action 'selectPeriod')
+              }}
+            </div>
+            <WuButtonGroup>
+              {{wu-button
+                  label="Beheer fracties"
+                  onClick=(action "handleBeheerFractiesClick")
+                  isNarrow=true
+                  isAlt=true
+              }}
+              {{wu-button
+                  label="Voeg mandataris toe"
+                  onClick=(action "handleAddMandatarisClick")
+                  isNarrow=true
+              }}
+            </WuButtonGroup>
+          </div>
+        </AuToolbarGroup>
+      </AuToolbar>
+      {{mandatenbeheer/mandataris-table
+          class="container-flex--contain"
+          content=model
+          isLoading=isLoadingModel
+          sort=sort
+          page=page
+          size=size
+          editRoute="mandatenbeheer.mandatarissen.edit"
+          displaySubset=hasActiveChildRoute
+      }}
     </div>
-    {{mandatenbeheer/mandataris-table
-        class="container-flex--contain"
-        content=model
-        isLoading=isLoadingModel
-        sort=sort
-        page=page
-        size=size
-        editRoute="mandatenbeheer.mandatarissen.edit"
-        displaySubset=hasActiveChildRoute
-    }}
   </div>
+  {{outlet}}
 </div>
-{{outlet}}

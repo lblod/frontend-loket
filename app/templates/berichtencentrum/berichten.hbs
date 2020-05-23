@@ -1,22 +1,18 @@
 {{title "Berichtencentrum " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--5-12 u-visible--tablet-landscape-up" "col--10-12 col--9-12--m"}}">
-  <div class="container-flex--contain">
-    <div class="u-border--light--bottom">
-      <div class="u-padding--round--small loket-onderdeel__header">
-        <div class="grid">
-          <div class="col--6-12 col--1-1--s">
-		        <h1 class="h4 u-spacer--tiny">Berichtencentrum</h1>
-            {{!-- Search field --}}
-          </div>
-          <div class="col--6-12 col--1-1--s u-align-right--tablet-portrait-up">
-            <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
-              <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
-            </button>
-          </div>
-        </div>
+<div class="grid grid--collapse">
+  <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--7-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
+    <div class="container-flex--contain">
+
+      <AuToolbar @border="bottom" @size="large">
+        <h1 class="au-u-h3 u-spacer--tb--tinier">Berichtencentrum</h1>
+        <AuToolbarGroup>
+          <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
+            <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
+          </button>
+        </AuToolbarGroup>
 
         <!-- Hiding search options b/c they're not implemented yet -->
-        <div class="grid u-hidden-mobile u-hidden">
+{{!--         <div class="grid u-hidden-mobile u-hidden">
           <div class="col--12-12">
             <div class="input-field-icon-container--right u-spacer--bottom--tiny">
               <input class="input-field input-field--block" id="input-field" type="text" placeholder="Type communicatie, dossiernummer, ..." style="min-width: 25rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
@@ -41,22 +37,23 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
+      </AuToolbar>
+
+      {{berichtencentrum/conversatie-table
+        class="container-flex--contain"
+        content=model
+        sort=sort page=page size=size displaySubset=hasActiveChildRoute
+        renderSmallTable=hasActiveChildRoute
+        data-test-loket="berichtencentrum-table"}}
+    </div>
+    {{#if showPreferences}}
+      <div class="modal-overlay modal-overlay-configure-berichtencentrum">
+        {{berichtencentrum/bericht-notificatie-voorkeuren
+          close=(action "hidePreferences")
+          data-test-loket="setting-email-component"}}
       </div>
-    </div>
-    {{berichtencentrum/conversatie-table
-      class="container-flex--contain"
-      content=model
-      sort=sort page=page size=size displaySubset=hasActiveChildRoute
-      renderSmallTable=hasActiveChildRoute
-      data-test-loket="berichtencentrum-table"}}
+    {{/if}}
   </div>
-  {{#if showPreferences}}
-    <div class="modal-overlay modal-overlay-configure-berichtencentrum">
-      {{berichtencentrum/bericht-notificatie-voorkeuren
-        close=(action "hidePreferences")
-        data-test-loket="setting-email-component"}}
-    </div>
-  {{/if}}
+  {{outlet}}
 </div>
-{{outlet}}

@@ -1,0 +1,65 @@
+{{title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+<AuToolbar @border="bottom" @size="large">
+  <h1 class="au-u-h3 u-spacer--tb--tinier" data-test-loket="inzendingen-page-title">Toezicht</h1>
+  <AuToolbarGroup>
+    <LinkTo @route="supervision.submissions.new" class="au-c-button" type="button">Maak nieuwe melding</LinkTo>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<DataTable
+  @class="container-flex--contain"
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage="Geen meldingen gevonden"
+  @sort={{sort}}
+  @page={{page}}
+  @size={{size}}
+  as |t| >
+  <t.content as |c|>
+    <c.header>
+      <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
+      <ThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
+      <ThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
+      <ThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
+      <th class="au-u-visible-medium-up">Aangemaakt door</th>
+      <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
+      <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
+      <th></th>
+    </c.header>
+    <c.body as |row|>
+      <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
+      <td>
+        {{#if row.formData.decisionType}}
+          <p>{{row.formData.decisionType.label}}</p>
+        {{else}}
+          <p class="text-fade">Geen type</p>
+        {{/if}}
+        <p class="text-fade">{{row.formData.regulationType.label}}</p>
+      </td>
+      <td class="au-u-visible-small-up">{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
+      <td class="au-u-visible-large-up">{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
+      <td class="au-u-visible-medium-up">
+        {{#if row.task.created }}
+          Automatisch aangemaakt bij publicatie
+        {{else}}
+          {{row.creator.fullName}}
+        {{/if}}
+      </td>
+      <td class="au-u-visible-small-up">
+        {{#if row.lastModifier.fullName}}
+          {{row.lastModifier.fullName}}
+        {{else if row.task.created}}
+          Automatisch bij publicatie
+        {{/if}}
+      </td>
+      <td>
+        <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
+      </td>
+      <td>
+        <LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo>
+      </td>
+    </c.body>
+  </t.content>
+</DataTable>
+
+{{outlet}}

@@ -3,10 +3,11 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
 	currentSession: service(),
+
 	actions: {
-		goToToezicht() {
-			this.transitionToRoute('toezicht.inzendingen');
-		},
+    goToToezicht() {
+      this.transitionToRoute(this.currentSession._group.submissionRoute);
+    },
 		goToBbcdr() {
 			this.transitionToRoute('bbcdr.rapporten');
 		},

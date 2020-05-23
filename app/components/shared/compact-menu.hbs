@@ -1,0 +1,38 @@
+<AuDropdown class="au-c-dropdown--left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
+  {{#if this.currentSession.canAccessToezicht}}
+    <AuNavigationLink @linkRoute="{{currentSession._group.submissionRoute}}">
+      <AuIcon @icon="search-folder" @alignment="left" />
+      Toezicht
+    </AuNavigationLink>
+  {{/if}}
+  {{#if this.currentSession.canAccessBerichten}}
+    <AuNavigationLink @linkRoute="berichtencentrum.berichten">
+      <AuIcon @icon="message" @alignment="left" />
+      Berichtencentrum
+    </AuNavigationLink>
+  {{/if}}
+  {{#if this.currentSession.canAccessBbcdr}}
+    <AuNavigationLink @linkRoute="bbcdr.rapporten">
+      <AuIcon @icon="document" @alignment="left" />
+      BBC DR
+    </AuNavigationLink>
+  {{/if}}
+  {{#if this.currentSession.canAccessMandaat}}
+    <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
+      <AuIcon @icon="user-fill" @alignment="left" />
+      Mandatenbeheer
+    </AuNavigationLink>
+  {{/if}}
+  {{#if this.currentSession.canAccessLeidinggevenden}}
+    <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
+      <AuIcon @icon="user-popup" @alignment="left" />
+      Leidinggevendenbeheer
+    </AuNavigationLink>
+  {{/if}}
+  {{#if this.currentSession.canAccessPersoneelsbeheer}}
+    <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
+      <AuIcon @icon="users" @alignment="left" />
+      Personeelsbeheer
+    </AuNavigationLink>
+  {{/if}}
+</AuDropdown>

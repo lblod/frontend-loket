@@ -1,10 +1,11 @@
-{{#mandatenbeheer/power-select
-   allowClear=allowClear
-   disabled=disabled
-   placeholder="Zoek fractie"
-   search=(perform searchByName)
-   selected=_fractie
-   onchange=(action "select")
-   as |fractie|}}
+<Mandatenbeheer::PowerSelect
+        @searchEnabled={{true}}
+        @allowClear={{allowClear}}
+        @disabled={{disabled}}
+        @placeholder="Zoek fractie"
+        @search={{perform searchByName}}
+        @selected={{_fractie}}
+        @onChange={{action "select"}}
+        as |fractie|>
   {{fractie.naam}}
-{{/mandatenbeheer/power-select}}
+</Mandatenbeheer::PowerSelect>

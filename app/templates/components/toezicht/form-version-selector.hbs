@@ -5,43 +5,42 @@
     </div>
   </div>
 {{else}}
-	<div class="form__row">
-		<div class="u-spacer--tiny">
-			<div class="form__label">
-				<label class="form__label">Selecteer voor welke bestuursperiode u een dossier wil&nbsp;inzenden:</label>
-			</div>
-			<div class="form__input">
-				<div class="is-required">
-				  {{#mandatenbeheer/power-select
-				     allowClear=allowClear
-				     disabled=disabled
-				     options=options
-				     selected=_selected
-				     onchange=(action "select")
-				     as |version|
-					}}
-						{{version.description}}
-				  {{/mandatenbeheer/power-select}}
-				</div>
-			</div>
-		</div>
+  <div class="form__row">
+    <div class="u-spacer--tiny">
+      <div class="form__label">
+        <label class="form__label">Selecteer voor welke bestuursperiode u een dossier wil&nbsp;inzenden:</label>
+      </div>
+      <div class="form__input">
+        <div class="is-required">
+          <Mandatenbeheer::PowerSelect
+                  @allowClear={{allowClear}}
+                  @disabled={{disabled}}
+                  @options={{options}}
+                  @selected={{_selected}}
+                  @onChange={{action "select"}}
+                  as |version|>
+            {{version.description}}
+          </Mandatenbeheer::PowerSelect>
+        </div>
+      </div>
+    </div>
 
-	  {{#if _selected}}
-	    {{wu-button
-	      label="Ga naar volgende stap"
-	      isNarrow=true
-	      class="button button--block"
-	      onClick=(action "proceed")
-				data-test-loket="next-step-button"
-	    }}
-	  {{else}}
-	    {{wu-button
-	      label="Ga naar volgende stap"
-	      isNarrow=true
-	      class="button button--block button--disabled"
-	      onClick=null
-				data-test-loket="next-step-button"
-	    }}
-	  {{/if}}
-	</div>
+    {{#if _selected}}
+      {{wu-button
+        label="Ga naar volgende stap"
+        isNarrow=true
+        class="button button--block"
+        onClick=(action "proceed")
+        data-test-loket="next-step-button"
+      }}
+    {{else}}
+      {{wu-button
+        label="Ga naar volgende stap"
+        isNarrow=true
+        class="button button--block button--disabled"
+        onClick=null
+        data-test-loket="next-step-button"
+      }}
+    {{/if}}
+  </div>
 {{/if}}

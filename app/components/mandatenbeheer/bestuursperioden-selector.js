@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import moment from 'moment';
 
 export default Component.extend({
+  tagName: '',
   selectedStartDate: null,
 
   getUniqueBestuursperiodes(bestuursorganen){

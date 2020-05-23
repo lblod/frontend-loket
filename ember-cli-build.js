@@ -7,8 +7,16 @@ module.exports = function(defaults) {
     // Add options here
     'ember-cli-babel': {
       includePolyfill: true
+    },
+    sassOptions: {
+      includePaths: [
+        'node_modules/@appuniversum/appuniversum',
+        'node_modules/@appuniversum/ember-appuniversum/app/styles',
+      ]
     }
   });
+
+  app.import('node_modules/svgxuse/svgxuse.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

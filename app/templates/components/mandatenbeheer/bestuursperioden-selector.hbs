@@ -1,9 +1,10 @@
-{{#power-select
-    options=_options
-    selected=selectedBestuursorgaan
-    searchEnabled=false
-    onchange=(action "selectBestuursorgaan")
-    as |orgaan|}}
+<PowerSelect
+        @selected={{selectedBestuursorgaan}}
+        @options={{_options}}
+        @class={{"is-optional"}}
+        @onChange={{action "selectBestuursorgaan"}}
+        @searchEnabled={{false}}
+        as |orgaan|>
   Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
   -
   {{#if orgaan.bindingEinde}}
@@ -11,4 +12,4 @@
   {{else}}
     heden
   {{/if}}
-{{/power-select}}
+</PowerSelect>

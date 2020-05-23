@@ -1,8 +1,8 @@
-import DS from 'ember-data';
+import Model, {attr} from '@ember-data/model';
 
-export default DS.Model.extend({
-  amount: DS.attr('number'),
-  unit: DS.attr('string'),
-  base: DS.attr('string'),
-  remark: DS.attr('string')
-});
+export default class TaxRate extends Model {
+  @attr('number') amount;
+  @attr('string') unit;
+  @attr('string') base;
+  @attr('string') remark;
+}

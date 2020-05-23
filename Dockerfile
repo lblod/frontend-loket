@@ -1,4 +1,4 @@
-FROM madnificent/ember:3.4.1 as builder
+FROM madnificent/ember:3.16.0 as builder
 
 LABEL maintainer="info@redpencil.io"
 
@@ -13,7 +13,7 @@ RUN git clone https://github.com/lblod/handleiding-digitaal-loket.git handleidin
 
 FROM semtech/ember-proxy-service:1.4.0
 
-ENV STATIC_FOLDERS_REGEX "^/(assets|font|files|handleiding|toezicht/bestanden)/"
+ENV STATIC_FOLDERS_REGEX "^/(assets|font|files|handleiding|toezicht/bestanden|@appuniversum)/"
 
 COPY ./proxy/torii-authorization.conf /config/torii-authorization.conf
 COPY ./proxy/file-upload.conf /config/file-upload.conf

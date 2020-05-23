@@ -5,17 +5,17 @@
       {{#unless displaySubset}}
         {{th-sortable label='Orgaan' field='bestuursorgaan.naam' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
-      {{th-sortable label='Type dossier' field='besluitType.label' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+      {{th-sortable label='Type dossier' field='besluitType.label' currentSorting=sort}}
       {{!--{{#unless displaySubset}}
         {{th-sortable label='Dossieromschrijving' field='description' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}--}}
       {{#unless displaySubset}}
-        {{th-sortable label='Datum zitting/besluit' field='sessionDate' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+        {{th-sortable label='Datum zitting/besluit' field='sessionDate' currentSorting=sort}}
       {{/unless}}
       {{#unless displaySubset}}
         {{th-sortable label='Datum verstuurd' field='sentDate' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
-      {{th-sortable label='Status' field='status' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+      {{th-sortable label='Status' field='status' currentSorting=sort class="u-hidden-mobile"}}
       <th><!-- Actions --></th>
     {{/c.header}}
     {{#c.body as |row|}}

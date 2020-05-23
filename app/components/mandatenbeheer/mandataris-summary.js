@@ -10,6 +10,17 @@ export default Component.extend({
   status: reads('mandataris.status.label'),
   beleidsdomein: reads('mandataris.beleidsdomein'),
   gelinktNotuleren: reads('mandataris.generatedFromGelinktNotuleren'),
+
+  async didReceiveAttrs() {
+    const beleidsdomein = await this.beleidsdomein;
+    if (beleidsdomein.length) {
+      const mappedBeleidsdomein = beleidsdomein.map(item => item.label);
+      this.set('formattedBeleidsdomein', mappedBeleidsdomein.join(', '));
+    } else {
+      this.set('formattedBeleidsdomein', []);
+    }
+  },
+
   actions: {
     edit(){
       this.onEdit();
