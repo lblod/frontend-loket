@@ -1,5 +1,6 @@
-<a class="small link--dark--light toggle toggle--arrow-down js-accordion__toggle js-accordion-bound" {{action "toggleOpen"}}>
-  <i class="toggle__icon" aria-hidden="true"></i>Toon totalen per orgaan</a>
+<AuButton @skin="tertiary" class="toggle toggle--arrow-down au-u-padding-left" {{action "toggleOpen"}}>
+  Toon totalen per orgaan
+</AuButton>
 <div class="accordion__content u-spacer--top--tiny u-bg-block u-align-left">
   {{#if getMandatarissenTotals.isRunning}}
     <div class="loader-wrapper">
