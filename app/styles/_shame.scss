@@ -266,6 +266,16 @@ $au-non-editable-background    : $au-gray-100 !default;
 }
 
 /* ==================================
+   #TEMPORARY EMBER DROPDOWN STYLING
+   ================================== */
+
+.ember-power-select-trigger.ember-basic-dropdown-trigger.ember-view.ember-power-select-trigger--active {
+  outline: none;
+  border-color: $au-yellow-400;
+  box-shadow: inset 0 0 0 .1rem $au-yellow-400;
+}
+
+/* ==================================
    #TEMPORARY DISABLE YEAR PICKER IN DATEPICKER
   this datepicker is part of webuniversum and the year picker requires setting an end- and start date to use the year picker.
    ================================== */
