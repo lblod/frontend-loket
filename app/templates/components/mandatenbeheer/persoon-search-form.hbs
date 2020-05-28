@@ -51,7 +51,7 @@
   {{else}}
     {{#unless hasSearched}}
 	    <div class="mandate-new-info">
-	      <p class="text-fade u-spacer--round--tiny">Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of <a {{action onCreateNewPerson}}>voeg een nieuwe persoon toe</a>.</p>
+	      <p class="text-fade u-spacer--round--tiny">Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of <AuButton @skin="tertiary" {{action onCreateNewPerson}}>voeg een nieuwe persoon toe</AuButton>.</p>
 	    </div>
     {{else}}
       {{#if personen}}
