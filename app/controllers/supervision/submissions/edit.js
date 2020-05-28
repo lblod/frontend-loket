@@ -103,13 +103,6 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
   @task
   *delete() {
-    const user = yield this.currentSession.user;
-    this.model.submission.status = this.deletedStatus;
-    this.model.submission.modified = new Date();
-    this.model.submission.lastModifier = user;
-
-    yield this.model.submission.save();
-
     yield this.deleteSubmissionForm.perform();
     this.transitionToRoute('supervision.submissions');
   }
