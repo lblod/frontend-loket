@@ -1,4 +1,5 @@
 {{head-layout}}
+
 <AuMainHeader @brandLink="{{unless session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen" @contactRoute="contact">
   {{#if session.isAuthenticated}}
     <AuDropdown @dropdownTitle="{{currentSession._user.voornaam}} {{currentSession._user.achternaam}} - {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
@@ -15,6 +16,11 @@
     </AcmidmLoginCompact>
   {{/if}}
 </AuMainHeader>
+
+{{#unless session.isAuthenticated}}
+{{!-- Refocus after page navigation --}}
+{{navigation-narrator}}
+{{/unless}}
 
 {{#if session.isAuthenticated}}
 <main id="main" class="au-c-main-container">
