@@ -1,49 +1,47 @@
 {{head-layout}}
-<div class="container">
-  <AuHeader @brandLink="{{unless session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen" @contactRoute="contact">
-    {{#if session.isAuthenticated}}
-      <AuDropdown @dropdownTitle="{{currentSession._user.voornaam}} {{currentSession._user.achternaam}} - {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
-        <AcmidmSwitch @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
-          <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
-        </AcmidmSwitch>
-        <AcmidmLogout @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
-          <AuIcon @icon="logout" @alignment="left" />Afmelden
-        </AcmidmLogout>
-      </AuDropdown>
-    {{else}}
-      <AcmidmLoginCompact role="menuitem" @styles="au-c-button au-c-button--tertiary">
-        <AuIcon @icon="login" @alignment="left" />Aanmelden
-      </AcmidmLoginCompact>
-    {{/if}}
-  </AuHeader>
-
+<AuMainHeader @brandLink="{{unless session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen" @contactRoute="contact">
   {{#if session.isAuthenticated}}
-  <main id="main" class="au-c-main-container">
-    <div class="container-flex--contain">
-      {{#unless this.isIndex}}
-        <AuToolbar class="au-u-padding-top-small au-u-padding-left-small au-u-padding-bottom-small">
-          <ul class="au-c-list-horizontal">
-            <li class="au-c-list-horizontal__item">
-              <AuLink @linkRoute="index" role="menuitem">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
-                  <path d="M0 0h48v48H0z" fill="none"></path><path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"></path>
-                </svg>
-                Overzicht modules
-              </AuLink>
-            </li>
-            <li class="au-c-list-horizontal__item">
-              <Shared::CompactMenu/>
-            </li>
-            <Shared::BreadCrumb/>
-          </ul>
-        </AuToolbar>
-      {{/unless}}
-      <div id="content" class="container-flex--contain" tabindex="-1">
-        {{outlet}}
-      </div>
-    </div>
-  </main>
+    <AuDropdown @dropdownTitle="{{currentSession._user.voornaam}} {{currentSession._user.achternaam}} - {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
+      <AcmidmSwitch @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
+        <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
+      </AcmidmSwitch>
+      <AcmidmLogout @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
+        <AuIcon @icon="logout" @alignment="left" />Afmelden
+      </AcmidmLogout>
+    </AuDropdown>
   {{else}}
-    {{outlet}}
+    <AcmidmLoginCompact role="menuitem" @styles="au-c-button au-c-button--tertiary">
+      <AuIcon @icon="login" @alignment="left" />Aanmelden
+    </AcmidmLoginCompact>
   {{/if}}
-</div>
+</AuMainHeader>
+
+{{#if session.isAuthenticated}}
+<main id="main" class="au-c-main-container">
+  <div class="container-flex--contain">
+    {{#unless this.isIndex}}
+      <AuToolbar class="au-u-padding-top-small au-u-padding-left-small au-u-padding-bottom-small">
+        <ul class="au-c-list-horizontal">
+          <li class="au-c-list-horizontal__item">
+            <AuLink @linkRoute="index" role="menuitem">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" class="au-c-icon au-c-icon--left" aria-hidden="true">
+                <path d="M0 0h48v48H0z" fill="none"></path><path d="M40 22H15.66l11.17-11.17L24 8 8 24l16 16 2.83-2.83L15.66 26H40v-4z"></path>
+              </svg>
+              Overzicht modules
+            </AuLink>
+          </li>
+          <li class="au-c-list-horizontal__item">
+            <Shared::CompactMenu/>
+          </li>
+          <Shared::BreadCrumb/>
+        </ul>
+      </AuToolbar>
+    {{/unless}}
+    <div id="content" class="container-flex--contain" tabindex="-1">
+      {{outlet}}
+    </div>
+  </div>
+</main>
+{{else}}
+  {{outlet}}
+{{/if}}
