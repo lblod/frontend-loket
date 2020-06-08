@@ -54,43 +54,43 @@ sup {
 
 // Fix container height and scrolling
 // @TODO: fix in container component and/or remove .container-flex--contain
-.au-c-main-container {
-  .au-o-grid {
-    align-items: flex-start;
-    justify-content: flex-start;
-    height: auto;
-  }
+// .au-c-main-container {
+//   .au-o-grid {
+//     align-items: flex-start;
+//     justify-content: flex-start;
+//     height: auto;
+//   }
 
-  @include mq(small) {
-    .au-o-grid {
-      align-items: stretch;
-      height: 100%;
-    }
+//   @include mq(small) {
+//     .au-o-grid {
+//       align-items: stretch;
+//       height: 100%;
+//     }
 
-    .au-c-form .au-o-grid {
-      align-items: flex-start;
-      height: initial;
-    }
-  }
-}
+//     .au-c-form .au-o-grid {
+//       align-items: flex-start;
+//       height: initial;
+//     }
+//   }
+// }
 
-.au-c-main-container__content {
+// .au-c-main-container__content {
 
-  @include mq(medium) {
-    overflow: hidden;
-    height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+//   @include mq(medium) {
+//     overflow: hidden;
+//     height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
 
-    > .grid {
-      height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
-    }
+//     > .grid {
+//       height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+//     }
 
-    > .grid > div > .container-flex--contain {
-      position: relative;
-      overflow: auto;
-      height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
-    }
-  }
-}
+//     > .grid > div > .container-flex--contain {
+//       position: relative;
+//       overflow: auto;
+//       height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
+//     }
+//   }
+// }
 
 // Fix ACMIDM login alerts/loading in header
 // @TODO: rework ACMIDM components to work with appuniversum classes
@@ -317,4 +317,48 @@ td:focus {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+
+.au-u-overflow {
+  position: relative;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.au-c-toolbar--highlight {
+  @include au-font-size($au-base);
+  background-color: $au-gray-100;
+  border-bottom: .1rem solid $au-gray-200;
+}
+
+// Pills
+.au-c-pill[resource="http://data.lblod.info/document-statuses/concept"] {
+  color: $au-pill-color-border;
+  background-color: $au-pill-background-color-border;
+  border-color: $au-pill-border-color-border;
+}
+
+.au-c-pill[resource="http://data.lblod.info/document-statuses/goedgekeurd"] {
+  color: $au-pill-color-success;
+  background-color: $au-pill-background-color-success;
+  border-color: $au-pill-border-color-success;
+}
+
+.au-c-pill[resource="http://data.lblod.info/document-statuses/opmerking"] {
+  color: $au-pill-color-warning;
+  background-color: $au-pill-background-color-warning;
+  border-color: $au-pill-border-color-warning;
+}
+
+.au-c-pill[resource="http://data.lblod.info/document-statuses/verstuurd"] {
+  color: $au-pill-color-action;
+  background-color: $au-pill-background-color-action;
+  border-color: $au-pill-border-color-action;
+}
+
+.au-c-pill[resource="http://data.lblod.info/document-statuses/prullenbak"] {
+  color: $au-pill-color;
+  background-color: $au-pill-background-color;
+  border-color: $au-pill-border-color;
 }
