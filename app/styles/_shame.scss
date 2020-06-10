@@ -284,3 +284,9 @@ td:focus {
   background-color: $au-gray-100;
   border-bottom: .1rem solid $au-gray-200;
 }
+
+
+// Fix height of info tiles in grid
+.info-tile {
+  height: 100%;
+}
