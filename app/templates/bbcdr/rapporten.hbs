@@ -1,9 +1,10 @@
-{{title "BBC DR " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="grid grid--collapse">
-  <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--8-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
-    <div class="container-flex--contain">
-      <AuToolbar @border="bottom" @size="large">
-        <h1 class="au-u-h3 u-spacer--tb--tinier">BBC DR</h1>
+
+<div class="au-c-body-container__fixed">
+  {{title "BBC DR " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+  <div class="grid grid--collapse">
+    <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--8-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
+      <AuToolbar @size="large">
+        <AuHeading @skin="2">BBC DR</AuHeading>
         <AuToolbarGroup>
           {{wu-button
               label="Lever nieuw rapport aan"
@@ -15,10 +16,9 @@
 
       {{bbcdr/report-table
           content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
-          class="container-flex--contain data-table--nowrap"
           data-test-loket='bbcdr-report-table'
       }}
     </div>
+    {{outlet}}
   </div>
-  {{outlet}}
 </div>
