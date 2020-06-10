@@ -1,19 +1,19 @@
-{{#data-table
+{{#au-data-table
    content=content
    isLoading=isLoadingModel
    noDataMessage=""
    sort=sort
    page=page
    size=size
-   class="container-flex--scroll"
+   class="au-c-body-container"
    as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{th-sortable label='Naam' field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort}}
-      {{th-sortable label='Familienaam' field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort}}
-      {{th-sortable label='Status' field='status.label' currentSorting=sort}}
-      {{th-sortable label='Start periode' field='start' currentSorting=sort class="u-hidden-mobile"}}
-      {{th-sortable label='Einde periode' field='einde' currentSorting=sort class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable label='Naam' field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort}}
+      {{au-data-table-th-sortable label='Familienaam' field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort}}
+      {{au-data-table-th-sortable label='Status' field='status.label' currentSorting=sort}}
+      {{au-data-table-th-sortable label='Start periode' field='start' currentSorting=sort class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable label='Einde periode' field='einde' currentSorting=sort class="u-hidden-mobile"}}
       <th><!-- Actions --></th>
     {{/c.header}}
 
@@ -47,9 +47,9 @@
             <span class="text-fade">Onbepaald</span>
           {{/if}}
         </td>
-        <td>{{#link-to 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.edit' row.id}}Bewerk periode{{/link-to}}</td>
+        <td>{{#link-to 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.edit' row.id class="au-c-link"}}Bewerk periode{{/link-to}}</td>
       {{/c.body}}
     {{/if}}
 
   {{/t.content}}
-{{/data-table}}
+{{/au-data-table}}
