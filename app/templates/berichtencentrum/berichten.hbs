@@ -3,11 +3,12 @@
   <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--7-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
     <div class="container-flex--contain">
 
-      <AuToolbar @border="bottom" @size="large">
-        <h1 class="au-u-h3 u-spacer--tb--tinier">Berichtencentrum</h1>
+      <AuToolbar @size="large">
+        <AuHeading @skin="2">Berichtencentrum</AuHeading>
         <AuToolbarGroup>
-          <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
-            <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
+          <button class="au-c-button au-c-button--tertiary" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
+            <AuIcon @icon="settings" @alignment="left" />
+            Ontvang mails bij nieuwe berichten
           </button>
         </AuToolbarGroup>
 
