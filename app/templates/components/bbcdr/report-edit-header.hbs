@@ -1,29 +1,24 @@
-<div class="grid">
-  <div class="col--9-12">
+<div class="au-o-box au-c-action-sidebar__header">
+  <AuToolbar class="au-u-margin-bottom-small">
     {{#if report.isNew}}
-      <h2 class="h3">Maak nieuw rapport</h2>
+      <AuHeading @level="2" @skin="3">Maak nieuw rapport</AuHeading>
     {{else}}
-      <h2 class="h3">Bekijk rapport</h2>
+      <AuHeading @level="2" @skin="3">Bekijk rapport</AuHeading>
     {{/if}}
-  </div>
-  <div class="col--3-12 u-align--right">
     <button {{action "close"}} data-test-loket="bbcdr-close-panel-btn" class="link--icon--close">
       <span class="u-visually-hidden">Venster sluiten</span>
     </button>
-  </div>
-</div>
-<div class="grid u-spacer--small">
-  {{#unless report.isNew}}
-    <div class="col--12-12">
-    <div class="description-data__label">Gewijzigd door</div>
-    <div class="description-data__value">{{report.lastModifier.fullName}}</div>
-  </div>
-  <div class="col--6-12">
-    <div class="description-data__label">Bewerkt op</div>
-    <div class="description-data__value">{{moment-format report.modified 'DD-MM-YYYY'}}</div>
-  </div>
-  {{/unless}}
-  <div class="col--6-12">
-    {{shared/document-status-pill report.status class="u-spacer--small"}}
+  </AuToolbar>
+  <div class="au-c-content au-c-content--small">
+    {{#unless report.isNew}}
+    <p>
+      Gewijzigd door: <strong>{{report.lastModifier.fullName}}</strong>
+      <br>
+      Bewerkt op: <strong>{{moment-format report.modified 'DD-MM-YYYY'}}</strong>
+    </p>
+    {{/unless}}
+    <p>
+      {{shared/document-status-pill report.status}}
+    </p>
   </div>
 </div>

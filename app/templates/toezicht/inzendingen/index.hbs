@@ -5,8 +5,6 @@
   <AuButton {{action "goToNewInzending"}} data-test-loket="new-melding-button">Maak nieuwe melding</AuButton>
 </AuToolbar>
 
-<div class="au-c-body-container__fixed">
-  {{toezicht/inzendingen-table content=model sort=sort page=page size=size}}
-</div>
+{{toezicht/inzendingen-table content=model sort=sort page=page size=size class="au-c-body-container"}}
 
 {{outlet}}

@@ -290,3 +290,13 @@ td:focus {
 .info-tile {
   height: 100%;
 }
+
+// Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
+.au-o-grid--fixed {
+  height: 100%;
+  overflow: hidden;
+
+  > .au-o-grid__item {
+    height: 100%;
+  }
+}

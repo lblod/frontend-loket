@@ -1,0 +1,19 @@
+/* ==================================
+   #BODY CONTAINER
+   Handle scroll in application details
+   ================================== */
+
+.au-c-action-sidebar {
+  @include mq(medium) {
+    border-left: .2rem solid $au-gray-200;
+  }
+
+}
+
+.au-c-action-sidebar__header {
+  border-bottom: .1rem solid $au-gray-200;
+}
+
+.au-c-action-sidebar__footer {
+  border-top: .1rem solid $au-gray-200;
+}

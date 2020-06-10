@@ -10,26 +10,9 @@
   overflow: hidden;
   flex-direction: column;
   position: relative;
-
-  // Temporary fix for old elements {
-  .grid,
-  .loader-wrapper {
-    flex-grow: 1;
-  }
-}
-
-.au-c-body-container__fixed {
-  height: 100%;
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
   flex-grow: 1;
 }
 
-.au-c-body-container__scroll {
-  height: 100%;
-  position: relative;
+.au-c-body-container--scroll {
   overflow: auto;
 }
