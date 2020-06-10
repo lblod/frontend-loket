@@ -12,34 +12,27 @@
 
 <td>
   {{moment-format bestuursperiodeStart 'YYYY'}} -
-	{{#if bestuursperiodeEnd}}
-		{{moment-format bestuursperiodeEnd 'YYYY'}}
-	{{else}}
-		heden
-	{{/if}}
+  {{#if bestuursperiodeEnd}}
+    {{moment-format bestuursperiodeEnd 'YYYY'}}
+  {{else}}
+    heden
+  {{/if}}
 </td>
 
 <td class="u-align-right">
   {{#if editMode}}
-    <div class="button-group">
-      {{wu-button
-          label="Annuleer"
-          onClick=(action "cancel")
-          isNarrow=true
-          isAlt=true
-      }}
-      {{wu-button
-          label="Bewaar"
-          onClick=(action "save")
-          isNarrow=true
-          disabled=(not isValid)
-      }}
-    </div>
+  <AuButtonGroup>
+    <AuButton {{action "cancel"}} @skin="secondary">
+      Annuleer
+    </AuButton>
+    <AuButton {{action "save"}} @disabled="{{not isValid}}">
+      Bewaar
+    </AuButton>
+  </AuButtonGroup>
   {{else}}
-    {{wu-button
-        label="Bewerk"
-        onClick=(action (mut editMode) true)
-        isLink=true
-    }}
+    <AuButton {{action (mut editMode) true}} @skin="tertiary">
+      <AuIcon @icon="pencil" @alignment="left" />
+      Bewerk
+    </AuButton>
   {{/if}}
 </td>

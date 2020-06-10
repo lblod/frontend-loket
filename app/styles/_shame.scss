@@ -300,3 +300,10 @@ td:focus {
     height: 100%;
   }
 }
+
+// Fix power select
+.power-select.power-select--small .ember-power-select-trigger {
+  height: auto;
+  line-height: 2.1;
+  display: block;
+}

@@ -1,64 +1,59 @@
 {{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="grid grid--collapse">
-  <div class="col--12-12--m col--1-1--s u-border--light--right {{if hasActiveChildRoute "u-hidden" "col--12-12"}}">
-    <div class="container-flex--contain">
-
-
-      <AuToolbar @border="bottom" @size="large">
-        <div>
-          <h1 class="au-u-h3 u-spacer--tb--tinier">Mandatenbeheer</h1>
-          {{mandatenbeheer/mandatarissen-totals
-            class="js-accordion au-u-margin-bottom"
-            bestuursorganen=bestuursorganen
-          }}
-          <div class="input-field-icon-container--right">
-            {{input
-                type="text"
-                placeholder="Zoek mandataris"
-                key-up=(perform search)
-                value=searchData
-                class="input-field input-field--block u-spacer--tiny"
-            }}
-            <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-          </div>
-        </div>
-
-        <AuToolbarGroup>
-          <div>
-            <div class="power-select power-select--small power-select--inline u-spacer--top--tinier u-align-right--tablet-portrait-up">
-              {{mandatenbeheer/bestuursperioden-selector
-                options=bestuursperioden
-                selectedStartDate=startDate
-                onSelect=(action 'selectPeriod')
-              }}
-            </div>
-            <WuButtonGroup>
-              {{wu-button
-                  label="Beheer fracties"
-                  onClick=(action "handleBeheerFractiesClick")
-                  isNarrow=true
-                  isAlt=true
-              }}
-              {{wu-button
-                  label="Voeg mandataris toe"
-                  onClick=(action "handleAddMandatarisClick")
-                  isNarrow=true
-              }}
-            </WuButtonGroup>
-          </div>
-        </AuToolbarGroup>
-      </AuToolbar>
-      {{mandatenbeheer/mandataris-table
-          class="container-flex--contain"
-          content=model
-          isLoading=isLoadingModel
-          sort=sort
-          page=page
-          size=size
-          editRoute="mandatenbeheer.mandatarissen.edit"
-          displaySubset=hasActiveChildRoute
+<div class="au-c-body-container {{if hasActiveChildRoute "au-u-hidden"}}">
+  <AuToolbar @size="large" class="au-u-padding-bottom-none">
+    <div>
+      <AuHeading @skin="2">Mandatenbeheer</AuHeading>
+      {{mandatenbeheer/mandatarissen-totals
+        class="js-accordion"
+        bestuursorganen=bestuursorganen
       }}
     </div>
-  </div>
-  {{outlet}}
+
+    <AuToolbarGroup>
+      <AuButtonGroup>
+        <AuButton {{action "handleBeheerFractiesClick"}} @skin="secondary">
+          Beheer fracties
+        </AuButton>
+        <AuButton {{action "handleAddMandatarisClick"}}>
+          Voeg mandataris toe
+        </AuButton>
+      </AuButtonGroup>
+    </AuToolbarGroup>
+  </AuToolbar>
+
+  <AuToolbar @size="large">
+    <AuToolbarGroup>
+      <div class="power-select power-select--small power-select--inline">
+        {{mandatenbeheer/bestuursperioden-selector
+          options=bestuursperioden
+          selectedStartDate=startDate
+          onSelect=(action 'selectPeriod')
+        }}
+      </div>
+    </AuToolbarGroup>
+
+    <div class="input-field-icon-container--right">
+      {{input
+          type="text"
+          placeholder="Zoek mandataris"
+          key-up=(perform search)
+          value=searchData
+          class="input-field input-field--block"
+      }}
+      <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+    </div>
+  </AuToolbar>
+
+  {{mandatenbeheer/mandataris-table
+    class="au-c-body-container"
+    content=model
+    isLoading=isLoadingModel
+    sort=sort
+    page=page
+    size=size
+    editRoute="mandatenbeheer.mandatarissen.edit"
+    displaySubset=hasActiveChildRoute
+  }}
 </div>
+
+{{outlet}}
