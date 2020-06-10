@@ -89,6 +89,12 @@
 @import "ember-appuniversum/c-textarea";
 @import "ember-appuniversum/c-toolbar";
 
+
+// CUSTOM COMPONENTS
+@import "project/c-body-container";
+@import "project/c-document-status-pills";
+
+
 // // UTILITIES
 @import "appuniversum/u-align-text";
 @import "appuniversum/u-headings";

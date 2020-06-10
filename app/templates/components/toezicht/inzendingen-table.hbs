@@ -16,6 +16,7 @@
         {{au-data-table-th-sortable label='Datum verstuurd' field='sentDate' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
       {{au-data-table-th-sortable label='Status' field='status' currentSorting=sort class="u-hidden-mobile"}}
+      <th></th>
     {{/c.header}}
     {{#c.body as |row|}}
       {{#unless displaySubset}}
