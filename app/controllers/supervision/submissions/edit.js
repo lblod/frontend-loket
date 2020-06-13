@@ -96,20 +96,13 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
   @task
   *deleteSubmissionForm() {
-    yield fetch(`/submission-forms/${this.model.submissionDocument.id}`, {
+    yield fetch(`/submissions/${this.model.submission.id}`, {
       method: 'DELETE',
     });
   }
 
   @task
   *delete() {
-    const user = yield this.currentSession.user;
-    this.model.submission.status = this.deletedStatus;
-    this.model.submission.modified = new Date();
-    this.model.submission.lastModifier = user;
-
-    yield this.model.submission.save();
-
     yield this.deleteSubmissionForm.perform();
     this.transitionToRoute('supervision.submissions');
   }
