@@ -7,18 +7,6 @@ export default class SharedBreadCrumbComponent extends Component {
 
   bread = [
     {
-      route: 'toezicht.inzendingen.index',
-      crumbs: [{label: 'Toezicht'}]
-    },
-    {
-      route: 'toezicht.inzendingen.edit',
-      crumbs: [{label: 'Toezicht',link: 'toezicht.inzendingen'},{label: 'Bekijk melding'}]
-    },
-    {
-      route: 'toezicht.inzendingen.new',
-      crumbs: [{label: 'Toezicht',link: 'toezicht.inzendingen'},{label: 'Nieuwe melding'}]
-    },
-    {
       route: 'supervision.submissions.index',
       crumbs: [{label: 'Toezicht'}]
     },
@@ -32,7 +20,7 @@ export default class SharedBreadCrumbComponent extends Component {
     },
     {
       route: 'berichtencentrum.berichten.conversatie.index',
-      crumbs: [{label: 'Berichtencentrum',link: 'toezicht.inzendingen'},{label: 'Dossier'}]
+      crumbs: [{label: 'Berichtencentrum',link: 'supervision.submissions'},{label: 'Dossier'}]
     },
     {
       route: 'bbcdr.rapporten.index',

@@ -24,9 +24,4 @@ export default class Bestuurseenheid extends Model {
     bestuursorgaan: "http://data.vlaanderen.be/ns/besluit#bestuurt",
     classificatie: "http://data.vlaanderen.be/ns/besluit#classificatie"
   }
-
-  get submissionRoute() {
-    if (this.submissionTrialUser) return 'supervision.submissions';
-    return 'toezicht.inzendingen';
-  }
 }
