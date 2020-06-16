@@ -2,36 +2,32 @@
 <div class="au-c-body-container">
   <AuToolbar @border="bottom" @size="large">
     <AuToolbarGroup>
-      <div>
-        {{!-- {{#link-to 'personeelsbeheer.personeelsaantallen.index' class="link link--dark smaller"}}
-          &leftarrow; Terug naar personeelsbeheer overzicht
-        {{/link-to}} --}}
-        <AuHeading @skin="2">Personeelsbeheer &mdash; {{this.dataset.title}}</AuHeading>
-      </div>
+      {{!-- {{#link-to 'personeelsbeheer.personeelsaantallen.index' class="link link--dark smaller"}}
+        &leftarrow; Terug naar personeelsbeheer overzicht
+      {{/link-to}} --}}
+      <AuHeading @skin="2">Personeelsbeheer &mdash; {{this.dataset.title}}</AuHeading>
     </AuToolbarGroup>
     <AuToolbarGroup>
-      <div>
-        {{#if save.last.isError}}
-          <AuAlert @alertIcon="info-circle" @alertTitle="Wijzigingen niet opgeslagen, probeer later opnieuw." @alertskin={{"error"}} @alertsize={{"small"}}>
-          </AuAlert>
-        {{/if}}
-        {{#unless this.dataset.modified}}
-          <p class="small u-spacer--tiny">
-            <label class="pill pill--primary-yellow">Aantallen niet actueel</label> {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
-          </p>
-        {{/unless}}
-        {{#if isSaving}}
+      {{#if save.last.isError}}
+        <AuAlert @alertIcon="info-circle" @alertTitle="Wijzigingen niet opgeslagen, probeer later opnieuw." @alertskin={{"error"}} @alertsize={{"small"}}>
+        </AuAlert>
+      {{/if}}
+      {{#unless this.dataset.modified}}
+        <p class="small u-spacer--tiny">
+          <label class="pill pill--primary-yellow">Aantallen niet actueel</label> {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
+        </p>
+      {{/unless}}
+      {{#if isSaving}}
+        <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
+          Wijzigingen opslaan...
+        </p>
+      {{else}}
+        {{#if this.dataset.modified}}
           <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
-            Wijzigingen opslaan...
+            Laatst opgeslagen op {{moment-format this.dataset.modified}}
           </p>
-        {{else}}
-          {{#if this.dataset.modified}}
-            <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
-              Laatst opgeslagen op {{moment-format this.dataset.modified}}
-            </p>
-          {{/if}}
         {{/if}}
-      </div>
+      {{/if}}
     </AuToolbarGroup>
   </AuToolbar>
 

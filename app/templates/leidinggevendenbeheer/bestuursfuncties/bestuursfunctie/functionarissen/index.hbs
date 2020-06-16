@@ -1,43 +1,49 @@
 {{title bestuurseenheid.classificatie.label " " bestuurseenheid.naam " " bestuursfunctie.rol.label}}
 
 <AuToolbar @size="large" class="au-u-padding-bottom-none">
-  <AuHeading @skin="2">Bekijk en bewerk aanstellingsperiode</AuHeading>
-  <AuButton {{action "handleVoegNieuweAanstellingsperiodeClick"}}>
-    <AuIcon @icon="add" @alignment="left" />
-    Voeg nieuwe aanstellingsperiode toe
-  </AuButton>
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Bekijk en bewerk aanstellingsperiode</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <AuButton {{action "handleVoegNieuweAanstellingsperiodeClick"}}>
+      <AuIcon @icon="add" @alignment="left" />
+      Voeg nieuwe aanstellingsperiode toe
+    </AuButton>
+  </AuToolbarGroup>
 </AuToolbar>
 
 <AuToolbar @size="large">
-  <ul class="inline-list inline-list--bordered small text-light">
-    <li>
-      {{#if bestuursfunctie.contactinfo.email}}
-        {{bestuursfunctie.contactinfo.email}}
-      {{else}}
-        <span class="text-fade">Geen mailadres</span>
-      {{/if}}
-    </li>
-    <li>
-      {{#if bestuursfunctie.contactinfo.telefoon}}
-        {{bestuursfunctie.contactinfo.telefoon}}
-      {{else}}
-        <span class="text-fade">geen telefoonnummer</span>
-      {{/if}}
-    </li>
-    <li>
-      {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
-        <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
-      {{else}}
-        <span class="text-fade">geen adres</span>
-      {{/if}}
-    </li>
-    <li>
-      {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="au-c-link"}}
-        <AuIcon @icon="pencil" @alignment="left" />
-        Bewerk
-      {{/link-to}}
-    </li>
-  </ul>
+  <AuToolbarGroup>
+    <ul class="inline-list inline-list--bordered small text-light">
+      <li>
+        {{#if bestuursfunctie.contactinfo.email}}
+          {{bestuursfunctie.contactinfo.email}}
+        {{else}}
+          <span class="text-fade">Geen mailadres</span>
+        {{/if}}
+      </li>
+      <li>
+        {{#if bestuursfunctie.contactinfo.telefoon}}
+          {{bestuursfunctie.contactinfo.telefoon}}
+        {{else}}
+          <span class="text-fade">geen telefoonnummer</span>
+        {{/if}}
+      </li>
+      <li>
+        {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
+          <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
+        {{else}}
+          <span class="text-fade">geen adres</span>
+        {{/if}}
+      </li>
+      <li>
+        {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="au-c-link"}}
+          <AuIcon @icon="pencil" @alignment="left" />
+          Bewerk
+        {{/link-to}}
+      </li>
+    </ul>
+  </AuToolbarGroup>
 </AuToolbar>
 
 {{leidinggevendenbeheer/functionaris-table

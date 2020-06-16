@@ -1,13 +1,15 @@
 {{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
 <div class="au-c-body-container {{if hasActiveChildRoute "au-u-hidden"}}">
   <AuToolbar @size="large" class="au-u-padding-bottom-none">
-    <div>
-      <AuHeading @skin="2">Mandatenbeheer</AuHeading>
-      {{mandatenbeheer/mandatarissen-totals
-        class="js-accordion"
-        bestuursorganen=bestuursorganen
-      }}
-    </div>
+    <AuToolbarGroup>
+      <div>
+        <AuHeading @skin="2">Mandatenbeheer</AuHeading>
+        {{mandatenbeheer/mandatarissen-totals
+          class="js-accordion"
+          bestuursorganen=bestuursorganen
+        }}
+      </div>
+    </AuToolbarGroup>
 
     <AuToolbarGroup>
       <AuButtonGroup>
@@ -31,17 +33,18 @@
         }}
       </div>
     </AuToolbarGroup>
-
-    <div class="input-field-icon-container--right">
-      {{input
-          type="text"
-          placeholder="Zoek mandataris"
-          key-up=(perform search)
-          value=searchData
-          class="input-field input-field--block"
-      }}
-      <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-    </div>
+    <AuToolbarGroup>
+      <div class="input-field-icon-container--right">
+        {{input
+            type="text"
+            placeholder="Zoek mandataris"
+            key-up=(perform search)
+            value=searchData
+            class="input-field input-field--block"
+        }}
+        <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+      </div>
+    </AuToolbarGroup>
   </AuToolbar>
 
   {{mandatenbeheer/mandataris-table

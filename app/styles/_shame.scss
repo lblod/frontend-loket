@@ -279,13 +279,6 @@ td:focus {
   border: 0;
 }
 
-.au-c-toolbar--highlight {
-  @include au-font-size($au-base);
-  background-color: $au-gray-100;
-  border-bottom: .1rem solid $au-gray-200;
-}
-
-
 // Fix height of info tiles in grid
 .info-tile {
   height: 100%;

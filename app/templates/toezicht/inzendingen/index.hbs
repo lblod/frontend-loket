@@ -1,8 +1,12 @@
 {{title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
 
-<AuToolbar class="au-o-box" data-test-mn="inzendingen-page-title-parent-node">
-  <AuHeading @level="1" @skin="2" data-test-loket="inzendingen-page-title">Toezicht</AuHeading>
-  <AuButton {{action "goToNewInzending"}} data-test-loket="new-melding-button">Maak nieuwe melding</AuButton>
+<AuToolbar @size="large" data-test-mn="inzendingen-page-title-parent-node">
+  <AuToolbarGroup>
+    <AuHeading @level="1" @skin="2" data-test-loket="inzendingen-page-title">Toezicht</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <AuButton {{action "goToNewInzending"}} data-test-loket="new-melding-button">Maak nieuwe melding</AuButton>
+  </AuToolbarGroup>
 </AuToolbar>
 
 {{toezicht/inzendingen-table content=model sort=sort page=page size=size class="au-c-body-container"}}

@@ -4,7 +4,9 @@
   <div class="au-o-grid__item {{if hasActiveChildRoute "au-u-3-5@medium u-visible--tablet-landscape-up" "au-u-1-1@medium"}}">
     <div class="au-c-body-container">
       <AuToolbar @size="large">
-        <AuHeading @skin="2">Berichtencentrum</AuHeading>
+        <AuToolbarGroup>
+          <AuHeading @skin="2">Berichtencentrum</AuHeading>
+        </AuToolbarGroup>
         <AuToolbarGroup>
           <button class="au-c-button au-c-button--tertiary" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
             <AuIcon @icon="settings" @alignment="left" />

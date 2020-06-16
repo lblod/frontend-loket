@@ -1,5 +1,5 @@
 <AuToolbar @border="bottom" class="au-o-box au-u-padding-bottom">
-  <div>
+  <AuToolbarGroup>
     <AuHeading @level="2" @skin="4">{{model.rol.label}}</AuHeading>
     <ul class="inline-list inline-list--bordered small au-u-margin-top-small">
       <li>
@@ -28,9 +28,11 @@
         {{/if}}
       </li>
     </ul>
-  </div>
-  <AuButton {{action onClick}}>
-    Bekijk en bewerk aanstellingsperiodes
-    <AuIcon @icon="nav-right" @alignment="right" />
-  </AuButton>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <AuButton {{action onClick}}>
+      Bekijk en bewerk aanstellingsperiodes
+      <AuIcon @icon="nav-right" @alignment="right" />
+    </AuButton>
+  </AuToolbarGroup>
 </AuToolbar>

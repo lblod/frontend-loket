@@ -1,16 +1,22 @@
 {{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
 <AuToolbar @size="large" class="loket-onderdeel__header au-u-padding-bottom-none" id="main" itemprop="mainContentOfPage" role="main">
-  <AuHeading @skin="2">Beheer Fracties</AuHeading>
-  <AuButton {{action "createNewFractie"}}>Voeg fractie toe</AuButton>
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Beheer Fracties</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <AuButton {{action "createNewFractie"}}>Voeg fractie toe</AuButton>
+  </AuToolbarGroup>
 </AuToolbar>
 <AuToolbar @size="large" class="loket-onderdeel__header" id="main" itemprop="mainContentOfPage" role="main">
-  <div class="power-select power-select--small power-select--inline">
-    {{mandatenbeheer/bestuursperioden-selector
-        options=bestuursperioden
-        selectedStartDate=startDate
-        onSelect=(action 'selectPeriod')
-    }}
-  </div>
+  <AuToolbarGroup>
+    <div class="power-select power-select--small power-select--inline">
+      {{mandatenbeheer/bestuursperioden-selector
+          options=bestuursperioden
+          selectedStartDate=startDate
+          onSelect=(action 'selectPeriod')
+      }}
+    </div>
+  </AuToolbarGroup>
 </AuToolbar>
 
 {{#if saveFractie.isRunning}}

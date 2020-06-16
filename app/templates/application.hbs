@@ -41,19 +41,21 @@
   <div id="content" class="au-c-main-container__content" tabindex="-1">
     <div class="au-c-body-container">
       {{#unless this.isIndex}}
-        <AuToolbar class="au-o-box au-o-box--tiny au-u-padding-left au-u-padding-right au-c-toolbar--highlight">
-          <ul class="au-c-list-horizontal">
-            <li class="au-c-list-horizontal__item">
-              <AuLink @linkRoute="index">
-                <AuIcon @icon="arrow-left" @alignment="left" />
-                Overzicht modules
-              </AuLink>
-            </li>
-            <li class="au-c-list-horizontal__item">
-              <Shared::CompactMenu/>
-            </li>
-            <Shared::BreadCrumb/>
-          </ul>
+        <AuToolbar @size="medium" @skin="tint" @border="bottom">
+          <AuToolbarGroup>
+            <ul class="au-c-list-horizontal">
+              <li class="au-c-list-horizontal__item">
+                <AuLink @linkRoute="index">
+                  <AuIcon @icon="arrow-left" @alignment="left" />
+                  Overzicht modules
+                </AuLink>
+              </li>
+              <li class="au-c-list-horizontal__item">
+                <Shared::CompactMenu/>
+              </li>
+              <Shared::BreadCrumb/>
+            </ul>
+          </AuToolbarGroup>
         </AuToolbar>
       {{/unless}}
 
