@@ -20,7 +20,7 @@ export default class SharedBreadCrumbComponent extends Component {
     },
     {
       route: 'berichtencentrum.berichten.conversatie.index',
-      crumbs: [{label: 'Berichtencentrum',link: 'supervision.submissions'},{label: 'Dossier'}]
+      crumbs: [{label: 'Berichtencentrum',link: 'berichtencentrum.berichten.index'},{label: 'Dossier'}]
     },
     {
       route: 'bbcdr.rapporten.index',
