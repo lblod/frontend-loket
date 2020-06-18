@@ -3,7 +3,7 @@ import Component from '@ember/component';
 
 const DocumentStatusPillComponent = Component.extend({
   tagName: 'label',
-  classNames: ['pill', 'pill--clickable'],
+  classNames: ['au-c-pill'],
   attributeBindings: ['resource', 'data-test-loket'],
   status: null,
   resource: alias('status.uri'),

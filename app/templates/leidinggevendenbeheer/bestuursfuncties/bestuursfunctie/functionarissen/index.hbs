@@ -1,58 +1,58 @@
 {{title bestuurseenheid.classificatie.label " " bestuurseenheid.naam " " bestuursfunctie.rol.label}}
-<div class="grid">
-  <div class="col--12-12">
-    <div class="container-flex--contain">
-      <AuToolbar @border="bottom" @size="large">
-        <div>
-          {{#link-to 'leidinggevendenbeheer.bestuursfuncties' class="link link--dark smaller"}}
-            &leftarrow; Terug naar leidinggevendenbeheer overzicht
-          {{/link-to}}
-          <h1 class="au-u-h3 u-spacer--tb--tinier">Toezicht</h1>
-          <ul class="inline-list inline-list--bordered small text-light u-spacer--top--small">
-            <li>
-              {{#if bestuursfunctie.contactinfo.email}}
-                {{bestuursfunctie.contactinfo.email}}
-              {{else}}
-                <span class="text-fade">Geen mailadres</span>
-              {{/if}}
-            </li>
-            <li>
-              {{#if bestuursfunctie.contactinfo.telefoon}}
-                {{bestuursfunctie.contactinfo.telefoon}}
-              {{else}}
-                <span class="text-fade">geen telefoonnummer</span>
-              {{/if}}
-            </li>
-            <li>
-              {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
-                <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
-              {{else}}
-                <span class="text-fade">geen adres</span>
-              {{/if}}
-            </li>
-            <li>
-              {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="button button--link button--small button--narrow"}}
-                <i class="vi vi-edit button__icon"></i><span class="u-padding--left--tiny">Bewerk</span>
-              {{/link-to}}
-            </li>
-          </ul>
-        </div>
-        <AuToolbarGroup>
-          {{#wu-button
-             onClick=(action "handleVoegNieuweAanstellingsperiodeClick")
-             isNarrow=true}}<i class="vi vi-plus"></i>Voeg nieuwe aanstellingsperiode toe{{/wu-button}}
-        </AuToolbarGroup>
-      </AuToolbar>
 
-      {{leidinggevendenbeheer/functionaris-table
-          class="container-flex--contain"
-          content=model
-          sort=sort
-          page=page
-          size=size
-          onClickNew=(action "handleVoegNieuweAanstellingsperiodeClick")
-      }}
-    </div>
-  </div>
-  {{outlet}}
-</div>
+<AuToolbar @size="large" class="au-u-padding-bottom-none">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Bekijk en bewerk aanstellingsperiode</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <AuButton {{action "handleVoegNieuweAanstellingsperiodeClick"}}>
+      <AuIcon @icon="add" @alignment="left" />
+      Voeg nieuwe aanstellingsperiode toe
+    </AuButton>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<AuToolbar @size="large">
+  <AuToolbarGroup>
+    <ul class="inline-list inline-list--bordered small text-light">
+      <li>
+        {{#if bestuursfunctie.contactinfo.email}}
+          {{bestuursfunctie.contactinfo.email}}
+        {{else}}
+          <span class="text-fade">Geen mailadres</span>
+        {{/if}}
+      </li>
+      <li>
+        {{#if bestuursfunctie.contactinfo.telefoon}}
+          {{bestuursfunctie.contactinfo.telefoon}}
+        {{else}}
+          <span class="text-fade">geen telefoonnummer</span>
+        {{/if}}
+      </li>
+      <li>
+        {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
+          <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
+        {{else}}
+          <span class="text-fade">geen adres</span>
+        {{/if}}
+      </li>
+      <li>
+        {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="au-c-link"}}
+          <AuIcon @icon="pencil" @alignment="left" />
+          Bewerk
+        {{/link-to}}
+      </li>
+    </ul>
+  </AuToolbarGroup>
+</AuToolbar>
+
+{{leidinggevendenbeheer/functionaris-table
+  class="au-c-body-container"
+  content=model
+  sort=sort
+  page=page
+  size=size
+  onClickNew=(action "handleVoegNieuweAanstellingsperiodeClick")
+}}
+
+{{outlet}}

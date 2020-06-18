@@ -1,22 +1,22 @@
-{{#data-table content=content isLoading=isLoading noDataMessage="Geen inzendingen gevonden"
-   sort=sort page=page size=size class="container-flex--contain data-table data-table--tight data-table--nowrap" as |t|}}
+{{#au-data-table content=content isLoading=isLoading noDataMessage="Geen inzendingen gevonden"
+   sort=sort page=page size=size as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
       {{#unless displaySubset}}
-        {{th-sortable label='Orgaan' field='bestuursorgaan.naam' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable label='Orgaan' field='bestuursorgaan.naam' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
-      {{th-sortable label='Type dossier' field='besluitType.label' currentSorting=sort}}
+      {{au-data-table-th-sortable label='Type dossier' field='besluitType.label' currentSorting=sort}}
       {{!--{{#unless displaySubset}}
         {{th-sortable label='Dossieromschrijving' field='description' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}--}}
       {{#unless displaySubset}}
-        {{th-sortable label='Datum zitting/besluit' field='sessionDate' currentSorting=sort}}
+        {{au-data-table-th-sortable label='Datum zitting/besluit' field='sessionDate' currentSorting=sort}}
       {{/unless}}
       {{#unless displaySubset}}
-        {{th-sortable label='Datum verstuurd' field='sentDate' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable label='Datum verstuurd' field='sentDate' currentSorting=sort class="u-visible--tablet-landscape-up"}}
       {{/unless}}
-      {{th-sortable label='Status' field='status' currentSorting=sort class="u-hidden-mobile"}}
-      <th><!-- Actions --></th>
+      {{au-data-table-th-sortable label='Status' field='status' currentSorting=sort class="u-hidden-mobile"}}
+      <th></th>
     {{/c.header}}
     {{#c.body as |row|}}
       {{#unless displaySubset}}
@@ -35,7 +35,7 @@
       <td class="u-hidden-mobile">
         {{shared/document-status-pill row.status}}
       </td>
-      <td>{{#link-to 'toezicht.inzendingen.edit' row.id}}Bekijk{{/link-to}}</td>
+      <td>{{#link-to 'toezicht.inzendingen.edit' row.id class="au-c-link"}}Bekijk{{/link-to}}</td>
     {{/c.body}}
   {{/t.content}}
-{{/data-table}}
+{{/au-data-table}}

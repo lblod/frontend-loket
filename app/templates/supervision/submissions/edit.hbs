@@ -78,12 +78,14 @@
   </AuToolbarGroup>
 
   {{#unless this.model.submitted}}
+  <AuToolbarGroup>
     <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
               @loading={{if this.delete.isRunning "true"}}
               @skin={{"tertiary"}}
               @alert={{"true"}}
               {{on "click" (perform this.delete)}}>
-              <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
-              </AuButton>
+      <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
+    </AuButton>
+  </AuToolbarGroup>
   {{/unless}}
 </AuToolbar>

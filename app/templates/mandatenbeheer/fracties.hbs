@@ -1,82 +1,75 @@
 {{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="grid">
-  <div class="col--12-12 col--12-12--m col--1-1--s u-border--light--right">
-    <div class="container-flex--contain">
-      <div class="u-border--light--bottom u-padding--rl--small u-padding--tb--tiny loket-onderdeel__header" id="main" itemprop="mainContentOfPage" role="main" tabindex="-1">
-        <div class="grid">
-          <div class="col--9-12 col--1-1--xs">
-            <h1 class="h4 u-spacer--bottom u-spacer--top--tinier">Beheer Fracties</h1>
-          </div>
-          <div class="col--3-12 col--1-1--xs u-align-right--tablet-portrait-up">
-            <div class="power-select power-select--small u-spacer--top--tinier u-spacer--bottom--small power-select--inline">
-              {{mandatenbeheer/bestuursperioden-selector
-                  options=bestuursperioden
-                  selectedStartDate=startDate
-                  onSelect=(action 'selectPeriod')
-              }}
-            </div>
-            <WuButtonGroup>
-              {{wu-button
-                  label="Voeg fractie toe"
-                  onClick=(action "createNewFractie")
-                  isNarrow=true
-              }}
-            </WuButtonGroup>
-          </div>
-        </div>
-      </div>
+<AuToolbar @size="large" class="au-u-padding-bottom-none" id="main" itemprop="mainContentOfPage" role="main">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Beheer Fracties</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <AuButton {{action "createNewFractie"}}>Voeg fractie toe</AuButton>
+  </AuToolbarGroup>
+</AuToolbar>
+<AuToolbar @size="large" id="main" itemprop="mainContentOfPage" role="main">
+  <AuToolbarGroup>
+    <div class="power-select power-select--small power-select--inline">
+      {{mandatenbeheer/bestuursperioden-selector
+          options=bestuursperioden
+          selectedStartDate=startDate
+          onSelect=(action 'selectPeriod')
+      }}
+    </div>
+  </AuToolbarGroup>
+</AuToolbar>
 
-      {{#if saveFractie.isRunning}}
-        <div class="loader-wrapper">
-          <div class="loader">
-            <span class="u-visually-hidden">Bezig...</span>
-          </div>
-        </div>
-      {{else}}
-        <div class="container-flex--scroll">
-          <table class="data-table data-table--nowrap">
-            <thead>
-              <tr class="data-table__header">
-                <th>Fractienaam</th>
-                <th>Bestuursperiode</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#if newFractie}}
-                {{mandatenbeheer/fractie-table-row
-                    onCancel=(action "cancelEdit")
-                    onSave=(perform saveFractie)
-                    fractie=newFractie
-                    editMode=true
-                }}
-              {{/if}}
-
-              {{#each model as |row|}}
-                {{mandatenbeheer/fractie-table-row
-                    onCancel=(action "cancelEdit")
-                    onSave=(perform saveFractie)
-                    fractie=row
-                }}
-              {{else}}
-                {{#unless newFractie}}
-                  <tr>
-                    <td colspan="3">
-                      Geen fracties gevonden.
-                      {{wu-button
-                          label="Voeg een nieuwe fractie toe"
-                          onClick=(action "createNewFractie")
-                          isNarrow=true
-                          isLink=true
-                      }}
-                    </td>
-                  </tr>
-                {{/unless}}
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-      {{/if}}
+{{#if saveFractie.isRunning}}
+  <div class="loader-wrapper">
+    <div class="loader">
+      <span class="u-visually-hidden">Bezig...</span>
     </div>
   </div>
-</div>
+{{else}}
+  <div class="au-c-body-container">
+    <div class="au-c-data-table">
+      <div class="au-c-data-table__wrapper">
+        <table class="au-c-data-table__table">
+          <thead>
+            <tr class="au-c-data-table__header">
+              <th>Fractienaam</th>
+              <th>Bestuursperiode</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#if newFractie}}
+              {{mandatenbeheer/fractie-table-row
+                  onCancel=(action "cancelEdit")
+                  onSave=(perform saveFractie)
+                  fractie=newFractie
+                  editMode=true
+              }}
+            {{/if}}
+            {{#each model as |row|}}
+              {{mandatenbeheer/fractie-table-row
+                  onCancel=(action "cancelEdit")
+                  onSave=(perform saveFractie)
+                  fractie=row
+              }}
+            {{else}}
+              {{#unless newFractie}}
+                <tr>
+                  <td colspan="3">
+                    Geen fracties gevonden.
+                    {{wu-button
+                        label="Voeg een nieuwe fractie toe"
+                        onClick=(action "createNewFractie")
+                        isNarrow=true
+                        isLink=true
+                    }}
+                  </td>
+                </tr>
+              {{/unless}}
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{{/if}}

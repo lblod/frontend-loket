@@ -9,12 +9,6 @@
   padding: 0;
 }
 
-// Override typography
-.loket-onderdeel__header .h3,
-.loket-onderdeel__header .h4 {
-  font-weight: 400;
-}
-
 sup {
   line-height: 0.5;
   vertical-align: text-top;
@@ -51,46 +45,6 @@ sup {
   font-weight: 400 !important;
 }
 
-
-// Fix container height and scrolling
-// @TODO: fix in container component and/or remove .container-flex--contain
-.au-c-main-container {
-  .au-o-grid {
-    align-items: flex-start;
-    justify-content: flex-start;
-    height: auto;
-  }
-
-  @include mq(small) {
-    .au-o-grid {
-      align-items: stretch;
-      height: 100%;
-    }
-
-    .au-c-form .au-o-grid {
-      align-items: flex-start;
-      height: initial;
-    }
-  }
-}
-
-.au-c-main-container__content {
-
-  @include mq(medium) {
-    overflow: hidden;
-    height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
-
-    > .grid {
-      height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
-    }
-
-    > .grid > div > .container-flex--contain {
-      position: relative;
-      overflow: auto;
-      height: calc(100vh - #{$au-unit-large - $au-unit-tiny});
-    }
-  }
-}
 
 // Fix ACMIDM login alerts/loading in header
 // @TODO: rework ACMIDM components to work with appuniversum classes
@@ -304,4 +258,45 @@ td:focus {
 
 .checkbox + .au-c-label {
   display: inline-block;
+}
+
+
+// Ember a11y refocus
+#ember-a11y-refocus-nav-message {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Fix height of info tiles in grid
+.info-tile {
+  height: 100%;
+}
+
+// Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
+.au-o-grid--fixed {
+  height: 100%;
+  overflow: hidden;
+
+  > .au-o-grid__item {
+    height: 100%;
+  }
+}
+
+// Fix power select
+.power-select.power-select--small .ember-power-select-trigger {
+  height: auto;
+  line-height: 2.1;
+  display: block;
+}
+
+// Data table quick fix
+// @TODO port to appuniversum
+.au-c-data-table__header th {
+  border-radius: 0;
 }

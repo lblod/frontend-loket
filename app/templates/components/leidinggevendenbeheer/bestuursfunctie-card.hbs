@@ -1,41 +1,40 @@
-<div class="u-spacer--round--small">
-  <div class="u-spacer">
-    <div class="u-padding--tb--small u-border--light--bottom">
-      <div class="grid">
-        <div class="col--7-12 col--1-1--s">
-          <h2 class="h5 u-spacer--tiny">{{model.rol.label}}</h2>
-          <ul class="inline-list inline-list--bordered small">
-            <li>
-              {{#if model.contactinfo.email}}
-                <a class="link--dark" href="mailto:{{model.contactinfo.email}}">
-                  {{model.contactinfo.email}}
-                </a>
-              {{else}}
-                <span class="text-fade">Geen mailadres</span>
-              {{/if}}
-            </li>
-            <li>
-              {{#if model.contactinfo.telefoon}}
-                <a class="link--dark" href="tel:{{model.contactinfo.telefoon}}">
-                  {{model.contactinfo.telefoon}}
-                </a>
-              {{else}}
-                <span class="text-fade">geen telefoonnummer</span>
-              {{/if}}
-            </li>
-            <li>
-              {{#if model.contactinfo.adres.volledigAdres}}
-                <span>{{model.contactinfo.adres.volledigAdres}}</span>
-              {{else}}
-                <span class="text-fade">geen adres</span>
-              {{/if}}
-            </li>
-          </ul>
-        </div>
-        <div class="col--4-12 col--1-1--m u-align-right--tablet-portrait-up">
-          {{#wu-button onClick=(action onClick) isNarrow=true size="small"}}<i class="vi vi-arrow button__icon">&nbsp;</i>Bekijk en bewerk aanstellingsperiodes{{/wu-button}}
-        </div>
-      </div>
+<AuToolbar @size="large" @border="bottom">
+  <AuToolbarGroup>
+    <div>
+      <AuHeading @level="2" @skin="4">{{model.rol.label}}</AuHeading>
+      <ul class="inline-list inline-list--bordered small au-u-margin-top-small">
+        <li>
+          {{#if model.contactinfo.email}}
+            <a class="au-c-link au-c-link--secondary" href="mailto:{{model.contactinfo.email}}">
+              {{model.contactinfo.email}}
+            </a>
+          {{else}}
+            <span class="text-fade">Geen mailadres</span>
+          {{/if}}
+        </li>
+        <li>
+          {{#if model.contactinfo.telefoon}}
+            <a class="au-c-link au-c-link--secondary" href="tel:{{model.contactinfo.telefoon}}">
+              {{model.contactinfo.telefoon}}
+            </a>
+          {{else}}
+            <span class="text-fade">geen telefoonnummer</span>
+          {{/if}}
+        </li>
+        <li>
+          {{#if model.contactinfo.adres.volledigAdres}}
+            <span>{{model.contactinfo.adres.volledigAdres}}</span>
+          {{else}}
+            <span class="text-fade">geen adres</span>
+          {{/if}}
+        </li>
+      </ul>
     </div>
-  </div>
-</div>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <AuButton {{action onClick}}>
+      Bekijk en bewerk aanstellingsperiodes
+      <AuIcon @icon="nav-right" @alignment="right" />
+    </AuButton>
+  </AuToolbarGroup>
+</AuToolbar>

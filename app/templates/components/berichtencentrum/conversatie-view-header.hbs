@@ -1,26 +1,24 @@
-<div class="grid">
-  <div class="col--9-12">
-    <label class="pill pill--gray-light  u-spacer--tiny"  data-test-loket="berichtencentrum-header-dossiernummer">
-      Dossiernummer: {{conversatie.dossiernummer}}
-    </label>
-{{!--     {{#if conversatie.reactietermijn}}
-      <label class="pill pill--gray-light u-spacer--tiny">
-        Reactietermijn: {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
-      </label>
-    {{/if}} --}}
-    <h2 class="h3" data-test-loket="berichtencentrum-header-type-communicatie">{{conversatie.typeCommunicatie}}</h2>
-  </div>
-
-  <div class="col--3-12 u-align--right">
-    <button {{action 'close'}} class="link--icon--close" data-test-loket="berichtencentrum-header-cross">
-      <span class="u-visually-hidden">Venster sluiten</span>
-    </button>
-  </div>
-
+<div class="au-o-box au-c-action-sidebar__header">
+  <AuToolbar class="au-u-margin-bottom-small">
+    <AuToolbarGroup>
+      <AuPill data-test-loket="berichtencentrum-header-dossiernummer">Dossiernummer: {{conversatie.dossiernummer}}</AuPill>
+      {{!--     {{#if conversatie.reactietermijn}}
+        <label class="pill pill--gray-light u-spacer--tiny">
+          Reactietermijn: {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
+        </label>
+      {{/if}} --}}<br>
+      <AuHeading @level="2" @skin="3"  data-test-loket="berichtencentrum-header-type-communicatie">{{conversatie.typeCommunicatie}}</AuHeading>
+    </AuToolbarGroup>
+    <AuToolbarGroup>
+      <button {{action "close"}} data-test-loket="bbcdr-close-panel-btn" class="link--icon--close">
+        <span class="u-visually-hidden">Venster sluiten</span>
+      </button>
+    </AuToolbarGroup>
+  </AuToolbar>
   <div class="grid u-spacer--small">
     <div class="col--12-12">
-      <div class="description-data__label" data-test-loket="berichtencentrum-header-betreft">
-        {{conversatie.betreft}}
+      <div class="au-c-content" data-test-loket="berichtencentrum-header-betreft">
+        <p>{{conversatie.betreft}}</p>
       </div>
     </div>
   </div>

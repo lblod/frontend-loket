@@ -1,59 +1,55 @@
-<div class="grid">
-  <div class="col--1-1--s container-flex--contain">
-
-    <AuToolbar @border="bottom" @size="large">
-      <div>
-        <h1 class="au-u-h3 u-spacer--tb--tinier">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</h1>
-      </div>
-      <AuToolbarGroup>
-        <div {{action "cancel"}} class="link--icon--close">
-          <span class="u-visually-hidden">Venster sluiten</span>
-        </div>
-      </AuToolbarGroup>
-    </AuToolbar>
-    <div class="container-flex--scroll u-padding--trl--small">
-      <div class="form u-spacer--bottom--large">
-        <div class="form__row u-spacer">
-          <div class="grid u-spacer--small">
-            <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
-              <label class="form__label" for="mailadres">Mailadres</label>
-              {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder=" " inputmode="email" value=(mut model.email)}}
-            </div>
-          </div>
-          <div class="grid">
-            <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
-              <label class="form__label" for="telefoonnummer">Telefoonnummer</label>
-              {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-telefoon" placeholder=" " inputmode="tel" type="tel" value=(mut model.telefoon)}}
-            </div>
-          </div>
-
-        </div>
-        <h2 class="h5 u-spacer--tiny">Adres</h2>
-        {{adressenregister-selector address=model.adres onChange=(perform updateAdres)}}
-      </div>
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <h1 class="au-u-h3 u-spacer--tb--tinier">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</h1>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <div {{action "cancel"}} class="link--icon--close">
+      <span class="u-visually-hidden">Venster sluiten</span>
     </div>
-    <div class="u-padding--round--small u-border--light--top">
-      <div class="button-group">
-        {{wu-button label="Bewaar contactgegevens"
-          onClick=(perform save)
-          isNarrow=true
-          class=(if (not save.isIdle) "button button--loading")
-          disabled=(not save.isIdle)
-        }}
-        {{wu-button isNarrow=true
-          isAlt=true onClick=(perform resetChanges)
-          label="Verwerp wijzigingen"
-          disabled=(not isDirty)
-        }}
+  </AuToolbarGroup>
+</AuToolbar>
+<div class="container-flex--scroll u-padding--trl--small">
+  <div class="form u-spacer--bottom--large">
+    <div class="form__row u-spacer">
+      <div class="grid u-spacer--small">
+        <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
+          <label class="form__label" for="mailadres">Mailadres</label>
+          {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder=" " inputmode="email" value=(mut model.email)}}
+        </div>
       </div>
+      <div class="grid">
+        <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
+          <label class="form__label" for="telefoonnummer">Telefoonnummer</label>
+          {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-telefoon" placeholder=" " inputmode="tel" type="tel" value=(mut model.telefoon)}}
+        </div>
+      </div>
+
     </div>
+    <h2 class="h5 u-spacer--tiny">Adres</h2>
+    {{adressenregister-selector address=model.adres onChange=(perform updateAdres)}}
   </div>
-  {{!-- Modal confirmation dialog --}}
-  {{#if showConfirmationDialog}}
-    {{leidinggevendenbeheer/functionaris-close-confirmation
-      cancel=(action (mut showConfirmationDialog false))
-      save=(perform save)
-      reset=(perform resetChanges)
-    }}
-  {{/if}}
 </div>
+<div class="u-padding--round--small u-border--light--top">
+  <div class="button-group">
+    {{wu-button label="Bewaar contactgegevens"
+      onClick=(perform save)
+      isNarrow=true
+      class=(if (not save.isIdle) "button button--loading")
+      disabled=(not save.isIdle)
+    }}
+    {{wu-button isNarrow=true
+      isAlt=true onClick=(perform resetChanges)
+      label="Verwerp wijzigingen"
+      disabled=(not isDirty)
+    }}
+  </div>
+</div>
+
+{{!-- Modal confirmation dialog --}}
+{{#if showConfirmationDialog}}
+  {{leidinggevendenbeheer/functionaris-close-confirmation
+    cancel=(action (mut showConfirmationDialog false))
+    save=(perform save)
+    reset=(perform resetChanges)
+  }}
+{{/if}}

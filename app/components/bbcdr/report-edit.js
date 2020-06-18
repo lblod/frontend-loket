@@ -6,7 +6,7 @@ import { A } from '@ember/array';
 import { all } from 'rsvp';
 
 export default Component.extend({
-  classNames: ['col--4-12 col--12-12--m container-flex--contain u-border--light--top'],
+  classNames: ['au-o-grid__item au-u-2-5@medium'],
   router: service(),
   store: service(),
   readyForTmpSave: gte('reportFiles.length', 1),
