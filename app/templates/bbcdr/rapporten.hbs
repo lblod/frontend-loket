@@ -7,11 +7,7 @@
           <AuHeading @skin="2">BBC DR</AuHeading>
         </AuToolbarGroup>
         <AuToolbarGroup>
-          {{wu-button
-              label="Lever nieuw rapport aan"
-              onClick=(action "createNewReport")
-              isNarrow=true
-              data-test-loket='bbcdr-create-report-btn'}}
+          <AuButton {{action "createNewReport"}} data-test-loket='bbcdr-create-report-btn'>Lever nieuw rapport aan</AuButton>
         </AuToolbarGroup>
       </AuToolbar>
 
