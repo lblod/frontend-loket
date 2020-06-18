@@ -9,12 +9,6 @@
   padding: 0;
 }
 
-// Override typography
-.loket-onderdeel__header .h3,
-.loket-onderdeel__header .h4 {
-  font-weight: 400;
-}
-
 sup {
   line-height: 0.5;
   vertical-align: text-top;
@@ -299,4 +293,10 @@ td:focus {
   height: auto;
   line-height: 2.1;
   display: block;
+}
+
+// Data table quick fix
+// @TODO port to appuniversum
+.au-c-data-table__header th {
+  border-radius: 0;
 }
