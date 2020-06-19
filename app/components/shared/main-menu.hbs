@@ -5,7 +5,7 @@
     </li>
     {{#if this.currentSession.canAccessToezicht}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @linkRoute="{{currentSession._group.submissionRoute}}">
+        <AuNavigationLink @linkRoute="supervision.submissions">
           <AuIcon @icon="search-folder" @alignment="left" />
           Toezicht
         </AuNavigationLink>
