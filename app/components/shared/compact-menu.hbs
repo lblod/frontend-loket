@@ -1,6 +1,6 @@
 <AuDropdown class="au-c-dropdown--left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
   {{#if this.currentSession.canAccessToezicht}}
-    <AuNavigationLink @linkRoute="{{currentSession._group.submissionRoute}}">
+    <AuNavigationLink @linkRoute="supervision.submissions">
       <AuIcon @icon="search-folder" @alignment="left" />
       Toezicht
     </AuNavigationLink>
