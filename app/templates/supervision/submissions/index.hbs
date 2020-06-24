@@ -8,8 +8,7 @@
   </AuToolbarGroup>
 </AuToolbar>
 
-<DataTable
-  @class="container-flex--contain"
+<AuDataTable
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
   @noDataMessage="Geen meldingen gevonden"
@@ -19,13 +18,13 @@
   as |t| >
   <t.content as |c|>
     <c.header>
-      <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
-      <ThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
-      <ThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
-      <ThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
+      <AuDataTableThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
+      <AuDataTableThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
+      <AuDataTableThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
+      <AuDataTableThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
       <th class="au-u-visible-medium-up">Aangemaakt door</th>
       <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
-      <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
+      <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th></th>
     </c.header>
     <c.body as |row|>
@@ -62,6 +61,6 @@
       </td>
     </c.body>
   </t.content>
-</DataTable>
+</AuDataTable>
 
 {{outlet}}
