@@ -260,19 +260,6 @@ td:focus {
   display: inline-block;
 }
 
-
-// Ember a11y refocus
-#ember-a11y-refocus-nav-message {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 // Fix height of info tiles in grid
 .info-tile {
   height: 100%;
