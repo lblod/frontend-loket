@@ -18,24 +18,25 @@ sup {
 
 /* ==================================
    #COPY FROM FRONTEND-MELDINGSPLICHTIGE-API
+   @TODO: remove > unused
    ================================== */
 
-th {
-  background-color: white;
-  font-weight: bold;
-}
+// th {
+//   background-color: white;
+//   font-weight: bold;
+// }
 
-tr:nth-child(odd) {
-  background-color: $au-gray-100;
-}
+// tr:nth-child(odd) {
+//   background-color: $au-gray-100;
+// }
 
-.triple table {
-  border-collapse: collapse;
-}
+// .triple table {
+//   border-collapse: collapse;
+// }
 
-.triple table, .triple th, .triple td {
-  border: 1px solid black;
-}
+// .triple table, .triple th, .triple td {
+//   border: 1px solid black;
+// }
 
 
 /* ==================================
@@ -240,4 +241,10 @@ $au-non-editable-background    : $au-gray-100 !default;
 
 .input-field:-ms-input-placeholder {
   font-weight: 400 !important;
+}
+
+// Make breadcrumb toolbar a smaller default font-size
+// @TODO: create a utility or toolbar modifier?
+.au-c-toolbar__breadcrumbs {
+  font-size: $au-base;
 }

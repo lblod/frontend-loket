@@ -33,10 +33,10 @@
     </div>
   </div>
   {{/if}}
-  <div id="content" class="au-c-main-container__content">
+  <div class="au-c-main-container__content">
     <div class="au-c-body-container">
       {{#unless this.isIndex}}
-        <AuToolbar @size="medium" @skin="tint" @border="bottom">
+        <AuToolbar @size="medium" @skin="tint" @border="bottom" class="au-c-toolbar__breadcrumbs">
           <AuToolbarGroup>
             <ul class="au-c-list-horizontal">
               <li class="au-c-list-horizontal__item">
@@ -53,8 +53,9 @@
           </AuToolbarGroup>
         </AuToolbar>
       {{/unless}}
-
-      {{outlet}}
+      <div id="content" class="au-c-body-container">
+        {{outlet}}
+      </div>
     </div>
   </div>
 </main>
