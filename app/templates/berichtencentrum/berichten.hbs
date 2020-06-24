@@ -53,11 +53,14 @@
   </div>
 
   {{#if showPreferences}}
-    <div class="modal-overlay modal-overlay-configure-berichtencentrum">
-      {{berichtencentrum/bericht-notificatie-voorkeuren
-        close=(action "hidePreferences")
-        data-test-loket="setting-email-component"}}
-    </div>
+    <EmberWormhole @to="ember-appuniversum-wormhole">
+      <div class="au-c-modal-backdrop" role="presentation"></div>
+      <div class="modal-overlay modal-overlay-configure-berichtencentrum" {{auto-focus ".modal-dialog--sectioned"}}>
+        {{berichtencentrum/bericht-notificatie-voorkeuren
+          close=(action "hidePreferences")
+          data-test-loket="setting-email-component"}}
+      </div>
+    </EmberWormhole>
   {{/if}}
   {{outlet}}
 </div>
