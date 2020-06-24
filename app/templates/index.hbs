@@ -13,225 +13,217 @@
         </AuAlert>
       </div>
     </div>
-    <div class="au-o-grid au-o-grid--small">
-      <div class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <div class="info-tile info-tile--s">
-          <div class="info-tile__header">
-            <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
-                <AuIcon @icon="search-folder" @size="large" class="badge__icon" />
-              </div>
-            </div>
-            <div class="info-tile__header__wrapper">
-              <h2 class="info-tile__header__title u-spacer--top--tinier">Toezicht</h2>
-              <p class="info-tile__header__subtitle u-spacer--small">Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessToezicht}}
-                  {{wu-button isNarrow=true isSmall=true label="Ga naar toezicht" onClick=(action "goToToezicht")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
-                    </div>
-                  </div>
-                {{/if}}
-              </p>
+    <ul class="au-o-grid au-o-grid--small">
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true">
+          <AuBadge @icon="search-folder" @skin="brand" />
+          <AuContent @skin="small">
+            <AuHeading @level="2" @skin="4">
+              Toezicht
+            </AuHeading>
+            <p class="au-u-margin-top-tiny">Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
+            {{#if currentSession.canAccessToezicht}}
               <p>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/mijn-binnenland" target="_blank" rel="noopener">Meer informatie</a>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank" rel="noopener">Handleiding</a>
+                <AuButton {{action "goToToezicht"}}>Ga naar toezicht</AuButton>
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <div class="info-tile info-tile--s">
-          <div class="info-tile__header">
-            <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
-                <AuIcon @icon="message" @size="large" class="badge__icon" />
-              </div>
-            </div>
-            <div class="info-tile__header__wrapper">
-              <h2 class="info-tile__header__title u-spacer--top--tinier">Berichtencentrum</h2>
-              <p class="info-tile__header__subtitle u-spacer--small">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessBerichten}}
-                  {{wu-button isNarrow=true isSmall=true label="Ga naar berichtencentrum" onClick=(action "goToBerichtencentrum")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
-                    </div>
-                  </div>
-                {{/if}}
-              </p>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+            <p>
+              <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-toezicht" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="link" @alignment="left" />
+                Meer informatie
+              </a>
+              &nbsp;
+              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="manual" @alignment="left" />
+                Handleiding
+              </a>
+            </p>
+          </AuContent>
+        </AuCard>
+      </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true">
+          <AuBadge @icon="message" @skin="brand" />
+          <AuContent @skin="small">
+            <AuHeading @level="2" @skin="4">
+              Berichtencentrum
+            </AuHeading>
+            <p class="au-u-margin-top-tiny">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+            {{#if currentSession.canAccessBerichten}}
               <p>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank" rel="noopener">Meer informatie</a>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum" target="_blank" rel="noopener">Handleiding</a>
+                <AuButton {{action "goToBerichtencentrum"}}>Ga naar berichtencentrum</AuButton>
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <div class="info-tile info-tile--s">
-          <div class="info-tile__header">
-            <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
-                <AuIcon @icon="document" @size="large" class="badge__icon" />
-              </div>
-            </div>
-            <div class="info-tile__header__wrapper">
-              <h2 class="info-tile__header__title u-spacer--top--tinier">BBC-DR</h2>
-              <p class="info-tile__header__subtitle u-spacer--small">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessBbcdr}}
-                  {{wu-button isNarrow=true isSmall=true label="Ga naar BBC DR" onClick=(action "goToBbcdr")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
-                    </div>
-                  </div>
-                {{/if}}
-              </p>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+            <p>
+              <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="link" @alignment="left" />
+                Meer informatie
+              </a>
+              &nbsp;
+              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="manual" @alignment="left" />
+                Handleiding
+              </a>
+            </p>
+          </AuContent>
+        </AuCard>
+      </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true">
+          <AuBadge @icon="document" @skin="brand" />
+          <AuContent @skin="small">
+            <AuHeading @level="2" @skin="4">
+              BBC-DR
+            </AuHeading>
+            <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
+            {{#if currentSession.canAccessBbcdr}}
               <p>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank" rel="noopener">Meer informatie</a>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr" target="_blank" rel="noopener">Handleiding</a>
+                <AuButton {{action "goToBbcdr"}}>Ga naar BBC DR</AuButton>
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <div class="info-tile info-tile--s">
-          <div class="info-tile__header">
-            <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
-                <AuIcon @icon="user-fill" @size="large" class="badge__icon" />
-              </div>
-            </div>
-            <div class="info-tile__header__wrapper">
-              <h2 class="info-tile__header__title u-spacer--top--tinier">Mandatenbeheer</h2>
-              <p class="info-tile__header__subtitle u-spacer--small">Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessMandaat}}
-                  {{wu-button isNarrow=true isSmall=true label="Ga naar mandatenbeheer" onClick=(action "goToMandatenbeheer")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
-                    </div>
-                  </div>
-                {{/if}}
-              </p>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+            <p>
+              <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="link" @alignment="left" />
+                Meer informatie
+              </a>
+              &nbsp;
+              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="manual" @alignment="left" />
+                Handleiding
+              </a>
+            </p>
+          </AuContent>
+        </AuCard>
+      </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true">
+          <AuBadge @icon="user-fill" @skin="brand" />
+          <AuContent @skin="small">
+            <AuHeading @level="2" @skin="4">
+              Mandatenbeheer
+            </AuHeading>
+            <p class="au-u-margin-top-tiny">Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
+            {{#if currentSession.canAccessMandaat}}
               <p>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank" rel="noopener">Meer informatie</a>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#mandatenbeheer" target="_blank" rel="noopener">Handleiding</a>
+                <AuButton {{action "goToMandatenbeheer"}}>Ga naar mandatenbeheer</AuButton>
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <div class="info-tile info-tile--s">
-          <div class="info-tile__header">
-            <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
-                <AuIcon @icon="user-popup" @size="large" class="badge__icon" />
-              </div>
-            </div>
-            <div class="info-tile__header__wrapper">
-              <h2 class="info-tile__header__title u-spacer--top--tinier">Leidinggevendenbeheer</h2>
-              <p class="info-tile__header__subtitle u-spacer--small">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessLeidinggevenden}}
-                  {{wu-button isNarrow=true isSmall=true label="Ga naar leidinggevendenbeheer" onClick=(action "goToLeidinggevendenbeheer")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
-                    </div>
-                  </div>
-                {{/if}}
-              </p>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+            <p>
+              <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="link" @alignment="left" />
+                Meer informatie
+              </a>
+              &nbsp;
+              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#mandatenbeheer" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="manual" @alignment="left" />
+                Handleiding
+              </a>
+            </p>
+          </AuContent>
+        </AuCard>
+      </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true">
+          <AuBadge @icon="user-popup" @skin="brand" />
+          <AuContent @skin="small">
+            <AuHeading @level="2" @skin="4">
+              Leidinggevendenbeheer
+            </AuHeading>
+            <p class="au-u-margin-top-tiny">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+            {{#if currentSession.canAccessLeidinggevenden}}
               <p>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://lokaalbestuur.vlaanderen.be/personeel/databank-leidinggevenden" target="_blank" rel="noopener">Meer informatie</a>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#leidinggevendenbeheer" target="_blank" rel="noopener">Handleiding</a>
+                <AuButton {{action "goToLeidinggevendenbeheer"}}>Ga naar leidinggevendenbeheer</AuButton>
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <div class="info-tile info-tile--s">
-          <div class="info-tile__header">
-            <div class="info-tile__badge__wrapper">
-              <div class="info-tile__header__icon badge badge--accent badge--m badge--icon">
-                <AuIcon @icon="users" @size="large" class="badge__icon" />
-              </div>
-            </div>
-            <div class="info-tile__header__wrapper">
-              <h2 class="info-tile__header__title u-spacer--top--tinier">Personeelsbeheer</h2>
-              <p class="info-tile__header__subtitle u-spacer--small">Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessPersoneelsbeheer}}
-                  {{wu-button isNarrow=true isSmall=true label="Ga naar personeelsbeheer" onClick=(action "goToPersoneelsbeheer")}}
-                {{else}}
-                  <div class="alert alert--tiny">
-                    <div class="alert__message">
-                      <p>Geen toegang. Neem contact op met uw interne beheerder om toegang te verkrijgen.</p>
-                    </div>
-                  </div>
-                {{/if}}
-              </p>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+            <p>
+              <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/personeel/databank-leidinggevenden" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="link" @alignment="left" />
+                Meer informatie
+              </a>
+              &nbsp;
+              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#leidinggevendenbeheer" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="manual" @alignment="left" />
+                Handleiding
+              </a>
+            </p>
+          </AuContent>
+        </AuCard>
+      </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true">
+          <AuBadge @icon="users" @skin="brand" />
+          <AuContent @skin="small">
+            <AuHeading @level="2" @skin="4">
+              Personeelsbeheer
+            </AuHeading>
+            <p class="au-u-margin-top-tiny">Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
+            {{#if currentSession.canAccessPersoneelsbeheer}}
               <p>
-                <a class="link link--dark link--icon--external link--icon--after u-padding--right--small smaller" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener">Handleiding</a>
+                <AuButton {{action "goToPersoneelsbeheer"}}>Ga naar personeelsbeheer</AuButton>
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {{!-- <div class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <div class="info-tile info-tile--m info-tile--center">
-          <div>
-            <div class="info-tile__header">
-              <div class="info-tile__header__icon badge badge--accent badge--l badge--icon">
-                <i class="badge__icon vi vi-news" aria-hidden="true"></i>
-              </div>
-              <div class="info-tile__header__wrapper">
-                <h3 class="info-tile__header__title">Subsidiebeheer</h3>
-              </div>
-            </div>
-            <div class="info-tile__content">
-              <p>Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad.</p>
-            </div>
-            <footer class="info-tile__footer">
-              <p class="u-spacer--tiny">
-                {{#if currentSession.canAccessSubsidiebeheer}}
-                  {{wu-button isNarrow=true label="Ga naar subsidiebeheer" onClick=(action "goToSubsidiebeheer")}}
-                {{else}}
-                  {{wu-button isNarrow=true class="button--disabled" label="Geen toegang"}}
-                {{/if}}
-              </p>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+            <p>
+              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="manual" @alignment="left" />
+                Handleiding
+              </a>
+            </p>
+          </AuContent>
+        </AuCard>
+      </li>
+      {{!-- <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true">
+          <AuBadge @icon="pencil" @skin="brand" />
+          <AuContent @skin="small">
+            <AuHeading @level="2" @skin="4">
+              Subsidiebeheer
+            </AuHeading>
+            <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad..</p>
+            {{#if currentSession.canAccessSubsidiebeheer}}
               <p>
-                <a class="button button--small button--link button--link--dark" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank">Handleiding</a>
+                <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
               </p>
-            </footer>
-          </div>
-        </div>
-      </div> --}}
-
-      <div class="au-o-grid__item au-u-3-4@small au-u-2-3@medium au-u-1-2@large">
-        <p>Indien u toegang mist tot een van de modules in het loket, neem contact op met uw <strong>interne beheerder</strong>. Indien er zich een probleem voordoet met <strong>toegang</strong>, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
-      </div>
-    </div>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+            <p>
+              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank" rel="noopener noreferrer">
+                <AuIcon @icon="manual" @alignment="left" />
+                Handleiding
+              </a>
+            </p>
+          </AuContent>
+        </AuCard>
+      </li> --}}
+    </ul>
+    <AuContent class="au-u-3-4@small au-u-2-3@medium au-u-1-2@large au-u-margin-top">
+      <p>Indien u toegang mist tot een van de modules in het loket, neem contact op met uw <strong>interne beheerder</strong>. Indien er zich een probleem voordoet met <strong>toegang</strong>, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer" class="au-c-link">gebruikersbeheer Vlaanderen</a>.</p>
+    </AuContent>
   </div>
 </div>

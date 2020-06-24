@@ -15,12 +15,6 @@ sup {
   font-size: smaller;
 }
 
-// Fix height of info tiles in grid
-// @TODO: replace by AuCard component
-.info-tile {
-  height: 100%;
-}
-
 
 /* ==================================
    #COPY FROM FRONTEND-MELDINGSPLICHTIGE-API
@@ -199,10 +193,6 @@ $au-non-editable-background    : $au-gray-100 !default;
   table {
     max-width: 100%;
     width: 100%;
-
-    td {
-
-    }
   }
 }
 
