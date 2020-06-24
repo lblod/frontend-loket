@@ -246,13 +246,6 @@ $au-non-editable-background    : $au-gray-100 !default;
   }
 }
 
-// Temporary focus overrides for focus area's
-// @TODO: discuss where to put this or how to fix this focus style.
-#main:focus,
-#content:focus {
-  outline: 0;
-}
-
 // Fixes light font-weights conflict with appuniversum
 // @TODO: remove when webuniversum is replaced by appuniversum
 .text-fade,
