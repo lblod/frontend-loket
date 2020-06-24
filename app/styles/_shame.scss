@@ -162,6 +162,7 @@ tr:nth-child(odd) {
   display: block;
 }
 
+// This can probably be removed again > @TODO: review after IE11 test
 div:focus,
 span:focus,
 table:focus,
@@ -225,24 +226,6 @@ $au-non-editable-background    : $au-gray-100 !default;
 
   .loader-wrapper {
     padding: 0;
-  }
-}
-
-// Fix app title width overflow
-// @TODO: port to brand component
-.au-c-main-header__title.au-c-main-header__title--link {
-  max-width: $au-unit-huge;
-
-  @include mq(xsmall) {
-    max-width: $au-unit-huge*1.5;
-  }
-
-  @include mq(small) {
-    max-width: $au-unit-huge*2;
-  }
-
-  @include mq(medium) {
-    max-width: initial;
   }
 }
 
