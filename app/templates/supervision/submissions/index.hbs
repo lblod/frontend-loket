@@ -57,7 +57,7 @@
         <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
       </td>
       <td>
-        <LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo>
+        <LinkTo @route="supervision.submissions.edit" @model={{row.id}} class="au-c-link">Bekijk</LinkTo>
       </td>
     </c.body>
   </t.content>
