@@ -15,36 +15,195 @@ sup {
   font-size: smaller;
 }
 
-// Temporary focus overrides for focus area's
-// @TODO: discuss where to put this or how to fix this focus style.
-#main:focus,
-#content:focus {
-  outline: 0;
+// Fix height of info tiles in grid
+// @TODO: replace by AuCard component
+.info-tile {
+  height: 100%;
 }
 
-// Fixes light font-weights conflict with appuniversum
-// @TODO: remove when webuniversum is replaced by appuniversum
-.text-fade,
-.text-light {
-  font-weight: 400;
+
+/* ==================================
+   #COPY FROM FRONTEND-MELDINGSPLICHTIGE-API
+   ================================== */
+
+th {
+  background-color: white;
+  font-weight: bold;
 }
 
-.input-field::placeholder {
-  font-weight: 400 !important;
+tr:nth-child(odd) {
+  background-color: $au-gray-100;
 }
 
-.input-field::-webkit-input-placeholder {
-  font-weight: 400 !important;
+.triple table {
+  border-collapse: collapse;
 }
 
-.input-field::-moz-placeholder {
-  font-weight: 400 !important;
+.triple table, .triple th, .triple td {
+  border: 1px solid black;
 }
 
-.input-field:-ms-input-placeholder {
-  font-weight: 400 !important;
+
+/* ==================================
+   #POWER SELECT
+   ================================== */
+
+.ember-power-select-trigger {
+  min-height: 3.6rem;
 }
 
+.ember-power-select--error .ember-power-select-trigger {
+  border: .3rem solid $au-red-600;
+}
+
+// Fix power select
+.power-select.power-select--small .ember-power-select-trigger {
+  height: auto;
+  line-height: 2.1;
+  display: block;
+}
+
+
+/* ==================================
+   #CHECKBOX
+   ================================== */
+
+.checkbox {
+  margin-right: 0;
+  min-height: 1.5rem;
+}
+
+
+/* ==================================
+   #TEMPORARY GENERAL DISABLED STATE FOR FORM
+   ================================== */
+
+.au-c-form--disabled {
+  .ember-basic-dropdown-trigger,
+  .au-c-textarea,
+  .au-c-input,
+  .au-c-textarea--error,
+  .au-c-input--error,
+  .ember-power-select--error .ember-power-select-trigger,
+  .au-c-date-picker-container--error .input-field--datepicker {
+    background-color: $au-input-disabled-background-color;
+    border-color: $au-input-disabled-border-color;
+    color: $au-input-disabled-color;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .au-c-help-text--error,
+  .upload__element__label {
+    color: $au-input-disabled-color;
+    pointer-events: none;
+  }
+
+  .au-c-label--error:before {
+    background-color: $au-input-disabled-color;
+  }
+
+  .au-c-button{
+    background: $au-input-disabled-color;
+  }
+}
+
+
+/* ==================================
+   #TEMPORARY EMBER DROPDOWN STYLING
+   ================================== */
+
+.ember-power-select-trigger.ember-basic-dropdown-trigger.ember-view.ember-power-select-trigger--active {
+  outline: none;
+  border-color: $au-yellow-400;
+  box-shadow: inset 0 0 0 .1rem $au-yellow-400;
+}
+
+/* ==================================
+   #DATE PICKER
+   ================================== */
+
+.au-c-date-picker-container .datepicker {
+  width: auto;
+
+  .input-field {
+    width: 100%;
+  }
+
+  .datepicker__icon {
+    right: 1.5rem;
+  }
+}
+
+
+.au-c-date-picker-container--error .input-field--datepicker {
+  border: .3rem solid $au-red-600;
+}
+
+
+/* ==================================
+   #TEMPORARY DISABLE YEAR PICKER IN DATEPICKER
+  this datepicker is part of webuniversum and the year picker requires setting an end- and start date to use the year picker.
+   ================================== */
+
+.pika-label + .pika-label {
+  pointer-events: none;
+  text-decoration: none;
+  color: $au-gray-900;
+}
+
+
+/* ==================================
+  #IE 11 appuniversum fixes
+  @TODO: update in appuniversum
+  ================================== */
+
+.au-c-alert__content {
+  display: block;
+}
+
+div:focus,
+span:focus,
+table:focus,
+td:focus {
+  outline: 0 !important;
+}
+
+.checkbox + .au-c-label {
+  display: inline-block;
+}
+
+
+/* ==================================
+  @TODO: update in appuniversum
+  ================================== */
+
+// Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
+.au-o-grid--fixed {
+  height: 100%;
+  overflow: hidden;
+
+  > .au-o-grid__item {
+    height: 100%;
+  }
+}
+
+// NON-EDITABLE FORM
+$au-non-editable-background    : $au-gray-100 !default;
+
+.au-c-form--non-editable {
+  background-color:  $au-non-editable-background;
+  max-width: 100%;
+
+  table {
+    max-width: 100%;
+    width: 100%;
+
+    td {
+
+    }
+  }
+}
 
 // Fix ACMIDM login alerts/loading in header
 // @TODO: rework ACMIDM components to work with appuniversum classes
@@ -87,203 +246,32 @@ sup {
   }
 }
 
-/* ==================================
-   #COPY FROM FRONTEND-MELDINGSPLICHTIGE-API
-   ================================== */
-
-th {
-  background-color: white;
-  font-weight: bold;
+// Temporary focus overrides for focus area's
+// @TODO: discuss where to put this or how to fix this focus style.
+#main:focus,
+#content:focus {
+  outline: 0;
 }
 
-tr:nth-child(odd) {
-  background-color: $au-gray-100;
+// Fixes light font-weights conflict with appuniversum
+// @TODO: remove when webuniversum is replaced by appuniversum
+.text-fade,
+.text-light {
+  font-weight: 400;
 }
 
-.triple table {
-  border-collapse: collapse;
+.input-field::placeholder {
+  font-weight: 400 !important;
 }
 
-.triple table, .triple th, .triple td {
-  border: 1px solid black;
+.input-field::-webkit-input-placeholder {
+  font-weight: 400 !important;
 }
 
-/* ==================================
-   #NON-EDITABLE
-   ================================== */
-
-/* Variables
-   ========================================================================== */
-
-$au-non-editable-background    : $au-gray-100 !default;
-
-/* Modifiers
-   ========================================================================== */
-
-.au-c-form--non-editable {
-  background-color:  $au-non-editable-background;
-  max-width: 100%;
-
-  table {
-    max-width: 100%;
-    width: 100%;
-
-    td {
-
-    }
-  }
+.input-field::-moz-placeholder {
+  font-weight: 400 !important;
 }
 
-/* ==================================
-   #POWER SELECT
-   ================================== */
-
-.ember-power-select-trigger {
-  min-height: 3.6rem;
-}
-
-/* Modifiers
-   ========================================================================== */
-
-.ember-power-select--error .ember-power-select-trigger {
-  border: .3rem solid $au-red-600;
-}
-
-/* ==================================
-   #DATE PICKER
-   ================================== */
-
-/* Modifiers
-   ========================================================================== */
-
-.au-c-date-picker-container .datepicker {
-  width: auto;
-
-  .input-field {
-    width: 100%;
-  }
-
-  .datepicker__icon {
-    right: 1.5rem;
-  }
-}
-
-
-.au-c-date-picker-container--error .input-field--datepicker {
-  border: .3rem solid $au-red-600;
-}
-
-/* ==================================
-   #CHECKBOX
-   ================================== */
-
-/* Modifiers
-   ========================================================================== */
-
-.checkbox {
-  margin-right: 0;
-  min-height: 1.5rem;
-}
-
-/* ==================================
-   #TEMPORARY GENERAL DISABLED STATE FOR FORM
-   ================================== */
-
-.au-c-form--disabled {
-  .ember-basic-dropdown-trigger,
-  .au-c-textarea,
-  .au-c-input,
-  .au-c-textarea--error,
-  .au-c-input--error,
-  .ember-power-select--error .ember-power-select-trigger,
-  .au-c-date-picker-container--error .input-field--datepicker {
-    background-color: $au-input-disabled-background-color;
-    border-color: $au-input-disabled-border-color;
-    color: $au-input-disabled-color;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  .au-c-help-text--error,
-  .upload__element__label {
-    color: $au-input-disabled-color;
-    pointer-events: none;
-  }
-
-  .au-c-label--error:before {
-    background-color: $au-input-disabled-color;
-  }
-
-  .au-c-button{
-    background: $au-input-disabled-color;
-  }
-}
-
-/* ==================================
-   #TEMPORARY EMBER DROPDOWN STYLING
-   ================================== */
-
-.ember-power-select-trigger.ember-basic-dropdown-trigger.ember-view.ember-power-select-trigger--active {
-  outline: none;
-  border-color: $au-yellow-400;
-  box-shadow: inset 0 0 0 .1rem $au-yellow-400;
-}
-
-/* ==================================
-   #TEMPORARY DISABLE YEAR PICKER IN DATEPICKER
-  this datepicker is part of webuniversum and the year picker requires setting an end- and start date to use the year picker.
-   ================================== */
-
-.pika-label + .pika-label {
-  pointer-events: none;
-  text-decoration: none;
-  color: $au-gray-900;
-}
-
-/* ==================================
-  #IE 11 appuniversum fixes
-  @TODO: update in appuniversum
-  ================================== */
-
-.au-c-alert__content {
-  display: block;
-}
-
-div:focus,
-span:focus,
-table:focus,
-td:focus {
-  outline: 0 !important;
-}
-
-.checkbox + .au-c-label {
-  display: inline-block;
-}
-
-// Fix height of info tiles in grid
-.info-tile {
-  height: 100%;
-}
-
-// Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
-.au-o-grid--fixed {
-  height: 100%;
-  overflow: hidden;
-
-  > .au-o-grid__item {
-    height: 100%;
-  }
-}
-
-// Fix power select
-.power-select.power-select--small .ember-power-select-trigger {
-  height: auto;
-  line-height: 2.1;
-  display: block;
-}
-
-// Data table quick fix
-// @TODO port to appuniversum
-.au-c-data-table__header th {
-  border-radius: 0;
+.input-field:-ms-input-placeholder {
+  font-weight: 400 !important;
 }
