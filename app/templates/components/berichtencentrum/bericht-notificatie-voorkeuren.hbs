@@ -1,36 +1,34 @@
-<div class="modal-dialog modal-dialog--sectioned">
-  <div class="modal-dialog__header">
-    <div class="grid">
-      <div class="col--10-12">
-        <h2 class="h3">Configureer berichtencentrum</h2>
-      </div>
-      <div class="col--2-12 u-align-right"><button class="link--icon--close modal-overlay-configure-berichtencentrum u-hidden"><span class="u-visually-hidden">Venster sluiten</span></button></div>
-    </div>
+<div id="berichtencentrumvoorkeuren" class="au-c-modal is-visible" role="dialog" aria-describedby="au-c-modal-title-berichtencentrumvoorkeuren" tabindex="-1" {{focus-trap isActive=true focusTrapOptions=(hash onDeactivate=(fn this.close) initialFocus=".au-c-modal__title" clickOutsideDeactivates=true)}}>
+  <div class="au-c-modal__header">
+    <h1 id="au-c-modal-title-berichtencentrumvoorkeuren" class="au-c-modal__title" tabindex="-1">
+      Configureer berichtencentrum
+    </h1>
+    <button type="button" {{on "click" this.close}} class="au-c-modal__close">
+      <AuIcon @icon="cross" @size="large" />
+      <span class="au-u-hidden-visually">Venster sluiten</span>
+    </button>
   </div>
-  <div class="modal-dialog__content">
-    <h3 class="h4 u-spacer--small">Mail instellingen</h3>
-    <div class="form__row">
+  <AuModalBody>
+    <AuHeading @level="2" @skin="4">Mail instellingen</AuHeading>
+    <div class="form__row au-u-margin-top-small">
       <div class="form__label">
         <label class="checkbox checkbox--block">
           {{input class="checkbox__toggle" type="checkbox" checked=wilMailOntvangen}}
           <span></span>
-          <span>Ontvang mails bij nieuwe begrichten</span>
+          <span>Ontvang mails bij nieuwe berichten</span>
         </label>
       </div>
     </div>
     {{#if wilMailOntvangen}}
-      <div class="form__row u-spacer--bottom--tiny">
-        <div class="form__label">
-          <label>Mailadres</label>
-          {{input class="input-field input-field--block" placeholder="mail@adres.com" value=emailAddress}}
-        </div>
-      </div>
+    <div class="form__row">
+      <AuLabel for="voorkeurenmailadres">Mailadres</AuLabel>
+      <AuInput id="voorkeurenmailadres" @width="block" {{auto-focus}}/>
+      <AuHelpText >vb. mail@adres.com</AuHelpText>
+    </div>
     {{/if}}
-  </div>
-  <div class="modal-dialog__footer">
-  	<div class="button-group u-spacer--bottom--tiny">
-	    {{wu-button label="Bewaar" onClick=(action "commit") isAlt=false}}
-	    {{wu-button label="Sluit venster" onClick=close isAlt=true command='Verwerp wijzigingen' commandLocation='below'}}
-	  </div>
-  </div>
+  </AuModalBody>
+  <AuModalFooter>
+    <AuButton {{action "commit"}}>Bewaar</AuButton>
+    <AuButton {{on "click" this.close}} @skin="secondary">Sluit venster en verwerp wijzigingen</AuButton>
+  </AuModalFooter>
 </div>

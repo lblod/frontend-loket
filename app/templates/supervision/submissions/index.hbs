@@ -1,15 +1,14 @@
 {{title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
-    <h1 class="au-u-h3 u-spacer--tb--tinier" data-test-loket="inzendingen-page-title">Toezicht</h1>
+    <AuHeading @skin="2" data-test-loket="inzendingen-page-title">Toezicht</AuHeading>
   </AuToolbarGroup>
   <AuToolbarGroup>
     <LinkTo @route="supervision.submissions.new" class="au-c-button" type="button">Maak nieuwe melding</LinkTo>
   </AuToolbarGroup>
 </AuToolbar>
 
-<DataTable
-  @class="container-flex--contain"
+<AuDataTable
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
   @noDataMessage="Geen meldingen gevonden"
@@ -19,13 +18,13 @@
   as |t| >
   <t.content as |c|>
     <c.header>
-      <ThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
-      <ThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
-      <ThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
-      <ThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
+      <AuDataTableThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Orgaan"/>
+      <AuDataTableThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
+      <AuDataTableThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
+      <AuDataTableThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}} @label="Datum verstuurd"/>
       <th class="au-u-visible-medium-up">Aangemaakt door</th>
       <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
-      <ThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
+      <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th></th>
     </c.header>
     <c.body as |row|>
@@ -58,10 +57,10 @@
         <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
       </td>
       <td>
-        <LinkTo @route="supervision.submissions.edit" @model={{row.id}}>Bekijk</LinkTo>
+        <LinkTo @route="supervision.submissions.edit" @model={{row.id}} class="au-c-link">Bekijk</LinkTo>
       </td>
     </c.body>
   </t.content>
-</DataTable>
+</AuDataTable>
 
 {{outlet}}

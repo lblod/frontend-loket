@@ -2,7 +2,7 @@
 
 <div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
   <div class="au-o-grid__item {{if hasActiveChildRoute "au-u-3-5@medium u-visible--tablet-landscape-up" "au-u-1-1@medium"}}">
-    <div class="au-c-body-container">
+    <div class="au-c-body-container" tabindex="0">
       <AuToolbar @size="large">
         <AuToolbarGroup>
           <AuHeading @skin="2">Berichtencentrum</AuHeading>
@@ -53,11 +53,14 @@
   </div>
 
   {{#if showPreferences}}
-    <div class="modal-overlay modal-overlay-configure-berichtencentrum">
-      {{berichtencentrum/bericht-notificatie-voorkeuren
-        close=(action "hidePreferences")
-        data-test-loket="setting-email-component"}}
-    </div>
+    <EmberWormhole @to="ember-appuniversum-wormhole">
+      <div class="au-c-modal-backdrop" role="presentation"></div>
+      <div class="modal-overlay modal-overlay-configure-berichtencentrum" {{auto-focus ".modal-dialog--sectioned"}}>
+        {{berichtencentrum/bericht-notificatie-voorkeuren
+          close=(action "hidePreferences")
+          data-test-loket="setting-email-component"}}
+      </div>
+    </EmberWormhole>
   {{/if}}
   {{outlet}}
 </div>
