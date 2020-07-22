@@ -17,49 +17,6 @@ sup {
 
 
 /* ==================================
-   #COPY FROM FRONTEND-MELDINGSPLICHTIGE-API
-   @TODO: remove > unused
-   ================================== */
-
-// th {
-//   background-color: white;
-//   font-weight: bold;
-// }
-
-// tr:nth-child(odd) {
-//   background-color: $au-gray-100;
-// }
-
-// .triple table {
-//   border-collapse: collapse;
-// }
-
-// .triple table, .triple th, .triple td {
-//   border: 1px solid black;
-// }
-
-
-/* ==================================
-   #POWER SELECT
-   ================================== */
-
-.ember-power-select-trigger {
-  min-height: 3.6rem;
-}
-
-.ember-power-select--error .ember-power-select-trigger {
-  border: .3rem solid $au-red-600;
-}
-
-// Fix power select
-.power-select.power-select--small .ember-power-select-trigger {
-  height: auto;
-  line-height: 2.1;
-  display: block;
-}
-
-
-/* ==================================
    #CHECKBOX
    ================================== */
 
@@ -103,16 +60,6 @@ sup {
   }
 }
 
-
-/* ==================================
-   #TEMPORARY EMBER DROPDOWN STYLING
-   ================================== */
-
-.ember-power-select-trigger.ember-basic-dropdown-trigger.ember-view.ember-power-select-trigger--active {
-  outline: none;
-  border-color: $au-yellow-400;
-  box-shadow: inset 0 0 0 .1rem $au-yellow-400;
-}
 
 /* ==================================
    #DATE PICKER
