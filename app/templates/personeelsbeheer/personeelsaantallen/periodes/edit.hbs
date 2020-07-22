@@ -13,9 +13,8 @@
         </AuAlert>
       {{/if}}
       {{#unless this.dataset.modified}}
-        <p class="small u-spacer--tiny">
-          <label class="pill pill--primary-yellow">Aantallen niet actueel</label> {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
-        </p>
+        <AuPill @skin="warning">Aantallen niet actueel</AuPill>
+        {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
       {{/unless}}
       {{#if isSaving}}
         <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">

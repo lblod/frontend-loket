@@ -2,30 +2,30 @@
   <AuToolbarGroup>
     <div>
       <AuHeading @level="2" @skin="4">{{model.rol.label}}</AuHeading>
-      <ul class="inline-list inline-list--bordered small au-u-margin-top-small">
-        <li>
+      <ul class="au-c-list-horizontal au-u-margin-top-small">
+        <li class="au-c-list-horizontal__item">
           {{#if model.contactinfo.email}}
             <a class="au-c-link au-c-link--secondary" href="mailto:{{model.contactinfo.email}}">
               {{model.contactinfo.email}}
             </a>
           {{else}}
-            <span class="text-fade">Geen mailadres</span>
+            <span class="au-c-placeholder">Geen mailadres</span>
           {{/if}}
         </li>
-        <li>
+        <li class="au-c-list-horizontal__item">
           {{#if model.contactinfo.telefoon}}
             <a class="au-c-link au-c-link--secondary" href="tel:{{model.contactinfo.telefoon}}">
               {{model.contactinfo.telefoon}}
             </a>
           {{else}}
-            <span class="text-fade">geen telefoonnummer</span>
+            <span class="au-c-placeholder">geen telefoonnummer</span>
           {{/if}}
         </li>
-        <li>
+        <li class="au-c-list-horizontal__item">
           {{#if model.contactinfo.adres.volledigAdres}}
             <span>{{model.contactinfo.adres.volledigAdres}}</span>
           {{else}}
-            <span class="text-fade">geen adres</span>
+            <span class="au-c-placeholder">geen adres</span>
           {{/if}}
         </li>
       </ul>

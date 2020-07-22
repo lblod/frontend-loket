@@ -3,17 +3,19 @@
     <AuToolbarGroup>
       <AuPill data-test-loket="berichtencentrum-header-dossiernummer">Dossiernummer: {{conversatie.dossiernummer}}</AuPill>
       {{!--     {{#if conversatie.reactietermijn}}
-        <label class="pill pill--gray-light u-spacer--tiny">
+        <AuPill>
           Reactietermijn: {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
-        </label>
-      {{/if}} --}}<br>
-      <AuHeading @level="2" @skin="3"  data-test-loket="berichtencentrum-header-type-communicatie">{{conversatie.typeCommunicatie}}</AuHeading>
+        </AuPill>
+      {{/if}} --}}
     </AuToolbarGroup>
     <AuToolbarGroup>
       <button {{action "close"}} data-test-loket="bbcdr-close-panel-btn" class="link--icon--close">
         <span class="u-visually-hidden">Venster sluiten</span>
       </button>
     </AuToolbarGroup>
+  </AuToolbar>
+  <AuToolbar class="au-u-margin-bottom-small">
+      <AuHeading @level="2" @skin="3"  data-test-loket="berichtencentrum-header-type-communicatie">{{conversatie.typeCommunicatie}}</AuHeading>
   </AuToolbar>
   <div class="grid u-spacer--small">
     <div class="col--12-12">

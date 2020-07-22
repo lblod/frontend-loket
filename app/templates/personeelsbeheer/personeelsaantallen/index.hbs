@@ -9,31 +9,38 @@
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
-  <div class="container-flex--scroll u-padding--round--small">
-    {{#each model.datasets as |dataset|}}
-      <div class="u-spacer">
-        <div class="u-padding--tb--small u-border--light--bottom">
-          <div class="grid">
-            <div class="col--8-12 col--1-1--s">
-              <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">{{dataset.title}}</AuHeading>
-              {{personeelsbeheer/employee-dataset-summary dataset=dataset}}
-            </div>
-            <div class="col--4-12 col--1-1--s u-align-right--tablet-portrait-up">
-              {{#link-to "personeelsbeheer.personeelsaantallen.latest" dataset.id class="au-c-button au-u-margin-bottom-tiny"}}
-                Bekijk en bewerk aantallen
-                <AuIcon @icon="nav-right" @alignment="right" />
-              {{/link-to}}
-              <p class="text-fade smaller">
-                {{#if dataset.modified}}
-                  <span> Laatst aangepast op {{moment-format dataset.modified}} </span>
-                {{else}}
-                  <label class="pill pill--primary-yellow">Aantallen niet actueel</label>
-                {{/if}}
-              </p>
-            </div>
-          </div>
+  {{#each model.datasets as |dataset|}}
+    <AuToolbar @size="large" @border="bottom">
+      <AuToolbarGroup>
+        <div>
+          <AuHeading @level="2" @skin="4">
+            <span class="au-u-margin-right-tiny">
+              {{dataset.title}}
+            </span>
+            {{#if dataset.modified}}
+              <AuPill @skin="border">
+                Laatst aangepast op {{moment-format dataset.modified}}
+              </AuPill>
+            {{else}}
+              <AuPill @skin="warning">
+                Aantallen niet actueel
+              </AuPill>
+            {{/if}}
+          </AuHeading>
+          {{personeelsbeheer/employee-dataset-summary dataset=dataset}}
         </div>
-      </div>
-    {{/each}}
-  </div>
+      </AuToolbarGroup>
+      <AuToolbarGroup>
+        <div class="au-u-text-right">
+          {{#link-to "personeelsbeheer.personeelsaantallen.latest" dataset.id class="au-c-button au-u-margin-bottom-tiny"}}
+            Bekijk en bewerk aantallen
+            <AuIcon @icon="nav-right" @alignment="right" />
+          {{/link-to}}
+          <AuHelpText>
+
+          </AuHelpText>
+        </div>
+      </AuToolbarGroup>
+    </AuToolbar>
+  {{/each}}
 </div>

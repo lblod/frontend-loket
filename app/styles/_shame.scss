@@ -4,18 +4,6 @@
    Some parts will be reused, but most of them will not.
    ========================================================================== */
 
-// Override data table actions
-.data-table__actions { // reformat
-  padding: 0;
-}
-
-sup {
-  line-height: 0.5;
-  vertical-align: text-top;
-  font-size: smaller;
-}
-
-
 /* ==================================
    #CHECKBOX
    ================================== */
@@ -116,22 +104,10 @@ td:focus {
   display: inline-block;
 }
 
-
 /* ==================================
-  @TODO: update in appuniversum
+  NON-EDITABLE FORM
   ================================== */
 
-// Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
-.au-o-grid--fixed {
-  height: 100%;
-  overflow: hidden;
-
-  > .au-o-grid__item {
-    height: 100%;
-  }
-}
-
-// NON-EDITABLE FORM
 $au-non-editable-background    : $au-gray-100 !default;
 
 .au-c-form--non-editable {
@@ -141,29 +117,6 @@ $au-non-editable-background    : $au-gray-100 !default;
   table {
     max-width: 100%;
     width: 100%;
-  }
-}
-
-// Fix ACMIDM login alerts/loading in header
-// @TODO: rework ACMIDM components to work with appuniversum classes
-.au-c-main-header__actions .alert {
-  position: absolute;
-  right: $au-unit-small;
-  max-width: 480px;
-  top: $au-unit-large + $au-unit-tiny;
-}
-
-// Position ACMIDM login loader
-.au-c-main-header__actions .u-padding--round--small {
-  position: absolute;
-  right: 0;
-  max-width: 480px;
-  top: $au-unit-large - $au-unit-tiny/2;
-  padding: 0;
-  background-color: $au-white;
-
-  .loader-wrapper {
-    padding: 0;
   }
 }
 
@@ -190,8 +143,52 @@ $au-non-editable-background    : $au-gray-100 !default;
   font-weight: 400 !important;
 }
 
+
+/* ==================================
+  @TODO: update in appuniversum
+  ================================== */
+
+// Fix ACMIDM login alerts/loading in header
+// @TODO: rework ACMIDM components to work with appuniversum classes
+.au-c-main-header__actions .alert {
+  position: absolute;
+  right: $au-unit-small;
+  max-width: 480px;
+  top: $au-unit-large + $au-unit-tiny;
+}
+
+// Position ACMIDM login loader
+.au-c-main-header__actions .u-padding--round--small {
+  position: absolute;
+  right: 0;
+  max-width: 480px;
+  top: $au-unit-large - $au-unit-tiny/2;
+  padding: 0;
+  background-color: $au-white;
+
+  .loader-wrapper {
+    padding: 0;
+  }
+}
+
 // Make breadcrumb toolbar a smaller default font-size
 // @TODO: create a utility or toolbar modifier?
 .au-c-toolbar__breadcrumbs {
   font-size: $au-base;
+}
+
+// Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
+.au-o-grid--fixed {
+  height: 100%;
+  overflow: hidden;
+
+  > .au-o-grid__item {
+    height: 100%;
+  }
+}
+
+// Placeholder styles > replaces .text-fade
+.au-c-placeholder {
+  color: $au-gray-600;
+  font-style: italic;
 }
