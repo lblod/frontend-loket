@@ -20,11 +20,7 @@
 </AuToolbar>
 
 {{#if saveFractie.isRunning}}
-  <div class="loader-wrapper">
-    <div class="loader">
-      <span class="u-visually-hidden">Bezig...</span>
-    </div>
-  </div>
+  <AuLoader @size="small" />
 {{else}}
   <div class="au-c-body-container">
     <div class="au-c-data-table">

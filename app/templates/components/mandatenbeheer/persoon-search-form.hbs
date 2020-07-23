@@ -45,9 +45,7 @@
   {{/if}}
 
   {{#if isQuerying}}
-    <div class="loader-wrapper">
-      <div class="loader"> </div>
-    </div>
+    <AuLoader @size="small" />
   {{else}}
     {{#unless hasSearched}}
 	    <div class="mandate-new-info">

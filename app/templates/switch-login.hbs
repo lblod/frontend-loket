@@ -1,21 +1,9 @@
 <div class="au-c-main-container" itemprop="mainContentOfPage">
   <div class="au-c-main-container__content au-c-main-container__content--scroll">
     <main id="content">
-      <div role="banner" class="au-c-content-header">
-        <picture class="au-c-content-header__bg">
-          <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
-        </picture>
-        <div class="au-c-content-header__wrapper">
-          <div class="au-o-layout">
-            <span class="au-c-content-header__top">
-              Vlaanderen
-            </span>
-            <span class="au-c-content-header__bottom">
-              is lokaal bestuur
-            </span>
-          </div>
-        </div>
-      </div>
+      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
+        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
+      </AuContentHeader>
 
       <section class="au-o-region-large">
         <div class="au-o-layout">

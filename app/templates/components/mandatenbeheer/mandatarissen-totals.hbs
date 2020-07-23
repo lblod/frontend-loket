@@ -3,11 +3,7 @@
 </AuButton>
 <div class="accordion__content u-spacer--top--tiny u-bg-block u-align-left">
   {{#if getMandatarissenTotals.isRunning}}
-    <div class="loader-wrapper">
-      <div class="loader">
-        <span class="u-visually-hidden">Aan het laden</span>
-      </div>
-    </div>
+    <AuLoader @size="small" />
   {{else}}
     <div class="grid">
       {{#each mandatarissenTotals as |orgaanMap|}}

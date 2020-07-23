@@ -112,11 +112,7 @@
               {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
             {{/if}}
             {{#if save.isRunning}}
-              <div class="loader-wrapper">
-                <div class="loader">
-                  <span class="u-visually-hidden">Aan het laden</span>
-                </div>
-              </div>
+              <AuLoader @size="small" />
             {{else}}
 	            <div class="button-group">
 	              {{#wu-button isNarrow=true onClick=(action "save") }}
@@ -179,11 +175,7 @@
                 {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
               {{/if}}
               {{#if save.isRunning}}
-                <div class="loader-wrapper">
-                  <div class="loader">
-                    <span class="u-visually-hidden">Aan het laden</span>
-                  </div>
-                </div>
+                <AuLoader @size="small" />
               {{else}}
                 <div class="button-group">
                   {{#wu-button onClick=(action "save") isNarrow=true}}Wijzig einde mandaat{{/wu-button}}
@@ -287,11 +279,7 @@
               {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
             {{/if}}
             {{#if save.isRunning}}
-              <div class="loader-wrapper">
-                <div class="loader">
-                  <span class="u-visually-hidden">Aan het laden</span>
-                </div>
-              </div>
+              <AuLoader @size="small" />
             {{else}}
               <div class="button-group">
                 {{#wu-button isNarrow=true onClick=(action "save") }}Voeg toe{{/wu-button}}

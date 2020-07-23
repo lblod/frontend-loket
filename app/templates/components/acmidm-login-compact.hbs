@@ -2,8 +2,8 @@
   {{yield}}
 </button>
 {{#if isAuthenticating}}
-  {{wu-loader}}
+  <AuLoader @size="small" />
 {{/if}}
 {{#if errorMessage}}
-  {{wu-alert title=errorMessage isError=true}}
+  <AuAlert @alertIcon="alert-triangle" @alertsize="small" @alertTitle={{errorMessage}} @alertskin="error" />
 {{/if}}
