@@ -1,48 +1,41 @@
-<div class="u-padding--trl--small u-border--light--bottom">
-  <div class="grid">
-    <div class="col--9-12">
-      <h2 class="h3 u-spacer--bottom--tiny">Bewerk mandaten<br>{{persoon.gebruikteVoornaam}} {{persoon.achternaam}}</h2>
-    </div>
-    <div class="col--3-12 au-u-text-right">
-      {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
-        <span class="u-visually-hidden">Venster sluiten</span>
-      {{/link-to}}
-    </div>
-  </div>
-</div>
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Bewerk mandaten<br><strong>{{persoon.gebruikteVoornaam}} {{persoon.achternaam}}</strong></AuHeading>
+  </AuToolbarGroup>
+</AuToolbar>
 
-
-<div class="container-flex--scroll u-padding--round--small">
-
-  <div class="u-spacer--large">
-    <div class="grid">
-      <div class="col--6-12">
-        <div class="description-data__label">Rijksregisternummer</div>
-        <div class="description-data__value">{{mandatenbeheer/display-rrn persoon.identificator.identificator}}</div>
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+    <div class="au-o-grid au-o-grid--tiny">
+      <div class="au-o-grid__item au-u-1-2">
+        <p class="au-c-description-label">Rijksregisternummer</p>
+        <p class="au-c-description-value">{{mandatenbeheer/display-rrn persoon.identificator.identificator}}</p>
       </div>
-      <div class="col--6-12">
-        <div class="description-data__label">Geboortedatum</div>
-        <div class="description-data__value">
+      <div class="au-o-grid__item au-u-1-2">
+        <p class="au-c-description-label">Geboortedatum</p>
+        <p class="au-c-description-value">
           {{#if persoon.geboorte.datum}}
             {{moment-format persoon.geboorte.datum 'DD-MM-YYYY'}}
           {{/if}}
-        </div>
+        </p>
       </div>
-      <div class="col--6-12">
-        <div class="description-data__label">Geslacht</div>
-        <div class="description-data__value">{{persoon.geslacht.label}}</div>
+      <div class="au-o-grid__item au-u-1-2">
+        <p class="au-c-description-label">Geslacht</p>
+        <p class="au-c-description-value">{{persoon.geslacht.label}}</p>
       </div>
-      <div class="col--6-12">
-        <div class="description-data__label">Roepnaam</div>
-        <div class="description-data__value">{{persoon.gebruikteVoornaam}}</div>
+      <div class="au-o-grid__item au-u-1-2">
+        <p class="au-c-description-label">Roepnaam</p>
+        <p class="au-c-description-value">{{persoon.gebruikteVoornaam}}</p>
       </div>
     </div>
   </div>
 
-  <div class="u-spacer">
-    <h3 class="h6 sans-serif u-spacer--bottom--tiny">Lijst van alle mandaten</h3>
+  <div class="au-o-box">
+    <AuHeading @level="3" @skin="5">
+      Lijst van alle mandaten
+    </AuHeading>
 
-    <div class="u-hr u-spacer--bottom--small"></div>
+    <hr class="au-c-hr">
 
     <ul>
       {{#each mandatarissen as |mandataris|}}
@@ -55,13 +48,17 @@
         }}
       {{/each}}
     </ul>
-    <div class="u-padding--bottom--large">
-      <AuButton @skin="secondary" @width="block" class="au-u-padding-bottom-small" {{action "createMandataris"}}>
+
+    <div class="au-u-padding-top-small">
+      <AuButton @skin="secondary" @width="block" {{action "createMandataris"}}>
         Voeg nieuw mandaat toe
       </AuButton>
     </div>
   </div>
 </div>
-<div class="u-padding--round--small u-border--light--top">
-  {{#wu-button isNarrow=true isAlt=true onClick=(action "finish")}}Sluit{{/wu-button}}
-</div>
+
+<AuToolbar @border="top" @size="large">
+  <AuToolbarGroup>
+    <AuButton {{action "finish"}} @skin="secondary">Sluit</AuButton>
+  </AuToolbarGroup>
+</AuToolbar>

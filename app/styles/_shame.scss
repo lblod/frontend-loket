@@ -215,6 +215,21 @@ $au-non-editable-background    : $au-gray-100 !default;
   font-style: italic;
 }
 
+// Descriptions
+.au-c-description-label {
+  @include au-font-size($au-h6);
+  font-family: $au-font;
+  font-weight: $au-regular;
+  color: $au-gray-600;
+}
+
+.au-c-description-value {
+  @include au-font-size($au-h5);
+  font-family: $au-font;
+  font-weight: $au-medium;
+  color: $au-gray-800;
+}
+
 // Responsive alignment
 .au-u-text-right\@medium {
   @include mq(medium) {
