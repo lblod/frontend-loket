@@ -173,6 +173,17 @@ $au-non-editable-background    : $au-gray-100 !default;
   font-size: $au-base;
 }
 
+
+// Toolbar group rows
+.au-c-toolbar__group--row {
+  display: block;
+  width: 100%;
+
+  & + & {
+    margin-top: $au-unit;
+  }
+}
+
 // Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
 .au-o-grid--fixed {
   height: 100%;
