@@ -8,11 +8,10 @@
         </AuPill>
       {{/if}} --}}
     </AuToolbarGroup>
-    <AuToolbarGroup>
-      <button {{action "close"}} data-test-loket="bbcdr-close-panel-btn" class="link--icon--close">
-        <span class="u-visually-hidden">Venster sluiten</span>
-      </button>
-    </AuToolbarGroup>
+    <button class="au-c-close au-c-close--large" {{action "close"}} data-test-loket="bbcdr-close-panel-btn">
+      <AuIcon @icon="cross" @size="large" />
+      <span class="au-u-hidden-visually">Verwijderen</span>
+    </button>
   </AuToolbar>
   <AuToolbar class="au-u-margin-bottom-small">
       <AuHeading @level="2" @skin="3"  data-test-loket="berichtencentrum-header-type-communicatie">{{conversatie.typeCommunicatie}}</AuHeading>

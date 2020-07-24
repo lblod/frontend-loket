@@ -9,7 +9,7 @@
               {{model.contactinfo.email}}
             </a>
           {{else}}
-            <span class="au-c-placeholder">Geen mailadres</span>
+            <span class="au-c-info-text">Geen mailadres</span>
           {{/if}}
         </li>
         <li class="au-c-list-horizontal__item">
@@ -18,14 +18,14 @@
               {{model.contactinfo.telefoon}}
             </a>
           {{else}}
-            <span class="au-c-placeholder">geen telefoonnummer</span>
+            <span class="au-c-info-text">geen telefoonnummer</span>
           {{/if}}
         </li>
         <li class="au-c-list-horizontal__item">
           {{#if model.contactinfo.adres.volledigAdres}}
             <span>{{model.contactinfo.adres.volledigAdres}}</span>
           {{else}}
-            <span class="au-c-placeholder">geen adres</span>
+            <span class="au-c-info-text">geen adres</span>
           {{/if}}
         </li>
       </ul>

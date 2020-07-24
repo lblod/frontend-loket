@@ -143,6 +143,10 @@ $au-non-editable-background    : $au-gray-100 !default;
   font-weight: 400 !important;
 }
 
+// Remove duplicate border from file upload
+.js .upload__files {
+  border: 0;
+}
 
 /* ==================================
   @TODO: update in appuniversum
@@ -194,8 +198,19 @@ $au-non-editable-background    : $au-gray-100 !default;
   }
 }
 
-// Placeholder styles > replaces .text-fade
-.au-c-placeholder {
+// Small
+.au-c-small-text {
+  @include au-font-size($au-base);
+  font-family: $au-font;
+  font-weight: $au-regular;
+  color: $au-gray-800;
+}
+
+// Info text
+.au-c-info-text {
+  @include au-font-size($au-base);
+  font-family: $au-font;
+  font-weight: $au-regular;
   color: $au-gray-600;
   font-style: italic;
 }
@@ -205,4 +220,101 @@ $au-non-editable-background    : $au-gray-100 !default;
   @include mq(medium) {
     text-align: right;
   }
+}
+
+// HR
+.au-c-hr {
+  width: 100%;
+  border: 0;
+  border-bottom: .1rem solid $au-gray-300;
+  margin-top: $au-unit-small;
+  margin-bottom: $au-unit-small;
+}
+
+// Upload
+.au-c-upload {
+  border: 2px dashed $au-gray-300;
+  background-color: $au-white;
+  transition: background $au-transition;
+
+  &:hover {
+    background-color: $au-gray-100;
+  }
+
+  &:focus,
+  &:focus-within {
+    background-color: $au-gray-100;
+    outline: .2rem solid $au-yellow-400;
+  }
+}
+
+.au-c-upload input {
+  display: block;
+  height: 0;
+  width: 0;
+  outline: 0;
+}
+
+.au-c-upload-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $au-gray-100;
+  padding: $au-unit + $au-unit-tiny/4 $au-unit-small;
+}
+
+.au-c-upload-label {
+  display: flex;
+  flex-direction: column;
+  padding: $au-unit-small $au-unit-small;
+  text-align: center;
+  transition: background-color $au-transition;
+
+  &,
+  &:hover,
+  &:visited,
+  &:active {
+    text-decoration: none;
+    color: $au-gray-800;
+  }
+}
+
+.au-c-upload-label__title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $au-blue-700;
+  text-decoration: underline;
+  text-decoration-color: $au-blue-300;
+
+  &:hover {
+    color: $au-blue-600;
+    text-decoration: none;
+  }
+}
+
+// Close button
+.au-c-close {
+  position: absolute;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  top: $au-unit-small;
+  right: $au-unit-small;
+  color: $au-gray-700;
+
+  &:hover {
+    color: $au-gray-600;
+  }
+
+  &:focus {
+    outline: $au-outline;
+  }
+}
+
+.au-c-close--large {
+  top: $au-unit;
+  right: $au-unit;
 }

@@ -4,11 +4,12 @@
   <div class="au-o-box au-c-body-container au-c-body-container--scroll">
     {{#each berichten as |bericht|}}
       {{berichtencentrum/bericht-view bericht=bericht conversatie=model data-test-loket="berichtencentrum-bericht-view"}}
-      <div class="u-hr u-spacer--tb--small"></div>
+      <hr class="au-c-hr" />
     {{/each}}
     {{berichtencentrum/conversatie-reactie conversatie=model data-test-loket="berichtencentrum-conversatie"}}
   </div>
+
   <div class="au-o-box au-c-action-sidebar__footer">
-    {{#wu-button onClick=(action "close") isNarrow=true isAlt=true class="button--save" data-test-loket="berichtencentrum-conversatie-button"}}Sluit venster{{/wu-button}}
+    <AuButton {{action "close"}} data-test-loket="berichtencentrum-conversatie-button" @skin="secondary">Sluit venster</AuButton>
   </div>
 </div>
