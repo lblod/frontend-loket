@@ -4,11 +4,11 @@
       <div class="col--7-12">
         <h2 class="h3">Voeg mandataris toe uit de lijst van verkozenen</h2>
       </div>
-      <div class="col--5-12 u-align--right">
+      <div class="col--5-12 au-u-text-right">
         {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
           <span class="u-visually-hidden">Venster sluiten</span>
         {{/link-to}}
-        <p class="small u-align-right u-spacer--top">{{#link-to 'mandatenbeheer.mandatarissen.new-person'}}<button class="button button--narrow button--alt">Voeg iemand buiten de lijst toe</button>{{/link-to}}</p>
+        <p class="small au-u-text-right u-spacer--top">{{#link-to 'mandatenbeheer.mandatarissen.new-person'}}<button class="button button--narrow button--alt">Voeg iemand buiten de lijst toe</button>{{/link-to}}</p>
       </div>
     </div>
   {{/if}}
@@ -78,7 +78,7 @@
 		          <div class="description-data__value">"{{searchTerms}}" bestaat mogelijk nog niet.</div>
 		          <div class="description-data__label">Kijk uw zoekopdracht na of voeg een nieuwe persoon toe.</div>
 		        </div>
-		        <div class="col--6-12 u-align--right">
+		        <div class="col--6-12 au-u-text-right">
               {{#wu-button isAlt=true isNarrow=true onClick=onCreateNewPerson}}
                 Voeg een nieuwe persoon toe
               {{/wu-button}}

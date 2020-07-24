@@ -188,3 +188,10 @@ $au-non-editable-background    : $au-gray-100 !default;
   color: $au-gray-600;
   font-style: italic;
 }
+
+// Responsive alignment
+.au-u-text-right\@medium {
+  @include mq(medium) {
+    text-align: right;
+  }
+}

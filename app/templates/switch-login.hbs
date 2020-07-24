@@ -15,10 +15,10 @@
                 <p>Het aanmelden gebeurt in een pop-up; zorg dat de instellingen van uw browser correct staan indien deze niet verschijnt.</p>
               </AuContent>
             </div>
-            <div class="au-o-grid__item au-u-1-2@medium u-align-right--tablet-landscape-up">
+            <div class="au-o-grid__item au-u-1-2@medium au-u-text-right@medium">
               {{acmidm-login}}
               {{#if model}}
-                <AuAlert @alertIcon="alert-triangle" @alertTitle={{model}}  @alertskin="error" />
+                <AuAlert @alertIcon="alert-triangle" @alertTitle={{model}}  @alertskin="error" class="au-u-text-left" />
               {{/if}}
             </div>
           </div>

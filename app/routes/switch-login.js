@@ -8,7 +8,7 @@ export default Route.extend(UnauthenticatedRouteMixin, {
       await this.session.authenticate('authenticator:torii', 'acmidm-oauth2');
     }
     catch(e) {
-      return 'Fout bij het aanmelden. Gelieve opnieuwe te proberen.';
+      return 'Fout bij het aanmelden. Gelieve opnieuw te proberen.';
     }
   }
 });
