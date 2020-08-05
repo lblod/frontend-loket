@@ -7,14 +7,16 @@
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
-  {{#each model as |bestuursfunctie|}}
-    {{leidinggevendenbeheer/bestuursfunctie-card
-      model=bestuursfunctie
-      onClick=(action "displayBestuursfunctie" bestuursfunctie)
-    }}
-  {{else}}
-    <div class="u-padding--round--small au-u-text-center">
+  {{#if (or (not allowed) (eq model.length 0))}}
+    <div class="u-padding--round--small u-align-center">
       <p class="text-fade u-spacer--top--large">Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
     </div>
-  {{/each}}
+  {{else}}
+    {{#each model as |bestuursfunctie|}}
+      {{leidinggevendenbeheer/bestuursfunctie-card
+        model=bestuursfunctie
+        onClick=(action "displayBestuursfunctie" bestuursfunctie)
+      }}
+    {{/each}}
+  {{/if}}
 </div>
