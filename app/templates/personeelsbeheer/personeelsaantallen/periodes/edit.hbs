@@ -1,64 +1,56 @@
-<div class="grid">
-  <div class="col--12-12">
-    <div class="container-flex--contain">
-      <AuToolbar @border="bottom" @size="large">
-        <AuToolbarGroup>
-          <div>
-            {{#link-to 'personeelsbeheer.personeelsaantallen.index' class="link link--dark smaller"}}
-              &leftarrow; Terug naar personeelsbeheer overzicht
-            {{/link-to}}
-            <h1 class="au-u-h3 u-spacer--tb--tinier">Personeelsbeheer &mdash; {{this.dataset.title}}</h1>
-          </div>
-        </AuToolbarGroup>
-        <AuToolbarGroup>
-          <div>
-            {{#if save.last.isError}}
-              <AuAlert @alertIcon="info-circle" @alertTitle="Wijzigingen niet opgeslagen, probeer later opnieuw." @alertskin={{"error"}} @alertsize={{"small"}}>
-              </AuAlert>
-            {{/if}}
-            {{#unless this.dataset.modified}}
-              <p class="small u-spacer--tiny">
-                <label class="pill pill--primary-yellow">Aantallen niet actueel</label> {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
-              </p>
-            {{/unless}}
-            {{#if isSaving}}
-              <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
-                Wijzigingen opslaan...
-              </p>
+
+<div class="au-c-body-container">
+  <AuToolbar @border="bottom" @size="large">
+    <AuToolbarGroup>
+      {{!-- {{#link-to 'personeelsbeheer.personeelsaantallen.index' class="link link--dark smaller"}}
+        &leftarrow; Terug naar personeelsbeheer overzicht
+      {{/link-to}} --}}
+      <AuHeading @skin="2">Personeelsbeheer &mdash; {{this.dataset.title}}</AuHeading>
+    </AuToolbarGroup>
+    <AuToolbarGroup>
+      {{#if save.last.isError}}
+        <AuAlert @alertIcon="info-circle" @alertTitle="Wijzigingen niet opgeslagen, probeer later opnieuw." @alertskin={{"error"}} @alertsize={{"small"}}>
+        </AuAlert>
+      {{/if}}
+      {{#unless this.dataset.modified}}
+        <p class="small u-spacer--tiny">
+          <label class="pill pill--primary-yellow">Aantallen niet actueel</label> {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
+        </p>
+      {{/unless}}
+      {{#if isSaving}}
+        <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
+          Wijzigingen opslaan...
+        </p>
+      {{else}}
+        {{#if this.dataset.modified}}
+          <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
+            Laatst opgeslagen op {{moment-format this.dataset.modified}}
+          </p>
+        {{/if}}
+      {{/if}}
+    </AuToolbarGroup>
+  </AuToolbar>
+
+  <div class="au-c-body-container au-c-body-container--scroll">
+    <div class="au-o-box au-u-padding-bottom-none">
+      <div class="grid">
+        <div class="col--8-12">
+          <AuAlert @alertskin={{"info"}} @alertsize={{"tiny"}}>
+            {{#if isFTEDataset}}
+              <p><strong>Iedere tewerkstelling moet uitgedrukt worden in een percentage (kommagetal) van een voltijds tewerkgesteld personeelslid.</strong> Eén VTE is een voltijds equivalent of tewerkgesteld volgens een regime van 38/38sten.  Wie minder dan voltijds tewerkgesteld is wordt pro rato meegerekend wat de VTE betreft.</p>
+              <br>
+              <p>Bijvoorbeeld een personeelslid dat 4/5den werkt of 30,4 uur werkt in de 38-uren werkweek zal worden meegeteld als 0,8 VTE.</p>
             {{else}}
-              {{#if this.dataset.modified}}
-                <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
-                  Laatst opgeslagen op {{moment-format this.dataset.modified}}
-                </p>
-              {{/if}}
+              <p><strong>Een personeelslid dat voltijds of deeltijds aan de slag is bij het lokaal bestuur wordt als  1 kop meegeteld.</strong> Elke afzonderlijke juridische band (door middel van een vaste benoeming of arbeidsovereenkomst) wordt afzonderlijk geteld. Meerdere aanstellingen/contracten voor één persoon worden geteld als meerdere koppen.</p>
+              <br>
+              <p>De aantallen mogen geen kommagetallen bevatten.</p>
             {{/if}}
-          </div>
-        </AuToolbarGroup>
-      </AuToolbar>
-
-      <div class="container-flex--scroll u-padding--round--small">
-
-        <div class="u-spacer">
-          <div class="grid">
-            <div class="col--8-12">
-              <AuAlert @alertskin={{"info"}} @alertsize={{"tiny"}}>
-                {{#if isFTEDataset}}
-                  <p><strong>Iedere tewerkstelling moet uitgedrukt worden in een percentage (kommagetal) van een voltijds tewerkgesteld personeelslid.</strong> Eén VTE is een voltijds equivalent of tewerkgesteld volgens een regime van 38/38sten.  Wie minder dan voltijds tewerkgesteld is wordt pro rato meegerekend wat de VTE betreft.</p>
-                  <br>
-                  <p>Bijvoorbeeld een personeelslid dat 4/5den werkt of 30,4 uur werkt in de 38-uren werkweek zal worden meegeteld als 0,8 VTE.</p>
-                {{else}}
-                  <p><strong>Een personeelslid dat voltijds of deeltijds aan de slag is bij het lokaal bestuur wordt als  1 kop meegeteld.</strong> Elke afzonderlijke juridische band (door middel van een vaste benoeming of arbeidsovereenkomst) wordt afzonderlijk geteld. Meerdere aanstellingen/contracten voor één persoon worden geteld als meerdere koppen.</p>
-                  <br>
-                  <p>De aantallen mogen geen kommagetallen bevatten.</p>
-                {{/if}}
-              </AuAlert>
-            </div>
-          </div>
-
-          {{personeelsbeheer/employee-period-slice-table observations=model onChangeObservation=(perform save)}}
-
+          </AuAlert>
         </div>
       </div>
+    </div>
+    <div class="au-o-box au-o-box--small au-u-padding-bottom-large">
+    {{personeelsbeheer/employee-period-slice-table observations=model onChangeObservation=(perform save)}}
     </div>
   </div>
 </div>

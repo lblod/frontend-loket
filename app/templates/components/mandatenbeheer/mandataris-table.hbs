@@ -1,20 +1,20 @@
-{{#data-table content=content isLoading=isLoading noDataMessage="Geen mandatarissen gevonden"
-   sort=sort page=page size=size class="container-flex--contain data-table--nowrap" as |t|}}
+{{#au-data-table content=content isLoading=isLoading noDataMessage="Geen mandatarissen gevonden"
+   sort=sort page=page size=size as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
       {{th-sortable field='isBestuurlijkeAliasVan.verifiedMandaten' currentSorting=sort label='Nagekeken' class="u-hidden-mobile"}}
       {{#unless displaySubset}}
         <th class="u-hidden--mobile">Orgaan</th>
       {{/unless}}
-      {{th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="u-hidden-mobile"}}
-      {{th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
+      {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
       {{#unless displaySubset}}
-        {{th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
+        {{au-data-table-th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
       {{/unless}}
-      {{th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
+      {{au-data-table-th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
       {{#unless displaySubset}}
-        {{th-sortable field='start' currentSorting=sort label='Start mandaat' class="u-visible--tablet-landscape-up"}}
-        {{th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable field='start' currentSorting=sort label='Start mandaat' class="u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="u-visible--tablet-landscape-up"}}
       {{/unless}}
       {{th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
       <th></th>
@@ -53,7 +53,7 @@
         {{row.generatedFromGelinktNotuleren}}
       </td>
       {{#unless displaySubset}}
-        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} Bewerk {{/link-to}}</td>
+        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id class="au-c-link"}} Bewerk {{/link-to}}</td>
         <td>{{#wu-button isWarning=true size="small" onClick=(action "removeMandataris" row)}}Verwijder{{/wu-button}}</td>
       {{/unless}}
       {{#if displaySubset}}
@@ -61,4 +61,4 @@
       {{/if}}
     {{/c.body}}
   {{/t.content}}
-{{/data-table}}
+{{/au-data-table}}

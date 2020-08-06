@@ -1,18 +1,21 @@
 {{title "Berichtencentrum " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="grid grid--collapse">
-  <div class="col--12-12--s u-border--light--right {{if hasActiveChildRoute "col--7-12 u-visible--tablet-landscape-up" "col--12-12 col--12-12--m"}}">
-    <div class="container-flex--contain">
 
-      <AuToolbar @border="bottom" @size="large">
-        <h1 class="au-u-h3 u-spacer--tb--tinier">Berichtencentrum</h1>
+<div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
+  <div class="au-o-grid__item {{if hasActiveChildRoute "au-u-3-5@medium u-visible--tablet-landscape-up" "au-u-1-1@medium"}}">
+    <div class="au-c-body-container" tabindex="0">
+      <AuToolbar @size="large">
         <AuToolbarGroup>
-          <button class="button--tiny button--link button--link--dark button--alt button button--narrow" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
-            <i class="fa fa-cog u-spacer--right--tinier"></i>Ontvang mails bij nieuwe berichten
+          <AuHeading @skin="2">Berichtencentrum</AuHeading>
+        </AuToolbarGroup>
+        <AuToolbarGroup>
+          <button class="au-c-button au-c-button--tertiary" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
+            <AuIcon @icon="settings" @alignment="left" />
+            Ontvang mails bij nieuwe berichten
           </button>
         </AuToolbarGroup>
 
         <!-- Hiding search options b/c they're not implemented yet -->
-{{!--         <div class="grid u-hidden-mobile u-hidden">
+  {{!--         <div class="grid u-hidden-mobile u-hidden">
           <div class="col--12-12">
             <div class="input-field-icon-container--right u-spacer--bottom--tiny">
               <input class="input-field input-field--block" id="input-field" type="text" placeholder="Type communicatie, dossiernummer, ..." style="min-width: 25rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
@@ -41,19 +44,23 @@
       </AuToolbar>
 
       {{berichtencentrum/conversatie-table
-        class="container-flex--contain"
         content=model
         sort=sort page=page size=size displaySubset=hasActiveChildRoute
         renderSmallTable=hasActiveChildRoute
-        data-test-loket="berichtencentrum-table"}}
+        data-test-loket="berichtencentrum-table"
+        class="au-c-body-container"}}
     </div>
-    {{#if showPreferences}}
-      <div class="modal-overlay modal-overlay-configure-berichtencentrum">
+  </div>
+
+  {{#if showPreferences}}
+    <EmberWormhole @to="ember-appuniversum-wormhole">
+      <div class="au-c-modal-backdrop" role="presentation"></div>
+      <div class="modal-overlay modal-overlay-configure-berichtencentrum" {{auto-focus ".modal-dialog--sectioned"}}>
         {{berichtencentrum/bericht-notificatie-voorkeuren
           close=(action "hidePreferences")
           data-test-loket="setting-email-component"}}
       </div>
-    {{/if}}
-  </div>
+    </EmberWormhole>
+  {{/if}}
   {{outlet}}
 </div>

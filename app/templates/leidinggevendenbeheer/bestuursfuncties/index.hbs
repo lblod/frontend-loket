@@ -1,23 +1,22 @@
 {{title "Leidinggevendenbeheer" " " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="grid">
-  <div class="col--12-12--s u-border--light--right col--12-12">
-    <div class="container-flex--contain">
-      <AuToolbar @border="bottom" @size="large">
-        <h1 class="au-u-h3 u-spacer--tb--tinier">Leidinggevendenbeheer &mdash; Overzicht functies</h1>
-      </AuToolbar>
 
-      <div class="container-flex--scroll">
-        {{#each model as |bestuursfunctie|}}
-          {{leidinggevendenbeheer/bestuursfunctie-card
-            model=bestuursfunctie
-            onClick=(action "displayBestuursfunctie" bestuursfunctie)
-          }}
-        {{else}}
-          <div class="u-padding--round--small u-align-center">
-            <p class="text-fade u-spacer--top--large">Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
-          </div>
-        {{/each}}
-      </div>
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Leidinggevendenbeheer &mdash; Overzicht functies</AuHeading>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<div class="au-c-body-container au-c-body-container--scroll">
+  {{#if (or (not allowed) (eq model.length 0))}}
+    <div class="u-padding--round--small u-align-center">
+      <p class="text-fade u-spacer--top--large">Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
     </div>
-  </div>
+  {{else}}
+    {{#each model as |bestuursfunctie|}}
+      {{leidinggevendenbeheer/bestuursfunctie-card
+        model=bestuursfunctie
+        onClick=(action "displayBestuursfunctie" bestuursfunctie)
+      }}
+    {{/each}}
+  {{/if}}
 </div>

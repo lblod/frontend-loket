@@ -1,21 +1,21 @@
-{{#data-table
+{{#au-data-table
    content=content
    isLoading=isLoadingModel
    noDataMessage="Geen berichten gevonden"
    sort=sort
    page=page
    size=size
-   class="container-flex--contain berichtencentrum-overzicht-data-table"
+   class="berichtencentrum-overzicht-data-table"
 
    as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{th-sortable label='Betreft' field='betreft' currentSorting=sort}}
-      {{th-sortable label='Type communicatie' field='laatste-bericht.type-communicatie' currentSorting=sort}}
-      {{th-sortable label='Dossier-nummer' field='dossiernummer' currentSorting=sort class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable label='Betreft' field='betreft' currentSorting=sort}}
+      {{au-data-table-th-sortable label='Type communicatie' field='laatste-bericht.type-communicatie' currentSorting=sort}}
+      {{au-data-table-th-sortable label='Dossier-nummer' field='dossiernummer' currentSorting=sort class="u-hidden-mobile"}}
       {{#unless renderSmallTable}}
-        {{th-sortable label='Laatste bericht' field='laatste-bericht.verzonden' currentSorting=sort class="u-hidden-mobile u-visible--tablet-landscape-up"}}
-        {{th-sortable label='Laatste bericht van' field='laatste-bericht.van.naam' currentSorting=sort class="u-hidden-mobile u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable label='Laatste bericht' field='laatste-bericht.verzonden' currentSorting=sort class="u-hidden-mobile u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable label='Laatste bericht van' field='laatste-bericht.van.naam' currentSorting=sort class="u-hidden-mobile u-visible--tablet-landscape-up"}}
       {{/unless}}
       <th><!-- Actions --></th>
     {{/c.header}}
@@ -28,10 +28,10 @@
         <td class="u-hidden-mobile u-visible--tablet-landscape-up">{{row.laatsteBericht.van.naam}}</td>
       {{/unless}}
       <td>
-        {{#link-to 'berichtencentrum.berichten.conversatie' row data-test-loket="berichtencentrum-bekijk"}}
+        {{#link-to 'berichtencentrum.berichten.conversatie' row data-test-loket="berichtencentrum-bekijk" class="au-c-link"}}
           Bekijk
         {{/link-to}}
       </td>
     {{/c.body}}
   {{/t.content}}
-{{/data-table}}
+{{/au-data-table}}
