@@ -246,6 +246,14 @@ $au-non-editable-background    : $au-gray-100 !default;
   margin-bottom: $au-unit-small;
 }
 
+.au-c-divider {
+  width: 100%;
+  border: 0;
+  border-bottom: .1rem solid $au-gray-200;
+  margin-top: $au-unit;
+  margin-bottom: $au-unit;
+}
+
 // Upload
 .au-c-upload {
   border: 2px dashed $au-gray-300;

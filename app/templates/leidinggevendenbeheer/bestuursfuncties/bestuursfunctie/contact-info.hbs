@@ -1,55 +1,52 @@
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
-    <h1 class="au-u-h3 u-spacer--tb--tinier">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</h1>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
-    <div {{action "cancel"}} class="link--icon--close">
-      <span class="u-visually-hidden">Venster sluiten</span>
-    </div>
+    <AuHeading @skin="2">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</AuHeading>
   </AuToolbarGroup>
 </AuToolbar>
-{{#if allowed}}
-  <div class="container-flex--scroll u-padding--trl--small">
-    <div class="form u-spacer--bottom--large">
-      <div class="form__row u-spacer">
-        <div class="grid u-spacer--small">
-          <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
-            <label class="form__label" for="mailadres">Mailadres</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-email" placeholder=" " inputmode="email" value=(mut model.email)}}
-          </div>
-        </div>
-        <div class="grid">
-          <div class="col--4-12 col--6-12--m col--8-12--s col--1-1--xs">
-            <label class="form__label" for="telefoonnummer">Telefoonnummer</label>
-            {{input class="input-field input-field--block js-dynamic-label__field" name="bestuursfunctie-telefoon" placeholder=" " inputmode="tel" type="tel" value=(mut model.telefoon)}}
-          </div>
-        </div>
 
-      </div>
-      <h2 class="h5 u-spacer--tiny">Adres</h2>
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+  {{#if allowed}}
+    <div class="au-c-form">
+      <p>
+        <AuLabel for="mailadres">Mailadres</AuLabel>
+        {{input id="mailadres" class="au-c-input au-u-2-3@medium js-dynamic-label__field" name="bestuursfunctie-email" placeholder=" " inputmode="email" value=(mut model.email)}}
+      </p>
+      <p>
+        <AuLabel for="telefoonnummer">Telefoonnummer</AuLabel>
+        {{input id="telefoonnummer" class="au-c-input au-u-2-3@medium js-dynamic-label__field" name="bestuursfunctie-telefoon" placeholder=" " inputmode="tel" type="tel" value=(mut model.telefoon)}}
+      </p>
       {{adressenregister-selector address=model.adres onChange=(perform updateAdres)}}
     </div>
+  {{else}}
+    <AuAlert @alertIcon="info-circle">
+      <p class="au-c-text-fade">Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
+    </AuAlert>
+  {{/if}}
   </div>
-  <div class="u-padding--round--small u-border--light--top">
-    <div class="button-group">
-      {{wu-button label="Bewaar contactgegevens"
-        onClick=(perform save)
-        isNarrow=true
-        class=(if (not save.isIdle) "button button--loading")
-        disabled=(not save.isIdle)
-      }}
-      {{wu-button isNarrow=true
-        isAlt=true onClick=(perform resetChanges)
-        label="Verwerp wijzigingen"
-        disabled=(not isDirty)
-      }}
-    </div>
-  </div>
-{{else}}
-  <div class="u-padding--round--small u-align-center">
-      <p class="text-fade u-spacer--top--large">Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
-    </div>
-{{/if}}
+</div>
+
+<AuToolbar @border="top" @size="large">
+  {{#if allowed}}
+  <AuToolbarGroup>
+    {{wu-button label="Bewaar contactgegevens"
+      onClick=(perform save)
+      isNarrow=true
+      class=(if (not save.isIdle) "button button--loading")
+      disabled=(not save.isIdle)
+    }}
+    {{wu-button isNarrow=true
+      isAlt=true onClick=(perform resetChanges)
+      label="Verwerp wijzigingen"
+      disabled=(not isDirty)
+    }}
+  </AuToolbarGroup>
+  {{/if}}
+  <AuToolbarGroup>
+    <AuButton {{action "cancel"}} @skin="secondary">Sluit</AuButton>
+  </AuToolbarGroup>
+
+</AuToolbar>
 
 {{!-- Modal confirmation dialog --}}
 {{#if showConfirmationDialog}}
