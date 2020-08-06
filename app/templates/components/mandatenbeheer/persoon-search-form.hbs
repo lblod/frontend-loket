@@ -64,43 +64,56 @@
         </div>
       {{else}}
         {{#if personen}}
-          <div>
+          <ul class="au-c-list-vertical">
             {{#each personen as |persoon|}}
+              <li class="au-c-list-vertical__item">
               {{mandatenbeheer/persoon-search-result
                   persoon=persoon
                   onSelect=(action "selectPersoon")
-                  class="u-border--light--bottom u-padding--tb--small"
               }}
+              </li>
             {{/each}}
-            {{mandatenbeheer/persoon-search-form-pagination
-                page=page
-                size=pageSize
-                nbOfItems=personen.length
-                total=personen.meta.count
-                links=personen.meta.pagination
-                onSelectPage=(action "selectPage")
-            }}
-          </div>
-          <p class="text-fade small u-spacer--top">Komt het zoekresultaat niet overeen met wat u zocht? Kijk uw zoekopdracht na of <a {{action onCreateNewPerson}}>voeg een nieuwe persoon toe</a>.</p>
+          </ul>
+
+          <AuAlert @alertTitle="Komt het zoekresultaat niet overeen met wat u zocht?" @alertskin="info" @alertsize="tiny" class="au-u-margin-top-small">
+            <p>
+              Kijk uw zoekopdracht na of
+              <AuButton @skin="tertiary" {{action onCreateNewPerson}} class="au-c-link">
+                <AuIcon @icon="add" @alignment="left" />
+                voeg een nieuwe persoon toe
+              </AuButton>.
+            </p>
+          </AuAlert>
         {{else}}
-          <div class="u-border--light--bottom u-padding--bottom--small u-spacer">
-            <div class="grid">
-              <div class="col--6-12">
-                <div class="description-data__value">"{{searchTerms}}" bestaat mogelijk nog niet.</div>
-                <div class="description-data__label">Kijk uw zoekopdracht na of voeg een nieuwe persoon toe.</div>
-              </div>
-              <div class="col--6-12 au-u-text-right">
-                {{#wu-button isAlt=true isNarrow=true onClick=onCreateNewPerson}}
-                  Voeg een nieuwe persoon toe
-                {{/wu-button}}
-              </div>
-            </div>
-          </div>
+          <AuAlert @alertTitle='"{{searchTerms}}" bestaat mogelijk nog niet.' @alertskin="info" @alertsize="tiny">
+            <p>
+              Kijk uw zoekopdracht na of
+              <AuButton @skin="tertiary" {{action onCreateNewPerson}} class="au-c-link">
+                <AuIcon @icon="add" @alignment="left" />
+                voeg een nieuwe persoon toe
+              </AuButton>.
+            </p>
+          </AuAlert>
         {{/if}}
       {{/unless}}
     {{/if}}
   </div>
 </div>
+
+{{#unless isQuerying}}
+{{#if hasSearched}}
+{{#if personen}}
+{{mandatenbeheer/persoon-search-form-pagination
+  page=page
+  size=pageSize
+  nbOfItems=personen.length
+  total=personen.meta.count
+  links=personen.meta.pagination
+  onSelectPage=(action "selectPage")
+}}
+{{/if}}
+{{/if}}
+{{/unless}}
 
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>

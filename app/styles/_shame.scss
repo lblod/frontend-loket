@@ -341,3 +341,17 @@ $au-non-editable-background    : $au-gray-100 !default;
   top: $au-unit;
   right: $au-unit;
 }
+
+
+// Vertical list
+.au-c-list-vertical {
+
+}
+
+.au-c-list-vertical__item {
+  & + & {
+    margin-top: $au-unit-small;
+    padding-top: $au-unit-small;
+    border-top: .1rem solid $au-gray-200;
+  }
+}

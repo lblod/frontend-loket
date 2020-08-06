@@ -53,8 +53,9 @@
     {{/if}}
   </div>
 </div>
-<div class="u-padding--round--small u-border--light--top">
-  {{#wu-button disabled=save.isRunning class="show-mandate-edit-new-next" onClick=(perform save) loading=save.isRunning}}Voeg persoon toe{{/wu-button}}
-  {{#wu-button disabled=save.isRunning class="toggle-person-new" isAlt=true isNarrow=true onClick=(action onCancel)}}Annuleer{{/wu-button}}
-</div>
-
+<AuToolbar @border="top" @size="large">
+  <AuToolbarGroup>
+    <AuButton {{on "click" (perform save)}} @disabled="{{save.isRunning}}" @loading="{{save.isRunning}}" class="show-mandate-edit-new-next">Voeg persoon toe</AuButton>
+    <AuButton {{on "click" (action onCancel)}} @skin="secondary" class="toggle-person-new">Annuleer</AuButton>
+  </AuToolbarGroup>
+</AuToolbar>

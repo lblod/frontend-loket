@@ -1,26 +1,27 @@
-<div class="u-padding--round--tiny">
-  <div class="grid">
-    <div class="col--6-12">
-      <p class="u-spacer--bottom--tiny"><strong>Wijziging huidige situatie</strong></p>
-      <p class="u-spacer--tiny">Indien de mandataris wordt vervangen, of de huidige
-        <strong>status, fractie, rangorde of bevoegdheid</strong> verandert:
+<div class="au-o-box au-o-box--small">
+  <div class="au-o-grid au-o-grid--small">
+    <div class="au-o-grid__item au-u-1-2">
+      <AuContent>
+        <AuHeading @level="4" @skin="5">Wijziging huidige situatie</AuHeading>
+        <p>Indien de mandataris wordt vervangen, of de huidige
+          <strong>status, fractie, rangorde of bevoegdheid</strong> verandert:
+        </p>
         <ol class="dashed-list">
           <li>beëindig dit mandaat door de einddatum in te vullen;</li>
           <li><strong>start een nieuw mandaat</strong> met de gewijzigde situatie.</li>
         </ol>
-      </p>
+        <AuButton {{action "terminate"}}>Wijzig einde mandaat</AuButton>
+      </AuContent>
     </div>
-    <div class="col--6-12">
-      <p class="u-spacer--bottom--tiny"><strong>Correctie</strong></p>
-      <p class="u-spacer--tiny">Indien een mandaat
-        <strong>fouten</strong> bevat, en niet goed ingevoerd werd in het verleden,
-        <strong>corrigeer</strong> de fouten.</p>
-    </div>
-    <div class="col--6-12">
-      <AuButton {{action "terminate"}}>Wijzig einde mandaat</AuButton>
-    </div>
-    <div class="col--6-12">
-      <AuButton @skin="secondary" {{action "correct"}}>Corrigeer fouten</AuButton>
+    <div class="au-o-grid__item au-u-1-2">
+      <AuContent>
+        <AuHeading @level="4" @skin="5">Correctie</AuHeading>
+        <p>Indien een mandaat
+          <strong>fouten</strong> bevat, en niet goed ingevoerd werd in het verleden,
+          <strong>corrigeer</strong> de fouten.
+        </p>
+        <AuButton @skin="secondary" {{action "correct"}}>Corrigeer fouten</AuButton>
+      </AuContent>
     </div>
   </div>
 </div>

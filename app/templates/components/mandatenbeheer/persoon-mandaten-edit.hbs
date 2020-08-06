@@ -31,16 +31,15 @@
   </div>
 
   <div class="au-o-box">
-    <AuHeading @level="3" @skin="5">
+    <AuHeading @level="3" @skin="4">
       Lijst van alle mandaten
     </AuHeading>
 
     <hr class="au-c-hr">
 
-    <ul>
+    <ul class="au-c-list-vertical">
       {{#each mandatarissen as |mandataris|}}
         {{mandatenbeheer/mandataris-edit
-          class="link-list link-list--bordered"
           bestuursorganen=bestuursorganen
           mandataris=mandataris
           onSave=(action "mandatarisSaved")

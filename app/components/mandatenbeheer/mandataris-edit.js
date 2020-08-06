@@ -8,6 +8,8 @@ import { A } from '@ember/array';
 import { computed } from '@ember/object';
 
 export default Component.extend({
+  tag: 'li',
+  classNames: ['au-c-list-vertical__item'],
   store: service(),
   dateFormat: 'DD-MM-YYYY',
   editMode: false, //some components will change behaviour when being in editMode

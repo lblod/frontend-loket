@@ -51,14 +51,12 @@
             {{else}}
               {{#unless newFractie}}
                 <tr>
-                  <td colspan="3">
-                    Geen fracties gevonden.
-                    {{wu-button
-                        label="Voeg een nieuwe fractie toe"
-                        onClick=(action "createNewFractie")
-                        isNarrow=true
-                        isLink=true
-                    }}
+                  <td colspan="3" class="au-u-text-center">
+                    <AuHeading @level="3" @skin="4" class="au-u-margin-bottom-small">Geen fracties gevonden</AuHeading>
+                    <AuButton {{on "click" (action "createNewFractie")}} @skin="secondary">
+                      <AuIcon @icon="add" @alignment="left" />
+                      Voeg een nieuwe fractie toe
+                    </AuButton>
                   </td>
                 </tr>
               {{/unless}}
