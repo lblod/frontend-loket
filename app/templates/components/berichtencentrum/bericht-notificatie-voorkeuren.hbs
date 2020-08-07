@@ -22,7 +22,7 @@
     {{#if wilMailOntvangen}}
     <div class="form__row">
       <AuLabel for="voorkeurenmailadres">Mailadres</AuLabel>
-      <AuInput id="voorkeurenmailadres" @width="block" {{auto-focus}}/>
+      <AuInput id="voorkeurenmailadres" @width="block" @value={{emailAddress}} {{auto-focus}}/>
       <AuHelpText >vb. mail@adres.com</AuHelpText>
     </div>
     {{/if}}
