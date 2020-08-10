@@ -350,8 +350,44 @@ $au-non-editable-background    : $au-gray-100 !default;
 
 .au-c-list-vertical__item {
   & + & {
-    margin-top: $au-unit-small;
-    padding-top: $au-unit-small;
+    margin-top: $au-unit-tiny;
+    padding-top: $au-unit-tiny;
     border-top: .1rem solid $au-gray-200;
+  }
+
+  .au-c-accordion & + & {
+    border-top-color: $au-gray-300;
+  }
+}
+
+// Flow object
+.au-o-flow {
+  display: block;
+
+  > * + * {
+    margin-top: $au-unit-tiny;
+  }
+}
+
+// Toggle button
+.au-c-button--toggle {
+  padding-left: 0;
+  padding-right: 0;
+
+  .js-accordion--open & .au-c-icon {
+    transform: rotate(90deg);
+  }
+}
+
+// Accordion
+.au-c-accordion {
+  display: none;
+  overflow: hidden;
+  padding: $au-unit-small;
+  background-color: $au-gray-200;
+  margin-top: $au-unit-small;
+
+  .js-accordion--open & {
+    display: block;
   }
 }
