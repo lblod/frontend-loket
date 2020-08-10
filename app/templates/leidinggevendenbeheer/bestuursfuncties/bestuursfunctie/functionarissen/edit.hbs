@@ -23,11 +23,6 @@
   <AuToolbar @border="top" @size="large">
     <AuToolbarGroup>
       <AuButtonGroup>
-        {{!-- {{wu-button label="Corrigeer aanstellingsperiode"
-            onClick=(perform save)
-            isNarrow=true
-            disabled=(or (not isValid) save.isRunning)
-        }} --}}
         <AuButton
           @disabled="{{not isValid}}"
           @loading="{{this.save.isRunning}}"

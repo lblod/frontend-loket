@@ -4,10 +4,10 @@
     {{#c.header}}
       <th>Rapport</th>
       {{#unless displaySubset}}
-        {{au-data-table-th-sortable label='Gewijzigd door' field='lastModifier.achternaam' currentSorting=sort class="u-visible--tablet-landscape-up"}}
-        {{au-data-table-th-sortable label='Bewerkt op' field='modified' currentSorting=sort class="u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable label='Gewijzigd door' field='lastModifier.achternaam' currentSorting=sort class="au-u-visible-medium-up"}}
+        {{au-data-table-th-sortable label='Bewerkt op' field='modified' currentSorting=sort class="au-u-visible-medium-up"}}
       {{/unless}}
-      {{au-data-table-th-sortable label='Status' field='status.label' currentSorting=sort class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable label='Status' field='status.label' currentSorting=sort class="au-u-visible-small-up"}}
       <th><!-- Actions --></th>
     {{/c.header}}
     {{#c.body data-test-loket='bbcdr-report-table-body' as |row|}}
@@ -20,10 +20,10 @@
         {{/each}}
       </td>
       {{#unless displaySubset}}
-        <td class="u-visible--tablet-landscape-up">{{row.lastModifier.fullName}}</td>
-        <td class="u-visible--tablet-landscape-up">{{moment-format row.modified 'DD-MM-YYYY'}}</td>
+        <td class="au-u-visible-medium-up">{{row.lastModifier.fullName}}</td>
+        <td class="au-u-visible-medium-up">{{moment-format row.modified 'DD-MM-YYYY'}}</td>
       {{/unless}}
-      <td class="u-hidden-mobile">
+      <td class="au-u-visible-small-up">
         {{shared/document-status-pill row.status}}
       </td>
       <td data-test-loket='bbcdr-report-table-open-details-column'>{{#link-to 'bbcdr.rapporten.edit' row class="au-c-link"}}Bekijk{{/link-to}}</td>

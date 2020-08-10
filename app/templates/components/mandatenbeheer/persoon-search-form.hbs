@@ -13,23 +13,23 @@
   <AuToolbarGroup class="au-c-toolbar__group--row">
     <div class="au-o-grid au-o-grid--tiny">
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel for="mandataris-pattern">Zoek voornaam</AuLabel>
+        <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
         <div class="input-field-icon-container--right input-field-icon-container--block">
-          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search)}}
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search) id="mandataris-voornaam"}}
           <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
         </div>
       </div>
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel for="mandataris-pattern">Familienaam</AuLabel>
+        <AuLabel for="mandataris-naam">Familienaam</AuLabel>
         <div class="input-field-icon-container--right input-field-icon-container--block">
-          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Familienaam" value=achternaam key-up=(perform search)}}
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Familienaam" value=achternaam key-up=(perform search) id="mandataris-naam"}}
           <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
         </div>
       </div>
       <div class="au-o-grid__item">
-        <AuLabel for="mandataris-pattern">Zoek rijksregisternummer <AuPill>Optioneel</AuPill></AuLabel>
+        <AuLabel for="mandataris-rijksregisternummer">Zoek rijksregisternummer <AuPill>Optioneel</AuPill></AuLabel>
         <div class="input-field-icon-container--right input-field-icon-container--block">
-          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search)}}
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search) id="mandataris-rijksregisternummer"}}
           <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
         </div>
       </div>

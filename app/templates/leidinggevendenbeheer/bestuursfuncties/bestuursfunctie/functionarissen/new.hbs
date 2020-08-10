@@ -1,62 +1,79 @@
-<div class="col--1-1--s delete-me-function-edit-new container-flex--contain">
-  <div class="u-padding--trl--small">
-    <div class="grid">
-      <div class="col--7-12">
-        <h1 class="h6 uppercase text-fade u-spacer--tiny">Voeg een nieuwe aanstellingsperiode toe</h1>
+{{!-- <AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <div class="au-o-grid au-o-grid--tiny">
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandataris-pattern">Zoek voornaam</AuLabel>
+        <div class="input-field-icon-container--right input-field-icon-container--block">
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search)}}
+          <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+        </div>
       </div>
-      <div class="col--5-12 au-u-text-right">
-        <button {{action "cancel"}} class="link--icon--close">
-          <span class="u-visually-hidden">Venster sluiten</span>
-        </button>
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandataris-pattern">Familienaam</AuLabel>
+        <div class="input-field-icon-container--right input-field-icon-container--block">
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Familienaam" value=achternaam key-up=(perform search)}}
+          <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="au-o-grid__item">
+        <AuLabel for="mandataris-pattern">Zoek rijksregisternummer <AuPill>Optioneel</AuPill></AuLabel>
+        <div class="input-field-icon-container--right input-field-icon-container--block">
+          {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search)}}
+          <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+        </div>
       </div>
     </div>
-  </div>
-  {{#unless functionaris}}
-    {{#unless isCreatingNewPerson}}
-      {{#leidinggevendenbeheer/functionaris-creation-step}}
-        1. Kies een functionaris
-      {{/leidinggevendenbeheer/functionaris-creation-step}}
-      {{mandatenbeheer/persoon-search-form
-          onSelect=(perform createFunctionaris)
-          onCreateNewPerson=(action (mut isCreatingNewPerson) true)
-          onCancel=(action "cancel")
-          showDefaultHead=false
-          class="col--1-1--s mandate-edit-new container-flex--contain"}}
-    {{else}}
-      {{#leidinggevendenbeheer/functionaris-creation-step}}
-        1. Voeg een nieuwe functionaris toe
-      {{/leidinggevendenbeheer/functionaris-creation-step}}
-      {{leidinggevendenbeheer/create-persoon
-          onCreate=(perform createFunctionaris)
-          onCancel=(action "cancel")
-          gotoPreviousStep=(action (mut isCreatingNewPerson) false)
-      }}
-    {{/unless}}
+  </AuToolbarGroup>
+</AuToolbar> --}}
+              {{!-- <div class="au-c-body-container au-c-body-container--scroll">
+  </div> --}}
+
+{{#unless functionaris}}
+  {{#unless isCreatingNewPerson}}
+    {{#leidinggevendenbeheer/functionaris-creation-step}}
+      1. Kies een functionaris
+    {{/leidinggevendenbeheer/functionaris-creation-step}}
+    {{mandatenbeheer/persoon-search-form
+        onSelect=(perform createFunctionaris)
+        onCreateNewPerson=(action (mut isCreatingNewPerson) true)
+        onCancel=(action "cancel")
+        showDefaultHead=false
+        class="au-c-body-container"
+    }}
   {{else}}
     {{#leidinggevendenbeheer/functionaris-creation-step}}
-      2. Voeg aanstellingsperiode voor {{functionaris.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{functionaris.isBestuurlijkeAliasVan.achternaam}} als {{functionaris.bekleedt.rol.label}} toe
+      1. Voeg een nieuwe functionaris toe
     {{/leidinggevendenbeheer/functionaris-creation-step}}
-    {{#leidinggevendenbeheer/functionaris-form
-         model=functionaris
-         as |isValid|}}
-      <div class="u-padding--round--small u-border--light--top">
-        {{wu-button label="Voeg aanstellingsperiode toe"
-            onClick=(perform save)
-            isNarrow=true
-            disabled=(or (not isValid) save.isRunning)
-        }}
-        {{wu-button label="Annuleer"
-            onClick=(action "cancel")
-            isAlt=true
-            disabled=save.isRunning
-        }}
-        {{wu-button
-            label="Vorige stap"
-            onClick=(action "goBackToSearch")
-            isLink=true
-            disabled=save.isRunning
-        }}
-      </div>
-    {{/leidinggevendenbeheer/functionaris-form}}
+    {{leidinggevendenbeheer/create-persoon
+        onCreate=(perform createFunctionaris)
+        onCancel=(action "cancel")
+        gotoPreviousStep=(action (mut isCreatingNewPerson) false)
+    }}
   {{/unless}}
-</div>
+{{else}}
+  {{#leidinggevendenbeheer/functionaris-creation-step}}
+    2. Voeg aanstellingsperiode voor {{functionaris.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{functionaris.isBestuurlijkeAliasVan.achternaam}} als {{functionaris.bekleedt.rol.label}} toe
+  {{/leidinggevendenbeheer/functionaris-creation-step}}
+  {{#leidinggevendenbeheer/functionaris-form
+        model=functionaris
+        as |isValid|}}
+    <AuToolbar @border="top" @size="large">
+      <AuToolbarGroup>
+        <AuButton {{action "goBackToSearch"}} @skin="tertiary" @disabled="{{save.isRunning}}">
+          <AuIcon @icon="arrow-left" @alignment="left" />
+          Vorige stap
+        </AuButton>
+      </AuToolbarGroup>
+      <AuToolbarGroup>
+        <AuButtonGroup>
+          <AuButton @skin="secondary" @disabled="{{save.isRunning}}" {{action "cancel"}}>
+            Annuleer
+          </AuButton>
+          <AuButton @disabled="{{if (or (not isValid) save.isRunning) "true"}}" {{on "click" (perform save)}}>
+            Voeg aanstellingsperiode toe
+          </AuButton>
+        </AuButtonGroup>
+      </AuToolbarGroup>
+    </AuToolbar>
+  {{/leidinggevendenbeheer/functionaris-form}}
+{{/unless}}

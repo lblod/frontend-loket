@@ -53,12 +53,12 @@
             <AuHelpText @error="true">{{geslachtError}}</AuHelpText>
           {{/if}}
         </div>
-        {{#if saveError}}
-          <AuAlert @alertIcon="alert-triangle" @alertTitle="Fout bij opslaan" @alertskin="error" @alertsize="small">
-            <p>{{saveError}}</p>
-          </AuAlert>
-        {{/if}}
       </div>
+      {{#if saveError}}
+        <AuAlert @alertIcon="alert-triangle" @alertTitle="Fout bij opslaan" @alertskin="error" @alertsize="small">
+          <p>{{saveError}}</p>
+        </AuAlert>
+      {{/if}}
     </div>
   </div>
 </div>
