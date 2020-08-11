@@ -29,17 +29,12 @@
 <AuToolbar @border="top" @size="large">
   {{#if allowed}}
   <AuToolbarGroup>
-    {{wu-button label="Bewaar contactgegevens"
-      onClick=(perform save)
-      isNarrow=true
-      class=(if (not save.isIdle) "button button--loading")
-      disabled=(not save.isIdle)
-    }}
-    {{wu-button isNarrow=true
-      isAlt=true onClick=(perform resetChanges)
-      label="Verwerp wijzigingen"
-      disabled=(not isDirty)
-    }}
+    <AuButton {{on "click" (perform save)}} @disabled="{{not save.isIdle}}">
+      Bewaar contactgegevens
+    </AuButton>
+    <AuButton {{on "click" (perform resetChanges)}} @skin="secondary" @disabled="{{not isDirty}}">
+      Verwerp wijzigingen
+    </AuButton>
   </AuToolbarGroup>
   {{/if}}
   <AuToolbarGroup>
