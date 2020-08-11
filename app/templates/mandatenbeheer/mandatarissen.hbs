@@ -33,16 +33,16 @@
         }}
       </div>
     </AuToolbarGroup>
-    <AuToolbarGroup>
-      <div class="input-field-icon-container--right">
+    <AuToolbarGroup class="au-u-1-3@medium">
+      <div class="au-c-input-wrapper au-u-1-1">
         {{input
             type="text"
             placeholder="Zoek mandataris"
             key-up=(perform search)
             value=searchData
-            class="input-field input-field--block"
+            class="au-c-input au-c-input--block"
         }}
-        <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+        <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
       </div>
     </AuToolbarGroup>
   </AuToolbar>
