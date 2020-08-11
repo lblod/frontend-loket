@@ -6,48 +6,39 @@
 
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box">
-  {{#if allowed}}
     <div class="au-c-form">
-      <p>
+      <div>
         <AuLabel for="mailadres">Mailadres</AuLabel>
         {{input id="mailadres" class="au-c-input au-u-2-3@medium js-dynamic-label__field" name="bestuursfunctie-email" placeholder=" " inputmode="email" value=(mut model.email)}}
-      </p>
-      <p>
+      </div>
+      <div>
         <AuLabel for="telefoonnummer">Telefoonnummer</AuLabel>
         {{input id="telefoonnummer" class="au-c-input au-u-2-3@medium js-dynamic-label__field" name="bestuursfunctie-telefoon" placeholder=" " inputmode="tel" type="tel" value=(mut model.telefoon)}}
-      </p>
+      </div>
       {{adressenregister-selector address=model.adres onChange=(perform updateAdres)}}
     </div>
-  {{else}}
-    <AuAlert @alertIcon="info-circle">
-      <p class="au-c-text-fade">Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
-    </AuAlert>
-  {{/if}}
   </div>
 </div>
 
 <AuToolbar @border="top" @size="large">
-  {{#if allowed}}
   <AuToolbarGroup>
-    <AuButton {{on "click" (perform save)}} @disabled="{{not save.isIdle}}">
+    <AuButton {{on "click" (perform save)}} @loading="{{not save.isIdle}}">
       Bewaar contactgegevens
     </AuButton>
     <AuButton {{on "click" (perform resetChanges)}} @skin="secondary" @disabled="{{not isDirty}}">
       Verwerp wijzigingen
     </AuButton>
   </AuToolbarGroup>
-  {{/if}}
   <AuToolbarGroup>
     <AuButton {{action "cancel"}} @skin="secondary">Sluit</AuButton>
   </AuToolbarGroup>
-
 </AuToolbar>
 
 {{!-- Modal confirmation dialog --}}
 {{#if showConfirmationDialog}}
   {{leidinggevendenbeheer/functionaris-close-confirmation
-    cancel=(action (mut showConfirmationDialog false))
-    save=(perform save)
-    reset=(perform resetChanges)
+          cancel=(action (mut showConfirmationDialog false))
+          save=(perform save)
+          reset=(perform resetChanges)
   }}
 {{/if}}
