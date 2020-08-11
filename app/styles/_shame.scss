@@ -148,21 +148,6 @@ $au-non-editable-background    : $au-gray-100 !default;
   border: 0;
 }
 
-/* ==================================
-  WU-button close
-  ================================== */
-
-// Fix close button in combo with wu-button
-.au-c-modal__close {
-
-
-  &,
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: transparent;
-  }
-}
 
 /* ==================================
   @TODO: update in appuniversum
