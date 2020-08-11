@@ -419,3 +419,119 @@ $au-non-editable-background    : $au-gray-100 !default;
 .au-u-word-break {
   word-break: break-word;
 }
+
+.au-u-no-wrap {
+  white-space: nowrap;
+}
+
+// Table
+.au-c-table-wrapper {
+  flex-grow: 999;
+  overflow: auto;
+  position: relative;
+  border-top: 1px solid $au-gray-300;
+  width: 100%;
+}
+
+.au-c-table {
+  @include au-font-size($au-base);
+  position: relative;
+  min-width: 70rem;
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    border-top: .2rem solid $au-gray-300;
+    border-bottom: .2rem solid $au-gray-300;
+  }
+
+  tbody {
+    border-bottom: .2rem solid $au-gray-300;
+  }
+
+  th,
+  strong {
+    font-weight: $au-medium;
+  }
+
+  thead th {
+    color: $au-gray-600;
+  }
+
+  tbody th,
+  td,
+  strong {
+    color: $au-gray-800;
+  }
+
+  th,
+  td {
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: $au-medium;
+    text-align: left;
+    padding: $au-unit-tiny $au-unit-small;
+    border-radius: 0;
+  }
+
+  td {
+    padding: $au-unit-small;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: $au-unit;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: $au-unit;
+  }
+
+  thead th,
+  tbody th {
+    border-right: .2rem solid $au-gray-300;
+  }
+
+  thead th:last-child,
+  tbody th:last-child {
+    border-right: 0;
+  }
+
+  tbody td {
+    border-right: .2rem solid $au-gray-300;
+  }
+
+  tbody td:last-child {
+    border-right: 0;
+  }
+
+  thead tr + tr {
+    border-top: .2rem solid $au-gray-300;
+  }
+
+  tbody tr + tr {
+    border-top: .1rem solid $au-gray-300;
+  }
+}
+
+.au-c-table--zebra {
+  tbody tr:nth-child(odd) {
+    background-color: $au-gray-100;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $au-white;
+  }
+}
+
+.au-c-table__row-indent {
+  th:first-child,
+  td:first-child {
+    padding-left: $au-unit-small;
+  }
+
+
+}

@@ -1,45 +1,47 @@
 {{#unless initTable.isRunning}}
-  <table class="data-table data-table--matrix data-table--lined data-table--zebra">
+<div class="au-c-table-wrapper">
+  <table class="au-c-table au-c-table--zebra">
     <thead>
       <tr>
-        <th rowspan="3" style="min-width: 9rem; max-width: 12rem;">Niveau</th>
+        <th rowspan="3" style="min-width: 10rem; max-width: 13rem;">Niveau</th>
         {{#each workingTimeCategories as |category|}}
           <th colspan="4">{{category.label}}</th>
         {{/each}}
-        <th rowspan="2"></th>
+        <th></th>
       </tr>
-      <tr>
+      <tr class="au-c-table__row-indent">
         {{#each (repeat workingTimeCategories.length) as |i|}}
           {{#each legalStatuses as |status|}}
             <th colspan="2">{{status.label}}</th>
           {{/each}}
         {{/each}}
+        <th></th>
       </tr>
-      <tr>
+      <tr class="au-c-table__row-indent">
         {{#each (repeat workingTimeCategories.length) as |i|}}
           {{#each (repeat legalStatuses.length) as |j|}}
             {{#each sexes as |sex|}}
               {{#if sex.isMale}}
-                <th><i class="fa fa-male"></i> Mannen</th>
+                <th>Mannen</th>
               {{else}}
-                <th><i class="fa fa-female"></i> Vrouwen</th>
+                <th>Vrouwen</th>
               {{/if}}
             {{/each}}
           {{/each}}
         {{/each}}
         <th>Totaal<br>
           {{#if isFTEDataset}}
-        		VTE's
-      		{{else}}
-      			koppen
-      		{{/if}}
+            VTE's
+          {{else}}
+            koppen
+          {{/if}}
         </th>
       </tr>
     </thead>
     <tbody>
       {{#each educationalLevels as |level|}}
         <tr>
-          <th style="max-width: 12rem;">{{level.label}}</th>
+          <th style="max-width: 13rem;" class="au-u-no-wrap">{{level.label}}</th>
           {{#each workingTimeCategories as |category|}}
             {{#each legalStatuses as |status|}}
               {{#each sexes as |sex|}}
@@ -108,4 +110,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 {{/unless}}
