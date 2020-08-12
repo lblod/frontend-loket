@@ -1,7 +1,7 @@
 <td>
   {{#if editMode}}
     <AuLabel for="fractienaam" class="au-u-hidden-visually">Fractienaam</AuLabel>
-    <AuInput id="fractienaam" @width="block" value={{fractie.naam}} placeholder="Fractienaam" {{auto-focus}} />
+    <AuInput id="fractienaam" @width="block" @value={{fractie.naam}} placeholder="Fractienaam" {{auto-focus}} />
   {{else}}
     <strong>{{fractie.naam}}</strong>
   {{/if}}
