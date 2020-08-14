@@ -551,3 +551,11 @@ $au-non-editable-background    : $au-gray-100 !default;
 .au-u-no-wrap {
   white-space: nowrap;
 }
+
+// Add italic styling in content
+.au-c-content {
+  em {
+    font-style: italic;
+    color: $au-gray-700;
+  }
+}

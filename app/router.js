@@ -16,6 +16,7 @@ Router.map(function() {
   this.route('legaal', function() {
     this.route('disclaimer');
     this.route('cookieverklaring');
+    this.route('toegankelijkheidsverklaring');
   });
 
   this.route('mandatenbeheer', function() {
