@@ -92,14 +92,6 @@
   display: block;
 }
 
-// This can probably be removed again > @TODO: review after IE11 test
-div:focus,
-span:focus,
-table:focus,
-td:focus {
-  outline: 0 !important;
-}
-
 .checkbox + .au-c-label {
   display: inline-block;
 }
@@ -199,7 +191,7 @@ $au-non-editable-background    : $au-gray-100 !default;
   font-style: italic;
 }
 
-// Descriptions
+// Descriptions > @todo: replace with label and p
 .au-c-description-label {
   @include au-font-size($au-h6);
   font-family: $au-font;
@@ -225,7 +217,8 @@ $au-non-editable-background    : $au-gray-100 !default;
   margin-bottom: $au-unit-small;
 }
 
-.au-c-divider {
+.au-c-divider,
+.au-c-hr--large {
   width: 100%;
   border: 0;
   border-bottom: .1rem solid $au-gray-200;
@@ -381,7 +374,7 @@ $au-non-editable-background    : $au-gray-100 !default;
   width: 100%;
 }
 
-// Uppercase input
+// Uppercase input > input modifier
 .au-c-input--uppercase {
   text-transform: uppercase;
   letter-spacing: .15rem;
