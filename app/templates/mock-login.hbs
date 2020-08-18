@@ -31,7 +31,19 @@
                   {{#login.each-account accounts=model as |account|}}
                     {{#wu-info-tile class="u-spacer--tiny" as |i|}}
                       {{#i.content}}
-                        {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
+                        <div>
+                          {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
+                        </div>
+                        {{#if (await account.gebruiker.bestuurseenheden.firstObject.alternatieveNaam)}}
+                          <div>
+                            ( Alternatieve naam:
+                            {{#each (await account.gebruiker.bestuurseenheden) as |bestuurseenheid|}}
+                              {{#each bestuurseenheid.alternatieveNaam as |alternatieveNaam|}}
+                                {{alternatieveNaam}}
+                              {{/each}}
+                            {{/each}})
+                          </div>
+                        {{/if}}
                       {{/i.content}}
                     {{/wu-info-tile}}
                   {{/login.each-account}}

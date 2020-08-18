@@ -16,7 +16,7 @@ export default Route.extend({
   model(params) {
     const filter = { provider: 'https://github.com/lblod/mock-login-service' };
     if (params.gemeente)
-      filter.gebruiker = { 'achternaam': params.gemeente};
+      filter.gebruiker = { 'bestuurseenheden': params.gemeente };
     return this.store.query('account', {
       include: 'gebruiker.bestuurseenheden',
       filter: filter,

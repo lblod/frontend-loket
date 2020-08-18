@@ -9,8 +9,9 @@ export default Controller.extend({
 
   queryStore: task(function * () {
     const filter = { provider: 'https://github.com/lblod/mock-login-service' };
-    if (this.gemeente)
-      filter.gebruiker = { 'achternaam': this.gemeente};
+    if (this.gemeente) {
+      filter.gebruiker = { 'bestuurseenheden': this.gemeente };
+    }
     const accounts = yield this.store.query('account', {
       include: 'gebruiker,gebruiker.bestuurseenheden',
       filter: filter,
@@ -19,6 +20,7 @@ export default Controller.extend({
     });
     return accounts;
   }),
+
   updateSearch: task(function * (value) {
     yield timeout(500);
     this.set('page',0);
