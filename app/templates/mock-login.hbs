@@ -20,7 +20,20 @@
               {{/if}}
               {{#login.each-account accounts=model as |account|}}
                 <div class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small">
+                  <p>
                   {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
+                  </p>
+                  {{#if (await account.gebruiker.bestuurseenheden.firstObject.alternatieveNaam)}}
+                  <AuHr/>
+                  <p>
+                    <span class="au-c-info-text">Alternatieve naam:</span>
+                    {{#each (await account.gebruiker.bestuurseenheden) as |bestuurseenheid|}}
+                      {{#each bestuurseenheid.alternatieveNaam as |alternatieveNaam|}}
+                        <AuPill>{{alternatieveNaam}}</AuPill>
+                      {{/each}}
+                    {{/each}}
+                  </p>
+                  {{/if}}
                 </div>
               {{/login.each-account}}
               {{number-pagination
