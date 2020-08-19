@@ -12,6 +12,10 @@
 
 .au-c-action-sidebar__header {
   border-bottom: .1rem solid $au-gray-300;
+
+  &:focus {
+    outline: 0;
+  }
 }
 
 .au-c-action-sidebar__footer {
