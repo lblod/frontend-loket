@@ -486,7 +486,7 @@ $au-non-editable-background    : $au-gray-100 !default;
 
 
 // ---
-// Deprecated after appuniversum 0.9 upgrade
+// Deprecated after appuniversum 0.14 upgrade
 // ---
 
 // Word break
@@ -497,16 +497,4 @@ $au-non-editable-background    : $au-gray-100 !default;
 // No wrap
 .au-u-no-wrap {
   white-space: nowrap;
-}
-
-// ---
-// Deprecated after next ember-appuniversum 0.29 upgrade
-// ---
-
-// Add italic styling in content
-.au-c-content {
-  em {
-    font-style: italic;
-    color: $au-gray-700;
-  }
 }
