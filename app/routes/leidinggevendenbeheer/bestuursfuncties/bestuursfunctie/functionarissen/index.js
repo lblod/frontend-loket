@@ -3,6 +3,7 @@ import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
 
 export default Route.extend(DataTableRouteMixin, {
+  modelName: 'functionaris',
   currentSession: service('current-session'),
 
   async beforeModel(){
@@ -12,12 +13,12 @@ export default Route.extend(DataTableRouteMixin, {
     }
   },
 
-  async model() {
+  mergeQueryOptions() {
     this.set('bestuursfunctie', this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'));
-    return this.store.query('functionaris', {
-      'filter[bekleedt][id]': this.bestuursfunctie.id,
+    return {
+     'filter[bekleedt][id]': this.bestuursfunctie.id,
       include: 'is-bestuurlijke-alias-van'
-    });
+    };
   },
 
   setupController(controller, model) {
