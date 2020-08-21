@@ -489,32 +489,6 @@ $au-non-editable-background    : $au-gray-100 !default;
 // Deprecated after appuniversum 0.9 upgrade
 // ---
 
-// Add a fixed grid option for sidebar layouts
-.au-o-grid--fixed {
-  height: 100%;
-  overflow: hidden;
-
-  > .au-o-grid__item {
-    height: 100%;
-  }
-}
-
-// Responsive alignment
-.au-u-text-right\@medium {
-  @include mq(medium) {
-    text-align: right;
-  }
-}
-
-// Flow object
-.au-o-flow {
-  display: block;
-
-  > * + * {
-    margin-top: $au-unit-tiny;
-  }
-}
-
 // Word break
 .au-u-word-break {
   word-break: break-word;
@@ -524,6 +498,10 @@ $au-non-editable-background    : $au-gray-100 !default;
 .au-u-no-wrap {
   white-space: nowrap;
 }
+
+// ---
+// Deprecated after next ember-appuniversum 0.29 upgrade
+// ---
 
 // Add italic styling in content
 .au-c-content {
