@@ -1,52 +1,39 @@
-<div class="col--1-1--s container-flex--contain">
-  <div class="u-padding--trl--small u-border--light--bottom">
-    <div class="grid">
-      <div class="col--9-12">
-        <h1 class="h3">Bewerk aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}}</h1>
-      </div>
-      <div class="col--3-12 u-align--right">
-        <button {{action (perform resetChanges)}} class="link--icon--close">
-          <span class="u-visually-hidden">Venster sluiten</span>
-        </button>
-      </div>
-    </div>
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Bewerk aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}}</AuHeading>
+  </AuToolbarGroup>
+</AuToolbar>
+
+{{#leidinggevendenbeheer/functionaris-form
+    model=model
+    as |isValid|
+}}
+  <div class="au-o-box">
+    <AuAlert @alertIcon="info-circle">
+      <AuContent @skin="small">
+        <p>Hou de <strong>historiek</strong> van afgelopen aanstellingsperiodes bij.</p>
+        <ul>
+          <li>Nieuwe aanstellingsperiode of status: &nbsp;<AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen">voeg een nieuwe aanstellingsperiode toe</AuLink>.</li>
+          <li>Aanstellingsperiode verwijderen: &nbsp;<a href="mailto:LoketLokaalBestuur@vlaanderen.be?subject=Leidinggevendenbeheer - Loket Lokaal Bestuur" class="au-c-link">neem contact op met ons</a>.</li>
+        </ul>
+      </AuContent>
+    </AuAlert>
   </div>
 
-  {{#leidinggevendenbeheer/functionaris-form
-      model=model
-      as |isValid|
-  }}
-    <div class="u-padding--round--small u-border--light--top">
-      <div class="grid">
-        <div class="col--6-12 col--1-1--s">
-          <div class="button-group">
-            {{wu-button label="Corrigeer aanstellingsperiode"
-                onClick=(perform save)
-                isNarrow=true
-                disabled=(or (not isValid) save.isRunning)
-            }}
-            {{wu-button label="Annuleer"
-                onClick=(perform resetChanges)
-                isNarrow=true
-                isAlt=true
-            }}
-          </div>
-        </div>
-        <div class="col--6-12 col--1-1--s">
-          <div class="alert alert--tiny">
-            <div class="alert__icon" aria-hidden="true"></div>
-            <div class="alert__content">
-              <div class="alert__message">
-                <p>Hou de <strong>historiek</strong> van afgelopen aanstellingsperiodes bij.</p>
-                <ul class="bullet-list">
-                  <li><small>Nieuwe aanstellingsperiode of status: &nbsp;{{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen"}}voeg een nieuwe aanstellingsperiode toe{{/link-to}}.</small></li>
-                  <li><small>Aanstellingsperiode verwijderen: &nbsp;<a href="mailto:LoketLokaalBestuur@vlaanderen.be?subject=Leidinggevendenbeheer - Loket Lokaal Bestuur">neem contact op met ons</a>.</small></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  {{/leidinggevendenbeheer/functionaris-form}}
-</div>
+  <AuToolbar @border="top" @size="large">
+    <AuToolbarGroup>
+      <AuButtonGroup>
+        <AuButton
+          @disabled="{{not isValid}}"
+          @loading="{{this.save.isRunning}}"
+          {{on "click" (perform save)}}
+        >
+          Corrigeer aanstellingsperiode
+        </AuButton>
+        <AuButton {{on "click" (perform resetChanges)}} @skin="secondary">
+          Annuleer
+        </AuButton>
+      </AuButtonGroup>
+    </AuToolbarGroup>
+  </AuToolbar>
+{{/leidinggevendenbeheer/functionaris-form}}

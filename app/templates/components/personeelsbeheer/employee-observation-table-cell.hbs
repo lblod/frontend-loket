@@ -1,6 +1,7 @@
 <td>
   {{#if observation}}
-    {{input class="input-field input-field--block" type="number" step=step value=observation.value focus-out=(action "setValue") name="quantity"}}
+    <AuLabel class="au-u-hidden-visually">Waarde</AuLabel>
+    {{input class="au-c-input au-c-input--block" type="number" step=step value=observation.value focus-out=(action "setValue") name="quantity"}}
   {{else}}
     {{!-- No observation found --}}
   {{/if}}

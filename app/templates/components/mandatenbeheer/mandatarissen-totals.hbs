@@ -1,24 +1,23 @@
-<AuButton @skin="tertiary" class="toggle toggle--arrow-down au-u-padding-left" {{action "toggleOpen"}}>
+<AuButton @skin="tertiary" class="au-c-button--toggle" {{action "toggleOpen"}}>
   Toon totalen per orgaan
+  <AuIcon @icon="nav-down" @alignment="right" />
 </AuButton>
-<div class="accordion__content u-spacer--top--tiny u-bg-block u-align-left">
+<div class="au-c-accordion au-u-text-left">
   {{#if getMandatarissenTotals.isRunning}}
-    <div class="loader-wrapper">
-      <div class="loader">
-        <span class="u-visually-hidden">Aan het laden</span>
-      </div>
-    </div>
+    <AuLoader @size="small" />
   {{else}}
-    <div class="grid">
+    <div class="au-o-grid">
       {{#each mandatarissenTotals as |orgaanMap|}}
-        <div class="col--4-12 col--1-1--s">
-          <h2 class="h6" style="min-height: 5rem;">{{orgaanMap.orgaan.isTijdsspecialisatieVan.naam}}
-          <br><small class="small uppercase text-fade">{{moment-format orgaanMap.orgaan.bindingStart "YYYY"}} tot {{#if orgaanMap.orgaan.bindingEinde}}{{moment-format orgaanMap.orgaan.bindingEinde "YYYY"}}{{else}}heden{{/if}}</small></h2>
-          <ul class="u-padding--top--tiny u-spacer--bottom--small small">
+        <div class="au-o-grid__item au-u-1-3@medium">
+          <AuHeading @level="2" @skin="6">{{orgaanMap.orgaan.isTijdsspecialisatieVan.naam}}</AuHeading>
+          <p class="au-c-info-text">{{moment-format orgaanMap.orgaan.bindingStart "YYYY"}} tot {{#if orgaanMap.orgaan.bindingEinde}}{{moment-format orgaanMap.orgaan.bindingEinde "YYYY"}}{{else}}heden{{/if}}</p>
+          <ul class="au-c-list-vertical au-u-margin-top-small">
             {{#each orgaanMap.mandaten as |total|}}
-              <li class="grid">
-                <div class="col--2-12">{{total.aantal}}</div>
-                <div class="col--10-12">{{total.naam}}</div>
+              <li class="au-c-list-vertical__item">
+                <div class="au-o-grid au-o-grid--flush">
+                  <div class="au-o-grid__item au-u-1-6">{{total.aantal}}</div>
+                  <div class="au-o-grid__item au-u-5-6">{{total.naam}}</div>
+                </div>
               </li>
             {{/each}}
           </ul>

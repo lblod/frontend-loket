@@ -1,18 +1,22 @@
 <div class="au-c-main-container">
   <div class="au-c-main-container__content au-c-main-container__content--scroll">
     {{#if session.isAuthenticated}}
-      <div class="col--10-12 col--9-12--m col--1-1--s">
-        <div class="container-flex--scroll u-spacer--top u-spacer--left">
-          <h1 class="h1">Contact</h1>
+      <section class="au-o-region-large">
+        <div class="au-o-layout">
+          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
           {{contact-form}}
         </div>
-      </div>
+      </section>
     {{else}}
-      {{wu-content-header tagline="Loket"}}
-      <div class="layout layout--wide">
-        <h1 class="h1">Contact</h1>
-        {{contact-form}}
-      </div>
+      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
+        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
+      </AuContentHeader>
+      <section class="au-o-region-large">
+        <div class="au-o-layout">
+          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
+          {{contact-form}}
+        </div>
+      </section>
     {{/if}}
     {{outlet}}
 
@@ -28,6 +32,9 @@
           </li>
           <li class="au-c-list-horizontal__item">
             <AuLink @linkRoute="legaal.cookieverklaring" @skin="secondary">Cookieverklaring</AuLink>
+          </li>
+          <li class="au-c-list-horizontal__item">
+            <AuLink @linkRoute="legaal.toegankelijkheidsverklaring" @skin="secondary">Toegankelijkheid</AuLink>
           </li>
         </ul>
       </AuContent>

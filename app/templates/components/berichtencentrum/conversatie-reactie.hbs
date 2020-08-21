@@ -1,51 +1,59 @@
 {{#if (not isExpanded)}}
-  {{wu-button icon="vi-mail" label="Plaats reactie" onClick=(action "expandMe") isBlock=true class="js-accordion__toggle js-accordion-bound"}}
+  <AuButton {{action "expandMe"}} @width="block">
+    <AuIcon @icon="message" @alignment="left" />
+    Plaats reactie
+  </AuButton>
 {{else}}
-  <div class="js-accordion u-spacer--small js-accordion--open">
-    <div class="accordion__content">
-      <h3 class="h6 u-spacer--small">Uw reactie</h3>
+  <div {{auto-focus}}>
+    <AuHeading @level="3" @skin="5" class="au-u-margin-bottom-small">
+      Uw reactie
+    </AuHeading>
 
-      <div class="grid u-spacer--small">
-        <div class="col--2-12">
-          <p class="smaller"><strong>Naar</strong></p>
-        </div>
-        <div class="col--10-12">
-          <p class="smaller">
-            {{#if originator}}
-              {{originator.naam}}
-              {{ else }}
-              Aan het laden...
-            {{/if}}
-          </p>
-        </div>
-        <div class="col--2-12">
-          <p class="smaller"><strong>Van</strong></p>
-        </div>
-        <div class="col--10-12">
-          <p class="smaller">
-            {{#if currentSession.groupContent.naam}}
-              {{currentSession.groupContent.naam}}
-            {{else}}
-              Aan het laden...
-            {{/if}}
-          </p>
-        </div>
+    <div class="au-o-grid au-o-grid--flush">
+      <div class="au-o-grid__item au-u-1-5">
+        <p class="au-c-small-text"><strong>Naar</strong></p>
       </div>
-
-      <p class="smaller u-spacer--tiny">
-        <strong>Uw antwoord als bijlage</strong>
-      </p>
-      <div class="form__row u-spacer">
-	      {{#each bijlagen as |bijlage|}}
-	        {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
-	      {{/each}}
-	      {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
-	    </div>
-
-      <div class="button-group">
-	      {{wu-button label="Verstuur bericht" onClick=(action 'verstuurBericht') disabled=cantSend isNarrow=true size="small" class="js-accordion__toggle js-accordion-bound"}}
-	      {{wu-button label="Verwijder nieuw bericht" onClick=(action 'collapseMe') isNarrow=true size="small" isAlt=true class="js-accordion__toggle js-accordion-bound"}}
-	    </div>
+      <div class="au-o-grid__item au-u-4-5">
+        <p class="au-c-small-text">
+          {{#if originator}}
+            {{originator.naam}}
+            {{ else }}
+            Aan het laden...
+          {{/if}}
+        </p>
+      </div>
+      <div class="au-o-grid__item au-u-1-5">
+        <p class="au-c-small-text"><strong>Van</strong></p>
+      </div>
+      <div class="au-o-grid__item au-u-4-5">
+        <p class="au-c-small-text">
+          {{#if currentSession.groupContent.naam}}
+            {{currentSession.groupContent.naam}}
+          {{else}}
+            Aan het laden...
+          {{/if}}
+        </p>
+      </div>
     </div>
+
+    <p class="au-c-small-text au-u-margin-top-small">
+      <strong>Uw antwoord als bijlage</strong>
+    </p>
+
+    <div class="au-u-margin-top-tiny">
+      {{#each bijlagen as |bijlage|}}
+        {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
+      {{/each}}
+      {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
+    </div>
+
+    <AuButtonGroup>
+      <AuButton {{action 'verstuurBericht'}} @disabled="{{cantSend}}" class="js-accordion__toggle js-accordion-bound">
+        Verstuur bericht
+      </AuButton>
+      <AuButton {{action 'collapseMe'}} @skin="secondary" class="js-accordion__toggle js-accordion-bound">
+        Verwijder nieuw bericht
+      </AuButton>
+    </AuButtonGroup>
   </div>
 {{/if}}

@@ -1,9 +1,9 @@
 {{#if calculateTotals.isRunning}}
-  <div class="loader-wrapper"> <div class="loader"></div></div>
+  <AuLoader @size="small" />
 {{else}}
-  <ul class="inline-list inline-list--bordered small">
+  <ul class="au-c-list-horizontal au-u-margin-top-small">
     {{#each summary as |entry|}}
-      <li>
+      <li class="au-c-list-horizontal__item">
         {{entry.total}} {{entry.label}}
       </li>
     {{/each}}

@@ -1,46 +1,45 @@
-<div class="container-flex--scroll u-padding--round--small">
-  {{leidinggevendenbeheer/persoon-card persoon=model.isBestuurlijkeAliasVan hideHeader=true}}
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+    {{leidinggevendenbeheer/persoon-card persoon=model.isBestuurlijkeAliasVan hideHeader=true}}
 
-  <h2 class="h5 u-spacer--tiny">Functie</h2>
-  <div class="form__row">
-    <div class="grid">
-      <div class="col--4-12 col--6-12--s col--1-1--xs">
-        <label class="form__label" for="datepicker-from">Start aanstellingsperiode</label>
+    <AuHr @size="large"/>
+
+    <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">Functie</AuHeading>
+    <div class="au-o-grid au-o-grid--tiny">
+      <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
+        <AuLabel for="datepicker-from">Start aanstellingsperiode</AuLabel>
         {{wu-datepicker
-            value=(mut model.start)
-            placeholder="01.01.2019"
-            dateFormat="DD.MM.YYYY"
-            classNames="date-range__datepicker datepicker"
-            style="max-width: none; width:auto"
+          value=(mut model.start)
+          placeholder="01.01.2019"
+          dateFormat="DD.MM.YYYY"
+          classNames="date-range__datepicker datepicker datepicker--block"
         }}
         {{#unless model.start}}
-          <div class="form__error">Start aanstellingsperiode is verplicht</div>
+          <AuHelpText @error="true">Start aanstellingsperiode is verplicht</AuHelpText>
         {{/unless}}
       </div>
-      <div class="col--4-12 col--6-12--s col--1-1--xs">
-        <label class="form__label" for="datepicker-from">Einde aanstellingsperiode</label>
+      <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
+        <AuLabel for="datepicker-from">Einde aanstellingsperiode</AuLabel>
         {{wu-datepicker
-            value=(mut model.einde)
-            placeholder="31.12.2019"
-            dateFormat="DD.MM.YYYY"
-            classNames="date-range__datepicker datepicker"
+          value=(mut model.einde)
+          placeholder="31.12.2019"
+          dateFormat="DD.MM.YYYY"
+          classNames="date-range__datepicker datepicker datepicker--block"
         }}
       </div>
     </div>
-  </div>
-  {{#if (gt statusOptions.length 1)}}
-    <div class="form__row">
-      <div class="grid">
-        {{#each statusOptions as |status|}}
-          <div class="col--4-12 col--6-12--s col--1-1--xs">
-            {{wu-radio-button label=status.label value=status isBlock=true
-                onChange=(action (mut model.status status))
-                checked=(eq status.id model.status.id)}}
-          </div>
-        {{/each}}
-      </div>
+    {{#if (gt statusOptions.length 1)}}
+    <AuLabel class="au-u-margin-top">Status</AuLabel>
+    <div class="au-o-grid au-o-grid--tiny">
+      {{#each statusOptions as |status|}}
+        <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
+          {{wu-radio-button label=status.label value=status isBlock=true
+              onChange=(action (mut model.status status))
+              checked=(eq status.id model.status.id)}}
+        </div>
+      {{/each}}
     </div>
-  {{/if}}
+    {{/if}}
+  </div>
 </div>
-
 {{yield isValid}}

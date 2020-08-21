@@ -1,32 +1,49 @@
-<div class="page">
-  <div id="main" itemprop="mainContentOfPage" role="main" tabindex="-1" class="main-content">
-    <header class="content-header content-header--small content-header--half-image u-spacer">
-      <div class="content-header__wrapper">
-        <picture class="content-header__bg"><img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="" title=""></picture>
-        <div class="layout layout--wide">
-          <div class="content-header__content">
-            <div class="content-header__logo-wrapper"><a href="#" class="content-header__entity-logo content-header__entity-logo--lowercase"><span class="content-header__entity-logo__prefix">Vlaanderen</span><span class="content-header__entity-logo__title">is lokaal bestuur</span></a></div>
+<div class="au-c-main-container" itemprop="mainContentOfPage">
+  <div class="au-c-main-container__content au-c-main-container__content--scroll">
+    <main id="content">
+      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
+        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
+      </AuContentHeader>
+
+      <section class="au-o-region-large">
+        <div class="au-o-layout">
+          <div class="au-o-grid">
+            <div class="au-o-grid__item au-u-1-2@medium">
+              <AuContent @skin="large">
+                <h1>Loket voor lokale besturen</h1>
+                <p>Lukt het aanmelden niet? Neem contact op met uw interne beheerder. Indien er zich een probleem voordoet, contacteer <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer" class="au-c-link">gebruikersbeheer Vlaanderen</a>.</p>
+                <p>Het aanmelden gebeurt in een pop-up; zorg dat de instellingen van uw browser correct staan indien deze niet verschijnt.</p>
+              </AuContent>
+            </div>
+            <div class="au-o-grid__item au-u-1-2@medium au-u-text-right@medium">
+              {{acmidm-login}}
+              {{#if model}}
+                <AuAlert @alertIcon="alert-triangle" @alertTitle={{model}}  @alertskin="error" class="au-u-text-left" />
+              {{/if}}
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </section>
+    </main>
+
+    <AuMainFooter>
+      <AuHeading @level="3" @skin="4">
+        Loket.lblod.info is een officiële website van de Vlaamse overheid
+      </AuHeading>
+      <AuContent @skin="small">
+        <p>Uitgegeven door <a class="au-c-link" href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur">Agentschap Binnenlands Bestuur</a></p>
+        <ul class="au-c-list-horizontal">
+          <li class="au-c-list-horizontal__item">
+            <AuLink @linkRoute="legaal.disclaimer" @skin="secondary">Disclaimer</AuLink>
+          </li>
+          <li class="au-c-list-horizontal__item">
+            <AuLink @linkRoute="legaal.cookieverklaring" @skin="secondary">Cookieverklaring</AuLink>
+          </li>
+          <li class="au-c-list-horizontal__item">
+            <AuLink @linkRoute="legaal.toegankelijkheidsverklaring" @skin="secondary">Toegankelijkheid</AuLink>
+          </li>
+        </ul>
+      </AuContent>
+    </AuMainFooter>
   </div>
 </div>
-<section class="region">
-  <div class="layout layout--wide">
-    <div class="grid">
-      <div class="col--1-1--s col--8-12--m col--6-12">
-        <h1 class="h1">Loket voor lokale besturen</h1>
-        <p class="u-spacer--tiny">Lukt het aanmelden niet? Neem contact op met uw interne beheerder. Indien er zich een probleem voordoet, contacteer <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</a>.</p>
-        <p class="u-spacer--tiny">Het aanmelden gebeurt in een pop-up; zorg dat de instellingen van uw browser correct staan indien deze niet verschijnt.</p>
-      </div>
-      <div class="col--1-1--s col--4-12--m col--6-12 u-align-right--tablet-portrait-up">
-        {{acmidm-login}}
-        {{#if model}}
-          {{wu-alert title=model isError=true}}
-        {{/if}}
-      </div>
-    </div>
-  </div>
-</section>
-

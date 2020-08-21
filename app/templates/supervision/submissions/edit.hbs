@@ -1,42 +1,46 @@
-<header class="au-u-padding-top au-u-padding-bottom au-u-padding-left-large au-u-padding-right u-border--light--bottom">
-  <h1 class="au-u-h2 au-u-margin-bottom">Bekijk aanlevering dossier</h1>
-  <div class="au-o-grid">
-    <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-      <AuLabel>Gewijzigd door</AuLabel>
-      {{#if this.model.submission.lastModifier.fullName}}
-        <p>{{this.model.submission.lastModifier.fullName}}</p>
-      {{else if this.model.submission.task.created}}
-        <p>Automatisch aangemaakt bij publicatie</p>
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <AuHeading @skin="2" class="">Bekijk aanlevering dossier</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <ul class="au-o-grid">
+      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+        <AuLabel>Gewijzigd door</AuLabel>
+        {{#if this.model.submission.lastModifier.fullName}}
+          <p>{{this.model.submission.lastModifier.fullName}}</p>
+        {{else if this.model.submission.task.created}}
+          <p>Automatisch aangemaakt bij publicatie</p>
+        {{/if}}
+      </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+        <AuLabel>Aangemaakt op</AuLabel>
+        <p>{{moment-format this.model.submission.created 'DD-MM-YYYY'}}</p>
+      </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+        <AuLabel>Bewerkt op</AuLabel>
+        <p>{{moment-format this.model.submission.modified 'DD-MM-YYYY'}}</p>
+      </li>
+      {{#if this.save.isRunning}}
+        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+          <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
+        </li>
       {{/if}}
-    </div>
-    <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-      <AuLabel>Aangemaakt op</AuLabel>
-      <p>{{moment-format this.model.submission.created 'DD-MM-YYYY'}}</p>
-    </div>
-    <div class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-      <AuLabel>Bewerkt op</AuLabel>
-      <p>{{moment-format this.model.submission.modified 'DD-MM-YYYY'}}</p>
-    </div>
-    {{#if this.save.isRunning}}
-      <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
-      </div>
-    {{/if}}
-    {{#if this.submit.isRunning}}
-      <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het versturen..."  @alertskin="info" @alertsize="small"></AuAlert>
-      </div>
-    {{/if}}
-    {{#if this.delete.isRunning}}
-      <div class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-        <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
-      </div>
-    {{/if}}
-  </div>
-</header>
+      {{#if this.submit.isRunning}}
+        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+          <AuAlert @alertIcon="info-circle" @alertTitle="Aan het versturen..."  @alertskin="info" @alertsize="small"></AuAlert>
+        </li>
+      {{/if}}
+      {{#if this.delete.isRunning}}
+        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+          <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
+        </li>
+      {{/if}}
+    </ul>
+  </AuToolbarGroup>
+</AuToolbar>
 
-<div class="container-flex--scroll">
-  <div class="au-u-padding-top-large au-u-padding-left-large au-u-padding-right au-u-padding-bottom-large {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}} {{if this.delete.isRunning "au-c-form--disabled"}}">
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}} {{if this.delete.isRunning "au-c-form--disabled"}}">
     <div class="au-o-grid">
       <div class="au-o-grid__item au-u-1-2@medium au-u-1-1">
         <SubmissionForm
@@ -51,18 +55,22 @@
   </div>
 </div>
 
-<AuToolbar @border="top" @size="large" class="au-u-padding-left-large">
+<AuToolbar @border="top" @size="large">
+  {{#if this.model.submitted}}
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <AuAlert @alertIcon="check" @alertTitle="Dossier verstuurd" @alertskin="success" @alertsize="small" class="au-u-margin-bottom-none">
+      <p>Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
+    </AuAlert>
+  </AuToolbarGroup>
+  {{/if}}
+  {{#if (and this.forceShowErrors (not this.isValidForm))}}
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin="error" @alertsize="small" class="au-u-margin-bottom-none">
+      <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
+    </AuAlert>
+  </AuToolbarGroup>
+  {{/if}}
   <AuToolbarGroup>
-    {{#if this.model.submitted}}
-      <AuAlert @alertIcon="check" @alertTitle="Dossier verstuurd" @alertskin="success" @alertsize="small" class="au-u-margin-bottom-none">
-        <p>Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
-      </AuAlert>
-    {{/if}}
-    {{#if (and this.forceShowErrors (not this.isValidForm))}}
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin="error" @alertsize="small" class="au-u-margin-bottom-none">
-        <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
-      </AuAlert>
-    {{/if}}
     {{#unless this.model.submitted}}
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}

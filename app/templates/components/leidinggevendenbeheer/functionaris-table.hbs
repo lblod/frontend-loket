@@ -12,19 +12,21 @@
       {{au-data-table-th-sortable label='Naam' field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort}}
       {{au-data-table-th-sortable label='Familienaam' field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort}}
       {{au-data-table-th-sortable label='Status' field='status.label' currentSorting=sort}}
-      {{au-data-table-th-sortable label='Start periode' field='start' currentSorting=sort class="u-hidden-mobile"}}
-      {{au-data-table-th-sortable label='Einde periode' field='einde' currentSorting=sort class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable label='Start periode' field='start' currentSorting=sort class="au-u-visible-small-up"}}
+      {{au-data-table-th-sortable label='Einde periode' field='einde' currentSorting=sort class="au-u-visible-small-up"}}
       <th><!-- Actions --></th>
     {{/c.header}}
 
     {{#if (eq content.length 0)}}
       <tbody>
         <tr>
-          <td class="u-align-center u-padding--round--small" colspan="6">
-            <p class="u-spacer--tiny">Geen aanstellingsperiode voor de functie {{bestuursfunctie.rol.label}} toegevoegd.</p>
-            {{wu-button label=(concat "Voeg aanstellingsperiode " bestuursfunctie.rol.label " toe")
-              onClick=onClickNew
-              isNarrow=true}}
+          <td colspan="6">
+            <div class="au-o-box au-u-text-center">
+              <p class="au-u-margin-bottom-small">Geen aanstellingsperiode voor de functie {{bestuursfunctie.rol.label}} toegevoegd.</p>
+              <AuButton {{on "click" (action onClickNew)}}>
+                Voeg aanstellingsperiode toe
+              </AuButton>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -33,18 +35,18 @@
         <td>{{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}</td>
         <td>{{row.isBestuurlijkeAliasVan.achternaam}}</td>
         <td>{{row.status.label}}</td>
-        <td class="u-hidden-mobile word-break--break-word">
+        <td class="au-u-visible-small-up au-u-word-break">
           {{#if row.start}}
             {{moment-format row.start 'DD-MM-YYYY'}}
           {{else}}
-            <span class="text-fade">Onbepaald</span>
+            <span class="au-c-info-text">Onbepaald</span>
           {{/if}}
         </td>
-        <td class="u-hidden-mobile">
+        <td class="au-u-visible-small-up">
           {{#if row.einde}}
             {{moment-format row.einde 'DD-MM-YYYY'}}
           {{else}}
-            <span class="text-fade">Onbepaald</span>
+            <span class="au-c-info-text">Onbepaald</span>
           {{/if}}
         </td>
         <td>{{#link-to 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.edit' row.id class="au-c-link"}}Bewerk periode{{/link-to}}</td>

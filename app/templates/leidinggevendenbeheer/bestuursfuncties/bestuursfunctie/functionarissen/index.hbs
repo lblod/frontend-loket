@@ -14,29 +14,29 @@
 
 <AuToolbar @size="large">
   <AuToolbarGroup>
-    <ul class="inline-list inline-list--bordered small text-light">
-      <li>
+    <ul class="au-c-list-horizontal">
+      <li class="au-c-list-horizontal__item">
         {{#if bestuursfunctie.contactinfo.email}}
           {{bestuursfunctie.contactinfo.email}}
         {{else}}
-          <span class="text-fade">Geen mailadres</span>
+          <span class="au-c-info-text">Geen mailadres</span>
         {{/if}}
       </li>
-      <li>
+      <li class="au-c-list-horizontal__item">
         {{#if bestuursfunctie.contactinfo.telefoon}}
           {{bestuursfunctie.contactinfo.telefoon}}
         {{else}}
-          <span class="text-fade">geen telefoonnummer</span>
+          <span class="au-c-info-text">geen telefoonnummer</span>
         {{/if}}
       </li>
-      <li>
+      <li class="au-c-list-horizontal__item">
         {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
           <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
         {{else}}
-          <span class="text-fade">geen adres</span>
+          <span class="au-c-info-text">geen adres</span>
         {{/if}}
       </li>
-      <li>
+      <li class="au-c-list-horizontal__item">
         {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="au-c-link"}}
           <AuIcon @icon="pencil" @alignment="left" />
           Bewerk
