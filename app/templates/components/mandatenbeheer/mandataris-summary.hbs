@@ -1,25 +1,39 @@
-<div class="col--8-12">
-  <p>
-    <strong>{{rol}}</strong>
-  </p>
-</div>
-<div class="col--4-12 u-align-right">
-  {{#unless isEditing}}
-    <AuButton {{action "edit"}}>Pas aan</AuButton>
-  {{/unless}}
-</div>
-<div class="col--12-12">
-  <p>
-    {{moment-format start 'DD/MM/YYYY'}} —
-    {{#if einde}}
-      {{moment-format einde 'DD/MM/YYYY'}}
-    {{else}}
-      heden
-    {{/if}}
-  </p>
-  <p>{{formattedBeleidsdomein}}</p>
-  <p>{{status}}</p>
-  <p>{{rangorde}}</p>
-  <p>{{fractie}}</p>
-  <p>Gelinkt notuleren? {{gelinktNotuleren}}</p>
+<div class="au-o-grid au-o-grid--flush">
+  <div class="au-o-grid__item au-u-3-5">
+    <p>
+      <strong>{{rol}}</strong>
+    </p>
+  </div>
+  <div class="au-o-grid__item au-u-2-5 au-u-text-right">
+    {{#unless isEditing}}
+      <AuButton {{action "edit"}}>Pas aan</AuButton>
+    {{/unless}}
+  </div>
+  <div class="au-o-grid__item">
+    <AuContent>
+      <p class="au-c-info-text">
+        {{moment-format start 'DD/MM/YYYY'}} —
+        {{#if einde}}
+          {{moment-format einde 'DD/MM/YYYY'}}
+        {{else}}
+          heden
+        {{/if}}
+      </p>
+      <ul class="au-c-list-horizontal au-u-margin-top-tiny">
+        {{#if formattedBeleidsdomein}}
+        <li class="au-c-list-horizontal__item">{{formattedBeleidsdomein}}</li>
+        {{/if}}
+        {{#if status}}
+        <li class="au-c-list-horizontal__item">{{status}}</li>
+        {{/if}}
+        {{#if rangorde}}
+        <li class="au-c-list-horizontal__item">{{rangorde}}</li>
+        {{/if}}
+        {{#if fractie}}
+        <li class="au-c-list-horizontal__item">{{fractie}}</li>
+        {{/if}}
+        <li class="au-c-list-horizontal__item">Gelinkt notuleren? {{gelinktNotuleren}}</li>
+      </ul>
+    </AuContent>
+  </div>
 </div>

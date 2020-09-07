@@ -1,0 +1,22 @@
+{{#if active}}
+  <button class="au-c-close" {{action "delete"}}>
+    <AuIcon @icon="cross" @size="large" />
+    <span class="au-u-hidden-visually">Verwijderen</span>
+  </button>
+{{/if}}
+<div class="au-o-box au-o-box--small au-c-card">
+  <AuContent @skin="small">
+    <AuHeading @level="4" @skin="6">
+      {{file.filename}}
+      <span class="au-c-info-text">({{file.humanReadableSize}})</span>
+    </AuHeading>
+    {{#if downloadable}}
+      <p class="au-u-margin-top-tiny">
+        <a class="au-c-link" href="{{file.downloadLink}}" download="{{file.filename}}">
+          <AuIcon @icon="download" @alignment="left" />
+          Download bestand
+        </a>
+      </p>
+    {{/if}}
+  </AuContent>
+</div>

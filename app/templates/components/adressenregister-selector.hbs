@@ -1,34 +1,28 @@
-<div class="form__row">
-  <div class="grid">
-    <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
-      <PowerSelect
-              @allowClear={{true}}
-              @disabled={{disabled}}
-              @search={{perform search}}
-              @selected={{addressSuggestion}}
-              @onChange={{perform selectSuggestion}}
-               @loadingMessage="Aan het laden..."
-               @searchEnabled={{true}}
-              @noMatchesMessage="Geen resultaten"
-              @searchMessage="Typ om te zoeken"
-              as |suggestion|>
-        {{suggestion.fullAddress}}
-      </PowerSelect>
-    </div>
-  </div>
+<div class="au-u-2-3@medium">
+  <AuLabel for="address">Adres</AuLabel>
+  <PowerSelect
+      @triggerId="address"
+      @allowClear={{true}}
+      @disabled={{disabled}}
+      @search={{perform search}}
+      @selected={{addressSuggestion}}
+      @onChange={{perform selectSuggestion}}
+      @loadingMessage="Aan het laden..."
+      @searchEnabled={{true}}
+      @noMatchesMessage="Geen resultaten"
+      @searchMessage="Typ om te zoeken"
+          as |suggestion|>
+    {{suggestion.fullAddress}}
+  </PowerSelect>
 </div>
-<div class="form__row">
-  <div class="grid">
-    <div class="col--5-12 col--6-12--m col--8-12--s col--12-12--xs">
-      <label class="u-spacer--tiny">Busnummer</label>
-      {{adressenregister-busnumber-selector
-          address=addressWithBusnumber
-          options=addressesWithBusnumbers
-          onChange=(action "selectAddressWithBusnumber")
-          disabled=isDisabledBusnumberSelect
-          allowClear=false
-      }}
-      <p class="text-fade">Staat het correcte busnummer niet in de lijst? <a href="mailto:LoketLokaalBestuur@vlaanderen.be">Mail ons</a></p>
-    </div>
-  </div>
+<div class="au-u-2-3@medium au-u-margin-top">
+  <AuLabel for="busnumber">Busnummer</AuLabel>
+  {{adressenregister-busnumber-selector
+      address=addressWithBusnumber
+      options=addressesWithBusnumbers
+      onChange=(action "selectAddressWithBusnumber")
+      disabled=isDisabledBusnumberSelect
+      allowClear=false
+  }}
+  <AuHelpText>Staat het correcte busnummer niet in de lijst? <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">Mail ons</a></AuHelpText>
 </div>

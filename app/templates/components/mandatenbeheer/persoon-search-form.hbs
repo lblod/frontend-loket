@@ -1,96 +1,122 @@
-<div class="u-padding--trl--small u-border--light--bottom">
-  {{#if showDefaultHead}}
-    <div class="grid">
-      <div class="col--7-12">
-        <h2 class="h3">Voeg mandataris toe uit de lijst van verkozenen</h2>
-      </div>
-      <div class="col--5-12 u-align--right">
-        {{#link-to 'mandatenbeheer.mandatarissen' class="link--icon--close"}}
-          <span class="u-visually-hidden">Venster sluiten</span>
-        {{/link-to}}
-        <p class="small u-align-right u-spacer--top">{{#link-to 'mandatenbeheer.mandatarissen.new-person'}}<button class="button button--narrow button--alt">Voeg iemand buiten de lijst toe</button>{{/link-to}}</p>
-      </div>
-    </div>
-  {{/if}}
-  <div class="u-spacer--bottom--small">
-    {{!-- <h3 class="h4 sans-serif u-spacer--bottom--tiny">Zoek een persoon in de lijst</h3> --}}
-    <div class="form__row">
-      <div class="grid">
-        <div class="col--6-12">
-          <label for="mandataris-pattern">Zoek voornaam</label>
-          <div class="input-field-icon-container--right input-field-icon-container--block">
-            {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search)}}
-            <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-          </div>
-        </div>
-        <div class="col--6-12">
-          <label for="mandataris-pattern">Familienaam</label>
-          <div class="input-field-icon-container--right input-field-icon-container--block">
-            {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Familienaam" value=achternaam key-up=(perform search)}}
-            <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-          </div>
+{{#if showDefaultHead}}
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Voeg mandataris toe uit de lijst van verkozenen</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    {{#link-to 'mandatenbeheer.mandatarissen.new-person' class="au-c-button"}}Voeg iemand buiten de lijst toe{{/link-to}}
+  </AuToolbarGroup>
+</AuToolbar>
+{{/if}}
+
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <div class="au-o-grid au-o-grid--small">
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
+        <div class="au-c-input-wrapper">
+          {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search) id="mandataris-voornaam"}}
+          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
         </div>
       </div>
-      <label for="mandataris-pattern">Zoek rijksregisternummer</label>
-      <div class="input-field-icon-container--right input-field-icon-container--block is-optional">
-        {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search)}}
-        <i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandataris-naam">Familienaam</AuLabel>
+        <div class="au-c-input-wrapper">
+          {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Familienaam" value=achternaam key-up=(perform search) id="mandataris-naam"}}
+          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
+        </div>
+      </div>
+      <div class="au-o-grid__item">
+        <AuLabel for="mandataris-rijksregisternummer">Zoek rijksregisternummer <AuPill>Optioneel</AuPill></AuLabel>
+        <div class="au-c-input-wrapper">
+          {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search) id="mandataris-rijksregisternummer"}}
+          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
+        </div>
       </div>
     </div>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box">
+    {{#if error}}
+      <AuAlert @alertIcon="alert-triangle" @alertTitle="Fout bij het zoeken, gelieve opnieuw te proberen" @alertskin="warning">
+        <p class="au-u-margin-top-small">
+          <AuButton {{action 'toggleError'}}>OK</AuButton>
+        </p>
+      </AuAlert>
+    {{/if}}
+    {{#if isQuerying}}
+      <AuLoader @size="small" />
+    {{else}}
+      {{#unless hasSearched}}
+        <AuContent>
+          <p class="au-c-text-info">
+            Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of
+            <AuButton @skin="tertiary" {{action onCreateNewPerson}}>
+              <AuIcon @icon="add" @alignment="left" />
+              voeg een nieuwe persoon toe
+            </AuButton>.
+          </p>
+        </AuContent>
+        <div class="mandate-new-info">
+
+        </div>
+      {{else}}
+        {{#if personen}}
+          <ul class="au-c-list-vertical">
+            {{#each personen as |persoon|}}
+              <li class="au-c-list-vertical__item">
+              {{mandatenbeheer/persoon-search-result
+                  persoon=persoon
+                  onSelect=(action "selectPersoon")
+              }}
+              </li>
+            {{/each}}
+          </ul>
+
+          <AuAlert @alertTitle="Komt het zoekresultaat niet overeen met wat u zocht?" @alertskin="info" @alertsize="tiny" class="au-u-margin-top-small">
+            <p>
+              Kijk uw zoekopdracht na of
+              <AuButton @skin="tertiary" {{action onCreateNewPerson}} class="au-c-link">
+                <AuIcon @icon="add" @alignment="left" />
+                voeg een nieuwe persoon toe
+              </AuButton>.
+            </p>
+          </AuAlert>
+        {{else}}
+          <AuAlert @alertTitle='"{{searchTerms}}" bestaat mogelijk nog niet.' @alertskin="info" @alertsize="tiny">
+            <p>
+              Kijk uw zoekopdracht na of
+              <AuButton @skin="tertiary" {{action onCreateNewPerson}} class="au-c-link">
+                <AuIcon @icon="add" @alignment="left" />
+                voeg een nieuwe persoon toe
+              </AuButton>.
+            </p>
+          </AuAlert>
+        {{/if}}
+      {{/unless}}
+    {{/if}}
   </div>
 </div>
-<div class="container-flex--scroll u-padding--round--small u-position--relative">
-  {{#if error}}
-    {{wu-alert message="Fout bij het zoeken, gelieve opnieuw te proberen" onClick=(action 'toggleError') isError=error button="OK"}}
-  {{/if}}
 
-  {{#if isQuerying}}
-    <div class="loader-wrapper">
-      <div class="loader"> </div>
-    </div>
-  {{else}}
-    {{#unless hasSearched}}
-	    <div class="mandate-new-info">
-	      <p class="text-fade u-spacer--round--tiny">Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of <AuButton @skin="tertiary" {{action onCreateNewPerson}}>voeg een nieuwe persoon toe</AuButton>.</p>
-	    </div>
-    {{else}}
-      {{#if personen}}
-        <div>
-          {{#each personen as |persoon|}}
-            {{mandatenbeheer/persoon-search-result
-                persoon=persoon
-                onSelect=(action "selectPersoon")
-                class="u-border--light--bottom u-padding--tb--small"
-            }}
-          {{/each}}
-          {{mandatenbeheer/persoon-search-form-pagination
-              page=page
-              size=pageSize
-              nbOfItems=personen.length
-              total=personen.meta.count
-              links=personen.meta.pagination
-              onSelectPage=(action "selectPage")
-          }}
-        </div>
-  		  <p class="text-fade small u-spacer--top">Komt het zoekresultaat niet overeen met wat u zocht? Kijk uw zoekopdracht na of <a {{action onCreateNewPerson}}>voeg een nieuwe persoon toe</a>.</p>
-      {{else}}
-        <div class="u-border--light--bottom u-padding--bottom--small u-spacer">
-		      <div class="grid">
-		        <div class="col--6-12">
-		          <div class="description-data__value">"{{searchTerms}}" bestaat mogelijk nog niet.</div>
-		          <div class="description-data__label">Kijk uw zoekopdracht na of voeg een nieuwe persoon toe.</div>
-		        </div>
-		        <div class="col--6-12 u-align--right">
-              {{#wu-button isAlt=true isNarrow=true onClick=onCreateNewPerson}}
-                Voeg een nieuwe persoon toe
-              {{/wu-button}}
-		        </div>
-		      </div>
-	      </div>
-      {{/if}}
-    {{/unless}}
-  {{/if}}
-</div>
-<div class="u-padding--round--small u-border--light--top">
-  {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }} Annuleer {{/wu-button}}
-</div>
+{{#unless isQuerying}}
+{{#if hasSearched}}
+{{#if personen}}
+{{mandatenbeheer/persoon-search-form-pagination
+  page=page
+  size=pageSize
+  nbOfItems=personen.length
+  total=personen.meta.count
+  links=personen.meta.pagination
+  onSelectPage=(action "selectPage")
+}}
+{{/if}}
+{{/if}}
+{{/unless}}
+
+<AuToolbar @border="top" @size="large">
+  <AuToolbarGroup>
+    <AuButton {{action "cancel"}} @skin="secondary">Annuleer</AuButton>
+  </AuToolbarGroup>
+</AuToolbar>

@@ -4,17 +4,17 @@
     {{#c.header}}
       {{th-sortable field='isBestuurlijkeAliasVan.verifiedMandaten' currentSorting=sort label='Nagekeken' class="u-hidden-mobile"}}
       {{#unless displaySubset}}
-        <th class="u-hidden--mobile">Orgaan</th>
+        <th class="au-u-visible-small-up">Orgaan</th>
       {{/unless}}
-      {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="au-u-visible-small-up"}}
       {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
       {{#unless displaySubset}}
-        {{au-data-table-th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="u-visible--tablet-portrait-up"}}
+        {{au-data-table-th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="au-u-visible-medium-up"}}
       {{/unless}}
       {{au-data-table-th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
       {{#unless displaySubset}}
-        {{au-data-table-th-sortable field='start' currentSorting=sort label='Start mandaat' class="u-visible--tablet-landscape-up"}}
-        {{au-data-table-th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="u-visible--tablet-landscape-up"}}
+        {{au-data-table-th-sortable field='start' currentSorting=sort label='Start mandaat' class="au-u-visible-medium-up"}}
+        {{au-data-table-th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="au-u-visible-medium-up"}}
       {{/unless}}
       {{th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
       <th></th>
@@ -25,20 +25,20 @@
         <span></span>
       </td>
       {{#unless displaySubset}}
-        <td class="u-hidden-mobile">
+        <td class="au-u-visible-small-up">
           {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}
             {{bestuursorgaan.isTijdsspecialisatieVan.naam}}<br>
           {{/each}}
         </td>
       {{/unless}}
-      <td class="u-hidden-mobile">
+      <td class="au-u-visible-small-up">
         {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
       </td>
       <td>
         {{row.isBestuurlijkeAliasVan.achternaam}}
       </td>
       {{#unless displaySubset}}
-        <td class="u-visible--tablet-portrait-up">
+        <td class="au-u-visible-medium-up">
           {{row.heeftLidmaatschap.binnenFractie.naam}}
         </td>
       {{/unless}}
@@ -46,8 +46,8 @@
         {{row.bekleedt.bestuursfunctie.label}}
       </td>
       {{#unless displaySubset}}
-        <td class="u-visible--tablet-landscape-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
-        <td class="u-visible--tablet-landscape-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
+        <td class="au-u-visible-medium-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
+        <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
       {{/unless}}
       <td>
         {{row.generatedFromGelinktNotuleren}}

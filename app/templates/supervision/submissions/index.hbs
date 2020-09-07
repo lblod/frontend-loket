@@ -33,9 +33,9 @@
         {{#if row.formData.decisionType}}
           <p>{{row.formData.decisionType.label}}</p>
         {{else}}
-          <p class="text-fade">Geen type</p>
+          <p class="au-c-info-text">Geen type</p>
         {{/if}}
-        <p class="text-fade">{{row.formData.regulationType.label}}</p>
+        <p class="au-c-info-text">{{row.formData.regulationType.label}}</p>
       </td>
       <td class="au-u-visible-small-up">{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
       <td class="au-u-visible-large-up">{{moment-format row.sentDate "DD/MM/YYYY"}}</td>

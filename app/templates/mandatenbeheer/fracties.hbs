@@ -9,7 +9,7 @@
 </AuToolbar>
 <AuToolbar @size="large">
   <AuToolbarGroup>
-    <div class="power-select power-select--small power-select--inline">
+    <div class="power-select">
       {{mandatenbeheer/bestuursperioden-selector
           options=bestuursperioden
           selectedStartDate=startDate
@@ -20,11 +20,7 @@
 </AuToolbar>
 
 {{#if saveFractie.isRunning}}
-  <div class="loader-wrapper">
-    <div class="loader">
-      <span class="u-visually-hidden">Bezig...</span>
-    </div>
-  </div>
+  <AuLoader @size="small" />
 {{else}}
   <div class="au-c-body-container">
     <div class="au-c-data-table">
@@ -55,14 +51,12 @@
             {{else}}
               {{#unless newFractie}}
                 <tr>
-                  <td colspan="3">
-                    Geen fracties gevonden.
-                    {{wu-button
-                        label="Voeg een nieuwe fractie toe"
-                        onClick=(action "createNewFractie")
-                        isNarrow=true
-                        isLink=true
-                    }}
+                  <td colspan="3" class="au-u-text-center">
+                    <AuHeading @level="3" @skin="4" class="au-u-margin-bottom-small">Geen fracties gevonden</AuHeading>
+                    <AuButton {{on "click" (action "createNewFractie")}} @skin="secondary">
+                      <AuIcon @icon="add" @alignment="left" />
+                      Voeg een nieuwe fractie toe
+                    </AuButton>
                   </td>
                 </tr>
               {{/unless}}

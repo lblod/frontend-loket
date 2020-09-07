@@ -4,61 +4,6 @@
    Some parts will be reused, but most of them will not.
    ========================================================================== */
 
-// Override data table actions
-.data-table__actions { // reformat
-  padding: 0;
-}
-
-sup {
-  line-height: 0.5;
-  vertical-align: text-top;
-  font-size: smaller;
-}
-
-
-/* ==================================
-   #COPY FROM FRONTEND-MELDINGSPLICHTIGE-API
-   @TODO: remove > unused
-   ================================== */
-
-// th {
-//   background-color: white;
-//   font-weight: bold;
-// }
-
-// tr:nth-child(odd) {
-//   background-color: $au-gray-100;
-// }
-
-// .triple table {
-//   border-collapse: collapse;
-// }
-
-// .triple table, .triple th, .triple td {
-//   border: 1px solid black;
-// }
-
-
-/* ==================================
-   #POWER SELECT
-   ================================== */
-
-.ember-power-select-trigger {
-  min-height: 3.6rem;
-}
-
-.ember-power-select--error .ember-power-select-trigger {
-  border: .3rem solid $au-red-600;
-}
-
-// Fix power select
-.power-select.power-select--small .ember-power-select-trigger {
-  height: auto;
-  line-height: 2.1;
-  display: block;
-}
-
-
 /* ==================================
    #CHECKBOX
    ================================== */
@@ -105,16 +50,6 @@ sup {
 
 
 /* ==================================
-   #TEMPORARY EMBER DROPDOWN STYLING
-   ================================== */
-
-.ember-power-select-trigger.ember-basic-dropdown-trigger.ember-view.ember-power-select-trigger--active {
-  outline: none;
-  border-color: $au-yellow-400;
-  box-shadow: inset 0 0 0 .1rem $au-yellow-400;
-}
-
-/* ==================================
    #DATE PICKER
    ================================== */
 
@@ -157,34 +92,14 @@ sup {
   display: block;
 }
 
-// This can probably be removed again > @TODO: review after IE11 test
-div:focus,
-span:focus,
-table:focus,
-td:focus {
-  outline: 0 !important;
-}
-
 .checkbox + .au-c-label {
   display: inline-block;
 }
 
-
 /* ==================================
-  @TODO: update in appuniversum
+  NON-EDITABLE FORM
   ================================== */
 
-// Add a fixed grid option for sidebar layouts (@TODO: update appuniversum)
-.au-o-grid--fixed {
-  height: 100%;
-  overflow: hidden;
-
-  > .au-o-grid__item {
-    height: 100%;
-  }
-}
-
-// NON-EDITABLE FORM
 $au-non-editable-background    : $au-gray-100 !default;
 
 .au-c-form--non-editable {
@@ -195,36 +110,6 @@ $au-non-editable-background    : $au-gray-100 !default;
     max-width: 100%;
     width: 100%;
   }
-}
-
-// Fix ACMIDM login alerts/loading in header
-// @TODO: rework ACMIDM components to work with appuniversum classes
-.au-c-main-header__actions .alert {
-  position: absolute;
-  right: $au-unit-small;
-  max-width: 480px;
-  top: $au-unit-large + $au-unit-tiny;
-}
-
-// Position ACMIDM login loader
-.au-c-main-header__actions .u-padding--round--small {
-  position: absolute;
-  right: 0;
-  max-width: 480px;
-  top: $au-unit-large - $au-unit-tiny/2;
-  padding: 0;
-  background-color: $au-white;
-
-  .loader-wrapper {
-    padding: 0;
-  }
-}
-
-// Fixes light font-weights conflict with appuniversum
-// @TODO: remove when webuniversum is replaced by appuniversum
-.text-fade,
-.text-light {
-  font-weight: 400;
 }
 
 .input-field::placeholder {
@@ -243,8 +128,373 @@ $au-non-editable-background    : $au-gray-100 !default;
   font-weight: 400 !important;
 }
 
+// Remove duplicate border from file upload
+.js .upload__files {
+  border: 0;
+}
+
+
+/* ==================================
+  @TODO: update in appuniversum
+  ================================== */
+
+// Fix ACMIDM login alerts/loading in header
+// @TODO: rework ACMIDM components to work with appuniversum classes
+.au-c-main-header__actions .au-c-alert {
+  position: absolute;
+  right: $au-unit-small + $au-unit-tiny;
+  max-width: 480px;
+  top: $au-unit-large + $au-unit-tiny;
+}
+
+// Position ACMIDM login loader
+.au-c-main-header__actions .au-c-loader {
+  position: absolute;
+  right: 0;
+  max-width: 480px;
+  top: $au-unit-large - $au-unit-tiny;
+  padding: 0;
+  background-color: $au-white;
+}
+
 // Make breadcrumb toolbar a smaller default font-size
 // @TODO: create a utility or toolbar modifier?
 .au-c-toolbar__breadcrumbs {
   font-size: $au-base;
+}
+
+
+// Toolbar group rows
+.au-c-toolbar__group--row {
+  display: block;
+  width: 100%;
+
+  & + & {
+    margin-top: $au-unit;
+  }
+}
+
+// Small
+.au-c-small-text {
+  @include au-font-size($au-base);
+  font-family: $au-font;
+  font-weight: $au-regular;
+  color: $au-gray-800;
+}
+
+// Info text
+.au-c-info-text {
+  @include au-font-size($au-base);
+  font-family: $au-font;
+  font-weight: $au-regular;
+  color: $au-gray-700;
+  font-style: italic;
+}
+
+// Descriptions > @todo: replace with label and p
+.au-c-description-label {
+  @include au-font-size($au-h6);
+  font-family: $au-font;
+  font-weight: $au-regular;
+  color: $au-gray-600;
+}
+
+.au-c-description-value {
+  @include au-font-size($au-h5);
+  font-family: $au-font;
+  font-weight: $au-medium;
+  color: $au-gray-800;
+}
+
+// Upload
+.au-c-upload {
+  border: 2px dashed $au-gray-300;
+  background-color: $au-white;
+  transition: background $au-transition;
+
+  &:hover {
+    background-color: $au-gray-100;
+  }
+
+  &:focus,
+  &:focus-within {
+    background-color: $au-gray-100;
+    outline: .2rem solid $au-yellow-400;
+  }
+}
+
+.au-c-upload input {
+  display: block;
+  height: 0;
+  width: 0;
+  outline: 0;
+}
+
+.au-c-upload-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $au-gray-100;
+  padding: $au-unit + $au-unit-tiny/4 $au-unit-small;
+}
+
+.au-c-upload-label {
+  display: flex;
+  flex-direction: column;
+  padding: $au-unit-small $au-unit-small;
+  text-align: center;
+  transition: background-color $au-transition;
+
+  &,
+  &:hover,
+  &:visited,
+  &:active {
+    text-decoration: none;
+    color: $au-gray-800;
+  }
+}
+
+.au-c-upload-label__title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $au-blue-700;
+  text-decoration: underline;
+  text-decoration-color: $au-blue-300;
+
+  &:hover {
+    color: $au-blue-600;
+    text-decoration: none;
+  }
+}
+
+// Close button
+.au-c-close {
+  position: absolute;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  top: $au-unit-small;
+  right: $au-unit-small;
+  color: $au-gray-700;
+
+  &:hover {
+    color: $au-gray-600;
+  }
+
+  &:focus {
+    outline: $au-outline;
+  }
+}
+
+.au-c-close--large {
+  top: $au-unit;
+  right: $au-unit;
+}
+
+
+// Vertical list
+.au-c-list-vertical {
+
+}
+
+.au-c-list-vertical__item {
+  & + & {
+    margin-top: $au-unit-small;
+    padding-top: $au-unit-small;
+    border-top: .1rem solid $au-gray-200;
+  }
+
+  .au-c-accordion & + & {
+    margin-top: $au-unit-tiny;
+    padding-top: $au-unit-tiny;
+    border-top-color: $au-gray-300;
+  }
+}
+
+
+
+// Toggle button
+.au-c-button--toggle {
+  padding-left: 0;
+  padding-right: 0;
+
+  .au-c-icon {
+    transition: transform $au-transition, color $au-transition;
+  }
+
+  .js-accordion--open & .au-c-icon {
+    transform: rotate(180deg);
+  }
+}
+
+// Accordion
+.au-c-accordion {
+  display: none;
+  overflow: hidden;
+  padding: $au-unit-small;
+  background-color: $au-gray-200;
+  margin-top: $au-unit-small;
+
+  .js-accordion--open & {
+    display: block;
+  }
+}
+
+// Block datepicker
+.datepicker--block,
+.datepicker--block .datepicker {
+  width: 100%;
+}
+
+
+.datepicker--block .input-field {
+  width: 100%;
+}
+
+// Uppercase input > input modifier
+.au-c-input--uppercase {
+  text-transform: uppercase;
+  letter-spacing: .15rem;
+}
+
+
+
+// Table
+.au-c-table-wrapper {
+  flex-grow: 999;
+  overflow: auto;
+  position: relative;
+  border-top: 1px solid $au-gray-300;
+  width: 100%;
+}
+
+.au-c-table {
+  @include au-font-size($au-base);
+  position: relative;
+  min-width: 70rem;
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    border-top: .2rem solid $au-gray-300;
+    border-bottom: .2rem solid $au-gray-300;
+  }
+
+  tbody {
+    border-bottom: .2rem solid $au-gray-300;
+  }
+
+  th,
+  strong {
+    font-weight: $au-medium;
+  }
+
+  thead th {
+    color: $au-gray-600;
+  }
+
+  tbody th,
+  td,
+  strong {
+    color: $au-gray-800;
+  }
+
+  th,
+  td {
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: $au-medium;
+    text-align: left;
+    padding: $au-unit-tiny $au-unit-small;
+    border-radius: 0;
+  }
+
+  td {
+    padding: $au-unit-small;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: $au-unit;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: $au-unit;
+  }
+
+  thead th,
+  tbody th {
+    border-right: .2rem solid $au-gray-300;
+  }
+
+  thead th:last-child,
+  tbody th:last-child {
+    border-right: 0;
+  }
+
+  tbody td {
+    border-right: .2rem solid $au-gray-300;
+  }
+
+  tbody td:last-child {
+    border-right: 0;
+  }
+
+  thead tr + tr {
+    border-top: .2rem solid $au-gray-300;
+  }
+
+  tbody tr + tr {
+    border-top: .1rem solid $au-gray-300;
+  }
+}
+
+.au-c-table--zebra {
+  tbody tr:nth-child(odd) {
+    background-color: $au-gray-100;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: $au-white;
+  }
+}
+
+.au-c-table__row-indent {
+  th:first-child,
+  td:first-child {
+    padding-left: $au-unit-small;
+  }
+}
+
+// Input icon
+.au-c-input-wrapper {
+  position: relative;
+}
+
+.au-c-input-wrapper__icon {
+  position: absolute;
+  top: 50%;
+  right: $au-unit-small;
+  transform: translateY(-50%);
+}
+
+
+// ---
+// Deprecated after appuniversum 0.14 upgrade
+// ---
+
+// Word break
+.au-u-word-break {
+  word-break: break-word;
+}
+
+// No wrap
+.au-u-no-wrap {
+  white-space: nowrap;
 }

@@ -16,6 +16,7 @@ Router.map(function() {
   this.route('legaal', function() {
     this.route('disclaimer');
     this.route('cookieverklaring');
+    this.route('toegankelijkheidsverklaring');
   });
 
   this.route('mandatenbeheer', function() {
@@ -80,4 +81,5 @@ Router.map(function() {
   this.route('route-not-found', {
     path: '/*wildcard'
   });
+  this.route('help');
 });

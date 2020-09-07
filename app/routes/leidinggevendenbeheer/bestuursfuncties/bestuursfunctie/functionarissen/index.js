@@ -13,10 +13,10 @@ export default Route.extend(DataTableRouteMixin, {
     }
   },
 
-  async mergeQueryOptions() {
+  mergeQueryOptions() {
     this.set('bestuursfunctie', this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'));
     return {
-      'filter[bekleedt][id]': this.bestuursfunctie.id,
+     'filter[bekleedt][id]': this.bestuursfunctie.id,
       include: 'is-bestuurlijke-alias-van'
     };
   },

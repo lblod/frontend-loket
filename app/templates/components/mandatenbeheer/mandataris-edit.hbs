@@ -1,305 +1,283 @@
-<li class="link-list__item">
-  {{#unless createMode}}
-    <div class="js-accordion {{if editMode 'js-accordion--open'}}  {{if promptMode 'js-accordion--open'}}">
-      {{mandatenbeheer/mandataris-summary
-        class="grid"
-        mandataris=mandataris
-        onEdit=(action "edit")
-        onTerminate=(action "terminate")
-        onCorrect=(action "correct")
-        isEditing=editMode
-      }}
-      {{#if promptMode}}
-        {{mandatenbeheer/mandataris-edit-prompt
-          class="accordion__content form__group u-padding--round--tiny u-spacer--top--tiny"
-          onTerminate=(action "terminate")
-          onCorrect=(action "correct")
-        }}
-      {{/if}}
+{{#unless createMode}}
+<div class="js-accordion {{if editMode 'js-accordion--open'}}  {{if promptMode 'js-accordion--open'}}">
+  {{mandatenbeheer/mandataris-summary
+    mandataris=mandataris
+    onEdit=(action "edit")
+    onTerminate=(action "terminate")
+    onCorrect=(action "correct")
+    isEditing=editMode
+  }}
+  {{#if promptMode}}
+    {{mandatenbeheer/mandataris-edit-prompt
+      class="au-c-accordion au-u-margin-top-small"
+      onTerminate=(action "terminate")
+      onCorrect=(action "correct")
+    }}
+  {{/if}}
 
-      {{!-- ***********************************CORRECT MANDATARIS*********************************** --}}
-      {{#if correctMode}}
-        <div class="accordion__content form__group u-padding--round--tiny u-spacer--top--tiny">
-          <div class="u-padding--round--tiny">
-            <div class="u-spacer--bottom--tiny">
-              <label class="form__label">Mandaat</label>
-              {{mandatenbeheer/mandaat-bestuursorganen-selector
-                onSelect=(action 'setMandaat')
-                bestuursorganen=bestuursorganen
-                mandaat=mandaat
-                class="temporary-select__wrapper temporary-select__wrapper--block"
-                allowClear=true
-              }}
-            </div>
-            <div class="u-spacer--bottom--tiny">
-                <label class="form__label" for="mandataris-status">Status</label>
-                {{mandatenbeheer/mandataris-status-code-selector
-                  onSelect=(action "setStatusCode")
-                  statusCode=status
-                  class="temporary-select__wrapper temporary-select__wrapper--block"
-                  allowClear=true
-                }}
-
-                <p class="form__annotation u-padding--tb--tiny">Titelvoerdend is enkel voor burgemeester</p>
-            </div>
-            <div class="u-spacer--bottom--tiny">
-                <label class="form__label" for="mandataris-status">Beleidsdomeinen</label>
-                {{mandatenbeheer/beleidsdomein-selector-with-create
-                  onSelect=(action 'setBeleidsdomein')
-                  beleidsdomeinen=beleidsdomeinen
-                  class="temporary-select__wrapper temporary-select__wrapper--block"
-                }}
-
-                <p class="form__annotation u-padding--tb--tiny">Enkel voor schepenen en burgemeester</p>
-            </div>
-
-            <div class="u-spacer--bottom--tiny">
-                <label class="form__label" for="mandataris-rangorde">Rangorde</label>
-                {{input
-                  class="input-field input-field--block js-js-input-pattern-bound"
-                  placeholder="Eerste schepen"
-                  value=rangorde
-                }}
-                <p class="form__annotation u-padding--tb--tiny">Enkel voor schepenen</p>
-            </div>
-
-            <div class="u-spacer--bottom--tiny">
-                <div class="grid">
-                  <div class="col--6-12">
-                    <label class="form__label" for="datepicker-from">Start</label>
-                    {{wu-datepicker
-                      placeholder="01-01-2018"
-                      class=(with-error-class startDateError "date-range__datepicker datepicker input-field--block")
-                      value=(mut startDate)
-                      dateFormat=dateFormat
-                    }}
-                    {{#if startDateError}}
-                      <div class="form__error">{{startDateError}}</div>
-                    {{/if}}
-                  </div>
-                  <div class="col--6-12">
-                    <label class="form__label" for="datepicker-to">Einde</label>
-                    {{wu-datepicker
-                      placeholder="01-01-2019"
-                      class=(with-error-class endDateError "date-range__datepicker datepicker input-field--block")
-                      value=endDate
-                      dateFormat=dateFormat
-                    }}
-                    {{#if endDateError}}
-                      <div class="form__error">{{endDateError}}</div>
-                    {{/if}}
-                  </div>
-                </div>
-            </div>
-            <div class="u-spacer--bottom--tiny">
-                <label class="form__label">Fractie</label>
-                {{mandatenbeheer/fractie-selector
-                  onSelect=(action 'setFractie')
-                  fractie=fractie
-                  allowClear=true
-                  class="temporary-select__wrapper temporary-select__wrapper--block"
-                    bestuursorganen=bestuursorganen
-                }}
-            </div>
-          </div>
-
-
-          <div class="u-spacer--round--tiny">
-            {{#if requiredFieldError}}
-              {{wu-alert message="Gelieve een mandaat op te geven." isError=true}}
-            {{/if}}
-            {{#if saveError}}
-              {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
-            {{/if}}
-            {{#if save.isRunning}}
-              <div class="loader-wrapper">
-                <div class="loader">
-                  <span class="u-visually-hidden">Aan het laden</span>
-                </div>
-              </div>
-            {{else}}
-	            <div class="button-group">
-	              {{#wu-button isNarrow=true onClick=(action "save") }}
-	                {{#if createMode}}
-	                  Voeg toe
-	                {{else if correctMode}}
-	                  Corrigeer informatie
-	                {{else}}
-	                  Pas aan
-	                {{/if}}
-	              {{/wu-button}}
-	              {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }}
-	                {{#if correctMode}}
-	                  Verwerp wijzigingen
-	                {{else}}
-	                  Annuleer
-	                {{/if}}
-	              {{/wu-button}}
-	            </div>
-            {{/if}}
-            <div class="u-padding--top--tiny"><small>Pas enkel fouten aan. Indien er een wijziging aan status, fractie, rangorde of bevoegdheid zich voordoet, beëindig het mandaat en voeg een nieuw mandaat toe.</small></div>
-          </div>
+  {{!-- ***********************************CORRECT MANDATARIS*********************************** --}}
+  {{#if correctMode}}
+    <div class="au-c-accordion">
+      <div class="au-c-form">
+        <div>
+          <AuLabel for="mandaat">Mandaat</AuLabel>
+          {{mandatenbeheer/mandaat-bestuursorganen-selector
+            onSelect=(action 'setMandaat')
+            bestuursorganen=bestuursorganen
+            mandaat=mandaat
+            allowClear=true
+          }}
         </div>
-      {{/if}}
-
-      {{!-- ***********************************TERMINATE MANDATARIS*********************************** --}}
-
-      {{#if terminateMode}}
-        <div class="accordion__content form__group u-padding--round--tiny u-spacer--top--tiny">
-          <div class="u-padding--round--tiny u-spacer--bottom--tiny">
-            <div class="grid">
-              <div class="col--6-12">
-                <label class="form__label" for="datepicker-from">Start</label>
-                {{wu-datepicker
-                  placeholder="01-01-2018"
-                  class=(with-error-class startDateError "date-range__datepicker datepicker input-field--disabled input-field--block")
-                  value=(mut startDate)
-                  dateFormat=dateFormat
-                  disabled=true
-                }}
-              </div>
-              <div class="col--6-12">
-                <label class="form__label" for="datepicker-from">Einde</label>
-                {{wu-datepicker
-                  placeholder="01-01-2019"
-                  class=(with-error-class endDateError "date-range__datepicker datepicker input-field--block")
-                  value=endDate
-                  dateFormat=dateFormat
-                }}
-                {{#if endDateError}}
-                  <div class="form__error">{{endDateError}}</div>
-                {{/if}}
-              </div>
+        <div>
+          <AuLabel for="mandataris-status">Status</AuLabel>
+          {{mandatenbeheer/mandataris-status-code-selector
+            onSelect=(action "setStatusCode")
+            statusCode=status
+            allowClear=true
+          }}
+          <AuHelpText>Titelvoerdend is enkel voor burgemeester</AuHelpText>
+        </div>
+        <div>
+          <AuLabel for="mandataris-beleidsdomein">Beleidsdomeinen</AuLabel>
+          {{mandatenbeheer/beleidsdomein-selector-with-create
+            onSelect=(action 'setBeleidsdomein')
+            beleidsdomeinen=beleidsdomeinen
+            class="temporary-select__wrapper temporary-select__wrapper--block"
+          }}
+          <AuHelpText>Enkel voor schepenen en burgemeester</AuHelpText>
+        </div>
+        <div>
+          <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
+          {{input
+            class="au-c-input au-c-input--block js-js-input-pattern-bound"
+            placeholder="Eerste schepen"
+            value=rangorde
+          }}
+          <AuHelpText>Enkel voor schepenen</AuHelpText>
+        </div>
+        <div>
+          <div class="au-o-grid au-o-grid--tiny">
+            <div class="au-o-grid__item au-u-1-2">
+              <AuLabel @error="{{if this.startDateError 'true'}}" for="datepicker-from">Start</AuLabel>
+              {{wu-datepicker
+                placeholder="01-01-2018"
+                class=(with-error-class startDateError "date-range__datepicker datepicker datepicker--block")
+                value=(mut startDate)
+                dateFormat=dateFormat
+              }}
+              {{#if startDateError}}
+                <AuHelpText @error="true">{{startDateError}}</AuHelpText>
+              {{/if}}
             </div>
-            <div class="u-spacer--top--small">
-              {{#if requiredFieldError}}
-                {{wu-alert message="Gelieve een mandaat op te geven." isError=true}}
-              {{/if}}
-              {{#if saveError}}
-                {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
-              {{/if}}
-              {{#if save.isRunning}}
-                <div class="loader-wrapper">
-                  <div class="loader">
-                    <span class="u-visually-hidden">Aan het laden</span>
-                  </div>
-                </div>
-              {{else}}
-                <div class="button-group">
-                  {{#wu-button onClick=(action "save") isNarrow=true}}Wijzig einde mandaat{{/wu-button}}
-                  {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }}Annuleer{{/wu-button}}
-                </div>
-                <p>Indien het om een vervanging gaat, voeg hierna een nieuw mandaat toe.</p>
+            <div class="au-o-grid__item au-u-1-2">
+              <AuLabel @error="{{if this.endDateError 'true'}}" for="datepicker-to">Einde</AuLabel>
+              {{wu-datepicker
+                placeholder="01-01-2019"
+                class=(with-error-class endDateError "date-range__datepicker datepicker datepicker--block")
+                value=endDate
+                dateFormat=dateFormat
+              }}
+              {{#if endDateError}}
+                <AuHelpText @error="true">{{endDateError}}</AuHelpText>
               {{/if}}
             </div>
           </div>
         </div>
-      {{/if}}
-    </div>
-
-    {{!-- ***********************************CREATE MANDATARIS*********************************** --}}
-    {{else}}
-      <div class="js-accordion js-accordion--open">
-        <div class="accordion__content form__group u-padding--round--tiny u-spacer--top--tiny">
-          <div class="u-padding--round--tiny">
-            <div class="u-spacer--bottom--tiny">
-              <label class="form__label">Mandaat</label>
-              {{mandatenbeheer/mandaat-bestuursorganen-selector
-                onSelect=(action 'setMandaat')
-                bestuursorganen=bestuursorganen
-                mandaat=mandaat
-                class="temporary-select__wrapper temporary-select__wrapper--block"
-                allowClear=true
-              }}
-            </div>
-            <div class="u-spacer--bottom--tiny">
-              <label class="form__label" for="mandataris-status">Status</label>
-              {{mandatenbeheer/mandataris-status-code-selector
-                onSelect=(action "setStatusCode")
-                statusCode=status
-                class="temporary-select__wrapper temporary-select__wrapper--block"
-                allowClear=true
-              }}
-              <p class="form__annotation u-padding--tb--tiny">Titelvoerdend is enkel voor burgemeester</p>
-            </div>
-            <div class="u-spacer--bottom--tiny">
-              <label class="form__label" for="mandataris-status">Beleidsdomeinen</label>
-              {{mandatenbeheer/beleidsdomein-selector-with-create
-                onSelect=(action 'setBeleidsdomein')
-                beleidsdomeinen=beleidsdomeinen
-                class="temporary-select__wrapper temporary-select__wrapper--block"
-              }}
-            </div>
-            <div class="u-spacer--bottom--tiny">
-              <label class="form__label" for="mandataris-rangorde">Rangorde</label>
-              {{input
-                class="input-field input-field--block js-js-input-pattern-bound"
-                placeholder="Eerste schepen"
-                value=rangorde
-              }}
-              <p class="form__annotation u-padding--tb--tiny">Enkel voor schepenen</p>
-            </div>
-            <div class="u-spacer--bottom--tiny">
-              <div class="grid">
-                <div class="col--6-12">
-                  <label class="form__label" for="datepicker-from">Start</label>
-                  {{wu-datepicker
-                    placeholder="01-01-2018"
-                    class=(with-error-class startDateError "date-range__datepicker datepicker input-field--block")
-                    value=(mut startDate)
-                    dateFormat=dateFormat
-                  }}
-                  {{#if startDateError}}
-                    <div class="form__error">{{startDateError}}</div>
-                  {{/if}}
-                </div>
-                <div class="col--6-12">
-                  <label class="form__label" for="datepicker-to">Einde</label>
-                  {{wu-datepicker
-                    placeholder="01-01-2019"
-                    class=(with-error-class endDateError "date-range__datepicker datepicker input-field--block")
-                    value=endDate
-                    dateFormat=dateFormat
-                  }}
-                  {{#if endDateError}}
-                    <div class="form__error">{{endDateError}}</div>
-                  {{/if}}
-                </div>
-              </div>
-            </div>
-            <div class="u-spacer--bottom--tiny">
-              <label class="form__label">Fractie</label>
-              {{mandatenbeheer/fractie-selector
-                onSelect=(action 'setFractie')
-                fractie=fractie
-                allowClear=true
-                class="temporary-select__wrapper temporary-select__wrapper--block"
-                bestuursorganen=bestuursorganen
-              }}
-            </div>
-          </div>
-
-          <div class="u-spacer--round--tiny">
-            {{#if requiredFieldError}}
-              {{wu-alert message="Gelieve een mandaat op te geven." isError=true}}
-            {{/if}}
-            {{#if saveError}}
-              {{wu-alert message="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren " isError=true}}
-            {{/if}}
-            {{#if save.isRunning}}
-              <div class="loader-wrapper">
-                <div class="loader">
-                  <span class="u-visually-hidden">Aan het laden</span>
-                </div>
-              </div>
-            {{else}}
-              <div class="button-group">
-                {{#wu-button isNarrow=true onClick=(action "save") }}Voeg toe{{/wu-button}}
-                {{#wu-button isNarrow=true isAlt=true onClick=(action "cancel") }}Annuleer{{/wu-button}}
-              </div>
-            {{/if}}
-          </div>
+        <div>
+          <AuLabel for="mandataris-fractie">Fractie</AuLabel>
+          {{mandatenbeheer/fractie-selector
+            onSelect=(action 'setFractie')
+            fractie=fractie
+            allowClear=true
+            bestuursorganen=bestuursorganen
+          }}
         </div>
       </div>
-    {{/unless}}
-</li>
+
+      <div class="au-u-margin-top">
+        {{#if requiredFieldError}}
+          <AuAlert @alertIcon="alert-triangle" @alertTitle="Gelieve een mandaat op te geven." @alertskin="error" @alertsize="small" />
+        {{/if}}
+        {{#if saveError}}
+          <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
+        {{/if}}
+        {{#if save.isRunning}}
+          <AuLoader @size="small" />
+        {{else}}
+          <AuButtonGroup>
+            <AuButton {{action "save"}}>
+              {{#if createMode}}
+                Voeg toe
+              {{else if correctMode}}
+                Corrigeer informatie
+              {{else}}
+                Pas aan
+              {{/if}}
+            </AuButton>
+            <AuButton {{action "cancel"}} @skin="secondary">
+              {{#if correctMode}}
+                Verwerp wijzigingen
+              {{else}}
+                Annuleer
+              {{/if}}
+            </AuButton>
+          </AuButtonGroup>
+        {{/if}}
+        <AuHelpText>
+          Pas enkel fouten aan. Indien er een wijziging aan status, fractie, rangorde of bevoegdheid zich voordoet, beëindig het mandaat en voeg een nieuw mandaat toe.
+        </AuHelpText>
+      </div>
+    </div>
+  {{/if}}
+
+  {{!-- ***********************************TERMINATE MANDATARIS*********************************** --}}
+
+  {{#if terminateMode}}
+    <div class="au-c-accordion">
+      <div class="au-o-grid au-o-grid--tiny">
+        <div class="au-o-grid__item au-u-1-2">
+          <AuLabel for="datepicker-from">Start</AuLabel>
+          {{wu-datepicker
+            placeholder="01-01-2018"
+            class=(with-error-class startDateError "date-range__datepicker datepicker input-field--disabled datepicker--block")
+            value=(mut startDate)
+            dateFormat=dateFormat
+            disabled=true
+          }}
+        </div>
+        <div class="au-o-grid__item au-u-1-2">
+          <AuLabel for="datepicker-to">Einde</AuLabel>
+          {{wu-datepicker
+            placeholder="01-01-2019"
+            class=(with-error-class endDateError "date-range__datepicker datepicker datepicker--block")
+            value=endDate
+            dateFormat=dateFormat
+          }}
+          {{#if endDateError}}
+            <div class="form__error">{{endDateError}}</div>
+          {{/if}}
+        </div>
+      </div>
+      <div class="au-u-margin-top">
+        {{#if requiredFieldError}}
+          <AuAlert @alertIcon="alert-triangle" @alertTitle="Gelieve een mandaat op te geven." @alertskin="error" @alertsize="small" />
+        {{/if}}
+        {{#if saveError}}
+          <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
+        {{/if}}
+        {{#if save.isRunning}}
+          <AuLoader @size="small" />
+        {{else}}
+          <AuButtonGroup>
+            <AuButton {{action "save"}}>
+              Wijzig einde mandaat
+            </AuButton>
+            <AuButton {{action "cancel"}} @skin="secondary">
+              Annuleer
+            </AuButton>
+          </AuButtonGroup>
+          <AuHelpText>Indien het om een vervanging gaat, voeg hierna een nieuw mandaat toe.</AuHelpText>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+</div>
+
+{{!-- ***********************************CREATE MANDATARIS*********************************** --}}
+{{else}}
+  <div class="js-accordion js-accordion--open">
+    <div class="au-c-accordion">
+      <div class="au-c-form">
+        <div>
+          <AuLabel for="mandaat">Mandaat</AuLabel>
+          {{mandatenbeheer/mandaat-bestuursorganen-selector
+            onSelect=(action 'setMandaat')
+            bestuursorganen=bestuursorganen
+            mandaat=mandaat
+            allowClear=true
+          }}
+        </div>
+        <div>
+          <AuLabel for="mandataris-status">Status</AuLabel>
+          {{mandatenbeheer/mandataris-status-code-selector
+            onSelect=(action "setStatusCode")
+            statusCode=status
+            allowClear=true
+          }}
+          <AuHelpText>Titelvoerdend is enkel voor burgemeester</AuHelpText>
+        </div>
+        <div>
+          <AuLabel for="mandataris-beleidsdomein">Beleidsdomeinen</AuLabel>
+          {{mandatenbeheer/beleidsdomein-selector-with-create
+            onSelect=(action 'setBeleidsdomein')
+            beleidsdomeinen=beleidsdomeinen
+          }}
+        </div>
+        <div>
+          <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
+          {{input
+            class="au-c-input au-c-input--block js-js-input-pattern-bound"
+            placeholder="Eerste schepen"
+            id="mandataris-rangorde"
+            value=rangorde
+          }}
+          <AuHelpText>Enkel voor schepenen</AuHelpText>
+        </div>
+        <div>
+          <div class="au-o-grid au-o-grid--tiny">
+            <div class="au-o-grid__item au-u-1-2">
+              <AuLabel @error="{{if this.startDateError 'true'}}" for="datepicker-from">Start</AuLabel>
+              {{wu-datepicker
+                placeholder="01-01-2018"
+                class=(with-error-class startDateError "date-range__datepicker datepicker datepicker--block")
+                value=(mut startDate)
+                dateFormat=dateFormat
+              }}
+              {{#if startDateError}}
+                <AuHelpText @error="true">{{startDateError}}</AuHelpText>
+              {{/if}}
+            </div>
+            <div class="au-o-grid__item au-u-1-2">
+              <AuLabel @error="{{if this.endDateError 'true'}}" for="datepicker-to">Einde</AuLabel>
+              {{wu-datepicker
+                placeholder="01-01-2019"
+                class=(with-error-class endDateError "date-range__datepicker datepicker datepicker--block")
+                value=endDate
+                dateFormat=dateFormat
+              }}
+              {{#if endDateError}}
+                <AuHelpText @error="true">{{endDateError}}</AuHelpText>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div>
+          <AuLabel for="fractie">Fractie</AuLabel>
+          {{mandatenbeheer/fractie-selector
+            onSelect=(action 'setFractie')
+            fractie=fractie
+            allowClear=true
+            bestuursorganen=bestuursorganen
+          }}
+        </div>
+      </div>
+
+      <div class="au-u-margin-top">
+        {{#if requiredFieldError}}
+          <AuAlert @alertIcon="alert-triangle" @alertTitle="Gelieve een mandaat op te geven." @alertskin="error" @alertsize="small" />
+        {{/if}}
+        {{#if saveError}}
+          <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
+        {{/if}}
+        {{#if save.isRunning}}
+          <AuLoader @size="small" />
+        {{else}}
+          <AuButtonGroup>
+            <AuButton {{action "save"}}>Voeg toe</AuButton>
+            <AuButton {{action "cancel"}} @skin="secondary">Annuleer</AuButton>
+          </AuButtonGroup>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{/unless}}

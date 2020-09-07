@@ -8,8 +8,10 @@
 
 <div class="au-c-body-container au-c-body-container--scroll">
   {{#if (or (not allowed) (eq model.length 0))}}
-    <div class="u-padding--round--small u-align-center">
-      <p class="text-fade u-spacer--top--large">Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
+    <div class="au-o-box">
+      <AuAlert @alertIcon="info-circle" @alertsize="small">
+        <p>Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
+      </AuAlert>
     </div>
   {{else}}
     {{#each model as |bestuursfunctie|}}
