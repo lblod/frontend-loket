@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.29.4",
+  "version": "0.30.0",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -30,7 +30,7 @@
     "@lblod/ember-acmidm-login": "^1.1.1",
     "@lblod/ember-mock-login": "^0.4.6",
     "@lblod/ember-mu-dynamic-forms": "^0.3.6",
-    "@lblod/ember-submission-form-fields": "^0.7.2",
+    "@lblod/ember-submission-form-fields": "^0.7.5",
     "@lblod/ember-toezicht-form-fields": "^0.6.1",
     "@lblod/ember-vo-mu-file-upload": "^0.4.1",
     "@lblod/ember-vo-webuniversum": "^0.22.7",
@@ -38,6 +38,7 @@
     "@lblod/ember-vo-webuniversum-widget": "^0.1.4",
     "babel-eslint": "^10.0.3",
     "broccoli-asset-rev": "^3.0.0",
+    "ember-auto-focus": "^2.0.4",
     "ember-auto-import": "^1.5.3",
     "ember-awesome-macros": "^0.41.0",
     "ember-browser-update": "^0.1.0",
