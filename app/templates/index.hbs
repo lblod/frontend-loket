@@ -17,12 +17,12 @@
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="search-folder">
-            <AuHeading @level="3" @skin="4">
+            <AuHeading @level="2" @skin="4">
               Toezicht
             </AuHeading>
           </c.header>
           <c.content>
-            <p class="au-u-margin-top-tiny">Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
+            <p>Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
             {{#if currentSession.canAccessToezicht}}
               <p>
                 <AuButton {{action "goToToezicht"}}>Ga naar toezicht</AuButton>
@@ -51,12 +51,12 @@
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="message">
-            <AuHeading @level="3" @skin="4">
+            <AuHeading @level="2" @skin="4">
               Berichtencentrum
             </AuHeading>
           </c.header>
           <c.content>
-            <p class="au-u-margin-top-tiny">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+            <p>Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
             {{#if currentSession.canAccessBerichten}}
               <p>
                 <AuButton {{action "goToBerichtencentrum"}}>Ga naar berichtencentrum</AuButton>
@@ -85,12 +85,12 @@
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="document">
-            <AuHeading @level="3" @skin="4">
+            <AuHeading @level="2" @skin="4">
               BBC-DR
             </AuHeading>
           </c.header>
           <c.content>
-            <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
+            <p>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
             {{#if currentSession.canAccessBbcdr}}
               <p>
                 <AuButton {{action "goToBbcdr"}}>Ga naar BBC DR</AuButton>
@@ -119,12 +119,12 @@
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="user-fill">
-            <AuHeading @level="3" @skin="4">
+            <AuHeading @level="2" @skin="4">
               Mandatenbeheer
             </AuHeading>
           </c.header>
           <c.content>
-            <p class="au-u-margin-top-tiny">Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
+            <p>Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
             {{#if currentSession.canAccessMandaat}}
               <p>
                 <AuButton {{action "goToMandatenbeheer"}}>Ga naar mandatenbeheer</AuButton>
@@ -153,12 +153,12 @@
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="user-popup">
-            <AuHeading @level="3" @skin="4">
+            <AuHeading @level="2" @skin="4">
               Leidinggevendenbeheer
             </AuHeading>
           </c.header>
           <c.content>
-            <p class="au-u-margin-top-tiny">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+            <p>Hou hier de leidinggevende functies voor uw bestuur bij.</p>
             {{#if currentSession.canAccessLeidinggevenden}}
               <p>
                 <AuButton {{action "goToLeidinggevendenbeheer"}}>Ga naar leidinggevendenbeheer</AuButton>
@@ -187,12 +187,12 @@
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="users">
-            <AuHeading @level="3" @skin="4">
+            <AuHeading @level="2" @skin="4">
               Leidinggevendenbeheer
             </AuHeading>
           </c.header>
           <c.content>
-            <p class="au-u-margin-top-tiny">Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
+            <p>Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
             {{#if currentSession.canAccessPersoneelsbeheer}}
               <p>
                 <AuButton {{action "goToPersoneelsbeheer"}}>Ga naar personeelsbeheer</AuButton>
@@ -216,12 +216,12 @@
       {{!-- <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="documents">
-            <AuHeading @level="3" @skin="4">
+            <AuHeading @level="2" @skin="4">
               Subsidiebeheer
             </AuHeading>
           </c.header>
           <c.content>
-            <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad..</p>
+            <p>Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad..</p>
             {{#if currentSession.canAccessSubsidiebeheer}}
               <p>
                 <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
