@@ -6,67 +6,104 @@
         <AuHeading @level="2" @skin="2" class="au-u-margin-bottom">Veelgestelde vragen</AuHeading>
 
         <div class="au-o-flow au-u-margin-bottom-large">
-          <AuCard @expandable="true"
-                  @flex="true"
-                  @collapsableTitle="Hoe kan ik een mandaat verwijderen?"
-                  @collapsableSubTitle="Hoe kan ik een verkeerd ingegeven of een dubbel ingegeven mandaat verwijderen? Ik heb een mandaat twee maal/dubbel ingegeven, hoe kan ik dit verwijderen?"
-                  @collapsableIcon="info-circle">
-            <p>In het kader van LBLOD (Lokale Besluiten als Gelinkte Open Data) kunnen we niet toelaten dat bestaande mandaten worden verwijderd. Stuur ons een mailtje om foutieve mandaten te verwijderen. We bekijken in tussentijd hoe we ervoor kunnen zorgen dat jullie zelf foutieve mandaten kunnen archiveren.</p>
+          <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4">
+                Hoe kan ik een mandaat verwijderen?
+              </AuHeading>
+              <p>
+                Hoe kan ik een verkeerd ingegeven of een dubbel ingegeven mandaat verwijderen? Ik heb een mandaat twee maal/dubbel ingegeven, hoe kan ik dit verwijderen?
+              </p>
+            </c.header>
+            <c.content>
+              <p>In het kader van LBLOD (Lokale Besluiten als Gelinkte Open Data) kunnen we niet toelaten dat bestaande mandaten worden verwijderd. Stuur ons een mailtje om foutieve mandaten te verwijderen. We bekijken in tussentijd hoe we ervoor kunnen zorgen dat jullie zelf foutieve mandaten kunnen archiveren.</p>
+            </c.content>
           </AuCard>
 
-          <AuCard @expandable="true"
-                  @flex="true"
-                  @collapsableTitle="Waarom zijn mijn aanpassingen in het mandatenbeheer niet onmiddellijk zichtbaar in de publieke mandatendatabank?"
-                  @collapsableIcon="info-circle">
-            <p>De publieke mandatendatabank wordt elke nacht gesynchroniseerd met het mandatenbeheer. U zal uw aanpassingen de volgende dag kunnen nakijken.</p>
+          <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4">
+                Waarom zijn mijn aanpassingen in het mandatenbeheer niet onmiddellijk zichtbaar in de publieke mandatendatabank?
+              </AuHeading>
+            </c.header>
+            <c.content>
+              <p>De publieke mandatendatabank wordt elke nacht gesynchroniseerd met het mandatenbeheer. U zal uw aanpassingen de volgende dag kunnen nakijken.</p>
+            </c.content>
           </AuCard>
 
-          <AuCard @expandable="true"
-                  @flex="true"
-                  @collapsableTitle="Waarom is in het overzicht het aantal mandatarissen per orgaan hoger dan de realiteit?"
-                  @collapsableSubTitle="Waarom komen de totalen per orgaan niet met de ingegeven mandatarissen? Waarom kloppen de totalen per orgaan niet?"
-                  @collapsableIcon="info-circle">
-            <p>In het overzicht worden alle acties ivm mandatarissen opgeteld. Deze acties zijn o.a. verhindering, waarneming, stopzetting, wissel, … of bij fouten. De aantallen zijn cumulatief waardoor de totalen gelijk zijn of groter dan de werkelijke aantallen. Deze overzichten worden niet getoond in de publieke mandatendatabank <a href="https://mandaten.lokaalbestuur.vlaanderen.be" target="au-u-margin-bottom-large" target="_blank" rel="noreferrer noopener">https://mandaten.lokaalbestuur.vlaanderen.be</a>.</p>
+          <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4">
+                Waarom is in het overzicht het aantal mandatarissen per orgaan hoger dan de realiteit?
+              </AuHeading>
+              <p>Waarom komen de totalen per orgaan niet met de ingegeven mandatarissen? Waarom kloppen de totalen per orgaan niet?</p>
+            </c.header>
+            <c.content>
+              <p>In het overzicht worden alle acties ivm mandatarissen opgeteld. Deze acties zijn o.a. verhindering, waarneming, stopzetting, wissel, … of bij fouten. De aantallen zijn cumulatief waardoor de totalen gelijk zijn of groter dan de werkelijke aantallen. Deze overzichten worden niet getoond in de publieke mandatendatabank <a href="https://mandaten.lokaalbestuur.vlaanderen.be" target="au-u-margin-bottom-large" target="_blank" rel="noreferrer noopener">https://mandaten.lokaalbestuur.vlaanderen.be</a>.</p>
+            </c.content>
           </AuCard>
 
-          <AuCard @expandable="true"
-                  @flex="true"
-                  @collapsableTitle="Moet een voorzitter van een raad ook een mandaat als lid van die raad hebben?"
-                  @collapsableIcon="info-circle">
-            <p>Dit is afhankelijk van het bestuursorgaan:</p>
-            <ul>
-              <li>De voorzitter van de gemeenteraad heeft een mandaat als voorzitter van de gemeenteraad en als lid van de gemeenteraad (2 mandaten toekennen)</li>
-              <li>De voorzitter van de OCMW raad heeft een mandaat als voorzitter van de OCMW raad en als lid van de OCMW raad (2 mandaten toekennen)</li>
-              <li>De voorzitter van het vast bureau heeft enkel een mandaat als voorzitter van het vast bureau, niet als lid van het vast bureau (1 mandaat toekennen)</li>
-              <li>De voorzitter van het bijzonder comité voor de sociale dienst heeft enkel een mandaat als voorzitter van het BCSD, niet als lid van het BCSD (1 mandaat toekennen)</li>
-            </ul>
+          <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4">
+                Moet een voorzitter van een raad ook een mandaat als lid van die raad hebben?
+              </AuHeading>
+            </c.header>
+            <c.content>
+              <p>Dit is afhankelijk van het bestuursorgaan:</p>
+              <ul>
+                <li>De voorzitter van de gemeenteraad heeft een mandaat als voorzitter van de gemeenteraad en als lid van de gemeenteraad (2 mandaten toekennen)</li>
+                <li>De voorzitter van de OCMW raad heeft een mandaat als voorzitter van de OCMW raad en als lid van de OCMW raad (2 mandaten toekennen)</li>
+                <li>De voorzitter van het vast bureau heeft enkel een mandaat als voorzitter van het vast bureau, niet als lid van het vast bureau (1 mandaat toekennen)</li>
+                <li>De voorzitter van het bijzonder comité voor de sociale dienst heeft enkel een mandaat als voorzitter van het BCSD, niet als lid van het BCSD (1 mandaat toekennen)</li>
+              </ul>
+            </c.content>
           </AuCard>
 
-          <AuCard @expandable="true"
-                  @flex="true"
-                  @collapsableTitle="Hoe krijg ik toegang tot de module mandatenbeheer?"
-                  @collapsableIcon="info-circle">
-            <p>Om toegang te krijgen tot het loket lokale besturen, moet u de nodige toegangsrechten gekregen hebben via het gebruikers- en toegangsbeheer. Dit gebeurt door de lokale beheerder die in elk bestuur aanwezig is. Meestal is dit de secretaris/algemeen directeur, griffier of iemand die door de organisatie werd aangeduid. U gaat dus best bij hen ten rade als u niet weet wie uw lokale beheerder is.</p>
-            <p>Uitgebreide informatie kan u lezen in de handleiding van het digitale loket, <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer" target="_blank" rel="noreferrer noopener">https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer</a>.</p>
-            <p>Wij adviseren om meerdere personen toegang te geven tot elke module zodat de continuïteit gegarandeerd is.</p>
+          <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4">
+                Hoe krijg ik toegang tot de module mandatenbeheer?
+              </AuHeading>
+            </c.header>
+            <c.content>
+              <p>Om toegang te krijgen tot het loket lokale besturen, moet u de nodige toegangsrechten gekregen hebben via het gebruikers- en toegangsbeheer. Dit gebeurt door de lokale beheerder die in elk bestuur aanwezig is. Meestal is dit de secretaris/algemeen directeur, griffier of iemand die door de organisatie werd aangeduid. U gaat dus best bij hen ten rade als u niet weet wie uw lokale beheerder is.</p>
+              <p>Uitgebreide informatie kan u lezen in de handleiding van het digitale loket, <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer" target="_blank" rel="noreferrer noopener">https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer</a>.</p>
+              <p>Wij adviseren om meerdere personen toegang te geven tot elke module zodat de continuïteit gegarandeerd is.</p>
+            </c.content>
           </AuCard>
 
-          <AuCard @expandable="true"
-                  @flex="true"
-                  @collapsableTitle="Hoe wijzig ik of voeg ik een e-mailadres toe ivm de correspondentie over mandatenbeheer?"
-                  @collapsableSubTitle="We werken er aan!"
-                  @collapsableIcon="info-circle">
-            <p>Dit kan enkel door de lokale beheerder die in elk bestuur aanwezig is. Meestal is dit de secretaris/algemeen directeur, griffier of iemand die door de organisatie werd aangeduid. U gaat dus best bij hen ten rade als u niet weet wie uw lokale beheerder is.</p>
-            <p>Uitgebreide informatie kan u lezen in de handleiding van het digitale loket, <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer" target="_blank" rel="noreferrer noopener">https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer</a>.</p>
+          <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4">
+                Hoe wijzig ik of voeg ik een e-mailadres toe ivm de correspondentie over mandatenbeheer?
+              </AuHeading>
+              <p>We werken er aan!</p>
+            </c.header>
+            <c.content>
+              <p>Dit kan enkel door de lokale beheerder die in elk bestuur aanwezig is. Meestal is dit de secretaris/algemeen directeur, griffier of iemand die door de organisatie werd aangeduid. U gaat dus best bij hen ten rade als u niet weet wie uw lokale beheerder is.</p>
+              <p>Uitgebreide informatie kan u lezen in de handleiding van het digitale loket, <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer" target="_blank" rel="noreferrer noopener">https://loket.lokaalbestuur.vlaanderen.be/handleiding/#gebruikersbeheer</a>.</p>
+            </c.content>
           </AuCard>
 
-          <AuCard @expandable="true"
-                  @flex="true"
-                  @collapsableTitle="Kan het mandatenbeheer automatisch verlopen?"
-                  @collapsableSubTitle="We werken er aan!"
-                  @collapsableIcon="info-circle">
-            <p>De vernieuwde mandatendatabank is zo opgebouwd dat deze maximaal automatisch ingevuld en up-to-date gehouden wordt. Hiervoor wordt de nodige informatie gehaald uit de gelinkte besluiten die gepubliceerd worden. Lees meer over <a href="https://lokaalbestuur.vlaanderen.be/lokale-besluiten-als-gelinkte-open-data" target="_blank" rel="noreferrer noopener">Besluiten als Gelinkte (open) data</a>.</p>
-            <p>Maak je als bestuur, bijvoorbeeld, gebruik maakt van Gelinkt Notuleren om de notulen op te maken, te publiceren en te melden? Dan wordt de informatie rond mandaten automatisch opgenomen in de mandatendatabank.</p>
+          <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4" id="automatische-melding">
+                Waarom worden er automatisch concepten aangemaakt in het Loket voor Lokale Besturen?
+              </AuHeading>
+              <p>Indien uw bestuur via het notulenpakketsysteem automatisch meldingen doorstuurt naar het Loket voor Lokale Besturen (link naar bovenstaande) is het mogelijk dat dat niet alle meldingen volledig aangemaakt worden.</p>
+            </c.header>
+            <c.content>
+              <p><strong>Waarom?</strong> Afhankelijk van het integratietraject dat uw leverancier heeft opgezet, is het mogelijk dat niet alle meldingen volledig doorstromen. Dit is omdat nog niet alle parameters die het Loket vraagt gelinkt worden gepubliceerd.</p>
+              <p><strong>Wat?</strong> In dit geval wordt er een concept aangemaakt in het Loket op basis van die parameters die wél reeds gecapteerd kunnen worden. Uw bestuur krijgt een notificatiemail wanneer zo’n concept is aangemaakt met de vraag om:</p>
+              <ul>
+                <li>het concept aan te vullen met de ontbrekende parameters,</li>
+                <li>het concept te versturen zodat er sprake is van een effectieve melding.</li>
+              </ul>
+              <p>Pas als dit gebeurd is, is er voldaan aan de meldingsplicht.</p>
+
+              <p><strong>Termijn?</strong> Besluiten en besluitenlijsten moeten op dezelfde dag gemeld worden als de dag waarop ze gepubliceerd werden op de webtoepassing. Het is dus belangrijk om, na publicatie, de eventuele concepten op dezelfde dag af te werken en door te sturen.</p>
+            </c.content>
           </AuCard>
         </div>
 
@@ -109,55 +146,3 @@
     </AuMainFooter>
   </div>
 </main>
-
-
-
-
-
-
-
-
-
-{{!-- <div class="au-c-main-container">
-  <div class="au-c-main-container__content au-c-main-container__content--scroll">
-    {{#if session.isAuthenticated}}
-      <section class="au-o-region-large">
-        <div class="au-o-layout">
-          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          {{contact-form}}
-        </div>
-      </section>
-    {{else}}
-      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
-        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
-      </AuContentHeader>
-      <section class="au-o-region-large">
-        <div class="au-o-layout">
-          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          {{contact-form}}
-        </div>
-      </section>
-    {{/if}}
-    {{outlet}}
-
-    <AuMainFooter>
-      <AuHeading @level="3" @skin="4">
-        Loket.lblod.info is een officiële website van de Vlaamse overheid
-      </AuHeading>
-      <AuContent @skin="small">
-        <p>Uitgegeven door <a class="au-c-link" href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur">Agentschap Binnenlands Bestuur</a></p>
-        <ul class="au-c-list-horizontal">
-          <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.disclaimer" @skin="secondary">Disclaimer</AuLink>
-          </li>
-          <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.cookieverklaring" @skin="secondary">Cookieverklaring</AuLink>
-          </li>
-          <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.toegankelijkheidsverklaring" @skin="secondary">Toegankelijkheid</AuLink>
-          </li>
-        </ul>
-      </AuContent>
-    </AuMainFooter>
-  </div>
-</div> --}}

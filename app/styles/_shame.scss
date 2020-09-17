@@ -498,3 +498,8 @@ $au-non-editable-background    : $au-gray-100 !default;
 .au-u-no-wrap {
   white-space: nowrap;
 }
+
+// Temporary cards fix @TODO: remove on ember-appuniversum 0.0.32 update
+.au-c-card--flex.au-c-card--expandable > .au-c-card__header {
+  align-items: flex-start;
+}

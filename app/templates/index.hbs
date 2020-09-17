@@ -15,13 +15,14 @@
     </div>
     <ul class="au-o-grid au-o-grid--small">
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true">
-          <AuBadge @icon="search-folder" @skin="brand" />
-          <AuContent @skin="small">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="search-folder">
             <AuHeading @level="2" @skin="4">
               Toezicht
             </AuHeading>
-            <p class="au-u-margin-top-tiny">Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
+          </c.header>
+          <c.content>
+            <p>Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
             {{#if currentSession.canAccessToezicht}}
               <p>
                 <AuButton {{action "goToToezicht"}}>Ga naar toezicht</AuButton>
@@ -31,6 +32,8 @@
                 Neem contact op met uw interne beheerder om toegang te verkrijgen.
               </AuAlert>
             {{/if}}
+          </c.content>
+          <c.footer>
             <p>
               <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-toezicht" target="_blank" rel="noopener noreferrer">
                 <AuIcon @icon="link" @alignment="left" />
@@ -42,17 +45,18 @@
                 Handleiding
               </a>
             </p>
-          </AuContent>
+          </c.footer>
         </AuCard>
       </li>
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true">
-          <AuBadge @icon="message" @skin="brand" />
-          <AuContent @skin="small">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="message">
             <AuHeading @level="2" @skin="4">
               Berichtencentrum
             </AuHeading>
-            <p class="au-u-margin-top-tiny">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+          </c.header>
+          <c.content>
+            <p>Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
             {{#if currentSession.canAccessBerichten}}
               <p>
                 <AuButton {{action "goToBerichtencentrum"}}>Ga naar berichtencentrum</AuButton>
@@ -62,6 +66,8 @@
                 Neem contact op met uw interne beheerder om toegang te verkrijgen.
               </AuAlert>
             {{/if}}
+          </c.content>
+          <c.footer>
             <p>
               <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank" rel="noopener noreferrer">
                 <AuIcon @icon="link" @alignment="left" />
@@ -73,17 +79,18 @@
                 Handleiding
               </a>
             </p>
-          </AuContent>
+          </c.footer>
         </AuCard>
       </li>
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true">
-          <AuBadge @icon="document" @skin="brand" />
-          <AuContent @skin="small">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="document">
             <AuHeading @level="2" @skin="4">
               BBC-DR
             </AuHeading>
-            <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
+          </c.header>
+          <c.content>
+            <p>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
             {{#if currentSession.canAccessBbcdr}}
               <p>
                 <AuButton {{action "goToBbcdr"}}>Ga naar BBC DR</AuButton>
@@ -93,6 +100,8 @@
                 Neem contact op met uw interne beheerder om toegang te verkrijgen.
               </AuAlert>
             {{/if}}
+          </c.content>
+          <c.footer>
             <p>
               <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank" rel="noopener noreferrer">
                 <AuIcon @icon="link" @alignment="left" />
@@ -104,17 +113,18 @@
                 Handleiding
               </a>
             </p>
-          </AuContent>
+          </c.footer>
         </AuCard>
       </li>
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true">
-          <AuBadge @icon="user-fill" @skin="brand" />
-          <AuContent @skin="small">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="user-fill">
             <AuHeading @level="2" @skin="4">
               Mandatenbeheer
             </AuHeading>
-            <p class="au-u-margin-top-tiny">Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
+          </c.header>
+          <c.content>
+            <p>Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
             {{#if currentSession.canAccessMandaat}}
               <p>
                 <AuButton {{action "goToMandatenbeheer"}}>Ga naar mandatenbeheer</AuButton>
@@ -124,6 +134,8 @@
                 Neem contact op met uw interne beheerder om toegang te verkrijgen.
               </AuAlert>
             {{/if}}
+          </c.content>
+          <c.footer>
             <p>
               <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank" rel="noopener noreferrer">
                 <AuIcon @icon="link" @alignment="left" />
@@ -135,17 +147,18 @@
                 Handleiding
               </a>
             </p>
-          </AuContent>
+          </c.footer>
         </AuCard>
       </li>
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true">
-          <AuBadge @icon="user-popup" @skin="brand" />
-          <AuContent @skin="small">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="user-popup">
             <AuHeading @level="2" @skin="4">
               Leidinggevendenbeheer
             </AuHeading>
-            <p class="au-u-margin-top-tiny">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+          </c.header>
+          <c.content>
+            <p>Hou hier de leidinggevende functies voor uw bestuur bij.</p>
             {{#if currentSession.canAccessLeidinggevenden}}
               <p>
                 <AuButton {{action "goToLeidinggevendenbeheer"}}>Ga naar leidinggevendenbeheer</AuButton>
@@ -155,6 +168,8 @@
                 Neem contact op met uw interne beheerder om toegang te verkrijgen.
               </AuAlert>
             {{/if}}
+          </c.content>
+          <c.footer>
             <p>
               <a class="au-c-link au-c-link--secondary" href="https://lokaalbestuur.vlaanderen.be/personeel/databank-leidinggevenden" target="_blank" rel="noopener noreferrer">
                 <AuIcon @icon="link" @alignment="left" />
@@ -166,17 +181,18 @@
                 Handleiding
               </a>
             </p>
-          </AuContent>
+          </c.footer>
         </AuCard>
       </li>
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true">
-          <AuBadge @icon="users" @skin="brand" />
-          <AuContent @skin="small">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="users">
             <AuHeading @level="2" @skin="4">
-              Personeelsbeheer
+              Leidinggevendenbeheer
             </AuHeading>
-            <p class="au-u-margin-top-tiny">Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
+          </c.header>
+          <c.content>
+            <p>Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
             {{#if currentSession.canAccessPersoneelsbeheer}}
               <p>
                 <AuButton {{action "goToPersoneelsbeheer"}}>Ga naar personeelsbeheer</AuButton>
@@ -186,23 +202,26 @@
                 Neem contact op met uw interne beheerder om toegang te verkrijgen.
               </AuAlert>
             {{/if}}
+          </c.content>
+          <c.footer>
             <p>
               <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener noreferrer">
                 <AuIcon @icon="manual" @alignment="left" />
                 Handleiding
               </a>
             </p>
-          </AuContent>
+          </c.footer>
         </AuCard>
       </li>
       {{!-- <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true">
-          <AuBadge @icon="documents" @skin="brand" />
-          <AuContent @skin="small">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="documents">
             <AuHeading @level="2" @skin="4">
               Subsidiebeheer
             </AuHeading>
-            <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad..</p>
+          </c.header>
+          <c.content>
+            <p>Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad..</p>
             {{#if currentSession.canAccessSubsidiebeheer}}
               <p>
                 <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
@@ -212,13 +231,15 @@
                 Neem contact op met uw interne beheerder om toegang te verkrijgen.
               </AuAlert>
             {{/if}}
+          </c.content>
+          <c.footer>
             <p>
               <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank" rel="noopener noreferrer">
                 <AuIcon @icon="manual" @alignment="left" />
                 Handleiding
               </a>
             </p>
-          </AuContent>
+          </c.footer>
         </AuCard>
       </li> --}}
     </ul>

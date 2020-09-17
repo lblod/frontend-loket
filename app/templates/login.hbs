@@ -27,110 +27,130 @@
           <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">De functionaliteiten in het nieuwe loket</AuHeading>
           <div class="au-o-grid au-o-grid--small">
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard class="au-u-text-center">
-                <AuBadge @icon="search-folder" @skin="brand" class="au-u-margin-right-none au-u-margin-bottom-small" />
-                <AuContent>
-                  <AuHeading @level="2" @skin="4">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="search-folder">
+                  <AuHeading @level="3" @skin="4">
                     Toezicht
                   </AuHeading>
+                </c.header>
+                <c.content>
                   <p class="au-u-margin-top-tiny">Bezorg besluiten en overzichtslijsten elektronisch aan de toezichthoudende overheid.</p>
+                </c.content>
+                <c.footer>
                   <p>
                     <a class="au-c-button" href="https://lokaalbestuur.vlaanderen.be/mijn-binnenland" target="_blank" rel="noopener noreferrer">Meer informatie</a>
                     <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht" target="_blank" rel="noopener noreferrer">Handleiding</a>
                   </p>
-                </AuContent>
+                </c.footer>
               </AuCard>
             </div>
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard class="au-u-text-center">
-                <AuBadge @icon="message" @skin="brand" class="au-u-margin-right-none au-u-margin-bottom-small" />
-                <AuContent>
-                  <AuHeading @level="2" @skin="4">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="message">
+                  <AuHeading @level="3" @skin="4">
                     Berichtencentrum
                   </AuHeading>
+                </c.header>
+                <c.content>
                   <p class="au-u-margin-top-tiny">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+                </c.content>
+                <c.footer>
                   <p>
                     <a class="au-c-button" href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum" target="_blank" rel="noopener noreferrer">Meer informatie</a>
                     <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum" target="_blank" rel="noopener noreferrer">Handleiding</a>
                   </p>
-                </AuContent>
+                </c.footer>
               </AuCard>
             </div>
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard class="au-u-text-center">
-                <AuBadge @icon="document" @skin="brand" class="au-u-margin-right-none au-u-margin-bottom-small" />
-                <AuContent>
-                  <AuHeading @level="2" @skin="4">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="document">
+                  <AuHeading @level="3" @skin="4">
                     BBC-DR
                   </AuHeading>
+                </c.header>
+                <c.content>
                   <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus (BBC).</p>
+                </c.content>
+                <c.footer>
                   <p>
                     <a class="au-c-button" href="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering" target="_blank" rel="noopener noreferrer">Meer informatie</a>
                     <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr" target="_blank" rel="noopener noreferrer">Handleiding</a>
                   </p>
-                </AuContent>
+                </c.footer>
               </AuCard>
             </div>
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard class="au-u-text-center">
-                <AuBadge @icon="user-fill" @skin="brand" class="au-u-margin-right-none au-u-margin-bottom-small" />
-                <AuContent>
-                  <AuHeading @level="2" @skin="4">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="user-fill">
+                  <AuHeading @level="3" @skin="4">
                     Mandatenbeheer
                   </AuHeading>
+                </c.header>
+                <c.content>
                   <p class="au-u-margin-top-tiny">Hou de mandaten binnen de gemeenteraad, college van burgemeester en schepenen, raad voor maatschappelijk welzijn, vast bureau en bijzonder comité voor de sociale dienst bij.</p>
+                </c.content>
+                <c.footer>
                   <p>
                     <a class="au-c-button" href="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank" target="_blank" rel="noopener noreferrer">Meer informatie</a>
                     <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#mandatenbeheer" target="_blank" rel="noopener noreferrer">Handleiding</a>
                   </p>
-                </AuContent>
+                </c.footer>
               </AuCard>
             </div>
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard class="au-u-text-center">
-                <AuBadge @icon="user-popup" @skin="brand" class="au-u-margin-right-none au-u-margin-bottom-small" />
-                <AuContent>
-                  <AuHeading @level="2" @skin="4">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="user-popup">
+                  <AuHeading @level="3" @skin="4">
                     Leidinggevendenbeheer
                   </AuHeading>
+                </c.header>
+                <c.content>
                   <p class="au-u-margin-top-tiny">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+                </c.content>
+                <c.footer>
                   <p>
                     <a class="au-c-button" href="https://lokaalbestuur.vlaanderen.be/personeel/databank-leidinggevenden" target="_blank" rel="noopener noreferrer">Meer informatie</a>
                     <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#leidinggevendenbeheer" target="_blank" rel="noopener noreferrer">Handleiding</a>
                   </p>
-                </AuContent>
+                </c.footer>
               </AuCard>
             </div>
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard class="au-u-text-center">
-                <AuBadge @icon="users" @skin="brand" class="au-u-margin-right-none au-u-margin-bottom-small" />
-                <AuContent>
-                  <AuHeading @level="2" @skin="4">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="users">
+                  <AuHeading @level="3" @skin="4">
                     Personeelsbeheer
                   </AuHeading>
+                </c.header>
+                <c.content>
                   <p class="au-u-margin-top-tiny">Hou hier de personeelsaantallen voor uw bestuur bij.</p>
+                </c.content>
+                <c.footer>
                   <p>
                     <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener noreferrer">Handleiding</a>
                   </p>
-                </AuContent>
+                </c.footer>
               </AuCard>
             </div>
 
             {{!-- <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard class="au-u-text-center">
-                <AuBadge @icon="documents" @skin="brand" class="au-u-margin-right-none au-u-margin-bottom-small" />
-                <AuContent>
-                  <AuHeading @level="2" @skin="4">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="documents">
+                  <AuHeading @level="3" @skin="4">
                     Subsidiebeheer
                   </AuHeading>
+                </c.header>
+                <c.content>
                   <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad.</p>
+                </c.content>
+                <c.footer>
                   <p>
                     <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank" rel="noopener noreferrer">Handleiding</a>
                   </p>
-                </AuContent>
+                </c.footer>
               </AuCard>
             </div> --}}
-
           </div>
         </div>
       </section>
