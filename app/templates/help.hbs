@@ -88,14 +88,21 @@
 
           <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
             <c.header @badgeSkin="brand" @badgeIcon="info-circle">
-              <AuHeading @level="2" @skin="4">
-                Kan het mandatenbeheer automatisch verlopen?
+              <AuHeading @level="2" @skin="4" id="automatische-melding">
+                Waarom worden er automatisch concepten aangemaakt in het Loket voor Lokale Besturen?
               </AuHeading>
-              <p>We werken er aan!</p>
+              <p>Indien uw bestuur via het notulenpakketsysteem automatisch meldingen doorstuurt naar het Loket voor Lokale Besturen (link naar bovenstaande) is het mogelijk dat dat niet alle meldingen volledig aangemaakt worden.</p>
             </c.header>
             <c.content>
-              <p>De vernieuwde mandatendatabank is zo opgebouwd dat deze maximaal automatisch ingevuld en up-to-date gehouden wordt. Hiervoor wordt de nodige informatie gehaald uit de gelinkte besluiten die gepubliceerd worden. Lees meer over <a href="https://lokaalbestuur.vlaanderen.be/lokale-besluiten-als-gelinkte-open-data" target="_blank" rel="noreferrer noopener">Besluiten als Gelinkte (open) data</a>.</p>
-              <p>Maak je als bestuur, bijvoorbeeld, gebruik maakt van Gelinkt Notuleren om de notulen op te maken, te publiceren en te melden? Dan wordt de informatie rond mandaten automatisch opgenomen in de mandatendatabank.</p>
+              <p><strong>Waarom?</strong> Afhankelijk van het integratietraject dat uw leverancier heeft opgezet, is het mogelijk dat niet alle meldingen volledig doorstromen. Dit is omdat nog niet alle parameters die het Loket vraagt gelinkt worden gepubliceerd.</p>
+              <p><strong>Wat?</strong> In dit geval wordt er een concept aangemaakt in het Loket op basis van die parameters die wél reeds gecapteerd kunnen worden. Uw bestuur krijgt een notificatiemail wanneer zo’n concept is aangemaakt met de vraag om:</p>
+              <ul>
+                <li>het concept aan te vullen met de ontbrekende parameters,</li>
+                <li>het concept te versturen zodat er sprake is van een effectieve melding.</li>
+              </ul>
+              <p>Pas als dit gebeurd is, is er voldaan aan de meldingsplicht.</p>
+
+              <p><strong>Termijn?</strong> Besluiten en besluitenlijsten moeten op dezelfde dag gemeld worden als de dag waarop ze gepubliceerd werden op de webtoepassing. Het is dus belangrijk om, na publicatie, de eventuele concepten op dezelfde dag af te werken en door te sturen.</p>
             </c.content>
           </AuCard>
         </div>
@@ -139,55 +146,3 @@
     </AuMainFooter>
   </div>
 </main>
-
-
-
-
-
-
-
-
-
-{{!-- <div class="au-c-main-container">
-  <div class="au-c-main-container__content au-c-main-container__content--scroll">
-    {{#if session.isAuthenticated}}
-      <section class="au-o-region-large">
-        <div class="au-o-layout">
-          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          {{contact-form}}
-        </div>
-      </section>
-    {{else}}
-      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
-        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
-      </AuContentHeader>
-      <section class="au-o-region-large">
-        <div class="au-o-layout">
-          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          {{contact-form}}
-        </div>
-      </section>
-    {{/if}}
-    {{outlet}}
-
-    <AuMainFooter>
-      <AuHeading @level="3" @skin="4">
-        Loket.lblod.info is een officiële website van de Vlaamse overheid
-      </AuHeading>
-      <AuContent @skin="small">
-        <p>Uitgegeven door <a class="au-c-link" href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur">Agentschap Binnenlands Bestuur</a></p>
-        <ul class="au-c-list-horizontal">
-          <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.disclaimer" @skin="secondary">Disclaimer</AuLink>
-          </li>
-          <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.cookieverklaring" @skin="secondary">Cookieverklaring</AuLink>
-          </li>
-          <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.toegankelijkheidsverklaring" @skin="secondary">Toegankelijkheid</AuLink>
-          </li>
-        </ul>
-      </AuContent>
-    </AuMainFooter>
-  </div>
-</div> --}}
