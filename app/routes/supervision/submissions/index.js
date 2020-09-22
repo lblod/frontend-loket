@@ -8,11 +8,7 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(Authe
     return {
       include: [
         'status',
-        'creator',
-        'task',
-        'last-modifier',
         'form-data.passed-by',
-        'form-data.passed-by.is-tijdsspecialisatie-van',
         'form-data.decision-type',
         'form-data.regulation-type'
       ].join(','),
