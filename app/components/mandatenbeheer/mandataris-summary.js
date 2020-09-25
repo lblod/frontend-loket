@@ -10,6 +10,7 @@ export default Component.extend({
   status: reads('mandataris.status.label'),
   beleidsdomein: reads('mandataris.beleidsdomein'),
   gelinktNotuleren: reads('mandataris.generatedFromGelinktNotuleren'),
+  duplicateOf: reads('mandataris.duplicateOf'),
 
   async didReceiveAttrs() {
     const beleidsdomein = await this.beleidsdomein;

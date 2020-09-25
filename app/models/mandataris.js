@@ -7,6 +7,7 @@ export default Model.extend({
   rangorde: attr('language-string'),
   start: attr('datetime'),
   einde: attr('datetime'),
+  duplicationReason: attr('string'),
   bekleedt: belongsTo('mandaat', { inverse: null }),
   heeftLidmaatschap: belongsTo('lidmaatschap', { inverse: 'lid' }),
   isBestuurlijkeAliasVan: belongsTo('persoon', { inverse: 'isAangesteldAls' }),
@@ -16,6 +17,7 @@ export default Model.extend({
   beleidsdomein: hasMany('beleidsdomein-code', { inverse: null }),
   status: belongsTo('mandataris-status-code', { inverse: null }),
   generatedFrom: attr('uri-set'),
+  duplicateOf: belongsTo('mandataris', { inverse: null }),
 
   generatedFromGelinktNotuleren: computed('generatedFrom', function(){
     return (this.generatedFrom || []).some(uri => uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService');

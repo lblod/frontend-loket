@@ -17,6 +17,7 @@ export default Component.extend({
   terminateMode: false,
   createMode: false,
   promptMode: false,
+  isDuplicated: false,
   viewMode: computed('editOnlyMode', 'createMode', function(){
     return !(this.editOnlyMode || this.createMode);
   }),
@@ -35,12 +36,17 @@ export default Component.extend({
     this.set('saveError', false);
     this.set('requiredFieldError', false);
     this.set('fractie', await this.get('mandataris.heeftLidmaatschap.binnenFractie'));
+    this.set('duplicatedMandataris', await this.get('mandataris.duplicateOf'));
+    this.set('duplicationReason', await this.get('mandataris.duplicationReason'));
     this.set('beleidsdomeinen', ((await this.get('mandataris.beleidsdomein')) || A()).toArray());
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
     this.set('rangorde', this.get('mandataris.rangorde.content'));
     this.set('status', await this.get('mandataris.status'));
+    if (await this.get('mandataris.duplicationReason')) {
+      this.set('isDuplicated', true);
+    }
   },
 
   toggleCreateMode(){
@@ -73,6 +79,15 @@ export default Component.extend({
         this.set('mandataris.rangorde', undefined);
 
       this.set('mandataris.status', this.status);
+
+      if(this.duplicatedMandataris) {
+        this.set('mandataris.duplicationReason', this.duplicationReason);
+        this.set('mandataris.duplicateOf', this.duplicatedMandataris);
+
+        this.set('duplicatedMandataris.duplicationReason', this.duplicationReason);
+        this.set('duplicatedMandataris.duplicateOf', this.mandataris);
+        yield this.duplicatedMandataris.save();
+      }
 
       return yield this.mandataris.save();
     }
@@ -191,6 +206,10 @@ export default Component.extend({
       this.set('fractie', fractie);
     },
 
+    setduplicatedMandataris(duplicatedMandataris){
+      this.set('duplicatedMandataris', duplicatedMandataris);
+    },
+
     setMandaat(mandaat){
       this.set('mandaat', mandaat);
     },
@@ -237,15 +256,24 @@ export default Component.extend({
       this.set('editMode', false);
       this.set('promptMode', true);
     },
+
     correct(){
       this.set('promptMode', false);
       this.set('editMode', true);
       this.set('correctMode', !this.correctMode);
     },
+
     terminate(){
       this.set('promptMode', false);
       this.set('editMode', true);
       this.set('terminateMode', !this.terminateMode);
-    }
+    },
+
+    toggleIsDuplicated(){
+      this.toggleProperty('isDuplicated');
+      if (!this.isDuplicated) {
+        this.duplicatedMandataris = null;
+      }
+    },
   }
 });

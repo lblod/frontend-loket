@@ -92,6 +92,25 @@
             bestuursorganen=bestuursorganen
           }}
         </div>
+        <div>
+          <label class="checkbox checkbox--block">
+            {{input class="checkbox__toggle" type="checkbox" checked=isDuplicated click=(action "toggleIsDuplicated") }}
+            <span></span>
+            Is het een duplicaat?
+          </label>
+          {{#if isDuplicated}}
+            {{mandatenbeheer/mandataris-duplicate-selector
+              onSelect=(action 'setduplicatedMandataris')
+              mandatarissen=mandatarissen
+              duplicatedMandataris=duplicatedMandataris
+              allowClear=true
+            }}
+            <div>
+              <label>Reden voor duplicatie</label>
+              {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Reden voor duplicatie" value=(mut duplicationReason)}}
+            </div>
+          {{/if}}
+        </div>
       </div>
 
       <div class="au-u-margin-top">
@@ -259,6 +278,25 @@
             allowClear=true
             bestuursorganen=bestuursorganen
           }}
+        </div>
+        <div>
+          <label class="checkbox checkbox--block">
+            {{input class="checkbox__toggle" type="checkbox" checked=isDuplicated click=(action "toggleIsDuplicated") }}
+            <span></span>
+            Is het een duplicaat?
+          </label>
+          {{#if isDuplicated}}
+            {{mandatenbeheer/mandataris-duplicate-selector
+              onSelect=(action 'setduplicatedMandataris')
+              mandatarissen=mandatarissen
+              duplicatedMandataris=duplicatedMandataris
+              allowClear=true
+            }}
+            <div>
+              <label>Reden voor duplicatie</label>
+              {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Reden voor duplicatie" value=(mut duplicationReason)}}
+            </div>
+          {{/if}}
         </div>
       </div>
 
