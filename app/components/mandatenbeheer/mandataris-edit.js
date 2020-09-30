@@ -44,7 +44,8 @@ export default Component.extend({
     this.set('endDate', this.get('mandataris.einde'));
     this.set('rangorde', this.get('mandataris.rangorde.content'));
     this.set('status', await this.get('mandataris.status'));
-    if (await this.get('mandataris.duplicationReason')) {
+
+    if (await this.get('mandataris.duplicateOf')) {
       this.set('isDuplicated', true);
     }
   },
@@ -83,13 +84,16 @@ export default Component.extend({
       if(this.duplicatedMandataris) {
         this.set('mandataris.duplicationReason', this.duplicationReason);
         this.set('mandataris.duplicateOf', this.duplicatedMandataris);
+        const savedMandataris = yield this.mandataris.save();
 
         this.set('duplicatedMandataris.duplicationReason', this.duplicationReason);
         this.set('duplicatedMandataris.duplicateOf', this.mandataris);
-        yield this.duplicatedMandataris.save();
-      }
 
-      return yield this.mandataris.save();
+        yield this.duplicatedMandataris.save();
+        return savedMandataris;
+      } else {
+        return yield this.mandataris.save();
+      }
     }
     catch (e){
       this.set('saveError', true);
