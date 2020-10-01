@@ -17,6 +17,7 @@
         {{au-data-table-th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="au-u-visible-medium-up"}}
       {{/unless}}
       {{th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
+      {{th-sortable field='duplicateOf.bekleedt.bestuursfunctie.label' currentSorting=sort label='Gedupliceerd'}}
       <th></th>
     {{/c.header}}
     {{#c.body data-test-loket="mandatarissen-body" as |row|}}
@@ -51,6 +52,13 @@
       {{/unless}}
       <td>
         {{row.generatedFromGelinktNotuleren}}
+      </td>
+      <td>
+        {{#if row.duplicateOf}}
+          true
+        {{else}}
+          false
+        {{/if}}
       </td>
       {{#unless displaySubset}}
         <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id class="au-c-link"}} Bewerk {{/link-to}}</td>
