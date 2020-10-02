@@ -81,15 +81,24 @@ export default Component.extend({
 
       this.set('mandataris.status', this.status);
 
-      if(this.duplicatedMandataris) {
+      const currentSavedDuplicate = yield this.get('mandataris.duplicateOf');
+
+      if(this.duplicatedMandataris || currentSavedDuplicate) {
         this.set('mandataris.duplicationReason', this.duplicationReason);
         this.set('mandataris.duplicateOf', this.duplicatedMandataris);
         const savedMandataris = yield this.mandataris.save();
 
-        this.set('duplicatedMandataris.duplicationReason', this.duplicationReason);
-        this.set('duplicatedMandataris.duplicateOf', this.mandataris);
-
-        yield this.duplicatedMandataris.save();
+        // We add a duplicate to the mandataris
+        if (this.duplicatedMandataris) {
+          this.set('duplicatedMandataris.duplicationReason', this.duplicationReason);
+          this.set('duplicatedMandataris.duplicateOf', this.mandataris);
+          yield this.duplicatedMandataris.save();
+        }
+        if (currentSavedDuplicate) { // We remove the existing duplicate
+          currentSavedDuplicate.set('duplicationReason', undefined);
+          currentSavedDuplicate.set('duplicateOf', undefined);
+          yield currentSavedDuplicate.save();
+        }
         return savedMandataris;
       } else {
         return yield this.mandataris.save();
@@ -276,7 +285,8 @@ export default Component.extend({
     toggleIsDuplicated(){
       this.toggleProperty('isDuplicated');
       if (!this.isDuplicated) {
-        this.set('duplicatedMandataris', null);
+        this.set('duplicatedMandataris', undefined);
+        this.set('duplicationReason', undefined);
       }
     },
   }
