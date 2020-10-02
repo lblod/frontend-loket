@@ -8,7 +8,7 @@ export default Component.extend({
   async didReceiveAttrs(){
     if(this.duplicatedMandataris)
       this.set('_duplicatedMandataris', this.duplicatedMandataris);
-    const options = this.mandatarissen.filter(m => m.start);
+    const options = this.mandatarissen.filter(m => {return m != this.currentMandataris});
     this.set('options', options);
   },
 

@@ -276,7 +276,7 @@ export default Component.extend({
     toggleIsDuplicated(){
       this.toggleProperty('isDuplicated');
       if (!this.isDuplicated) {
-        this.duplicatedMandataris = null;
+        this.set('duplicatedMandataris', null);
       }
     },
   }
