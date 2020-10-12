@@ -26,7 +26,12 @@ module.exports = function(deployTarget) {
   };
 
   if (deployTarget === 'production') {
-    //TODO: 
+    //TODO:
+  }
+
+  if (deployTarget === 'controle') {
+    ENV['ssh-index'].remoteDir = '/data/app-digitaal-loket-dev/controle-app';
+    ENV['rsync']['dest']  = '/data/app-digitaal-loket-dev/controle-app';
   }
 
   // Note: if you need to build some configuration asynchronously, you can return
