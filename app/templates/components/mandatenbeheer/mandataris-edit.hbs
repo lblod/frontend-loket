@@ -108,8 +108,13 @@
               allowClear=true
             }}
             <div>
-              <label>Reden voor duplicatie</label>
-              {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Reden voor duplicatie" value=(mut duplicationReason)}}
+                <AuLabel for="duplicationReason">Reden voor duplicatie</AuLabel>
+                <AuInput
+                  id="duplicationReason"
+                  class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
+                  placeholder="Reden voor duplicatie"
+                  @value={{mut duplicationReason}}
+                />
             </div>
           {{/if}}
         </div>
@@ -296,8 +301,13 @@
               allowClear=true
             }}
             <div>
-              <label>Reden voor duplicatie</label>
-              {{input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Reden voor duplicatie" value=(mut duplicationReason)}}
+              <AuLabel for="duplication-reason">Reden voor duplicatie</AuLabel>
+              <AuInput
+                id="duplication-reason"
+                class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
+                placeholder="Reden voor duplicatie"
+                @value={{mut duplicationReason}}
+              />
             </div>
           {{/if}}
         </div>
