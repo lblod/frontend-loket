@@ -107,7 +107,7 @@ export default Component.extend({
 
     // if new and old fractie are both onafhankelijk, nothing needs to be done...
     let currFractie = await this.get('mandataris.heeftLidmaatschap.binnenFractie');
-    if(( await currFractie.get('fractietype.isOnafhankelijk') ) && this.get('fractie.fractietype.isOnafhankelijk')){
+    if(currFractie && (await currFractie.get('fractietype.isOnafhankelijk')) && this.get('fractie.fractietype.isOnafhankelijk')){
       return;
     }
 
