@@ -93,7 +93,7 @@
           }}
         </div>
         <div>
-          <label class="checkbox checkbox--block">
+          <label class="checkbox checkbox--block au-u-margin-bottom-tiny">
             {{input class="checkbox__toggle" type="checkbox" checked=isDuplicated click=(action "toggleIsDuplicated") }}
             <span></span>
             Is het een duplicaat?
@@ -107,14 +107,14 @@
               duplicatedMandataris=duplicatedMandataris
               allowClear=true
             }}
-            <div>
-                <AuLabel for="duplicationReason">Reden voor duplicatie</AuLabel>
-                <AuInput
-                  id="duplicationReason"
-                  class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
-                  placeholder="Reden voor duplicatie"
-                  @value={{mut duplicationReason}}
-                />
+            <div class="au-u-margin-top-small">
+              <AuLabel for="duplicationReason">Reden voor duplicatie</AuLabel>
+              <AuInput
+                id="duplicationReason"
+                class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
+                placeholder="Reden voor duplicatie"
+                @value={{mut duplicationReason}}
+              />
             </div>
           {{/if}}
         </div>

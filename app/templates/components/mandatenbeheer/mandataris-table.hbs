@@ -2,7 +2,7 @@
    sort=sort page=page size=size as |t|}}
   {{#t.content as |c|}}
     {{#c.header}}
-      {{th-sortable field='isBestuurlijkeAliasVan.verifiedMandaten' currentSorting=sort label='Nagekeken' class="u-hidden-mobile"}}
+      {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.verifiedMandaten' currentSorting=sort label='Nagekeken' class="u-hidden-mobile"}}
       {{#unless displaySubset}}
         <th class="au-u-visible-small-up">Orgaan</th>
       {{/unless}}
@@ -16,9 +16,12 @@
         {{au-data-table-th-sortable field='start' currentSorting=sort label='Start mandaat' class="au-u-visible-medium-up"}}
         {{au-data-table-th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="au-u-visible-medium-up"}}
       {{/unless}}
-      {{th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
-      {{th-sortable field='duplicateOf.bekleedt.bestuursfunctie.label' currentSorting=sort label='Gedupliceerd'}}
+      {{au-data-table-th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
+      {{au-data-table-th-sortable field='duplicateOf.bekleedt.bestuursfunctie.label' currentSorting=sort label='Gedupliceerd'}}
       <th></th>
+      {{#unless displaySubset}}
+      <th></th>
+      {{/unless}}
     {{/c.header}}
     {{#c.body data-test-loket="mandatarissen-body" as |row|}}
       <td>
@@ -62,7 +65,12 @@
       </td>
       {{#unless displaySubset}}
         <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id class="au-c-link"}} Bewerk {{/link-to}}</td>
-        <td>{{#wu-button isWarning=true size="small" onClick=(action "removeMandataris" row)}}Verwijder{{/wu-button}}</td>
+        <td>
+          <AuButton @skin="tertiary" @alert="true" {{on "click" (action "removeMandataris" row)}}>
+            <AuIcon @icon="bin" @alignment="left" />
+            Verwijder
+          </AuButton>
+        </td>
       {{/unless}}
       {{#if displaySubset}}
         <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} <i class="vi vi-edit u-padding--right"></i> {{/link-to}}</td>
