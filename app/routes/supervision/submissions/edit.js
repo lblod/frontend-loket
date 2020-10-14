@@ -17,7 +17,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
     const submissionStatus = await submission.status;
 
     if (!submissionDocument) {
-      warn('No submission document, Transitioning to index.');
+      warn('No submission document, Transitioning to index.', {id: 'no-submission-document'});
       this.transitionTo('supervision.submissions');
     }
 
