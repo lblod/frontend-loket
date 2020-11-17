@@ -82,6 +82,14 @@ export default class SharedBreadCrumbComponent extends Component {
       route: 'personeelsbeheer.personeelsaantallen.periodes.edit',
       crumbs: [{label: 'Personeelsbeheer',link: 'personeelsbeheer.personeelsaantallen.index'},{label: 'Bewerk aantallen'}]
     },
+    {
+      route: 'subsidy.applications.index',
+      crumbs: [{label: 'Subsidie Aanvraag'}]
+    },
+    {
+      route: 'subsidy.applications.edit',
+      crumbs: [{label: 'Subsidie Aanvraag',link: 'subsidy.applications'},{label: 'Bekijk aanvraag'}]
+    },
   ]
 
   get crumbsForRoute() {

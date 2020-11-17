@@ -35,4 +35,10 @@
       Personeelsbeheer
     </AuLink>
   {{/if}}
+  {{#if this.currentSession.canAccessSubsidies}}
+    <AuNavigationLink @linkRoute="subsidy.applications.index">
+      <AuIcon @icon="document" @alignment="left" />
+      Subsidie Aanvraag
+    </AuNavigationLink>
+  {{/if}}
 </AuDropdown>

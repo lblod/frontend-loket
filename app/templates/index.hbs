@@ -213,6 +213,27 @@
           </c.footer>
         </AuCard>
       </li>
+      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <AuCard @flex="true" as |c|>
+          <c.header @badgeSkin="brand" @badgeIcon="users">
+            <AuHeading @level="2" @skin="4">
+              Subsidie aangevragen
+            </AuHeading>
+          </c.header>
+          <c.content>
+            <p></p>
+            {{#if currentSession.canAccessSubsidies}}
+              <p>
+                <AuButton {{action "goToSubsidies"}}>Ga naar subsidie aangevragen</AuButton>
+              </p>
+            {{else}}
+              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                Neem contact op met uw interne beheerder om toegang te verkrijgen.
+              </AuAlert>
+            {{/if}}
+          </c.content>
+        </AuCard>
+      </li>
       {{!-- <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="documents">

@@ -1,0 +1,40 @@
+{{title "Subsidie Aanvraag " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <AuHeading @skin="2" data-test-loket="subsidies-page-title">Subsidie Aanvraag</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <LinkTo @route="subsidy.applications.new" class="au-c-button" type="button">Maak nieuwe subsidie</LinkTo>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<AuDataTable
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage="Geen subsidies gevonden"
+  @sort={{sort}}
+  @page={{page}}
+  @size={{size}}
+  as |t| >
+  <t.content as |c|>
+    <c.header>
+      <AuDataTableThSortable @field="bestuurseenheid.naam" @currentSorting={{this.sort}} @label="Bestuurseenheid"/>
+      <AuDataTableThSortable @field="aangevraagdBedrag" @currentSorting={{this.sort}} @label="Aangevraagd bedrag"/>
+      <AuDataTableThSortable @field="aanvraagdatum" @currentSorting={{this.sort}} @label="Aanvraagdatum"/>
+      <AuDataTableThSortable @class="au-u-visible-small-up" @field="timeBlock.hasStart" @currentSorting={{this.sort}} @label="Start"/>
+      <AuDataTableThSortable @class="au-u-visible-large-up" @field="timeBlock.hasEnd" @currentSorting={{this.sort}} @label="Einde"/>
+    </c.header>
+    <c.body as |row|>
+      <td>{{row.bestuurseenheid.naam}}</td>
+      <td>{{row.aangevraagdBedrag}}</td>
+      <td>{{moment-format row.aanvraagdatum "DD/MM/YYYY"}}</td>
+      <td class="au-u-visible-small-up">{{moment-format row.timeBlock.start "DD/MM/YYYY"}}</td>
+      <td class="au-u-visible-large-up">{{moment-format row.timeBlock.end "DD/MM/YYYY"}}</td>
+      <td>
+        <LinkTo @route="subsidy.applications.edit" @model={{row.id}} class="au-c-link">Bekijk</LinkTo>
+      </td>
+    </c.body>
+  </t.content>
+</AuDataTable>
+
+{{outlet}}
