@@ -82,4 +82,10 @@ Router.map(function() {
     path: '/*wildcard'
   });
   this.route('help');
+  this.route('subsidiebeheer', function() {
+    this.route('subsidies', function() {
+      this.route('ingediend');
+      this.route('concept');
+    });
+  });
 });

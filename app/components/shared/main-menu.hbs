@@ -51,5 +51,14 @@
         </AuNavigationLink>
       </li>
     {{/if}}
+    {{#if this.currentSession.canAccessPersoneelsbeheer}}
+    {{!-- TODOsubsidies: make canaccesspersoneelbeheer --}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="subsidiebeheer.subsidies.index">
+          <AuIcon @icon="documents" @alignment="left" />
+          Subsidiebeheer
+        </AuNavigationLink>
+      </li>
+    {{/if}}
   </ul>
 </nav>

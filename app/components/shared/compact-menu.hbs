@@ -35,4 +35,11 @@
       Personeelsbeheer
     </AuLink>
   {{/if}}
+  {{#if this.currentSession.canAccessPersoneelsbeheer}}
+  {{!-- TODOsubsidies: make canaccesspersoneelbeheer --}}
+    <AuLink @linkRoute="subsidiebeheer.subsidies.index" role="menuitem">
+      <AuIcon @icon="documents" @alignment="left" />
+      Subsidiebeheer
+    </AuLink>
+  {{/if}}
 </AuDropdown>
