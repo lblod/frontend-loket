@@ -67,5 +67,6 @@ inflector.irregular('submission-document', 'submission-documents');
 inflector.irregular('form-data', 'form-data');
 inflector.irregular('concept', 'concepts');
 inflector.irregular('concept-scheme', 'concept-schemes');
+inflector.irregular('application-form', 'application-forms');
 // Meet Ember Inspector's expectation of an export
 export default {};

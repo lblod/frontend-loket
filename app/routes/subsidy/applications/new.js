@@ -7,7 +7,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
   async model() {
     const bestuurseenheid = await this.currentSession.group;
 
-    const subsidieAanvraag = this.store.createRecord('subsidie-aanvraag', {
+    const subsidieAanvraag = this.store.createRecord('application-form', {
       bestuurseenheid: bestuurseenheid,
       aanvraagdatum: new Date()
     });
