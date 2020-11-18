@@ -5,8 +5,12 @@ export default class Subsidy extends Model {
   @attr('date') aanvraagdatum;
   @attr('boolean') canBePaidOnKnownBankAccount;
 
-  @belongsTo('bestuurseenheid') bestuurseenheid;
+  @belongsTo('bestuurseenheid') organization;
   @belongsTo('contact-punt') contactinfo;
   @belongsTo('bank-account') bankAccount;
   @belongsTo('time-block') timeBlock;
+
+  @belongsTo('submission-document-status') status;
+  @belongsTo('gebruiker') creator;
+  @belongsTo('gebruiker') lastModifier;
 }

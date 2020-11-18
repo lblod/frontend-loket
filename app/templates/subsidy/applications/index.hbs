@@ -18,14 +18,14 @@
   as |t| >
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="bestuurseenheid.naam" @currentSorting={{this.sort}} @label="Bestuurseenheid"/>
+      <AuDataTableThSortable @field="organization.naam" @currentSorting={{this.sort}} @label="Bestuurseenheid"/>
       <AuDataTableThSortable @field="aangevraagdBedrag" @currentSorting={{this.sort}} @label="Aangevraagd bedrag"/>
       <AuDataTableThSortable @field="aanvraagdatum" @currentSorting={{this.sort}} @label="Aanvraagdatum"/>
       <AuDataTableThSortable @class="au-u-visible-small-up" @field="timeBlock.hasStart" @currentSorting={{this.sort}} @label="Start"/>
       <AuDataTableThSortable @class="au-u-visible-large-up" @field="timeBlock.hasEnd" @currentSorting={{this.sort}} @label="Einde"/>
     </c.header>
     <c.body as |row|>
-      <td>{{row.bestuurseenheid.naam}}</td>
+      <td>{{row.organization.naam}}</td>
       <td>{{row.aangevraagdBedrag}}</td>
       <td>{{moment-format row.aanvraagdatum "DD/MM/YYYY"}}</td>
       <td class="au-u-visible-small-up">{{moment-format row.timeBlock.start "DD/MM/YYYY"}}</td>
