@@ -25,18 +25,16 @@ export default class SubsidyApplicationsEditRoute extends Route {
     // Prepare data in forking store
     const formStore = new ForkingStore();
 
-    await this.retrieveFormData('/subsidy-applications-active-form-data', formStore, FORM_GRAPH);
-    /* --- To add when meta data will be implemented in the service ---
-      await this.retrieveMetaData('/subsidy-applications-active-form-data/meta', formStore, META_GRAPH);
-    */
     const graphs = {
       formGraph : FORM_GRAPH,
       metaGraph: META_GRAPH,
       sourceGraph: SOURCE_GRAPH
     };
 
+    await this.retrieveForm(`/management-application-forms/${applicationForm.id}`, formStore, graphs);
+
     const formNode = formStore.any(undefined, RDF('type'), FORM('Form'), FORM_GRAPH);
-    const sourceNode =  new rdflib.NamedNode('http://frontend-loket/temp-source-node')
+    const sourceNode =  new rdflib.NamedNode(applicationForm.uri);
 
     return {
       form: formNode,
@@ -55,6 +53,19 @@ export default class SubsidyApplicationsEditRoute extends Route {
   }
 
   // --- Helpers ---
+
+  async retrieveForm(url, store, graphs) {
+    let response = await fetch(url, {
+      method: 'GET',
+      headers: {'Accept': 'application/vnd.api+json'},
+    });
+    const content = await response.json();
+    store.parse(content.form, graphs.formGraph, 'text/turtle');
+    // TODO --- add when meta data will be implemented in the service ---
+    // store.parse(content.meta, graphs.meta, 'application/n-triples');
+    store.parse(content.source, graphs.sourceGraph, 'text/turtle');
+
+  }
 
   async retrieveFormData(url, store, formGraph) {
     let response = await fetch(url, {

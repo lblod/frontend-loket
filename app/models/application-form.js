@@ -1,6 +1,7 @@
 import Model, {attr, belongsTo} from '@ember-data/model';
 
 export default class Subsidy extends Model {
+  @attr() uri;
   @attr('datetime', {
     defaultValue(){ return new Date();}
   }) created;
