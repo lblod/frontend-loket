@@ -1,6 +1,14 @@
 import Model, {attr, belongsTo} from '@ember-data/model';
 
 export default class Subsidy extends Model {
+  @attr('datetime', {
+    defaultValue(){ return new Date();}
+  }) created;
+
+  @attr('datetime', {
+    defaultValue(){ return new Date();}
+  }) modified;
+
   @attr('number') aangevraagdBedrag;
   @attr('date') aanvraagdatum;
   @attr('boolean') canBePaidOnKnownBankAccount;

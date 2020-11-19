@@ -1,7 +1,12 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import {importTriplesForForm, validateForm,  delGraphFor, addGraphFor} from '@lblod/ember-submission-form-fields';
+import {
+  importTriplesForForm,
+  validateForm,
+  delGraphFor,
+  addGraphFor
+} from '@lblod/ember-submission-form-fields';
 import fetch from 'fetch';
 import { DELETED_STATUS } from '../../../models/submission-document-status';
 import { task } from 'ember-concurrency-decorators';
@@ -57,5 +62,76 @@ export default class SubsidyApplicationsEditController extends Controller {
     this.datasetTriples = importTriplesForForm(this.form, { ...this.graphs, sourceNode: this.sourceNode, store: this.formStore });
     this.addedTriples = this.formStore.match(undefined, undefined, undefined, addGraphFor(this.graphs.sourceGraph));
     this.removedTriples = this.formStore.match(undefined, undefined, undefined, delGraphFor(this.graphs.sourceGraph));
+  }
+
+
+  @task
+  *saveApplicationForm() {
+    console.log('Waiting for the endpoint :)');
+/*     yield fetch(`/submission-forms/${this.model.applicationForm.id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/vnd.api+json'},
+      body: JSON.stringify(
+        {
+          ...this.formStore.serializeDataWithAddAndDelGraph(this.graphs.sourceGraph)
+        }
+      )
+    }); */
+  }
+
+  @task
+  *submitApplicationForm() {
+    console.log('Waiting for the endpoint :)');
+/*     yield fetch(`/submission-forms/${this.model.applicationForm.id}/submit`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/vnd.api+json'}
+    });
+    // Since the sent date and sent status of the application form will be set by the backend
+    // and not via ember-data, we need to manually reload the application form record
+    // to keep the index page up-to-date
+    const applicationForm = yield this.model.applicationForm.reload();
+    yield applicationForm.belongsTo('status').reload(); */
+  }
+
+  @task
+  *deleteApplicationForm() {
+    console.log('Waiting for the endpoint :)');
+/*     yield fetch(`/submissions/${this.model.applicationForm.id}`, {
+      method: 'DELETE',
+    }); */
+  }
+
+  @task
+  *delete() {
+    yield this.deleteApplicationForm.perform();
+    this.transitionToRoute('subsidy.applications');
+  }
+
+  @task
+  *save() {
+    yield this.saveApplicationForm.perform();
+
+    const user = yield this.currentSession.user;
+    this.model.applicationForm.modified = new Date();
+    this.model.applicationForm.lastModifier = user;
+    yield this.model.applicationForm.save();
+  }
+
+  @task
+  *submit() {
+    const options = { ...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
+    this.isValidForm = validateForm(this.form, options);
+    if (!this.isValidForm) {
+      this.forceShowErrors = true;
+    } else {
+      const user = yield this.currentSession.user;
+      this.model.applicationForm.modified = new Date();
+      this.model.applicationForm.lastModifier = user;
+
+      yield this.saveApplicationForm.perform();
+      yield this.submitApplicationForm.perform();
+      yield this.model.applicationForm.save();
+      this.transitionToRoute('subsidy.applications');
+    }
   }
 }

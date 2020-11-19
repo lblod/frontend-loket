@@ -9,6 +9,7 @@ const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 const FORM_GRAPH = new rdflib.NamedNode('http://data.lblod.info/form');
 const META_GRAPH = new rdflib.NamedNode('http://data.lblod.info/metagraph');
+const SOURCE_GRAPH = new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`);
 
 export default class SubsidyApplicationsEditRoute extends Route {
   async model(params) {
@@ -25,11 +26,15 @@ export default class SubsidyApplicationsEditRoute extends Route {
     const formStore = new ForkingStore();
 
     await this.retrieveFormData('/subsidy-applications-active-form-data', formStore, FORM_GRAPH);
-    const graphs = { FORM_GRAPH };
     /* --- To add when meta data will be implemented in the service ---
       await this.retrieveMetaData('/subsidy-applications-active-form-data/meta', formStore, META_GRAPH);
-      const graphs = { FORM_GRAPH, META_GRAPH };
     */
+    const graphs = {
+      formGraph : FORM_GRAPH,
+      metaGraph: META_GRAPH,
+      sourceGraph: SOURCE_GRAPH
+    };
+
     const formNode = formStore.any(undefined, RDF('type'), FORM('Form'), FORM_GRAPH);
     const sourceNode =  new rdflib.NamedNode('http://frontend-loket/temp-source-node')
 
