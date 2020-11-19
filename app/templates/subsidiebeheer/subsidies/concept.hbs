@@ -23,10 +23,10 @@
         <AuLabel>Status</AuLabel>
         <AuPill @skin="">Concept</AuPill>
       </li>
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-        <AuLabel>Datum indienen</AuLabel>
+{{!--       <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+        <AuLabel>Deadline</AuLabel>
         <p>Ten laatste 30 juni 2020</p>
-      </li>
+      </li> --}}
       {{#if this.save.isRunning}}
         <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
@@ -51,8 +51,9 @@
     <div class="au-o-grid">
       <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
 
-        <AuHeading @skin="3" class="au-u-margin-small">Kies subsidie</AuHeading>
-        <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidie wordt aangevraagd voor de Gemeente Tervuren"  @alertskin={{"info"}} @alertSize="small">
+        <AuHeading @skin="3">Kies subsidie</AuHeading>
+        <p class="au-u-margin-bottom-small">Bekijk de <a href="">overzichtspagina met gedetailleerde informatie over alle subsidies</a>.</p>
+        <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidie wordt aangevraagd voor de Gemeente Tervuren"  @alertskin={{"info"}} @alertsize="small">
           <p>Wil u een subsidie aanvragen voor een andere bestuurseenheid aanvragen? Wissel rechtsbovenaan van bestuurseenheid door op de pijltjes te klikken</p>
         </AuAlert>
 
@@ -72,7 +73,6 @@
                 </div>
                 <div id="ember-basic-dropdown-content-ember350" class="ember-basic-dropdown-content-placeholder" style="display: none;"></div>
               </div>
-              <AuHelpText><AuLink>Link naar infopagina?</AuLink></AuHelpText>
             </div>
             <div class="au-o-grid__item au-u-1-1">
               <AuLabel>
@@ -97,84 +97,11 @@
                   <li class="ember-power-select-option" aria-selected="false" aria-current="false" data-option-index="2" role="option">Schoolperiode najaar 2021</li>
                 </ul>
               </div> --}}
-              <AuHelpText>Ten laatste in te dienen voor 30 Juni 2020 (verschijnt na selectie?)</AuHelpText>
+              {{!-- <AuHelpText>Ten laatste in te dienen voor 30 Juni 2020 (verschijnt na selectie?)</AuHelpText> --}}
               <AuHelpText>Indien de reeks niet beschikbaar is, is deze nog niet gestart of afgelopen.</AuHelpText>
             </div>
             <div class="au-o-grid__item au-u-1-1">
               <AuHr />
-            </div>
-
-
-            <div class="au-o-grid__item au-u-1-1">
-              <AuHeading @skin="3" class="">Aanvraagformulier</AuHeading>
-            </div>
-            <div class="au-o-grid__item au-u-1-1">
-              <AuLabel>
-                Vul per actor het aantal opgevangen kinderen per dag, halve dag en infrastructuur in.
-              </AuLabel>
-              <table class="data-table data-table--zebra data-table--tight au-u-margin-top-small ">
-                <thead>
-                  <tr>
-                    <th>Naam actor</th>
-                    <th>Kinderen per dag</th>
-                    <th>Kinderen per halve dag</th>
-                    <th>Kinderen per infrastructuur</th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <AuLabel for="input-actor" class="au-u-hidden">Naam actor</AuLabel>
-                      <AuInput id="input-actor" @width="block" value="De Appel" />
-                    </td>
-                    <td>
-                      <AuLabel for="input-kinderen-dag" class="au-u-hidden">Kinderen per dag</AuLabel>
-                      <AuInput id="input-kinderen-dag" @width="block" type="number" value="10"/>
-                    </td>
-                    <td>
-                      <AuLabel for="input-kinderen-halve-dag" class="au-u-hidden">Kinderen per halve dag</AuLabel>
-                      <AuInput id="input-kinderen-halve-dag" @width="block" type="number" value="10" />
-                    </td>
-                    <td>
-                      <AuLabel for="input-kinderen-infrastructuur" class="au-u-hidden">Kinderen per infrastructuur</AuLabel>
-                      <AuInput id="input-kinderen-infrastructuur" @width="block" type="number" value="10" />
-                    </td>
-                    <td>
-                      <AuButton  @hideText="true" @icon="bin" @skin="secondary" @alert="true">Verwijder rij</AuButton>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <AuLabel for="2-input-actor" class="au-u-hidden">Naam actor</AuLabel>
-                      <AuInput id="2-input-actor" @width="block" />
-                    </td>
-                    <td>
-                      <AuLabel for="2-input-kinderen-dag" class="au-u-hidden">Kinderen per dag</AuLabel>
-                      <AuInput id="2-input-kinderen-dag" @width="block" type="number" />
-                    </td>
-                    <td>
-                      <AuLabel for="2-input-kinderen-halve-dag" class="au-u-hidden">Kinderen per halve dag</AuLabel>
-                      <AuInput id="2-input-kinderen-halve-dag" @width="block" type="number" />
-                    </td>
-                    <td>
-                      <AuLabel for="2-input-kinderen-infrastructuur" class="au-u-hidden">Kinderen per infrastructuur</AuLabel>
-                      <AuInput id="2-input-kinderen-infrastructuur" @width="block" type="number" />
-                    </td>
-                    <td>
-                      <AuButton  @hideText="true" @icon="bin" @skin="secondary" @alert="true">Verwijder rij</AuButton>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="5" class="data-table__add-row u-align-center">
-                      <AuButton @iconAlignment="left" @icon="add">Voeg actor toe</AuButton>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="au-o-grid__item au-u-1-1">
-              <p>Uitleg over vocabularium <AuLink>Link naar definities</AuLink></p>
             </div>
 
             <div class="au-o-grid__item au-u-1-1">
@@ -197,6 +124,14 @@
                   </p>
                 </div>
               </div>
+              <p>
+                <AuLabel for="input-regular-last-name">Telefoonnummer</AuLabel>
+                <AuInput id="input-regular-last-name" />
+              </p>
+              <p>
+                <AuLabel for="input-regular-last-name">Mailadres</AuLabel>
+                <AuInput id="input-regular-last-name" />
+              </p>
             </div>
 
             <div class="au-o-grid__item au-u-1-1">
@@ -225,7 +160,7 @@
                           </div>
 
                           <div class="au-o-grid__item au-u-1-1">
-                            <AuLabel>Voeg een bevestingsbrief toe, ondertekend door de burgemeester en medeondertekend door de financieel directeur, bij deze aanvraag te voegen.</AuLabel>
+                            <AuLabel>Voeg een bevestingsbrief dat dit rekeningnummer gebruikt mag worden toe, ondertekend door de burgemeester en medeondertekend door de financieel directeur.</AuLabel>
                             <input type="file">
                           </div>
                         </div>
@@ -241,15 +176,85 @@
             </div>
 
             <div class="au-o-grid__item au-u-1-1">
-              <AuHeading @skin="3" class="">Legale voorwaarden</AuHeading>
+              <AuHeading @skin="3" class="">Aanvraagformulier</AuHeading>
             </div>
             <div class="au-o-grid__item au-u-1-1">
-              <p>
-                <AuControlCheckbox @label="De gegevens over het aantal effectief opgevangen kinderen correct zijn." />
-                <AuControlCheckbox @label="De organisator de voorwaarden heeft nageleefd, zoals vermeld in artikel XXX van het besluit van de Vlaamse Regering van XXXX." />
-                <AuHelpText><AuLink>Link naar besluit</AuLink></AuHelpText>
-                <AuControlCheckbox @label="De gemeente Tervuren doet een subsidieaanvraag voor EUR [Bedrag subsidie]." />
-              </p>
+              <AuLabel>
+                Vul in per actor: het aantal opgevangen kinderen voor alle volle dagen, voor alle halve dagen en voor infrastructuur.
+              </AuLabel>
+              <table class="data-table data-table--zebra data-table--tight au-u-margin-top-small ">
+                <thead>
+                  <tr>
+                    <th>Naam actor</th>
+                    <th>Aantal kinderen voor alle volle dagen
+                      <br>(20 euro per kind)</th>
+                    <th>Aantal kinderen voor alle halve dagen
+                      <br>(10 euro per kind)</th>
+                    <th>Aantal kinderen per infrastructuur
+                      <br>(10 euro per kind)</th>
+                    <th>Totaal bedrag</th>
+                    <th>&nbsp;</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <AuLabel for="input-actor" class="au-u-hidden">Naam actor</AuLabel>
+                      <AuInput id="input-actor" @width="block" value="De Appel" />
+                    </td>
+                    <td>
+                      <AuLabel for="input-kinderen-dag" class="au-u-hidden">Kinderen per volle dag</AuLabel>
+                      <AuInput id="input-kinderen-dag" @width="block" type="number" value="10"/>
+                    </td>
+                    <td>
+                      <AuLabel for="input-kinderen-halve-dag" class="au-u-hidden">Kinderen per halve dag</AuLabel>
+                      <AuInput id="input-kinderen-halve-dag" @width="block" type="number" value="10" />
+                    </td>
+                    <td>
+                      <AuLabel for="input-kinderen-infrastructuur" class="au-u-hidden">Kinderen per infrastructuur</AuLabel>
+                      <AuInput id="input-kinderen-infrastructuur" @width="block" type="number" value="10" />
+                    </td>
+                    <td>
+                      400 euro
+                    </td>
+                    <td>
+                      <AuButton  @hideText="true" @icon="bin" @skin="secondary" @alert="true">Verwijder rij</AuButton>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <AuLabel for="2-input-actor" class="au-u-hidden">Naam actor</AuLabel>
+                      <AuInput id="2-input-actor" @width="block" />
+                    </td>
+                    <td>
+                      <AuLabel for="2-input-kinderen-dag" class="au-u-hidden">Kinderen per volle dag</AuLabel>
+                      <AuInput id="2-input-kinderen-dag" @width="block" type="number" />
+                    </td>
+                    <td>
+                      <AuLabel for="2-input-kinderen-halve-dag" class="au-u-hidden">Kinderen per halve dag</AuLabel>
+                      <AuInput id="2-input-kinderen-halve-dag" @width="block" type="number" />
+                    </td>
+                    <td>
+                      <AuLabel for="2-input-kinderen-infrastructuur" class="au-u-hidden">Kinderen per infrastructuur</AuLabel>
+                      <AuInput id="2-input-kinderen-infrastructuur" @width="block" type="number" />
+                    </td>
+                    <td>
+                      -
+                    </td>
+                    <td>
+                      <AuButton  @hideText="true" @icon="bin" @skin="secondary" @alert="true">Verwijder rij</AuButton>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="data-table__add-row u-align-center">
+                      <AuButton @iconAlignment="left" @icon="add">Voeg actor toe</AuButton>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="au-o-grid__item au-u-1-1">
+              <p><a href="">Link overzichtspagina</a></p>
             </div>
           </div>
         </div>
@@ -270,6 +275,9 @@
   {{/if}}
   <AuToolbarGroup>
     {{#unless this.model.submitted}}
+{{!--       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                @loading={{if this.submit.isRunning "true"}}
+                {{on "click" (perform this.submit)}}>Vraag subsidie aan bij Vlaamse overheid</AuButton> --}}
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}
                 {{on "click" (perform this.submit)}}>Vraag subsidie aan bij Vlaamse overheid</AuButton>
@@ -295,11 +303,11 @@
   </AuToolbarGroup>
   {{/unless}}
   {{!-- {{#if this.model.submitted}} --}}
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+{{!--   <AuToolbarGroup class="au-c-toolbar__group--row">
     <AuAlert @alertIcon="check" @alertTitle="Subsidie aangevraagd" @alertskin="success" @alertsize="small" class="au-u-margin-bottom-none">
       <p>Deze subsidie werd aangevraagd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
       <p>De opvolging verloopt via mail. Uitbetaling is voorzien op DD/MM/YYYY. U kan deze aanvraag niet bewerken. Bij vragen, contacteer ons op ... mailadres...</p>
     </AuAlert>
-  </AuToolbarGroup>
+  </AuToolbarGroup> --}}
   {{!-- {{/if}} --}}
 </AuToolbar>

@@ -20,7 +20,7 @@
     <c.header>
       <AuDataTableThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Reeks"/>
-      <AuDataTableThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Einde termijn"/>
+      {{!-- <AuDataTableThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime" @currentSorting={{this.sort}} @label="Einde termijn"/> --}}
       <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th class="au-u-visible-small-up">Gewijzigd door</th>
       <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Laatst bewerkt"/>
@@ -41,16 +41,16 @@
       </td>
     </c.body> --}}
     <tbody>
-      <tr>
+{{!--       <tr>
         <td colspan="7" class="au-c-data-table__message">
           <p>Geen subsidieaanvragen gevonden.</p>
           <LinkTo @route="subsidiebeheer.subsidies.concept" class="au-c-button" type="button">Vraag nieuwe subsidie aan</LinkTo>
         </td>
-      </tr>
+      </tr> --}}
       <tr>
         <td>Kinderopvang</td>
         <td>Kerstvakantie</td>
-        <td class="au-u-visible-small-up">30 juni 2020</td>
+        {{!-- <td class="au-u-visible-small-up">30 juni 2020</td> --}}
         <td>
           <AuPill>Concept</AuPill>
         </td>
@@ -68,7 +68,7 @@
       <tr>
         <td>Kinderopvang</td>
         <td>Herfstvakantie</td>
-        <td class="au-u-visible-small-up">30 juni 2020</td>
+        {{!-- <td class="au-u-visible-small-up">30 juni 2020</td> --}}
         <td>
           <AuPill @skin="success">Ingediend</AuPill>
         </td>
