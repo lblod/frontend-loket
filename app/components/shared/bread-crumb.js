@@ -84,11 +84,11 @@ export default class SharedBreadCrumbComponent extends Component {
     },
     {
       route: 'subsidy.applications.index',
-      crumbs: [{label: 'Subsidie aanvraag'}]
+      crumbs: [{label: 'Subsidiebeheer'}]
     },
     {
       route: 'subsidy.applications.edit',
-      crumbs: [{label: 'Subsidie aanvraag',link: 'subsidy.applications'},{label: 'Bekijk aanvraag'}]
+      crumbs: [{label: 'Subsidiebeheer',link: 'subsidy.applications'},{label: 'Bekijk ingediende reeks'}]
     },
   ]
 

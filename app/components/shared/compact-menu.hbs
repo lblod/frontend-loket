@@ -36,9 +36,9 @@
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessSubsidies}}
-    <AuNavigationLink @linkRoute="subsidy.applications.index">
-      <AuIcon @icon="document" @alignment="left" />
-      Subsidie aanvraag
-    </AuNavigationLink>
+    <AuLink @linkRoute="subsidy.applications.index" role="menuitem">
+      <AuIcon @icon="documents" @alignment="left" />
+      Subsidiebeheer
+    </AuLink>
   {{/if}}
 </AuDropdown>

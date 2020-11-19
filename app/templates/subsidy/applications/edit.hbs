@@ -1,6 +1,8 @@
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup class="au-c-toolbar__group--row">
-    <AuHeading @skin="2" class="">Bekijk subsidie aanvraag</AuHeading>
+    <AuHeading @skin="2" class="">
+      Bewerk subsidieaanvraag voor {{this.model.applicationForm.lastModifier.fullName}}
+    </AuHeading>
   </AuToolbarGroup>
   <AuToolbarGroup class="au-c-toolbar__group--row">
     <ul class="au-o-grid">
@@ -15,6 +17,10 @@
       <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
         <AuLabel>Bewerkt op</AuLabel>
         <p>{{moment-format this.model.applicationForm.modified 'DD-MM-YYYY'}}</p>
+      </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+        <AuLabel>Status</AuLabel>
+        <AuPill @skin="">{{this.model.applicationForm.status.label}}</AuPill>
       </li>
       {{#if this.save.isRunning}}
         <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
@@ -53,29 +59,25 @@
 </div>
 
 <AuToolbar @border="top" @size="large">
-  {{#if this.model.submitted}}
-  <AuToolbarGroup class="au-c-toolbar__group--row">
-    <AuAlert @alertIcon="check" @alertTitle="Dossier verstuurd" @alertskin="success" @alertsize="small" class="au-u-margin-bottom-none">
-      <p>Dit aanvraag werd verstuurd op {{moment-format this.model.applicationForm.sentDate 'DD-MM-YYYY'}}</p>
-    </AuAlert>
-  </AuToolbarGroup>
-  {{/if}}
   {{#if (and this.forceShowErrors (not this.isValidForm))}}
-  <AuToolbarGroup class="au-c-toolbar__group--row">
-    <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin="error" @alertsize="small" class="au-u-margin-bottom-none">
-      <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
-    </AuAlert>
-  </AuToolbarGroup>
+    <AuToolbarGroup class="au-c-toolbar__group--row">
+      <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin="error" @alertsize="small" class="au-u-margin-bottom-none">
+        <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
+      </AuAlert>
+    </AuToolbarGroup>
   {{/if}}
   <AuToolbarGroup>
     {{#unless this.model.submitted}}
+{{!--       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                @loading={{if this.submit.isRunning "true"}}
+                {{on "click" (perform this.submit)}}>Vraag subsidie aan bij Vlaamse overheid</AuButton> --}}
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}
-                {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
+                {{on "click" (perform this.submit)}}>Vraag subsidie aan bij Vlaamse overheid</AuButton>
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.save.isRunning "true"}}
                 @skin={{"secondary"}}
-                {{on "click" (perform this.save)}}>Bewaar</AuButton>
+                {{on "click" (perform this.save)}}>Bewaar als concept</AuButton>
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
     {{else}}
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
@@ -89,7 +91,7 @@
               @skin={{"tertiary"}}
               @alert={{"true"}}
               {{on "click" (perform this.delete)}}>
-      <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
+      <AuIcon @icon="bin" @alignment="left" /> Verwijder aanvraag
     </AuButton>
   </AuToolbarGroup>
   {{/unless}}
