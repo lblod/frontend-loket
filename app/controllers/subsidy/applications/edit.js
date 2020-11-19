@@ -67,13 +67,12 @@ export default class SubsidyApplicationsEditController extends Controller {
 
   @task
   * saveApplicationForm() {
-    // console.log('Waiting for the endpoint :)');
     yield fetch(`/management-application-forms/${this.model.applicationForm.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/vnd.api+json'},
       body: JSON.stringify(
         {
-          ...this.formStore.serializeDataWithAddAndDelGraph(this.graphs.sourceGraph, "application/n-triples"),
+          ...this.formStore.serializeDataWithAddAndDelGraph(this.graphs.sourceGraph, 'application/n-triples'),
         },
       ),
     });
@@ -96,9 +95,9 @@ export default class SubsidyApplicationsEditController extends Controller {
   @task
   * deleteApplicationForm() {
     console.log('Waiting for the endpoint :)');
-    /*     yield fetch(`/submissions/${this.model.applicationForm.id}`, {
-          method: 'DELETE',
-        }); */
+    yield fetch(`/management-application-forms/${this.model.applicationForm.id}`, {
+      method: 'DELETE',
+    });
   }
 
   @task
