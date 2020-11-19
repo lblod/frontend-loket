@@ -18,7 +18,7 @@
   as |t| >
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="TODO" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
+      <AuDataTableThSortable @field="timeBlock.conceptScheme.label" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
       {{!-- <AuDataTableThSortable @field="" @currentSorting={{this.sort}} @label="Reeks"/> --}}
       {{!-- <AuDataTableThSortable @class="au-u-visible-small-up" @field="" @currentSorting={{this.sort}} @label="Einde termijn"/> --}}
       <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
@@ -28,7 +28,7 @@
     </c.header>
 
     <c.body as |row|>
-      <td>TODO</td>
+      <td>{{row.timeBlock.conceptScheme.label}}</td>
       {{!-- <td>{{row.reeks}}</td> --}}
       <td>
         <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
