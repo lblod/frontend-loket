@@ -83,16 +83,12 @@ export default class SharedBreadCrumbComponent extends Component {
       crumbs: [{label: 'Personeelsbeheer',link: 'personeelsbeheer.personeelsaantallen.index'},{label: 'Bewerk aantallen'}]
     },
     {
-      route: 'subsidiebeheer.subsidies',
+      route: 'subsidy.applications.index',
       crumbs: [{label: 'Subsidiebeheer'}]
     },
     {
-      route: 'subsidiebeheer.subsidies.concept',
-      crumbs: [{label: 'Subsidiebeheer',link: 'subsidiebeheer.subsidies.concept'},{label: 'Bewerk concept'}]
-    },
-    {
-      route: 'subsidiebeheer.subsidies.ingediend',
-      crumbs: [{label: 'Subsidiebeheer',link: 'subsidiebeheer.subsidies.ingediend'},{label: 'Bekijk ingediende reeks'}]
+      route: 'subsidy.applications.edit',
+      crumbs: [{label: 'Subsidiebeheer',link: 'subsidy.applications'},{label: 'Bekijk ingediende reeks'}]
     },
   ]
 

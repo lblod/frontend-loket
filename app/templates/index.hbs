@@ -214,8 +214,7 @@
           </c.header>
           <c.content>
             <p>Volg hier uw aanvragen voor subsidiemaatregelen op.</p>
-            {{#if currentSession.canAccessPersoneelsbeheer}}
-            {{!-- TODOsubsidies: make for can access subsidies --}}
+            {{#if currentSession.canAccessSubsidies}}
               <p>
                 <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
               </p>
