@@ -13,6 +13,8 @@ export default Model.extend({
   email: attr(),
   fax: attr(),
   naam: attr(),
+  voornaam: attr(),
+  achternaam: attr(),
   website: attr(),
   telefoon: attr(),
   adres: belongsTo('adres', { inverse: null })
