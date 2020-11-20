@@ -31,16 +31,22 @@
       <td>{{row.timeBlock.conceptScheme.label}}</td>
       {{!-- <td>{{row.reeks}}</td> --}}
       <td>
-        <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
+        <AuPill @skin={{if row.status.isSent "success" ""}}>{{row.status.label}}</AuPill>
       </td>
       <td class="au-u-visible-medium-up">
         {{row.lastModifier.fullName}}
       </td>
       <td class="au-u-visible-small-up">
-        {{moment-format row.modified "DD/MM/YYYY"}}
+        {{moment-format row.modified "DD/MM/YYYY - HH:mm"}}
       </td>
       <td>
-        <LinkTo @route="subsidy.applications.edit" @model={{row.id}} class="au-c-link">Bekijk</LinkTo>
+        <LinkTo @route="subsidy.applications.edit" @model={{row.id}} class="au-c-link">
+          {{#if (eq row.status this.SENT_STATUS)}}
+            Bekijk
+          {{else}}
+            Bewerk
+          {{/if}}
+        </LinkTo>
       </td>
     </c.body>
   </t.content>
