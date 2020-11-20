@@ -94,7 +94,6 @@ export default class SubsidyApplicationsEditController extends Controller {
 
   @task
   * deleteApplicationForm() {
-    console.log('Waiting for the endpoint :)');
     yield fetch(`/management-application-forms/${this.model.applicationForm.id}`, {
       method: 'DELETE',
     });

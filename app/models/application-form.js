@@ -14,11 +14,12 @@ export default class Subsidy extends Model {
   @attr('date') aanvraagdatum;
   @attr('boolean') canBePaidOnKnownBankAccount;
 
-  @belongsTo('bestuurseenheid') organization;
-  @belongsTo('contact-punt') contactinfo;
-  @belongsTo('bank-account') bankAccount;
-  @belongsTo('time-block') timeBlock;
 
+  @belongsTo('contact-punt') contactinfo; // default needed
+  @belongsTo('bank-account') bankAccount; // default needed
+  @belongsTo('time-block') timeBlock; // default needed
+
+  @belongsTo('bestuurseenheid') organization;
   @belongsTo('submission-document-status') status;
   @belongsTo('gebruiker') creator;
   @belongsTo('gebruiker') lastModifier;
