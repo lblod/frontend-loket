@@ -1,6 +1,6 @@
 import Model, {attr, belongsTo} from '@ember-data/model';
 
-export default class Subsidy extends Model {
+export default class ApplicationForm extends Model {
   @attr() uri;
   @attr('datetime', {
     defaultValue(){ return new Date();}
@@ -18,6 +18,7 @@ export default class Subsidy extends Model {
   @belongsTo('contact-punt') contactinfo; // default needed
   @belongsTo('bank-account') bankAccount; // default needed
   @belongsTo('time-block') timeBlock; // default needed
+  @belongsTo('application-form-table') applicationFormTable; // default needed
 
   @belongsTo('bestuurseenheid') organization;
   @belongsTo('submission-document-status') status;

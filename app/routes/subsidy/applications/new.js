@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { CONCEPT_STATUS } from '../../../models/submission-document-status';
-import { belongsTo } from '@ember-data/model';
 
 export default class SubsidyApplicationsNewRoute extends Route {
   @service currentSession
@@ -22,13 +21,20 @@ export default class SubsidyApplicationsNewRoute extends Route {
     const contactinfo = this.store.createRecord('contact-punt');
     const bankAccount = this.store.createRecord('bank-account');
     const timeBlock = this.store.createRecord('time-block');
+    const applicationFormEntry = this.store.createRecord('application-form-entry');
+    const applicationFormTable = this.store.createRecord('application-form-table', {
+      // NOTE boilerplate objects
+      applicationFormEntries: [ applicationFormEntry ]
+    });
 
     await contactinfo.save();
     await bankAccount.save();
     await timeBlock.save();
+    await applicationFormEntry.save();
+    await applicationFormTable.save();
 
     const currentUser = await this.currentSession.user;
-    const applicationForm = this.store.createRecord('applicationForm', {
+    const applicationForm = this.store.createRecord('application-form', {
       organization: bestuurseenheid,
       aanvraagdatum: new Date(),
       status: this.conceptStatus,
@@ -37,7 +43,8 @@ export default class SubsidyApplicationsNewRoute extends Route {
       // NOTE boilerplate objects
       contactinfo,
       bankAccount,
-      timeBlock
+      timeBlock,
+      applicationFormTable
     });
 
     await applicationForm.save();
