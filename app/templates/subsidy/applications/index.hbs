@@ -12,9 +12,9 @@
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
   @noDataMessage="Geen subsidieaanvragen gevonden"
-  @sort={{sort}}
-  @page={{page}}
-  @size={{size}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
   as |t| >
   <t.content as |c|>
     <c.header>
