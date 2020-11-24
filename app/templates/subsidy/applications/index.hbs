@@ -41,7 +41,7 @@
       </td>
       <td>
         <LinkTo @route="subsidy.applications.edit" @model={{row.id}} class="au-c-link">
-          {{#if (eq row.status this.SENT_STATUS)}}
+          {{#if (eq row.status.uri this.sentStatus)}}
             Bekijk
           {{else}}
             Bewerk
