@@ -4,8 +4,8 @@ import rdflib from 'browser-rdflib';
 import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import { SENT_STATUS } from '../../../models/submission-document-status';
+import { RDF } from '@lblod/submission-form-helpers';
 
-const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 const FORM_GRAPH = new rdflib.NamedNode('http://data.lblod.info/form');
 const META_GRAPH = new rdflib.NamedNode('http://data.lblod.info/metagraph');
@@ -61,9 +61,7 @@ export default class SubsidyApplicationsEditRoute extends Route {
     });
     const content = await response.json();
     store.parse(content.form, graphs.formGraph, 'text/turtle');
-    // TODO --- add when meta data will be implemented in the service ---
-    // store.parse(content.meta, graphs.meta, 'application/n-triples');
+    store.parse(content.meta, graphs.metaGraph, 'text/turtle');
     store.parse(content.source, graphs.sourceGraph, 'text/turtle');
-
   }
 }
