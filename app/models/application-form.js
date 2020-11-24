@@ -10,7 +10,6 @@ export default class ApplicationForm extends Model {
     defaultValue(){ return new Date();}
   }) modified;
 
-  @attr('number') aangevraagdBedrag;
   @attr('date') aanvraagdatum;
   @attr('boolean') canBePaidOnKnownBankAccount;
 
