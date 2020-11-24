@@ -80,16 +80,15 @@ export default class SubsidyApplicationsEditController extends Controller {
 
   @task
   * submitApplicationForm() {
-    console.log('Waiting for the endpoint :)');
-    /*     yield fetch(`/submission-forms/${this.model.applicationForm.id}/submit`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/vnd.api+json'}
-        });
-        // Since the sent date and sent status of the application form will be set by the backend
-        // and not via ember-data, we need to manually reload the application form record
-        // to keep the index page up-to-date
-        const applicationForm = yield this.model.applicationForm.reload();
-        yield applicationForm.belongsTo('status').reload(); */
+    yield fetch(`/management-application-forms/${this.model.applicationForm.id}/submit`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/vnd.api+json'},
+    });
+    // Since the sent date and sent status of the application form will be set by the backend
+    // and not via ember-data, we need to manually reload the application form record
+    // to keep the index page up-to-date
+    const applicationForm = yield this.model.applicationForm.reload();
+    yield applicationForm.belongsTo('status').reload();
   }
 
   @task

@@ -66,22 +66,4 @@ export default class SubsidyApplicationsEditRoute extends Route {
     store.parse(content.source, graphs.sourceGraph, 'text/turtle');
 
   }
-
-  async retrieveFormData(url, store, formGraph) {
-    let response = await fetch(url, {
-      method: 'GET',
-      headers: {'Accept': 'text/turtle'},
-    });
-    const ttl = await response.text();
-    store.parse(ttl, formGraph, 'text/turtle');
-  }
-
-  async retrieveMetaData(url, store, metaGraph) {
-    let response = await fetch(url, {
-      method: 'GET',
-      headers: {'Accept': 'application/n-triples'},
-    });
-    const ttl = await response.text();
-    store.parse(ttl, metaGraph, 'text/turtle');
-  }
 }
