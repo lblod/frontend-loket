@@ -43,6 +43,14 @@
 
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}} {{if this.delete.isRunning "au-c-form--disabled"}}">
+    <p class="au-u-margin-bottom-small">Bekijk de
+      <LinkTo @route="subsidy.applications">
+        overzichtspagina met gedetailleerde informatie over alle subsidies
+      </LinkTo>.
+    </p>
+    <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidie wordt aangevraagd voor de {{this.model.applicationForm.lastModifier.fullName}}"  @alertskin={{"info"}} @alertsize="small">
+      <p>Wil u een subsidie aanvragen voor een andere bestuurseenheid aanvragen? Wissel rechtsbovenaan van bestuurseenheid door op de pijltjes te klikken</p>
+    </AuAlert>
     <div class="au-o-grid">
       <div class="au-o-grid__item au-u-1-2@medium au-u-1-1">
         <RdfForm
