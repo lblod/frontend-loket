@@ -11,7 +11,7 @@ export default class ApplicationForm extends Model {
   }) modified;
 
   @attr('date') aanvraagdatum;
-  @attr('boolean') canBePaidOnKnownBankAccount;
+  @attr() canBePaidOnKnownBankAccount;
 
   @belongsTo('contact-punt') contactinfo; // default needed
   @belongsTo('bank-account') bankAccount; // default needed
