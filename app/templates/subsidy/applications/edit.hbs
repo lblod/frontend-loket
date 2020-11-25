@@ -2,7 +2,7 @@
   <AuToolbarGroup class="au-c-toolbar__group--row">
     <AuHeading @skin="2" class="">
       Bekijk
-      {{#if (eq row.status.uri this.sentStatus)}}
+      {{#if (eq this.model.applicationForm.status.uri this.sentStatus)}}
         ingediende
       {{/if}} subsidieaanvraag voor {{this.model.applicationForm.lastModifier.fullName}}
     </AuHeading>
@@ -49,6 +49,7 @@
 
     <div class="au-o-grid">
       <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
+        <AuHeading @level="2" @skin="3" class="au-u-margin-bottom-small">Aanvrager</AuHeading>
         <AuLabel>Vraag subsidie aan voor</AuLabel>
         <AuInput disabled="disabled" value="{{this.model.applicationForm.lastModifier.fullName}}" />
         <AuHelpText>
