@@ -20,8 +20,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
 
     const contactinfo = this.store.createRecord('contact-punt');
     const bankAccount = this.store.createRecord('bank-account');
-    const timeBlock = this.store.createRecord('time-block');
-    const subsidyMeasure = this.store.createRecord('subsidy-measure');
     const applicationFormEntry = this.store.createRecord('application-form-entry');
     const applicationFormTable = this.store.createRecord('application-form-table', {
       // NOTE boilerplate objects
@@ -30,7 +28,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
 
     await contactinfo.save();
     await bankAccount.save();
-    await timeBlock.save();
     await applicationFormEntry.save();
     await applicationFormTable.save();
 
@@ -44,8 +41,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
       // NOTE boilerplate objects
       contactinfo,
       bankAccount,
-      timeBlock,
-      subsidyMeasure,
       applicationFormTable
     });
 
