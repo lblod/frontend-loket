@@ -17,7 +17,6 @@ export default class ApplicationForm extends Model {
   @belongsTo('bank-account') bankAccount; // default needed
   @belongsTo('time-block') timeBlock; // default needed
   @belongsTo('subsidy-measure') subsidyMeasure; // default needed
-  @belongsTo('application-form-table') applicationFormTable; // default needed
 
   @belongsTo('bestuurseenheid') organization;
   @belongsTo('submission-document-status') status;
