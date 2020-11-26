@@ -26,7 +26,7 @@
   <t.content as |c|>
     <c.header>
       <AuDataTableThSortable @field="subsidyMeasure.label" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
-      {{!-- <AuDataTableThSortable @field="" @currentSorting={{this.sort}} @label="Reeks"/> --}}
+      {{!-- <AuDataTableThSortable @field="timeBlock.hasStart" @currentSorting={{this.sort}} @label="Reeks"/> --}}
       {{!-- <AuDataTableThSortable @class="au-u-visible-small-up" @field="" @currentSorting={{this.sort}} @label="Einde termijn"/> --}}
       <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th class="au-u-visible-small-up">Gewijzigd door</th>
@@ -36,7 +36,7 @@
 
     <c.body as |row|>
       <td>{{row.subsidyMeasure.label}}</td>
-      {{!-- <td>{{row.reeks}}</td> --}}
+      {{!-- <td>{{row.timeBlock.label}}</td> --}}
       <td>
         <AuPill @skin={{if row.status.isSent "success" ""}}>{{row.status.label}}</AuPill>
       </td>
