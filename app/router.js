@@ -78,6 +78,13 @@ Router.map(function() {
     });
   });
 
+  this.route('subsidy', function() {
+    this.route('applications', function() {
+      this.route('new');
+      this.route('edit', { path: '/:id' });
+    });
+  });
+
   this.route('route-not-found', {
     path: '/*wildcard'
   });

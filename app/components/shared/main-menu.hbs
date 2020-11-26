@@ -51,5 +51,13 @@
         </AuNavigationLink>
       </li>
     {{/if}}
+    {{#if this.currentSession.canAccessSubsidies}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @linkRoute="subsidy.applications.index">
+          <AuIcon @icon="documents" @alignment="left" />
+          Subsidiebeheer
+        </AuNavigationLink>
+      </li>
+    {{/if}}
   </ul>
 </nav>

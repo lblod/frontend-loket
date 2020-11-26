@@ -1,0 +1,58 @@
+{{title "Subsidiebeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+<AuToolbar @border="bottom" @size="large" @nowrap="{{true}}">
+  <AuToolbarGroup>
+    <AuHeading @skin="2" data-test-loket="subsidiebeheer-page-title">Subsidiebeheer</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <div class="au-u-text-right">
+      <LinkTo @route="subsidy.applications.new" class="au-c-button" type="button">Vraag nieuwe subsidie aan</LinkTo>
+      <p class="au-u-margin-top-small">
+        <a href="http://miet.be" target="_blank" rel="noopener">
+          Overzichtspagina met informatie over alle subsidies
+        </a>
+      </p>
+    </div>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<AuDataTable
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage="Geen subsidieaanvragen gevonden"
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
+  as |t| >
+  <t.content as |c|>
+    <c.header>
+      <AuDataTableThSortable @field="subsidyMeasure.label" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
+      <AuDataTableThSortable @field="timeBlock.hasStart" @currentSorting={{this.sort}} @label="Reeks"/>
+      <!-- <AuDataTableThSortable @class="au-u-visible-small-up" @field="" @currentSorting={{this.sort}} @label="Einde termijn"/> -->
+      <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
+      <th class="au-u-visible-small-up">Gewijzigd door</th>
+      <AuDataTableThSortable @field="modified" @currentSorting={{this.sort}} @label="Laatst bewerkt"/>
+      <th></th>
+    </c.header>
+
+    <c.body as |row|>
+      <td>{{row.subsidyMeasure.label}}</td>
+      <td>{{row.timeBlock.label}}&nbsp;{{moment-format row.timeBlock.start "YYYY"}}</td>
+      <td>
+        <AuPill @skin={{if row.status.isSent "success" ""}}>{{row.status.label}}</AuPill>
+      </td>
+      <td class="au-u-visible-medium-up">
+        {{row.lastModifier.fullName}}
+      </td>
+      <td class="au-u-visible-small-up">
+        {{moment-format row.modified "DD/MM/YYYY - HH:mm"}}
+      </td>
+      <td>
+        <LinkTo @route="subsidy.applications.edit" @model={{row.id}} class="au-c-link">
+          Bekijk
+        </LinkTo>
+      </td>
+    </c.body>
+  </t.content>
+</AuDataTable>
+
+{{outlet}}
