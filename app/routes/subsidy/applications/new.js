@@ -20,16 +20,9 @@ export default class SubsidyApplicationsNewRoute extends Route {
 
     const contactinfo = this.store.createRecord('contact-punt');
     const bankAccount = this.store.createRecord('bank-account');
-    const applicationFormEntry = this.store.createRecord('application-form-entry');
-    const applicationFormTable = this.store.createRecord('application-form-table', {
-      // NOTE boilerplate objects
-      applicationFormEntries: [ applicationFormEntry ]
-    });
 
     await contactinfo.save();
     await bankAccount.save();
-    await applicationFormEntry.save();
-    await applicationFormTable.save();
 
     const currentUser = await this.currentSession.user;
     const applicationForm = this.store.createRecord('application-form', {
@@ -40,8 +33,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
       lastModifier: currentUser,
       // NOTE boilerplate objects
       contactinfo,
-      bankAccount,
-      applicationFormTable
+      bankAccount
     });
 
     await applicationForm.save();
