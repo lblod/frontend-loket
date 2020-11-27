@@ -21,7 +21,6 @@ export default class SubsidyApplicationsEditController extends Controller {
   @tracked removedTriples = [];
   @tracked forceShowErrors = false;
   @tracked isValidForm = true;
-  @tracked userSaidTheTruth = false;
 
   constructor() {
     super(...arguments);
@@ -64,11 +63,6 @@ export default class SubsidyApplicationsEditController extends Controller {
       {...this.graphs, sourceNode: this.sourceNode, store: this.formStore});
     this.addedTriples = this.formStore.match(undefined, undefined, undefined, addGraphFor(this.graphs.sourceGraph));
     this.removedTriples = this.formStore.match(undefined, undefined, undefined, delGraphFor(this.graphs.sourceGraph));
-  }
-
-  @action
-  toggleUserSaidTheTruth() {
-    this.userSaidTheTruth = !this.userSaidTheTruth;
   }
 
   @task

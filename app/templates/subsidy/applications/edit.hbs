@@ -69,18 +69,6 @@
           @formStore={{this.formStore}}
           @forceShowErrors={{this.forceShowErrors}}/>
       </div>
-
-      {{#unless this.model.submitted}}
-        <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
-          <AuHeading @level="2" @skin="3">Verklaringen</AuHeading>
-          <p>
-            <WuCheckbox @checked={{this.userSaidTheTruth}} @onClick={{this.toggleUserSaidTheTruth}} aria-labelledby="description-checkbox-truth"/>
-            <AuLabel id="description-checkbox-truth">
-              De gegevens over het aantal effectief opgevangen kinderen, zijn correct.
-            </AuLabel>
-          </p>
-        </div>
-      {{/unless}}
     </div>
   </div>
 </div>
@@ -95,7 +83,7 @@
   {{/if}}
   <AuToolbarGroup>
     {{#unless this.model.submitted}}
-      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning (not this.userSaidTheTruth)) "true"}}
+      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}
                 {{on "click" (perform this.submit)}}>Vraag subsidie aan bij Vlaamse overheid</AuButton>
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
