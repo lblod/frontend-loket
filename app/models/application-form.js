@@ -11,12 +11,12 @@ export default class ApplicationForm extends Model {
   }) modified;
 
   @attr('date') aanvraagdatum;
-  @attr() canBePaidOnKnownBankAccount;
 
   @belongsTo('contact-punt') contactinfo; // default needed
   @belongsTo('bank-account') bankAccount; // default needed
-  @belongsTo('time-block') timeBlock; // default needed
-  @belongsTo('subsidy-measure') subsidyMeasure; // default needed
+  @belongsTo('time-block') timeBlock; // concept
+  @belongsTo('subsidy-measure') subsidyMeasure; // concept
+  @belongsTo('concept') canBePaidOnKnownBankAccount; // concept
 
   @belongsTo('bestuurseenheid') organization;
   @belongsTo('submission-document-status') status;
