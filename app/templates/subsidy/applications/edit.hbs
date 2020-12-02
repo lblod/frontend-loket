@@ -81,6 +81,13 @@
       </AuAlert>
     </AuToolbarGroup>
   {{/if}}
+  {{#if this.error}}
+    <AuToolbarGroup class="au-c-toolbar__group--row">
+      <AuAlert @alertIcon="alert-triangle" @alertTitle="Oeps! Dit is een beetje gênant ..."  @alertskin="error" @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
+        <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
+      </AuAlert>
+    </AuToolbarGroup>
+  {{/if}}
   <AuToolbarGroup>
     {{#unless this.model.submitted}}
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
