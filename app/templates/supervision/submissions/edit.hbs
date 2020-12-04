@@ -72,7 +72,8 @@
   {{/if}}
   <AuToolbarGroup>
     {{#unless this.model.submitted}}
-      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+      <AuButton data-test-field-uri={{this.form.uri}}
+                @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}
                 {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
