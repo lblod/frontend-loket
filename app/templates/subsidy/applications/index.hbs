@@ -27,7 +27,8 @@
     <c.header>
       <AuDataTableThSortable @field="subsidyMeasure.label" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="timeBlock.label" @currentSorting={{this.sort}} @label="Reeks"/>
-      <!-- <AuDataTableThSortable @class="au-u-visible-small-up" @field="" @currentSorting={{this.sort}} @label="Einde termijn"/> -->
+      <AuDataTableThSortable @class="au-u-visible-small-up" @field="timeBlock.submissionPeriod.start" @currentSorting={{this.sort}} @label="Start&nbsp;termijn"/>
+      <AuDataTableThSortable @class="au-u-visible-small-up" @field="timeBlock.submissionPeriod.end" @currentSorting={{this.sort}} @label="Einde&nbsp;termijn"/>
       <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th class="au-u-visible-small-up">Gewijzigd door</th>
       <AuDataTableThSortable @field="modified" @currentSorting={{this.sort}} @label="Laatst bewerkt"/>
@@ -37,6 +38,8 @@
     <c.body as |row|>
       <td>{{row.subsidyMeasure.label}}</td>
       <td>{{row.timeBlock.label}}&nbsp;{{moment-format row.timeBlock.start "YYYY"}}</td>
+      <td>{{moment-format row.timeBlock.submissionPeriod.start "DD/MM/YYYY"}}</td>
+      <td>{{moment-format row.timeBlock.submissionPeriod.end "DD/MM/YYYY"}}</td>
       <td>
         <AuPill @skin={{if row.status.isSent "success" ""}}>{{row.status.label}}</AuPill>
       </td>
