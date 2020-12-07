@@ -22,6 +22,7 @@ export default class SubsidyApplicationsEditController extends Controller {
   @tracked removedTriples = [];
   @tracked forceShowErrors = false;
   @tracked isValidForm = true;
+  @tracked isSavedSuccessfully = false;
 
   constructor() {
     super(...arguments);
@@ -127,11 +128,13 @@ export default class SubsidyApplicationsEditController extends Controller {
   @task
   * save() {
     try {
+      this.isSavedSuccessfully = false;
       yield this.saveApplicationForm.perform();
       const user = yield this.currentSession.user;
       this.model.applicationForm.modified = new Date();
       this.model.applicationForm.lastModifier = user;
       yield this.model.applicationForm.save();
+      this.isSavedSuccessfully = true;
     } catch (exception) {
       this.error = {
         action: 'bewaren',
