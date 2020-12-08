@@ -38,8 +38,8 @@
     <c.body as |row|>
       <td>{{row.subsidyMeasure.label}}</td>
       <td>{{row.timeBlock.label}}&nbsp;{{moment-format row.timeBlock.start "YYYY"}}</td>
-      <td>{{moment-format row.timeBlock.submissionPeriod.start "DD/MM/YYYY"}}</td>
-      <td>{{moment-format row.timeBlock.submissionPeriod.end "DD/MM/YYYY"}}</td>
+      <td>{{moment-format row.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}</td>
+      <td>{{moment-format row.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</td>
       <td>
         <AuPill @skin={{if row.status.isSent "success" ""}}>{{row.status.label}}</AuPill>
       </td>
@@ -47,7 +47,7 @@
         {{row.lastModifier.fullName}}
       </td>
       <td class="au-u-visible-small-up">
-        {{moment-format row.modified "DD/MM/YYYY - HH:mm"}}
+        {{moment-format row.modified "DD-MM-YYYY — HH:mm"}}
       </td>
       <td>
         <LinkTo @route="subsidy.applications.edit" @model={{row.id}} class="au-c-link">

@@ -25,6 +25,13 @@
         <AuLabel>Status</AuLabel>
         <AuPill @skin="">{{this.model.applicationForm.status.label}}</AuPill>
       </li>
+      {{#if this.model.applicationForm.timeBlock}}
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuLabel>Termijn</AuLabel>
+          <p>{{moment-format this.model.applicationForm.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}&nbsp;—&nbsp;{{moment-format this.model.applicationForm.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</p>
+        </li>
+      {{/if}}
+      <td>{{moment-format row.timeBlock.submissionPeriod.end "DD/MM/YYYY"}}</td>
       {{#if this.save.isRunning}}
         <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
@@ -42,7 +49,7 @@
       {{/if}}
       {{#if this.isSavedSuccessfully}}
         <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="Gered!"  @alertskin="info" @alertsize="small"></AuAlert>
+          <AuAlert @alertIcon="info-circle" @alertTitle="Gereed!"  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
     </ul>
