@@ -47,9 +47,9 @@
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
-      {{#if this.isSavedSuccessfully}}
+      {{#if this.recentlySaved}}
         <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="Gereed!"  @alertskin="info" @alertsize="small"></AuAlert>
+          <AuAlert @alertIcon="info-circle" @alertTitle="up-to-date!"  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
     </ul>

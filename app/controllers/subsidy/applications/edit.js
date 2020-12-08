@@ -22,7 +22,7 @@ export default class SubsidyApplicationsEditController extends Controller {
   @tracked removedTriples = [];
   @tracked forceShowErrors = false;
   @tracked isValidForm = true;
-  @tracked isSavedSuccessfully = false;
+  @tracked recentlySaved = false;
 
   constructor() {
     super(...arguments);
@@ -78,6 +78,11 @@ export default class SubsidyApplicationsEditController extends Controller {
         },
       ),
     });
+    // Since the sent date and sent status of the application form will be set by the backend
+    // and not via ember-data, we need to manually reload the application form record
+    // to keep the form up-to-date
+    const applicationForm = yield this.model.applicationForm.reload();
+    yield applicationForm.belongsTo('timeBlock').reload();
   }
 
   @task
@@ -128,13 +133,13 @@ export default class SubsidyApplicationsEditController extends Controller {
   @task
   * save() {
     try {
-      this.isSavedSuccessfully = false;
       yield this.saveApplicationForm.perform();
       const user = yield this.currentSession.user;
       this.model.applicationForm.modified = new Date();
       this.model.applicationForm.lastModifier = user;
       yield this.model.applicationForm.save();
-      this.isSavedSuccessfully = true;
+      this.recentlySaved = true;
+      setTimeout(() => this.recentlySaved = false, 3000);
     } catch (exception) {
       this.error = {
         action: 'bewaren',
