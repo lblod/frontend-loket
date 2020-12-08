@@ -11,7 +11,7 @@ export default class Bestuurseenheid extends Model {
   @attr alternatieveNaam;
   @attr('string') mailAdres;
   @attr('boolean') wilMailOntvangen;
-  @attr submissionTrialUser;
+  @attr('boolean') isTrialUser;
 
   @belongsTo('werkingsgebied', {inverse: 'bestuurseenheid'}) werkingsgebied;
   @belongsTo('bestuurseenheid-classificatie-code', {inverse: null}) classificatie;
