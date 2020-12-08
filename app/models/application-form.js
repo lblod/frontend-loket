@@ -16,7 +16,6 @@ export default class ApplicationForm extends Model {
   @belongsTo('bank-account') bankAccount; // default needed
   @belongsTo('time-block') timeBlock; // concept
   @belongsTo('subsidy-measure') subsidyMeasure; // concept
-  @belongsTo('concept') canBePaidOnKnownBankAccount; // concept
 
   @belongsTo('bestuurseenheid') organization;
   @belongsTo('submission-document-status') status;
