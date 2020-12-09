@@ -27,29 +27,28 @@
       </li>
       {{#if this.model.applicationForm.timeBlock}}
         <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuLabel>Termijn</AuLabel>
-          <p>{{moment-format this.model.applicationForm.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}&nbsp;—&nbsp;{{moment-format this.model.applicationForm.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</p>
+          <AuLabel>Einde termijn</AuLabel>
+          <p>{{!-- Van {{moment-format this.model.applicationForm.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}&nbsp;—&nbsp; --}}{{moment-format this.model.applicationForm.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</p>
         </li>
       {{/if}}
-      <td>{{moment-format row.timeBlock.submissionPeriod.end "DD/MM/YYYY"}}</td>
       {{#if this.save.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
       {{#if this.submit.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het versturen..."  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
       {{#if this.delete.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
       {{#if this.recentlySaved}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="up-to-date!"  @alertskin="info" @alertsize="small"></AuAlert>
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuAlert @alertIcon="info-circle" @alertTitle="Opgeslagen."  @alertskin="success" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
     </ul>
@@ -108,7 +107,15 @@
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.save.isRunning "true"}}
                 @skin={{"secondary"}}
-                {{on "click" (perform this.save)}}>Bewaar als concept</AuButton>
+                @icon={{if this.recentlySaved "check"}}
+                @iconAlignment={{if this.recentlySaved "left"}}
+                {{on "click" (perform this.save)}}>
+                {{#if this.recentlySaved}}
+                  Concept bewaard
+                {{else}}
+                  Bewaar als concept
+                {{/if}}
+            </AuButton>
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
     {{else}}
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
