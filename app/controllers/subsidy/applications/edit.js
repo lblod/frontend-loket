@@ -82,6 +82,7 @@ export default class SubsidyApplicationsEditController extends Controller {
     // and not via ember-data, we need to manually reload the application form record
     // to keep the form up-to-date
     const applicationForm = yield this.model.applicationForm.reload();
+    yield applicationForm.belongsTo('subsidyMeasure').reload();
     yield applicationForm.belongsTo('timeBlock').reload();
   }
 
