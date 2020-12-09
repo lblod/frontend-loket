@@ -205,35 +205,37 @@
           </c.footer>
         </AuCard>
       </li>
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true" as |c|>
-          <c.header @badgeSkin="brand" @badgeIcon="documents">
-            <AuHeading @level="2" @skin="4">
-              Subsidiebeheer
-            </AuHeading>
-          </c.header>
-          <c.content>
-            <p>Volg hier uw aanvragen voor subsidiemaatregelen op.</p>
-            {{#if currentSession.canAccessSubsidies}}
+      {{#if currentSession._group.isTrialUser}}
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <AuCard @flex="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="documents">
+              <AuHeading @level="2" @skin="4">
+                Subsidiebeheer
+              </AuHeading>
+            </c.header>
+            <c.content>
+              <p>Volg hier uw aanvragen voor subsidiemaatregelen op.</p>
+              {{#if currentSession.canAccessSubsidies}}
+                <p>
+                  <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
+                </p>
+              {{else}}
+                <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
+                  Neem contact op met uw interne beheerder om toegang te verkrijgen.
+                </AuAlert>
+              {{/if}}
+            </c.content>
+            {{!--<c.footer>
               <p>
-                <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
+                <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener noreferrer">
+                  <AuIcon @icon="manual" @alignment="left" />
+                  Handleiding
+                </a>
               </p>
-            {{else}}
-              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
-                Neem contact op met uw interne beheerder om toegang te verkrijgen.
-              </AuAlert>
-            {{/if}}
-          </c.content>
-          {{!--<c.footer>
-            <p>
-              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener noreferrer">
-                <AuIcon @icon="manual" @alignment="left" />
-                Handleiding
-              </a>
-            </p>
-          </c.footer> --}}
-        </AuCard>
-      </li>
+            </c.footer> --}}
+          </AuCard>
+        </li>
+      {{/if}}
       {{!-- <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <AuCard @flex="true" as |c|>
           <c.header @badgeSkin="brand" @badgeIcon="documents">
