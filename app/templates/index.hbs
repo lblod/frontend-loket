@@ -2,7 +2,10 @@
   <div class="au-o-box">
     <div class="au-o-grid au-o-grid--small">
       <div class="au-o-grid__item au-u-2-5@medium">
-        <AuHeading @skin="2">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</AuHeading>
+        <AuContent class="au-u-margin-bottom">
+          <AuHeading @skin="2">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</AuHeading>
+          <p>Indien u toegang mist tot een van de modules in het loket, neem contact op met uw <strong>interne beheerder</strong>. Indien er zich een probleem voordoet met <strong>toegang</strong>, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer" class="au-c-link">gebruikersbeheer Vlaanderen</a>.</p>
+        </AuContent>
       </div>
     </div>
     <ul class="au-o-grid au-o-grid--small">
@@ -225,49 +228,17 @@
                 </AuAlert>
               {{/if}}
             </c.content>
-            {{!--<c.footer>
+            <c.footer>
               <p>
                 <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer" target="_blank" rel="noopener noreferrer">
                   <AuIcon @icon="manual" @alignment="left" />
                   Handleiding
                 </a>
               </p>
-            </c.footer> --}}
+            </c.footer>
           </AuCard>
         </li>
       {{/if}}
-      {{!-- <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <AuCard @flex="true" as |c|>
-          <c.header @badgeSkin="brand" @badgeIcon="documents">
-            <AuHeading @level="2" @skin="4">
-              Subsidiebeheer
-            </AuHeading>
-          </c.header>
-          <c.content>
-            <p>Volg hier uw aanvragen voor subsidie-maatregelen op, in kader van Slim in de Stad..</p>
-            {{#if currentSession.canAccessSubsidiebeheer}}
-              <p>
-                <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
-              </p>
-            {{else}}
-              <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
-                Neem contact op met uw interne beheerder om toegang te verkrijgen.
-              </AuAlert>
-            {{/if}}
-          </c.content>
-          <c.footer>
-            <p>
-              <a class="au-c-link au-c-link--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer" target="_blank" rel="noopener noreferrer">
-                <AuIcon @icon="manual" @alignment="left" />
-                Handleiding
-              </a>
-            </p>
-          </c.footer>
-        </AuCard>
-      </li> --}}
     </ul>
-    <AuContent class="au-u-3-4@small au-u-2-3@medium au-u-1-2@large au-u-margin-top">
-      <p>Indien u toegang mist tot een van de modules in het loket, neem contact op met uw <strong>interne beheerder</strong>. Indien er zich een probleem voordoet met <strong>toegang</strong>, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer" class="au-c-link">gebruikersbeheer Vlaanderen</a>.</p>
-    </AuContent>
   </div>
 </div>

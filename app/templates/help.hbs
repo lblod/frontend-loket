@@ -6,6 +6,18 @@
         <AuHeading @level="2" @skin="2" class="au-u-margin-bottom">Veelgestelde vragen</AuHeading>
 
         <div class="au-o-flow au-u-margin-bottom-large">
+          <AuCard @flex="true" as |c|>
+            <c.header @badgeSkin="brand" @badgeIcon="info-circle">
+              <AuHeading @level="2" @skin="4">
+                Hoe werkt het loket voor lokale besturen?
+              </AuHeading>
+              <p>
+                Bekijk hoe deze applicatie werkt in de <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding" target="_blank
+              " rel="noreferrer noopener">handleiding</a>.
+              </p>
+            </c.header>
+          </AuCard>
+
           <AuCard @expandable="true" @flex="true" @divided="true" as |c|>
             <c.header @badgeSkin="brand" @badgeIcon="info-circle">
               <AuHeading @level="2" @skin="4">
