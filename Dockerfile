@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package.json .
 RUN npm install
 COPY . .
-RUN ember build -prod
+RUN ember build --environment development
 RUN git clone https://github.com/lblod/handleiding-digitaal-loket.git handleiding \
       && rm -r handleiding/.git \
       && mv handleiding /app/dist/handleiding
