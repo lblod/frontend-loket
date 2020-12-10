@@ -118,7 +118,13 @@
             </AuButton>
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
     {{else}}
-      <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
+      <div>
+        <AuAlert @alertIcon="info-circle" @alertTitle="De subsidieaanvraag werd verstuurd."  @alertskin="success" @alertsize="small" class="au-u-margin-bottom-small">
+          <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank" rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de subsidies</a>.</p>
+          <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.</p>
+        </AuAlert>
+        <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
+      </div>
     {{/unless}}
   </AuToolbarGroup>
 
