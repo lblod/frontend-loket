@@ -3,20 +3,28 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  let app = new EmberApp(defaults, {
-
+  const customBuildConfig = {
     // Add options here
     'ember-cli-babel': {
       includePolyfill: true
     },
-    
     sassOptions: {
       includePaths: [
         'node_modules/@appuniversum/appuniversum',
         'node_modules/@appuniversum/ember-appuniversum/app/styles',
       ]
     }
-  });
+  };
+
+  if(process.env.EMBER_TEST_SELECTORS_STRIP == 'false'){
+    customBuildConfig['ember-test-selectors'] = { strip: false };
+  }
+  else if(process.env.EMBER_TEST_SELECTORS_STRIP == 'true'){
+    customBuildConfig['ember-test-selectors'] = { strip: true };
+  }
+  //if EMBER_TEST_SELECTORS_STRIP left unspecificied, we fall back to default behavoir
+
+  let app = new EmberApp(defaults, customBuildConfig);
 
   app.import('node_modules/svgxuse/svgxuse.js');
 
