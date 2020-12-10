@@ -25,19 +25,30 @@
         <AuLabel>Status</AuLabel>
         <AuPill @skin="">{{this.model.applicationForm.status.label}}</AuPill>
       </li>
+      {{#if this.model.applicationForm.timeBlock}}
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuLabel>Einde termijn</AuLabel>
+          <p>{{!-- Van {{moment-format this.model.applicationForm.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}&nbsp;—&nbsp; --}}{{moment-format this.model.applicationForm.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</p>
+        </li>
+      {{/if}}
       {{#if this.save.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
       {{#if this.submit.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het versturen..."  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
       {{#if this.delete.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
+        </li>
+      {{/if}}
+      {{#if this.recentlySaved}}
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuAlert @alertIcon="info-circle" @alertTitle="Opgeslagen."  @alertskin="success" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
     </ul>
@@ -81,6 +92,13 @@
       </AuAlert>
     </AuToolbarGroup>
   {{/if}}
+  {{#if this.error}}
+    <AuToolbarGroup class="au-c-toolbar__group--row">
+      <AuAlert @alertIcon="alert-triangle" @alertTitle="Oeps! Dit is een beetje gênant ..."  @alertskin="error" @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
+        <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
+      </AuAlert>
+    </AuToolbarGroup>
+  {{/if}}
   <AuToolbarGroup>
     {{#unless this.model.submitted}}
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
@@ -89,10 +107,24 @@
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.save.isRunning "true"}}
                 @skin={{"secondary"}}
-                {{on "click" (perform this.save)}}>Bewaar als concept</AuButton>
+                @icon={{if this.recentlySaved "check"}}
+                @iconAlignment={{if this.recentlySaved "left"}}
+                {{on "click" (perform this.save)}}>
+                {{#if this.recentlySaved}}
+                  Concept bewaard
+                {{else}}
+                  Bewaar als concept
+                {{/if}}
+            </AuButton>
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
     {{else}}
-      <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
+      <div>
+        <AuAlert @alertIcon="info-circle" @alertTitle="De subsidieaanvraag werd verstuurd."  @alertskin="success" @alertsize="small" class="au-u-margin-bottom-small">
+          <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank" rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de subsidies</a>.</p>
+          <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.</p>
+        </AuAlert>
+        <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
+      </div>
     {{/unless}}
   </AuToolbarGroup>
 

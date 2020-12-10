@@ -3,8 +3,17 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class SubsidyApplicationsIndexRoute extends Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin) {
-  modelName = 'application-form'
+  modelName = 'application-form';
+
   mergeQueryOptions() {
-    return {};
+    return {
+      include: [
+        'status',
+        'subsidy-measure',
+        'time-block',
+        'last-modifier',
+        'time-block.submission-period',
+      ].join(',')
+    };
   }
 }

@@ -33,7 +33,7 @@ export default Service.extend({
       this.set('canAccessBerichten', this.canAccess('LoketLB-berichtenGebruiker'));
       this.set('canAccessLeidinggevenden', this.canAccess('LoketLB-leidinggevendenGebruiker'));
       this.set('canAccessPersoneelsbeheer', this.canAccess('LoketLB-personeelsbeheer'));
-      this.set('canAccessSubsidies', this.canAccess('LoketLB-subsidies'));
+      this.set('canAccessSubsidies', (this.canAccess('LoketLB-subsidies') && this._group.isTrialUser));
     }
   },
   canAccess(role) {

@@ -16,11 +16,13 @@ export default class SubsidyApplicationsEditController extends Controller {
   @service currentSession;
   @service store;
 
+  @tracked error;
   @tracked datasetTriples = [];
   @tracked addedTriples = [];
   @tracked removedTriples = [];
   @tracked forceShowErrors = false;
   @tracked isValidForm = true;
+  @tracked recentlySaved = false;
 
   constructor() {
     super(...arguments);
@@ -67,7 +69,7 @@ export default class SubsidyApplicationsEditController extends Controller {
 
   @task
   * saveApplicationForm() {
-    yield fetch(`/management-application-forms/${this.model.applicationForm.id}`, {
+    yield this.fetch(`/management-application-forms/${this.model.applicationForm.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/vnd.api+json'},
       body: JSON.stringify(
@@ -76,11 +78,17 @@ export default class SubsidyApplicationsEditController extends Controller {
         },
       ),
     });
+    // Since the sent date and sent status of the application form will be set by the backend
+    // and not via ember-data, we need to manually reload the application form record
+    // to keep the form up-to-date
+    const applicationForm = yield this.model.applicationForm.reload();
+    yield applicationForm.belongsTo('subsidyMeasure').reload();
+    yield applicationForm.belongsTo('timeBlock').reload();
   }
 
   @task
   * submitApplicationForm() {
-    yield fetch(`/management-application-forms/${this.model.applicationForm.id}/submit`, {
+    yield this.fetch(`/management-application-forms/${this.model.applicationForm.id}/submit`, {
       method: 'POST',
       headers: {'Content-Type': 'application/vnd.api+json'},
     });
@@ -93,42 +101,78 @@ export default class SubsidyApplicationsEditController extends Controller {
 
   @task
   * deleteApplicationForm() {
-    yield fetch(`/management-application-forms/${this.model.applicationForm.id}`, {
+    yield this.fetch(`/management-application-forms/${this.model.applicationForm.id}`, {
       method: 'DELETE',
     });
   }
 
+  /**
+   *  Wrapper off ember-fetch to throw an error if something went wrong
+   */
+  async fetch(url, options) {
+    const response = await fetch(url, options);
+    if (response.ok) {
+      return response;
+    } else {
+      throw Error(response);
+    }
+  }
+
   @task
   * delete() {
-    yield this.deleteApplicationForm.perform();
-    this.transitionToRoute('subsidy.applications');
+    try {
+      yield this.deleteApplicationForm.perform();
+      this.transitionToRoute('subsidy.applications');
+    } catch (exception) {
+      this.error = {
+        action: 'verwijderen',
+        exception,
+      };
+    }
   }
 
   @task
   * save() {
-    yield this.saveApplicationForm.perform();
-
-    const user = yield this.currentSession.user;
-    this.model.applicationForm.modified = new Date();
-    this.model.applicationForm.lastModifier = user;
-    yield this.model.applicationForm.save();
+    try {
+      yield this.saveApplicationForm.perform();
+      const user = yield this.currentSession.user;
+      this.model.applicationForm.modified = new Date();
+      this.model.applicationForm.lastModifier = user;
+      yield this.model.applicationForm.save();
+      this.recentlySaved = true;
+      setTimeout(() => this.recentlySaved = false, 3000);
+    } catch (exception) {
+      this.error = {
+        action: 'bewaren',
+        exception,
+      };
+    }
   }
 
   @task
   * submit() {
-    const options = {...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
-    this.isValidForm = validateForm(this.form, options);
-    if (!this.isValidForm) {
-      this.forceShowErrors = true;
-    } else {
-      const user = yield this.currentSession.user;
-      this.model.applicationForm.modified = new Date();
-      this.model.applicationForm.lastModifier = user;
+    try {
+      const options = {...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
+      this.isValidForm = validateForm(this.form, options);
+      if (!this.isValidForm) {
+        this.forceShowErrors = true;
+      } else {
+        const user = yield this.currentSession.user;
+        this.model.applicationForm.modified = new Date();
+        this.model.applicationForm.lastModifier = user;
 
-      yield this.saveApplicationForm.perform();
-      yield this.submitApplicationForm.perform();
-      yield this.model.applicationForm.save();
-      this.transitionToRoute('subsidy.applications');
+        yield this.saveApplicationForm.perform();
+        yield this.submitApplicationForm.perform();
+        yield this.model.applicationForm.save();
+        this.transitionToRoute('subsidy.applications');
+      }
+    } catch (exception) {
+      this.error = {
+        action: 'aanvragen',
+        exception,
+      };
     }
   }
+
+
 }
