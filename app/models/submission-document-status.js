@@ -5,7 +5,7 @@ export default class SubmissionDocumentStatus extends Model {
   @attr('string') label;
 
   get isSent() {
-    return this.uri == SENT_STATUS;
+    return this.uri === SENT_STATUS;
   }
 }
 

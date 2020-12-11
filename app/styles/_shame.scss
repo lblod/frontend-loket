@@ -503,3 +503,16 @@ $au-non-editable-background    : $au-gray-100 !default;
 .au-c-card--flex.au-c-card--expandable > .au-c-card__header {
   align-items: flex-start;
 }
+
+
+
+.au-c-control.au-c-control--checkbox {
+  padding-left: 3rem;
+  align-items: flex-start;
+}
+
+.au-c-control.au-c-control--checkbox .au-c-control__indicator {
+  position: absolute;
+  left: 0;
+  top: .5rem;
+}
