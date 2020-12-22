@@ -1,15 +1,14 @@
-import DS from 'ember-data';
-import { belongsTo } from 'ember-data/relationships';
-import { computed } from '@ember/object';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-  address: DS.attr(),
-  replicatedFile: belongsTo('file', { inverse: null }),
+export default class FileAddressModel extends Model {
+  @attr() address;
+  @belongsTo('file', { inverse: null }) replicatedFile;
 
-  isValidAddress: computed('address', function() {
+  get isValidAddress() { 
     if (this.address && this.address.match(/^(http|ftp)s?:\/\/[\w.-]+\.\w+(\/.*)?/))
       return true;
     else
       return false;
-  })
-});
+  }
+}
+

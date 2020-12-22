@@ -1,10 +1,8 @@
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
-import { belongsTo, hasMany } from 'ember-data/relationships';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
-export default Model.extend({
-  naam: attr(),
-  fractietype: belongsTo('fractietype', { inverse: null }),
-  bestuursorganenInTijd: hasMany('bestuursorgaan', { inverse: null }),
-  bestuurseenheid: belongsTo('bestuurseenheid', { inverse: null })
-});
+export default class FractieModel extends Model {
+  @attr() naam;
+  @belongsTo('fractietype', { inverse: null }) fractietype;
+  @hasMany('bestuursorgaan', { inverse: null }) bestuursorganenInTijd;
+  @belongsTo('bestuurseenheid', { inverse: null }) bestuurseenheid;
+}

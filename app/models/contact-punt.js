@@ -1,21 +1,18 @@
-import attr from 'ember-data/attr';
-import Model from 'ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 import { collect } from '@ember/object/computed';
-import { belongsTo } from 'ember-data/relationships';
 
-export default Model.extend({
+export default class ContactPuntModel extends Model {
   // A string representation of this model, based on its attributes.
   // This is what mu-cl-resources uses to search on, and how the model will be presented while editing relationships.
-  stringRep: collect.apply(this,['id', 'land', 'gemeente', 'adres', 'postcode', 'email', 'telephone', 'fax', 'website']),
-
-  uri: attr(),
-  aanschrijfprefix: attr(),
-  email: attr(),
-  fax: attr(),
-  naam: attr(),
-  voornaam: attr(),
-  achternaam: attr(),
-  website: attr(),
-  telefoon: attr(),
-  adres: belongsTo('adres', { inverse: null })
-});
+  @collect.apply(this,['id', 'land', 'gemeente', 'adres', 'postcode', 'email', 'telephone', 'fax', 'website']) stringRep;
+  @attr() uri;
+  @attr() aanschrijfprefix;
+  @attr() email;
+  @attr() fax;
+  @attr() naam;
+  @attr() voornaam;
+  @attr() achternaam;
+  @attr() website;
+  @attr() telefoon;
+  @belongsTo('adres', { inverse: null }) adres;
+}
