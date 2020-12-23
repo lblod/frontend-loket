@@ -9,7 +9,7 @@
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
-  {{#each model.datasets as |dataset|}}
+  {{#each this.model.datasets as |dataset|}}
     <AuToolbar @size="large" @border="bottom">
       <AuToolbarGroup>
         <div>
@@ -27,15 +27,15 @@
               </AuPill>
             {{/if}}
           </AuHeading>
-          {{personeelsbeheer/employee-dataset-summary dataset=dataset}}
+          <Personeelsbeheer::EmployeeDatasetSummary @dataset={{this.dataset}}/>
         </div>
       </AuToolbarGroup>
       <AuToolbarGroup>
         <div class="au-u-text-right">
-          {{#link-to "personeelsbeheer.personeelsaantallen.latest" dataset.id class="au-c-button au-u-margin-bottom-tiny"}}
+          <LinkTo @route="personeelsbeheer.personeelsaantallen.latest" @model={{this.dataset.id}} class="au-c-button au-u-margin-bottom-tiny">
             Bekijk en bewerk aantallen
             <AuIcon @icon="nav-right" @alignment="right" />
-          {{/link-to}}
+          </LinkTo>
         </div>
       </AuToolbarGroup>
     </AuToolbar>
