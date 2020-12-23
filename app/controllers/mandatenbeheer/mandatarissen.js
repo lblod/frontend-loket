@@ -14,6 +14,7 @@ export default class MandatenbeheerMandatarissenController extends Controller {
 
 
   @tracked mandatenbeheer;
+  @tracked searchData;
 
   get hasActiveChildRoute() {
     return this.router.currentRouteName.startsWith('mandatenbeheer.mandatarissen.') &&

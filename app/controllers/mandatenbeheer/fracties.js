@@ -7,6 +7,7 @@ import { tracked } from '@glimmer/tracking';
 export default class MandatenbeheerFractiesController extends Controller {
   @tracked newFractie = null;
   @tracked isBusy = false;
+  @tracked defaultFractieType;
 
   @alias('mandatenbeheer.startDate') startDate;
   @alias('mandatenbeheer.bestuursperioden') bestuursperioden;

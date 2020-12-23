@@ -1,7 +1,10 @@
 import Controller from '@ember/controller';
 import { task, all, timeout } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
 
 export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController extends Controller {
+  @tracked dataset;
+
   get isBusy() { 
     return this.save.isRunning || this.cancel.isRunning;
   }
