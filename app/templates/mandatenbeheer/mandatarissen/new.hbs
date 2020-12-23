@@ -1,5 +1,6 @@
-{{mandatenbeheer/persoon-search-form
+<Mandatenbeheer::PersoonSearchForm
   class="au-c-body-container"
-  onCreateNewPerson=(action "createNewPerson")
-  onCancel=(action "cancel")
-  onSelect=(action selectPersoon)}}
+  @onCreateNewPerson={{this.createNewPerson}}
+  @onCancel={{this.cancel}}
+  @onSelect={{this.selectPersoon}}
+/>
