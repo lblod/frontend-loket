@@ -1,25 +1,26 @@
-{{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+{{title "Mandatenbeheer " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
 <AuToolbar @size="large" class="au-u-padding-bottom-none">
   <AuToolbarGroup>
     <AuHeading @skin="2">Beheer Fracties</AuHeading>
   </AuToolbarGroup>
   <AuToolbarGroup>
-    <AuButton {{action "createNewFractie"}}>Voeg fractie toe</AuButton>
+    <AuButton {{on 'click' this.createNewFractie}}>Voeg fractie toe</AuButton>
   </AuToolbarGroup>
 </AuToolbar>
 <AuToolbar @size="large">
   <AuToolbarGroup>
     <div class="power-select">
-      {{mandatenbeheer/bestuursperioden-selector
-          options=bestuursperioden
-          selectedStartDate=startDate
-          onSelect=(action 'selectPeriod')
-      }}
+      <Mandatenbeheer::BestuursperiodenSelector
+        @options={{this.bestuursperioden}}
+        @selectedStartDate={{this.startDate}}
+        @onSelect={{this.selectPeriod}}
+      />
+
     </div>
   </AuToolbarGroup>
 </AuToolbar>
 
-{{#if saveFractie.isRunning}}
+{{#if this.saveFractie.isRunning}}
   <AuLoader @size="small" />
 {{else}}
   <div class="au-c-body-container">
@@ -34,26 +35,26 @@
             </tr>
           </thead>
           <tbody>
-            {{#if newFractie}}
-              {{mandatenbeheer/fractie-table-row
-                  onCancel=(action "cancelEdit")
-                  onSave=(perform saveFractie)
-                  fractie=newFractie
-                  editMode=true
-              }}
+            {{#if this.newFractie}}
+              <Mandatenbeheer::FractieTableRow
+                @onCancel={{this.cancelEdit}}
+                @onSave={{perform this.saveFractie}}
+                @fractie={{this.newFractie}}
+                @editMode={{true}}
+              />
             {{/if}}
-            {{#each model as |row|}}
-              {{mandatenbeheer/fractie-table-row
-                  onCancel=(action "cancelEdit")
-                  onSave=(perform saveFractie)
-                  fractie=row
-              }}
+            {{#each this.model as |row|}}
+              <Mandatenbeheer::FractieTableRow
+                @onCancel={{this.cancelEdit}}
+                @onSave={{perform this.saveFractie}}
+                @fractie={{row}}
+              />
             {{else}}
-              {{#unless newFractie}}
+              {{#unless this.newFractie}}
                 <tr>
                   <td colspan="3" class="au-u-text-center">
                     <AuHeading @level="3" @skin="4" class="au-u-margin-bottom-small">Geen fracties gevonden</AuHeading>
-                    <AuButton {{on "click" (action "createNewFractie")}} @skin="secondary">
+                    <AuButton {{on "click" this.createNewFractie}} @skin="secondary">
                       <AuIcon @icon="add" @alignment="left" />
                       Voeg een nieuwe fractie toe
                     </AuButton>
