@@ -1,17 +1,16 @@
 import Controller from '@ember/controller';
 import { task, all, timeout } from 'ember-concurrency';
-import { computed } from '@ember/object';
 
-export default Controller.extend({
-  isBusy: computed('save.isRunning', 'cancel.isRunning', function() {
+export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController extends Controller {
+  get isBusy() { 
     return this.save.isRunning || this.cancel.isRunning;
-  }),
+  }
 
-  isFTEDataset: computed('dataset.subjects.@each.id', function() {
+  get isFTEDataset() {
     return this.dataset.subjects && this.dataset.subjects.find(um => um.isFTE);
-  }),
+  }
 
-  save: task(function*() {
+  @task(function*() {
     yield timeout(3000);
     const dirtyObservations = this.model.filter(obs => obs.hasDirtyAttributes);
 
@@ -22,5 +21,5 @@ export default Controller.extend({
       yield this.dataset.save();
     }
     this.set('isSaving', false);
-  }).keepLatest()
-});
+  }).keepLatest() save;
+}
