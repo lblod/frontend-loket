@@ -1,10 +1,10 @@
 <div class="au-c-main-container">
   <div class="au-c-main-container__content au-c-main-container__content--scroll">
-    {{#if session.isAuthenticated}}
+    {{#if this.session.isAuthenticated}}
       <section class="au-o-region-large">
         <div class="au-o-layout">
           <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          {{contact-form}}
+          <ContactForm/>
         </div>
       </section>
     {{else}}
@@ -14,7 +14,7 @@
       <section class="au-o-region-large">
         <div class="au-o-layout">
           <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          {{contact-form}}
+          <ContactForm/>
         </div>
       </section>
     {{/if}}
