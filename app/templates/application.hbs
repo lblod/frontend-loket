@@ -1,6 +1,6 @@
-{{head-layout}}
+<HeadLayout/>
 
-<AuMainHeader @brandLink="{{unless session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen">
+<AuMainHeader @brandLink="{{unless this.session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen">
   <li class="au-c-list-horizontal__item">
     <AuLink @linkRoute="help" @skin="secondary">
       <AuIcon @icon="question-circle" @alignment="left" />
@@ -8,8 +8,8 @@
     </AuLink>
   </li>
   <li class="au-c-list-horizontal__item">
-    {{#if session.isAuthenticated}}
-      <AuDropdown @dropdownTitle="{{currentSession._user.voornaam}} {{currentSession._user.achternaam}} - {{currentSession._group.classificatie.label}} {{currentSession._group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
+    {{#if this.session.isAuthenticated}}
+      <AuDropdown @dropdownTitle="{{this.currentSession._user.voornaam}} {{this.currentSession._user.achternaam}} - {{this.currentSession._group.classificatie.label}} {{this.currentSession._group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
         <AcmidmSwitch @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
           <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
         </AcmidmSwitch>
@@ -25,7 +25,7 @@
   </li>
 </AuMainHeader>
 
-{{#if session.isAuthenticated}}
+{{#if this.session.isAuthenticated}}
 <main id="main" class="au-c-main-container">
   {{#if this.isIndex}}
   <div class="au-c-main-container__sidebar">
