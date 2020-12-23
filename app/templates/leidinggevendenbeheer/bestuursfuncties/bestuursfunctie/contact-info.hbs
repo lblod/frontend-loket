@@ -1,6 +1,6 @@
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
-    <AuHeading @skin="2">Bewerk algemene contactgegevens {{bestuursfunctie.rol.label}} {{bestuurseenheid.naam}}</AuHeading>
+    <AuHeading @skin="2">Bewerk algemene contactgegevens {{this.bestuursfunctie.rol.label}} {{this.bestuurseenheid.naam}}</AuHeading>
   </AuToolbarGroup>
 </AuToolbar>
 
@@ -9,36 +9,40 @@
     <div class="au-c-form">
       <div>
         <AuLabel for="mailadres">Mailadres</AuLabel>
-        {{input id="mailadres" class="au-c-input au-u-2-3@medium js-dynamic-label__field" name="bestuursfunctie-email" placeholder=" " inputmode="email" value=(mut model.email)}}
+        <Input @id="mailadres" class="au-c-input au-u-2-3@medium js-dynamic-label__field" @name="bestuursfunctie-email" @placeholder=" " @inputmode="email" @value={{mut this.model.email}} />
+        {{input   }}
       </div>
       <div>
         <AuLabel for="telefoonnummer">Telefoonnummer</AuLabel>
-        {{input id="telefoonnummer" class="au-c-input au-u-2-3@medium js-dynamic-label__field" name="bestuursfunctie-telefoon" placeholder=" " inputmode="tel" type="tel" value=(mut model.telefoon)}}
+        <Input @id="telefoonnummer" class="au-c-input au-u-2-3@medium js-dynamic-label__field" @name="bestuursfunctie-telefoon" @placeholder=" " @inputmode="tel" @type="tel" @value={{mut this.model.telefoon}} />
       </div>
-      {{adressenregister-selector address=model.adres onChange=(perform updateAdres)}}
+      <AdressenregisterSelector
+        @address={{this.model.adres}}
+        @onChange={{perform this.updateAdres}}
+      />
     </div>
   </div>
 </div>
 
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    <AuButton {{on "click" (perform save)}} @loading="{{not save.isIdle}}">
+    <AuButton {{on "click" (perform this.save)}} @loading="{{not this.save.isIdle}}">
       Bewaar contactgegevens
     </AuButton>
-    <AuButton {{on "click" (perform resetChanges)}} @skin="secondary" @disabled="{{not isDirty}}">
+    <AuButton {{on "click" (perform this.resetChanges)}} @skin="secondary" @disabled="{{not this.isDirty}}">
       Verwerp wijzigingen
     </AuButton>
   </AuToolbarGroup>
   <AuToolbarGroup>
-    <AuButton {{action "cancel"}} @skin="secondary">Sluit</AuButton>
+    <AuButton {{on 'click' this.cancel}} @skin="secondary">Sluit</AuButton>
   </AuToolbarGroup>
 </AuToolbar>
 
 {{!-- Modal confirmation dialog --}}
-{{#if showConfirmationDialog}}
-  {{leidinggevendenbeheer/functionaris-close-confirmation
-          cancel=(action (mut showConfirmationDialog false))
-          save=(perform save)
-          reset=(perform resetChanges)
-  }}
+{{#if this.showConfirmationDialog}}
+  <Leidinggevendenbeheer::FunctionarisCloseConfirmation
+    @cancel={{action (mut showConfirmationDialog false)}}
+    @save={{perform this.save}}
+    @reset={{this.perform this.resetChanges}}
+  />
 {{/if}}
