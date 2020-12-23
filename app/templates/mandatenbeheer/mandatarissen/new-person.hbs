@@ -4,7 +4,8 @@
   </AuToolbarGroup>
 </AuToolbar>
 
-{{mandatenbeheer/create-persoon
-  onCreate=(action 'onCreate')
-  onCancel=(action 'onCancel')
-}}
+<Mandatenbeheer::CreatePersoon
+  @onCreate={{this.onCreate}}
+  @onCancel={{this.onCancel}}
+/>
+
