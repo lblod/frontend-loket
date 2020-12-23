@@ -3,7 +3,7 @@
     <div class="au-o-grid au-o-grid--small">
       <div class="au-o-grid__item au-u-2-5@medium">
         <AuContent class="au-u-margin-bottom">
-          <AuHeading @skin="2">{{currentSession._group.classificatie.label}} {{currentSession._group.naam}}</AuHeading>
+          <AuHeading @skin="2">{{this.currentSession._group.classificatie.label}} {{this.currentSession._group.naam}}</AuHeading>
           <p>Indien u toegang mist tot een van de modules in het loket, neem contact op met uw <strong>interne beheerder</strong>. Indien er zich een probleem voordoet met <strong>toegang</strong>, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer" class="au-c-link">gebruikersbeheer Vlaanderen</a>.</p>
         </AuContent>
       </div>
@@ -18,9 +18,9 @@
           </c.header>
           <c.content>
             <p>Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</p>
-            {{#if currentSession.canAccessToezicht}}
+            {{#if this.currentSession.canAccessToezicht}}
               <p>
-                <AuButton {{action "goToToezicht"}}>Ga naar toezicht</AuButton>
+                <AuButton {{on 'click' this.goToToezicht}}>Ga naar toezicht</AuButton>
               </p>
             {{else}}
               <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
@@ -52,9 +52,9 @@
           </c.header>
           <c.content>
             <p>Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
-            {{#if currentSession.canAccessBerichten}}
+            {{#if this.currentSession.canAccessBerichten}}
               <p>
-                <AuButton {{action "goToBerichtencentrum"}}>Ga naar berichtencentrum</AuButton>
+                <AuButton {{on 'click' this.goToBerichtencentrum}}>Ga naar berichtencentrum</AuButton>
               </p>
             {{else}}
               <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
@@ -86,9 +86,9 @@
           </c.header>
           <c.content>
             <p>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</p>
-            {{#if currentSession.canAccessBbcdr}}
+            {{#if this.currentSession.canAccessBbcdr}}
               <p>
-                <AuButton {{action "goToBbcdr"}}>Ga naar BBC DR</AuButton>
+                <AuButton {{on 'click' this.goToBbcdr}}>Ga naar BBC DR</AuButton>
               </p>
             {{else}}
               <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
@@ -120,9 +120,9 @@
           </c.header>
           <c.content>
             <p>Hou de mandaten binnen de gemeenten, OCMW’s, districten en provincies bij.</p>
-            {{#if currentSession.canAccessMandaat}}
+            {{#if this.currentSession.canAccessMandaat}}
               <p>
-                <AuButton {{action "goToMandatenbeheer"}}>Ga naar mandatenbeheer</AuButton>
+                <AuButton {{on 'click' this.goToMandatenbeheer}}>Ga naar mandatenbeheer</AuButton>
               </p>
             {{else}}
               <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
@@ -154,9 +154,9 @@
           </c.header>
           <c.content>
             <p>Hou hier de leidinggevende functies voor uw bestuur bij.</p>
-            {{#if currentSession.canAccessLeidinggevenden}}
+            {{#if this.currentSession.canAccessLeidinggevenden}}
               <p>
-                <AuButton {{action "goToLeidinggevendenbeheer"}}>Ga naar leidinggevendenbeheer</AuButton>
+                <AuButton {{on 'click' this.goToLeidinggevendenbeheer}}>Ga naar leidinggevendenbeheer</AuButton>
               </p>
             {{else}}
               <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
@@ -188,9 +188,9 @@
           </c.header>
           <c.content>
             <p>Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</p>
-            {{#if currentSession.canAccessPersoneelsbeheer}}
+            {{#if this.currentSession.canAccessPersoneelsbeheer}}
               <p>
-                <AuButton {{action "goToPersoneelsbeheer"}}>Ga naar personeelsbeheer</AuButton>
+                <AuButton {{on 'click' this.goToPersoneelsbeheer}}>Ga naar personeelsbeheer</AuButton>
               </p>
             {{else}}
               <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
@@ -208,7 +208,7 @@
           </c.footer>
         </AuCard>
       </li>
-      {{#if currentSession._group.isTrialUser}}
+      {{#if this.currentSession._group.isTrialUser}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
           <AuCard @flex="true" as |c|>
             <c.header @badgeSkin="brand" @badgeIcon="documents">
@@ -218,9 +218,9 @@
             </c.header>
             <c.content>
               <p>Volg hier uw aanvragen voor subsidiemaatregelen op.</p>
-              {{#if currentSession.canAccessSubsidies}}
+              {{#if this.currentSession.canAccessSubsidies}}
                 <p>
-                  <AuButton {{action "goToSubsidiebeheer"}}>Ga naar subsidiebeheer</AuButton>
+                  <AuButton {{on 'click' this.goToSubsidiebeheer}}>Ga naar subsidiebeheer</AuButton>
                 </p>
               {{else}}
                 <AuAlert @alertTitle="Geen toegang." @alertskin="info" @alertsize="tiny">
