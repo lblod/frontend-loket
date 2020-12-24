@@ -20,12 +20,12 @@ export default class BerichtencentrumBerichtenController extends Controller {
 
   @action
     showPreferences() {
-      this.showPreferences = true;
+      this.preferences = true;
     }
 
   @action
     hidePreferences() {
-      this.showPreferences = false;
+      this.preferences = false;
     }
 }
 
