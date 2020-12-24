@@ -1,20 +1,26 @@
-{{title "BBC DR " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+{{title "BBC DR " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
 <div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
-  <div class="au-o-grid__item {{if hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
+  <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
     <div class="au-c-body-container">
       <AuToolbar @size="large">
         <AuToolbarGroup>
           <AuHeading @skin="2">BBC DR</AuHeading>
         </AuToolbarGroup>
         <AuToolbarGroup>
-          <AuButton {{action "createNewReport"}} data-test-loket='bbcdr-create-report-btn'>Lever nieuw rapport aan</AuButton>
+          <AuButton {{on 'click' this.createNewReport}} data-test-loket='bbcdr-create-report-btn'>Lever nieuw rapport aan</AuButton>
         </AuToolbarGroup>
       </AuToolbar>
 
-      {{bbcdr/report-table
-        content=model sort=sort page=page size=size displaySubset=hasActiveChildRoute
+      <Bbcdr::ReportTable
+        @content={{this.model}} 
+        @sort={{this.sort}} 
+        @page={{this.page}} 
+        @size={{this.size}} 
+        @displaySubset={{this.hasActiveChildRoute}}
         data-test-loket='bbcdr-report-table'
-        class="au-c-body-container"}}
+        class="au-c-body-container"
+      />
+
     </div>
   </div>
   {{outlet}}
