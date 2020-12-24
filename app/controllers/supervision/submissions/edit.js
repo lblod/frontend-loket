@@ -8,14 +8,14 @@ import { task } from 'ember-concurrency-decorators';
 import { inject as service } from '@ember/service';
 
 export default class SupervisionSubmissionsEditController extends Controller {
-  @service currentSession
-  @service store
+  @service currentSession;
+  @service store;
 
-  @tracked datasetTriples = []
-  @tracked addedTriples = []
-  @tracked removedTriples = []
-  @tracked forceShowErrors = false
-  @tracked isValidForm = true
+  @tracked datasetTriples = [];
+  @tracked addedTriples = [];
+  @tracked removedTriples = [];
+  @tracked forceShowErrors = false;
+  @tracked isValidForm = true;
 
   constructor() {
     super(...arguments);
