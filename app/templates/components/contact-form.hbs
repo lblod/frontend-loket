@@ -6,7 +6,7 @@
         <WuRadioButton 
           @label="Een vraag of probleem over de applicatie"
           @value="LoketLokaalBestuur@vlaanderen.be?subject=Vraag of probleem - Loket Lokaal Bestuur" 
-          @onChange={{action (mut mailto)}} 
+          @onChange={{action (mut this.mailto)}} 
           @isBlock={{true}}
         />
       </li>
@@ -14,7 +14,7 @@
         <WuRadioButton 
         @label="Toezicht" 
         @value="LoketLokaalBestuur@vlaanderen.be?subject=Toezicht - Loket Lokaal Bestuur" 
-        @onChange={{action (mut mailto)}} 
+        @onChange={{action (mut this.mailto)}} 
         @isBlock={{true}}
         />
       </li>
@@ -22,7 +22,7 @@
         <WuRadioButton
           @label="BBC-DR" 
           @value="LoketLokaalBestuur@vlaanderen.be?subject=BBC-DR - Loket Lokaal Bestuur" 
-          @onChange={{action (mut mailto)}} 
+          @onChange={{action (mut this.mailto)}} 
           @isBlock={{true}}
         />
       </li>
