@@ -4,17 +4,17 @@ import { action } from '@ember/object';
 export default class BbcdrReportEditExitModalComponent extends Component {
   @action
     save(){
-      this.onSave();
+      this.args.onSave();
     }
 
   @action  
     cancel(){
-      this.onCancel();
+      this.args.onCancel();
     }
 
   @action
     discard(){
-      this.onDiscard();
+      this.args.onDiscard();
     }
 }
 

@@ -8,10 +8,10 @@
     De wijzigingen zullen verloren gaan als u niet op bewaren klikt.
   </m.content>
   <m.buttons class="modal-dialog__buttons" as |b| >
-    <b.button label="Bewaar" onClick={{this.save}} class="button modal-dialog__button delete-me-toggle-modal-save delete-me-toggle-save-toasters"/>
-    <b.button label="Annuleer" onClick={{this.cancel}} class="button button--narrow button--alt modal-dialog__button delete-me-toggle-modal-save"/>
-    <a class="modal-dialog__button delete-me-toggle-modal-save" {{this.discard}}>
+    <b.button @label="Bewaar" @onClick={{this.save}} class="button modal-dialog__button delete-me-toggle-modal-save delete-me-toggle-save-toasters"/>
+    <b.button @label="Annuleer" @onClick={{this.cancel}} class="button button--narrow button--alt modal-dialog__button delete-me-toggle-modal-save"/>
+    <a class="modal-dialog__button delete-me-toggle-modal-save" {{on 'click' this.discard}}>
       <i class="vi vi-cross vi-u-link"></i>Verwerp wijzigingen
     </a>
   </m.buttons>
-{</WuModal>
+</WuModal>
