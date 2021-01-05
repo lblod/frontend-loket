@@ -1,109 +1,123 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { gte, equal } from '@ember/object/computed';
 import { and, not } from 'ember-awesome-macros';
 import { A } from '@ember/array';
 import { all } from 'rsvp';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Component.extend({
-  classNames: ['au-o-grid__item au-u-2-5@medium'],
-  router: service(),
-  store: service(),
-  readyForTmpSave: gte('reportFiles.length', 1),
-  readyToSend: equal('reportFiles.length', 2),
-  enableUpload: and('report.status.isConcept', not('readyToSend')),
-  showExitModal: false,
 
-  reportFiles: null,
+export default class BbcdrReportEditComponent extends Component {
+  @service() router;
+  @service() store;
 
-  async didReceiveAttrs() {
-    this.set('reportFiles', await this.get('report.files').toArray() || A());
-  },
+  @and('args.report.status.isConcept', not('readyToSend')) enableUpload;
+
+  @tracked showExitModal = false;
+  @tracked showError = false;
+  @tracked reportFiles =  this.args.report.files.toArray() || A([]);
+
+  get readyToSend() {
+    return this.reportFiles.length == 2
+  }
+
+  get readyForTmpSave() {
+    return this.reportFiles.length >= 1
+  }
 
   async updateReport() {
-    this.report.set('files', this.reportFiles);
-    this.report.set('modified', new Date());
-    return this.report.save();
-  },
+    this.args.report.set('files', this.reportFiles);
+    this.args.report.set('modified', new Date());
+    return this.args.report.save();
+  }
 
-  async deleteReport(){
-    const files = await this.report.files;
+  async deleteFilesAndReport(){
+    const files = await this.args.report.files;
     await all(files.map(file => file.destroyRecord()));
-    await this.report.destroyRecord();
-  },
+    await this.args.report.destroyRecord();
+  }
 
   hasOutstandingChanges(){
-    if(this.report.get('hasDirtyAttributes') && this.report.get('id'))
+    if(this.args.report.hasDirtyAttributes && this.args.report.id)
       return true;
     if(this.didFilesChange)
       return true;
     return false;
-  },
+  }
 
-  actions: {
+  @action
     async send() {
-      this.set('showError', false);
+      this.showError = false;
       try {
         const statusSent = (await this.store.query('document-status', {
           filter: { ':uri:': 'http://data.lblod.info/document-statuses/verstuurd' }
         })).firstObject;
-        this.report.set('status', statusSent);
+        this.args.report.set('status', statusSent);
         await this.updateReport();
         this.router.transitionTo('bbcdr.rapporten.index');
       }
       catch(e) {
-        this.set('showError', true);
+        this.showError = true;
       }
-    },
+    }
 
+  @action
     async deleteReport() {
-      await this.deleteReport();
+      await this.deleteFilesAndReport();
       this.router.transitionTo('bbcdr.rapporten.index');
-    },
+    }
 
+  @action
     async tempSave(){
       await this.updateReport();
-      this.router.transitionTo('bbcdr.rapporten.edit', this.report.get('id'));
-    },
+      this.router.transitionTo('bbcdr.rapporten.edit', this.args.report.id);
+    }
 
+  @action
     async addFile(file) {
       this.reportFiles.pushObject(file);
-      this.set('didFilesChange', true);
-    },
+      this.didFilesChange = true;
+    }
 
+  @action
     async deleteFile(file) {
       this.reportFiles.removeObject(file);
-      this.set('didFilesChange', true);
-    },
+      this.didFilesChange = true;
+    }
 
+  @action
     async close(){
       if(this.isNewReport)
         await this.deleteReport();
       this.router.transitionTo('bbcdr.rapporten.index');
-    },
+    }
 
+  @action
     clickCloseCross(){
       if(this.hasOutstandingChanges())
-        this.set('showExitModal', true);
+        this.showExitModal = true;
       else
         this.router.transitionTo('bbcdr.rapporten.index');
-    },
+    }
 
+  @action
     cancelModal(){
-      this.set('showExitModal', false);
-    },
+      this.showExitModal = false;
+    }
 
+  @action
     async saveAndExitModal(){
-      this.set('showExitModal', false);
+      this.showExitModal = false;
       await this.updateReport();
       this.router.transitionTo('bbcdr.rapporten.index');
-    },
+    }
 
+  @action
     async discardAndExitModal(){
-      this.set('showExitModal', false);
+      this.showExitModal = false;
       if(this.isNewReport)
         await this.deleteReport();
       this.router.transitionTo('bbcdr.rapporten.index');
     }
-  }
-});
+}
+
