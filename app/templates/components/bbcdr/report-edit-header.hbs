@@ -7,7 +7,7 @@
         <AuHeading @level="2" @skin="3">Bekijk rapport</AuHeading>
       {{/if}}
     </AuToolbarGroup>
-    <button type="button" class="au-c-close au-c-close--large" {{on 'click' this.close}} data-test-loket="bbcdr-close-panel-btn">
+    <button type="button" class="au-c-close au-c-close--large" {{on 'click' @onClose}} data-test-loket="bbcdr-close-panel-btn">
       <AuIcon @icon="cross" @size="large" />
       <span class="au-u-hidden-visually">Verwijderen</span>
     </button>
