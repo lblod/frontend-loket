@@ -2,8 +2,8 @@
   <div class="modal-dialog">
     <h2 class="modal-dialog__title">Wil u de aangebrachte wijzigingen bewaren?</h2>
     <div class="modal-dialog__content u-spacer">De wijzigingen zullen verloren gaan als u niet op bewaren klikt.</div>
-    {{wu-button label="Bewaar" onClick=(action save)}}
-    {{wu-button label="Annuleer" onClick=(action cancel) isAlt=true isNarrow=true}}
-    {{wu-button label="Verwerp wijzigingen" onClick=(action reset) isLink=true isNarrow=true}}
+    <WuButton @label="Bewaar" @onClick={{@save}}/>
+    <WuButton @label="Annuleer" @onClick={{@cancel}} @isAlt={{true}} @isNarrow={{true}} />
+    <WuButton @label="Verwerp wijzigingen" @onClick={{@reset}} @isLink={{true}} @isNarrow={{true}} />
   </div>
 </div>
