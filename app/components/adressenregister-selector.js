@@ -17,11 +17,15 @@ export default class AdressenregisterSelectorComponent extends Component {
   @tracked addressWithBusnumber;
   @tracked addressesWithBusnumbers;
 
-  async init() {
-    super.init(...arguments);
+  constructor() {
+    super(...arguments);
+    this.getAddressInfo();
+  }
+
+  async getAddressInfo() {
     const address = await this.address;
     if (address) {
-      this.addressSuggestion = this.addressregister.toAddressSuggestion(address);
+      this.addressSuggestion = await this.addressregister.toAddressSuggestion(address);
       const addresses = await this.addressregister.findAll(this.addressSuggestion);
       if (addresses.length > 1) {
         const selectedAddress = addresses.find(a => a.busnumber == address.busnummer);
