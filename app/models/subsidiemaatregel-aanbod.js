@@ -1,7 +1,7 @@
 import Model, {attr, belongsTo} from '@ember-data/model';
 
-export default class SubsidyMeasureModel extends Model {
-  @attr('string') label;
+export default class SubsidiemaatregelAanbodModel extends Model {
+  @attr('string') naam;
 
   @belongsTo('concept-scheme') conceptScheme;
 }
