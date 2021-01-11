@@ -1,13 +1,14 @@
-<AuButton @skin="tertiary" class="au-c-button--toggle" {{action "toggleOpen"}}>
+<div class="{{if this.isOpen "js-accordion--open"}}">
+<AuButton @skin="tertiary" class="au-c-button--toggle" {{on 'click' this.toggleOpen}}>
   Toon totalen per orgaan
   <AuIcon @icon="nav-down" @alignment="right" />
 </AuButton>
 <div class="au-c-accordion au-u-text-left">
-  {{#if getMandatarissenTotals.isRunning}}
+  {{#if this.getMandatarissenTotals.isRunning}}
     <AuLoader @size="small" />
   {{else}}
     <div class="au-o-grid">
-      {{#each mandatarissenTotals as |orgaanMap|}}
+      {{#each this.mandatarissenTotals as |orgaanMap|}}
         <div class="au-o-grid__item au-u-1-3@medium">
           <AuHeading @level="2" @skin="6">{{orgaanMap.orgaan.isTijdsspecialisatieVan.naam}}</AuHeading>
           <p class="au-c-info-text">{{moment-format orgaanMap.orgaan.bindingStart "YYYY"}} tot {{#if orgaanMap.orgaan.bindingEinde}}{{moment-format orgaanMap.orgaan.bindingEinde "YYYY"}}{{else}}heden{{/if}}</p>
@@ -25,4 +26,5 @@
       {{/each}}
     </div>
   {{/if}}
+</div>
 </div>
