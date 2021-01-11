@@ -1,10 +1,10 @@
-{{#if showDefaultHead}}
+{{#if this.showDefaultHead}}
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
     <AuHeading @skin="2">Voeg mandataris toe uit de lijst van verkozenen</AuHeading>
   </AuToolbarGroup>
   <AuToolbarGroup>
-    {{#link-to 'mandatenbeheer.mandatarissen.new-person' class="au-c-button"}}Voeg iemand buiten de lijst toe{{/link-to}}
+    <LinkTo @route='mandatenbeheer.mandatarissen.new-person' class="au-c-button">Voeg iemand buiten de lijst toe</LinkTo>
   </AuToolbarGroup>
 </AuToolbar>
 {{/if}}
@@ -15,21 +15,21 @@
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
         <div class="au-c-input-wrapper">
-          {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Voornaam" value=gebruikteVoornaam key-up=(perform search) id="mandataris-voornaam"}}
+          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Voornaam" @value={{this.gebruikteVoornaam}} @key-up={{perform this.search}} @id="mandataris-voornaam" />
           <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
         </div>
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-naam">Familienaam</AuLabel>
         <div class="au-c-input-wrapper">
-          {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Familienaam" value=achternaam key-up=(perform search) id="mandataris-naam"}}
+          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Familienaam" @value={{this.achternaam}} @key-up={{perform this.search}} @id="mandataris-naam" />
           <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
         </div>
       </div>
       <div class="au-o-grid__item">
         <AuLabel for="mandataris-rijksregisternummer">Zoek rijksregisternummer <AuPill>Optioneel</AuPill></AuLabel>
         <div class="au-c-input-wrapper">
-          {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" name="mandataris-pattern" placeholder="Rijksregisternummer" value=identificator key-up=(perform search) id="mandataris-rijksregisternummer"}}
+          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Rijksregisternummer" @value={{this.identificator}} @key-up={{perform this.search}} @id="mandataris-rijksregisternummer" />
           <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
         </div>
       </div>
@@ -39,21 +39,21 @@
 
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box">
-    {{#if error}}
+    {{#if this.error}}
       <AuAlert @alertIcon="alert-triangle" @alertTitle="Fout bij het zoeken, gelieve opnieuw te proberen" @alertskin="warning">
         <p class="au-u-margin-top-small">
-          <AuButton {{action 'toggleError'}}>OK</AuButton>
+          <AuButton {{on 'click' this.toggleError}}>OK</AuButton>
         </p>
       </AuAlert>
     {{/if}}
-    {{#if isQuerying}}
+    {{#if this.isQuerying}}
       <AuLoader @size="small" />
     {{else}}
-      {{#unless hasSearched}}
+      {{#unless this.hasSearched}}
         <AuContent>
           <p class="au-c-text-info">
             Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of
-            <AuButton @skin="tertiary" {{action onCreateNewPerson}}>
+            <AuButton @skin="tertiary" {{on 'click' @onCreateNewPerson}}>
               <AuIcon @icon="add" @alignment="left" />
               voeg een nieuwe persoon toe
             </AuButton>.
@@ -63,14 +63,14 @@
 
         </div>
       {{else}}
-        {{#if personen}}
+        {{#if this.personen}}
           <ul class="au-c-list-vertical">
-            {{#each personen as |persoon|}}
+            {{#each this.personen as |persoon|}}
               <li class="au-c-list-vertical__item">
-              {{mandatenbeheer/persoon-search-result
-                  persoon=persoon
-                  onSelect=(action "selectPersoon")
-              }}
+                <Mandatenbeheer::PersoonSearchResult
+                  @persoon={{persoon}}
+                  @onSelect={{this.selectPersoon}}
+                />
               </li>
             {{/each}}
           </ul>
@@ -78,17 +78,17 @@
           <AuAlert @alertTitle="Komt het zoekresultaat niet overeen met wat u zocht?" @alertskin="info" @alertsize="tiny" class="au-u-margin-top-small">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="tertiary" {{action onCreateNewPerson}} class="au-c-link">
+              <AuButton @skin="tertiary" {{on 'click' @onCreateNewPerson}} class="au-c-link">
                 <AuIcon @icon="add" @alignment="left" />
                 voeg een nieuwe persoon toe
               </AuButton>.
             </p>
           </AuAlert>
         {{else}}
-          <AuAlert @alertTitle='"{{searchTerms}}" bestaat mogelijk nog niet.' @alertskin="info" @alertsize="tiny">
+          <AuAlert @alertTitle='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @alertskin="info" @alertsize="tiny">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="tertiary" {{action onCreateNewPerson}} class="au-c-link">
+              <AuButton @skin="tertiary" {{on 'click' @onCreateNewPerson}} class="au-c-link">
                 <AuIcon @icon="add" @alignment="left" />
                 voeg een nieuwe persoon toe
               </AuButton>.
@@ -100,23 +100,23 @@
   </div>
 </div>
 
-{{#unless isQuerying}}
-{{#if hasSearched}}
-{{#if personen}}
-{{mandatenbeheer/persoon-search-form-pagination
-  page=page
-  size=pageSize
-  nbOfItems=personen.length
-  total=personen.meta.count
-  links=personen.meta.pagination
-  onSelectPage=(action "selectPage")
-}}
-{{/if}}
-{{/if}}
+{{#unless this.isQuerying}}
+  {{#if this.hasSearched}}
+    {{#if this.personen}}
+    <Mandatenbeheer::PersoonSearchFormPagination
+      @page={{this.page}}
+      @size={{this.pageSize}}
+      @nbOfItems={{this.personen.length}}
+      @total={{this.personen.meta.count}}
+      @links={{this.personen.meta.pagination}}
+      @onSelectPage={{this.selectPage}}
+    />
+    {{/if}}
+  {{/if}}
 {{/unless}}
 
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    <AuButton {{action "cancel"}} @skin="secondary">Annuleer</AuButton>
+    <AuButton {{on 'click' this.cancel}} @skin="secondary">Annuleer</AuButton>
   </AuToolbarGroup>
 </AuToolbar>
