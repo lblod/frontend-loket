@@ -9,7 +9,7 @@
         <li>beëindig dit mandaat door de einddatum in te vullen;</li>
         <li><strong>start een nieuw mandaat</strong> met de gewijzigde situatie.</li>
       </ul>
-      <AuButton {{action "terminate"}}>Wijzig einde mandaat</AuButton>
+      <AuButton {{on 'click' this.terminate}}>Wijzig einde mandaat</AuButton>
     </AuContent>
   </div>
   <div class="au-o-grid__item au-u-1-2">
@@ -19,7 +19,7 @@
         <strong>fouten</strong> bevat, en niet goed ingevoerd werd in het verleden,
         <strong>corrigeer</strong> de fouten.
       </p>
-      <AuButton @skin="secondary" {{action "correct"}}>Corrigeer fouten</AuButton>
+      <AuButton @skin="secondary" {{on 'click' this.correct}}>Corrigeer fouten</AuButton>
     </AuContent>
   </div>
 </div>
