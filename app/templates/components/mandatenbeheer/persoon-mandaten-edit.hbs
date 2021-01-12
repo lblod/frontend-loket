@@ -1,4 +1,4 @@
-<AuToolbar @border="bottom" @size="large">
+ <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
     <AuHeading @skin="2">Bewerk mandaten<br><strong>{{@persoon.gebruikteVoornaam}} {{@persoon.achternaam}}</strong></AuHeading>
   </AuToolbarGroup>
@@ -41,7 +41,7 @@
       {{#each this.mandatarissen as |mandataris|}}
       <Mandatenbeheer::MandatarisEdit
           @bestuursorganen={{@bestuursorganen}}
-          @mandataris={{this.mandataris}}
+          @mandataris={{mandataris}}
           @onSave={{@mandatarisSaved}}
           @onCancelCreate={{this.mandatarisCreateCanceled}}
         />
