@@ -1,41 +1,44 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 import { A } from '@ember/array';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
+export default class MandatenbeheerBeleidsdomeinSelectorWithCreateComponent extends Component {
+  @service() store;
 
-  init(){
-    this._super(...arguments);
-    this.set('_beleidsdomeinen', A());
-  },
+  @tracked _beleidsdomeinen = A();
 
-  didReceiveAttrs(){
-    this.set('_beleidsdomeinen', (this.beleidsdomeinen || A()).toArray());
-  },
+  constructor(){
+    super(...arguments);
+    this._beleidsdomeinen = (this.beleidsdomeinen || A()).toArray();
+  }
 
-  searchByName: task(function* (searchData) {
+  @task(function* (searchData) {
     yield timeout(300);
     let queryParams = {
       sort:'label',
       'filter[label]': searchData
     };
     return yield this.store.query('beleidsdomein-code', queryParams);
-  }),
+  }) searchByName;
 
-  actions: {
+  @action
     select(beleidsdomeinen){
       this._beleidsdomeinen.setObjects(beleidsdomeinen);
-      this.onSelect(this._beleidsdomeinen);
-    },
+      this.args.onSelect(this._beleidsdomeinen);
+    }
+
+  @action
     async create(beleidsdomein){
       let domein = await this.store.createRecord('beleidsdomein-code', {label: beleidsdomein});
       this._beleidsdomeinen.pushObject(domein);
-      this.onSelect(this._beleidsdomeinen);
-    },
+      this.args.onSelect(this._beleidsdomeinen);
+    }
+
+  @action
     suggest(term) {
       return `Voeg "${term}" toe`;
     }
-  }
-});
+}
