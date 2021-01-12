@@ -1,34 +1,42 @@
+import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
-import Component from '@ember/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  rol: reads('mandataris.bekleedt.bestuursfunctie.label'),
-  start: reads('mandataris.start'),
-  einde: reads('mandataris.einde'),
-  fractie: reads('mandataris.heeftLidmaatschap.binnenFractie.naam'),
-  rangorde: reads('mandataris.rangorde.content'),
-  status: reads('mandataris.status.label'),
-  beleidsdomein: reads('mandataris.beleidsdomein'),
+export default class MandatenbeheerMandatarisSummaryComponent extends Component {
+  @reads('args.mandataris.bekleedt.bestuursfunctie.label') rol;
+  @reads('args.mandataris.start') start;
+  @reads('args.mandataris.einde') einde;
+  @reads('args.mandataris.heeftLidmaatschap.binnenFractie.naam') fractie;
+  @reads('args.mandataris.rangorde.content') rangorde;
+  @reads('args.mandataris.status.label') status;
+  @reads('args.mandataris.beleidsdomein') beleidsdomein;
 
-  async didReceiveAttrs() {
-    const beleidsdomein = await this.beleidsdomein;
+  @tracked formattedBeleidsdomein;
+
+  constructor() {
+    super(...arguments)
+    const beleidsdomein = this.beleidsdomein;
     if (beleidsdomein.length) {
       const mappedBeleidsdomein = beleidsdomein.map(item => item.label);
-      this.set('formattedBeleidsdomein', mappedBeleidsdomein.join(', '));
+      this.formattedBeleidsdomein = mappedBeleidsdomein.join(', ');
     } else {
-      this.set('formattedBeleidsdomein', []);
-    }
-  },
-
-  actions: {
-    edit(){
-      this.onEdit();
-    },
-    terminate(){
-      this.onTerminate();
-    },
-    correct(){
-      this.onCorrect();
+      this.formattedBeleidsdomein = [];
     }
   }
-});
+
+  @action
+    edit(){
+      this.args.onEdit();
+    }
+
+  @action
+    terminate(){
+      this.args.onTerminate();
+    }
+
+  @action
+    correct(){
+      this.args.onCorrect();
+    }
+}
