@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { computed } from '@ember/object';
 import moment from 'moment';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
@@ -8,7 +7,6 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
   @tracked _options;
 
   getUniqueBestuursperiodes(bestuursorganen){
-    console.log(bestuursorganen)
     let options = bestuursorganen
         .map(b => { return { bindingStart: b.bindingStart, bindingEinde: b.bindingEinde }; })
         .sortBy('bindingStart').reverse();
