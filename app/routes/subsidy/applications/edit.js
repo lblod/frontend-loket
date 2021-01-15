@@ -52,6 +52,16 @@ export default class SubsidyApplicationsEditRoute extends Route {
     controller.forceShowErrors = false;
   }
 
+  resetController(controller, isExiting, transition) {
+    if (isExiting) {
+      /**
+       * NOTE: when exciting a controller, we want the error object to be reset.
+       *       prevent it from "leaking" to other form edit-routes.
+       */
+      controller.set('error', null);
+    }
+  }
+
   // --- Helpers ---
 
   async retrieveForm(url, store, graphs) {
