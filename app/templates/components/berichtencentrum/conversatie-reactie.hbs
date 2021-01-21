@@ -52,10 +52,12 @@
     </AuButtonGroup>
   </div>
 {{else}}
-  <AuButton {{on 'click' this.expandMe}} @width="block">
-    <AuIcon @icon="message" @alignment="left" />
-    Plaats reactie
-  </AuButton>
+  <div>
+    <AuButton {{on 'click' this.expandMe}} @width="block">
+      <AuIcon @icon="message" @alignment="left" />
+      Plaats reactie
+    </AuButton>
+  </div>  
 {{/if}}
 
   
