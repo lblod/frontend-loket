@@ -4,7 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class MandatenbeheerFractieTableRowComponent extends Component {
-  @tracked editMode = false;
+  @tracked editMode = true;
 
   get isValid() {
     return this.args.fractie && this.args.fractie.naam && this.args.fractie.hasDirtyAttributes;
