@@ -42,7 +42,7 @@
       {{/unless}}
       <AuButtonGroup>
         {{#if @report.status.isConcept}}
-        <AuButton {{on 'click' this.send}} @disabled={{not this.readyToSend}} data-test-loket="bbcdr-send-btn">
+        <AuButton {{on 'click' this.send}} @disabled="{{not this.readyToSend}}" data-test-loket="bbcdr-send-btn">
           Verstuur naar Vlaamse Overheid
         </AuButton>
         <AuButton {{on 'click' this.tempSave}} @skin="secondary">
