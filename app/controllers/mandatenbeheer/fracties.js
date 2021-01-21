@@ -8,6 +8,7 @@ export default class MandatenbeheerFractiesController extends Controller {
   @tracked newFractie = null;
   @tracked isBusy = false;
   @tracked defaultFractieType;
+  @tracked mandatenbeheer;
 
   @alias('mandatenbeheer.startDate') startDate;
   @alias('mandatenbeheer.bestuursperioden') bestuursperioden;
