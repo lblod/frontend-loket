@@ -3,6 +3,8 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 import { inject as service } from '@ember/service';
 import ENV from 'frontend-loket/config/environment';
 import { warn } from '@ember/debug';
+import 'moment';
+import 'moment-timezone';
 
 export default class ApplicationRoute extends Route.extend(ApplicationRouteMixin) {
   @service() currentSession;
