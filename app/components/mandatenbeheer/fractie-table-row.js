@@ -17,7 +17,9 @@ export default class MandatenbeheerFractieTableRowComponent extends Component {
     cancel() {
       this.editMode = false;
       this.args.onCancel(this.args.fractie);
-      this.fractie.rollbackAttributes();
+      if(this.fractie){
+        this.fractie.rollbackAttributes();
+      }
     }
 
   @action
