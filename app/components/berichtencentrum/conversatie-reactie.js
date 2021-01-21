@@ -32,11 +32,12 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   // used before.
 
   @task(function *() {
-    const berichten = yield this.args.conversatie.berichten.sortBy('verzonden');
+    const berichten = yield this.args.conversatie.berichten;
+    const sortedBerichten = berichten.sortBy('verzonden')
     const ourGroup = yield this.currentSession.group;
 
     // find first sender of message that is not our group
-    for( let bericht of berichten ){
+    for( let bericht of sortedBerichten){
       let sender = yield bericht.van;
       if( sender && sender.id !== ourGroup.id ) {
         this.originator = sender;
