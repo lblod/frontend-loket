@@ -1,4 +1,4 @@
-import Model, {attr} from '@ember-data/model';
+import Model, { attr } from '@ember-data/model';
 
 export default class Vendor extends Model {
   @attr('string') name;
