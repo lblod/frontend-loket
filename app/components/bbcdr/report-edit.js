@@ -15,7 +15,10 @@ export default class BbcdrReportEditComponent extends Component {
 
   @tracked showExitModal = false;
   @tracked showError = false;
-  @tracked reportFiles =  this.args.report.files.toArray() || A([]);
+
+  get reportFiles(){
+    return this.args.report.get('files') || A([])
+  }
 
   get readyToSend() {
     return this.reportFiles.length == 2
