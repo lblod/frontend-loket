@@ -11,7 +11,6 @@ export default class AdressenregisterSelectorComponent extends Component {
   @empty('addressWithBusnumber') isDisabledBusnumberSelect;
 
   @tracked address = null;
-  @tracked onChange = null;
   @tracked addressSuggestion;
   @tracked addressesWithBusnumbers;
   @tracked addressWithBusnumber;
@@ -46,15 +45,15 @@ export default class AdressenregisterSelectorComponent extends Component {
     if (addressSuggestion) {
       const addresses = yield this.addressregister.findAll(addressSuggestion);
       if (addresses.length == 1) {
-        this.onChange(addresses[0].adresProperties);
+        this.args.onChange(addresses[0].adresProperties);
       } else { // selection of busnumber required
         const sortedBusNumbers = addresses.sortBy('busnumber');
         this.addressesWithBusnumbers = sortedBusNumbers;
         this.addressWithBusnumber = sortedBusNumbers[0];
-        this.onChange(this.addressWithBusnumber.adresProperties);
+        this.args.onChange(this.addressWithBusnumber.adresProperties);
       }
     } else {
-      this.onChange(null);
+      this.args.onChange(null);
     }
   }) selectSuggestion;
 
@@ -67,6 +66,6 @@ export default class AdressenregisterSelectorComponent extends Component {
   @action
     selectAddressWithBusnumber(address) {
       this.addressWithBusnumber = address;
-      this.onChange(address.adresProperties);
+      this.args.onChange(address.adresProperties);
     }
 }
