@@ -52,7 +52,7 @@ export default class SubsidyApplicationsEditRoute extends Route {
     controller.forceShowErrors = false;
   }
 
-  resetController(controller, isExiting, transition) {
+  resetController(controller, isExiting) {
     if (isExiting) {
       /**
        * NOTE: when exciting a controller, we want the error object to be reset.
