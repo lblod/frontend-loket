@@ -23,7 +23,7 @@
   as |t| >
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="subsidyMeasure.label" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
+      <AuDataTableThSortable @field="subsidyMeasure.naam" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="timeBlock.label" @currentSorting={{this.sort}} @label="Reeks"/>
       {{!-- <AuDataTableThSortable @class="au-u-visible-small-up" @field="timeBlock.submissionPeriod.start" @currentSorting={{this.sort}} @label="Start&nbsp;termijn"/> --}}
       <AuDataTableThSortable @class="au-u-visible-small-up" @field="timeBlock.submissionPeriod.end" @currentSorting={{this.sort}} @label="Einde&nbsp;termijn"/>
@@ -34,7 +34,7 @@
     </c.header>
 
     <c.body as |row|>
-      <td>{{row.subsidyMeasure.label}}</td>
+      <td>{{row.subsidyMeasure.naam}}</td>
       <td>{{row.timeBlock.label}}&nbsp;{{moment-format row.timeBlock.start "YYYY"}}</td>
       {{!-- <td>{{moment-format row.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}</td> --}}
       <td>{{moment-format row.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</td>

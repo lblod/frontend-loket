@@ -6,6 +6,6 @@ export default class TimeBlock extends Model {
   @attr('date') start;
   @attr('date') end;
 
-  @belongsTo('time-block') submissionPeriod;
+  @belongsTo('time-block', { inverse: null }) submissionPeriod;
   @belongsTo('concept-scheme') conceptScheme;
 }
