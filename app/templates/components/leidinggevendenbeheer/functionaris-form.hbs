@@ -1,45 +1,46 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box">
-    <Leidinggevendenbeheer::PersoonCard @persoon={{@model.isBestuurlijkeAliasVan}} @hideHeader={{true}}/>
+    <Leidinggevendenbeheer::PersoonCard @persoon={{@model.isBestuurlijkeAliasVan}} @hideHeader={{true}} />
 
-    <AuHr @size="large"/>
+    <AuHr @size="large" />
 
     <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">Functie</AuHeading>
     <div class="au-o-grid au-o-grid--tiny">
       <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
         <AuLabel for="datepicker-from">Start aanstellingsperiode</AuLabel>
-        <WuDatepicker
-          @value={{mut @model.start}}
-          @placeholder="01.01.2019"
-          @dateFormat="DD.MM.YYYY"
-          class="date-range__datepicker datepicker datepicker--block"/>
+          {{wu-datepicker
+            value=(mut @model.start)
+            placeholder="01.01.2019"
+            dateFormat="DD.MM.YYYY"
+            classNames="date-range__datepicker datepicker datepicker--block"
+          }}
         {{#unless @model.start}}
-          <AuHelpText @error="true">Start aanstellingsperiode is verplicht</AuHelpText>
+        <AuHelpText @error="true">Start aanstellingsperiode is verplicht</AuHelpText>
         {{/unless}}
       </div>
       <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
         <AuLabel for="datepicker-from">Einde aanstellingsperiode</AuLabel>
-        <WuDatepicker
-          @value={{mut @model.einde}}
-          @placeholder="31.12.2019"
-          @dateFormat="DD.MM.YYYY"
-          class="date-range__datepicker datepicker datepicker--block"
-        />
+          {{wu-datepicker
+            value=(mut @model.einde)
+            placeholder="31.12.2019"
+            dateFormat="DD.MM.YYYY"
+            classNames="date-range__datepicker datepicker datepicker--block"
+          }}
       </div>
     </div>
     {{#if (gt this.statusOptions.length 1)}}
     <AuLabel class="au-u-margin-top">Status</AuLabel>
     <div class="au-o-grid au-o-grid--tiny">
       {{#each this.statusOptions as |status|}}
-        <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-          <WuRadioButton 
-            @label={{status.label}} 
-            @value={{status}} 
-            @isBlock={{true}}
-            @onChange={{mut @model.status status}}
-            @checked={{eq status.id @model.status.id}}
-          />
-        </div>
+      <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
+        {{wu-radio-button 
+          label=status.label 
+          value=status 
+          isBlock=true
+          onChange=(action (mut @model.status status))
+          checked=(eq status.id @model.status.id)
+        }}
+      </div>
       {{/each}}
     </div>
     {{/if}}
