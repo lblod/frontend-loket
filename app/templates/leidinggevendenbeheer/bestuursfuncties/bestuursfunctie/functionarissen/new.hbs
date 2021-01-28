@@ -28,17 +28,17 @@
   <Leidinggevendenbeheer::FunctionarisForm @model={{this.functionaris}} as |isValid|>
     <AuToolbar @border="top" @size="large">
       <AuToolbarGroup>
-        <AuButton {{on 'click' this.goBackToSearch}} @skin="tertiary" @disabled="{{this.save.isRunning}}">
+        <AuButton {{on 'click' this.goBackToSearch}} @skin="tertiary" @disabled={{this.save.isRunning}}>
           <AuIcon @icon="arrow-left" @alignment="left" />
           Vorige stap
         </AuButton>
       </AuToolbarGroup>
       <AuToolbarGroup>
         <AuButtonGroup>
-          <AuButton @skin="secondary" @disabled="{{this.save.isRunning}}" {{on 'click' this.cancel}}>
+          <AuButton @skin="secondary" @disabled={{this.save.isRunning}} {{on 'click' this.cancel}}>
             Annuleer
           </AuButton>
-          <AuButton @disabled="{{if (or (not isValid) this.save.isRunning) "true"}}" {{on "click" (perform this.save)}}>
+          <AuButton @disabled={{if (or (not isValid) this.save.isRunning) "true"}} {{on "click" (perform this.save)}}>
             Voeg aanstellingsperiode toe
           </AuButton>
         </AuButtonGroup>

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
-import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { computed } from '@ember/object';
 
 export default class MandatenbeheerMandatarisSummaryComponent extends Component {
   @reads('args.mandataris.bekleedt.bestuursfunctie.label') rol;
@@ -10,18 +10,15 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @reads('args.mandataris.heeftLidmaatschap.binnenFractie.naam') fractie;
   @reads('args.mandataris.rangorde.content') rangorde;
   @reads('args.mandataris.status.label') status;
-  @reads('args.mandataris.beleidsdomein') beleidsdomein;
 
-  @tracked formattedBeleidsdomein;
-
-  constructor() {
-    super(...arguments)
-    const beleidsdomein = this.beleidsdomein;
-    if (beleidsdomein.length) {
-      const mappedBeleidsdomein = beleidsdomein.map(item => item.label);
-      this.formattedBeleidsdomein = mappedBeleidsdomein.join(', ');
-    } else {
-      this.formattedBeleidsdomein = [];
+  @computed('args.mandataris.beleidsdomein.@each.id')
+  get formattedBeleidsdomein(){
+    const beleidsdomeinen = this.args.mandataris.beleidsdomein;
+    if (beleidsdomeinen.length) {
+      return beleidsdomeinen.map(item => item.label);
+    }
+    else {
+      return [];
     }
   }
 

@@ -64,7 +64,7 @@
 </div>
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    <AuButton {{on "click" (perform save)}} @disabled="{{save.isRunning}}" @loading="{{save.isRunning}}" class="show-mandate-edit-new-next">Voeg persoon toe</AuButton>
+    <AuButton {{on "click" (perform save)}} @disabled={{save.isRunning}} @loading={{save.isRunning}} class="show-mandate-edit-new-next">Voeg persoon toe</AuButton>
     <AuButton {{on "click" (action onCancel)}} @skin="secondary" class="toggle-person-new">Annuleer</AuButton>
   </AuToolbarGroup>
 </AuToolbar>

@@ -21,8 +21,8 @@
     <AuToolbarGroup>
       <AuButtonGroup>
         <AuButton
-          @disabled="{{not isValid}}"
-          @loading="{{this.save.isRunning}}"
+          @disabled={{not isValid}}
+          @loading={{this.save.isRunning}}
           {{on "click" (perform this.save)}}
         >
           Corrigeer aanstellingsperiode
