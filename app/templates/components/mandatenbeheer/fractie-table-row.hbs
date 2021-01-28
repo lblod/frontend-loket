@@ -23,12 +23,12 @@
       <AuButton {{on 'click' this.cancel}} @skin="secondary">
         Annuleer
       </AuButton>
-      <AuButton {{on 'click' this.save}} @disabled="{{not this.isValid}}">
+      <AuButton {{on 'click' this.save}} @disabled={{not this.isValid}}>
         Bewaar
       </AuButton>
     </AuButtonGroup>
     {{else}}
-      <AuButton {{action (mut editMode) true}} @skin="tertiary">
+      <AuButton {{on "click" (fn (mut this.editMode) true)}} @skin="tertiary">
         <AuIcon @icon="pencil" @alignment="left" />
         Bewerk
       </AuButton>

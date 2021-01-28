@@ -31,7 +31,6 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
 
   @action
     selectBestuursorgaan(bestuursorgaan) {
-      console.log(bestuursorgaan)
       this.args.onSelect(moment(bestuursorgaan.bindingStart).format('YYYY-MM-DD'));
     }
 }
