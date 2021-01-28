@@ -14,7 +14,7 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @computed('args.mandataris.beleidsdomein.@each.id')
   get formattedBeleidsdomein(){
     const beleidsdomeinen = this.args.mandataris.beleidsdomein;
-    if (beleidsdomeinen) {
+    if (beleidsdomeinen.length) {
       return beleidsdomeinen.map(item => item.label);
     }
     else {
