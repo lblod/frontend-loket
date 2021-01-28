@@ -1,4 +1,7 @@
-<Mandatenbeheer::PowerSelect
+<PowerSelect
+        @loadingMessage = 'Aan het laden...'
+        @noMatchesMessage = 'Geen resultaten'
+        @searchMessage = 'Typ om te zoeken'
         @searchEnabled={{true}}
         @allowClear={{@allowClear}}
         @disabled={{@disabled}}
@@ -9,4 +12,4 @@
         @onChange={{this.select}}
         as |status|>
   {{status.label}}
-</Mandatenbeheer::PowerSelect>
+</PowerSelect>
