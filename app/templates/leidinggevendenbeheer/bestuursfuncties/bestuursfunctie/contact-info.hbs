@@ -25,10 +25,10 @@
 
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    <AuButton {{on "click" (perform this.save)}} @loading="{{not this.save.isIdle}}">
+    <AuButton {{on "click" (perform this.save)}} @loading={{not this.save.isIdle}}>
       Bewaar contactgegevens
     </AuButton>
-    <AuButton {{on "click" (perform this.resetChanges)}} @skin="secondary" @disabled="{{not this.isDirty}}">
+    <AuButton {{on "click" (perform this.resetChanges)}} @skin="secondary" @disabled={{not this.isDirty}}>
       Verwerp wijzigingen
     </AuButton>
   </AuToolbarGroup>
