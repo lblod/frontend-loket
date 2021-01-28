@@ -16,7 +16,6 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
   constructor(){
     super(...arguments);
     this._options = this.getUniqueBestuursperiodes(this.args.options) || [];
-
   }
 
   get selectedBestuursorgaan() {
