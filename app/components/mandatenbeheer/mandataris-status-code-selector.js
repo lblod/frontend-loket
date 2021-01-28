@@ -10,8 +10,9 @@ export default class MandatenbeheerMandatarisStatusCodeSelectorComponent extends
   @tracked statusCodeList;
 
   constructor(){
-    super(...arguments)
-    this.statusCodeList = this.store.query('mandataris-status-code', { sort: 'label' })
+    super(...arguments);
+    this.selectedStatusCode = this.args.statusCode;
+    this.statusCodeList = this.store.query('mandataris-status-code', { sort: 'label' });
   }
 
   @action
