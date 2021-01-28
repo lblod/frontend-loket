@@ -12,7 +12,7 @@ export default class MandatenbeheerBeleidsdomeinSelectorWithCreateComponent exte
 
   constructor(){
     super(...arguments);
-    this._beleidsdomeinen = (this.beleidsdomeinen || A()).toArray();
+    this._beleidsdomeinen = (this.args.beleidsdomeinen || A()).toArray();
   }
 
   @task(function* (searchData) {
