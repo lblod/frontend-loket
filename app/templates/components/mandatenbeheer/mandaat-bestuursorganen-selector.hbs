@@ -1,4 +1,7 @@
-<Mandatenbeheer::PowerSelect
+<PowerSelect
+        @loadingMessage = 'Aan het laden...'
+        @noMatchesMessage = 'Geen resultaten'
+        @searchMessage = 'Typ om te zoeken'
         @searchEnabled={{true}}
         @allowClear={{allowClear}}
         @disabled={{disabled}}
@@ -10,4 +13,4 @@
         @triggerId="mandaat"
         as |mandaat|>
   {{mandaat.bestuursfunctie.label}}
-</Mandatenbeheer::PowerSelect>
+</PowerSelect>
