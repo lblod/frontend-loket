@@ -1,9 +1,8 @@
-import { empty, oneWay } from '@ember/object/computed';
+import { oneWay } from '@ember/object/computed';
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import { task } from 'ember-concurrency';
-import { or } from 'ember-awesome-macros';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
