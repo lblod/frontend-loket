@@ -53,7 +53,7 @@ export default class MandatenbeheerPersoonSearchFormComponent extends Component 
       filter: {
         achternaam: this.achternaam || undefined,
         'gebruikte-voornaam': this.gebruikteVoornaam || undefined,
-        identificator: this.identificator || undefined
+        identificator:  this.identificator && this.identificator.replace(/\D+/g, "") || undefined
       },
       page:{
         size: this.pageSize,
