@@ -15,17 +15,21 @@ export default class BbcdrReportEditComponent extends Component {
 
   @tracked showExitModal = false;
   @tracked showError = false;
+  @tracked reportFiles = A([]);
 
-  get reportFiles(){
-    return this.args.report.get('files') || A([])
+  constructor(){
+    super(...arguments);
+    if(this.args.report.get('files')){
+      this.reportFiles = this.args.report.get('files');
+    }
   }
 
   get readyToSend() {
-    return this.reportFiles.length == 2
+    return this.reportFiles.length == 2;
   }
 
   get readyForTmpSave() {
-    return this.reportFiles.length >= 1
+    return this.reportFiles.length >= 1;
   }
 
   async updateReport() {
