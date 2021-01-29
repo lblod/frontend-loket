@@ -15,7 +15,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   @tracked isExpanded = false;
   @tracked cantSend = or('ensureOriginator.isRunning', empty('bijlagen.[]'));
   @tracked originator;
-  @tracked bijlage;
+  @tracked bijlagen;
   @tracked inhoud;
 
   @oneWay('currentSession.userContent') currentUser;
