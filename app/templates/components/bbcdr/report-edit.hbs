@@ -26,10 +26,10 @@
     <div class="au-o-box au-c-action-sidebar__footer" data-test-loket="bbcdr-report-edit-buttons">
       {{#if @report.isNew}}
       <AuButtonGroup>
-        <AuButton {{on 'click' this.send}} @disabled="{{not this.readyToSend}}" data-test-loket="bbcdr-send-btn">
+        <AuButton {{on 'click' this.send}} @disabled={{not this.readyToSend}} data-test-loket="bbcdr-send-btn">
           Verstuur naar Vlaamse Overheid
         </AuButton>
-        <AuButton {{on 'click' this.tempSave}} @disabled="{{not this.readyForTmpSave}}" @skin="secondary">
+        <AuButton {{on 'click' this.tempSave}} @disabled={{not this.readyForTmpSave}} @skin="secondary">
           Bewaar concept
         </AuButton>
         <AuButton {{on 'click' this.deleteReport}} @skin="secondary">
@@ -42,7 +42,7 @@
       {{/unless}}
       <AuButtonGroup>
         {{#if @report.status.isConcept}}
-        <AuButton {{on 'click' this.send}} @disabled="{{not this.readyToSend}}" data-test-loket="bbcdr-send-btn">
+        <AuButton {{on 'click' this.send}} @disabled={{not this.readyToSend}} data-test-loket="bbcdr-send-btn">
           Verstuur naar Vlaamse Overheid
         </AuButton>
         <AuButton {{on 'click' this.tempSave}} @skin="secondary">
