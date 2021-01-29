@@ -24,12 +24,15 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   constructor() {
     super(...arguments);
     this.ensureOriginator.perform();
-    this.inhoud = '';
-    this.bijlagen = A();
+    this.initInputState();
   }
 
   // Initializes the input state so it appears the component was not
   // used before.
+  initInputState() {
+    this.inhoud = '';
+    this.bijlagen = A();
+  }
 
   @task(function *() {
     const berichten = yield this.args.conversatie.berichten;
@@ -90,6 +93,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
 
   @action
     expandMe() {
+      this.initInputState();
       this.expand();
     }
 
