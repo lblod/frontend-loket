@@ -36,7 +36,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
 
   @task(function *() {
     const berichten = yield this.args.conversatie.berichten;
-    const sortedBerichten = berichten.sortBy('verzonden')
+    const sortedBerichten = berichten.sortBy('verzonden');
     const ourGroup = yield this.currentSession.group;
 
     // find first sender of message that is not our group
