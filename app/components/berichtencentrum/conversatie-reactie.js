@@ -13,13 +13,16 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   @service() currentSession;
 
   @tracked isExpanded = false;
-  @tracked cantSend = or('ensureOriginator.isRunning', empty('bijlagen.[]'));
   @tracked originator;
   @tracked bijlagen;
   @tracked inhoud;
 
   @oneWay('currentSession.userContent') currentUser;
   @oneWay('currentSession.groupContent.naam') bestuursEenheidNaam;
+
+  get cantSend(){
+    return this.ensureOriginator.isRunning || this.bijlagen.length == 0;
+  }
 
   constructor() {
     super(...arguments);
@@ -102,7 +105,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
       this.collapse();
     }
 
-  @action 
+  @action
     collapse() {
       this.isExpanded = false;
     }
