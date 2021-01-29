@@ -18,22 +18,13 @@ export default class SubsidyApplicationsNewRoute extends Route {
   async model() {
     const bestuurseenheid = await this.currentSession.group;
 
-    const contactinfo = this.store.createRecord('contact-punt');
-    const bankAccount = this.store.createRecord('bank-account');
-
-    await contactinfo.save();
-    await bankAccount.save();
-
     const currentUser = await this.currentSession.user;
     const applicationForm = this.store.createRecord('application-form', {
       organization: bestuurseenheid,
       aanvraagdatum: new Date(),
       status: this.conceptStatus,
       creator: currentUser,
-      lastModifier: currentUser,
-      // NOTE boilerplate objects
-      contactinfo,
-      bankAccount
+      lastModifier: currentUser
     });
 
     await applicationForm.save();
