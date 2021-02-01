@@ -71,5 +71,6 @@ inflector.irregular('application-form', 'application-forms');
 inflector.irregular('bank-account', 'bank-accounts');
 inflector.irregular('time-block', 'time-blocks');
 inflector.irregular('application-form-entry', 'application-form-entries');
+inflector.irregular('subsidiemaatregel-aanbod', 'subsidiemaatregel-aandbiedingen');
 // Meet Ember Inspector's expectation of an export
 export default {};
