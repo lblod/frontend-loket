@@ -27,7 +27,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
     const currentUser = await this.currentSession.user;
     const applicationForm = this.store.createRecord('application-form', {
       organization: bestuurseenheid,
-      aanvraagdatum: new Date(),
       status: this.conceptStatus,
       creator: currentUser,
       lastModifier: currentUser,
