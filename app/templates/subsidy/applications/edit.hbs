@@ -62,7 +62,7 @@
       <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
         <AuHeading @level="2" @skin="3" class="au-u-margin-bottom-small">Aanvrager</AuHeading>
         <AuLabel>Vraag subsidie aan voor</AuLabel>
-        <AuInput disabled="disabled" value="{{this.model.applicationForm.lastModifier.fullName}}" />
+        <AuInput disabled="disabled" value="{{this.model.applicationForm.organization.classificatie.label}}&nbsp;{{this.model.applicationForm.organization.naam}}" />
         <AuHelpText>
           Om een subsidie aan te vragen voor een andere bestuurseenheid (OCMW, Gemeente),
           <br><strong>wissel rechtsbovenaan van bestuurseenheid</strong> door op de pijltjes te klikken,
