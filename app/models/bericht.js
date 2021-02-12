@@ -1,15 +1,12 @@
-import DS from 'ember-data';
-const { attr } = DS;
-import { belongsTo, hasMany } from 'ember-data/relationships';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
-export default DS.Model.extend({
-  verzonden: attr('datetime'),
-  aangekomen: attr('datetime'),
-  inhoud: attr('string'),
-  van: belongsTo('bestuurseenheid'),
-  auteur: belongsTo('gebruiker'),
-  naar: belongsTo('bestuurseenheid'),
-  typeCommunicatie: attr('string'),
-
-  bijlagen: hasMany('file')
-});
+export default class BerichtModel extends Model {
+  @attr('datetime') verzonden;
+  @attr('datetime') aangekomen;
+  @attr('string') inhoud;
+  @attr('string') typeCommunicatie;
+  @belongsTo('bestuurseenheid') van;
+  @belongsTo('gebruiker') auteur;
+  @belongsTo('bestuurseenheid') naar;
+  @hasMany('file')bijlagen;
+}

@@ -1,6 +1,5 @@
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
+import Model, { attr } from '@ember-data/model';
 
-export default Model.extend({
-  identificator: attr()
-});
+export default class IdentificatorModel extends Model {
+  @attr() identificator;
+}

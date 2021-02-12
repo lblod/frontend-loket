@@ -1,25 +1,25 @@
 <div class="au-o-box au-c-action-sidebar__header" tabindex="0">
   <AuToolbar class="au-u-margin-bottom-small">
     <AuToolbarGroup>
-      <AuPill data-test-loket="berichtencentrum-header-dossiernummer">Dossiernummer: {{conversatie.dossiernummer}}</AuPill>
+      <AuPill data-test-loket="berichtencentrum-header-dossiernummer">Dossiernummer: {{@conversatie.dossiernummer}}</AuPill>
       {{!--     {{#if conversatie.reactietermijn}}
         <AuPill>
           Reactietermijn: {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
         </AuPill>
       {{/if}} --}}
     </AuToolbarGroup>
-    <button class="au-c-close au-c-close--large" {{action "close"}} data-test-loket="bbcdr-close-panel-btn">
+    <button type="button" class="au-c-close au-c-close--large" {{on 'click' @close}} data-test-loket="bbcdr-close-panel-btn">
       <AuIcon @icon="cross" @size="large" />
       <span class="au-u-hidden-visually">Venster sluiten</span>
     </button>
   </AuToolbar>
   <AuToolbar class="au-u-margin-bottom-small">
-      <AuHeading @level="2" @skin="3"  data-test-loket="berichtencentrum-header-type-communicatie">{{conversatie.typeCommunicatie}}</AuHeading>
+      <AuHeading @level="2" @skin="3"  data-test-loket="berichtencentrum-header-type-communicatie">{{@conversatie.typeCommunicatie}}</AuHeading>
   </AuToolbar>
   <div class="grid u-spacer--small">
     <div class="col--12-12">
       <div class="au-c-content" data-test-loket="berichtencentrum-header-betreft">
-        <p>{{conversatie.betreft}}</p>
+        <p>{{@conversatie.betreft}}</p>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
-{{mandatenbeheer/persoon-mandaten-edit
+<Mandatenbeheer::PersoonMandatenEdit
     class="au-c-body-container"
-    persoon=model.persoon
-    bestuursorganen=model.bestuursorganen
-    onMandatarisSaved=(action 'saveMandataris')
-    onFinish=(action 'finish')}}
+    @persoon={{this.model.persoon}}
+    @bestuursorganen={{this.model.bestuursorganen}}
+    @onMandatarisSaved={{this.saveMandataris}}
+    @onFinish={{this.finish}}
+/>

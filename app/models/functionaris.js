@@ -1,22 +1,19 @@
-import attr from 'ember-data/attr';
-import Model from 'ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 import { collect } from '@ember/object/computed';
-import { belongsTo } from 'ember-data/relationships';
-import { computed }  from '@ember/object';
 
-export default Model.extend({
+export default class FunctionarisModel extends Model {
   // A string representation of this model, based on its attributes.
   // This is what mu-cl-resources uses to search on, and how the model will be presented while editing relationships.
-  stringRep: collect.apply(this,['id', 'start', 'einde']),
+  @collect.apply(this,['id', 'start', 'einde']) stringRep;
+  @attr() uri;
+  @attr('datetime') start;
+  @attr('datetime') einde;
+  @belongsTo('bestuursfunctie', { inverse: null }) bekleedt;
+  @belongsTo('functionaris-status-code', { inverse: null }) status;
+  @belongsTo('persoon', { inverse: null }) isBestuurlijkeAliasVan;
 
-  uri: attr(),
-  start: attr('datetime'),
-  einde: attr('datetime'),
-  bekleedt: belongsTo('bestuursfunctie', { inverse: null }),
-  status: belongsTo('functionaris-status-code', { inverse: null }),
-  isBestuurlijkeAliasVan: belongsTo('persoon', { inverse: null }),
-
-  datesAreCompatible: computed('start', 'einde', function(){
+  get datesAreCompatible() {
     return this.start && this.einde && this.einde > this.start;
-  })
-});
+  }
+}
+

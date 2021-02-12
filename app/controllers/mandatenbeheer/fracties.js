@@ -1,32 +1,38 @@
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { alias } from '@ember/object/computed';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking'; 
 
-export default Controller.extend({
-  newFractie: null,
-  isBusy: false,
+export default class MandatenbeheerFractiesController extends Controller {
+  @tracked newFractie = null;
+  @tracked isBusy = false;
+  @tracked defaultFractieType;
+  @tracked mandatenbeheer;
 
-  startDate: alias('mandatenbeheer.startDate'),
-  bestuursperioden: alias('mandatenbeheer.bestuursperioden'),
-  bestuurseenheid: alias('mandatenbeheer.bestuurseenheid'),
-  bestuursorganen: alias('mandatenbeheer.bestuursorganen'),
+  @alias('mandatenbeheer.startDate') startDate;
+  @alias('mandatenbeheer.bestuursperioden') bestuursperioden;
+  @alias('mandatenbeheer.bestuurseenheid') bestuurseenheid;
+  @alias('mandatenbeheer.bestuursorganen') bestuursorganen;
 
-  saveFractie: task(function * (fractie) {
+  @task(function * (fractie) {
     const isNew = fractie.isNew;
     yield fractie.save();
 
     if (isNew) {
       this.send('reloadModel');
-      this.set('newFractie', null);
+      this.newFractie = null;
     }
-  }),
+  }) saveFractie;
 
-  actions: {
+  @action
     cancelEdit(fractie) {
       if (fractie.isNew)
-        this.set('newFractie', null);
+        this.newFractie = null;
       fractie.rollbackAttributes(); // removes model from store if it's new
-    },
+    }
+  
+  @action
     createNewFractie() {
       const fractie = this.store.createRecord('fractie', {
         fractietype: this.defaultFractieType,
@@ -34,8 +40,10 @@ export default Controller.extend({
         bestuurseenheid: this.bestuurseenheid
       });
 
-      this.set('newFractie', fractie);
-    },
+      this.newFractie = fractie;
+    }
+
+  @action
     selectPeriod(startDate) {
       this.transitionToRoute('mandatenbeheer.fracties', {
         queryParams: {
@@ -44,5 +52,4 @@ export default Controller.extend({
         }
       });
     }
-  }
-});
+}

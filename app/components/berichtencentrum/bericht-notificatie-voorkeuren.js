@@ -1,34 +1,29 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Component.extend({
-  currentSession: service(),
+export default class BerichtencentrumBerichtNotificatieVoorkeurenComponent extends Component {
+  @service() currentSession;
 
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this
-      .get('currentSession.group')
-      .then((group) => {
-        this.set('wilMailOntvangen', group.get("wilMailOntvangen"));
-        this.set('emailAddress', group.get("mailAdres"));
-      });
-  },
+  @tracked wilMailOntvangen = this.currentSession.groupContent.wilMailOntvangen
+  @tracked emailAddress = this.currentSession.groupContent.mailAdres
 
-  actions: {
-    async commit() {
+  @action
+    commit() {
       // get all variables
       let emailAddress = this.emailAddress;
       let wilMailOntvangen = this.wilMailOntvangen;
-      let group = await this.get('currentSession.group');
+      let group = this.currentSession.groupContent;
 
       // close the popup
-      this.close(); // close the popup
+      this.args.close(); // close the popup
 
       // save the lot
-      group.set('mailAdres', emailAddress);
-      group.set('wilMailOntvangen', wilMailOntvangen);
-      await group.save();
-    }
-  }
+      group.mailAdres = emailAddress;
+      group.wilMailOntvangen = wilMailOntvangen;
 
-});
+      group.save();
+    }
+}
+

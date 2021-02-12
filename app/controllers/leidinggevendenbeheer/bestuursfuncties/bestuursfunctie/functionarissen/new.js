@@ -1,20 +1,25 @@
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  store: service(),
+export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewController extends Controller {
+  @service() store;
 
-  functionaris: null,
-  defaultStatus: null,
+  @tracked functionaris = null;
+  @tracked defaultStatus = null;
+  @tracked bestuursfunctie;
+  @tracked functionaris;
+  @tracked isCreatingNewPerson;
 
-  createFunctionaris: task(function * (person) {
+  @task(function * (person) {
     if (!this.defaultStatus) {
       const status = yield this.store.query('functionaris-status-code', {  // aangesteld status
         filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' },
         page: { size: 1 }
       });
-      this.set('defaultStatus', status.firstObject);
+      this.defaultStatus = status.firstObject;
     }
 
     const functionaris = this.store.createRecord('functionaris', {
@@ -24,26 +29,27 @@ export default Controller.extend({
       start: new Date()
     });
 
-    this.set('functionaris', functionaris);
-  }),
+    this.functionaris = functionaris;
+  }) createFunctionaris;
 
-  save: task(function * () {
+  @task(function * () {
     yield this.functionaris.save();
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
-  }),
+  }) save;
 
-  actions: {
+  @action
     cancel() {
       if (this.functionaris)
         this.functionaris.deleteRecord();
       this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
-    },
+    }
+
+  @action
     goBackToSearch() {
       if (this.functionaris) {
         this.functionaris.deleteRecord();
-        this.set('functionaris', null);
+        this.functionaris = null;
       }
-      this.set('isCreatingNewPerson', false);
+      this.isCreatingNewPerson = false;
     }
-  }
-});
+}

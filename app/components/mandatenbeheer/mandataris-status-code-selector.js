@@ -1,21 +1,23 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { oneWay } from '@ember/object/computed';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Component.extend({
-  store: service(),
+export default class MandatenbeheerMandatarisStatusCodeSelectorComponent extends Component {
+  @service() store;
 
-  _statusCode: oneWay('statusCode'),
+  @tracked selectedStatusCode;
+  @tracked statusCodeList;
 
-  async didReceiveAttrs(){
-    const statusCodes = await this.store.query('mandataris-status-code', { sort: 'label' });
-    this.set('statusCodes', statusCodes);
-  },
-
-  actions: {
-    select(code){
-      this.set('_statusCode', code);
-      this.onSelect(code);
-    }
+  constructor(){
+    super(...arguments);
+    this.selectedStatusCode = this.args.statusCode;
+    this.statusCodeList = this.store.query('mandataris-status-code', { sort: 'label' });
   }
-});
+
+  @action
+    select(code){
+      this.selectedStatusCode = code;
+      this.args.onSelect(code);
+    }
+}

@@ -1,13 +1,10 @@
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
-    <AuHeading @skin="2">Bewerk aanstellingsperiode voor {{model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{model.isBestuurlijkeAliasVan.achternaam}} als {{model.bekleedt.rol.label}}</AuHeading>
+    <AuHeading @skin="2">Bewerk aanstellingsperiode voor {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{this.model.isBestuurlijkeAliasVan.achternaam}} als {{this.model.bekleedt.rol.label}}</AuHeading>
   </AuToolbarGroup>
 </AuToolbar>
 
-{{#leidinggevendenbeheer/functionaris-form
-    model=model
-    as |isValid|
-}}
+<Leidinggevendenbeheer::FunctionarisForm @model={{this.model}} as |isValid| >
   <div class="au-o-box">
     <AuAlert @alertIcon="info-circle">
       <AuContent @skin="small">
@@ -24,16 +21,16 @@
     <AuToolbarGroup>
       <AuButtonGroup>
         <AuButton
-          @disabled="{{not isValid}}"
-          @loading="{{this.save.isRunning}}"
-          {{on "click" (perform save)}}
+          @disabled={{not isValid}}
+          @loading={{this.save.isRunning}}
+          {{on "click" (perform this.save)}}
         >
           Corrigeer aanstellingsperiode
         </AuButton>
-        <AuButton {{on "click" (perform resetChanges)}} @skin="secondary">
+        <AuButton {{on "click" (perform this.resetChanges)}} @skin="secondary">
           Annuleer
         </AuButton>
       </AuButtonGroup>
     </AuToolbarGroup>
   </AuToolbar>
-{{/leidinggevendenbeheer/functionaris-form}}
+</Leidinggevendenbeheer::FunctionarisForm>

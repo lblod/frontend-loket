@@ -1,9 +1,10 @@
-import DS from 'ember-data';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
-export default DS.Model.extend({
-  uri: DS.attr(),
-  label: DS.attr('string'),
-  dataset: DS.belongsTo('employee-dataset'),
-  timePeriod: DS.belongsTo('employee-time-period'),
-  observations: DS.hasMany('employee-observation')
-});
+export default class EmployeePeriodSliceModel extends Model {
+  @attr() uri;
+  @attr('string') label;
+  @belongsTo('employee-dataset') dataset;
+  @belongsTo('employee-time-period') timePeriod;
+  @hasMany('employee-observation') observations;
+}
+

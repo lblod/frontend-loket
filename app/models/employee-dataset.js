@@ -1,11 +1,12 @@
-import DS from 'ember-data';
 
-export default DS.Model.extend({
-  uri: DS.attr(),
-  title: DS.attr('string'),
-  description: DS.attr('string'),
-  modified: DS.attr('datetime'),
-  bestuurseenheid: DS.belongsTo('bestuurseenheid'),
-  periods: DS.hasMany('employee-period-slice'),
-  subjects: DS.hasMany('employee-unit-measure')
-});
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+
+export default class EmployeeDatasetModel extends Model {
+  @attr() uri;
+  @attr('string') title;
+  @attr('string') description;
+  @attr('datetime') modified;
+  @belongsTo('bestuurseenheid') bestuurseenheid;
+  @hasMany('employee-period-slice') periods;
+  @hasMany('employee-unit-measure') subjects;
+}

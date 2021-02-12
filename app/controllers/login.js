@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 
-export default Controller.extend({
+export default class LoginController extends Controller {
   init() {
-    this._super(...arguments);
+    super.init(...arguments);
   }
-});
+}

@@ -39,7 +39,8 @@ class Address {
   }
 }
 
-export default Service.extend({
+
+export default class AddressregisterService extends Service {
   async suggest(query) {
     const results = await (await fetch(`/adressenregister/search?query=${query}`)).json();
     const addressSuggestions = results.adressen.map( function(result) {
@@ -53,7 +54,7 @@ export default Service.extend({
       });
     });
     return addressSuggestions;
-  },
+  }
 
   async findAll(suggestion) {
     const results = await (await fetch(`/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`)).json();
@@ -70,7 +71,7 @@ export default Service.extend({
       });
     });
     return addresses;
-  },
+  }
 
   toAddressSuggestion(adresModel) {
     return new Address({
@@ -81,7 +82,7 @@ export default Service.extend({
       municipality: adresModel.gemeentenaam,
       fullAddress: adresModel.volledigAdres
     });
-  },
+  }
 
   toAddress(adresModel) {
     return new Address({
@@ -95,4 +96,4 @@ export default Service.extend({
       municipality: adresModel.gemeentenaam
     });
   }
-});
+}

@@ -1,15 +1,13 @@
-import attr from 'ember-data/attr';
-import Model from 'ember-data/model';
 import { collect } from '@ember/object/computed';
-import { belongsTo, hasMany } from 'ember-data/relationships';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
-export default Model.extend({
+export default class BestuursfunctieModel extends Model {
   // A string representation of this model, based on its attributes.
   // This is what mu-cl-resources uses to search on, and how the model will be presented while editing relationships.
-  stringRep: collect.apply(this,['id']),
+  @collect.apply(this,['id']) stringRep;
 
-  uri: attr(),
-  rol: belongsTo('bestuursfunctie-code', { inverse: null }),
-  contactinfo: belongsTo('contact-punt', { inverse: null }),
-  bevatIn: hasMany('bestuursorgaan', { inverse: null })
-});
+  @attr() uri;
+  @belongsTo('bestuursfunctie-code', { inverse: null }) rol;
+  @belongsTo('contact-punt', { inverse: null }) contactinfo;
+  @hasMany('bestuursorgaan', { inverse: null }) bevatIn;
+}

@@ -1,43 +1,47 @@
 import Controller from '@ember/controller';
-import { computed }  from '@ember/object';
 import { task } from 'ember-concurrency';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  showConfirmationDialog: false,
+export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoController extends Controller {
+  showConfirmationDialog = false;
 
-  isDirty: computed('model.hasDirtyAttributes', 'model.adres.hasDirtyAttributes', function() {
+  @tracked bestuurseenheid; 
+  @tracked bestuursfunctie;
+  
+  get isDirty() {
     return this.model.hasDirtyAttributes || this.model.get('adres.hasDirtyAttributes');
-  }),
+  }
 
   exit() {
     this.set('showConfirmationDialog', false);
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
-  },
+  }
 
-  save: task(function* () {
+  @task(function* () {
     const address = yield this.model.adres;
     yield address.save();
     yield this.model.save();
     this.exit();
-  }),
+  }) save;
 
-  resetChanges: task(function* () {
+  @task(function* () {
     const address = yield this.model.adres;
     address.rollbackAttributes();
     this.model.rollbackAttributes();
     this.exit();
-  }),
+  }) resetChanges;
 
-  updateAdres: task(function* (adresProperties) {
+  @task(function* (adresProperties) {
     const address = yield this.model.adres;
     if (adresProperties) {
       address.setProperties(adresProperties);
     } else {
       address.eachAttribute(propName => address.set(propName, null));
     }
-  }),
+  }) updateAdres;
 
-  actions: {
+  @action
     cancel() {
       if (!this.isDirty)
         this.exit();
@@ -45,4 +49,3 @@ export default Controller.extend({
         this.set('showConfirmationDialog', true);
     }
   }
-});

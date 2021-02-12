@@ -1,29 +1,29 @@
-{{#au-data-table
-   content=content
-   isLoading=isLoadingModel
-   noDataMessage=""
-   sort=sort
-   page=page
-   size=size
-   class="au-c-body-container"
-   as |t|}}
-  {{#t.content as |c|}}
-    {{#c.header}}
-      {{au-data-table-th-sortable label='Naam' field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort}}
-      {{au-data-table-th-sortable label='Familienaam' field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort}}
-      {{au-data-table-th-sortable label='Status' field='status.label' currentSorting=sort}}
-      {{au-data-table-th-sortable label='Start periode' field='start' currentSorting=sort class="au-u-visible-small-up"}}
-      {{au-data-table-th-sortable label='Einde periode' field='einde' currentSorting=sort class="au-u-visible-small-up"}}
+<AuDataTable
+  @content={{@content}}
+  @isLoading={{@isLoadingModel}}
+  @sort={{@sort}}
+  @page={{@page}}
+  @size={{@size}}
+  @noDataMessage=""
+  class="au-c-body-container"
+  as |t|>
+  <t.content as |c|>
+    <c.header>
+      <AuDataTableThSortable @label='Naam' @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{@sort}} />
+      <AuDataTableThSortable @label='Familienaam' @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{@sort}} />
+      <AuDataTableThSortable @label='Status' @field='status.label' @currentSorting={{@sort}} />
+      <AuDataTableThSortable @label='Start periode' @field='start' @currentSorting={{@sort}} class="au-u-visible-small-up"/>
+      <AuDataTableThSortable @label='Einde periode' @field='einde' @currentSorting={{@sort}} class="au-u-visible-small-up"/>
       <th><!-- Actions --></th>
-    {{/c.header}}
+    </c.header>
 
-    {{#if (eq content.length 0)}}
+    {{#if (eq @content.length 0)}}
       <tbody>
         <tr>
           <td colspan="6">
             <div class="au-o-box au-u-text-center">
-              <p class="au-u-margin-bottom-small">Geen aanstellingsperiode voor de functie {{bestuursfunctie.rol.label}} toegevoegd.</p>
-              <AuButton {{on "click" (action onClickNew)}}>
+              <p class="au-u-margin-bottom-small">Geen aanstellingsperiode voor de functie {{this.bestuursfunctie.rol.label}} toegevoegd.</p>
+              <AuButton {{on "click" @onClickNew}}>
                 Voeg aanstellingsperiode toe
               </AuButton>
             </div>
@@ -31,7 +31,7 @@
         </tr>
       </tbody>
     {{else}}
-      {{#c.body as |row|}}
+      <c.body as |row|>
         <td>{{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}</td>
         <td>{{row.isBestuurlijkeAliasVan.achternaam}}</td>
         <td>{{row.status.label}}</td>
@@ -49,9 +49,9 @@
             <span class="au-c-info-text">Onbepaald</span>
           {{/if}}
         </td>
-        <td>{{#link-to 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.edit' row.id class="au-c-link"}}Bewerk periode{{/link-to}}</td>
-      {{/c.body}}
+        <td><LinkTo @route='leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.edit' @model={{row.id}} class="au-c-link">Bewerk periode</LinkTo></td>
+      </c.body>
     {{/if}}
 
-  {{/t.content}}
-{{/au-data-table}}
+  </t.content>
+</AuDataTable>

@@ -1,12 +1,14 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  actions: {
+export default class MandatenbeheerMandatarisEditPromptComponent extends Component {
+  @action 
     terminate(){
-      this.onTerminate();
-    },
-    correct(){
-      this.onCorrect();
+      this.args.onTerminate();
     }
-  }
-});
+
+  @action
+    correct(){
+      this.args.onCorrect();
+    }
+}

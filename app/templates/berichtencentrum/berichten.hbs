@@ -1,14 +1,14 @@
-{{title "Berichtencentrum " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+{{page-title "Berichtencentrum " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
 
 <div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
-  <div class="au-o-grid__item {{if hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
+  <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
     <div class="au-c-body-container" tabindex="0">
       <AuToolbar @size="large">
         <AuToolbarGroup>
           <AuHeading @skin="2">Berichtencentrum</AuHeading>
         </AuToolbarGroup>
         <AuToolbarGroup>
-          <button class="au-c-button au-c-button--tertiary" data-test-loket="berichtencentrum-setting-email-button" {{action 'showPreferences'}}>
+          <button type="button" class="au-c-button au-c-button--tertiary" data-test-loket="berichtencentrum-setting-email-button" {{on 'click' this.showPreferences}}>
             <AuIcon @icon="settings" @alignment="left" />
             Ontvang mails bij nieuwe berichten
           </button>
@@ -43,22 +43,29 @@
         </div> --}}
       </AuToolbar>
 
-      {{berichtencentrum/conversatie-table
-        content=model
-        sort=sort page=page size=size displaySubset=hasActiveChildRoute
-        renderSmallTable=hasActiveChildRoute
-        data-test-loket="berichtencentrum-table"
-        class="au-c-body-container"}}
+      <Berichtencentrum::ConversatieTable
+        @content={{this.model}}
+        @sort={{this.sort}}
+        @page={{this.page}} 
+        @size={{this.size}} 
+        @displaySubset={{this.hasActiveChildRoute}}
+        @renderSmallTable={{this.hasActiveChildRoute}}
+        @data-test-loket="berichtencentrum-table"
+        class="au-c-body-container"
+      />
+
     </div>
   </div>
 
-  {{#if showPreferences}}
+  {{#if this.preferences}}
     <EmberWormhole @to="ember-appuniversum-wormhole">
       <div class="au-c-modal-backdrop" role="presentation"></div>
       <div class="modal-overlay modal-overlay-configure-berichtencentrum" {{auto-focus ".modal-dialog--sectioned"}}>
-        {{berichtencentrum/bericht-notificatie-voorkeuren
-          close=(action "hidePreferences")
-          data-test-loket="setting-email-component"}}
+
+        <Berichtencentrum::BerichtNotificatieVoorkeuren
+          @close={{this.hidePreferences}}
+          @data-test-loket="setting-email-component"
+        />
       </div>
     </EmberWormhole>
   {{/if}}

@@ -1,27 +1,35 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  tagName: 'tr',
-  editMode: false,
+export default class MandatenbeheerFractieTableRowComponent extends Component {
+  @tracked editMode = false;
 
-  isValid: computed('fractie', 'fractie.naam', function() {
-    return this.fractie && this.fractie.naam && this.fractie.hasDirtyAttributes;
-  }),
+  constructor(){
+    super(...arguments);
+    this.editMode = this.args.editMode;
+  }
 
-  bestuursperiodeStart: reads('fractie.bestuursorganenInTijd.firstObject.bindingStart'),
-  bestuursperiodeEnd: reads('fractie.bestuursorganenInTijd.firstObject.bindingEinde'),
+  get isValid() {
+    return this.args.fractie && this.args.fractie.naam && this.args.fractie.hasDirtyAttributes;
+  }
 
-  actions: {
+  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingStart') bestuursperiodeStart;
+  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingEinde') bestuursperiodeEnd;
+
+  @action
     cancel() {
-      this.set('editMode', false);
-      this.onCancel(this.fractie);
-      this.fractie.rollbackAttributes();
-    },
+      this.editMode = false;
+      this.args.onCancel(this.args.fractie);
+      if(this.fractie){
+        this.fractie.rollbackAttributes();
+      }
+    }
+
+  @action
     save() {
-      this.set('editMode', false);
-      this.onSave(this.fractie);
+      this.editMode = false;
+      this.args.onSave(this.args.fractie);
     }
   }
-});

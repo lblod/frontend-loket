@@ -1,24 +1,24 @@
-{{#au-data-table content=content isLoading=isLoading noDataMessage="Geen mandatarissen gevonden"
-   sort=sort page=page size=size as |t|}}
-  {{#t.content as |c|}}
-    {{#c.header}}
-      {{#unless displaySubset}}
+<AuDataTable @content={{@content}} @isLoading={{@isLoading}} @noDataMessage="Geen mandatarissen gevonden"
+   @sort={{@sort}} @page={{@page}} @size={{@size}} as |t|>
+  <t.content as |c|>
+    <c.header>
+      {{#unless @displaySubset}}
         <th class="au-u-visible-small-up">Orgaan</th>
       {{/unless}}
-      {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.gebruikteVoornaam' currentSorting=sort label='Naam' class="au-u-visible-small-up"}}
-      {{au-data-table-th-sortable field='isBestuurlijkeAliasVan.achternaam' currentSorting=sort label='Familienaam'}}
-      {{#unless displaySubset}}
-        {{au-data-table-th-sortable field='heeftLidmaatschap.binnenFractie.naam' currentSorting=sort label='Fractie' class="au-u-visible-medium-up"}}
+      <AuDataTableThSortable @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{@sort}} @label='Naam' class="au-u-visible-small-up" />
+      <AuDataTableThSortable @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{@sort}} @label='Familienaam'/>
+      {{#unless @displaySubset}}
+        <AuDataTableThSortable @field='heeftLidmaatschap.binnenFractie.naam' @currentSorting={{@sort}} @label='Fractie' class="au-u-visible-medium-up" />
       {{/unless}}
-      {{au-data-table-th-sortable field='bekleedt.bestuursfunctie.label' currentSorting=sort label='Mandaat'}}
-      {{#unless displaySubset}}
-        {{au-data-table-th-sortable field='start' currentSorting=sort label='Start mandaat' class="au-u-visible-medium-up"}}
-        {{au-data-table-th-sortable field='einde' currentSorting=sort label='Einde mandaat' class="au-u-visible-medium-up"}}
+      <AuDataTableThSortable @field='bekleedt.bestuursfunctie.label' @currentSorting={{@sort}} @label='Mandaat' />
+      {{#unless @displaySubset}}
+        <AuDataTableThSortable @field='start' @currentSorting={{@sort}} @label='Start mandaat' class="au-u-visible-medium-up" />
+        <AuDataTableThSortable @field='einde' @currentSorting={{@sort}} @label='Einde mandaat' class="au-u-visible-medium-up" />
       {{/unless}}
       <th></th>
-    {{/c.header}}
-    {{#c.body data-test-loket="mandatarissen-body" as |row|}}
-      {{#unless displaySubset}}
+    </c.header>
+    <c.body data-test-loket="mandatarissen-body" as |row|>
+      {{#unless @displaySubset}}
         <td class="au-u-visible-small-up">
           {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}
             {{bestuursorgaan.isTijdsspecialisatieVan.naam}}<br>
@@ -31,7 +31,7 @@
       <td>
         {{row.isBestuurlijkeAliasVan.achternaam}}
       </td>
-      {{#unless displaySubset}}
+      {{#unless @displaySubset}}
         <td class="au-u-visible-medium-up">
           {{row.heeftLidmaatschap.binnenFractie.naam}}
         </td>
@@ -39,11 +39,11 @@
       <td>
         {{row.bekleedt.bestuursfunctie.label}}
       </td>
-      {{#unless displaySubset}}
+      {{#unless @displaySubset}}
         <td class="au-u-visible-medium-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
         <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
       {{/unless}}
-      <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id class="au-c-link"}} Bewerk {{/link-to}}</td>
-    {{/c.body}}
-  {{/t.content}}
-{{/au-data-table}}
+      <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
+    </c.body>
+  </t.content>
+</AuDataTable>

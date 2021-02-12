@@ -1,16 +1,18 @@
-<AuHeading @level="3" @skin="5">
-  {{bericht.van.classificatie.label}} {{bericht.van.naam}}
-  {{#if bericht.auteur}}&mdash; {{bericht.auteur.fullName}}{{/if}}
-</AuHeading>
-<p class="au-u-hidden">
-  Aangekomen:
-  {{#if bericht.aangekomen}}
-    {{moment-format bericht.aangekomen}}
-  {{else}}
-    -
-  {{/if}}
-</p>
-<p class="au-c-info-text">Verzonden: {{moment-format bericht.verzonden}}</p>
-{{#each bericht.bijlagen as |bijlage|}}
-  {{vo-mu-file-card file=bijlage onDelete=null active=false class="au-u-margin-top-tiny au-u-margin-bottom-none"}}
-{{/each}}
+<div>
+  <AuHeading @level="3" @skin="5" style="word-break: break-word;">
+    {{@bericht.van.classificatie.label}} {{@bericht.van.naam}}
+    {{#if @bericht.auteur}}&mdash; {{@bericht.auteur.fullName}}{{/if}}
+  </AuHeading>
+  <p class="au-u-hidden">
+    Aangekomen:
+    {{#if @bericht.aangekomen}}
+      {{moment-format @bericht.aangekomen}}
+    {{else}}
+      -
+    {{/if}}
+  </p>
+  <p class="au-c-info-text">Verzonden: {{moment-format @bericht.verzonden}}</p>
+  {{#each @bericht.bijlagen as |bijlage|}}
+    <VoMuFileCard @file={{bijlage}} @onDelete={{null}} @active={{false}} class="au-u-margin-top-tiny au-u-margin-bottom-none"/>
+  {{/each}}
+</div>

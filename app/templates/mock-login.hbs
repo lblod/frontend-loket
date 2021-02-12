@@ -9,16 +9,16 @@
         <div class="au-o-layout">
           <AuHeading @skin="4">Kies een bestuurseenheid om mee in te loggen.</AuHeading>
           <p class="au-u-margin-top-small au-u-margin-bottom">
-            <input class="au-c-input au-c-input--block js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{gemeente}} autofocus oninput={{perform updateSearch value='target.value'}}>
+            <input class="au-c-input au-c-input--block js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{this.gemeente}} autofocus oninput={{perform this.updateSearch value='target.value'}}>
           </p>
-          {{#mock-login as |login|}}
-            {{#if queryStore.isRunning}}
+          <MockLogin as |login|>
+            {{#if this.queryStore.isRunning}}
               <AuLoader @size="small" />
             {{else}}
               {{#if login.errorMessage}}
                 <AuAlert @alertIcon="alert-triangle" @alertTitle={{login.errorMessage}} @alertskin="warning" />
               {{/if}}
-              {{#login.each-account accounts=model as |account|}}
+              <login.each-account @accounts={{this.model}} as |account|>
                 <div class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small">
                   <p>
                   {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
@@ -35,12 +35,16 @@
                   </p>
                   {{/if}}
                 </div>
-              {{/login.each-account}}
-              {{number-pagination
-                page=page size=size nbOfItems=model.length
-                total=model.meta.count links=model.meta.pagination}}
+              </login.each-account>
+              <NumberPagination 
+                @page={{this.page}} 
+                @size={{this.size}} 
+                @nbOfItems={{this.model.length}}
+                @total={{this.model.meta.count}} 
+                @links={{this.model.meta.pagination}}
+              />
             {{/if}}
-          {{/mock-login}}
+          </MockLogin>
         </div>
       </div>
     </main>

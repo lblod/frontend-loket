@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditRoute extends Route {
   async model(params) {
     return this.store.query('employee-observation', {
       page: { size: 100 },
@@ -12,11 +12,11 @@ export default Route.extend({
                 'legal-status',
                 'slice'].join(',')
     });
-  },
+  }
 
-  setupController(controller) {
-    this._super(...arguments);
+  setupController( controller, model ) {
+    super.setupController(...arguments);
     const dataset = this.modelFor('personeelsbeheer.personeelsaantallen.periodes');
     controller.set('dataset', dataset);
   }
-});
+}

@@ -1,6 +1,6 @@
-<AuToolbar @border="bottom" @size="large">
+ <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
-    <AuHeading @skin="2">Bewerk mandaten<br><strong>{{persoon.gebruikteVoornaam}} {{persoon.achternaam}}</strong></AuHeading>
+    <AuHeading @skin="2">Bewerk mandaten<br><strong>{{@persoon.gebruikteVoornaam}} {{@persoon.achternaam}}</strong></AuHeading>
   </AuToolbarGroup>
 </AuToolbar>
 
@@ -9,23 +9,23 @@
     <div class="au-o-grid au-o-grid--tiny">
       <div class="au-o-grid__item au-u-1-2">
         <p class="au-c-description-label">Rijksregisternummer</p>
-        <p class="au-c-description-value">{{mandatenbeheer/display-rrn persoon.identificator.identificator}}</p>
+        <p class="au-c-description-value">{{mandatenbeheer/display-rrn @persoon.identificator.identificator}}</p>
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <p class="au-c-description-label">Geboortedatum</p>
         <p class="au-c-description-value">
-          {{#if persoon.geboorte.datum}}
-            {{moment-format persoon.geboorte.datum 'DD-MM-YYYY'}}
+          {{#if @persoon.geboorte.datum}}
+            {{moment-format @persoon.geboorte.datum 'DD-MM-YYYY'}}
           {{/if}}
         </p>
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <p class="au-c-description-label">Geslacht</p>
-        <p class="au-c-description-value">{{persoon.geslacht.label}}</p>
+        <p class="au-c-description-value">{{@persoon.geslacht.label}}</p>
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <p class="au-c-description-label">Roepnaam</p>
-        <p class="au-c-description-value">{{persoon.gebruikteVoornaam}}</p>
+        <p class="au-c-description-value">{{@persoon.gebruikteVoornaam}}</p>
       </div>
     </div>
   </div>
@@ -38,18 +38,18 @@
     <AuHr />
 
     <ul class="au-c-list-vertical">
-      {{#each mandatarissen as |mandataris|}}
-        {{mandatenbeheer/mandataris-edit
-          bestuursorganen=bestuursorganen
-          mandataris=mandataris
-          onSave=(action "mandatarisSaved")
-          onCancelCreate=(action "mandatarisCreateCanceled")
-        }}
+      {{#each this.mandatarissen as |mandataris|}}
+      <Mandatenbeheer::MandatarisEdit
+          @bestuursorganen={{@bestuursorganen}}
+          @mandataris={{mandataris}}
+          @onSave={{@onMandatarisSaved}}
+          @onCancelCreate={{this.mandatarisCreateCanceled}}
+        />
       {{/each}}
     </ul>
 
     <div class="au-u-padding-top-small">
-      <AuButton @skin="secondary" @width="block" {{action "createMandataris"}}>
+      <AuButton @skin="secondary" @width="block" {{on 'click' this.createMandataris}}>
         <AuIcon @icon="add" @alignment="left" />
         Voeg nieuw mandaat toe
       </AuButton>
@@ -59,6 +59,6 @@
 
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    <AuButton {{action "finish"}} @skin="secondary">Sluit</AuButton>
+    <AuButton {{on 'click' this.finish}} @skin="secondary">Sluit</AuButton>
   </AuToolbarGroup>
 </AuToolbar>

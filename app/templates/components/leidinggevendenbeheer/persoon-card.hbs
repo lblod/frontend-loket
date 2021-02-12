@@ -1,5 +1,5 @@
-{{#unless hideHeader}}
-  <AuHeading @skin="4">{{persoon.gebruikteVoornaam}} {{persoon.achternaam}} &mdash; {{mandatenbeheer/display-rrn persoon.identificator.identificator}}</AuHeading>
+{{#unless @hideHeader}}
+  <AuHeading @skin="4">{{@persoon.gebruikteVoornaam}} {{@persoon.achternaam}} &mdash; {{mandatenbeheer/display-rrn @persoon.identificator.identificator}}</AuHeading>
 {{/unless}}
 
 <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">Persoonlijke gegevens</AuHeading>
@@ -7,25 +7,25 @@
 <div class="au-o-grid au-o-grid--tiny">
   <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
     <div class="au-c-description-label">Voornaam</div>
-    <div class="au-c-description-value">{{persoon.gebruikteVoornaam}}</div>
+    <div class="au-c-description-value">{{@persoon.gebruikteVoornaam}}</div>
   </div>
   <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
     <div class="au-c-description-label">Familienaam</div>
-    <div class="au-c-description-value">{{persoon.achternaam}}</div>
+    <div class="au-c-description-value">{{@persoon.achternaam}}</div>
   </div>
   <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
     <div class="au-c-description-label">Roepnaam</div>
-    <div class="au-c-description-value">{{persoon.alternatieveNaam}}</div>
+    <div class="au-c-description-value">{{@persoon.alternatieveNaam}}</div>
   </div>
   <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
     <div class="au-c-description-label">Rijksregisternummer</div>
-    <div class="au-c-description-value">{{mandatenbeheer/display-rrn persoon.identificator.identificator}}</div>
+    <div class="au-c-description-value">{{mandatenbeheer/display-rrn @persoon.identificator.identificator}}</div>
   </div>
   <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
     <div class="au-c-description-label">Geboortedatum</div>
     <div class="au-c-description-value">
-      {{#if persoon.geboorte.datum}}
-        {{moment-format persoon.geboorte.datum 'DD-MM-YYYY'}}
+      {{#if @persoon.geboorte.datum}}
+        {{moment-format @persoon.geboorte.datum 'DD-MM-YYYY'}}
       {{/if}}
     </div>
   </div>

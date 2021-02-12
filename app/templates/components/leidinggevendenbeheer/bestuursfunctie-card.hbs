@@ -1,29 +1,29 @@
 <AuToolbar @size="large" @border="bottom">
   <AuToolbarGroup>
     <div>
-      <AuHeading @level="2" @skin="4">{{model.rol.label}}</AuHeading>
+      <AuHeading @level="2" @skin="4">{{@model.rol.label}}</AuHeading>
       <ul class="au-c-list-horizontal au-u-margin-top-small">
         <li class="au-c-list-horizontal__item">
-          {{#if model.contactinfo.email}}
-            <a class="au-c-link au-c-link--secondary" href="mailto:{{model.contactinfo.email}}">
-              {{model.contactinfo.email}}
+          {{#if @model.contactinfo.email}}
+            <a class="au-c-link au-c-link--secondary" href="mailto:{{@model.contactinfo.email}}">
+              {{@model.contactinfo.email}}
             </a>
           {{else}}
             <span class="au-c-info-text">Geen mailadres</span>
           {{/if}}
         </li>
         <li class="au-c-list-horizontal__item">
-          {{#if model.contactinfo.telefoon}}
-            <a class="au-c-link au-c-link--secondary" href="tel:{{model.contactinfo.telefoon}}">
-              {{model.contactinfo.telefoon}}
+          {{#if @model.contactinfo.telefoon}}
+            <a class="au-c-link au-c-link--secondary" href="tel:{{@model.contactinfo.telefoon}}">
+              {{@model.contactinfo.telefoon}}
             </a>
           {{else}}
             <span class="au-c-info-text">geen telefoonnummer</span>
           {{/if}}
         </li>
         <li class="au-c-list-horizontal__item">
-          {{#if model.contactinfo.adres.volledigAdres}}
-            <span>{{model.contactinfo.adres.volledigAdres}}</span>
+          {{#if @model.contactinfo.adres.volledigAdres}}
+            <span>{{@model.contactinfo.adres.volledigAdres}}</span>
           {{else}}
             <span class="au-c-info-text">geen adres</span>
           {{/if}}
@@ -32,7 +32,7 @@
     </div>
   </AuToolbarGroup>
   <AuToolbarGroup>
-    <AuButton {{action onClick}}>
+    <AuButton {{on 'click' @onClick}}>
       Bekijk en bewerk aanstellingsperiodes
       <AuIcon @icon="nav-right" @alignment="right" />
     </AuButton>

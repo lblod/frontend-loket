@@ -1,11 +1,6 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 
-export default Component.extend({
-  router: service(),
-  actions: {
-    close() {
-      this.close();
-    }
-  }
-});
+export default class BerichtencentrumConversatieViewHeaderComponent extends Component {
+  @service() router;
+}

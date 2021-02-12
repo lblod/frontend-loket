@@ -1,11 +1,14 @@
-<Mandatenbeheer::PowerSelect
+<PowerSelect
+        @loadingMessage = 'Aan het laden...'
+        @noMatchesMessage = 'Geen resultaten'
+        @searchMessage = 'Typ om te zoeken'
         @searchEnabled={{true}}
-        @allowClear={{allowClear}}
-        @disabled={{disabled}}
+        @allowClear={{@allowClear}}
+        @disabled={{@disabled}}
         @placeholder="Zoek fractie"
-        @search={{perform searchByName}}
-        @selected={{_fractie}}
-        @onChange={{action "select"}}
+        @search={{perform this.searchByName}}
+        @selected={{this._fractie}}
+        @onChange={{this.select}}
         as |fractie|>
   {{fractie.naam}}
-</Mandatenbeheer::PowerSelect>
+</PowerSelect>

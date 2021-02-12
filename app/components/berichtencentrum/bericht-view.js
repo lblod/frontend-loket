@@ -1,11 +1,12 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  isExpanded: false,
+export default class BerichtencentrumBerichtViewComponent extends Component {
+  @tracked isExpanded = false
 
-  actions: {
+  @action
     expand() {
-      this.set("isExpanded", !this.isExpanded);
+      this.isExpanded = !this.isExpanded;
     }
   }
-});
