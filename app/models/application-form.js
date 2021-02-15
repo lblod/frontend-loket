@@ -10,12 +10,10 @@ export default class ApplicationForm extends Model {
     defaultValue(){ return new Date();}
   }) modified;
 
-  @attr('date') aanvraagdatum;
-
   @belongsTo('contact-punt') contactinfo; // default needed
   @belongsTo('bank-account') bankAccount; // default needed
   @belongsTo('time-block') timeBlock; // concept
-  @belongsTo('subsidy-measure') subsidyMeasure; // concept
+  @belongsTo('subsidiemaatregel-aanbod') subsidyMeasure; // concept
 
   @belongsTo('bestuurseenheid') organization;
   @belongsTo('submission-document-status') status;
