@@ -84,7 +84,15 @@
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.save.isRunning "true"}}
                 @skin={{"secondary"}}
-                {{on "click" (perform this.save)}}>Bewaar</AuButton>
+                @icon={{if this.recentlySaved "check"}}
+                @iconAlignment={{if this.recentlySaved "left"}}
+                {{on "click" (perform this.save)}}>
+                {{#if this.recentlySaved}}
+                  Concept bewaard
+                {{else}}
+                  Bewaar als concept
+                {{/if}}
+              </AuButton>
       <AuLink @linkRoute="supervision.submissions.index" @skin="secondary">Annuleer</AuLink>
     {{else}}
       <AuLink @linkRoute="supervision.submissions.index" @skin="secondary">Sluit</AuLink>
