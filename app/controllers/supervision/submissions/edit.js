@@ -16,6 +16,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
   @tracked removedTriples = [];
   @tracked forceShowErrors = false;
   @tracked isValidForm = true;
+  @tracked recentlySaved = false;
 
   constructor() {
     super(...arguments);
@@ -115,6 +116,8 @@ export default class SupervisionSubmissionsEditController extends Controller {
     this.model.submission.modified = new Date();
     this.model.submission.lastModifier = user;
     yield this.model.submission.save();
+    this.recentlySaved = true;
+    setTimeout(() => this.recentlySaved = false, 3000);
   }
 
   @task

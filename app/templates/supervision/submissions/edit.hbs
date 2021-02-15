@@ -35,6 +35,11 @@
           <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
         </li>
       {{/if}}
+      {{#if this.recentlySaved}}
+        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+          <AuAlert @alertIcon="info-circle" @alertTitle="Opgeslagen."  @alertskin="success" @alertsize="small"></AuAlert>
+        </li>
+      {{/if}}
     </ul>
   </AuToolbarGroup>
 </AuToolbar>
