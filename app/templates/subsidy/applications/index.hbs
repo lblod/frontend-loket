@@ -35,7 +35,7 @@
 
     <c.body as |row|>
       <td>{{row.subsidyMeasure.naam}}</td>
-      <td>{{row.timeBlock.label}}&nbsp;{{moment-format row.timeBlock.start "YYYY"}}</td>
+      <td>{{row.timeBlock.naam}}&nbsp;{{moment-format row.timeBlock.start "YYYY"}}</td>
       {{!-- <td>{{moment-format row.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}</td> --}}
       <td>{{moment-format row.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</td>
       <td class="au-u-visible-medium-up">
