@@ -5,24 +5,25 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
   async model() {
     const bestuursfunctie = this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie');
     this.set('bestuursfunctie', bestuursfunctie);
-    if (!await bestuursfunctie.contactinfo) {
-      const info = await this.store.createRecord('contact-punt');
+    let info = await bestuursfunctie.contactinfo;
+    if (!info) {
+      info = await this.store.createRecord('contact-punt');
       await info.save();
 
       bestuursfunctie.set('contactinfo', info);
       await bestuursfunctie.save();
     }
 
-    const contactinfo = await bestuursfunctie.get('contactinfo');
-    if (!(await contactinfo.adres)) {
-      const adres = await this.store.createRecord('adres');
+    let adres = await info.adres;
+    if (!adres) {
+      adres = await this.store.createRecord('adres');
       await adres.save();
 
-      contactinfo.set('adres', adres);
-      await contactinfo.save();
+      info.set('adres', adres);
+      await info.save();
     }
 
-    return contactinfo;
+    return info;
   }
 
   setupController( controller, model ) {

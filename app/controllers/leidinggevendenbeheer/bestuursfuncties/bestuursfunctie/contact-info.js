@@ -6,16 +6,17 @@ import { tracked } from '@glimmer/tracking';
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoController extends Controller {
   showConfirmationDialog = false;
 
-  @tracked bestuurseenheid; 
+  @tracked bestuurseenheid;
   @tracked bestuursfunctie;
-  
+
   get isDirty() {
     return this.model.hasDirtyAttributes || this.model.get('adres.hasDirtyAttributes');
   }
 
   exit() {
     this.set('showConfirmationDialog', false);
-    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen', this.bestuursfunctie.id);
+    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen',
+      this.bestuursfunctie.id);
   }
 
   @task(function* () {
@@ -42,10 +43,10 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
   }) updateAdres;
 
   @action
-    cancel() {
-      if (!this.isDirty)
-        this.exit();
-      else
-        this.set('showConfirmationDialog', true);
-    }
+  cancel() {
+    if (!this.isDirty)
+      this.exit();
+    else
+      this.set('showConfirmationDialog', true);
   }
+}
