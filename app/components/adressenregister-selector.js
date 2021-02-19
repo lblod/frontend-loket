@@ -14,7 +14,6 @@ export default class AdressenregisterSelectorComponent extends Component {
   @tracked addressSuggestion;
   @tracked addressesWithBusnumbers;
   @tracked addressWithBusnumber;
-  @tracked addressesWithBusnumbers;
 
   constructor() {
     super(...arguments);

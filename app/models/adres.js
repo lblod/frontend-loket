@@ -7,7 +7,7 @@ export default class AdresModel extends Model {
   @attr() postcode;
   @attr() gemeentenaam;
   @attr() land;
-  @attr() volledigAdres ;
+  @attr() volledigAdres;
   @attr() adresRegisterId;
   @attr() adresRegisterUri;
 }
