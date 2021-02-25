@@ -1,25 +1,27 @@
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
-import { belongsTo, hasMany } from 'ember-data/relationships';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import { computed } from '@ember/object';
 
-export default Model.extend({
-  rangorde: attr('language-string'),
-  start: attr('datetime'),
-  einde: attr('datetime'),
-  duplicationReason: attr('string'),
-  bekleedt: belongsTo('mandaat', { inverse: null }),
-  heeftLidmaatschap: belongsTo('lidmaatschap', { inverse: 'lid' }),
-  isBestuurlijkeAliasVan: belongsTo('persoon', { inverse: 'isAangesteldAls' }),
-  rechtsgrondenAanstelling: hasMany('rechtsgrond-aanstelling', { inverse: 'bekrachtigtAanstellingenVan' }),
-  rechtsgrondenBeeindiging: hasMany('rechtsgrond-beeindiging', { inverse: 'bekrachtigtOntslagenVan' }),
-  tijdelijkeVervangingen: hasMany('mandataris', { inverse: null }),
-  beleidsdomein: hasMany('beleidsdomein-code', { inverse: null }),
-  status: belongsTo('mandataris-status-code', { inverse: null }),
-  generatedFrom: attr('uri-set'),
-  duplicateOf: belongsTo('mandataris', { inverse: null }),
+export default class MandatarisModel extends Model {
+  @attr('language-string') rangorde;
+  @attr('datetime') start;
+  @attr('datetime') einde;
+  @attr('string') duplicationReason;
+  @belongsTo('mandaat', { inverse: null }) bekleedt;
+  @belongsTo('lidmaatschap', { inverse: 'lid' }) heeftLidmaatschap;
+  @belongsTo('persoon', { inverse: 'isAangesteldAls' }) isBestuurlijkeAliasVan;
+  @hasMany('rechtsgrond-aanstelling', { inverse: 'bekrachtigtAanstellingenVan' }) rechtsgrondenAanstelling;
+  @hasMany('rechtsgrond-beeindiging', { inverse: 'bekrachtigtOntslagenVan' }) rechtsgrondenBeeindiging;
+  @hasMany('mandataris', { inverse: null }) tijdelijkeVervangingen;
+  @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
+  @belongsTo('mandataris-status-code', { inverse: null }) status;
+  @belongsTo('mandataris', { inverse: null }) duplicateOf;
+  @attr('uri-set'): generatedFrom;
 
-  generatedFromGelinktNotuleren: computed('generatedFrom', function(){
+  @computed('generatedFrom')
+  get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(uri => uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService');
-  })
-});
+  }
+
+}
+
+>>>>>>> master

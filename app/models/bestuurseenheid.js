@@ -1,5 +1,5 @@
-import Model, {attr, belongsTo, hasMany} from '@ember-data/model';
-import {collect} from '@ember/object/computed';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import { collect } from '@ember/object/computed';
 
 export default class Bestuurseenheid extends Model {
   // A string representation of this model, based on its attributes.

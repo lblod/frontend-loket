@@ -1,13 +1,17 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  showDetails: false,
-  actions: {
+export default class MandatenbeheerPersoonSearchResultComponent extends Component {
+  @tracked showDetails = false;
+
+  @action
     select(){
-      this.onSelect(this.persoon);
-    },
+      this.args.onSelect(this.args.persoon);
+    }
+
+  @action
     toggleDetails(){
-      this.set('showDetails', !this.showDetails);
+      this.showDetails = !this.showDetails;
     }
   }
-});

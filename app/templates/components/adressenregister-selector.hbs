@@ -3,10 +3,10 @@
   <PowerSelect
       @triggerId="address"
       @allowClear={{true}}
-      @disabled={{disabled}}
-      @search={{perform search}}
-      @selected={{addressSuggestion}}
-      @onChange={{perform selectSuggestion}}
+      @disabled={{this.disabled}}
+      @search={{perform this.search}}
+      @selected={{this.addressSuggestion}}
+      @onChange={{perform this.selectSuggestion}}
       @loadingMessage="Aan het laden..."
       @searchEnabled={{true}}
       @noMatchesMessage="Geen resultaten"
@@ -17,12 +17,13 @@
 </div>
 <div class="au-u-2-3@medium au-u-margin-top">
   <AuLabel for="busnumber">Busnummer</AuLabel>
-  {{adressenregister-busnumber-selector
-      address=addressWithBusnumber
-      options=addressesWithBusnumbers
-      onChange=(action "selectAddressWithBusnumber")
-      disabled=isDisabledBusnumberSelect
-      allowClear=false
-  }}
+
+  <AdressenregisterBusnumberSelector
+      @address={{this.addressWithBusnumber}}
+      @options={{this.addressesWithBusnumbers}}
+      @onChange={{this.selectAddressWithBusnumber}}
+      @disabled={{this.isDisabledBusnumberSelect}}
+      @allowClear={{false}}
+  />
   <AuHelpText>Staat het correcte busnummer niet in de lijst? <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">Mail ons</a></AuHelpText>
 </div>

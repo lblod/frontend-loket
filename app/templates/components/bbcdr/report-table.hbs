@@ -1,32 +1,39 @@
-{{#au-data-table content=content isLoading=isLoading noDataMessage="Geen rapporten gevonden"
-     sort=sort page=page size=size class="container-flex--contain bbcdr-reports-data-table" as |t|}}
-  {{#t.content as |c|}}
-    {{#c.header}}
+<AuDataTable @content={{@content}} @isLoading={{@isLoading}} noDataMessage="Geen rapporten gevonden" @sort={{@sort}}
+  @page={{@page}} @size={{@size}} class="container-flex--contain bbcdr-reports-data-table" as |t|>
+  <t.content as |c|>
+    <c.header>
       <th>Rapport</th>
-      {{#unless displaySubset}}
-        {{au-data-table-th-sortable label='Gewijzigd door' field='lastModifier.achternaam' currentSorting=sort class="au-u-visible-medium-up"}}
-        {{au-data-table-th-sortable label='Bewerkt op' field='modified' currentSorting=sort class="au-u-visible-medium-up"}}
+      {{#unless @displaySubset}}
+      <AuDataTableThSortable @label='Gewijzigd door' @field='lastModifier.achternaam' @currentSorting={{@sort}}
+        class="au-u-visible-medium-up" />
+      <AuDataTableThSortable @label='Bewerkt op' @field='modified' @currentSorting={{@sort}}
+        class="au-u-visible-medium-up" />
       {{/unless}}
-      {{au-data-table-th-sortable label='Status' field='status.label' currentSorting=sort class="au-u-visible-small-up"}}
-      <th><!-- Actions --></th>
-    {{/c.header}}
-    {{#c.body data-test-loket='bbcdr-report-table-body' as |row|}}
+      <AuDataTableThSortable @label='Status' @field='status.label' @currentSorting={{@sort}}
+        class="au-u-visible-small-up" />
+      <th>
+        <!-- Actions -->
+      </th>
+    </c.header>
+    <c.body data-test-loket='bbcdr-report-table-body' as |row|>
       <td data-test-loket='bbcdr-report-table-files-column'>
         {{#each row.files as |file|}}
-          {{wu-document-miniature isTiny=true class="switch-text-overflow-ellipsis"
-              type=(uppercase file.extension) label=file.filename metadata=file.miniatureMetadata data-test-loket='bbcdr-file-miniature'}}
+        <WuDocumentMiniature @isTiny={{true}} class="switch-text-overflow-ellipsis" @type={{uppercase file.extension}}
+          @label={{file.filename}} @metadata={{file.miniatureMetadata}} data-test-loket='bbcdr-file-miniature' />
         {{else}}
-          Geen bestanden
+        Geen bestanden
         {{/each}}
       </td>
-      {{#unless displaySubset}}
-        <td class="au-u-visible-medium-up">{{row.lastModifier.fullName}}</td>
-        <td class="au-u-visible-medium-up">{{moment-format row.modified 'DD-MM-YYYY'}}</td>
+      {{#unless @displaySubset}}
+      <td class="au-u-visible-medium-up">{{row.lastModifier.fullName}}</td>
+      <td class="au-u-visible-medium-up">{{moment-format row.modified 'DD-MM-YYYY'}}</td>
       {{/unless}}
       <td class="au-u-visible-small-up">
         {{shared/document-status-pill row.status}}
       </td>
-      <td data-test-loket='bbcdr-report-table-open-details-column'>{{#link-to 'bbcdr.rapporten.edit' row class="au-c-link"}}Bekijk{{/link-to}}</td>
-    {{/c.body}}
-  {{/t.content}}
-{{/au-data-table}}
+      <td data-test-loket='bbcdr-report-table-open-details-column'>
+        <LinkTo @route='bbcdr.rapporten.edit' @model={{row}} class="au-c-link">Bekijk</LinkTo>
+      </td>
+    </c.body>
+  </t.content>
+</AuDataTable>

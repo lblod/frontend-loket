@@ -1,6 +1,6 @@
-import DS from 'ember-data';
+import Model, { attr } from '@ember-data/model';
 
-export default DS.Model.extend({
-  uri: DS.attr(),
-  label: DS.attr('string')
-});
+export default class EducationalLevelModel extends Model {
+  @attr() uri;
+  @attr('string') label;
+}

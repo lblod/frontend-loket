@@ -1,4 +1,4 @@
-import Model, {attr, belongsTo} from '@ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class ApplicationForm extends Model {
   @attr() uri;
@@ -9,8 +9,6 @@ export default class ApplicationForm extends Model {
   @attr('datetime', {
     defaultValue(){ return new Date();}
   }) modified;
-
-  @attr('date') aanvraagdatum;
 
   @belongsTo('contact-punt') contactinfo; // default needed
   @belongsTo('bank-account') bankAccount; // default needed

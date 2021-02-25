@@ -1,47 +1,40 @@
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
-import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
+export default class MandatenbeheerFractieTableRowComponent extends Component {
+  @tracked editMode = false;
 
-  tagName: 'tr',
-  editMode: false,
-  canRemove: false,
+  constructor(){
+    super(...arguments);
+    this.editMode = this.args.editMode;
+  }
 
-  isValid: computed('fractie', 'fractie.naam', function() {
-    return this.fractie && this.fractie.naam && this.fractie.hasDirtyAttributes;
-  }),
+  get isValid() {
+    return this.args.fractie && this.args.fractie.naam && this.args.fractie.hasDirtyAttributes;
+  }
 
-  bestuursperiodeStart: reads('fractie.bestuursorganenInTijd.firstObject.bindingStart'),
-  bestuursperiodeEnd: reads('fractie.bestuursorganenInTijd.firstObject.bindingEinde'),
+  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingStart') bestuursperiodeStart;
+  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingEinde') bestuursperiodeEnd;
 
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this.setFractieHasLidmaatschap.perform();
-  },
-
-  setFractieHasLidmaatschap: task(function* () {
-    const lidmaatschap = yield this.store.query('lidmaatschap', {
-      'filter[binnen-fractie][:id:]': this.fractie.id
-    });
-    this.set('canRemove', lidmaatschap.length == 0);
-  }).drop(),
-
-  actions: {
+  @action
     cancel() {
-      this.set('editMode', false);
-      this.onCancel(this.fractie);
-      this.fractie.rollbackAttributes();
-    },
+      this.editMode = false;
+      this.args.onCancel(this.args.fractie);
+      if(this.fractie){
+        this.fractie.rollbackAttributes();
+      }
+    }
+
+  @action
     save() {
-      this.set('editMode', false);
-      this.onSave(this.fractie);
-    },
+      this.editMode = false;
+      this.args.onSave(this.args.fractie);
+    }
+
+  @action
     async remove() {
       await this.fractie.destroyRecord();
     }
   }
-});

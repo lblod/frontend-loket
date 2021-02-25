@@ -1,26 +1,31 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Controller.extend({
-  router: service(),
+export default class BerichtencentrumBerichtenController extends Controller {
+  @service() router;
 
-  sort: '-laatste-bericht.verzonden',
-  page: 0,
-  size: 20,
-  showPreferences: false,
+  sort = '-laatste-bericht.verzonden';
+  page = 0;
+  size = 20;
 
-  hasActiveChildRoute: computed('router.currentRouteName', function() {
-    return this.get('router.currentRouteName').startsWith('berichtencentrum.berichten.')
-        && this.get('router.currentRouteName') != 'berichtencentrum.berichten.index';
-  }),
+  @tracked preferences = false;
+  @tracked bestuurseenheid;
 
-  actions: {
-    showPreferences: function() {
-      this.set('showPreferences', true);
-    },
-    hidePreferences: function() {
-      this.set('showPreferences', false);
-    }
+  get hasActiveChildRoute(){
+    return this.router.currentRouteName.startsWith('berichtencentrum.berichten.')
+        && this.router.currentRouteName != 'berichtencentrum.berichten.index';
   }
-});
+
+  @action
+    showPreferences() {
+      this.preferences = true;
+    }
+
+  @action
+    hidePreferences() {
+      this.preferences = false;
+    }
+}
+

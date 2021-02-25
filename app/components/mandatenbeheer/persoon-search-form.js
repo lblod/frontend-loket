@@ -1,33 +1,48 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
-import { computed } from '@ember/object';
-import { gt } from '@ember/object/computed';
 import { A } from '@ember/array';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
-  hasSearched: gt('search.performCount', 0),
-  pageSize: 20,
-  showDefaultHead: true,
-  searchTerms: computed('gebruikteVoornaam', 'achternaam', 'identificator', function(){
+export default class MandatenbeheerPersoonSearchFormComponent extends Component {
+  @service store;
+
+  @tracked pageSize = 20;
+  @tracked showDefaultHead = true
+  @tracked queryParams;
+  @tracked error;
+  @tracked page;
+
+  @tracked personen;
+  @tracked achternaam;
+  @tracked gebruikteVoornaam;
+  @tracked identificator;
+
+
+  get searchTerms() {
     return [this.gebruikteVoornaam, this.achternaam, this.identificator].filter( t => t ).join(', ');
-  }),
-  isQuerying: computed('search.isRunning', 'getPersoon.isRunning', function(){
-    return this.get('search.isRunning') || this.get('getPersoon.isRunning');
-  }),
+  }
 
-  init(){
-    this._super(...arguments);
-    this.set('personen', A());
-  },
+  get isQuerying() {
+    return this.search.isRunning || this.getPersoon.isRunning;
+  }
 
-  search: task(function* () {
+  get hasSearched() {
+    return this.search.performCount > 0;
+  }
+
+  constructor(){
+    super(...arguments);
+    this.personen = A();
+  }
+
+  @task(function* () {
     yield timeout(300);
 
     if(!(this.achternaam || this.gebruikteVoornaam || this.identificator)){
-      this.set('queryParams', {});
-      this.set('personen', []);
+      this.queryParams = {};
+      this.personen = [];
       return;
     }
 
@@ -38,46 +53,51 @@ export default Component.extend({
       filter: {
         achternaam: this.achternaam || undefined,
         'gebruikte-voornaam': this.gebruikteVoornaam || undefined,
-        identificator: this.identificator || undefined
+        identificator:  this.identificator && this.identificator.replace(/\D+/g, "") || undefined
       },
       page:{
         size: this.pageSize,
         number: 0
       }
     };
-    this.set('queryParams', queryParams);
-    this.set('personen', (yield this.getPersoon.perform(queryParams)));
-  }).restartable(),
+    this.queryParams = queryParams;
+    this.personen = yield this.getPersoon.perform(queryParams);
+  }).restartable() search;
 
-  getPersoon: task(function* (queryParams){
+  @task(function* (queryParams){
     try {
       return yield this.store.query('persoon', queryParams);
     }
     catch(e){
-      this.set('error', true);
+      this.error = true;
     }
-  }),
+  }) getPersoon;
 
   resetAfterError(){
-    this.set('error', false);
+    this.error = false;
     this.search.cancelAll({ resetState: true });
-  },
+  }
 
-  actions: {
+  @action
     async selectPage(page){
-      this.set('page', page);
+      this.page = page;
       let queryParams = this.queryParams;
       queryParams['page'] = {number: page};
-      this.set('personen', await this.getPersoon.perform(queryParams));
-    },
+      this.personen = await this.getPersoon.perform(queryParams);
+    }
+
+  @action
     selectPersoon(persoon){
-      this.onSelect(persoon);
-    },
+      this.args.onSelect(persoon);
+    }
+
+  @action
     cancel(){
-      this.onCancel();
-    },
+      this.args.onCancel();
+    }
+
+  @action
     toggleError(){
       this.resetAfterError();
     }
-  }
-});
+}

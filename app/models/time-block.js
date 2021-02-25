@@ -1,7 +1,8 @@
-import Model, {attr, belongsTo} from '@ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class TimeBlock extends Model {
 
+  @attr('string') naam;
   @attr('string') label;
   @attr('date') start;
   @attr('date') end;

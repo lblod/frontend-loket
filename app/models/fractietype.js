@@ -1,11 +1,11 @@
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
+import Model, { attr } from '@ember-data/model';
 import { equal } from '@ember/object/computed';
 
-export default Model.extend({
-  uri: attr(),
-  label: attr(),
+export default class FractietypeModel extends Model {
+  @attr() uri;
+  @attr() label;
+  
+  @equal('uri', 'http://data.vlaanderen.be/id/concept/Fractietype/Onafhankelijk') isOnafhankelijk;
+  @equal('uri', 'http://data.vlaanderen.be/id/concept/Fractietype/Samenwerkingsverband') isSamenwerkingsverband;
+}
 
-  isOnafhankelijk: equal('uri', 'http://data.vlaanderen.be/id/concept/Fractietype/Onafhankelijk'),
-  isSamenwerkingsverband: equal('uri', 'http://data.vlaanderen.be/id/concept/Fractietype/Samenwerkingsverband')
-});

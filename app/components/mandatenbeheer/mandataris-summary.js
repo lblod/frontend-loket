@@ -1,36 +1,39 @@
+import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
-import Component from '@ember/component';
+import { action } from '@ember/object';
+import { computed } from '@ember/object';
 
-export default Component.extend({
-  rol: reads('mandataris.bekleedt.bestuursfunctie.label'),
-  start: reads('mandataris.start'),
-  einde: reads('mandataris.einde'),
-  fractie: reads('mandataris.heeftLidmaatschap.binnenFractie.naam'),
-  rangorde: reads('mandataris.rangorde.content'),
-  status: reads('mandataris.status.label'),
-  beleidsdomein: reads('mandataris.beleidsdomein'),
-  gelinktNotuleren: reads('mandataris.generatedFromGelinktNotuleren'),
-  duplicateOf: reads('mandataris.duplicateOf'),
+export default class MandatenbeheerMandatarisSummaryComponent extends Component {
+  @reads('args.mandataris.bekleedt.bestuursfunctie.label') rol;
+  @reads('args.mandataris.start') start;
+  @reads('args.mandataris.einde') einde;
+  @reads('args.mandataris.heeftLidmaatschap.binnenFractie.naam') fractie;
+  @reads('args.mandataris.rangorde.content') rangorde;
+  @reads('args.mandataris.status.label') status;
 
-  async didReceiveAttrs() {
-    const beleidsdomein = await this.beleidsdomein;
-    if (beleidsdomein.length) {
-      const mappedBeleidsdomein = beleidsdomein.map(item => item.label);
-      this.set('formattedBeleidsdomein', mappedBeleidsdomein.join(', '));
-    } else {
-      this.set('formattedBeleidsdomein', []);
+  @computed('args.mandataris.beleidsdomein.@each.id')
+  get formattedBeleidsdomein(){
+    const beleidsdomeinen = this.args.mandataris.beleidsdomein;
+    if (beleidsdomeinen.length) {
+      return beleidsdomeinen.map(item => item.label);
     }
-  },
-
-  actions: {
-    edit(){
-      this.onEdit();
-    },
-    terminate(){
-      this.onTerminate();
-    },
-    correct(){
-      this.onCorrect();
+    else {
+      return [];
     }
   }
-});
+
+  @action
+    edit(){
+      this.args.onEdit();
+    }
+
+  @action
+    terminate(){
+      this.args.onTerminate();
+    }
+
+  @action
+    correct(){
+      this.args.onCorrect();
+    }
+}

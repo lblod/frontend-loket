@@ -1,24 +1,24 @@
-{{title "Leidinggevendenbeheer" " " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+{{page-title "Leidinggevendenbeheer" " " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
 
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
-    <AuHeading @skin="2">Leidinggevendenbeheer{{if allowed " — Overzicht functies"}}</AuHeading>
+    <AuHeading @skin="2">Leidinggevendenbeheer{{if this.allowed " — Overzicht functies"}}</AuHeading>
   </AuToolbarGroup>
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
-  {{#if (or (not allowed) (eq model.length 0))}}
+  {{#if (or (not this.allowed) (eq this.model.length 0))}}
     <div class="au-o-box">
       <AuAlert @alertIcon="info-circle" @alertsize="small">
-        <p>Voor de bestuurseenheid {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
+        <p>Voor de bestuurseenheid {{this.bestuurseenheid.classificatie.label}} {{this.bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
       </AuAlert>
     </div>
   {{else}}
-    {{#each model as |bestuursfunctie|}}
-      {{leidinggevendenbeheer/bestuursfunctie-card
-        model=bestuursfunctie
-        onClick=(action "displayBestuursfunctie" bestuursfunctie)
-      }}
+    {{#each this.model as |bestuursfunctie|}}
+      <Leidinggevendenbeheer::BestuursfunctieCard
+        @model={{bestuursfunctie}}
+        @onClick={{action "displayBestuursfunctie" bestuursfunctie}}
+      />
     {{/each}}
   {{/if}}
 </div>

@@ -1,8 +1,7 @@
-import Model from 'ember-data/model';
-import { belongsTo } from 'ember-data/relationships';
+import Model, { belongsTo } from '@ember-data/model';
 
-export default Model.extend({
-  binnenFractie: belongsTo('fractie', { inverse: null }),
-  lid: belongsTo('mandataris', { inverse: 'heeftLidmaatschap' }),
-  lidGedurende: belongsTo('tijdsinterval', { inverse: null })
-});
+export default class LidmaatschapModel extends Model {
+  @belongsTo('fractie', { inverse: null }) binnenFractie;
+  @belongsTo('mandataris', { inverse: 'heeftLidmaatschap' }) lid;
+  @belongsTo('tijdsinterval', { inverse: null }) lidGedurende;
+}

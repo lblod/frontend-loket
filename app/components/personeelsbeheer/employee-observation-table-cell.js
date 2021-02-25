@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { reads } from '@ember/object/computed';
-import { conditional } from 'ember-awesome-macros';
-import { raw } from 'ember-macro-helpers';
+import { conditional, raw } from 'ember-awesome-macros';
 
 export default Component.extend({
   tagName: '',

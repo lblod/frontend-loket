@@ -3,10 +3,12 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 import { inject as service } from '@ember/service';
 import ENV from 'frontend-loket/config/environment';
 import { warn } from '@ember/debug';
+import 'moment';
+import 'moment-timezone';
 
-export default Route.extend(ApplicationRouteMixin, {
-  currentSession: service(),
-  moment: service(),
+export default class ApplicationRoute extends Route.extend(ApplicationRouteMixin) {
+  @service() currentSession;
+  @service() moment;
 
   beforeModel() {
     const moment = this.moment;
@@ -15,12 +17,12 @@ export default Route.extend(ApplicationRouteMixin, {
     moment.set('defaultFormat', 'DD MMM YYYY, HH:mm');
 
     return this._loadCurrentSession();
-  },
+  }
 
   sessionAuthenticated() {
-    this._super(...arguments);
+    super.sessionAuthenticated(...arguments);
     this._loadCurrentSession();
-  },
+  }
 
   sessionInvalidated() {
     const logoutUrl = ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'];
@@ -30,7 +32,7 @@ export default Route.extend(ApplicationRouteMixin, {
     else {
       warn('Incorrect logout URL configured', { id: 'session-invalidation-failure' });
     }
-  },
+  }
 
   _loadCurrentSession() {
     return this.currentSession.load().catch((e) => {
@@ -39,4 +41,5 @@ export default Route.extend(ApplicationRouteMixin, {
     });
 
   }
-});
+}
+

@@ -1,17 +1,21 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { notEmpty } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
 
-export default Component.extend({
-  store: service(),
+export default class LeidinggevendenbeheerFunctionarisFormComponent extends Component {
+  @service() store;
 
-  tagName: '',
+  @tracked statusOptions;
+  @notEmpty('args.model.start') isValid;
 
-  isValid: notEmpty('model.start'),
+  constructor() {
+    super(...arguments);
+    this.getBestuursInfo()
+  }
 
-  async init() {
-    this._super(...arguments);
-    const bestuursfunctie = await this.model.bekleedt;
+  async getBestuursInfo() {
+    const bestuursfunctie = await this.args.model.get('bekleedt');
     const bestuursfunctieCode = await bestuursfunctie.rol;
 
     let queryParams = {};
@@ -27,6 +31,6 @@ export default Component.extend({
     }
 
     const statusOptions = await this.store.query('functionaris-status-code', queryParams);
-    this.set('statusOptions', statusOptions);
+    this.statusOptions = statusOptions;
   }
-});
+}

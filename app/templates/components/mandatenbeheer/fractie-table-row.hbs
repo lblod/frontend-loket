@@ -1,46 +1,47 @@
-<td>
-  {{#if editMode}}
-    <AuLabel for="fractienaam" class="au-u-hidden-visually">Fractienaam</AuLabel>
-    <AuInput id="fractienaam" @width="block" @value={{fractie.naam}} placeholder="Fractienaam" {{auto-focus}} />
-  {{else}}
-    <strong>{{fractie.naam}}</strong>
-  {{/if}}
-</td>
-
-<td>
-  {{moment-format bestuursperiodeStart 'YYYY'}} -
-  {{#if bestuursperiodeEnd}}
-    {{moment-format bestuursperiodeEnd 'YYYY'}}
-  {{else}}
-    heden
-  {{/if}}
-</td>
-
-<td class="au-u-text-right">
-  {{#if editMode}}
-  <AuButtonGroup>
-    <AuButton {{action "cancel"}} @skin="secondary">
-      Annuleer
-    </AuButton>
-    <AuButton {{action "save"}} @disabled="{{not isValid}}">
-      Bewaar
-    </AuButton>
-  </AuButtonGroup>
-  {{else}}
-    <AuButton {{action (mut editMode) true}} @skin="tertiary">
-      <AuIcon @icon="pencil" @alignment="left" />
-      Bewerk
-    </AuButton>
-    {{#if canRemove}}
-      {{wu-button
-          label="Verwijder"
-          onClick=(action "remove")
-          isWarning=true
-          size="small"
-      }}
+<tr>
+  <td>
+    {{#if this.editMode}}
+      <AuLabel @for="fractienaam" class="au-u-hidden-visually">Fractienaam</AuLabel>
+      <AuInput @id="fractienaam" @width="block" @value={{@fractie.naam}} placeholder="Fractienaam" {{auto-focus}} />
+    {{else}}
+      <strong>{{@fractie.naam}}</strong>
     {{/if}}
-  {{/if}}
-</td>
-<td>
-  {{fractie.generatedFromGelinktNotuleren}}
-</td>
+  </td>
+
+  <td>
+    {{moment-format this.bestuursperiodeStart 'YYYY'}} -
+    {{#if this.bestuursperiodeEnd}}
+      {{moment-format this.bestuursperiodeEnd 'YYYY'}}
+    {{else}}
+      heden
+    {{/if}}
+  </td>
+  <td class="au-u-text-right">
+    {{#if this.editMode}}
+    <AuButtonGroup>
+      <AuButton {{on 'click' this.cancel}} @skin="secondary">
+        Annuleer
+      </AuButton>
+      <AuButton {{on 'click' this.save}} @disabled={{not this.isValid}}>
+        Bewaar
+      </AuButton>
+    </AuButtonGroup>
+    {{else}}
+      <AuButton {{on "click" (fn (mut this.editMode) true)}} @skin="tertiary">
+        <AuIcon @icon="pencil" @alignment="left" />
+        Bewerk
+      </AuButton>
+      {{#if this.canRemove}}
+        {{wu-button
+            label="Verwijder"
+            onClick=(action "remove")
+            isWarning=true
+            size="small"
+        }}
+      {{/if}}
+    {{/if}}
+  </td>
+  <td>
+    {{@fractie.generatedFromGelinktNotuleren}}
+  </td>
+</tr>

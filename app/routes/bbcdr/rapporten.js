@@ -2,22 +2,22 @@ import Route from '@ember/routing/route';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
 
-export default Route.extend(DataTableRouteMixin, {
-  currentSession: service(),
+export default class BbcdrRapportenRoute extends Route.extend(DataTableRouteMixin) {
+  @service() currentSession;
 
-  modelName: 'bbcdr-report',
+  modelName = 'bbcdr-report';
 
   async beforeModel() {
-    const bestuurseenheid = await this.get('currentSession.group');
+    const bestuurseenheid = await this.currentSession.group;
     this.set('bestuurseenheid', bestuurseenheid);
-  },
+  }
 
   mergeQueryOptions(params) {
     return {
       sort: params.sort,
       filter: {
         bestuurseenheid: {
-          id: this.get('bestuurseenheid.id')
+          id: this.bestuurseenheid.id
         }
       },
       include: [
@@ -26,10 +26,10 @@ export default Route.extend(DataTableRouteMixin, {
         'status'
       ].join(',')
     };
-  },
+  }
 
-  setupController(controller, model) {
-    this._super(controller, model);
+  setupController( controller, model ) {
+    super.setupController(...arguments);
     controller.set('bestuurseenheid', this.bestuurseenheid);
   }
-});
+}

@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class PersoneelsbeheerPersoneelsaantallenIndexRoute extends Route {
   async model() {
     const bestuurseenheid = this.modelFor('personeelsbeheer');
     const datasets = await this.store.query('employee-dataset', {
@@ -8,5 +8,4 @@ export default Route.extend({
     });
     return { bestuurseenheid, datasets };
   }
-
-});
+}

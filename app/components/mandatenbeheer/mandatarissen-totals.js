@@ -1,11 +1,14 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { task } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
-  classNameBindings:['isOpen:js-accordion--open'],
-  isOpen:false,
+export default class MandatenbeheerMandatarissenTotalsComponent extends Component {
+  @service() store;
+
+  @tracked isOpen = false;
+  @tracked mandatarissenTotals;
 
   getMandatenOrgaan(bestuursorgaan){
     const queryParams = {
@@ -21,7 +24,7 @@ export default Component.extend({
       ].join(',')
     };
     return this.store.query('mandaat', queryParams);
-  },
+  }
 
   getMandatarissenMandaat(mandaat){
     const queryParams = {
@@ -34,10 +37,10 @@ export default Component.extend({
       page: { size: 1 }
     };
     return this.store.query('mandataris', queryParams);
-  },
+  }
 
-  getMandatarissenTotals: task(function* (){
-    const bstOrgs = this.bestuursorganen;
+  @task(function* (){
+    const bstOrgs = this.args.bestuursorganen;
 
     const mapMandtnOrgs = yield Promise.all(bstOrgs.map(async (o) => {
      return {org: o, mandtn: await this.getMandatenOrgaan(o)};
@@ -57,17 +60,16 @@ export default Component.extend({
       };
     }));
 
-    this.set('mandatarissenTotals', mapMandtrsOrgs);
+    this.mandatarissenTotals = mapMandtrsOrgs;
 
     return mapMandtrsOrgs;
 
-  }).drop(),
+  }).drop() getMandatarissenTotals;
 
-  actions:{
+  @action
     toggleOpen(){
       if(!this.isOpen)
         this.getMandatarissenTotals.perform();
-      this.set('isOpen', !this.isOpen);
+      this.isOpen = !this.isOpen;
     }
-  }
-});
+}

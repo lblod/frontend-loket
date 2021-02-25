@@ -1,36 +1,36 @@
 <div class="au-o-grid au-o-grid--flush">
   <div class="au-o-grid__item au-u-3-5">
     <p>
-      <strong>{{rol}}</strong>
+      <strong>{{this.rol}}</strong>
     </p>
   </div>
   <div class="au-o-grid__item au-u-2-5 au-u-text-right">
-    {{#unless isEditing}}
-      <AuButton {{action "edit"}}>Pas aan</AuButton>
+    {{#unless @isEditing}}
+      <AuButton {{on 'click' this.edit}}>Pas aan</AuButton>
     {{/unless}}
   </div>
   <div class="au-o-grid__item">
     <AuContent>
       <p class="au-c-info-text">
-        {{moment-format start 'DD/MM/YYYY'}} —
-        {{#if einde}}
-          {{moment-format einde 'DD/MM/YYYY'}}
+        {{moment-format this.start 'DD/MM/YYYY'}} —
+        {{#if this.einde}}
+          {{moment-format this.einde 'DD/MM/YYYY'}}
         {{else}}
           heden
         {{/if}}
       </p>
       <ul class="au-c-list-horizontal au-u-margin-top-tiny">
-        {{#if formattedBeleidsdomein}}
-        <li class="au-c-list-horizontal__item">{{formattedBeleidsdomein}}</li>
+        {{#if this.formattedBeleidsdomein}}
+        <li class="au-c-list-horizontal__item">{{this.formattedBeleidsdomein}}</li>
         {{/if}}
-        {{#if status}}
-        <li class="au-c-list-horizontal__item">{{status}}</li>
+        {{#if this.status}}
+        <li class="au-c-list-horizontal__item">{{this.status}}</li>
         {{/if}}
-        {{#if rangorde}}
-        <li class="au-c-list-horizontal__item">{{rangorde}}</li>
+        {{#if this.rangorde}}
+        <li class="au-c-list-horizontal__item">{{this.rangorde}}</li>
         {{/if}}
-        {{#if fractie}}
-        <li class="au-c-list-horizontal__item">{{fractie}}</li>
+        {{#if this.fractie}}
+        <li class="au-c-list-horizontal__item">{{this.fractie}}</li>
         {{/if}}
         <li class="au-c-list-horizontal__item">Gelinkt notuleren? {{gelinktNotuleren}}</li>
         {{#if duplicateOf}}

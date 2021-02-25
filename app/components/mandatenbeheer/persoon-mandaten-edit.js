@@ -1,19 +1,24 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
+export default class MandatenbeheerPersoonMandatenEditComponent extends Component {
+  @service() store;
 
-  async didReceiveAttrs(){
-    await this.initComponentProperties();
-  },
+  @tracked mandatarissen;
+
+  constructor(){
+    super(...arguments)
+    this.initComponentProperties();
+  }
 
   async initComponentProperties(){
-    let bestuursorganenIds = this.bestuursorganen.map(o => o.get('id'));
+    let bestuursorganenIds = this.args.bestuursorganen.map(o => o.get('id'));
     let queryParams = {
       filter: {
         'is-bestuurlijke-alias-van': {
-          id: this.get('persoon.id')
+          id: this.args.persoon.id
         },
         'bekleedt': {
           'bevat-in': {
@@ -30,29 +35,30 @@ export default Component.extend({
     };
 
     let mandatarissen = await this.store.query('mandataris', queryParams);
-    this.set('mandatarissen', mandatarissen.toArray());
-  },
+    this.mandatarissen = mandatarissen.toArray();
+  }
 
-  actions: {
-    async updateVerifiedMandaten(){
-      this.set('persoon.verifiedMandaten', !this.get('persoon.verifiedMandaten'));
-      await this.get('persoon').save();
-    },
+  @action
     mandatarisSaved(mandataris){
       //here you can do some additional validation, e.g. validation over all mandaten for a person
       this.onMandatarisSaved(mandataris);
-    },
+    }
+
+  @action
     async mandatarisCreateCanceled(mandataris){
       await mandataris.destroy();
       this.mandatarissen.removeObject(mandataris);
-    },
+    }
+
+  @action
     async createMandataris(){
       const mandataris = this.store.createRecord('mandataris');
-      mandataris.set('isBestuurlijkeAliasVan',await this.persoon);
+      mandataris.set('isBestuurlijkeAliasVan', await this.args.persoon);
       this.mandatarissen.pushObject(mandataris);
-    },
-    finish(){
-      this.onFinish();
     }
-  }
-});
+
+  @action
+    finish(){
+      this.args.onFinish();
+    }
+}

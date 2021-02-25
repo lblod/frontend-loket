@@ -1,11 +1,10 @@
-import Model from 'ember-data/model';
-import attr from 'ember-data/attr';
+import Model, { attr } from '@ember-data/model';
 import { equal } from '@ember/object/computed';
 
-export default Model.extend({
-  uri: attr(),
-  label: attr(),
-
-  isConcept: equal('uri', 'http://data.lblod.info/document-statuses/concept'),
-  isVerstuurd: equal('uri', 'http://data.lblod.info/document-statuses/verstuurd')
-});
+export default class DocumentStatusModel extends Model {
+  @attr() uri;
+  @attr() label;
+  
+  @equal('uri', 'http://data.lblod.info/document-statuses/concept') isConcept;
+  @equal('uri', 'http://data.lblod.info/document-statuses/verstuurd') isVerstuurd;
+}

@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class BbcdrRapportenEditRoute extends Route {
   model(params) {
     return this.store.findRecord('bbcdr-report', params.id, {
       include: [
@@ -10,4 +10,4 @@ export default Route.extend({
       ].join(',')
     });
   }
-});
+}

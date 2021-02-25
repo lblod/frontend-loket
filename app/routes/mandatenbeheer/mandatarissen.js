@@ -1,13 +1,14 @@
 import Route from '@ember/routing/route';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
+import { action } from '@ember/object';
 
-export default Route.extend(DataTableRouteMixin, {
-  modelName: 'mandataris',
+export default class MandatenbeheerMandatarissenRoute extends Route.extend(DataTableRouteMixin) {
+  modelName = 'mandataris';
 
   beforeModel(){
     const mandatenbeheer = this.modelFor('mandatenbeheer');
     this.set('mandatenbeheer', mandatenbeheer);
-  },
+  }
 
   mergeQueryOptions(params){
     const bestuursorganenIds = this.mandatenbeheer.bestuursorganen.map(o => o.get('id'));
@@ -32,17 +33,16 @@ export default Route.extend(DataTableRouteMixin, {
     }
 
     return queryParams;
-  },
+  }
 
-  setupController(controller, model){
-    this._super(controller, model);
-    controller.set('searchData', this.paramsFor('mandatenbeheer.mandatarissen')['filter']);
-    controller.set('mandatenbeheer', this.mandatenbeheer);
-  },
+  setupController( controller, model ) {
+    super.setupController(...arguments);
+    controller.searchData = this.paramsFor('mandatenbeheer.mandatarissen')['filter'];
+    controller.mandatenbeheer = this.mandatenbeheer;
+  }
 
-  actions: {
+  @action
     reloadModel(){
       this.refresh();
     }
   }
-});

@@ -1,61 +1,69 @@
-<div class="au-c-body-container au-c-action-sidebar" {{auto-focus ".au-c-action-sidebar__header"}}>
-  {{bbcdr/report-edit-header report=report onClose=(action "clickCloseCross") data-test-loket='bbcdr-report-edit-header'}}
+<div class="au-o-grid__item au-u-2-5@medium">
+  <div class="au-c-body-container au-c-action-sidebar" {{auto-focus ".au-c-action-sidebar__header" }}>
+    <Bbcdr::ReportEditHeader @report={{@report}} @onClose={{this.clickCloseCross}}
+      data-test-loket='bbcdr-report-edit-header' />
 
-  <div class="au-o-box au-c-body-container au-c-body-container--scroll">
-    <p>
-      <AuLabel for="bestanden">Upload één XML en één XBRLfile</AuLabel>
-    </p>
-    {{#each reportFiles as |file|}}
-      {{vo-mu-file-card file=file onDelete=(action "deleteFile") active=(not report.status.isVerstuurd) data-test-loket='bbcdr-file-card'}}
-    {{/each}}
-    {{#if enableUpload}}
-      {{vo-mu-file-dropzone onFinishUpload=(action "addFile") accept=".xbrl,.xml" maxFileSizeMB=1024 data-test-loket='bbcdr-file-upload'}}
-    {{/if}}
+    <div class="au-o-box au-c-body-container au-c-body-container--scroll">
+      <p>
+        <AuLabel for="bestanden">Upload één XML en één XBRLfile</AuLabel>
+      </p>
+      {{#each this.reportFiles as |file|}}
+      <VoMuFileCard @file={{file}} @onDelete={{fn this.deleteFile file}} @active={{not @report.status.isVerstuurd}}
+        data-test-loket='bbcdr-file-card' />
+      {{/each}}
+      {{#if this.enableUpload}}
+      <VoMuFileDropzone @onFinishUpload={{this.addFile}} @accept=".xbrl,.xml" @maxFileSizeMB='1024'
+        data-test-loket='bbcdr-file-upload' />
+      {{/if}}
 
-    {{#if showError}}
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" class="au-u-margin-top-tiny" />
-    {{/if}}
-  </div>
+      {{#if this.showError}}
+      <AuAlert @alertIcon="alert-triangle"
+        @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren."
+        @alertskin="error" class="au-u-margin-top-tiny" />
+      {{/if}}
+    </div>
 
-  <div class="au-o-box au-c-action-sidebar__footer" data-test-loket="bbcdr-report-edit-buttons">
-    {{#if report.isNew}}
+    <div class="au-o-box au-c-action-sidebar__footer" data-test-loket="bbcdr-report-edit-buttons">
+      {{#if @report.isNew}}
       <AuButtonGroup>
-        <AuButton {{action "send"}} @disabled="{{not readyToSend}}" data-test-loket="bbcdr-send-btn">
+        <AuButton {{on 'click' this.send}} @disabled={{not this.readyToSend}} data-test-loket="bbcdr-send-btn">
           Verstuur naar Vlaamse Overheid
         </AuButton>
-        <AuButton {{action "tempSave"}} @disabled="{{not readyForTmpSave}}" @skin="secondary">
+        <AuButton {{on 'click' this.tempSave}} @disabled={{not this.readyForTmpSave}} @skin="secondary">
           Bewaar concept
         </AuButton>
-        <AuButton {{action "deleteReport"}} @skin="secondary">
+        <AuButton {{on 'click' this.deleteReport}} @skin="secondary">
           Annuleer
         </AuButton>
       </AuButtonGroup>
-    {{else}}
-      {{#unless report.status.isConcept}}
-        <AuAlert @alertIcon="check" @alertTitle="Rapport verstuurd" @alertsize="small" @alertskin="success" />
+      {{else}}
+      {{#unless @report.status.isConcept}}
+      <AuAlert @alertIcon="check" @alertTitle="Rapport verstuurd" @alertsize="small" @alertskin="success" />
       {{/unless}}
       <AuButtonGroup>
-        {{#if report.status.isConcept}}
-          <AuButton {{action "send"}} @disabled="{{not readyToSend}}" data-test-loket="bbcdr-send-btn">
-            Verstuur naar Vlaamse Overheid
-          </AuButton>
-          <AuButton {{action "tempSave"}} @skin="secondary">
-            Bewaar
-          </AuButton>
-          <AuButton {{action "deleteReport"}} @skin="secondary" @alert="true">
-            Verwijder
-          </AuButton>
+        {{#if @report.status.isConcept}}
+        <AuButton {{on 'click' this.send}} @disabled={{not this.readyToSend}} data-test-loket="bbcdr-send-btn">
+          Verstuur naar Vlaamse Overheid
+        </AuButton>
+        <AuButton {{on 'click' this.tempSave}} @skin="secondary">
+          Bewaar
+        </AuButton>
+        <AuButton {{on 'click' this.deleteReport}} @skin="secondary" @alert="true">
+          Verwijder
+        </AuButton>
         {{/if}}
-        {{#link-to 'bbcdr.rapporten.index' class="au-c-button au-c-button--secondary" data-test-loket="bbcdr-close-panel-btn"}}Sluit{{/link-to}}
+        <LinkTo @route='bbcdr.rapporten.index' class="au-c-button au-c-button--secondary"
+          data-test-loket="bbcdr-close-panel-btn">
+          Sluit
+        </LinkTo>
+
       </AuButtonGroup>
-    {{/if}}
+      {{/if}}
+    </div>
   </div>
 </div>
 
-{{#if showExitModal}}
-{{bbcdr/report-edit-exit-modal
-  onCancel=(action "cancelModal")
-  onSave=(action "saveAndExitModal")
-  onDiscard=(action "discardAndExitModal")
-}}
+{{#if this.showExitModal}}
+<Bbcdr::ReportEditExitModal @onCancel={{this.cancelModal}} @onSave={{this.saveAndExitModal}}
+  @onDiscard={{this.discardAndExitModal}} />
 {{/if}}

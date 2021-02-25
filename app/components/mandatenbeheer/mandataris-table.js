@@ -1,11 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-export default Component.extend({
-  actions: {
-    async removeMandataris(mandataris) {
-      await mandataris.destroyRecord();
-      const count = this.content.meta.count - 1;
-      this.content.set('meta.count', count);
-    }
-  }
-});
+export default class MandatenbeheerMandatarisTableComponent extends Component {
+}

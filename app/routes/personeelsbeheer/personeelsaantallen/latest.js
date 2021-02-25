@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class PersoneelsbeheerPersoneelsaantallenLatestRoute extends Route {
   async model(params) {
     this.set('datasetId', params.dataset_id);
     const periods = await this.store.query('employee-period-slice', {
@@ -9,9 +9,9 @@ export default Route.extend({
       'filter[dataset][id]': this.datasetId
     });
     return periods.firstObject;
-  },
+  }
 
   afterModel(model) {
     this.transitionTo('personeelsbeheer.personeelsaantallen.periodes.edit', this.datasetId, model.id);
   }
-});
+}

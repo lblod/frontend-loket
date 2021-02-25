@@ -1,20 +1,27 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
-  currentSession: service(),
 
-  async didReceiveAttrs(){
-    if(this.fractie)
-      this.set('_fractie', this.fractie);
-    if(this.bestuursorganen){
-      this.set('bestuursorganenId', this.bestuursorganen.map( o => o.get('id') ));
+export default class MandatenbeheerFractieSelectorComponent extends Component {
+  @service() store;
+  @service() currentSession;
+
+  @tracked _fractie;
+  @tracked bestuursorganenId;
+
+  constructor(){
+    super(...arguments);
+    if(this.args.fractie)
+      this._fractie = this.args.fractie;
+    if(this.args.bestuursorganen){
+      this.bestuursorganenId = this.args.bestuursorganen.map( o => o.get('id') );
     }
-  },
+  }
 
-  searchByName: task(function* (searchData) {
+  @task(function* (searchData) {
     yield timeout(300);
     let queryParams = {
       sort:'naam',
@@ -28,29 +35,26 @@ export default Component.extend({
     };
     let fracties = yield this.store.query('fractie', queryParams);
     fracties = fracties.filter(f => !f.get('fractietype.isOnafhankelijk'));
-
-    //sets dummy
+    //sets dummy  
     if('onafhankelijk'.includes(searchData.toLowerCase())){
       fracties.pushObject(yield this.createNewOnafhankelijkeFractie());
     }
-
     return fracties;
-  }),
+  }) searchByName;
 
   async createNewOnafhankelijkeFractie(){
     let onafFractie = (await this.store.findAll('fractietype')).find(f => f.get('isOnafhankelijk'));
     return this.store.createRecord('fractie', {
                                                 naam: 'Onafhankelijk',
                                                 fractietype: onafFractie,
-                                                bestuursorganenInTijd: this.bestuursorganen,
+                                                bestuursorganenInTijd: this.args.bestuursorganen,
                                                 bestuurseenheid: this.bestuurseeneenheid
                                               });
-  },
+  }
 
-  actions: {
+  @action
     select(fractie){
-      this.set('_fractie', fractie);
-      this.onSelect(fractie);
+      this._fractie = fractie;
+      this.args.onSelect(fractie);
     }
   }
-});

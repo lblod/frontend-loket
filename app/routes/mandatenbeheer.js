@@ -17,7 +17,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   async model(params){
     this.startDate = params.startDate;
-    const bestuurseenheid = await this.get('currentSession.group');
+    const bestuurseenheid = await this.currentSession.group;
 
     return RSVP.hash({
       bestuurseenheid: bestuurseenheid,

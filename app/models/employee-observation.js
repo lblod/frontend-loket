@@ -1,12 +1,12 @@
-import DS from 'ember-data';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default DS.Model.extend({
-  uri: DS.attr(),
-  value: DS.attr('number'),
-  unitMeasure: DS.belongsTo('employee-unit-measure'),
-  educationalLevel: DS.belongsTo('educational-level'),
-  sex: DS.belongsTo('geslacht-code'),
-  workingTimeCategory: DS.belongsTo('working-time-category'),
-  legalStatus: DS.belongsTo('employee-legal-status'),
-  slice: DS.belongsTo('employee-period-slice')
-});
+export default class EmployeeObservationModel extends Model {
+   @attr() uri;
+   @attr('number') value;
+   @belongsTo('employee-unit-measure') unitMeasure;
+   @belongsTo('educational-level') educationalLevel;
+   @belongsTo('geslacht-code') sex;
+   @belongsTo('working-time-category') workingTimeCategory;
+   @belongsTo('employee-legal-status') legalStatus;
+   @belongsTo('employee-period-slice') slice;
+}

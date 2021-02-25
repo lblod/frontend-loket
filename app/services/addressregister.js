@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import fetch from 'fetch';
 
 class AddressSuggestion {
-  constructor({ id, street, housenumber, zipCode, municipality, fullAddress }) {
+  constructor({id, street, housenumber, zipCode, municipality, fullAddress}) {
     this.adresRegisterId = id;
     this.street = street;
     this.housenumber = housenumber;
@@ -10,10 +10,20 @@ class AddressSuggestion {
     this.municipality = municipality;
     this.fullAddress = fullAddress;
   }
+
+  isEmpty() {
+    return !this.adresRegisterId &&
+      !this.street &&
+      !this.housenumber &&
+      !this.zipCode &&
+      !this.municipality &&
+      !this.fullAddress;
+  }
 }
 
 class Address {
-  constructor({ adresRegisterId, uri, street, housenumber, busnumber, zipCode, municipality, fullAddress }) {
+
+  constructor({adresRegisterId, uri, street, housenumber, busnumber, zipCode, municipality, fullAddress}) {
     this.uri = uri;
     this.adresRegisterId = adresRegisterId;
     this.street = street;
@@ -34,65 +44,55 @@ class Address {
       land: null,
       volledigAdres: this.fullAddress,
       adresRegisterId: this.adresRegisterId,
-      adresRegisterUri: this.uri
+      adresRegisterUri: this.uri,
     };
   }
 }
 
-export default Service.extend({
+export default class AddressregisterService extends Service {
   async suggest(query) {
     const results = await (await fetch(`/adressenregister/search?query=${query}`)).json();
-    const addressSuggestions = results.adressen.map( function(result) {
+    return results.adressen.map(function(result) {
       return new AddressSuggestion({
         id: result.ID,
         street: result.Thoroughfarename,
         housenumber: result.Housenumber,
         zipCode: result.Zipcode,
         municipality: result.Municipality,
-        fullAddress: result.FormattedAddress
+        fullAddress: result.FormattedAddress,
       });
     });
-    return addressSuggestions;
-  },
+  }
 
   async findAll(suggestion) {
-    const results = await (await fetch(`/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`)).json();
-    const addresses = results.map( function(result) {
-      return new Address({
-        uri: result.identificator.id,
-        adresRegisterId: result.identificator.objectId,
-        fullAddress: result.volledigAdres.geografischeNaam.spelling,
-        street: suggestion.street,
-        housenumber: suggestion.housenumber,
-        busnumber: result.busnummer ? result.busnummer : null,
-        zipCode: suggestion.zipCode,
-        municipality: suggestion.municipality
+    let addresses = [];
+    if (!suggestion.isEmpty()) {
+      const results = await (await fetch(
+        `/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`)).json();
+      addresses = results.map(function(result) {
+        return new Address({
+          uri: result.identificator.id,
+          adresRegisterId: result.identificator.objectId,
+          fullAddress: result.volledigAdres.geografischeNaam.spelling,
+          street: suggestion.street,
+          housenumber: suggestion.housenumber,
+          busnumber: result.busnummer ? result.busnummer : null,
+          zipCode: suggestion.zipCode,
+          municipality: suggestion.municipality,
+        });
       });
-    });
+    }
     return addresses;
-  },
+  }
 
   toAddressSuggestion(adresModel) {
-    return new Address({
+    return new AddressSuggestion({
       adresRegisterId: adresModel.adresRegisterId,
       street: adresModel.straatnaam,
       housenumber: adresModel.huisnummer,
       zipCode: adresModel.postcode,
       municipality: adresModel.gemeentenaam,
-      fullAddress: adresModel.volledigAdres
-    });
-  },
-
-  toAddress(adresModel) {
-    return new Address({
-      uri: adresModel.adresRegisterUri,
-      adresRegisterId: adresModel.adresRegisterId,
       fullAddress: adresModel.volledigAdres,
-      street: adresModel.straatnaam,
-      housenumber: adresModel.huisnummer,
-      busnumber: adresModel.busnummer,
-      zipCode: adresModel.postcode,
-      municipality: adresModel.gemeentenaam
     });
   }
-});
+}

@@ -16,9 +16,9 @@
               </AuContent>
             </div>
             <div class="au-o-grid__item au-u-1-2@medium au-u-text-right@medium">
-              {{acmidm-login}}
-              {{#if model}}
-                <AuAlert @alertIcon="alert-triangle" @alertTitle={{model}}  @alertskin="error" class="au-u-text-left" />
+              <AcmidmLogin/>
+              {{#if this.model}}
+                <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.model}}  @alertskin="error" class="au-u-text-left" />
               {{/if}}
             </div>
           </div>

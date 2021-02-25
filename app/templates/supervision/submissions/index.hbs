@@ -1,4 +1,4 @@
-{{title "Toezicht " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
+{{page-title  "Toezicht " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
     <AuHeading @skin="2" data-test-loket="inzendingen-page-title">Toezicht</AuHeading>
@@ -12,9 +12,9 @@
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
   @noDataMessage="Geen meldingen gevonden"
-  @sort={{sort}}
-  @page={{page}}
-  @size={{size}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
   as |t| >
   <t.content as |c|>
     <c.header>

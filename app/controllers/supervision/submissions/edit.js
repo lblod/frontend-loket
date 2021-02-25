@@ -8,14 +8,15 @@ import { task } from 'ember-concurrency-decorators';
 import { inject as service } from '@ember/service';
 
 export default class SupervisionSubmissionsEditController extends Controller {
-  @service currentSession
-  @service store
+  @service currentSession;
+  @service store;
 
-  @tracked datasetTriples = []
-  @tracked addedTriples = []
-  @tracked removedTriples = []
-  @tracked forceShowErrors = false
-  @tracked isValidForm = true
+  @tracked datasetTriples = [];
+  @tracked addedTriples = [];
+  @tracked removedTriples = [];
+  @tracked forceShowErrors = false;
+  @tracked isValidForm = true;
+  @tracked recentlySaved = false;
 
   constructor() {
     super(...arguments);
@@ -115,6 +116,8 @@ export default class SupervisionSubmissionsEditController extends Controller {
     this.model.submission.modified = new Date();
     this.model.submission.lastModifier = user;
     yield this.model.submission.save();
+    this.recentlySaved = true;
+    setTimeout(() => this.recentlySaved = false, 3000);
   }
 
   @task

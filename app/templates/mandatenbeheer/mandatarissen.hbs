@@ -1,22 +1,20 @@
-{{title "Mandatenbeheer " bestuurseenheid.classificatie.label " " bestuurseenheid.naam}}
-<div class="au-c-body-container {{if hasActiveChildRoute "au-u-hidden"}}">
+{{page-title "Mandatenbeheer " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
+<div class="au-c-body-container {{if this.hasActiveChildRoute "au-u-hidden"}}">
   <AuToolbar @size="large" @nowrap="true" class="au-u-padding-bottom-none">
     <AuToolbarGroup>
       <div class="au-o-flow">
         <AuHeading @skin="2">Mandatenbeheer</AuHeading>
-        {{mandatenbeheer/mandatarissen-totals
-          class="js-accordion"
-          bestuursorganen=bestuursorganen
-        }}
+        <Mandatenbeheer::MandatarissenTotals class="js-accordion" @bestuursorganen={{this.bestuursorganen}} />
+
       </div>
     </AuToolbarGroup>
 
     <AuToolbarGroup>
       <AuButtonGroup>
-        <AuButton {{action "handleBeheerFractiesClick"}} @skin="secondary">
+        <AuButton {{on 'click' this.handleBeheerFractiesClick}} @skin="secondary">
           Beheer fracties
         </AuButton>
-        <AuButton {{action "handleAddMandatarisClick"}}>
+        <AuButton {{on 'click' this.handleAddMandatarisClick}}>
           Voeg mandataris toe
         </AuButton>
       </AuButtonGroup>
@@ -26,37 +24,37 @@
   <AuToolbar @size="large">
     <AuToolbarGroup>
       <div class="">
-        {{mandatenbeheer/bestuursperioden-selector
-          options=bestuursperioden
-          selectedStartDate=startDate
-          onSelect=(action 'selectPeriod')
-        }}
+        <Mandatenbeheer::BestuursperiodenSelector
+          @options={{this.bestuursperioden}}
+          @selectedStartDate={{this.startDate}}
+          @onSelect={{this.selectPeriod}}/>
       </div>
     </AuToolbarGroup>
     <AuToolbarGroup class="au-u-1-3@medium">
       <div class="au-c-input-wrapper au-u-1-1">
-        {{input
-            type="text"
-            placeholder="Zoek mandataris"
-            key-up=(perform search)
-            value=searchData
-            class="au-c-input au-c-input--block"
-        }}
+        {{!-- <Input @type="text" @placeholder="Zoek mandataris" {{on 'keyup' (perform this.search) }} @value={{this.searchData}} class="au-c-input au-c-input--block"/> --}}
+        <Input 
+          @type="text"
+          @placeholder="Zoek mandataris"
+          @value={{this.searchData}}
+          @key-up={{perform this.search}}
+          class="au-c-input au-c-input--block" />
         <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
       </div>
     </AuToolbarGroup>
   </AuToolbar>
 
-  {{mandatenbeheer/mandataris-table
+  <Mandatenbeheer::MandatarisTable
     class="au-c-body-container"
-    content=model
-    isLoading=isLoadingModel
-    sort=sort
-    page=page
-    size=size
-    editRoute="mandatenbeheer.mandatarissen.edit"
-    displaySubset=hasActiveChildRoute
-  }}
+    @content={{this.model}}
+    @isLoading={{this.isLoadingModel}}
+    @sort={{this.sort}}
+    @page={{this.page}}
+    @size={{this.size}}
+    @editRoute="mandatenbeheer.mandatarissen.edit"
+    @displaySubset={{this.hasActiveChildRoute}}
+  />
+
 </div>
 
 {{outlet}}

@@ -1,10 +1,11 @@
 import Route from '@ember/routing/route';
+import { action } from '@ember/object';
 
-export default Route.extend({
+export default class MandatenbeheerFractiesRoute extends Route {
   beforeModel() {
     const mandatenbeheer = this.modelFor('mandatenbeheer');
     this.set('mandatenbeheer', mandatenbeheer);
-  },
+  }
 
   model() {
     const bestuursorganenIds = this.mandatenbeheer.bestuursorganen.map(o => o.get('id'));
@@ -14,7 +15,7 @@ export default Route.extend({
       page: { size: 1000 },
       'filter[bestuursorganen-in-tijd][id]': bestuursorganenIds.join(',')
     });
-  },
+  }
 
   async afterModel() {
     const defaultFractieType = (await this.store.query('fractietype', {
@@ -22,18 +23,16 @@ export default Route.extend({
       'filter[:uri:]': 'http://data.vlaanderen.be/id/concept/Fractietype/Samenwerkingsverband'
     })).firstObject;
     this.set('defaultFractieType', defaultFractieType);
-  },
+  }
 
-  setupController(controller, model) {
-    this._super(controller, model);
+  setupController( controller, model ) {
+    super.setupController(...arguments);
     controller.set('mandatenbeheer', this.mandatenbeheer);
     controller.set('defaultFractieType', this.defaultFractieType);
-  },
+  }
 
-  actions: {
+  @action
     reloadModel(){
       this.refresh();
     }
-  }
-
-});
+}

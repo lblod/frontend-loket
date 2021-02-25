@@ -1,10 +1,5 @@
-{{#if (not isExpanded)}}
-  <AuButton {{action "expandMe"}} @width="block">
-    <AuIcon @icon="message" @alignment="left" />
-    Plaats reactie
-  </AuButton>
-{{else}}
-  <div {{auto-focus}}>
+{{#if this.isExpanded}}
+<div {{auto-focus}}>
     <AuHeading @level="3" @skin="5" class="au-u-margin-bottom-small">
       Uw reactie
     </AuHeading>
@@ -15,8 +10,8 @@
       </div>
       <div class="au-o-grid__item au-u-4-5">
         <p class="au-c-small-text">
-          {{#if originator}}
-            {{originator.naam}}
+          {{#if this.originator}}
+            {{this.originator.naam}}
             {{ else }}
             Aan het laden...
           {{/if}}
@@ -27,8 +22,8 @@
       </div>
       <div class="au-o-grid__item au-u-4-5">
         <p class="au-c-small-text">
-          {{#if currentSession.groupContent.naam}}
-            {{currentSession.groupContent.naam}}
+          {{#if this.currentSession.groupContent.naam}}
+            {{this.currentSession.groupContent.naam}}
           {{else}}
             Aan het laden...
           {{/if}}
@@ -41,19 +36,26 @@
     </p>
 
     <div class="au-u-margin-top-tiny">
-      {{#each bijlagen as |bijlage|}}
-        {{vo-mu-file-card file=bijlage onDelete=(action "deleteFile") }}
+      {{#each this.bijlagen as |bijlage|}}
+        <VoMuFileCard @file={{bijlage}} @onDelete={{this.deleteFile}} />
       {{/each}}
-      {{vo-mu-file-dropzone onFinishUpload=(action "attachFile") maxFileSizeMB=1024}}
+      <VoMuFileDropzone @onFinishUpload={{this.attachFile}} @maxFileSizeMB="1024" />
     </div>
 
     <AuButtonGroup>
-      <AuButton {{action 'verstuurBericht'}} @disabled="{{cantSend}}" class="js-accordion__toggle js-accordion-bound">
+      <AuButton {{on 'click' this.verstuurBericht}} @disabled={{this.cantSend}} class="js-accordion__toggle js-accordion-bound">
         Verstuur bericht
       </AuButton>
-      <AuButton {{action 'collapseMe'}} @skin="secondary" class="js-accordion__toggle js-accordion-bound">
+      <AuButton {{on 'click' this.collapseMe}} @skin="secondary" class="js-accordion__toggle js-accordion-bound">
         Verwijder nieuw bericht
       </AuButton>
     </AuButtonGroup>
+  </div>
+{{else}}
+  <div>
+    <AuButton {{on 'click' this.expandMe}} @width="block">
+      <AuIcon @icon="message" @alignment="left" />
+      Plaats reactie
+    </AuButton>
   </div>
 {{/if}}

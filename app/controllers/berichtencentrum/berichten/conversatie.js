@@ -1,12 +1,13 @@
-import { inject } from '@ember/service';
+import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 
-export default Controller.extend({
-  router: inject(),
+export default class BerichtencentrumBerichtenConversatieController extends Controller {
+  @service() router;
 
-  actions: {
+  @action
     transitionToOverview(){
       this.router.transitionTo('berichtencentrum.berichten.index');
     }
-  }
-});
+}
+

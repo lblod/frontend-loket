@@ -1,3 +1,14 @@
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+
+export default class FractieModel extends Model {
+  @attr() naam;
+  @belongsTo('fractietype', { inverse: null }) fractietype;
+  @hasMany('bestuursorgaan', { inverse: null }) bestuursorganenInTijd;
+  @belongsTo('bestuurseenheid', { inverse: null }) bestuurseenheid;
+}
+
+
+ <<<<<<< HEAD
 import Model from 'ember-data/model';
 import attr from 'ember-data/attr';
 import { belongsTo, hasMany } from 'ember-data/relationships';
@@ -15,3 +26,13 @@ export default Model.extend({
     return (this.generatedFrom || []).some(uri => uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService');
   })
 });
+=======
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+
+export default class FractieModel extends Model {
+  @attr() naam;
+  @belongsTo('fractietype', { inverse: null }) fractietype;
+  @hasMany('bestuursorgaan', { inverse: null }) bestuursorganenInTijd;
+  @belongsTo('bestuurseenheid', { inverse: null }) bestuurseenheid;
+}
+>>>>>>> master

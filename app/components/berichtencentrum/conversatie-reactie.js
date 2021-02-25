@@ -1,55 +1,63 @@
-import { empty, oneWay } from '@ember/object/computed';
-import Component from '@ember/component';
+import { oneWay } from '@ember/object/computed';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import { task } from 'ember-concurrency';
-import { or } from 'ember-awesome-macros';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  router: service(),
-  store: service(),
-  currentSession: service(),
+export default class BerichtencentrumConversatieReactieComponent extends Component {
+  @service() router;
+  @service() store;
+  @service() currentSession;
 
-  didReceiveAttrs() {
-    this._super(...arguments);
+  @tracked isExpanded = false;
+  @tracked originator;
+  @tracked bijlagen;
+  @tracked inhoud;
+
+  @oneWay('currentSession.userContent') currentUser;
+  @oneWay('currentSession.groupContent.naam') bestuursEenheidNaam;
+
+  get cantSend(){
+    return this.ensureOriginator.isRunning || this.bijlagen.length == 0;
+  }
+
+  constructor() {
+    super(...arguments);
     this.ensureOriginator.perform();
-  },
+    this.initInputState();
+  }
 
   // Initializes the input state so it appears the component was not
   // used before.
-  initInputState(){
-    this.setProperties({
-      inhoud: '',
-      bijlagen: A()
-    });
-  },
+  initInputState() {
+    this.inhoud = '';
+    this.bijlagen = A();
+  }
 
-  isExpanded: false,
-  cantSend: or('ensureOriginator.isRunning', empty('bijlagen.[]')),
-  currentUser: oneWay('currentSession.userContent'),
-  bestuursEenheidNaam: oneWay('currentSession.groupContent.naam'),
-
-  ensureOriginator: task(function *() {
-    const berichten = (yield this.get('conversatie.berichten')).sortBy('verzonden');
-    const ourGroup = yield this.get('currentSession.group');
+  @task(function *() {
+    const berichten = yield this.args.conversatie.berichten;
+    const sortedBerichten = berichten.sortBy('verzonden');
+    const ourGroup = yield this.currentSession.group;
 
     // find first sender of message that is not our group
-    for( let bericht of berichten ){
+    for( let bericht of sortedBerichten){
       let sender = yield bericht.van;
       if( sender && sender.id !== ourGroup.id ) {
-        this.set('originator', sender);
+        this.originator = sender;
         return;
       }
     }
 
     // if no originator could be found, we reset the property
-    this.set('originator', null);
-  }),
+    this.originator = null;
+  }) ensureOriginator;
 
-  actions: {
+  @action
     async verstuurBericht() {
-      const bestuurseenheid = await this.get('currentSession.group');
-      const user = await this.get('currentSession.user');
+      const bestuurseenheid = await this.currentSession.group;
+      const user = await this.currentSession.user;
 
       try {
         this.collapse();
@@ -62,42 +70,47 @@ export default Component.extend({
           auteur                  : user,
           naar                    : this.originator,
           bijlagen                : this.bijlagen,
-          typeCommunicatie        : this.conversatie.currentTypeCommunicatie
+          typeCommunicatie        : this.args.conversatie.currentTypeCommunicatie
         });
 
         await reactie.save();
-        this.conversatie.berichten.pushObject(reactie);
-        this.conversatie.set('laatsteBericht', reactie);
-        await this.conversatie.save();
+        this.args.conversatie.berichten.pushObject(reactie);
+        this.args.conversatie.laatsteBericht = reactie;
+        await this.args.conversatie.save();
       }
       catch (err) {
         alert (err.message);
       }
-    },
+    }
 
-    attachFile: function (file) {
+  @action
+    attachFile(file) {
       this.bijlagen.pushObject(file);
-    },
+    }
 
-    deleteFile: function (file) {
+  @action
+    deleteFile(file) {
       this.bijlagen.removeObject(file);
-    },
+    }
 
-    expandMe: function() {
+  @action
+    expandMe() {
       this.initInputState();
       this.expand();
-    },
+    }
 
-    collapseMe: function () {
+  @action
+    collapseMe() {
       this.collapse();
     }
-  },
 
-  collapse: function() {
-    this.set('isExpanded', false);
-  },
+  @action
+    collapse() {
+      this.isExpanded = false;
+    }
 
-  expand: function() {
-    this.set('isExpanded', true);
-  }
-});
+  @action
+    expand() {
+      this.isExpanded = true;
+    }
+}

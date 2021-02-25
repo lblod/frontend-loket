@@ -11,7 +11,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   model() {
-    return this.get('currentSession.group');
+    return this.currentSession.group;
   }
 
 });

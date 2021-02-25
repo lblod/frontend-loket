@@ -1,16 +1,20 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-export default Component.extend({
-
-  actions: {
+export default class BbcdrReportEditExitModalComponent extends Component {
+  @action
     save(){
-      this.onSave();
-    },
-    cancel(){
-      this.onCancel();
-    },
-    discard(){
-      this.onDiscard();
+      this.args.onSave();
     }
-  }
-});
+
+  @action  
+    cancel(){
+      this.args.onCancel();
+    }
+
+  @action
+    discard(){
+      this.args.onDiscard();
+    }
+}
+

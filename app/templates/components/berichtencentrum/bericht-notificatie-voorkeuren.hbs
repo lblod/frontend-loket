@@ -1,9 +1,9 @@
-<div id="berichtencentrumvoorkeuren" class="au-c-modal is-visible" role="dialog" aria-describedby="au-c-modal-title-berichtencentrumvoorkeuren" tabindex="-1" {{focus-trap isActive=true focusTrapOptions=(hash onDeactivate=(fn this.close) initialFocus=".au-c-modal__title" clickOutsideDeactivates=true)}}>
+<div id="berichtencentrumvoorkeuren" class="au-c-modal is-visible" role="dialog" aria-describedby="au-c-modal-title-berichtencentrumvoorkeuren" tabindex="-1" {{focus-trap isActive=true focusTrapOptions=(hash onDeactivate=(fn @close) initialFocus=".au-c-modal__title" clickOutsideDeactivates=true)}}>
   <div class="au-c-modal__header">
     <h1 id="au-c-modal-title-berichtencentrumvoorkeuren" class="au-c-modal__title" tabindex="-1">
       Configureer berichtencentrum
     </h1>
-    <button type="button" {{on "click" this.close}} class="au-c-modal__close">
+    <button type="button" {{on "click" @close}} class="au-c-modal__close">
       <AuIcon @icon="cross" @size="large" />
       <span class="au-u-hidden-visually">Venster sluiten</span>
     </button>
@@ -13,22 +13,22 @@
     <div class="form__row au-u-margin-top-small">
       <div class="form__label">
         <label class="checkbox checkbox--block">
-          {{input class="checkbox__toggle" type="checkbox" checked=wilMailOntvangen}}
+          <Input class="checkbox__toggle" @type="checkbox" @checked={{this.wilMailOntvangen}} />
           <span></span>
           <span>Ontvang mails bij nieuwe berichten</span>
         </label>
       </div>
     </div>
-    {{#if wilMailOntvangen}}
+    {{#if this.wilMailOntvangen}}
     <div class="form__row">
       <AuLabel for="voorkeurenmailadres">Mailadres</AuLabel>
-      <AuInput id="voorkeurenmailadres" @width="block" @value={{emailAddress}} {{auto-focus}}/>
+      <AuInput id="voorkeurenmailadres" @width="block" @value={{this.emailAddress}} {{auto-focus}}/>
       <AuHelpText >vb. mail@adres.com</AuHelpText>
     </div>
     {{/if}}
   </AuModalBody>
   <AuModalFooter>
-    <AuButton {{action "commit"}}>Bewaar</AuButton>
-    <AuButton {{on "click" this.close}} @skin="secondary">Sluit venster en verwerp wijzigingen</AuButton>
+    <AuButton {{on 'click' this.commit}}>Bewaar</AuButton>
+    <AuButton {{on "click" @close}} @skin="secondary">Sluit venster en verwerp wijzigingen</AuButton>
   </AuModalFooter>
 </div>

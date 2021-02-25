@@ -1,11 +1,11 @@
-{{title bestuurseenheid.classificatie.label " " bestuurseenheid.naam " " bestuursfunctie.rol.label}}
+{{page-title this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam " " this.bestuursfunctie.rol.label}}
 
 <AuToolbar @size="large" class="au-u-padding-bottom-none">
   <AuToolbarGroup>
     <AuHeading @skin="2">Bekijk en bewerk aanstellingsperiode</AuHeading>
   </AuToolbarGroup>
   <AuToolbarGroup>
-    <AuButton {{action "handleVoegNieuweAanstellingsperiodeClick"}}>
+    <AuButton {{on 'click' this.handleVoegNieuweAanstellingsperiodeClick}}>
       <AuIcon @icon="add" @alignment="left" />
       Voeg nieuwe aanstellingsperiode toe
     </AuButton>
@@ -16,43 +16,43 @@
   <AuToolbarGroup>
     <ul class="au-c-list-horizontal">
       <li class="au-c-list-horizontal__item">
-        {{#if bestuursfunctie.contactinfo.email}}
-          {{bestuursfunctie.contactinfo.email}}
+        {{#if this.bestuursfunctie.contactinfo.email}}
+          {{this.bestuursfunctie.contactinfo.email}}
         {{else}}
           <span class="au-c-info-text">Geen mailadres</span>
         {{/if}}
       </li>
       <li class="au-c-list-horizontal__item">
-        {{#if bestuursfunctie.contactinfo.telefoon}}
-          {{bestuursfunctie.contactinfo.telefoon}}
+        {{#if this.bestuursfunctie.contactinfo.telefoon}}
+          {{this.bestuursfunctie.contactinfo.telefoon}}
         {{else}}
           <span class="au-c-info-text">geen telefoonnummer</span>
         {{/if}}
       </li>
       <li class="au-c-list-horizontal__item">
-        {{#if bestuursfunctie.contactinfo.adres.volledigAdres}}
-          <span>{{bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
+        {{#if this.bestuursfunctie.contactinfo.adres.volledigAdres}}
+          <span>{{this.bestuursfunctie.contactinfo.adres.volledigAdres}}</span>
         {{else}}
           <span class="au-c-info-text">geen adres</span>
         {{/if}}
       </li>
       <li class="au-c-list-horizontal__item">
-        {{#link-to "leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" bestuursfunctie.id class="au-c-link"}}
+        <LinkTo @route="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" @model={{this.bestuursfunctie.id}} class="au-c-link">
           <AuIcon @icon="pencil" @alignment="left" />
           Bewerk
-        {{/link-to}}
+        </LinkTo>
       </li>
     </ul>
   </AuToolbarGroup>
 </AuToolbar>
 
-{{leidinggevendenbeheer/functionaris-table
+<Leidinggevendenbeheer::FunctionarisTable
   class="au-c-body-container"
-  content=model
-  sort=sort
-  page=page
-  size=size
-  onClickNew=(action "handleVoegNieuweAanstellingsperiodeClick")
-}}
+  @content={{this.model}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
+  @onClickNew={{this.handleVoegNieuweAanstellingsperiodeClick}}
+/>
 
 {{outlet}}
