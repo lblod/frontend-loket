@@ -9,7 +9,7 @@ export default class MandatenbeheerPersoonMandatenEditComponent extends Componen
   @tracked mandatarissen;
 
   constructor(){
-    super(...arguments)
+    super(...arguments);
     this.initComponentProperties();
   }
 
@@ -61,4 +61,10 @@ export default class MandatenbeheerPersoonMandatenEditComponent extends Componen
     finish(){
       this.args.onFinish();
     }
+
+  @action
+  async updateVerifiedMandaten(){
+    await this.args.persoon.set('verifiedMandaten', !this.args.persoon.verifiedMandaten);
+    await this.args.persoon.save();
+  }
 }

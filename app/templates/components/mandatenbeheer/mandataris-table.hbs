@@ -5,7 +5,7 @@
       {{#unless @displaySubset}}
         <th class="au-u-visible-small-up">Orgaan</th>
       {{/unless}}
-      <AuDataTableThSortable field='isBestuurlijkeAliasVan.verifiedMandaten' currentSorting=sort label='Nagekeken' class="u-hidden-mobile" />
+      <AuDataTableThSortable @field='isBestuurlijkeAliasVan.verifiedMandaten' @currentSorting={{@sort}} @label='Nagekeken' class="u-hidden-mobile" />
       <AuDataTableThSortable @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{@sort}} @label='Naam' class="au-u-visible-small-up" />
       <AuDataTableThSortable @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{@sort}} @label='Familienaam'/>
       {{#unless @displaySubset}}
@@ -16,9 +16,12 @@
         <AuDataTableThSortable @field='start' @currentSorting={{@sort}} @label='Start mandaat' class="au-u-visible-medium-up" />
         <AuDataTableThSortable @field='einde' @currentSorting={{@sort}} @label='Einde mandaat' class="au-u-visible-medium-up" />
       {{/unless}}
-      {{au-data-table-th-sortable field='generatedFromGelinktNotuleren' currentSorting=sort label='Gelinkt Notuleren'}}
-      {{au-data-table-th-sortable field='duplicateOf.bekleedt.bestuursfunctie.label' currentSorting=sort label='Gedupliceerd'}}
+      <AuDataTableThSortable @field='generatedFromGelinktNotuleren' @currentSorting={{@sort}} @label='Gelinkt Notuleren'/>
+      <AuDataTableThSortable @field='duplicateOf.bekleedt.bestuursfunctie.label' @currentSorting={{@sort}} @label='Gedupliceerd'/>
       <th></th>
+      {{#unless @displaySubset}}
+      <th></th>
+      {{/unless}}
     </c.header>
     <c.body data-test-loket="mandatarissen-body" as |row|>
       {{#unless @displaySubset}}
@@ -29,7 +32,7 @@
         </td>
       {{/unless}}
       <td>
-        {{input type="checkbox" name="isAdmin" checked=row.isBestuurlijkeAliasVan.verifiedMandaten disabled=true}}
+        <Input @type="checkbox" @name="isAdmin" @checked={{row.isBestuurlijkeAliasVan.verifiedMandaten}} @disabled=true />
         <span></span>
       </td>
       <td class="au-u-visible-small-up">
@@ -60,8 +63,8 @@
           false
         {{/if}}
       </td>
-      {{#unless displaySubset}}
-        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id class="au-c-link"}} Bewerk {{/link-to}}</td>
+      {{#unless @displaySubset}}
+        <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
         <td>
           <AuButton @skin="tertiary" @alert="true" {{on "click" (action "removeMandataris" row)}}>
             <AuIcon @icon="bin" @alignment="left" />
@@ -69,38 +72,9 @@
           </AuButton>
         </td>
       {{/unless}}
-      {{#if displaySubset}}
-        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} <i class="vi vi-edit u-padding--right"></i> {{/link-to}}</td>
+      {{#if @displaySubset}}
+        <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
       {{/if}}
-    {{/c.body}}
-  {{/t.content}}
-{{/au-data-table}}
-=======
-      <td>
-        {{row.generatedFromGelinktNotuleren}}
-      </td>
-      <td>
-        {{#if row.duplicateOf}}
-          true
-        {{else}}
-          false
-        {{/if}}
-      </td>
-      {{#unless displaySubset}}
-        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id class="au-c-link"}} Bewerk {{/link-to}}</td>
-        <td>
-          <AuButton @skin="tertiary" @alert="true" {{on "click" (action "removeMandataris" row)}}>
-            <AuIcon @icon="bin" @alignment="left" />
-            Verwijder
-          </AuButton>
-        </td>
-      {{/unless}}
-      {{#if displaySubset}}
-        <td>{{#link-to editRoute row.isBestuurlijkeAliasVan.id}} <i class="vi vi-edit u-padding--right"></i> {{/link-to}}</td>
-      {{/if}}
-
-      <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
     </c.body>
   </t.content>
 </AuDataTable>
->>>>>>> master

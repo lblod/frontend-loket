@@ -15,13 +15,10 @@ export default class MandatarisModel extends Model {
   @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
   @belongsTo('mandataris-status-code', { inverse: null }) status;
   @belongsTo('mandataris', { inverse: null }) duplicateOf;
-  @attr('uri-set'): generatedFrom;
+  @attr('uri-set') generatedFrom;
 
   @computed('generatedFrom')
   get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(uri => uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService');
   }
-
 }
-
->>>>>>> master

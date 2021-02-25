@@ -11,4 +11,3 @@ export default class PersoonModel extends Model {
   @hasMany('mandataris', { inverse: 'isBestuurlijkeAliasVan' }) isAangesteldAls;
   @hasMany('kandidatenlijst', { inverse: 'kandidaten'}) isKandidaatVoor;
 }
->>>>>>> master

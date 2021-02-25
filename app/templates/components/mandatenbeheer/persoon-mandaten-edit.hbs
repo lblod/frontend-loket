@@ -39,13 +39,13 @@
 
     <ul class="au-c-list-vertical">
       {{#each this.mandatarissen as |mandataris|}}
-      <Mandatenbeheer::MandatarisEdit
+        <Mandatenbeheer::MandatarisEdit
           @bestuursorganen={{@bestuursorganen}}
-        @mandataris={{mandataris}}
-        @mandatarissen={{mandatarissen}}
+          @mandataris={{mandataris}}
+          @mandatarissen={{mandatarissen}}
           @onSave={{@onMandatarisSaved}}
           @onCancelCreate={{this.mandatarisCreateCanceled}}
-        />
+         />
       {{/each}}
     </ul>
     <div class="au-u-padding-top-small">
@@ -57,7 +57,7 @@
       <AuAlert @alertIcon="alert-triangle" @alertskin="warning" class="au-u-margin-top-small">
         <p class="au-u-margin-bottom-small">
           <label class="checkbox checkbox--block u-spacer">
-            {{input type="checkbox" name="isAdmin" checked=persoon.verifiedMandaten click=(action "updateVerifiedMandaten") class="checkbox__toggle"}}
+            <Input @type="checkbox" @name="isAdmin" @checked={{persoon.verifiedMandaten}} @click={{action "updateVerifiedMandaten"}} @class="checkbox__toggle" />
             <span></span>
             <span>De persoon en al de bijbehorende mandaten werden nagekeken.</span>
           </label>

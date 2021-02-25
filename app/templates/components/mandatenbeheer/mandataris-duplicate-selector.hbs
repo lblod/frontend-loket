@@ -1,4 +1,4 @@
-<Mandatenbeheer::PowerSelect
+<PowerSelect
         @allowClear={{allowClear}}
         @disabled={{disabled}}
         @placeholder="Zoek mandataris"
@@ -7,4 +7,4 @@
         @onChange={{action "select"}}
         as |mandataris|>
   {{mandataris.bekleedt.bestuursfunctie.label}}, {{moment-format mandataris.start 'DD/MM/YYYY'}} - {{moment-format mandataris.einde 'DD/MM/YYYY'}} ({{mandataris.status.label}})
-</Mandatenbeheer::PowerSelect>
+</PowerSelect>
