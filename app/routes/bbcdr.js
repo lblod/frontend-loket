@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default class BbcdrRoute extends Route.extend(AuthenticatedRouteMixin) {
+export default class BbcdrRoute extends Route {
+  @service session;
   @service() currentSession;
 
   beforeModel() {
