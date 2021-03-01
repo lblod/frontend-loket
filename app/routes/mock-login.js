@@ -12,10 +12,9 @@ export default class MockLoginRoute extends Route {
   }
 
   beforeModel() {
-    if (this.session.isAuthenticated)
-      this.transitionTo('index');
+    this.session.prohibitAuthentication('index');
   }
-  
+
   model(params) {
     const filter = { provider: 'https://github.com/lblod/mock-login-service' };
     if (params.gemeente)
