@@ -10,7 +10,9 @@ export default Route.extend({
     startDate: { refreshModel: true }
   },
 
-  beforeModel() {
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'login');
+
     if (!this.currentSession.canAccessMandaat)
       this.transitionTo('index');
   },
