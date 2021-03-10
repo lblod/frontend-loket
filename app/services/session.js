@@ -13,11 +13,4 @@ export default SessionService.extend({
     }
   },
 
-  _loadCurrentSession() {
-    return this.currentSession.load().catch((e) => {
-      warn(e, { id: 'session-load-failure' });
-      this.session.invalidate();
-    });
-  }
-
 });
