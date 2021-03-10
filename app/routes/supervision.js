@@ -6,6 +6,7 @@ export default class SupervisionRoute extends Route {
   @service currentSession
 
   beforeModel() {
+    this.session.requireAuthentication(transition, 'login');
     if (!this.currentSession.canAccessToezicht)
       this.transitionTo('index');
   }
