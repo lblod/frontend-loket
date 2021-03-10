@@ -7,10 +7,6 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(DataT
 
   modelName = 'submission'
 
-  beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'login');
-  }
-
   mergeQueryOptions() {
     return {
       include: [
