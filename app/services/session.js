@@ -8,7 +8,6 @@ export default class LoketSessionService extends SessionService {
 
   handleAuthentication(routeAfterAuthentication) {
     super.handleAuthentication(routeAfterAuthentication);
-
     this.currentSession.load();
   }
 
