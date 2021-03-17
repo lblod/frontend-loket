@@ -3,8 +3,6 @@ import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTableRouteMixin) {
-  @service session;
-
   modelName = 'application-form';
 
   mergeQueryOptions() {
