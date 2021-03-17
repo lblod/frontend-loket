@@ -5,7 +5,7 @@ export default class SwitchLoginRoute extends Route {
   @service() session;
 
   beforeModel(){
-    this.session.prohibitAuthentication('login')
+    this.session.prohibitAuthentication('index');
   }
 
   async model() {
