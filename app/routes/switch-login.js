@@ -10,7 +10,7 @@ export default class SwitchLoginRoute extends Route {
 
   async model() {
     try {
-      await this.session.authenticate('authenticator:torii', 'acmidm-oauth2');
+      return await this.session.authenticate('authenticator:torii', 'acmidm-oauth2');
     }
     catch(e) {
       return 'Fout bij het aanmelden. Gelieve opnieuw te proberen.';
