@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
-export default class SubsidyApplicationsIndexRoute extends Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin) {
+export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTableRouteMixin) {
   modelName = 'application-form';
 
   mergeQueryOptions() {

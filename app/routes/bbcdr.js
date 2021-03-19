@@ -1,11 +1,13 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default class BbcdrRoute extends Route.extend(AuthenticatedRouteMixin) {
+export default class BbcdrRoute extends Route {
+  @service session;
   @service() currentSession;
 
-  beforeModel() {
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'login');
+
     if (!this.currentSession.canAccessBbcdr)
       this.transitionTo('index');
   }

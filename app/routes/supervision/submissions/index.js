@@ -1,9 +1,12 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
+import { inject as service } from '@ember/service';
 
-export default class SupervisionSubmissionsIndexRoute extends Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin) {
+export default class SupervisionSubmissionsIndexRoute extends Route.extend(DataTableRouteMixin) {
+  @service() session;
+
   modelName = 'submission'
+
   mergeQueryOptions() {
     return {
       include: [
