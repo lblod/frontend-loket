@@ -8,7 +8,7 @@ export default class BerichtencentrumConversatieViewComponent extends Component 
 
   @sort('berichten', 'generalSort') sortedBerichten;
 
-  @tracked generalSort = Object.freeze(['verzonden']);
+  @tracked generalSort = ['verzonden'];
   @tracked showExitModal = false;
 
   get berichten(){
