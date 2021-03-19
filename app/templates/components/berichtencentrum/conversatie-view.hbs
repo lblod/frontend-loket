@@ -3,7 +3,7 @@
     <Berichtencentrum::ConversatieViewHeader @conversatie={{@model}} @close={{@close}} data-test-loket="berichtencentrum-conversatie-header"/>
 
     <div class="au-o-box au-c-body-container au-c-body-container--scroll">
-      {{#each this.berichten as |bericht|}}
+      {{#each this.sortedBerichten as |bericht|}}
         <Berichtencentrum::BerichtView  @bericht={{bericht}} @conversatie={{@model}} data-test-loket="berichtencentrum-bericht-view"/>    
         <AuHr />
       {{/each}}
