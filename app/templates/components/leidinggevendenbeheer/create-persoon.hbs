@@ -44,17 +44,17 @@
 </div>
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    <AuButton {{on "click" (action gotoPreviousStep)}} @skin="tertiary" @disabled="{{save.isRunning}}">
+    <AuButton {{on "click" (action gotoPreviousStep)}} @skin="tertiary" @disabled={{this.save.isRunning}}>
       <AuIcon @icon="arrow-left" @alignment="left" />
       Vorige stap
     </AuButton>
   </AuToolbarGroup>
   <AuToolbarGroup>
     <AuButtonGroup>
-      <AuButton class="toggle-person-new" @skin="secondary" @disabled="{{save.isRunning}}" {{on "click" (action onCancel)}}>
+      <AuButton class="toggle-person-new" @skin="secondary" @disabled={{this.save.isRunning}} {{on "click" (action onCancel)}}>
         Annuleer
       </AuButton>
-      <AuButton @loading="{{save.isRunning}}" {{on "click" (perform save)}}>
+      <AuButton @loading={{this.save.isRunning}} {{on "click" (perform save)}}>
         Voeg nieuwe functionaris toe
       </AuButton>
     </AuButtonGroup>
