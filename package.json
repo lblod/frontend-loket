@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.39.0",
+  "version": "0.42.1",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -32,7 +32,7 @@
     "@glimmer/tracking": "^1.0.0",
     "@lblod/ember-acmidm-login": "^1.1.1",
     "@lblod/ember-mock-login": "^0.5.0-beta",
-    "@lblod/ember-submission-form-fields": "0.10.1",
+    "@lblod/ember-submission-form-fields": "0.10.2",
     "@lblod/ember-toezicht-form-fields": "^0.6.1",
     "@lblod/ember-vo-mu-file-upload": "^0.6.2",
     "@lblod/ember-vo-webuniversum": "^0.22.7",

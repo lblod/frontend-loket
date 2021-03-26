@@ -1,17 +1,19 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default Route.extend(AuthenticatedRouteMixin, {
-  currentSession: service(),
+export default class LeidinggevendenbeheerRoute extends Route {
+  @service session;
+  @service currentSession;
 
-  beforeModel() {
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'login');
+
     if (!this.currentSession.canAccessLeidinggevenden)
       this.transitionTo('index');
-  },
+  }
 
   model() {
     return this.currentSession.group;
   }
 
-});
+}
