@@ -12,7 +12,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
   async model(params) {
     // Fetch data from backend
 
-    const submission = await this.store.find('submission', params.id);
+    const submission = await this.store.findRecord('submission', params.id);
     const submissionDocument = await submission.submissionDocument;
     const submissionStatus = await submission.status;
 
