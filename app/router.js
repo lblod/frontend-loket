@@ -64,6 +64,7 @@ Router.map(function() {
         this.route('functionarissen', function() {
           this.route('new', function() {});
           this.route('edit', { path: '/:functionaris_id/edit' });
+          this.route('new-person');
         });
       });
     });

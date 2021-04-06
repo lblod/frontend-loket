@@ -1,0 +1,11 @@
+<AuToolbar @size="large" @border="bottom">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Voeg persoon toe buiten de lijst van verkozenen</AuHeading>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<Leidinggevendenbeheer::CreatePersoon
+  @onCreate={{this.onCreate}}
+  @onCancel={{this.onCancel}}
+/>
+
