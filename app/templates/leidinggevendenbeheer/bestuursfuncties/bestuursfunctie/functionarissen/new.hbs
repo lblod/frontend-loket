@@ -16,7 +16,7 @@
      <Leidinggevendenbeheer::FunctionarisCreationStep>
       1. Voeg een nieuwe functionaris toe
     </Leidinggevendenbeheer::FunctionarisCreationStep>
-    <Leidinggevendenbeheer::CreatePersoon
+    <Shared::Persoon::CreatePersoon
       @onCreate={{perform this.createFunctionaris}}
       @onCancel={{this.cancel}}
       @gotoPreviousStep={{action (mut this.isCreatingNewPerson) false}}
