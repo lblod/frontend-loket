@@ -3,12 +3,12 @@ import { action } from '@ember/object';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewPersonController extends Controller {
   @action
-  onCreate(user) {
-    this.transitionToRoute('mandatenbeheer.mandatarissen.edit', user.get('id'));
+    onCreate(user) {
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.edit', user.get('id'));
   }
 
   @action
-  onCancel() {
-    this.transitionToRoute('mandatenbeheer.mandatarissen.new');
+    onCancel() {
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new');
   }
 }
