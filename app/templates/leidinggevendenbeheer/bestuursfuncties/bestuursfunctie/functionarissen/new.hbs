@@ -4,6 +4,7 @@
       1. Kies een functionaris
     </Leidinggevendenbeheer::FunctionarisCreationStep>
     <Shared::Persoon::PersoonSearchForm
+        @title="Voeg nieuwe persoon toe"
         @onSelect={{perform this.createFunctionaris}}
         @onCreateNewPerson={{action (mut this.isCreatingNewPerson) true}}
         @onCancel={{this.cancel}}
