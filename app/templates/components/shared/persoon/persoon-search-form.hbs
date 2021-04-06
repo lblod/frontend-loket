@@ -4,7 +4,7 @@
     <AuHeading @skin="2">{{@title}}</AuHeading>
   </AuToolbarGroup>
   <AuToolbarGroup>
-    <LinkTo @route='mandatenbeheer.mandatarissen.new-person' class="au-c-button">Voeg iemand buiten de lijst toe</LinkTo>
+    <LinkTo @route={{@newPersonRoute}} class="au-c-button">Voeg iemand buiten de lijst toe</LinkTo>
   </AuToolbarGroup>
 </AuToolbar>
 {{/if}}
