@@ -1,30 +1,7 @@
-{{#unless this.functionaris}}
-  {{#unless this.isCreatingNewPerson}}
-    <Leidinggevendenbeheer::FunctionarisCreationStep>
-      1. Kies een functionaris
-    </Leidinggevendenbeheer::FunctionarisCreationStep>
-    <Shared::Persoon::PersoonSearchForm
-        @newPersonRoute="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person"
-        @title="Voeg nieuwe persoon toe"
-        @onSelect={{perform this.createFunctionaris}}
-        @onCreateNewPerson={{action (mut this.isCreatingNewPerson) true}}
-        @onCancel={{this.cancel}}
-        @showDefaultHead={{false}}
-        class="au-c-body-container"
-    />
-  {{else}}
-     <Leidinggevendenbeheer::FunctionarisCreationStep>
-      1. Voeg een nieuwe functionaris toe
-    </Leidinggevendenbeheer::FunctionarisCreationStep>
-    <Shared::Persoon::CreatePersoon
-      @onCreate={{perform this.createFunctionaris}}
-      @onCancel={{this.cancel}}
-      @gotoPreviousStep={{action (mut this.isCreatingNewPerson) false}}
-    />
-  {{/unless}}
-{{else}}
+{{#if this.functionaris}}
   <Leidinggevendenbeheer::FunctionarisCreationStep>
-    2. Voeg aanstellingsperiode voor {{this.functionaris.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{this.functionaris.isBestuurlijkeAliasVan.achternaam}} als {{this.functionaris.bekleedt.rol.label}} toe
+    2. Voeg aanstellingsperiode voor {{this.functionaris.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+    {{this.functionaris.isBestuurlijkeAliasVan.achternaam}} als {{this.functionaris.bekleedt.rol.label}} toe
   </Leidinggevendenbeheer::FunctionarisCreationStep>
 
   <Leidinggevendenbeheer::FunctionarisForm @model={{this.functionaris}} as |isValid|>
@@ -40,11 +17,28 @@
           <AuButton @skin="secondary" @disabled={{this.save.isRunning}} {{on 'click' this.cancel}}>
             Annuleer
           </AuButton>
-          <AuButton @disabled={{if (or (not isValid) this.save.isRunning) "true"}} {{on "click" (perform this.save)}}>
+          <AuButton @disabled={{if (or (not isValid) this.save.isRunning) "true" }} {{on "click" (perform this.save)}}>
             Voeg aanstellingsperiode toe
           </AuButton>
         </AuButtonGroup>
       </AuToolbarGroup>
     </AuToolbar>
   </Leidinggevendenbeheer::FunctionarisForm>
-{{/unless}}
+{{else}}
+  {{#if this.isCreatingNewPerson}}
+    <Leidinggevendenbeheer::FunctionarisCreationStep>
+      1. Voeg een nieuwe functionaris toe
+    </Leidinggevendenbeheer::FunctionarisCreationStep>
+
+    <Shared::Persoon::CreatePersoon @onCreate={{perform this.createFunctionaris}} @onCancel={{this.cancel}}
+      @gotoPreviousStep={{action (mut this.isCreatingNewPerson) false}} />
+  {{else}}
+    <Leidinggevendenbeheer::FunctionarisCreationStep>
+      1. Kies een functionaris
+    </Leidinggevendenbeheer::FunctionarisCreationStep>
+    <Shared::Persoon::PersoonSearchForm
+      @newPersonRoute="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person"
+      @title="Voeg nieuwe persoon toe" @onSelect={{perform this.createFunctionaris}} @onCreateNewPerson={{action (mut
+      this.isCreatingNewPerson) true}} @onCancel={{this.cancel}} @showDefaultHead={{false}} class="au-c-body-container" />
+  {{/if}}
+{{/if}}
