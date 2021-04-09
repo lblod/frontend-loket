@@ -1,7 +1,14 @@
-<Leidinggevendenbeheer::FunctionarisCreationStep>
-  2. Voeg aanstellingsperiode voor {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
-  {{this.model.isBestuurlijkeAliasVan.achternaam}} als {{this.model.bekleedt.rol.label}} toe
-</Leidinggevendenbeheer::FunctionarisCreationStep>
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <AuHeading @skin="3">Voeg een nieuwe aanstellingsperiode toe</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup class="au-c-toolbar__group--row au-u-margin-top-none">
+    <AuHeading @level="3" @skin="2">
+      2. Voeg aanstellingsperiode voor {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+      {{this.model.isBestuurlijkeAliasVan.achternaam}} als {{this.model.bekleedt.rol.label}} toe</AuHeading>
+  </AuToolbarGroup>
+</AuToolbar>
+
 
 <Leidinggevendenbeheer::FunctionarisForm @model={{this.model}} as |isValid|>
   <AuToolbar @border="top" @size="large">
