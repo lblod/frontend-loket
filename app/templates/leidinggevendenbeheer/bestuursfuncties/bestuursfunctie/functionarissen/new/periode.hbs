@@ -1,0 +1,25 @@
+<Leidinggevendenbeheer::FunctionarisCreationStep>
+  2. Voeg aanstellingsperiode voor {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+  {{this.model.isBestuurlijkeAliasVan.achternaam}} als {{this.model.bekleedt.rol.label}} toe
+</Leidinggevendenbeheer::FunctionarisCreationStep>
+
+<Leidinggevendenbeheer::FunctionarisForm @model={{this.model}} as |isValid|>
+  <AuToolbar @border="top" @size="large">
+    <AuToolbarGroup>
+      <AuButton {{on 'click' this.goBackToSearch}} @skin="tertiary" @disabled={{this.save.isRunning}}>
+        <AuIcon @icon="arrow-left" @alignment="left" />
+        Vorige stap
+      </AuButton>
+    </AuToolbarGroup>
+    <AuToolbarGroup>
+      <AuButtonGroup>
+        <AuButton @skin="secondary" @disabled={{this.save.isRunning}} {{on 'click' this.cancel}}>
+          Annuleer
+        </AuButton>
+        <AuButton @disabled={{if (or (not isValid) this.save.isRunning) "true" }} {{on "click" (perform this.save)}}>
+          Voeg aanstellingsperiode toe
+        </AuButton>
+      </AuButtonGroup>
+    </AuToolbarGroup>
+  </AuToolbar>
+</Leidinggevendenbeheer::FunctionarisForm>
