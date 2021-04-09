@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewPeriodeController extends Controller {
@@ -8,18 +9,19 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
   }) save;
 
-  @task(function * () {
+  @action
+  goBackToSearch() {
     if (this.model) {
-      yield this.model.deleteRecord();
+      this.model.deleteRecord();
       this.model = null;
     }
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new');
-  }) goBackToSearch;
+  }
 
-  @task(function * () {
-    if (this.model) {
-      yield this.model.deleteRecord();
-    }
+  @action
+  cancel() {
+    if (this.model)
+      this.model.deleteRecord();
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
-  }) cancel;
+  }
 }
