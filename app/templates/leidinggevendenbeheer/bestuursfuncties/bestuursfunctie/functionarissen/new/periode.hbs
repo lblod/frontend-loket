@@ -12,16 +12,16 @@
 <Leidinggevendenbeheer::FunctionarisForm @model={{this.model}} as |isValid|>
   <AuToolbar @border="top" @size="large">
     <AuToolbarGroup>
-      <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new"  @disabled={{this.save.isRunning}}>
+      <AuButton {{on 'click' this.goBackToSearch}} @skin="tertiary" @disabled={{this.save.isRunning}}>
         <AuIcon @icon="arrow-left" @alignment="left" />
         Vorige stap
-      </AuLink>
+      </AuButton>
     </AuToolbarGroup>
     <AuToolbarGroup>
       <AuButtonGroup>
-        <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index" class="au-c-button au-c-button--secondary" @skin="secondary" @disabled={{this.save.isRunning}}>
+        <AuButton @skin="secondary" @disabled={{this.save.isRunning}} {{on 'click' this.cancel}}>
           Annuleer
-        </AuLink>
+        </AuButton>
         <AuButton @disabled={{if (or (not isValid) this.save.isRunning) "true" }} {{on "click" (perform this.save)}}>
           Voeg aanstellingsperiode toe
         </AuButton>
