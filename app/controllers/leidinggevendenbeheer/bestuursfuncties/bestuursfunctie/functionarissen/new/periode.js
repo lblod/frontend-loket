@@ -11,17 +11,13 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
 
   @action
   goBackToSearch() {
-    if (this.model) {
-      this.model.deleteRecord();
-      this.model = null;
-    }
+    this.model.deleteRecord();
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new');
   }
 
   @action
   cancel() {
-    if (this.model)
-      this.model.deleteRecord();
+    this.model.deleteRecord();
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
   }
 }
