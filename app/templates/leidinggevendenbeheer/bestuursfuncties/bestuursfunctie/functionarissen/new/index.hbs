@@ -3,10 +3,9 @@
 </Leidinggevendenbeheer::FunctionarisCreationStep>
 
 <Shared::Persoon::PersoonSearchForm
-  @newPersonRoute="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person"
   @title="Voeg nieuwe persoon toe"
   @onSelect={{this.choosePeriode}}
-  @onCreateNewPerson={{action (mut this.isCreatingNewPerson) true}}
+  @onCreateNewPerson={{this.createNewPerson}}
   @onCancel={{this.cancel}}
   @showDefaultHead={{false}}
   class="au-c-body-container"

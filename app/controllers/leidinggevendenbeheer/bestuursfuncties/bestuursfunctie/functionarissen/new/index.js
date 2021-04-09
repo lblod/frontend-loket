@@ -29,9 +29,14 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
       this.isCreatingNewPerson = false;
     }
 
+  @action
+    createNewPerson() {
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person');
+    }
+
 
   @action
-  cancel() {
-    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
-  }
+    cancel() {
+      this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
+    }
 }
