@@ -25,7 +25,8 @@ module.exports = {
   },
   rules: {
     'ember/use-brace-expansion': 'off',
-    'ember/no-jquery': 'error'
+    'ember/no-jquery': 'error',
+    'semi': [2, 'always']
   },
   overrides: [
     // node files

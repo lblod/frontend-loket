@@ -62,8 +62,11 @@ Router.map(function() {
       this.route('bestuursfunctie', { path: '/:bestuursfunctie_id' }, function() {
         this.route('contact-info');
         this.route('functionarissen', function() {
-          this.route('new', function() {});
           this.route('edit', { path: '/:functionaris_id/edit' });
+          this.route('new-person');
+          this.route('new', function() {
+            this.route('periode', { path: '/:persoon_id/periode' });
+          });
         });
       });
     });

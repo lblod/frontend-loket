@@ -1,0 +1,18 @@
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup class="au-c-toolbar__group--row">
+    <AuHeading @skin="3">Voeg een nieuwe aanstellingsperiode toe</AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup class="au-c-toolbar__group--row au-u-margin-top-none">
+    <AuHeading @level="3" @skin="2">1. Kies een functionaris</AuHeading>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<Shared::Persoon::PersoonSearchForm
+  @onSelect={{this.choosePeriode}}
+  @onCreateNewPerson={{this.createNewPerson}}
+  @onCancel={{this.cancel}}
+  @showDefaultHead={{false}}
+  class="au-c-body-container"
+  >
+  <AuHeading @skin="2">Voeg nieuwe persoon toe</AuHeading>
+</Shared::Persoon::PersoonSearchForm>

@@ -6,11 +6,11 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   @tracked initialStatus;
 
   get statusIsDirty(){
-    return this.initialStatus.get('id') != this.model.status.get('id')
+    return this.initialStatus.get('id') != this.model.status.get('id');
   }
 
   get isDirty() {
-    return this.model.hasDirtyAttributes || this.statusIsDirty
+    return this.model.hasDirtyAttributes || this.statusIsDirty;
   }
 
   @task(function * () {
