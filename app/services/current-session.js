@@ -11,9 +11,9 @@ export default class CurrentSessionService extends Service {
   async load() {
     if (this.session.isAuthenticated) {
       const session = this.session;
-      const account = await this.store.find('account', get(session, 'data.authenticated.relationships.account.data.id'));
+      const account = await this.store.findRecord('account', get(session, 'data.authenticated.relationships.account.data.id'));
       const user = await account.get('gebruiker');
-      const group = await this.store.find('bestuurseenheid', get(session, 'data.authenticated.relationships.group.data.id'));
+      const group = await this.store.findRecord('bestuurseenheid', get(session, 'data.authenticated.relationships.group.data.id'));
       const roles = await get(session, 'data.authenticated.data.attributes.roles');
       this.set('_account', account);
       this.set('_user', user);
