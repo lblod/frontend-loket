@@ -42,6 +42,6 @@
   <Leidinggevendenbeheer::FunctionarisCloseConfirmation
     @cancel={{action (mut showConfirmationDialog false)}}
     @save={{perform this.save}}
-    @reset={{this.perform this.resetChanges}}
+    @reset={{perform this.resetChanges}}
   />
 {{/if}}
