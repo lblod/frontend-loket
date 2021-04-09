@@ -1,7 +1,7 @@
 {{#if this.showDefaultHead}}
 <AuToolbar @border="bottom" @size="large">
   <AuToolbarGroup>
-    <AuHeading @skin="2">{{@title}}</AuHeading>
+    {{yield}}
   </AuToolbarGroup>
   <AuToolbarGroup>
     <AuButton @skin="primary" {{on 'click' @onCreateNewPerson}}>

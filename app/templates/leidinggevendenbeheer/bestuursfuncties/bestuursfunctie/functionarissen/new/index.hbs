@@ -8,10 +8,11 @@
 </AuToolbar>
 
 <Shared::Persoon::PersoonSearchForm
-  @title="Voeg nieuwe persoon toe"
   @onSelect={{this.choosePeriode}}
   @onCreateNewPerson={{this.createNewPerson}}
   @onCancel={{this.cancel}}
   @showDefaultHead={{false}}
   class="au-c-body-container"
-/>
+  >
+  <AuHeading @skin="2">Voeg nieuwe persoon toe</AuHeading>
+</Shared::Persoon::PersoonSearchForm>
