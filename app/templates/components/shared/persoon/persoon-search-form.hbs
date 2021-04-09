@@ -1,15 +1,14 @@
 {{#if this.showDefaultHead}}
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
-    {{yield}}
-  </AuToolbarGroup>
-  <AuToolbarGroup>
-    <AuButton @skin="primary" {{on 'click' @onCreateNewPerson}}>
-      Voeg iemand buiten de lijst toe
-    </AuButton>.
-  </AuToolbarGroup>
-
-</AuToolbar>
+  <AuToolbar @border="bottom" @size="large">
+    <AuToolbarGroup>
+      {{yield}}
+    </AuToolbarGroup>
+    <AuToolbarGroup>
+      <AuButton @skin="primary" {{on 'click' @onCreateNewPerson}}>
+        Voeg iemand buiten de lijst toe
+      </AuButton>.
+    </AuToolbarGroup>
+  </AuToolbar>
 {{/if}}
 
 <AuToolbar @border="bottom" @size="large">
