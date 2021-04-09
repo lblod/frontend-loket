@@ -21,8 +21,8 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   }
 
   deactivate(){
-    if (this.functionaris.hasDirtyAttributes) {
-    this.functionaris.destroyRecord();
+    if (this.functionaris.isNew) {
+      this.functionaris.destroyRecord();
     }
   }
 }
