@@ -35,9 +35,9 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   @action
     handleAddMandatarisClick() {
       if (this.router.currentRouteName === 'mandatenbeheer.mandatarissen.new')
-        this.transitionToRoute('mandatenbeheer.mandatarissen.index');
+        this.router.transitionTo('mandatenbeheer.mandatarissen.index');
       else
-        this.transitionToRoute('mandatenbeheer.mandatarissen.new');
+        this.router.transitionTo('mandatenbeheer.mandatarissen.new');
     }
 
   @action
@@ -45,9 +45,9 @@ export default class MandatenbeheerMandatarissenController extends Controller {
       this.router.transitionTo('mandatenbeheer.fracties');
     }
 
-  @action  
+  @action
     selectPeriod(startDate) {
-      this.transitionToRoute('mandatenbeheer.mandatarissen', {
+      this.router.transitionTo('mandatenbeheer.mandatarissen', {
         queryParams: {
           page: 0,
           startDate: startDate

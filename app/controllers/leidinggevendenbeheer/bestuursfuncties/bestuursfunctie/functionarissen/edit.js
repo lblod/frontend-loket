@@ -1,8 +1,11 @@
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenEditController extends Controller {
+  @service() router;
+
   @tracked initialStatus;
 
   get statusIsDirty(){
@@ -28,6 +31,6 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   }) resetChanges;
 
   exit() {
-    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
+    this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
   }
 }

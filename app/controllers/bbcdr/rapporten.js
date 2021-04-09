@@ -20,9 +20,9 @@ export default class BbcdrRapportenController extends Controller {
   @action
     createNewReport() {
       if (this.router.currentRouteName == 'bbcdr.rapporten.new')
-        this.transitionToRoute('bbcdr.rapporten.index');
+        this.router.transitionTo('bbcdr.rapporten.index');
       else
-        this.transitionToRoute('bbcdr.rapporten.new');
+        this.router.transitionTo('bbcdr.rapporten.new');
     }
 }
 

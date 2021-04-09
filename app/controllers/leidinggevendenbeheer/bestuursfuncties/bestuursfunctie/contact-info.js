@@ -2,8 +2,10 @@ import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoController extends Controller {
+  @service() router;
   showConfirmationDialog = false;
 
   @tracked bestuurseenheid;
@@ -15,7 +17,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
 
   exit() {
     this.set('showConfirmationDialog', false);
-    this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen',
+    this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen',
       this.bestuursfunctie.id);
   }
 
