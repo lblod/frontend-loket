@@ -1,33 +1,25 @@
 import Controller from '@ember/controller';
-import { tracked } from '@glimmer/tracking';
-import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewPeriodeController extends Controller {
-  @service() store;
-
-  @tracked persoon;
-  @tracked bestuursfunctie;
 
   @task(function * () {
     yield this.model.save();
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
   }) save;
 
-  @action
-  goBackToSearch() {
+  @task(function * () {
     if (this.model) {
-      this.model.deleteRecord();
+      yield this.model.deleteRecord();
       this.model = null;
     }
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new');
-  }
+  }) goBackToSearch;
 
-  @action
-  cancel() {
-    if (this.model)
-      this.model.deleteRecord();
+  @task(function * () {
+    if (this.model) {
+      yield this.model.deleteRecord();
+    }
     this.transitionToRoute('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
-  }
+  }) cancel;
 }
