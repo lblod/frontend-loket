@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { task, timeout } from 'ember-concurrency';
+import { restartableTask, timeout } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 import { alias } from '@ember/object/computed';
 import { action } from '@ember/object';
@@ -26,11 +26,12 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   @alias('mandatenbeheer.bestuurseenheid') bestuurseenheid;
   @alias('mandatenbeheer.bestuursorganen') bestuursorganen;
 
-  @task(function*(searchData) {
+  @restartableTask
+  *search(searchData) {
     yield timeout(300);
     this.set('page', 0);
     this.set('filter', searchData);
-  }).restartable() search;
+  }
 
   @action
     handleAddMandatarisClick() {

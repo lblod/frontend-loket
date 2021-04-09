@@ -44,10 +44,12 @@ export default class CurrentSessionService extends Service {
   }
 
   // constructs a task which resolves in the promise
-  @task(function * (property) {
+  @task
+  *makePropertyPromise(property) {
     yield waitForProperty(this, property);
     return this.get(property);
-  }) makePropertyPromise;
+  }
+
   // this is a promise
   get account() {
     return this.makePropertyPromise.perform('_account');

@@ -16,19 +16,21 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
     return this.model.hasDirtyAttributes || this.statusIsDirty;
   }
 
-  @task(function * () {
+  @task
+  *save() {
     yield this.model.save();
     this.exit();
-  }) save;
+  }
 
-  @task(function * () {
+  @task
+  *resetChanges() {
     if (this.isDirty) {
       this.model.rollbackAttributes();
       const status = yield this.initialStatus;
       this.model.set('status', status);
     }
     this.exit();
-  }) resetChanges;
+  }
 
   exit() {
     this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');

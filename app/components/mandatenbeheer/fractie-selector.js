@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { task, timeout } from 'ember-concurrency';
+import { restartableTask, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
@@ -21,7 +21,8 @@ export default class MandatenbeheerFractieSelectorComponent extends Component {
     }
   }
 
-  @task(function* (searchData) {
+  @restartableTask
+  *searchByName(searchData) {
     yield timeout(300);
     let queryParams = {
       sort:'naam',
@@ -35,12 +36,12 @@ export default class MandatenbeheerFractieSelectorComponent extends Component {
     };
     let fracties = yield this.store.query('fractie', queryParams);
     fracties = fracties.filter(f => !f.get('fractietype.isOnafhankelijk'));
-    //sets dummy  
+    //sets dummy
     if('onafhankelijk'.includes(searchData.toLowerCase())){
       fracties.pushObject(yield this.createNewOnafhankelijkeFractie());
     }
     return fracties;
-  }) searchByName;
+  }
 
   async createNewOnafhankelijkeFractie(){
     let onafFractie = (await this.store.findAll('fractietype')).find(f => f.get('isOnafhankelijk'));
