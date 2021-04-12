@@ -15,6 +15,7 @@ import { inject as service } from '@ember/service';
 export default class SubsidyApplicationsEditController extends Controller {
   @service currentSession;
   @service store;
+  @service() router;
 
   @tracked error;
   @tracked datasetTriples = [];
@@ -122,7 +123,7 @@ export default class SubsidyApplicationsEditController extends Controller {
   * delete() {
     try {
       yield this.deleteApplicationForm.perform();
-      this.transitionToRoute('subsidy.applications');
+      this.router.transitionTo('subsidy.applications');
     } catch (exception) {
       this.error = {
         action: 'verwijderen',
@@ -164,7 +165,7 @@ export default class SubsidyApplicationsEditController extends Controller {
         yield this.saveApplicationForm.perform();
         yield this.submitApplicationForm.perform();
         yield this.model.applicationForm.save();
-        this.transitionToRoute('subsidy.applications');
+        this.router.transitionTo('subsidy.applications');
       }
     } catch (exception) {
       this.error = {

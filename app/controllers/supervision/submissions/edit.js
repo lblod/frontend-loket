@@ -10,6 +10,7 @@ import { inject as service } from '@ember/service';
 export default class SupervisionSubmissionsEditController extends Controller {
   @service currentSession;
   @service store;
+  @service() router;
 
   @tracked datasetTriples = [];
   @tracked addedTriples = [];
@@ -105,7 +106,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
   @task
   *delete() {
     yield this.deleteSubmissionForm.perform();
-    this.transitionToRoute('supervision.submissions');
+    this.router.transitionTo('supervision.submissions');
   }
 
   @task
@@ -134,7 +135,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
       yield this.saveSubmissionForm.perform();
       yield this.submitSubmissionForm.perform();
       yield this.model.submission.save();
-      this.transitionToRoute('supervision.submissions');
+      this.router.transitionTo('supervision.submissions');
     }
   }
 }
