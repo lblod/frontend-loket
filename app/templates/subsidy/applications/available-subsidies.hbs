@@ -1,0 +1,58 @@
+{{page-title "Beschikbare subsidiemaatregelen"}}
+
+<AuToolbar @border="bottom" @size="large" @nowrap="{{true}}">
+  <AuToolbarGroup>
+    <div>
+      <AuHeading @skin="2">Beschikbare subsidiemaatregelen</AuHeading>
+      <p>
+        Kies een van de subsidiemaatregelen om een nieuwe aanvraag te starten.
+      </p>
+    </div>
+  </AuToolbarGroup>
+  <AuToolbarGroup>
+    <LinkTo @route="subsidy.applications" class="au-c-button au-c-button--secondary" type="button">Terug naar overzicht</LinkTo>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<AuDataTable
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage="Geen beschikbare subsidiemaatregelen gevonden"
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
+  as |t|
+>
+  <t.content as |c|>
+    <c.header>
+      <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
+      <AuDataTableThSortable @field="title" @currentSorting={{this.sort}} @label="Reeks"/>
+      <AuDataTableThSortable
+        @field="period.begin"
+        @currentSorting={{this.sort}}
+        @label="Start&nbsp;termijn"
+      />
+      <AuDataTableThSortable
+        @field="period.end"
+        @currentSorting={{this.sort}}
+        @label="Einde&nbsp;termijn"
+      />
+      <th></th>
+    </c.header>
+
+    <c.body as |series|>
+      <td>{{series.subsidyMeasureOffer.title}}</td>
+      <td>
+        {{series.title}}
+        <AuHelpText @skin="secondary" class="au-u-margin-top-none">{{series.description}}</AuHelpText>
+      </td>
+      <td>{{moment-format series.period.begin "DD-MM-YYYY"}}</td>
+      <td>{{moment-format series.period.end "DD-MM-YYYY"}}</td>
+      <td>
+        <LinkTo @route="subsidy.applications.new" @query={{hash seriesId=series.id}} class="au-c-link">
+          Start aanvraag
+        </LinkTo>
+      </td>
+    </c.body>
+  </t.content>
+</AuDataTable>
