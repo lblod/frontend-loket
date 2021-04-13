@@ -1,0 +1,54 @@
+<AuToolbar @border="bottom" @size="medium">
+  <AuToolbarGroup>
+    <AuButtonGroup>
+      <AuButton
+        @disabled={{or this.save.isRunning this.submit.isRunning}}
+        @loading={{this.submit.isRunning}}
+        {{on "click" (perform this.submit)}}
+      >
+        Versturen
+      </AuButton>
+      <AuButton
+        @disabled={{or this.save.isRunning this.submit.isRunning}}
+        @loading={{this.save.isRunning}}
+        @skin="secondary"
+        @icon={{if this.recentlySaved "check"}}
+        @iconAlignment={{if this.recentlySaved "left"}}
+        {{on "click" (perform this.save)}}
+      >
+        {{#if this.recentlySaved}}
+          Concept bewaard
+        {{else}}
+          Bewaar als concept
+        {{/if}}
+      </AuButton>
+    </AuButtonGroup>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<div class="au-o-box">
+  {{#unless this.isValidForm}}
+    <AuAlert
+      @alertIcon="alert-triangle"
+      @alertTitle="Kan dossier niet versturen"
+      @alertskin="error"
+      @alertsize="small"
+      class="au-u-margin-bottom-none"
+    >
+      <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
+    </AuAlert>
+  {{/unless}}
+
+  {{#if this.error}}
+    <AuAlert
+      @alertIcon="alert-triangle"
+      @alertTitle="Oeps! Dit is een beetje gênant ..."
+      @alertskin="error"
+      @alertsize="small"
+      @closable="true"
+      class="au-u-margin-bottom-none"
+    >
+      <p>{{this.error.message}}</p>
+    </AuAlert>
+  {{/if}}
+</div>

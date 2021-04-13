@@ -85,7 +85,9 @@ Router.map(function() {
     this.route('applications', function() {
       this.route('available-subsidies');
       this.route('new');
-      this.route('edit', { path: '/:id' });
+      this.route('edit', { path: '/:id' }, function() {
+        this.route('step', { path: '/step/:step_id' });
+      });
     });
   });
 
