@@ -13,7 +13,6 @@ export default class ApplicationForm extends Model {
   @belongsTo('contact-punt') contactinfo; // default needed
   @belongsTo('bank-account') bankAccount; // default needed
   @belongsTo('time-block') timeBlock; // concept
-  @belongsTo('subsidiemaatregel-aanbod') subsidyMeasure; // concept
 
   @belongsTo('bestuurseenheid') organization;
   @belongsTo('submission-document-status') status;
