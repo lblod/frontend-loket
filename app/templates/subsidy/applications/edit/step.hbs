@@ -1,3 +1,19 @@
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}}">
+    <div class="au-o-grid">
+      <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
+        <RdfForm
+                @groupClass="au-o-grid__item au-u-2-4 au-u-1-1@small"
+                @form={{model.form}}
+                @show={{false}}
+                @graphs={{model.graphs}}
+                @sourceNode={{model.sourceNode}}
+                @formStore={{model.formStore}}
+                @forceShowErrors={{false}}/>
+      </div>
+    </div>
+  </div>
+</div>
 <AuToolbar @border="bottom" @size="medium">
   <AuToolbarGroup>
     <AuButtonGroup>

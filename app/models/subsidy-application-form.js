@@ -1,21 +1,36 @@
-import Model, { attr, belongsTo } from '@ember-data/model';
+import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import { A } from '@ember/array';
 
-export default class ApplicationForm extends Model {
+export default class SubsidyApplicationForm extends Model {
   @attr() uri;
+
   @attr('datetime', {
-    defaultValue(){ return new Date();}
+    defaultValue() {
+      return new Date();
+    },
   }) created;
 
   @attr('datetime', {
-    defaultValue(){ return new Date();}
+    defaultValue() {
+      return new Date();
+    },
   }) modified;
 
-  @belongsTo('contact-punt') contactinfo; // default needed
-  @belongsTo('bank-account') bankAccount; // default needed
-  @belongsTo('time-block') timeBlock; // concept
+  // TODO faze out
+  // @belongsTo('contact-punt') contactinfo; // default needed
+  // @belongsTo('bank-account') bankAccount; // default needed
+  // @belongsTo('time-block') timeBlock; // concept
 
-  @belongsTo('bestuurseenheid') organization;
-  @belongsTo('submission-document-status') status;
+  @belongsTo('subsidy-application-flow-step') subsidyApplicationFormStep;
+
   @belongsTo('gebruiker') creator;
+
   @belongsTo('gebruiker') lastModifier;
+
+  // TODO could this be defined as a concept
+  @belongsTo('submission-document-status') status;
+
+  @hasMany('file') sources;
+
+  @hasMany('bestuurseenheid') organization;
 }

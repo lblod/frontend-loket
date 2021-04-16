@@ -12,5 +12,5 @@ export default class SubsidyMeasureConsumptionModel extends Model {
   @belongsTo('subsidy-application-flow-step') activeSubsidyApplicationFlowStep;
   @belongsTo('subsidy-measure-consumption-status') status;
   @hasMany('participation') participations;
-  @hasMany('subsidy-application-form') applicationForms;
+  @hasMany('subsidy-application-form') subsidyApplicationForms;
 }
