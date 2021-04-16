@@ -9,7 +9,6 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTabl
   modelName = 'subsidy-measure-consumption';
 
   mergeQueryOptions() {
-    let groupId = this.currentSessionService.groupContent.id;
     return {
       include: [
         'status',
@@ -20,9 +19,6 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTabl
       ].join(','),
       filter: {
         participations: {
-          "participating-bestuurseenheid": {
-            ":id:": groupId,
-          },
           ":exact:role": ROLES.APPLICANT
         }
       }

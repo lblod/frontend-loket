@@ -13,4 +13,13 @@ export default class SubsidyMeasureConsumptionModel extends Model {
   @belongsTo('subsidy-measure-consumption-status') status;
   @hasMany('participation') participations;
   @hasMany('subsidy-application-form') subsidyApplicationForms;
+
+  /**
+   * Returns if the given object contains the status sent.
+   *
+   * TODO make functional
+   */
+  static isSent(model) {
+    return false;
+  }
 }

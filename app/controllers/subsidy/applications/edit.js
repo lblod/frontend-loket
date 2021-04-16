@@ -6,11 +6,15 @@ export default class SubsidyApplicationsEditController extends Controller {
   @service router;
 
   get consumption() {
-    return this.model;
+    return this.model.consumption;
+  }
+
+  get organization() {
+    return this.model.organization;
   }
 
   @task
-  *deleteConsumption() {
+  * deleteConsumption() {
     try {
       yield this.consumption.destroyRecord();
       this.router.transitionTo('subsidy.applications');

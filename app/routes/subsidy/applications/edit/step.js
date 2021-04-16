@@ -29,7 +29,7 @@ export default class SubsidyApplicationsEditStepRoute extends Route {
   }
 
   async model({step_id: stepId}) {
-    let consumption = this.modelFor('subsidy.applications.edit');
+    let {consumption, organization} = this.modelFor('subsidy.applications.edit');
     let step = await this.store.findRecord('subsidy-application-flow-step', stepId);
 
     // TODO find/filter out existing application-forms
@@ -76,7 +76,7 @@ export default class SubsidyApplicationsEditStepRoute extends Route {
     const sourceNode = new rdflib.NamedNode(subsidyApplicationForm.uri);
 
     return {
-      consumption,
+      // consumption,
       step,
       form: formNode,
       formStore,

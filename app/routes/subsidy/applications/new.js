@@ -5,7 +5,6 @@ import { ROLES } from 'frontend-loket/models/participation';
 
 export default class SubsidyApplicationsNewRoute extends Route {
   @service currentSession;
-  @service router;
   @service store;
 
   async beforeModel(transition) {
@@ -18,7 +17,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
 
     if (!transition.data.series) {
       // TODO: Show a warning / error page
-      this.router.replaceWith('subsidy.applications.available-subsidies');
+      this.transitionTo('subsidy.applications.available-subsidies');
     }
   }
 
@@ -35,10 +34,12 @@ export default class SubsidyApplicationsNewRoute extends Route {
     await participation.save();
 
     let applicationFlow = await series.activeApplicationFlow;
+    let firstApplicationStep = await applicationFlow.firstApplicationStep;
     let subsidyMeasureOffer = await series.subsidyMeasureOffer;
 
     let consumption = this.store.createRecord('subsidy-measure-consumption', {
       subsidyApplicationFlow: applicationFlow,
+      activeSubsidyApplicationFlowStep: firstApplicationStep,
       subsidyMeasureOffer,
       creator: currentUser,
       lastModifier: currentUser,
@@ -55,6 +56,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
   }
 
   afterModel(consumption) {
-    this.router.replaceWith('subsidy.applications.edit', consumption.id);
+    this.transitionTo('subsidy.applications.edit', consumption.id);
   }
 }

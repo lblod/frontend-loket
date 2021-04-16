@@ -8,9 +8,7 @@
       {{#if (eq this.model.applicationForm.status.uri this.sentStatus)}}
         ingediende
       {{/if}} subsidieaanvraag voor
-      {{#let this.consumption.participations.firstObject.participatingBestuurseenheid as |bestuurseenheid|}}
-        {{bestuurseenheid.classificatie.label}} {{bestuurseenheid.naam}}
-      {{/let}}
+      {{this.organization.classificatie.label}} {{this.organization.naam}}
     </AuHeading>
   </AuToolbarGroup>
 
@@ -37,8 +35,8 @@
           <AuLabel>Einde termijn</AuLabel>
           <p>
             {{moment-format
-              this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end
-              "DD-MM-YYYY"
+                    this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end
+                    "DD-MM-YYYY"
             }}
           </p>
         </li>
@@ -47,13 +45,14 @@
       {{#if true}} {{! TODO Add a check to see if the consumption has been submitted}}
         <li class="au-o-grid__item au-u-1-6@medium au-u-text-right@medium">
           <AuButton
-            @disabled={{this.deleteConsumption.isRunning}}
-            @loading={{this.deleteConsumption.isRunning}}
-            @skin="tertiary"
-            @alert="true"
+                  @disabled={{this.deleteConsumption.isRunning}}
+                  @loading={{this.deleteConsumption.isRunning}}
+                  @skin="tertiary"
+                  @alert="true"
             {{on "click" (perform this.deleteConsumption)}}
           >
-            <AuIcon @icon="bin" @alignment="left" /> Verwijder aanvraag
+            <AuIcon @icon="bin" @alignment="left"/>
+            Verwijder aanvraag
           </AuButton>
         </li>
       {{/if}}
