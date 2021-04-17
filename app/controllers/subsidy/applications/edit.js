@@ -9,7 +9,7 @@ import {
 } from '@lblod/ember-submission-form-fields';
 import fetch from 'fetch';
 import { DELETED_STATUS } from '../../../models/submission-document-status';
-import { task } from 'ember-concurrency-decorators';
+import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 
 export default class SubsidyApplicationsEditController extends Controller {

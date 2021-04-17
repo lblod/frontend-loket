@@ -1,11 +1,11 @@
 import Controller from '@ember/controller';
-import { task, all, timeout } from 'ember-concurrency';
+import { keepLatestTask, all, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 
 export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController extends Controller {
   @tracked dataset;
 
-  get isBusy() { 
+  get isBusy() {
     return this.save.isRunning || this.cancel.isRunning;
   }
 
@@ -13,7 +13,8 @@ export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController e
     return this.dataset.subjects && this.dataset.subjects.find(um => um.isFTE);
   }
 
-  @task(function*() {
+  @keepLatestTask
+  *save() {
     yield timeout(3000);
     const dirtyObservations = this.model.filter(obs => obs.hasDirtyAttributes);
 
@@ -24,5 +25,5 @@ export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController e
       yield this.dataset.save();
     }
     this.set('isSaving', false);
-  }).keepLatest() save;
+  }
 }

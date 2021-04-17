@@ -21,28 +21,31 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
       this.bestuursfunctie.id);
   }
 
-  @task(function* () {
+  @task
+  *save() {
     const address = yield this.model.adres;
     yield address.save();
     yield this.model.save();
     this.exit();
-  }) save;
+  }
 
-  @task(function* () {
+  @task
+  *resetChanges() {
     const address = yield this.model.adres;
     address.rollbackAttributes();
     this.model.rollbackAttributes();
     this.exit();
-  }) resetChanges;
+  }
 
-  @task(function* (adresProperties) {
+  @task
+  *updateAdres(adresProperties) {
     const address = yield this.model.adres;
     if (adresProperties) {
       address.setProperties(adresProperties);
     } else {
       address.eachAttribute(propName => address.set(propName, null));
     }
-  }) updateAdres;
+  }
 
   @action
   cancel() {
