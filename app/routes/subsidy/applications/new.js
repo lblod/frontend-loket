@@ -56,6 +56,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
   }
 
   afterModel(consumption) {
-    this.transitionTo('subsidy.applications.edit', consumption.id);
+    this.replaceWith('subsidy.applications.edit', consumption.id);
   }
 }

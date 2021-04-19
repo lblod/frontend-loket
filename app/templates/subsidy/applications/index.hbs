@@ -6,32 +6,37 @@
   </AuToolbarGroup>
   <AuToolbarGroup>
     <div class="au-u-text-right">
-      <LinkTo @route="subsidy.applications.available-subsidies" class="au-c-button" type="button">Vraag nieuwe subsidie aan</LinkTo>
+      <LinkTo @route="subsidy.applications.available-subsidies" class="au-c-button" type="button">Vraag nieuwe subsidie
+        aan
+      </LinkTo>
       <p class="au-u-margin-top-small">
-        Bekijk <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank" rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
+        Bekijk <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
+                  rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
       </p>
     </div>
   </AuToolbarGroup>
 </AuToolbar>
 
 <AuDataTable
-  @content={{this.model}}
-  @isLoading={{this.isLoadingModel}}
-  @noDataMessage="Geen subsidieaanvragen gevonden"
-  @sort={{this.sort}}
-  @page={{this.page}}
-  @size={{this.size}}
-  as |t|
+        @content={{this.model}}
+        @isLoading={{this.isLoadingModel}}
+        @noDataMessage="Geen subsidieaanvragen gevonden"
+        @sort={{this.sort}}
+        @page={{this.page}}
+        @size={{this.size}}
+        as |t|
 >
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
-      <AuDataTableThSortable @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.title" @currentSorting={{this.sort}} @label="Reeks"/>
+      <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}}
+                             @label="Subsidiemaatregel"/>
+      <AuDataTableThSortable @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.title"
+                             @currentSorting={{this.sort}} @label="Reeks"/>
       <AuDataTableThSortable
-        @class="au-u-visible-small-up"
-        @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end"
-        @currentSorting={{this.sort}}
-        @label="Einde&nbsp;termijn"
+              @class="au-u-visible-small-up"
+              @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end"
+              @currentSorting={{this.sort}}
+              @label="Einde&nbsp;termijn"
       />
       <th class="au-u-visible-small-up">Gewijzigd door</th>
       <AuDataTableThSortable @field="modified" @currentSorting={{this.sort}} @label="Laatst bewerkt"/>
@@ -55,7 +60,7 @@
           <AuPill @skin={{if consumption.status.isSent "success" "warning"}}>{{consumption.status.label}}</AuPill>
         </td>
         <td>
-          <LinkTo @route="subsidy.applications.edit" @model={{consumption.id}} class="au-c-link">
+          <LinkTo @route="subsidy.applications.edit.index" @model={{consumption.id}} class="au-c-link">
             {{! TODO change this based on the status}}
             Bekijk
           </LinkTo>

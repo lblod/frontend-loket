@@ -5,10 +5,11 @@ import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { ROLES } from 'frontend-loket/models/participation';
 
 export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTableRouteMixin) {
-  @service('current-session') currentSessionService;
+  @service('current-session') currentSession;
   modelName = 'subsidy-measure-consumption';
 
   mergeQueryOptions() {
+    let groupId = this.currentSession.groupContent.id;
     return {
       include: [
         'status',
@@ -19,6 +20,10 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTabl
       ].join(','),
       filter: {
         participations: {
+          // TODO why does this not work??
+          // "participating-bestuurseenheid": {
+          //   "id": groupId,
+          // },
           ":exact:role": ROLES.APPLICANT
         }
       }

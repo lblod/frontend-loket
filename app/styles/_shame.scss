@@ -13,7 +13,6 @@
   min-height: 1.5rem;
 }
 
-
 /* ==================================
    #TEMPORARY GENERAL DISABLED STATE FOR FORM
    ================================== */
@@ -43,7 +42,7 @@
     background-color: $au-input-disabled-color;
   }
 
-  .au-c-button{
+  .au-c-button {
     background: $au-input-disabled-color;
   }
 }
@@ -100,10 +99,10 @@
   NON-EDITABLE FORM
   ================================== */
 
-$au-non-editable-background    : $au-gray-100 !default;
+$au-non-editable-background: $au-gray-100 !default;
 
 .au-c-form--non-editable {
-  background-color:  $au-non-editable-background;
+  background-color: $au-non-editable-background;
   max-width: 100%;
 
   table {
@@ -315,7 +314,6 @@ $au-non-editable-background    : $au-gray-100 !default;
 }
 
 
-
 // Toggle button
 .au-c-button--toggle {
   padding-left: 0;
@@ -359,7 +357,6 @@ $au-non-editable-background    : $au-gray-100 !default;
   text-transform: uppercase;
   letter-spacing: .15rem;
 }
-
 
 
 // Table

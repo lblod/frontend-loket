@@ -86,7 +86,10 @@ Router.map(function() {
       this.route('available-subsidies');
       this.route('new');
       this.route('edit', { path: '/:id' }, function() {
-        this.route('step', { path: '/step/:step_id' });
+        this.route('step', { path: '/steps/:step_id' }, function() {
+          this.route('new');
+          this.route('edit', { path: '/forms/:form_id' });
+        });
       });
     });
   });

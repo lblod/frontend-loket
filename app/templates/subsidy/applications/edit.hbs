@@ -5,11 +5,17 @@
     <AuHeading @skin="2">
       Bekijk
       {{!-- TODO show this when the consumption has the submitted status --}}
-      {{#if (eq this.model.applicationForm.status.uri this.sentStatus)}}
+      {{#if (eq this.consumption.status.uri "sent")}}
         ingediende
       {{/if}} subsidieaanvraag voor
-      {{this.organization.classificatie.label}} {{this.organization.naam}}
+      <strong>{{this.organization.classificatie.label}}&nbsp;{{this.organization.naam}}</strong>
     </AuHeading>
+    <!-- TODO consult Miet for better options -->
+    <!--<AuHelpText class="au-u-margin-left-none">
+      Om een subsidie aan te vragen voor een andere bestuurseenheid (OCMW, Gemeente),
+      <br><strong>wissel rechtsbovenaan van bestuurseenheid</strong> door op de pijltjes te klikken,
+      <br>en start een nieuwe subsidieaanvraag.
+    </AuHelpText>-->
   </AuToolbarGroup>
 
   <AuToolbarGroup class="au-c-toolbar__group--row">

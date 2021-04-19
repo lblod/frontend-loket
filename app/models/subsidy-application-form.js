@@ -21,7 +21,9 @@ export default class SubsidyApplicationForm extends Model {
   // @belongsTo('bank-account') bankAccount; // default needed
   // @belongsTo('time-block') timeBlock; // concept
 
-  @belongsTo('subsidy-application-flow-step') subsidyApplicationFormStep;
+  @belongsTo('subsidy-application-flow-step') subsidyApplicationFlowStep;
+
+  @belongsTo('subsidy-measure-consumption') subsidyMeasureConsumption;
 
   @belongsTo('gebruiker') creator;
 
