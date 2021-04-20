@@ -8,6 +8,7 @@ import { timeout } from 'ember-concurrency';
 import { dropTask, task } from 'ember-concurrency-decorators';
 import fetch from 'fetch';
 import { validateForm } from '@lblod/ember-submission-form-fields';
+import { SENT_STATUS } from '../../../../../models/submission-document-status';
 
 export default class SubsidyApplicationsEditStepEditController extends Controller {
 
@@ -25,6 +26,10 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
 
   constructor() {
     super(...arguments);
+  }
+
+  get submitted(){
+    return this.semanticForm.get('status').get('uri') === SENT_STATUS
   }
 
   get formStore() {
@@ -82,6 +87,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     // and not via ember-data, we need to manually reload the application form record
     // to keep the form up-to-date
     yield this.model.semanticForm.reload();
+    yield this.model.semanticForm.hasMany('sources').reload();
   }
 
   @task

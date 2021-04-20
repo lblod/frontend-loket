@@ -19,6 +19,7 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
     let {consumption} = this.modelFor('subsidy.applications.edit');
     let {step} = this.modelFor('subsidy.applications.edit.step');
     let semanticForm = await this.store.peekRecord('subsidy-application-form', semanticFormID);
+    await semanticForm.belongsTo('status').reload();
 
     // TODO: Set up the application form similar to how it was done in the edit route before
     // https://github.com/lblod/frontend-loket/blob/700febcd5267f2086fb238f9d2c79b704f3be992/app/routes/subsidy/applications/edit.js#L15

@@ -1,12 +1,12 @@
 <div class="au-c-body-container au-c-body-container--scroll">
-  <div class="au-o-box {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning
+  <div class="{{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning
                                                                              "au-c-form--disabled"}} {{if
           this.delete.isRunning "au-c-form--disabled"}}">
     <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
       <RdfForm
               @groupClass="au-o-grid__item au-u-2-4 au-u-1-1@small"
               @form={{this.form}}
-              @show={{if (or this.model.submitted (not this.isActiveStep)) "true"}}
+              @show={{if (or this.submitted (not this.isActiveStep)) "true"}}
               @graphs={{this.graphs}}
               @sourceNode={{this.sourceNode}}
               @formStore={{this.formStore}}
@@ -33,7 +33,7 @@
     </AuToolbarGroup>
   {{/if}}
   <AuToolbarGroup class="au-u-margin-top-small au-u-margin-bottom-small">
-    {{#unless (or this.model.submitted (not this.isActiveStep))}}
+    {{#unless (or this.submitted (not this.isActiveStep))}}
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}
         {{on "click" (perform this.submit)}}>Verstuur naar de Vlaamse overheid
@@ -46,7 +46,7 @@
       </AuButton>
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
     {{else}}
-      {{#unless this.model.submitted}}
+      {{#unless this.submitted}}
         <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidieaanvraag stap is nog niet beschikbaar."
                  @alertskin="info"
                  @alertsize="small" class="au-u-margin-bottom-small">
