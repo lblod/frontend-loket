@@ -28,8 +28,8 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     super(...arguments);
   }
 
-  get submitted(){
-    return this.semanticForm.get('status').get('uri') === SENT_STATUS
+  get submitted() {
+    return this.semanticForm.get('status').get('uri') === SENT_STATUS;
   }
 
   get formStore() {
@@ -60,7 +60,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     return this.model.step;
   }
 
-  get isActiveStep(){
+  get isActiveStep() {
     return this.consumption.activeSubsidyApplicationFlowStep.get('id') === this.step.id;
   }
 
@@ -83,7 +83,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
         },
       ),
     });
-    // Since the sent date and sent status of the application form will be set by the backend
+    // Since the sources of the application form will be set/updated by the backend
     // and not via ember-data, we need to manually reload the application form record
     // to keep the form up-to-date
     yield this.model.semanticForm.reload();
@@ -139,13 +139,15 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
   @dropTask
   * submit() {
     try {
+      yield this.save.perform();
+
       const options = {...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
       this.isValidForm = validateForm(this.form, options);
       if (!this.isValidForm) {
         this.forceShowErrors = true;
       } else {
 
-        yield this.saveSemanticForm.perform();
+        // yield this.saveSemanticForm.perform();
         yield this.submitSemanticForm.perform();
 
         // NOTE update modified for the form and the consumption
@@ -159,6 +161,15 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
         exception,
       };
     }
+
+    // Since the active step of the consumption will be set by the backend
+    // and not via ember-data, we need to manually reload the consumption record
+    // to keep the index page up-to-date
+    // TODO: try transitioning to the next-step using the flow management service
+    yield this.consumption.reload();
+    yield this.consumption.belongsTo('activeSubsidyApplicationFlowStep').reload();
+    if (this.step.id !== this.consumption.activeSubsidyApplicationFlowStep.get('id'))
+      this.router.transitionTo('subsidy.applications.edit.index', this.consumption.id);
   }
 
   async updateRecentlySaved() {

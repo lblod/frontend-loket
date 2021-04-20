@@ -89,7 +89,7 @@
                    @alertsize="small"></AuAlert>
         </li>
       {{/if}}
-      {{#if this.submit.isRunning}}
+      {{#if (and this.submit.isRunning (not this.save.isRunning))}}
         <li class="au-o-grid__item">
           <AuAlert class="au-u-margin-none"
                    @alertIcon="info-circle"
