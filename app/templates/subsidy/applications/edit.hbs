@@ -51,12 +51,12 @@
       {{#if true}} {{! TODO Add a check to see if the consumption has been submitted}}
         <li class="au-o-grid__item au-u-1-6@medium au-u-text-right@medium">
           <AuButton
-                  @disabled={{this.deleteConsumption.isRunning}}
+                  {{!@disabled={{this.deleteConsumption.isRunning}}
+                  @disabled={{true}}
                   @loading={{this.deleteConsumption.isRunning}}
                   @skin="tertiary"
                   @alert="true"
-            {{on "click" (perform this.deleteConsumption)}}
-          >
+            {{on "click" (perform this.deleteConsumption)}} >
             <AuIcon @icon="bin" @alignment="left"/>
             Verwijder aanvraag
           </AuButton>
