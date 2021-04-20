@@ -18,7 +18,8 @@ export default class MandatenbeheerFractiesController extends Controller {
   @alias('mandatenbeheer.bestuurseenheid') bestuurseenheid;
   @alias('mandatenbeheer.bestuursorganen') bestuursorganen;
 
-  @task(function * (fractie) {
+  @task
+  *saveFractie(fractie) {
     const isNew = fractie.isNew;
     yield fractie.save();
 
@@ -26,7 +27,7 @@ export default class MandatenbeheerFractiesController extends Controller {
       this.send('reloadModel');
       this.newFractie = null;
     }
-  }) saveFractie;
+  }
 
   @action
     cancelEdit(fractie) {

@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { task, timeout } from 'ember-concurrency';
+import { restartableTask, timeout } from 'ember-concurrency';
 import { A } from '@ember/array';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
@@ -15,14 +15,15 @@ export default class MandatenbeheerBeleidsdomeinSelectorWithCreateComponent exte
     this._beleidsdomeinen = (this.args.beleidsdomeinen || A()).toArray();
   }
 
-  @task(function* (searchData) {
+  @restartableTask
+  *searchByName(searchData) {
     yield timeout(300);
     let queryParams = {
       sort:'label',
       'filter[label]': searchData
     };
     return yield this.store.query('beleidsdomein-code', queryParams);
-  }) searchByName;
+  }
 
   @action
     select(beleidsdomeinen){

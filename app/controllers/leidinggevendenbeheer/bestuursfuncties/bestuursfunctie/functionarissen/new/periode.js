@@ -4,12 +4,13 @@ import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewPeriodeController extends Controller {
-  @service() router;
+  @service router;
 
-  @task(function * () {
+  @task
+  *save() {
     yield this.model.save();
     this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
-  }) save;
+  }
 
   @action
   goBackToSearch() {

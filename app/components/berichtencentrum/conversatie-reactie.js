@@ -36,7 +36,8 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
     this.bijlagen = A();
   }
 
-  @task(function *() {
+  @task
+  *ensureOriginator() {
     const berichten = yield this.args.conversatie.berichten;
     const sortedBerichten = berichten.sortBy('verzonden');
     const ourGroup = yield this.currentSession.group;
@@ -52,7 +53,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
 
     // if no originator could be found, we reset the property
     this.originator = null;
-  }) ensureOriginator;
+  }
 
   @action
     async verstuurBericht() {
