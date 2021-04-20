@@ -1,7 +1,10 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import SubsidyMeasureConsumptionModel from '../../../../models/subsidy-measure-consumption';
 
 export default class SubsidyApplicationsIndexRoute extends Route {
+
+  @service router;
 
   /**
    * Redirect to the most BLANK step to be show to the user
@@ -38,6 +41,6 @@ export default class SubsidyApplicationsIndexRoute extends Route {
   }
 
   redirectToStep(consumption, step) {
-    return this.replaceWith('subsidy.applications.edit.step', consumption.id, step.id);
+    return this.router.replaceWith('subsidy.applications.edit.step', consumption.id, step.id);
   }
 }

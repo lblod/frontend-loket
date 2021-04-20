@@ -9,8 +9,6 @@ import { dropTask, task } from 'ember-concurrency-decorators';
 import fetch from 'fetch';
 import { validateForm } from '@lblod/ember-submission-form-fields';
 
-import moment from 'moment';
-
 export default class SubsidyApplicationsEditStepEditController extends Controller {
 
   @service currentSession;

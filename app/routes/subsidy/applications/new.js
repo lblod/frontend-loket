@@ -4,7 +4,9 @@ import { inject as service } from '@ember/service';
 import { ROLES } from 'frontend-loket/models/participation';
 
 export default class SubsidyApplicationsNewRoute extends Route {
+
   @service currentSession;
+  @service router;
   @service store;
 
   async beforeModel(transition) {
@@ -17,7 +19,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
 
     if (!transition.data.series) {
       // TODO: Show a warning / error page
-      this.transitionTo('subsidy.applications.available-subsidies');
+      this.router.transitionTo('subsidy.applications.available-subsidies');
     }
   }
 
@@ -56,6 +58,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
   }
 
   afterModel(consumption) {
-    this.replaceWith('subsidy.applications.edit', consumption.id);
+    this.router.replaceWith('subsidy.applications.edit', consumption.id);
   }
 }

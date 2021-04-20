@@ -4,6 +4,7 @@ import { CONCEPT_STATUS } from '../../../../../models/submission-document-status
 
 export default class SubsidyApplicationsEditStepNewRoute extends Route {
 
+  @service router;
   @service currentSession;
 
   async beforeModel() {
@@ -41,6 +42,6 @@ export default class SubsidyApplicationsEditStepNewRoute extends Route {
 
   afterModel(model) {
     let {consumption, step, form} = model;
-    this.replaceWith('subsidy.applications.edit.step.edit', consumption.id, step.id, form.id);
+    this.router.replaceWith('subsidy.applications.edit.step.edit', consumption.id, step.id, form.id);
   }
 }
