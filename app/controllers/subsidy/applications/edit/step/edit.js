@@ -118,8 +118,6 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
   @dropTask
   * save() {
     try {
-      // TODO: implement form saving logic
-      console.log('Saving form');
       yield this.saveSemanticForm.perform();
 
       // NOTE update modified for the form and the consumption
