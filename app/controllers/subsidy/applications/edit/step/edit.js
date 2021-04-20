@@ -103,6 +103,18 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     yield semanticForm.belongsTo('status').reload();
   }
 
+  @task
+  * evaluateNextStep() {
+    // Since the active step of the consumption will be set by the backend
+    // and not via ember-data, we need to manually reload the consumption record
+    // to keep the everything up-to-date
+    yield fetch(`/flow-management/next-step/${this.consumption.id}`, {
+      method: 'PATCH',
+    });
+    yield this.consumption.reload();
+    yield this.consumption.belongsTo('activeSubsidyApplicationFlowStep').reload();
+  }
+
   /**
    *  Wrapper off ember-fetch to throw an error if something went wrong
    */
@@ -138,19 +150,19 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
   * submit() {
     try {
       yield this.save.perform();
-
       const options = {...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
       this.isValidForm = validateForm(this.form, options);
       if (!this.isValidForm) {
         this.forceShowErrors = true;
       } else {
 
-        // yield this.saveSemanticForm.perform();
+        yield this.evaluateNextStep.perform();
         yield this.submitSemanticForm.perform();
 
         // NOTE update modified for the form and the consumption
         yield this.updateModified(this.semanticForm);
         yield this.updateModified(this.consumption);
+
       }
     } catch (exception) {
       console.log(exception);
@@ -160,14 +172,10 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
       };
     }
 
-    // Since the active step of the consumption will be set by the backend
-    // and not via ember-data, we need to manually reload the consumption record
-    // to keep the index page up-to-date
-    // TODO: try transitioning to the next-step using the flow management service
-    yield this.consumption.reload();
-    yield this.consumption.belongsTo('activeSubsidyApplicationFlowStep').reload();
-    if (this.step.id !== this.consumption.activeSubsidyApplicationFlowStep.get('id'))
-      this.router.transitionTo('subsidy.applications.edit.index', this.consumption.id);
+    // NOTE: move to next step if all was successfully
+    if (this.step.id !== this.consumption.activeSubsidyApplicationFlowStep.get('id')) {
+      this.router.transitionTo('subsidy.applications.edit', this.consumption.id);
+    }
   }
 
   async updateRecentlySaved() {
