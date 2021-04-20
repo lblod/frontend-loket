@@ -15,6 +15,7 @@ export default class SubsidyApplicationsEditController extends Controller {
 
   @task
   * deleteConsumption() {
+    // TODO check if this would also delete all the linked data
     try {
       yield this.consumption.destroyRecord();
       this.router.transitionTo('subsidy.applications');
