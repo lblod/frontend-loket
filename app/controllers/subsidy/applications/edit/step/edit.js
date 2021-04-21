@@ -64,6 +64,36 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     return this.consumption.activeSubsidyApplicationFlowStep.get('id') === this.step.id;
   }
 
+  get canSubmit(){
+    return !this.submitted && this.isActiveStep && this.isInSubmittablePeriod;
+  }
+
+  get isInSubmittablePeriod(){
+    return !(this.submittablePeriodNeedsToStart || this.submittablePeriodExpired);
+  }
+
+  get submittablePeriodNeedsToStart(){
+    const today = new Date();
+    const begin = this.model.subsidyProceduralStepPeriod.begin;
+    if(!begin){
+      return false;
+    }
+    else{
+      return today < begin;
+    }
+  }
+
+  get submittablePeriodExpired(){
+    const today = new Date();
+    const end = this.model.subsidyProceduralStepPeriod.end;
+    if(!end){
+      return false;
+    }
+    else{
+      return today > end;
+    }
+  }
+
   // TODO what is this?
   @action
   registerObserver() {
