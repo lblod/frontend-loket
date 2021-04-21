@@ -1,7 +1,5 @@
 <div class="au-c-body-container au-c-body-container--scroll">
-  <div class="{{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning
-                                                                    "au-c-form--disabled"}} {{if
-          this.delete.isRunning "au-c-form--disabled"}}">
+  <div class="{{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}}">
     <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
       <RdfForm
               @groupClass="au-o-grid__item au-u-2-4 au-u-1-1@small"
@@ -47,15 +45,18 @@
       <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
     {{else}}
       {{#unless this.submitted}}
-        <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidieaanvraag stap is nog niet beschikbaar."
-                 @alertskin="info"
-                 @alertsize="small" class="au-u-margin-bottom-small">
-          <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
-          <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
-                  href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                  class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
-          </p>
-        </AuAlert>
+        <div>
+          <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidieaanvraag stap is nog niet beschikbaar."
+                   @alertskin="info"
+                   @alertsize="small" class="au-u-margin-bottom-small">
+            <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
+            <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
+                    href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                    class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
+            </p>
+          </AuAlert>
+          <AuLink @linkRoute="subsidy.applications.edit" @skin="secondary">Terug</AuLink>
+        </div>
       {{else}}
         <div>
           <AuAlert @alertIcon="info-circle" @alertTitle="De subsidieaanvraag werd verstuurd." @alertskin="success"
@@ -79,6 +80,7 @@
   <!-- USER NOTIFICATIONS -->
   <AuToolbarGroup>
     <ul class="au-o-grid">
+      <!-- SAVING -->
       {{#if this.save.isRunning}}
         <li class="au-o-grid__item">
           <AuAlert class="au-u-margin-none"
@@ -88,7 +90,18 @@
                    @alertsize="small"></AuAlert>
         </li>
       {{/if}}
-      {{#if (and this.submit.isRunning (not this.save.isRunning))}}
+      <!-- MOVING -->
+      {{#if this.next.isRunning }}
+        <li class="au-o-grid__item">
+          <AuAlert class="au-u-margin-none"
+                   @alertIcon="info-circle"
+                   @alertTitle="Volgende stap voorbereiden..."
+                   @alertskin="info"
+                   @alertsize="small"></AuAlert>
+        </li>
+      {{/if}}
+      <!-- SENDING -->
+      {{#if (and this.submit.isRunning (not this.save.isRunning) (not this.next.isRunning))}}
         <li class="au-o-grid__item">
           <AuAlert class="au-u-margin-none"
                    @alertIcon="info-circle"
@@ -97,12 +110,8 @@
                    @alertsize="small"></AuAlert>
         </li>
       {{/if}}
-      <!-- {{#if this.delete.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
-        </li>
-      {{/if}} -->
-      {{#if (and this.recentlySaved (not this.save.isRunning) (not this.submit.isRunning))}}
+      <!-- RECENTLY SAVED -->
+      {{#if (and this.recentlySaved (not this.save.isRunning) (not this.submit.isRunning) (not this.next.isRunning))}}
         <li class="au-o-grid__item">
           <AuAlert class="au-u-margin-none"
                    @alertIcon="info-circle"

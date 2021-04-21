@@ -108,23 +108,11 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     // Since the active step of the consumption will be set by the backend
     // and not via ember-data, we need to manually reload the consumption record
     // to keep the everything up-to-date
-    yield fetch(`/flow-management/next-step/${this.consumption.id}`, {
+    yield this.fetch(`/flow-management/next-step/${this.consumption.id}`, {
       method: 'PATCH',
     });
     yield this.consumption.reload();
     yield this.consumption.belongsTo('activeSubsidyApplicationFlowStep').reload();
-  }
-
-  /**
-   *  Wrapper off ember-fetch to throw an error if something went wrong
-   */
-  async fetch(url, options) {
-    const response = await fetch(url, options);
-    if (response.ok) {
-      return response;
-    } else {
-      throw Error(response);
-    }
   }
 
   @dropTask
@@ -157,11 +145,12 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
       } else {
 
         yield this.submitSemanticForm.perform();
-        yield this.evaluateNextStep.perform();
 
         // NOTE update modified for the form and the consumption
         yield this.updateModified(this.semanticForm);
         yield this.updateModified(this.consumption);
+
+        yield this.next.perform();
 
       }
     } catch (exception) {
@@ -171,8 +160,12 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
         exception,
       };
     }
+  }
 
+  @task
+  * next(){
     // NOTE: move to next step if all was successfully
+    yield this.evaluateNextStep.perform();
     if (this.step.id !== this.consumption.activeSubsidyApplicationFlowStep.get('id')) {
       this.router.transitionTo('subsidy.applications.edit', this.consumption.id);
     }
@@ -188,6 +181,18 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     model.modified = new Date();
     model.lastModified = await this.currentSession.userContent;
     await model.save();
+  }
+
+  /**
+   *  Wrapper off ember-fetch to throw an error if something went wrong
+   */
+  async fetch(url, options) {
+    const response = await fetch(url, options);
+    if (response.ok) {
+      return response;
+    } else {
+      throw Error(response);
+    }
   }
 
   reset() {
