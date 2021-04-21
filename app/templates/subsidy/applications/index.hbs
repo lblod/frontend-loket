@@ -60,7 +60,7 @@
           <AuPill @skin={{if consumption.status.isSent "success" "warning"}}>{{consumption.status.label}}</AuPill>
         </td>
         <td>
-          <LinkTo @route="subsidy.applications.edit.index" @model={{consumption.id}} class="au-c-link">
+          <LinkTo @route="subsidy.applications.edit" @model={{consumption.id}} class="au-c-link">
             {{! TODO change this based on the status}}
             Bekijk
           </LinkTo>
