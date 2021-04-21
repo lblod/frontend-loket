@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import SubsidyMeasureConsumptionModel from '../../../../models/subsidy-measure-consumption';
 
-export default class SubsidyApplicationsIndexRoute extends Route {
+export default class SubsidyApplicationsEditIndexRoute extends Route {
 
   @service router;
 
@@ -11,7 +11,7 @@ export default class SubsidyApplicationsIndexRoute extends Route {
    *
    * NOTE: always assumes a consumption to have the proper model defined.
    */
-  async beforeModel(model) {
+  async beforeModel() {
 
     let {consumption} = this.modelFor('subsidy.applications.edit');
 

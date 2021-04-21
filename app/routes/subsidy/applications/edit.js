@@ -6,8 +6,8 @@ export default class SubsidyApplicationsEditRoute extends Route {
   @service store;
   @service('current-session') session;
 
-  async model({id: subsidyMeasureConsumptionId}) {
-    const consumption = await this.store.findRecord('subsidy-measure-consumption', subsidyMeasureConsumptionId, {
+  async model({id: consumptionID}) {
+    const consumption = await this.store.findRecord('subsidy-measure-consumption', consumptionID, {
       include: [
         'active-subsidy-application-flow-step',
         'status',

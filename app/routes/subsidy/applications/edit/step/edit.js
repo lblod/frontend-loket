@@ -18,7 +18,7 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
 
     let {consumption} = this.modelFor('subsidy.applications.edit');
     let {step} = this.modelFor('subsidy.applications.edit.step');
-    let semanticForm = await this.store.peekRecord('subsidy-application-form', semanticFormID);
+    let semanticForm = await this.store.findRecord('subsidy-application-form', semanticFormID);
     await semanticForm.belongsTo('status').reload();
 
     // TODO: Set up the application form similar to how it was done in the edit route before
