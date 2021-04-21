@@ -156,8 +156,8 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
         this.forceShowErrors = true;
       } else {
 
-        yield this.evaluateNextStep.perform();
         yield this.submitSemanticForm.perform();
+        yield this.evaluateNextStep.perform();
 
         // NOTE update modified for the form and the consumption
         yield this.updateModified(this.semanticForm);
