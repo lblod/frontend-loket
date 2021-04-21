@@ -72,7 +72,7 @@
       <div class="au-c-sidebar__content">
         <nav>
           <ul class="au-c-list-navigation">
-            {{#each this.consumption.subsidyApplicationFlow.definedSteps as |step|}}
+            {{#each this.consumption.subsidyApplicationFlow.sortedDefinedSteps as |step|}}
               <li class="au-c-list-navigation__item">
                 <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link">
                   {{step.subsidyProceduralStep.description}}
