@@ -226,6 +226,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
 
   reset() {
     this.error = null;
+    this.forceShowErrors = false;
     this.recentlySaved = false;
   }
 }

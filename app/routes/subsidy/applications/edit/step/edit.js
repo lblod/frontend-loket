@@ -51,8 +51,14 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
     };
   }
 
-  resetController(controller) {
-    controller.reset();
+  resetController(controller, isExiting) {
+    if (isExiting) {
+      /**
+       * NOTE: when exciting a controller, we want the error object to be reset.
+       *       prevent it from "leaking" to other form edit-routes.
+       */
+      controller.reset();
+    }
   }
 
   // --- Helpers ---
