@@ -8,7 +8,6 @@ import { timeout } from 'ember-concurrency';
 import { dropTask, task } from 'ember-concurrency-decorators';
 import fetch from 'fetch';
 import { validateForm } from '@lblod/ember-submission-form-fields';
-import { SENT_STATUS } from '../../../../../models/submission-document-status';
 
 export default class SubsidyApplicationsEditStepEditController extends Controller {
 
@@ -29,7 +28,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
   }
 
   get submitted() {
-    return this.semanticForm.get('status').get('uri') === SENT_STATUS;
+    return this.semanticForm.get('status').get('isSent');
   }
 
   get formStore() {
