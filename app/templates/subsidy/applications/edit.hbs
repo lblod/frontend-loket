@@ -1,7 +1,7 @@
 {{page-title "Bekijk subsidieaanvraag"}}
 
 <AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+  <AuToolbarGroup class="au-c-toolbar__group--col">
     <AuHeading @skin="2">
       Bekijk
       {{!-- TODO show this when the consumption has the submitted status --}}
@@ -16,6 +16,13 @@
       <br><strong>wissel rechtsbovenaan van bestuurseenheid</strong> door op de pijltjes te klikken,
       <br>en start een nieuwe subsidieaanvraag.
     </AuHelpText>-->
+  </AuToolbarGroup>
+  <AuToolbarGroup class="au-c-toolbar__group--col">
+    <!-- Subsidy INFO  -->
+    <div>
+      <strong>{{this.consumption.subsidyMeasureOffer.title}}</strong>
+      <AuHelpText @size="secondary" style="margin: 0; line-height:normal">{{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.description}}</AuHelpText>
+    </div>
   </AuToolbarGroup>
 
   <AuToolbarGroup class="au-c-toolbar__group--row">
@@ -74,9 +81,11 @@
           <ul class="au-c-list-navigation">
             {{#each this.consumption.subsidyApplicationFlow.sortedDefinedSteps as |step|}}
               <li class="au-c-list-navigation__item">
-                <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link">
-                  {{step.subsidyProceduralStep.description}}
+                <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link" style="flex-direction: column; align-items: start;">
+                  <div> {{step.subsidyProceduralStep.description}} </div>
+                  <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal">Instuurbaar van {{moment-format  step.subsidyProceduralStep.period.begin 'DD-MM-YYYY'}} tot {{moment-format  step.subsidyProceduralStep.period.end 'DD-MM-YYYY'}}</AuHelpText>
                 </LinkTo>
+
               </li>
             {{/each}}
           </ul>
