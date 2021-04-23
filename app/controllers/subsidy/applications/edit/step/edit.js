@@ -166,21 +166,24 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
   @dropTask
   * submit() {
     try {
-      yield this.save.perform();
-      const options = {...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
-      this.isValidForm = validateForm(this.form, options);
-      if (!this.isValidForm) {
-        this.forceShowErrors = true;
+      if (this.canSubmit) {
+        yield this.save.perform();
+        const options = {...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
+        this.isValidForm = validateForm(this.form, options);
+        if (!this.isValidForm) {
+          this.forceShowErrors = true;
+        } else {
+
+          yield this.submitSemanticForm.perform();
+
+          // NOTE update modified for the form and the consumption
+          yield this.updateModified(this.semanticForm);
+          yield this.updateModified(this.consumption);
+
+          yield this.next.perform();
+        }
       } else {
-
-        yield this.submitSemanticForm.perform();
-
-        // NOTE update modified for the form and the consumption
-        yield this.updateModified(this.semanticForm);
-        yield this.updateModified(this.consumption);
-
-        yield this.next.perform();
-
+        throw Error("Deze is niet meer beschikbaar.");
       }
     } catch (exception) {
       console.log(exception);
