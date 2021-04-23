@@ -9,7 +9,7 @@
   }}
   {{#if promptMode}}
     {{mandatenbeheer/mandataris-edit-prompt
-      class="au-c-accordion au-u-margin-top-small"
+      class="au-c-collapsible au-u-margin-top-small"
       onTerminate=(action "terminate")
       onCorrect=(action "correct")
     }}
@@ -17,7 +17,7 @@
 
   {{!-- ***********************************CORRECT MANDATARIS*********************************** --}}
   {{#if correctMode}}
-    <div class="au-c-accordion">
+    <div class="au-c-collapsible">
       <div class="au-c-form">
         <div>
           <AuLabel for="mandaat">Mandaat</AuLabel>
@@ -159,7 +159,7 @@
   {{!-- ***********************************TERMINATE MANDATARIS*********************************** --}}
 
   {{#if terminateMode}}
-    <div class="au-c-accordion">
+    <div class="au-c-collapsible">
       <div class="au-o-grid au-o-grid--tiny">
         <div class="au-o-grid__item au-u-1-2">
           <AuLabel for="datepicker-from">Start</AuLabel>
@@ -212,7 +212,7 @@
 {{!-- ***********************************CREATE MANDATARIS*********************************** --}}
 {{else}}
   <div class="js-accordion js-accordion--open">
-    <div class="au-c-accordion">
+    <div class="au-c-collapsible">
       <div class="au-c-form">
         <div>
           <AuLabel for="mandaat">Mandaat</AuLabel>

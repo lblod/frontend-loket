@@ -2,9 +2,12 @@ import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { alias } from '@ember/object/computed';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking'; 
+import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 export default class MandatenbeheerFractiesController extends Controller {
+  @service() router;
+
   @tracked newFractie = null;
   @tracked isBusy = false;
   @tracked defaultFractieType;
@@ -15,7 +18,8 @@ export default class MandatenbeheerFractiesController extends Controller {
   @alias('mandatenbeheer.bestuurseenheid') bestuurseenheid;
   @alias('mandatenbeheer.bestuursorganen') bestuursorganen;
 
-  @task(function * (fractie) {
+  @task
+  *saveFractie(fractie) {
     const isNew = fractie.isNew;
     yield fractie.save();
 
@@ -23,7 +27,7 @@ export default class MandatenbeheerFractiesController extends Controller {
       this.send('reloadModel');
       this.newFractie = null;
     }
-  }) saveFractie;
+  }
 
   @action
     cancelEdit(fractie) {
@@ -31,7 +35,7 @@ export default class MandatenbeheerFractiesController extends Controller {
         this.newFractie = null;
       fractie.rollbackAttributes(); // removes model from store if it's new
     }
-  
+
   @action
     createNewFractie() {
       const fractie = this.store.createRecord('fractie', {
@@ -45,7 +49,7 @@ export default class MandatenbeheerFractiesController extends Controller {
 
   @action
     selectPeriod(startDate) {
-      this.transitionToRoute('mandatenbeheer.fracties', {
+      this.router.transitionTo('mandatenbeheer.fracties', {
         queryParams: {
           page: 0,
           startDate: startDate

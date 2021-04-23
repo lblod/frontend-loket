@@ -14,7 +14,7 @@ const SOURCE_GRAPH = new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`);
 export default class SubsidyApplicationsEditRoute extends Route {
   async model(params) {
     // Fetch data from backend
-    const applicationForm = await this.store.find('application-form', params.id);
+    const applicationForm = await this.store.findRecord('application-form', params.id);
     const applicationFormStatus = await applicationForm.status;
 
     if (!applicationForm) {

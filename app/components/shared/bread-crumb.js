@@ -71,6 +71,14 @@ export default class SharedBreadCrumbComponent extends Component {
       crumbs: [{label: 'Leidinggevendenbeheer',link: 'leidinggevendenbeheer.bestuursfuncties'},{label: 'Nieuwe aanstellingsperiode'}]
     },
     {
+      route: 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.periode',
+      crumbs: [{label: 'Leidinggevendenbeheer',link: 'leidinggevendenbeheer.bestuursfuncties'},{label: 'Nieuwe aanstellingsperiode'}]
+    },
+    {
+      route: 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person',
+      crumbs: [{label: 'Leidinggevendenbeheer',link: 'leidinggevendenbeheer.bestuursfuncties'},{label: 'Voeg nieuwe persoon toe'}]
+    },
+    {
       route: 'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info',
       crumbs: [{label: 'Leidinggevendenbeheer',link: 'leidinggevendenbeheer.bestuursfuncties'},{label: 'Bewerk contactgegevens'}]
     },

@@ -4,12 +4,13 @@ import { tracked } from '@glimmer/tracking';
 import {importTriplesForForm, validateForm,  delGraphFor, addGraphFor} from '@lblod/ember-submission-form-fields';
 import fetch from 'fetch';
 import { DELETED_STATUS } from '../../../models/submission-document-status';
-import { task } from 'ember-concurrency-decorators';
+import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 
 export default class SupervisionSubmissionsEditController extends Controller {
   @service currentSession;
   @service store;
+  @service() router;
 
   @tracked datasetTriples = [];
   @tracked addedTriples = [];
@@ -105,7 +106,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
   @task
   *delete() {
     yield this.deleteSubmissionForm.perform();
-    this.transitionToRoute('supervision.submissions');
+    this.router.transitionTo('supervision.submissions');
   }
 
   @task
@@ -134,7 +135,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
       yield this.saveSubmissionForm.perform();
       yield this.submitSubmissionForm.perform();
       yield this.model.submission.save();
-      this.transitionToRoute('supervision.submissions');
+      this.router.transitionTo('supervision.submissions');
     }
   }
 }

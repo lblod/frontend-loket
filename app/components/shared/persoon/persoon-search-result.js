@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
-export default class MandatenbeheerPersoonSearchResultComponent extends Component {
+export default class SharedPersoonPersoonSearchResultComponent extends Component {
   @tracked showDetails = false;
 
   @action
@@ -14,4 +14,4 @@ export default class MandatenbeheerPersoonSearchResultComponent extends Componen
     toggleDetails(){
       this.showDetails = !this.showDetails;
     }
-  }
+}
