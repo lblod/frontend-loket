@@ -26,16 +26,16 @@
   <t.content as |c|>
     <c.header>
       <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
-      <AuDataTableThSortable @field="title" @currentSorting={{this.sort}} @label="Reeks"/>
+      <AuDataTableThSortable @field="title" @currentSorting={{this.sort}} @label="Periode"/>
       <AuDataTableThSortable
         @field="period.begin"
         @currentSorting={{this.sort}}
-        @label="Start&nbsp;termijn"
+        @label="Aanvragen vanaf"
       />
       <AuDataTableThSortable
         @field="period.end"
         @currentSorting={{this.sort}}
-        @label="Einde&nbsp;termijn"
+        @label="Indienen tot"
       />
       <th></th>
     </c.header>

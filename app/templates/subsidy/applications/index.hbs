@@ -2,7 +2,7 @@
 
 <AuToolbar @border="bottom" @size="large" @nowrap="{{true}}">
   <AuToolbarGroup>
-    <AuHeading @skin="2" data-test-loket="subsidiebeheer-page-title">Subsidiebeheer</AuHeading>
+    <AuHeading @skin="2" data-test-loket="subsidiebeheer-page-title">Lopende dossiers</AuHeading>
   </AuToolbarGroup>
   <AuToolbarGroup>
     <div class="au-u-text-right">
@@ -31,12 +31,12 @@
       <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}}
                              @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.title"
-                             @currentSorting={{this.sort}} @label="Reeks"/>
+                             @currentSorting={{this.sort}} @label="Periode"/>
       <AuDataTableThSortable
               @class="au-u-visible-small-up"
               @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end"
               @currentSorting={{this.sort}}
-              @label="Einde&nbsp;termijn"
+              @label="Indienen tot"
       />
       <th class="au-u-visible-small-up">Gewijzigd door</th>
       <AuDataTableThSortable @field="modified" @currentSorting={{this.sort}} @label="Laatst bewerkt"/>
