@@ -20,10 +20,9 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTabl
       ].join(','),
       filter: {
         participations: {
-          // TODO why does this not work??
-          // "participating-bestuurseenheid": {
-          //   "id": groupId,
-          // },
+           "participating-bestuurseenheid": {
+             "id": groupId,
+           },
           ":exact:role": ROLES.APPLICANT
         }
       }
