@@ -9,8 +9,9 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
     return {
       include: [
         'period',
-        'subsidy-measure-offer',
+        'subsidy-measure-offer'
       ].join(','),
+      'filter[period][:gte:end]': new Date().toISOString()
     };
   }
 }
