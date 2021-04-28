@@ -173,6 +173,10 @@ $au-non-editable-background: $au-gray-100 !default;
   }
 }
 
+.au-c-toolbar + .au-c-toolbar {
+  padding-top: 0;
+}
+
 // Small
 .au-c-small-text {
   @include au-font-size($au-base);
