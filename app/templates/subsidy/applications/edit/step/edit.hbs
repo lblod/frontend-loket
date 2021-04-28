@@ -11,166 +11,166 @@
               @forceShowErrors={{this.forceShowErrors}}/>
     </div>
   </div>
-</div>
 
-<AuToolbar @border="top" @size="large">
-  {{#if (and this.forceShowErrors (not this.isValidForm))}}
-    <AuToolbarGroup class="au-c-toolbar__group--row">
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen" @alertskin="error"
-               @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
-        <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
-      </AuAlert>
-    </AuToolbarGroup>
-  {{/if}}
-  {{#if this.error}}
-    <AuToolbarGroup class="au-c-toolbar__group--row">
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Oeps! Dit is een beetje gênant ..." @alertskin="error"
-               @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
-        <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
-      </AuAlert>
-    </AuToolbarGroup>
-  {{/if}}
-  <AuToolbarGroup class="au-u-margin-top-small au-u-margin-bottom-small">
-    <!-- DEFAULT CRUD CASE -->
-    {{#unless (not this.canSubmit) }}
-      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                @loading={{if this.submit.isRunning "true"}}
-        {{on "click" (perform this.submit)}}>Verstuur naar de Vlaamse overheid
-      </AuButton>
-      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                @loading={{if this.save.isRunning "true"}}
-                @skin={{"secondary"}}
-        {{on "click" (perform this.save)}}>
-        Bewaar als concept
-      </AuButton>
-      <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
-    {{else}} <!-- SENDING NOT POSSIBLE -->
-      {{#unless this.submitted}}
-        {{#if this.isActiveStep}}
-          <!-- DEADLINE ISSUES -->
-          {{#if this.submittablePeriodNeedsToStart}}
+  <AuToolbar @size="large">
+    {{#if (and this.forceShowErrors (not this.isValidForm))}}
+      <AuToolbarGroup class="au-c-toolbar__group--row">
+        <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen" @alertskin="error"
+                 @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
+          <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
+        </AuAlert>
+      </AuToolbarGroup>
+    {{/if}}
+    {{#if this.error}}
+      <AuToolbarGroup class="au-c-toolbar__group--row">
+        <AuAlert @alertIcon="alert-triangle" @alertTitle="Oeps! Dit is een beetje gênant ..." @alertskin="error"
+                 @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
+          <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
+        </AuAlert>
+      </AuToolbarGroup>
+    {{/if}}
+    <AuToolbarGroup class="au-u-margin-top-small au-u-margin-bottom-small">
+      <!-- DEFAULT CRUD CASE -->
+      {{#unless (not this.canSubmit) }}
+        <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                  @loading={{if this.submit.isRunning "true"}}
+          {{on "click" (perform this.submit)}}>Verstuur naar de Vlaamse overheid
+        </AuButton>
+        <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                  @loading={{if this.save.isRunning "true"}}
+                  @skin={{"secondary"}}
+          {{on "click" (perform this.save)}}>
+          Bewaar als concept
+        </AuButton>
+        <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
+      {{else}} <!-- SENDING NOT POSSIBLE -->
+        {{#unless this.submitted}}
+          {{#if this.isActiveStep}}
+            <!-- DEADLINE ISSUES -->
+            {{#if this.submittablePeriodNeedsToStart}}
+              <div>
+                <AuAlert @alertIcon="info-circle" @alertTitle="Deze stap kan u nog niet indienen."
+                         @alertskin="info"
+                  @alertsize="small" class="au-u-margin-bottom-small">
+                  <p>U kan pas vanaf {{moment-format this.subsidyProceduralStepPeriod.begin 'DD-MM-YYYY'}} indienen.</p>
+                  <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
+                          href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                          class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
+                  </p>
+                </AuAlert>
+              </div>
+              <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                  @loading={{if this.save.isRunning "true"}}
+                  @skin={{"secondary"}}
+                 {{on "click" (perform this.save)}}>
+                 Bewaar als concept
+              </AuButton>
+            {{else if this.submittablePeriodExpired}}
+              <div>
+                <AuAlert @alertIcon="info-circle" @alertTitle="De deadline voor deze stap is verstreken."
+                         @alertskin="warning"
+                  @alertsize="small" class="au-u-margin-bottom-small">
+                  <p> Deze was beschikbaar tot en met
+                    {{moment-format this.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}
+                  </p>
+                  <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
+                          href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                          class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
+                  </p>
+                </AuAlert>
+              </div>
+            {{else}} <!-- GENERAL ISSUES (data is broken) -->
+              <div>
+                <AuAlert @alertIcon="info-circle" @alertTitle="Algemene fout"
+                         @alertskin="error"
+                         @alertsize="small" class="au-u-margin-bottom-small">
+                  <p>Neem contact op met
+                    <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">
+                      LoketLokaalBestuur@vlaanderen.be
+                    </a>.
+                  </p>
+                </AuAlert>
+              </div>
+            {{/if}}
+          {{else}} <!-- PREVIOUS STEP NEEDS TO BE COMPLETED FIRST -->
             <div>
-              <AuAlert @alertIcon="info-circle" @alertTitle="Deze stap kan u nog niet indienen."
+              <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidieaanvraag stap is nog niet beschikbaar."
                        @alertskin="info"
-                @alertsize="small" class="au-u-margin-bottom-small">
-                <p>U kan pas vanaf {{moment-format this.subsidyProceduralStepPeriod.begin 'DD-MM-YYYY'}} indienen.</p>
-                <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
-                        href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                        class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
-                </p>
-              </AuAlert>
-            </div>
-            <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                @loading={{if this.save.isRunning "true"}}
-                @skin={{"secondary"}}
-               {{on "click" (perform this.save)}}>
-               Bewaar als concept
-            </AuButton>
-          {{else if this.submittablePeriodExpired}}
-            <div>
-              <AuAlert @alertIcon="info-circle" @alertTitle="De deadline voor deze stap is verstreken."
-                       @alertskin="warning"
-                @alertsize="small" class="au-u-margin-bottom-small">
-                <p> Deze was beschikbaar tot en met
-                  {{moment-format this.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}
-                </p>
-                <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
-                        href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                        class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
-                </p>
-              </AuAlert>
-            </div>
-          {{else}} <!-- GENERAL ISSUES (data is broken) -->
-            <div>
-              <AuAlert @alertIcon="info-circle" @alertTitle="Algemene fout"
-                       @alertskin="error"
                        @alertsize="small" class="au-u-margin-bottom-small">
-                <p>Neem contact op met
-                  <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">
-                    LoketLokaalBestuur@vlaanderen.be
-                  </a>.
+                <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
+                <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
+                        href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                        class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
                 </p>
               </AuAlert>
+              <AuLink @linkRoute="subsidy.applications.edit" @skin="secondary">Terug</AuLink>
             </div>
           {{/if}}
-        {{else}} <!-- PREVIOUS STEP NEEDS TO BE COMPLETED FIRST -->
+        {{else}}
           <div>
-            <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidieaanvraag stap is nog niet beschikbaar."
-                     @alertskin="info"
+            <AuAlert @alertIcon="info-circle" @alertTitle="De subsidieaanvraag werd verstuurd." @alertskin="success"
                      @alertsize="small" class="au-u-margin-bottom-small">
-              <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
+              <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
+                      href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
+                      rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
+                subsidies</a>.
+              </p>
               <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
                       href="mailto:LoketLokaalBestuur@vlaanderen.be"
                       class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
               </p>
             </AuAlert>
-            <AuLink @linkRoute="subsidy.applications.edit" @skin="secondary">Terug</AuLink>
           </div>
-        {{/if}}
-      {{else}}
-        <div>
-          <AuAlert @alertIcon="info-circle" @alertTitle="De subsidieaanvraag werd verstuurd." @alertskin="success"
-                   @alertsize="small" class="au-u-margin-bottom-small">
-            <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
-                    href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
-                    rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
-              subsidies</a>.
-            </p>
-            <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
-                    href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                    class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
-            </p>
-          </AuAlert>
-          <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
-        </div>
+        {{/unless}}
       {{/unless}}
-    {{/unless}}
-  </AuToolbarGroup>
+    </AuToolbarGroup>
 
-  <!-- USER NOTIFICATIONS -->
-  <AuToolbarGroup>
-    <ul class="au-o-grid">
-      <!-- SAVING -->
-      {{#if this.save.isRunning}}
-        <li class="au-o-grid__item">
-          <AuAlert class="au-u-margin-none"
-                   @alertIcon="info-circle"
-                   @alertTitle="Aan het opslaan..."
-                   @alertskin="info"
-                   @alertsize="small"></AuAlert>
-        </li>
-      {{/if}}
-      <!-- MOVING -->
-      {{#if this.next.isRunning }}
-        <li class="au-o-grid__item">
-          <AuAlert class="au-u-margin-none"
-                   @alertIcon="info-circle"
-                   @alertTitle="Volgende stap voorbereiden..."
-                   @alertskin="info"
-                   @alertsize="small"></AuAlert>
-        </li>
-      {{/if}}
-      <!-- SENDING -->
-      {{#if (and this.submit.isRunning (not this.save.isRunning) (not this.next.isRunning))}}
-        <li class="au-o-grid__item">
-          <AuAlert class="au-u-margin-none"
-                   @alertIcon="info-circle"
-                   @alertTitle="Aan het versturen..."
-                   @alertskin="info"
-                   @alertsize="small"></AuAlert>
-        </li>
-      {{/if}}
-      <!-- RECENTLY SAVED -->
-      {{#if (and this.recentlySaved (not this.save.isRunning) (not this.submit.isRunning) (not this.next.isRunning))}}
-        <li class="au-o-grid__item">
-          <AuAlert class="au-u-margin-none"
-                   @alertIcon="info-circle"
-                   @alertTitle="Opgeslagen."
-                   @alertskin="success"
-                   @alertsize="small"></AuAlert>
-        </li>
-      {{/if}}
-    </ul>
-  </AuToolbarGroup>
+    <!-- USER NOTIFICATIONS -->
+    <AuToolbarGroup>
+      <ul class="au-o-grid">
+        <!-- SAVING -->
+        {{#if this.save.isRunning}}
+          <li class="au-o-grid__item">
+            <AuAlert class="au-u-margin-none"
+                     @alertIcon="info-circle"
+                     @alertTitle="Aan het opslaan..."
+                     @alertskin="info"
+                     @alertsize="small"></AuAlert>
+          </li>
+        {{/if}}
+        <!-- MOVING -->
+        {{#if this.next.isRunning }}
+          <li class="au-o-grid__item">
+            <AuAlert class="au-u-margin-none"
+                     @alertIcon="info-circle"
+                     @alertTitle="Volgende stap voorbereiden..."
+                     @alertskin="info"
+                     @alertsize="small"></AuAlert>
+          </li>
+        {{/if}}
+        <!-- SENDING -->
+        {{#if (and this.submit.isRunning (not this.save.isRunning) (not this.next.isRunning))}}
+          <li class="au-o-grid__item">
+            <AuAlert class="au-u-margin-none"
+                     @alertIcon="info-circle"
+                     @alertTitle="Aan het versturen..."
+                     @alertskin="info"
+                     @alertsize="small"></AuAlert>
+          </li>
+        {{/if}}
+        <!-- RECENTLY SAVED -->
+        {{#if (and this.recentlySaved (not this.save.isRunning) (not this.submit.isRunning) (not this.next.isRunning))}}
+          <li class="au-o-grid__item">
+            <AuAlert class="au-u-margin-none"
+                     @alertIcon="info-circle"
+                     @alertTitle="Opgeslagen."
+                     @alertskin="success"
+                     @alertsize="small"></AuAlert>
+          </li>
+        {{/if}}
+      </ul>
+    </AuToolbarGroup>
 
-</AuToolbar>
+  </AuToolbar>
+
+</div>
