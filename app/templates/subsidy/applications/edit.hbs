@@ -1,50 +1,71 @@
 {{page-title "Bekijk subsidieaanvraag"}}
 
-<AuToolbar @border="bottom" @size="large">
+<AuToolbar @nowrap={{true}} @size="large">
   <AuToolbarGroup class="au-c-toolbar__group--col">
-    <AuHeading @skin="2">
-      Bekijk
-      {{!-- TODO show this when the consumption has the submitted status --}}
-      {{#if (eq this.consumption.status.uri "sent")}}
-        ingediende
-      {{/if}} subsidieaanvraag voor
-      <strong>{{this.organization.classificatie.label}}&nbsp;{{this.organization.naam}}</strong>
-    </AuHeading>
-    <!-- TODO consult Miet for better options -->
-    <!--<AuHelpText class="au-u-margin-left-none">
-      Om een subsidie aan te vragen voor een andere bestuurseenheid (OCMW, Gemeente),
-      <br><strong>wissel rechtsbovenaan van bestuurseenheid</strong> door op de pijltjes te klikken,
-      <br>en start een nieuwe subsidieaanvraag.
-    </AuHelpText>-->
-  </AuToolbarGroup>
-  <AuToolbarGroup class="au-c-toolbar__group--col">
-    <!-- Subsidy INFO  -->
     <div>
-      <strong>{{this.consumption.subsidyMeasureOffer.title}}</strong>
-      <AuHelpText @size="secondary" style="margin: 0; line-height:normal">{{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.description}}</AuHelpText>
+      <AuHeading @skin="3">
+        {{this.consumption.subsidyMeasureOffer.title}}
+        <br>
+        <span class="au-u-light">
+          {{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.description}}
+        </span>
+      </AuHeading>
     </div>
   </AuToolbarGroup>
+  <AuToolbarGroup class="au-c-toolbar__group--col">
+    <AuButtonGroup>
+      {{#if true}} {{! TODO Add a check to see if the consumption has been submitted}}
+        <AuButton
+                {{!@disabled={{this.delete.isRunning}}
+                @disabled={{true}}
+                @loading={{this.deleteConsumption.isRunning}}
+                @skin="tertiary"
+                @alert="true"
+          {{on "click" (perform this.delete)}} >
+          <AuIcon @icon="bin" @alignment="left"/>
+          Verwijder aanvraag
+        </AuButton>
+      {{/if}}
+      <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">
+        <AuIcon @icon="cross" @alignment="left"/> Sluit
+      </AuLink>
+    </AuButtonGroup>
+  </AuToolbarGroup>
+</AuToolbar>
 
-  <AuToolbarGroup class="au-c-toolbar__group--row">
-    <ul class="au-o-grid au-o-grid--bottom">
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup class="au-c-toolbar__group--row au-c-toolbar__group--align-top">
+    <ul class="au-o-grid au-o-grid--tiny">
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
+        <AuLabel>Bestuurseenheid</AuLabel>
+        <p>{{this.organization.classificatie.label}}&nbsp;{{this.organization.naam}}</p>
+{{!--
+        <AuHelpText class="au-u-margin-left-none">
+          Wissel rechtsbovenaan van bestuurseenheid.
+        </AuHelpText>
+        <AuAccordion @accordionIconOpen="nav-down" @accordionIconClosed="nav-right" @accordionButtonLabel="aaaa">
+          <p>Wissel rechtsbovenaan van bestuurseenheid.</p>
+        </AuAccordion>
+         --}}
+      </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Gewijzigd door</AuLabel>
         <p>{{this.consumption.lastModifier.fullName}}</p>
       </li>
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-        <AuLabel>Aangemaakt op</AuLabel>
-        <p>{{moment-format this.consumption.created 'DD-MM-YYYY'}}</p>
-      </li>
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-        <AuLabel>Bewerkt op</AuLabel>
-        <p>{{moment-format this.consumption.modified 'DD-MM-YYYY'}}</p>
-      </li>
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Status</AuLabel>
         <AuPill @skin="">{{this.consumption.status.label}}</AuPill>
       </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
+        <AuLabel>Aangemaakt op</AuLabel>
+        <p>{{moment-format this.consumption.created 'DD-MM-YYYY'}}</p>
+      </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
+        <AuLabel>Bewerkt op</AuLabel>
+        <p>{{moment-format this.consumption.modified 'DD-MM-YYYY'}}</p>
+      </li>
       {{#if this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-2 au-u-1-6@medium">
+        <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
           <AuLabel>Indienen tot</AuLabel>
           <p>
             {{moment-format
@@ -52,21 +73,6 @@
                     "DD-MM-YYYY"
             }}
           </p>
-        </li>
-      {{/if}}
-
-      {{#if true}} {{! TODO Add a check to see if the consumption has been submitted}}
-        <li class="au-o-grid__item au-u-1-6@medium au-u-text-right@medium">
-          <AuButton
-                  {{!@disabled={{this.delete.isRunning}}
-                  @disabled={{true}}
-                  @loading={{this.deleteConsumption.isRunning}}
-                  @skin="tertiary"
-                  @alert="true"
-            {{on "click" (perform this.delete)}} >
-            <AuIcon @icon="bin" @alignment="left"/>
-            Verwijder aanvraag
-          </AuButton>
         </li>
       {{/if}}
     </ul>
