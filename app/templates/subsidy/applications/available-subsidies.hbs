@@ -1,16 +1,19 @@
 {{page-title "Beschikbare subsidiemaatregelen"}}
 
 <AuToolbar @border="bottom" @size="large" @nowrap="{{true}}">
-  <AuToolbarGroup>
+  <AuToolbarGroup class="au-u-1-2@medium">
     <div>
       <AuHeading @skin="2">Beschikbare subsidiemaatregelen</AuHeading>
       <p>
-        Kies een van de subsidiemaatregelen om een nieuwe aanvraag te starten.
+        Kies een van de subsidiemaatregelen om een nieuwe aanvraag te starten. Bekijk <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
+                  rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
       </p>
     </div>
   </AuToolbarGroup>
   <AuToolbarGroup>
-    <LinkTo @route="subsidy.applications" class="au-c-button au-c-button--secondary" type="button">Terug naar overzicht</LinkTo>
+    <LinkTo @route="subsidy.applications" class="au-c-button au-c-button--secondary" type="button">
+      <AuIcon @icon="arrow-left" @alignment="left"/> Terug naar lopende subsidiedossiers
+    </LinkTo>
   </AuToolbarGroup>
 </AuToolbar>
 
