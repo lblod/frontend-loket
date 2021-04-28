@@ -2,17 +2,16 @@
 
 <AuToolbar @border="bottom" @size="large" @nowrap="{{true}}">
   <AuToolbarGroup>
-    <AuHeading @skin="2">Lopende dossiers</AuHeading>
+    <div>
+      <AuHeading @skin="2" data-test-loket="subsidiebeheer-page-title">Lopende subsidiedossiers</AuHeading>
+      <p>Lopende subsidieaanvragen voor uw bestuur.</p>
+    </div>
   </AuToolbarGroup>
   <AuToolbarGroup>
     <div class="au-u-text-right">
       <AuButton @disabled={{true}}>
         Vraag nieuwe subsidie aan
       </AuButton>
-      <p class="au-u-margin-top-small">
-        Bekijk <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
-                  rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
-      </p>
     </div>
   </AuToolbarGroup>
 </AuToolbar>
@@ -25,7 +24,7 @@
           <span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">
           Subsidiemaatregel
             <button class="au-c-data-table__sort">
-            <AuIcon @icon="nav-up-down" @allignment="right"/>
+            <AuIcon @icon="nav-up-down" @alignment="right"/>
             </button>
         </span>
         </th>
@@ -33,7 +32,7 @@
           <span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">
           Periode
             <button class="au-c-data-table__sort">
-            <AuIcon @icon="nav-up-down" @allignment="right"/>
+            <AuIcon @icon="nav-up-down" @alignment="right"/>
             </button>
           </span>
         </th>
@@ -41,7 +40,7 @@
           <span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">
             Indienen tot
             <button class="au-c-data-table__sort">
-            <AuIcon @icon="nav-up-down" @allignment="right"/>
+            <AuIcon @icon="nav-up-down" @alignment="right"/>
             </button>
           </span>
         </th>
@@ -51,7 +50,7 @@
           <span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">
             Laatst bewerkt
             <button class="au-c-data-table__sort">
-            <AuIcon @icon="nav-up-down" @allignment="right"/>
+            <AuIcon @icon="nav-up-down" @alignment="right"/>
             </button>
           </span>
         </th>
@@ -59,7 +58,7 @@
           <span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">
             Status
             <button class="au-c-data-table__sort">
-            <AuIcon @icon="nav-up-down" @allignment="right"/>
+            <AuIcon @icon="nav-up-down" @alignment="right"/>
             </button>
           </span>
         </th>
