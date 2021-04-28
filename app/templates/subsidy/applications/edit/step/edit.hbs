@@ -53,7 +53,7 @@
               <AuAlert @alertIcon="info-circle" @alertTitle="Deze stap kan u nog niet indienen."
                        @alertskin="info"
                 @alertsize="small" class="au-u-margin-bottom-small">
-                <p>U kan pas vanaf {{moment-format this.model.subsidyProceduralStepPeriod.begin 'DD-MM-YYYY'}} indienen.</p>
+                <p>U kan pas vanaf {{moment-format this.subsidyProceduralStepPeriod.begin 'DD-MM-YYYY'}} indienen.</p>
                 <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
                         href="mailto:LoketLokaalBestuur@vlaanderen.be"
                         class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
@@ -72,7 +72,7 @@
                        @alertskin="warning"
                 @alertsize="small" class="au-u-margin-bottom-small">
                 <p> Deze was beschikbaar tot en met
-                  {{moment-format this.model.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}
+                  {{moment-format this.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}
                 </p>
                 <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
                         href="mailto:LoketLokaalBestuur@vlaanderen.be"

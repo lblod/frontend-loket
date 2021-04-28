@@ -18,7 +18,6 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
 
     let {consumption} = this.modelFor('subsidy.applications.edit');
     let {step} = this.modelFor('subsidy.applications.edit.step');
-    const subsidyProceduralStepPeriod = await step.get('subsidyProceduralStep.period');
     let semanticForm = await this.store.findRecord('subsidy-application-form', semanticFormID);
     await semanticForm.belongsTo('status').reload();
 
@@ -40,7 +39,6 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
     const sourceNode = new rdflib.NamedNode(semanticForm.uri);
 
     return {
-      subsidyProceduralStepPeriod,
       step,
       consumption,
       semanticForm,

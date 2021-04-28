@@ -73,7 +73,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
 
   get submittablePeriodNeedsToStart(){
     const today = new Date();
-    const begin = this.model.subsidyProceduralStepPeriod.begin;
+    const begin = this.subsidyProceduralStepPeriod.begin;
     if(!begin){
       return false;
     }
@@ -84,13 +84,17 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
 
   get submittablePeriodExpired(){
     const today = new Date();
-    const end = this.model.subsidyProceduralStepPeriod.end;
+    const end = this.subsidyProceduralStepPeriod.end;
     if(!end){
       return false;
     }
     else{
       return today > end;
     }
+  }
+
+  get subsidyProceduralStepPeriod() {
+    return this.model.step.get('subsidyProceduralStep.period').content;
   }
 
   // TODO what is this?
