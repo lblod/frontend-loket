@@ -77,6 +77,7 @@ inflector.irregular('participation', 'participations');
 inflector.irregular('period-of-time', 'periods-of-time');
 inflector.irregular('subsidy-measure-consumption', 'subsidy-measure-consumptions');
 inflector.irregular('subsidy-application-flow-step', 'subsidy-application-flow-steps');
+inflector.irregular('subsidy-measure-consumption-status', 'subsidy-measure-consumption-statuses');
 
 // Meet Ember Inspector's expectation of an export
 export default {};
