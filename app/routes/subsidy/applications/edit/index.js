@@ -28,7 +28,7 @@ export default class SubsidyApplicationsEditIndexRoute extends Route {
     /**
      * NOTE: if no active-step was found and the consumption has been sent we transition to the last step.
      */
-    if (SubsidyMeasureConsumptionModel.isSent(consumption)) {
+    if (consumption.get('status.isSent')) {
       const last = await consumption.subsidyApplicationFlow.get('sortedDefinedSteps').lastObject;
       return this.redirectToStep(consumption, last);
     }
