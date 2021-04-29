@@ -2,6 +2,7 @@ import { assert } from '@ember/debug';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { ROLES } from 'frontend-loket/models/participation';
+import { STATUS } from '../../../models/subsidy-measure-consumption-status';
 
 export default class SubsidyApplicationsNewRoute extends Route {
 
@@ -21,6 +22,14 @@ export default class SubsidyApplicationsNewRoute extends Route {
       // TODO: Show a warning / error page
       this.router.transitionTo('subsidy.applications.available-subsidies');
     }
+
+    const statuses = await this.store.query('subsidy-measure-consumption-status', {
+      page: {size: 1},
+      'filter[:uri:]': STATUS.CONCEPT,
+    });
+    if (statuses.length)
+      this.concept = statuses.firstObject;
+
   }
 
   async model(params, transition) {
@@ -47,7 +56,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
       lastModifier: currentUser,
       created: new Date(),
       modified: new Date(),
-      // TODO Add the concept status once the data is added to the triple store
+      status: this.concept
     });
 
     consumption.participations.pushObject(participation);

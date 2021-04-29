@@ -17,6 +17,9 @@ export default class SubsidyApplicationsEditController extends Controller {
 
   @task
   * delete() {
+    if (this.consumption.status.isConcept) {
+      return;
+    }
     try {
       /**
        * NOTE: this endpoint prevents the removal of submitted forms, preventing the removal of a consumption all together.

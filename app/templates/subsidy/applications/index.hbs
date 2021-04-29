@@ -55,13 +55,11 @@
           {{moment-format consumption.modified "DD-MM-YYYY — HH:mm"}}
         </td>
         <td>
-          {{!-- TODO select a skin based on the status --}}
-          <AuPill @skin={{if consumption.status.isSent "success" "warning"}}>{{consumption.status.label}}</AuPill>
+          <Subsidies::ConsumptionStatusPill @consumption={{consumption}}/>
         </td>
         <td>
           <LinkTo @route="subsidy.applications.edit" @model={{consumption.id}} class="au-c-link">
-            {{! TODO change this based on the status}}
-            Bekijk
+            {{if consumption.status.isSent "Bekijk" "Bewerk"}}
           </LinkTo>
         </td>
       {{/let}}
