@@ -146,6 +146,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     });
     yield this.consumption.reload();
     yield this.consumption.belongsTo('activeSubsidyApplicationFlowStep').reload();
+    yield this.consumption.belongsTo('status').reload();
   }
 
   @dropTask
