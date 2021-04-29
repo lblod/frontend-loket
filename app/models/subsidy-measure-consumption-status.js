@@ -10,19 +10,15 @@ export default class SubsidyMeasureConsumptionStatusModel extends Model {
   @attr uri;
   @attr label;
 
-  uriEquals(status) {
-    return this.uri === status;
+  get isSent() {
+    return this.uri === (STATUS.SENT);
   }
 
-  isSent() {
-    return this.uriEquals(STATUS.SENT);
+  get isActive() {
+    return this.uri === (STATUS.ACTIVE);
   }
 
-  isActive() {
-    return this.uriEquals(STATUS.ACTIVE);
-  }
-
-  isConcept() {
-    return this.uriEquals(STATUS.CONCEPT);
+  get isConcept() {
+    return this.uri === (STATUS.CONCEPT);
   }
 }

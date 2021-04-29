@@ -14,7 +14,7 @@
   </AuToolbarGroup>
   <AuToolbarGroup class="au-c-toolbar__group--col">
     <AuButtonGroup>
-      {{#if this.consumption.status.isConcept}}
+      {{#if this.canDelete}}
         <AuButton
                 @disabled={{this.delete.isRunning}}
                 @disabled={{true}}

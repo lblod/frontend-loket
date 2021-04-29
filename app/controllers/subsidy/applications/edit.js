@@ -15,9 +15,13 @@ export default class SubsidyApplicationsEditController extends Controller {
     return this.model.organization;
   }
 
+  get canDelete(){
+    return this.consumption.get('status.isConcept');
+  }
+
   @task
   * delete() {
-    if (this.consumption.status.isConcept) {
+    if (!this.canDelete) {
       return;
     }
     try {
