@@ -310,7 +310,7 @@ $au-non-editable-background: $au-gray-100 !default;
     border-top: .1rem solid $au-gray-200;
   }
 
-  .au-c-accordion & + & {
+  .au-c-collapsible & + & {
     margin-top: $au-unit-tiny;
     padding-top: $au-unit-tiny;
     border-top-color: $au-gray-300;
@@ -333,7 +333,7 @@ $au-non-editable-background: $au-gray-100 !default;
 }
 
 // Accordion
-.au-c-accordion {
+.au-c-collapsible {
   display: none;
   overflow: hidden;
   padding: $au-unit-small;
