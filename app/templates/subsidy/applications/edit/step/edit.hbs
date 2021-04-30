@@ -70,8 +70,8 @@
                 <AuAlert @alertIcon="info-circle" @alertTitle="De deadline voor deze stap is verstreken."
                          @alertskin="warning"
                   @alertsize="small" class="au-u-margin-bottom-small">
-                  <p> Deze was beschikbaar tot en met
-                    {{moment-format this.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}
+                  <p> Deze stap was beschikbaar tot en met
+                    {{moment-format this.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}.
                   </p>
                   <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
                           href="mailto:LoketLokaalBestuur@vlaanderen.be"
@@ -84,7 +84,7 @@
                 <AuAlert @alertIcon="info-circle" @alertTitle="Algemene fout"
                          @alertskin="error"
                          @alertsize="small" class="au-u-margin-bottom-small">
-                  <p>Neem contact op met
+                  <p>Indien dit blijft gebeuren, neem contact op met
                     <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">
                       LoketLokaalBestuur@vlaanderen.be
                     </a>.
