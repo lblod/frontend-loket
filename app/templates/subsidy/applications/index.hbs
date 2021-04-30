@@ -31,6 +31,8 @@
                              @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.title"
                              @currentSorting={{this.sort}} @label="Periode"/>
+      <AuDataTableThSortable @field="subsidyMeasureOffer.externalInformation" @currentSorting={{this.sort}}
+                             @label="Informatie subsidiemaatregel"/>
       <AuDataTableThSortable
               @class="au-u-visible-small-up"
               @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end"
@@ -47,6 +49,19 @@
       {{#let consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries as |series|}}
         <td>{{consumption.subsidyMeasureOffer.title}}</td>
         <td>{{series.title}}</td>
+        <td>
+          <a href={{consumption.subsidyMeasureOffer.externalInformation}}
+             target="_blank"
+             rel="noopener noreferrer"
+             class="au-c-link"
+          >
+            {{consumption.subsidyMeasureOffer.externalInformation}}
+          </a>
+          <div>
+            <AuIcon @icon="export" @alignment="left" @size="default" @ariaHidden={{true}} />
+            Externe link
+          </div>
+        </td>
         <td>{{moment-format series.period.end "DD-MM-YYYY"}}</td>
         <td class="au-u-visible-medium-up">
           {{consumption.lastModifier.fullName}}
