@@ -1,4 +1,5 @@
 <div class="au-c-body-container au-c-body-container--scroll">
+
   <div class="{{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}}">
     <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
       <RdfForm
@@ -42,35 +43,46 @@
           {{on "click" (perform this.save)}}>
           Bewaar als concept
         </AuButton>
-        <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
       {{else}} <!-- SENDING NOT POSSIBLE -->
         {{#unless this.submitted}}
           {{#if this.isActiveStep}}
             <!-- DEADLINE ISSUES -->
             {{#if this.submittablePeriodNeedsToStart}}
+
               <div>
                 <AuAlert @alertIcon="info-circle" @alertTitle="Deze stap kan u nog niet indienen."
                          @alertskin="info"
                   @alertsize="small" class="au-u-margin-bottom-small">
-                  <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
-                          href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                          class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
-                  </p>
+                  <AuContent>
+                    <p>U kan pas vanaf een later moment indienen.</p>
+                    <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
+                            href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                            class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
+                    </p>
+
+                    Minimaal zal volgend informatie verwacht worden:
+                    <ul>
+                      <li>de identificatiegegevens van de gemeente, met inbegrip van het rekeningnummer waarop de subsidie moet gestort worden;</li>
+                      <li>een verklaring op eer m.b.t. waarheidsgetrouwe weergave van projectgegevens alsook de geregistreerde acties via de instrumenten die hiervoor beschikbaar werden gesteld;</li>
+                      <li>het gevraagde subsidiebedrag voor het project;</li>
+                      <li>een gemeenteraadsbeslissing, met vermelding van het totale gevraagde subsidiebedrag, tot aanvraag van uitbetaling van deze subsidie.</li>
+                    </ul>
+                  </AuContent>
                 </AuAlert>
+                <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
+                    @loading={{if this.save.isRunning "true"}}
+                    @skin={{"secondary"}}
+                   {{on "click" (perform this.save)}}>
+                   Bewaar als concept
+                </AuButton>
               </div>
-              <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                  @loading={{if this.save.isRunning "true"}}
-                  @skin={{"secondary"}}
-                 {{on "click" (perform this.save)}}>
-                 Bewaar als concept
-              </AuButton>
             {{else if this.submittablePeriodExpired}}
               <div>
                 <AuAlert @alertIcon="info-circle" @alertTitle="De deadline voor deze stap is verstreken."
                          @alertskin="warning"
                   @alertsize="small" class="au-u-margin-bottom-small">
-                  <p> Deze was beschikbaar tot en met
-                    {{moment-format this.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}
+                  <p> Deze stap was beschikbaar tot en met
+                    {{moment-format this.subsidyProceduralStepPeriod.end 'DD-MM-YYYY'}}.
                   </p>
                   <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
                           href="mailto:LoketLokaalBestuur@vlaanderen.be"
@@ -83,7 +95,7 @@
                 <AuAlert @alertIcon="info-circle" @alertTitle="Algemene fout"
                          @alertskin="error"
                          @alertsize="small" class="au-u-margin-bottom-small">
-                  <p>Neem contact op met
+                  <p>Indien dit blijft gebeuren, neem contact op met
                     <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">
                       LoketLokaalBestuur@vlaanderen.be
                     </a>.
@@ -102,13 +114,16 @@
                         class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
                 </p>
               </AuAlert>
-              <AuLink @linkRoute="subsidy.applications.edit" @skin="secondary">Terug</AuLink>
+              <AuLink @linkRoute="subsidy.applications.edit" @skin="secondary">
+                <AuIcon @icon="arrow-left" @alignment="left"/>
+                Terug naar vorige stap
+              </AuLink>
             </div>
           {{/if}}
         {{else}}
           <div>
-            <AuAlert @alertIcon="info-circle" @alertTitle="De subsidieaanvraag werd verstuurd." @alertskin="success"
-                     @alertsize="small" class="au-u-margin-bottom-small">
+            <AuAlert @alertIcon="info-circle" @alertTitle="De subsidiestap werd verstuurd." @alertskin="success"
+                     @alertsize="small">
               <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
                       href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
                       rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
@@ -169,7 +184,6 @@
         {{/if}}
       </ul>
     </AuToolbarGroup>
-
   </AuToolbar>
 
 </div>

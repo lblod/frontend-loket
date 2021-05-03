@@ -31,6 +31,8 @@
                              @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.title"
                              @currentSorting={{this.sort}} @label="Periode"/>
+      <AuDataTableThSortable @field="subsidyMeasureOffer.externalInformation" @currentSorting={{this.sort}}
+                             @label="Informatie subsidiemaatregel"/>
       <AuDataTableThSortable
               @class="au-u-visible-small-up"
               {{!TODO this is only correct if all the steps have the same period, NOT GUARANTEED}}
@@ -54,6 +56,19 @@
             &#8211;
             {{moment-format series.period.end "DD MMMM YYYY"}}
           </AuHelpText>
+        </td>
+        <td>
+          <a href={{consumption.subsidyMeasureOffer.externalInformation}}
+             target="_blank"
+             rel="noopener noreferrer"
+             class="au-c-link"
+          >
+            {{consumption.subsidyMeasureOffer.externalInformation}}
+          </a>
+          <div>
+            <AuIcon @icon="export" @alignment="left" @size="default" @ariaHidden={{true}} />
+            Externe link
+          </div>
         </td>
         <td>{{moment-format consumption.deadline.end "DD MMMM YYYY"}}</td>
         <td class="au-u-visible-medium-up">
