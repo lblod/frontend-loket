@@ -30,13 +30,13 @@
     <c.header>
       <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="title" @currentSorting={{this.sort}} @label="Periode"/>
-      <AuDataTableThSortable
+      <!-- <AuDataTableThSortable
         @field="period.begin"
         @currentSorting={{this.sort}}
         @label="Aanvragen vanaf"
-      />
+      /> -->
       <AuDataTableThSortable
-        @field="period.end"
+        @field="active-application-flow.first-application-step.subsidy-procedural-step.period.end"
         @currentSorting={{this.sort}}
         @label="Indienen tot"
       />
@@ -46,11 +46,15 @@
     <c.body as |series|>
       <td>{{series.subsidyMeasureOffer.title}}</td>
       <td>
-        {{series.title}}
-        <AuHelpText @skin="secondary" class="au-u-margin-top-none">{{series.description}}</AuHelpText>
+        {{series.label}}
+        <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+          {{moment-format series.period.begin "DD MMMM YYYY"}}
+          &#8211;
+          {{moment-format series.period.end "DD MMMM YYYY"}}
+        </AuHelpText>
       </td>
-      <td>{{moment-format series.period.begin "DD-MM-YYYY"}}</td>
-      <td>{{moment-format series.period.end "DD-MM-YYYY"}}</td>
+      <!-- <td>{{moment-format series.period.begin "DD-MM-YYYY"}}</td> -->
+      <td>{{moment-format series.deadline.end "DD MMMM YYYY"}}</td>
       <td>
         <LinkTo @route="subsidy.applications.new" @query={{hash seriesId=series.id}} class="au-c-link">
           Start aanvraag

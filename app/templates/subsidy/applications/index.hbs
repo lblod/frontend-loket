@@ -33,7 +33,8 @@
                              @currentSorting={{this.sort}} @label="Periode"/>
       <AuDataTableThSortable
               @class="au-u-visible-small-up"
-              @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end"
+              {{!TODO this is only correct if all the steps have the same period, NOT GUARANTEED}}
+              @field="subsidyApplicationFlow.firstApplicationStep.subsidyProceduralStep.period.end"
               @currentSorting={{this.sort}}
               @label="Indienen tot"
       />
@@ -46,8 +47,15 @@
     <c.body as |consumption|>
       {{#let consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries as |series|}}
         <td>{{consumption.subsidyMeasureOffer.title}}</td>
-        <td>{{series.title}}</td>
-        <td>{{moment-format series.period.end "DD-MM-YYYY"}}</td>
+        <td>
+          {{series.label}}
+          <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+            {{moment-format series.period.begin "DD MMMM YYYY"}}
+            &#8211;
+            {{moment-format series.period.end "DD MMMM YYYY"}}
+          </AuHelpText>
+        </td>
+        <td>{{moment-format consumption.deadline.end "DD MMMM YYYY"}}</td>
         <td class="au-u-visible-medium-up">
           {{consumption.lastModifier.fullName}}
         </td>

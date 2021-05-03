@@ -9,9 +9,10 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
     return {
       include: [
         'period',
-        'subsidy-measure-offer'
+        'subsidy-measure-offer',
+        'active-application-flow.first-application-step.subsidy-procedural-step.period' // This is so expensive to call
       ].join(','),
-      'filter[period][:gte:end]': new Date().toISOString()
+      'filter[active-application-flow][first-application-step][subsidy-procedural-step][period][:gte:end]': new Date().toISOString()
     };
   }
 }

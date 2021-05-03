@@ -7,7 +7,11 @@
         {{this.consumption.subsidyMeasureOffer.title}}
         <br>
         <span class="au-u-light">
-          {{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.description}}
+          {{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.label}}
+
+          ({{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin "DD MMMM YYYY"}}
+          &#8211;
+          {{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end "DD MMMM YYYY"}})
         </span>
       </AuHeading>
     </div>
@@ -62,15 +66,13 @@
       </li>
       <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Bewerkt op</AuLabel>
-        <p>{{moment-format this.consumption.modified 'DD-MM-YYYY'}}</p>
+        <p>{{moment-format consumption.modified "DD-MM-YYYY — HH:mm"}}</p>
       </li>
       {{#if this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end}}
         <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
           <AuLabel>Indienen tot</AuLabel>
           <p>
-            {{moment-format
-                    this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end
-                    "DD-MM-YYYY"
+            {{moment-format this.consumption.deadline.end "DD-MM-YYYY"
             }}
           </p>
         </li>
@@ -89,9 +91,8 @@
               <li class="au-c-list-navigation__item">
                 <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link" style="flex-direction: column; align-items: start;">
                   <div> {{step.subsidyProceduralStep.description}} </div>
-                  <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal">Instuurbaar van {{moment-format  step.subsidyProceduralStep.period.begin 'DD-MM-YYYY'}} tot {{moment-format  step.subsidyProceduralStep.period.end 'DD-MM-YYYY'}}</AuHelpText>
+                  <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal">Instuurbaar tot {{moment-format  step.deadline.end 'DD MMMM YYYY'}}</AuHelpText>
                 </LinkTo>
-
               </li>
             {{/each}}
           </ul>
