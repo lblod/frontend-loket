@@ -17,6 +17,11 @@ steps:
   failure: ignore
   commands:
   - npm run lint:hbs
+- name: lint:dependencies
+  image: danlynn/ember-cli:3.20.0
+  failure: ignore
+  commands:
+  - ember dependency-lint
 - name: test
   image: danlynn/ember-cli:3.20.0
   failure: ignore
