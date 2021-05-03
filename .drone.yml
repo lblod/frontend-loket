@@ -1,0 +1,33 @@
+---
+kind: pipeline
+type: docker
+name: verify-pr
+steps:
+- name: install
+  image: danlynn/ember-cli:3.20.0
+  commands:
+  - npm install
+- name: lint:js
+  image: danlynn/ember-cli:3.20.0
+  failure: ignore
+  commands:
+  - npm run lint:js
+- name: lint:hbs
+  image: danlynn/ember-cli:3.20.0
+  failure: ignore
+  commands:
+  - npm run lint:hbs
+- name: test
+  image: danlynn/ember-cli:3.20.0
+  failure: ignore
+  commands:
+  - npm run test:ember
+- name: build-dry-run
+  image: plugins/docker
+  settings:
+    repo: lblod/frontend-loket
+    dry_run: true
+    purge: true
+trigger:
+  event:
+    - pull_request
