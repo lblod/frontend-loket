@@ -5,14 +5,16 @@
     <div>
       <AuHeading @skin="2">Beschikbare subsidiemaatregelen</AuHeading>
       <p>
-        Kies een van de subsidiemaatregelen om een nieuwe aanvraag te starten. Bekijk <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
-                                                                                         rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
+        Kies een van de subsidiemaatregelen om een nieuwe aanvraag te starten. Bekijk <a
+              href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
+              rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
       </p>
     </div>
   </AuToolbarGroup>
   <AuToolbarGroup>
     <LinkTo @route="subsidy.applications" class="au-c-button au-c-button--secondary" type="button">
-      <AuIcon @icon="arrow-left" @alignment="left"/> Terug naar lopende subsidiedossiers
+      <AuIcon @icon="arrow-left" @alignment="left"/>
+      Terug naar lopende subsidiedossiers
     </LinkTo>
   </AuToolbarGroup>
 </AuToolbar>
@@ -39,6 +41,14 @@
         </th>
         <th>
           <span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">
+          Informatie subsidiemaatregel
+            <button class="au-c-data-table__sort">
+            <AuIcon @icon="nav-up-down" @alignment="right"/>
+            </button>
+          </span>
+        </th>
+        <th>
+          <span class="au-c-data-table__header-title au-c-data-table__header-title--sortable">
             Indienen tot
             <button class="au-c-data-table__sort">
             <AuIcon @icon="nav-up-down" @alignment="right"/>
@@ -52,7 +62,7 @@
       </thead>
       <tbody>
       <tr>
-        <td class="au-u-text-center" colspan="7">
+        <td class="au-u-text-center" colspan="8">
           <AuLoader @size="small"/>
         </td>
       </tr>

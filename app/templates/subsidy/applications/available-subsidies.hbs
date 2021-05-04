@@ -30,6 +30,8 @@
     <c.header>
       <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="title" @currentSorting={{this.sort}} @label="Periode"/>
+      <AuDataTableThSortable @field="subsidyMeasureOffer.externalInformation" @currentSorting={{this.sort}}
+                             @label="Informatie subsidiemaatregel"/>
       <!-- <AuDataTableThSortable
         @field="period.begin"
         @currentSorting={{this.sort}}
@@ -51,6 +53,18 @@
           {{moment-format series.period.begin "DD MMMM YYYY"}}
           &#8211;
           {{moment-format series.period.end "DD MMMM YYYY"}}
+        </AuHelpText>
+      </td>
+      <td>
+        <a href={{series.subsidyMeasureOffer.externalInformation}}
+           target="_blank"
+           rel="noopener noreferrer"
+           class="au-c-link">
+          {{series.subsidyMeasureOffer.externalInformation}}
+        </a>
+        <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+          <AuIcon @icon="export" @alignment="left" @size="default" @ariaHidden={{true}} />
+          Externe link
         </AuHelpText>
       </td>
       <!-- <td>{{moment-format series.period.begin "DD-MM-YYYY"}}</td> -->

@@ -31,8 +31,6 @@
                              @label="Subsidiemaatregel"/>
       <AuDataTableThSortable @field="subsidyApplicationFlow.subsidyMeasureOfferSeries.title"
                              @currentSorting={{this.sort}} @label="Periode"/>
-      <AuDataTableThSortable @field="subsidyMeasureOffer.externalInformation" @currentSorting={{this.sort}}
-                             @label="Informatie subsidiemaatregel"/>
       <AuDataTableThSortable
               @class="au-u-visible-small-up"
               {{!TODO this is only correct if all the steps have the same period, NOT GUARANTEED}}
@@ -40,9 +38,9 @@
               @currentSorting={{this.sort}}
               @label="Indienen tot"
       />
+      <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th class="au-u-visible-small-up">Gewijzigd door</th>
       <AuDataTableThSortable @field="modified" @currentSorting={{this.sort}} @label="Laatst bewerkt"/>
-      <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th></th>
     </c.header>
 
@@ -57,28 +55,15 @@
             {{moment-format series.period.end "DD MMMM YYYY"}}
           </AuHelpText>
         </td>
-        <td>
-          <a href={{consumption.subsidyMeasureOffer.externalInformation}}
-             target="_blank"
-             rel="noopener noreferrer"
-             class="au-c-link"
-          >
-            {{consumption.subsidyMeasureOffer.externalInformation}}
-          </a>
-          <div>
-            <AuIcon @icon="export" @alignment="left" @size="default" @ariaHidden={{true}} />
-            Externe link
-          </div>
-        </td>
         <td>{{moment-format consumption.deadline.end "DD MMMM YYYY"}}</td>
+        <td>
+          <Subsidies::ConsumptionStatusPill @consumption={{consumption}}/>
+        </td>
         <td class="au-u-visible-medium-up">
           {{consumption.lastModifier.fullName}}
         </td>
         <td class="au-u-visible-small-up">
           {{moment-format consumption.modified "DD-MM-YYYY — HH:mm"}}
-        </td>
-        <td>
-          <Subsidies::ConsumptionStatusPill @consumption={{consumption}}/>
         </td>
         <td>
           <LinkTo @route="subsidy.applications.edit" @model={{consumption.id}} class="au-c-link">
