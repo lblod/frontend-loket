@@ -41,6 +41,6 @@ export default class SubsidyApplicationsEditIndexRoute extends Route {
   }
 
   redirectToStep(consumption, step) {
-    return this.router.replaceWith('subsidy.applications.edit.step', consumption.id, step.id);
+    return this.router.transitionTo('subsidy.applications.edit.step', consumption.id, step.id);
   }
 }
