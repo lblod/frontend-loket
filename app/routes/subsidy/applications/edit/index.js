@@ -23,20 +23,22 @@ export default class SubsidyApplicationsEditIndexRoute extends Route {
       return this.redirectToStep(consumption, active);
     }
 
-    // TODO: fallback when no steps are defined.
-
+    await consumption.subsidyApplicationFlow.get('definedSteps');
+    const steps = await consumption.subsidyApplicationFlow.get('sortedDefinedSteps');
+    if (!steps || steps.length === 0)
+      throw "corrupt flow: no steps defined";
     /**
      * NOTE: if no active-step was found and the consumption has been sent we transition to the last step.
      */
     if (consumption.get('status.isSent')) {
-      const last = await consumption.subsidyApplicationFlow.get('sortedDefinedSteps').lastObject;
+      const last = steps.lastObject;
       return this.redirectToStep(consumption, last);
     }
 
     /**
      * NOTE: we default back to the first step.
      */
-    const first = await consumption.subsidyApplicationFlow.get('sortedDefinedSteps').firstObject;
+    const first = steps.firstObject;
     return this.redirectToStep(consumption, first);
   }
 
