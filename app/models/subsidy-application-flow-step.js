@@ -15,8 +15,4 @@ export default class SubsidyApplicationFlowStepModel extends Model {
   @belongsTo('subsidy-application-flow-step', {
     inverse: 'previousApplicationStep'
   }) nextApplicationStep;
-
-  get deadline() {
-    return this.subsidyProceduralStep.get('period');
-  }
 }

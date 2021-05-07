@@ -16,9 +16,7 @@ export default class SubsidyMeasureConsumptionModel extends Model {
 
   get deadline() {
     if (this.activeSubsidyApplicationFlowStep)
-      return this.activeSubsidyApplicationFlowStep.get('deadline');
-    if (this.status.isSent)
-      return this.subsidyApplicationFlow.get('sortedDefinedSteps').lastObject.get('deadline');
-    return this.subsidyApplicationFlow.get('sortedDefinedSteps').firstObject.get('deadline');
+      return this.activeSubsidyApplicationFlowStep.get('subsidyProceduralStep.period');
+    return null
   }
 }

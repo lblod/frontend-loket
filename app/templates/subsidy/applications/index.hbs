@@ -33,8 +33,7 @@
                              @currentSorting={{this.sort}} @label="Periode"/>
       <AuDataTableThSortable
               @class="au-u-visible-small-up"
-              {{!TODO this is only correct if all the steps have the same period, NOT GUARANTEED}}
-              @field="subsidyApplicationFlow.firstApplicationStep.subsidyProceduralStep.period.end"
+              @field="activeSubsidyApplicationFlowStep.subsidyProceduralStep.period.end"
               @currentSorting={{this.sort}}
               @label="Indienen tot"
       />
