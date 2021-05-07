@@ -34,7 +34,7 @@ export default class SubsidiesConsumptionStatusPill extends Component {
       case STATUS.ACTIVE:
         return 'action';
       case STATUS.CONCEPT:
-        return 'border';
+        return 'warning';
       default:
         return '';
     }
