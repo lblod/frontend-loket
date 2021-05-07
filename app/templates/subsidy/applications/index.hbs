@@ -54,7 +54,13 @@
             {{moment-format series.period.end "DD MMMM YYYY"}}
           </AuHelpText>
         </td>
-        <td>{{moment-format consumption.deadline.end "DD MMMM YYYY"}}</td>
+        <td>
+          {{#if consumption.deadline}}
+            {{moment-format consumption.deadline.end "DD MMMM YYYY"}}
+          {{else}}
+            N.V.T.
+          {{/if}}
+        </td>
         <td>
           <Subsidies::ConsumptionStatusPill @consumption={{consumption}}/>
         </td>
