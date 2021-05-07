@@ -15,6 +15,7 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTabl
         'status',
         'subsidy-measure-offer',
         'subsidy-application-flow.subsidy-measure-offer-series.period',
+        'active-subsidy-application-flow-step.subsidy-procedural-step.period',
         'participations',
         'last-modifier',
       ].join(','),
