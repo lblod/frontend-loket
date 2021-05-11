@@ -47,6 +47,19 @@ module.exports = function(defaults) {
     staticAddonTrees: true,
     staticHelpers: true,
     staticComponents: true,
-    // splitAtRoutes: ['route.name'], // can also be a RegExp
+    splitAtRoutes: [
+      'mock-login',
+      'contact',
+      'legaal',
+      'mandatenbeheer',
+      'bbcdr',
+      'supervision',
+      'toezicht',
+      'berichtencentrum',
+      'leidinggevendenbeheer',
+      'personeelsbeheer',
+      'subsidy',
+      'help',
+    ], // can also be a RegExp
   });
 };
