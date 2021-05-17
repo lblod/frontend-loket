@@ -102,7 +102,7 @@
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
         {{/if}}
         {{#if save.isRunning}}
-          <AuLoader @size="small" />
+          <AuLoader @padding="small" />
         {{else}}
           <AuButtonGroup>
             <AuButton {{action "save"}}>
@@ -166,7 +166,7 @@
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
         {{/if}}
         {{#if save.isRunning}}
-          <AuLoader @size="small" />
+          <AuLoader @padding="small" />
         {{else}}
           <AuButtonGroup>
             <AuButton {{action "save"}}>
@@ -269,7 +269,7 @@
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
         {{/if}}
         {{#if save.isRunning}}
-          <AuLoader @size="small" />
+          <AuLoader @padding="small" />
         {{else}}
           <AuButtonGroup>
             <AuButton {{action "save"}}>Voeg toe</AuButton>
