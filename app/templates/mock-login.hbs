@@ -13,7 +13,7 @@
           </p>
           <MockLogin as |login|>
             {{#if this.queryStore.isRunning}}
-              <AuLoader @size="small" />
+              <AuLoader @padding="small" />
             {{else}}
               {{#if login.errorMessage}}
                 <AuAlert @alertIcon="alert-triangle" @alertTitle={{login.errorMessage}} @alertskin="warning" />
@@ -36,11 +36,11 @@
                   {{/if}}
                 </div>
               </login.each-account>
-              <NumberPagination 
-                @page={{this.page}} 
-                @size={{this.size}} 
+              <NumberPagination
+                @page={{this.page}}
+                @size={{this.size}}
                 @nbOfItems={{this.model.length}}
-                @total={{this.model.meta.count}} 
+                @total={{this.model.meta.count}}
                 @links={{this.model.meta.pagination}}
               />
             {{/if}}
