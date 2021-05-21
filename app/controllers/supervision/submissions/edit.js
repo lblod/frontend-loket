@@ -113,7 +113,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
   *save() {
     yield this.saveSubmissionForm.perform();
 
-    const user = yield this.currentSession.user;
+    const user = this.currentSession.user;
     this.model.submission.modified = new Date();
     this.model.submission.lastModifier = user;
     yield this.model.submission.save();
@@ -128,7 +128,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
     if (!this.isValidForm) {
       this.forceShowErrors = true;
     } else {
-      const user = yield this.currentSession.user;
+      const user = this.currentSession.user;
       this.model.submission.modified = new Date();
       this.model.submission.lastModifier = user;
 

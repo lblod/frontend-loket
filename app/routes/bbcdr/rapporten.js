@@ -8,7 +8,7 @@ export default class BbcdrRapportenRoute extends Route.extend(DataTableRouteMixi
   modelName = 'bbcdr-report';
 
   async beforeModel() {
-    const bestuurseenheid = await this.currentSession.group;
+    const bestuurseenheid = this.currentSession.group;
     this.set('bestuurseenheid', bestuurseenheid);
   }
 

@@ -1,4 +1,3 @@
-import { oneWay } from '@ember/object/computed';
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
@@ -15,9 +14,6 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   @tracked originator;
   @tracked bijlagen;
   @tracked inhoud;
-
-  @oneWay('currentSession.userContent') currentUser;
-  @oneWay('currentSession.groupContent.naam') bestuursEenheidNaam;
 
   get cantSend(){
     return this.ensureOriginator.isRunning || this.bijlagen.length == 0;
@@ -40,7 +36,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   *ensureOriginator() {
     const berichten = yield this.args.conversatie.berichten;
     const sortedBerichten = berichten.sortBy('verzonden');
-    const ourGroup = yield this.currentSession.group;
+    const ourGroup = this.currentSession.group;
 
     // find first sender of message that is not our group
     for( let bericht of sortedBerichten){
@@ -57,8 +53,8 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
 
   @action
     async verstuurBericht() {
-      const bestuurseenheid = await this.currentSession.group;
-      const user = await this.currentSession.user;
+      const bestuurseenheid = this.currentSession.group;
+      const user = this.currentSession.user;
 
       try {
         this.collapse();
