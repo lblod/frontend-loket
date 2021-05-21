@@ -3,42 +3,42 @@
     <AuLabel for="select">Waar gaat uw bericht over?</AuLabel>
     <ul>
       <li>
-        <WuRadioButton 
+        <WuRadioButton
           @label="Een vraag of probleem over de applicatie"
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=Vraag of probleem - Loket Lokaal Bestuur" 
-          @onChange={{action (mut this.mailto)}} 
+          @value="LoketLokaalBestuur@vlaanderen.be?subject=Vraag of probleem - Loket Lokaal Bestuur"
+          @onChange={{fn (mut this.mailto)}}
           @isBlock={{true}}
         />
       </li>
       <li>
-        <WuRadioButton 
-        @label="Toezicht" 
-        @value="LoketLokaalBestuur@vlaanderen.be?subject=Toezicht - Loket Lokaal Bestuur" 
-        @onChange={{action (mut this.mailto)}} 
+        <WuRadioButton
+        @label="Toezicht"
+        @value="LoketLokaalBestuur@vlaanderen.be?subject=Toezicht - Loket Lokaal Bestuur"
+        @onChange={{fn (mut this.mailto)}}
         @isBlock={{true}}
         />
       </li>
       <li>
         <WuRadioButton
-          @label="BBC-DR" 
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=BBC-DR - Loket Lokaal Bestuur" 
-          @onChange={{action (mut this.mailto)}} 
+          @label="BBC-DR"
+          @value="LoketLokaalBestuur@vlaanderen.be?subject=BBC-DR - Loket Lokaal Bestuur"
+          @onChange={{fn (mut this.mailto)}}
           @isBlock={{true}}
         />
       </li>
       <li>
         <WuRadioButton
-          @label="Mandatenbeheer" 
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=Mandatenbeheer - Loket Lokaal Bestuur" 
-          @onChange={{action (mut this.mailto)}} 
+          @label="Mandatenbeheer"
+          @value="LoketLokaalBestuur@vlaanderen.be?subject=Mandatenbeheer - Loket Lokaal Bestuur"
+          @onChange={{fn (mut this.mailto)}}
           @isBlock={{true}}
         />
       </li>
       <li>
         <WuRadioButton
-          @label="Leidinggevendenbeheer" 
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=Leidinggevendenbeheer - Loket Lokaal Bestuur" 
-          @onChange={{action (mut this.mailto)}}
+          @label="Leidinggevendenbeheer"
+          @value="LoketLokaalBestuur@vlaanderen.be?subject=Leidinggevendenbeheer - Loket Lokaal Bestuur"
+          @onChange={{fn (mut this.mailto)}}
           @isBlock={{true}}
         />
       </li>
