@@ -32,11 +32,6 @@
       <AuDataTableThSortable @field="title" @currentSorting={{this.sort}} @label="Periode"/>
       <AuDataTableThSortable @field="subsidyMeasureOffer.externalInformation" @currentSorting={{this.sort}}
                              @label="Informatie subsidiemaatregel"/>
-      <!-- <AuDataTableThSortable
-        @field="period.begin"
-        @currentSorting={{this.sort}}
-        @label="Aanvragen vanaf"
-      /> -->
       <AuDataTableThSortable
         @field="activeApplicationFlow.firstApplicationStep.subsidyProceduralStep.period.end"
         @currentSorting={{this.sort}}
@@ -67,7 +62,6 @@
           Externe link, klik rechter muisknop om te openen
         </AuHelpText>
       </td>
-      <!-- <td>{{moment-format series.period.begin "DD-MM-YYYY"}}</td> -->
       <td>{{moment-format series.deadline.end "DD MMMM YYYY"}}</td>
       <td>
         <LinkTo @route="subsidy.applications.new" @query={{hash seriesId=series.id}} class="au-c-link">

@@ -6,13 +6,20 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
   modelName = 'subsidy-measure-offer-series';
 
   mergeQueryOptions() {
+
+    const today = new Date();
+
     return {
       include: [
         'period',
         'subsidy-measure-offer',
         // 'active-application-flow.first-application-step.subsidy-procedural-step.period' // This is so expensive to call
       ].join(','),
-      'filter[active-application-flow][first-application-step][subsidy-procedural-step][period][:gte:end]': new Date().toISOString()
+      'filter[active-application-flow][first-application-step][subsidy-procedural-step][period]': {
+        ':lte:begin': today.toISOString(),
+        ':gte:end': today.toISOString(),
+      },
     };
   }
+
 }
