@@ -1,142 +1,111 @@
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup class="au-c-toolbar__group--row">
-    <AuHeading @skin="2" class="">
-      Bekijk
-      {{#if (eq this.model.applicationForm.status.uri this.sentStatus)}}
-        ingediende
-      {{/if}} subsidieaanvraag voor {{this.model.applicationForm.lastModifier.fullName}}
-    </AuHeading>
+{{page-title "Bekijk subsidieaanvraag"}}
+
+<AuToolbar @nowrap={{true}} @size="large" class="au-u-padding-bottom-tiny">
+  <AuToolbarGroup class="au-c-toolbar__group--col">
+    <div>
+      <AuHeading @skin="2">
+        {{this.consumption.subsidyMeasureOffer.title}}
+        <br>
+          {{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.label}}
+          ({{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin "DD MMMM YYYY"}}
+          &#8211;
+          {{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end "DD MMMM YYYY"}})
+      </AuHeading>
+    </div>
   </AuToolbarGroup>
-  <AuToolbarGroup class="au-c-toolbar__group--row">
-    <ul class="au-o-grid">
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+  <AuToolbarGroup class="au-c-toolbar__group--col">
+    <AuButtonGroup>
+      {{#if this.canDelete}}
+        <AuButton
+                @disabled={{this.delete.isRunning}}
+                @disabled={{true}}
+                @loading={{this.deleteConsumption.isRunning}}
+                @skin="tertiary"
+                @alert="true"
+          {{on "click" (perform this.delete)}} >
+          <AuIcon @icon="bin" @alignment="left"/>
+          Verwijder aanvraag
+        </AuButton>
+      {{/if}}
+      {{#if this.canArchive}}
+        {{!-- To discuss --}}
+        <AuButton
+                @disabled={{this.delete.isRunning}}
+                @disabled={{true}}
+                @loading={{this.deleteConsumption.isRunning}}
+                @skin="tertiary"
+          {{on "click" (perform this.delete)}} >
+          <AuIcon @icon="archive" @alignment="left"/>
+          Archiveer verlopen aanvraag
+        </AuButton>
+      {{/if}}
+      <AuLink @linkRoute="subsidy.applications.index" class="au-c-button au-c-button--tertiary">
+        <AuIcon @icon="cross" @alignment="left"/>Sluit
+      </AuLink>
+    </AuButtonGroup>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup class="au-c-toolbar__group--row au-c-toolbar__group--align-top">
+    <ul class="au-o-grid au-o-grid--tiny">
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
+        <AuLabel>Bestuurseenheid</AuLabel>
+        <p>{{this.organization.classificatie.label}}&nbsp;{{this.organization.naam}}</p>
+{{!--         <AuHelpText @skin="tertiary" class="au-u-margin-left-none">
+          Wissel rechtsbovenaan van bestuurseenheid.
+        </AuHelpText> TODO: FIND BETTER SOLUTION--}}
+      </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Gewijzigd door</AuLabel>
-        <p>{{this.model.applicationForm.lastModifier.fullName}}</p>
+        <p>{{this.consumption.lastModifier.fullName}}</p>
       </li>
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-        <AuLabel>Aangemaakt op</AuLabel>
-        <p>{{moment-format this.model.applicationForm.created 'DD-MM-YYYY'}}</p>
-      </li>
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-        <AuLabel>Bewerkt op</AuLabel>
-        <p>{{moment-format this.model.applicationForm.modified 'DD-MM-YYYY'}}</p>
-      </li>
-      <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Status</AuLabel>
-        <AuPill @skin="">{{this.model.applicationForm.status.label}}</AuPill>
+        <Subsidies::ConsumptionStatusPill @consumption={{this.consumption}}/>
       </li>
-      {{#if this.model.applicationForm.timeBlock}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuLabel>Einde termijn</AuLabel>
-          <p>{{!-- Van {{moment-format this.model.applicationForm.timeBlock.submissionPeriod.start "DD-MM-YYYY"}}&nbsp;—&nbsp; --}}{{moment-format this.model.applicationForm.timeBlock.submissionPeriod.end "DD-MM-YYYY"}}</p>
-        </li>
-      {{/if}}
-      {{#if this.save.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="Aan het opslaan..."  @alertskin="info" @alertsize="small"></AuAlert>
-        </li>
-      {{/if}}
-      {{#if this.submit.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="Aan het versturen..."  @alertskin="info" @alertsize="small"></AuAlert>
-        </li>
-      {{/if}}
-      {{#if this.delete.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="Aan het verwijderen..."  @alertskin="info" @alertsize="small"></AuAlert>
-        </li>
-      {{/if}}
-      {{#if this.recentlySaved}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuAlert @alertIcon="info-circle" @alertTitle="Opgeslagen."  @alertskin="success" @alertsize="small"></AuAlert>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
+        <AuLabel>Aangemaakt op</AuLabel>
+        <p>{{moment-format this.consumption.created 'DD-MM-YYYY'}}</p>
+      </li>
+      <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
+        <AuLabel>Bewerkt op</AuLabel>
+        <p>{{moment-format consumption.modified "DD-MM-YYYY — HH:mm"}}</p>
+      </li>
+      {{#if this.consumption.deadline.end}}
+        <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
+          <AuLabel>Indienen tot</AuLabel>
+          <p>
+            {{moment-format this.consumption.deadline.end "DD-MM-YYYY" }}
+          </p>
         </li>
       {{/if}}
     </ul>
   </AuToolbarGroup>
 </AuToolbar>
 
-<div class="au-c-body-container au-c-body-container--scroll">
-  <div class="au-o-box {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}} {{if this.delete.isRunning "au-c-form--disabled"}}">
-
-    <div class="au-o-grid">
-      <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
-        <AuHeading @level="2" @skin="3" class="au-u-margin-bottom-small">Aanvrager</AuHeading>
-        <AuLabel>Vraag subsidie aan voor</AuLabel>
-        <AuInput disabled="disabled" value="{{this.model.applicationForm.organization.classificatie.label}}&nbsp;{{this.model.applicationForm.organization.naam}}" />
-        <AuHelpText>
-          Om een subsidie aan te vragen voor een andere bestuurseenheid (OCMW, Gemeente),
-          <br><strong>wissel rechtsbovenaan van bestuurseenheid</strong> door op de pijltjes te klikken,
-          <br>en start een nieuwe subsidieaanvraag.
-        </AuHelpText>
-      </div>
-
-      <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
-        <RdfForm
-          @groupClass="au-o-grid__item au-u-2-4 au-u-1-1@small"
-          @form={{this.form}}
-          @show={{this.model.submitted}}
-          @graphs={{this.graphs}}
-          @sourceNode={{this.sourceNode}}
-          @formStore={{this.formStore}}
-          @forceShowErrors={{this.forceShowErrors}}/>
+<div class="au-c-sidebar-container">
+  <div class="au-c-sidebar-container__sidebar">
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+        <nav>
+          <ul class="au-c-list-navigation">
+            {{#each this.consumption.subsidyApplicationFlow.sortedDefinedSteps as |step|}}
+              <li class="au-c-list-navigation__item">
+                <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link" style="flex-direction: column; align-items: start;">
+                  <div> {{step.subsidyProceduralStep.description}} </div>
+                  <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal">Instuurbaar tot {{moment-format  step.subsidyProceduralStep.period.end 'DD MMMM YYYY'}}</AuHelpText>
+                </LinkTo>
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
       </div>
     </div>
   </div>
+  <div class="au-c-sidebar-container__content">
+    <div class="au-c-body-container au-c-body-container--scroll">
+      {{outlet}}
+    </div>
+  </div>
 </div>
-
-<AuToolbar @border="top" @size="large">
-  {{#if (and this.forceShowErrors (not this.isValidForm))}}
-    <AuToolbarGroup class="au-c-toolbar__group--row">
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen"  @alertskin="error" @alertsize="small" class="au-u-margin-bottom-none">
-        <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
-      </AuAlert>
-    </AuToolbarGroup>
-  {{/if}}
-  {{#if this.error}}
-    <AuToolbarGroup class="au-c-toolbar__group--row">
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Oeps! Dit is een beetje gênant ..."  @alertskin="error" @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
-        <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
-      </AuAlert>
-    </AuToolbarGroup>
-  {{/if}}
-  <AuToolbarGroup>
-    {{#unless this.model.submitted}}
-      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                @loading={{if this.submit.isRunning "true"}}
-                {{on "click" (perform this.submit)}}>Vraag subsidie aan bij Vlaamse overheid</AuButton>
-      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                @loading={{if this.save.isRunning "true"}}
-                @skin={{"secondary"}}
-                @icon={{if this.recentlySaved "check"}}
-                @iconAlignment={{if this.recentlySaved "left"}}
-                {{on "click" (perform this.save)}}>
-                {{#if this.recentlySaved}}
-                  Concept bewaard
-                {{else}}
-                  Bewaar als concept
-                {{/if}}
-            </AuButton>
-      <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Annuleer</AuLink>
-    {{else}}
-      <div>
-        <AuAlert @alertIcon="info-circle" @alertTitle="De subsidieaanvraag werd verstuurd."  @alertskin="success" @alertsize="small" class="au-u-margin-bottom-small">
-          <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank" rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de subsidies</a>.</p>
-          <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.</p>
-        </AuAlert>
-        <AuLink @linkRoute="subsidy.applications.index" @skin="secondary">Sluit</AuLink>
-      </div>
-    {{/unless}}
-  </AuToolbarGroup>
-
-  {{#unless this.model.submitted}}
-  <AuToolbarGroup>
-    <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-              @loading={{if this.delete.isRunning "true"}}
-              @skin={{"tertiary"}}
-              @alert={{"true"}}
-              {{on "click" (perform this.delete)}}>
-      <AuIcon @icon="bin" @alignment="left" /> Verwijder aanvraag
-    </AuButton>
-  </AuToolbarGroup>
-  {{/unless}}
-</AuToolbar>

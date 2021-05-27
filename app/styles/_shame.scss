@@ -13,7 +13,6 @@
   min-height: 1.5rem;
 }
 
-
 /* ==================================
    #TEMPORARY GENERAL DISABLED STATE FOR FORM
    ================================== */
@@ -43,7 +42,7 @@
     background-color: $au-input-disabled-color;
   }
 
-  .au-c-button{
+  .au-c-button {
     background: $au-input-disabled-color;
   }
 }
@@ -100,10 +99,10 @@
   NON-EDITABLE FORM
   ================================== */
 
-$au-non-editable-background    : $au-gray-100 !default;
+$au-non-editable-background: $au-gray-100 !default;
 
 .au-c-form--non-editable {
-  background-color:  $au-non-editable-background;
+  background-color: $au-non-editable-background;
   max-width: 100%;
 
   table {
@@ -172,6 +171,10 @@ $au-non-editable-background    : $au-gray-100 !default;
   & + & {
     margin-top: $au-unit;
   }
+}
+
+.au-c-toolbar + .au-c-toolbar {
+  padding-top: 0;
 }
 
 // Small
@@ -315,7 +318,6 @@ $au-non-editable-background    : $au-gray-100 !default;
 }
 
 
-
 // Toggle button
 .au-c-button--toggle {
   padding-left: 0;
@@ -359,7 +361,6 @@ $au-non-editable-background    : $au-gray-100 !default;
   text-transform: uppercase;
   letter-spacing: .15rem;
 }
-
 
 
 // Table
@@ -469,5 +470,33 @@ $au-non-editable-background    : $au-gray-100 !default;
   th:first-child,
   td:first-child {
     padding-left: $au-unit-small;
+  }
+}
+
+// Custom sidebar container
+.au-c-sidebar-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  overflow: hidden;
+}
+
+.au-c-sidebar-container__sidebar {
+  @include mq(medium) {
+    height: 100%;
+    flex-basis: 25rem;
+    flex-shrink: 0;
+  }
+}
+
+.au-c-sidebar-container__content {
+  flex-basis: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  @include mq(medium) {
+    height: 100%;
+    flex-basis: 0;
+    flex-grow: 1;
   }
 }
