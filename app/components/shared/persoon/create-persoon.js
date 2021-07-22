@@ -99,6 +99,9 @@ const CreatePersoon = Component.extend({
     }
   }),
   actions: {
+    preventPageRefresh(e) {
+      e.preventDefault();
+    },
     setGender(event) {
       this.set('geslacht', event.target.value);
     }
