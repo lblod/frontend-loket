@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: docker
-name: verify-pr
+name: test
 steps:
 - name: install
   image: danlynn/ember-cli:3.20.0
@@ -27,12 +27,58 @@ steps:
   failure: ignore
   commands:
   - npm run test:ember
+
+---
+kind: pipeline
+type: docker
+name: build-dry-run
+steps:
 - name: build-dry-run
   image: plugins/docker
   settings:
-    repo: lblod/frontend-loket
+    repo: ${DRONE_REPO}
     dry_run: true
     purge: true
 trigger:
   event:
     - pull_request
+
+---
+kind: pipeline
+type: docker
+name: push-latest-build
+steps:
+- name: push-latest-build
+  image: plugins/docker
+  settings:
+    repo: ${DRONE_REPO}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    purge: true
+trigger:
+  branch:
+    - master
+  event:
+    exclude:
+      - pull_request
+
+---
+kind: pipeline
+type: docker
+name: release
+steps:
+- name: push-tagged-build
+  image: plugins/docker
+  settings:
+    repo: ${DRONE_REPO}
+    tags: ${DRONE_TAG##v}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    purge: true
+trigger:
+  event:
+    - tag
