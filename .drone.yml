@@ -113,7 +113,7 @@ steps:
   settings:
     dockerfile: Dockerfile
     repo: ${DRONE_REPO}
-    tags: ${DRONE_TAG##v}-batch-edit
+    tags: ${DRONE_TAG##batch-edit}-batch-edit
     username:
       from_secret: docker_username
     password:
