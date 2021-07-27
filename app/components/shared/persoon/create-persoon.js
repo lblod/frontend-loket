@@ -99,6 +99,10 @@ const CreatePersoon = Component.extend({
     }
   }),
   actions: {
+    /** Temporary fix until we start using new datepicker. */
+    preventPageRefresh(e) {
+      e.preventDefault();
+    },
     setGender(event) {
       this.set('geslacht', event.target.value);
     }

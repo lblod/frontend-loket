@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { notEmpty } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class LeidinggevendenbeheerFunctionarisFormComponent extends Component {
   @service() store;
@@ -11,8 +12,14 @@ export default class LeidinggevendenbeheerFunctionarisFormComponent extends Comp
 
   constructor() {
     super(...arguments);
-    this.getBestuursInfo()
+    this.getBestuursInfo();
   }
+
+  /**  Temporary fix until we start using new datepicker. */
+  @action
+    preventPageRefresh(e) {
+      e.preventDefault();
+    }
 
   async getBestuursInfo() {
     const bestuursfunctie = await this.args.model.get('bekleedt');
