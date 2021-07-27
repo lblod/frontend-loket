@@ -16,11 +16,11 @@ export default class SupervisionSubmissionsNewRoute extends Route {
   }
 
   async model() {
-    const bestuurseenheid = await this.currentSession.group;
+    const bestuurseenheid = this.currentSession.group;
 
     const submissionDocument = this.store.createRecord('submissionDocument', {});
     await submissionDocument.save();
-    const currentUser = await this.currentSession.user;
+    const currentUser = this.currentSession.user;
     const submission = this.store.createRecord('submission', {
       organization: bestuurseenheid,
       status: this.conceptStatus,

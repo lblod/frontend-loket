@@ -24,8 +24,8 @@ export default class SubsidyApplicationsEditStepNewRoute extends Route {
     const spec = await step.get('formSpecification');
 
     let form = this.store.createRecord('subsidy-application-form', {
-      creator: this.currentSession.userContent,
-      lastModifier: this.currentSession.userContent,
+      creator: this.currentSession.user,
+      lastModifier: this.currentSession.user,
       subsidyApplicationFlowStep: step,
       subsidyMeasureConsumption: consumption,
       status: this.conceptStatus,

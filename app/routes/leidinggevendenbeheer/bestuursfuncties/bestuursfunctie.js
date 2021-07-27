@@ -5,7 +5,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieRoute e
   @service('current-session') currentSession;
 
   async afterModel(){
-    const bestuurseenheidClassificatie = await (await this.currentSession.group).classificatie;
+    const bestuurseenheidClassificatie = this.currentSession.groupClassification;
     if(bestuurseenheidClassificatie.uri === "http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000002") {
       this.transitionTo('leidinggevendenbeheer.bestuursfuncties.index');
     }
