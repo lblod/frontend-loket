@@ -102,25 +102,3 @@ steps:
 trigger:
   event:
     - tag
-
----
-kind: pipeline
-type: docker
-name: release-batch-edit
-steps:
-- name: push-tagged-build
-  image: plugins/docker
-  settings:
-    dockerfile: Dockerfile
-    repo: ${DRONE_REPO}
-    tags: ${DRONE_TAG##batch-edit}-batch-edit
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-    purge: true
-trigger:
-  branch:
-    - batch-edit
-  event:
-    - tag
