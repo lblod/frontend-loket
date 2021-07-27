@@ -19,7 +19,7 @@ export default Route.extend({
 
   async model(params){
     this.startDate = params.startDate;
-    const bestuurseenheid = await this.currentSession.group;
+    const bestuurseenheid = this.currentSession.group;
 
     return RSVP.hash({
       bestuurseenheid: bestuurseenheid,

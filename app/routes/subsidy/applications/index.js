@@ -9,7 +9,7 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTabl
   modelName = 'subsidy-measure-consumption';
 
   mergeQueryOptions() {
-    let groupId = this.currentSession.groupContent.id;
+    let groupId = this.currentSession.group.id;
     return {
       include: [
         'status',

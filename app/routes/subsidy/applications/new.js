@@ -34,8 +34,8 @@ export default class SubsidyApplicationsNewRoute extends Route {
 
   async model(params, transition) {
     let series = transition.data.series;
-    let organisation = await this.currentSession.groupContent;
-    let currentUser = await this.currentSession.userContent;
+    let organisation = this.currentSession.group;
+    let currentUser = this.currentSession.user;
 
     let participation = this.store.createRecord('participation', {
       role: ROLES.APPLICANT,

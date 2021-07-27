@@ -6,7 +6,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesIndexRoute extends Rou
 
   async model() {
     this.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
-    const bestuurseenheidClassificatie = await (await this.currentSession.group).classificatie;
+    const bestuurseenheidClassificatie = this.currentSession.groupClassification;
     this.set('bestuurseenheidClassificatie', bestuurseenheidClassificatie.uri);
 
     return this.store.query('bestuursfunctie', {
