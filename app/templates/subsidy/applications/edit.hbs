@@ -6,10 +6,12 @@
       <AuHeading @skin="2">
         {{this.consumption.subsidyMeasureOffer.title}}
         <br>
-          {{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.label}}
+        {{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.label}}
+        {{#if this.reeksHasStartOrEnd}}
           ({{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin "DD MMMM YYYY"}}
           &#8211;
           {{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end "DD MMMM YYYY"}})
+        {{/if}}
       </AuHeading>
     </div>
   </AuToolbarGroup>

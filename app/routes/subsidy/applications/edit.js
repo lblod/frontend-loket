@@ -17,14 +17,14 @@ export default class SubsidyApplicationsEditRoute extends Route {
         'subsidy-application-flow.subsidy-measure-offer-series.period',
         'participations.participating-bestuurseenheid',
         'last-modifier',
-      ].join(','),
+      ].join(',')
     });
 
     const organization = await this.session.groupContent;
 
     return {
       consumption,
-      organization,
+      organization
     };
   }
 }
