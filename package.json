@@ -39,7 +39,7 @@
     "@lblod/ember-toezicht-form-fields": "^0.6.1",
     "@lblod/ember-vo-mu-file-upload": "^0.6.2",
     "@lblod/ember-vo-webuniversum": "^0.22.7",
-    "@lblod/ember-vo-webuniversum-data-table": "^0.2.11",
+    "@lblod/ember-vo-webuniversum-data-table": "^1.0.0",
     "@lblod/ember-vo-webuniversum-widget": "^0.1.4",
     "@zestia/ember-auto-focus": "^2.0.4",
     "babel-eslint": "^10.1.0",
