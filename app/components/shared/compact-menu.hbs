@@ -1,42 +1,42 @@
 <AuDropdown @alignment="left" @dropdownTitle="Menu modules" @dropdownButtonLabel="Account settings">
   {{#if this.currentSession.canAccessToezicht}}
-    <AuLink @linkRoute="supervision.submissions" role="menuitem">
+    <AuLink @route="supervision.submissions" role="menuitem">
       <AuIcon @icon="search-folder" @alignment="left" />
       Toezicht
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessBerichten}}
-    <AuLink @linkRoute="berichtencentrum.berichten" role="menuitem">
+    <AuLink @route="berichtencentrum.berichten" role="menuitem">
       <AuIcon @icon="message" @alignment="left" />
       Berichtencentrum
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessBbcdr}}
-    <AuLink @linkRoute="bbcdr.rapporten" role="menuitem">
+    <AuLink @route="bbcdr.rapporten" role="menuitem">
       <AuIcon @icon="document" @alignment="left" />
       BBC DR
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessMandaat}}
-    <AuLink @linkRoute="mandatenbeheer.mandatarissen" role="menuitem">
+    <AuLink @route="mandatenbeheer.mandatarissen" role="menuitem">
       <AuIcon @icon="user-fill" @alignment="left" />
       Mandatenbeheer
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessLeidinggevenden}}
-    <AuLink @linkRoute="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
+    <AuLink @route="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
       <AuIcon @icon="user-popup" @alignment="left" />
       Leidinggevendenbeheer
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessPersoneelsbeheer}}
-    <AuLink @linkRoute="personeelsbeheer.personeelsaantallen.index" role="menuitem">
+    <AuLink @route="personeelsbeheer.personeelsaantallen.index" role="menuitem">
       <AuIcon @icon="users" @alignment="left" />
       Personeelsbeheer
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessSubsidies}}
-    <AuLink @linkRoute="subsidy.applications.index" role="menuitem">
+    <AuLink @route="subsidy.applications.index" role="menuitem">
       <AuIcon @icon="documents" @alignment="left" />
       Subsidiebeheer
     </AuLink>
