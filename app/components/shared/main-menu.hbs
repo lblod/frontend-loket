@@ -5,7 +5,7 @@
   <ul class="au-c-list-navigation">
     {{#if this.currentSession.canAccessToezicht}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="supervision.submissions">
+        <AuNavigationLink @linkRoute="supervision.submissions">
           <AuIcon @icon="search-folder" @alignment="left" />
           Toezicht
         </AuNavigationLink>
@@ -13,7 +13,7 @@
     {{/if}}
     {{#if this.currentSession.canAccessBerichten}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="berichtencentrum.berichten">
+        <AuNavigationLink @linkRoute="berichtencentrum.berichten">
           <AuIcon @icon="message" @alignment="left" />
           Berichtencentrum
         </AuNavigationLink>
@@ -21,7 +21,7 @@
     {{/if}}
     {{#if this.currentSession.canAccessBbcdr}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="bbcdr.rapporten">
+        <AuNavigationLink @linkRoute="bbcdr.rapporten">
           <AuIcon @icon="document" @alignment="left" />
           BBC DR
         </AuNavigationLink>
@@ -29,7 +29,7 @@
     {{/if}}
     {{#if this.currentSession.canAccessMandaat}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="mandatenbeheer.mandatarissen">
+        <AuNavigationLink @linkRoute="mandatenbeheer.mandatarissen">
           <AuIcon @icon="user-fill" @alignment="left" />
           Mandatenbeheer
         </AuNavigationLink>
@@ -37,7 +37,7 @@
     {{/if}}
     {{#if this.currentSession.canAccessLeidinggevenden}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="leidinggevendenbeheer.bestuursfuncties">
+        <AuNavigationLink @linkRoute="leidinggevendenbeheer.bestuursfuncties">
           <AuIcon @icon="user-popup" @alignment="left" />
           Leidinggevendenbeheer
         </AuNavigationLink>
@@ -45,7 +45,7 @@
     {{/if}}
     {{#if this.currentSession.canAccessPersoneelsbeheer}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="personeelsbeheer.personeelsaantallen.index">
+        <AuNavigationLink @linkRoute="personeelsbeheer.personeelsaantallen.index">
           <AuIcon @icon="users" @alignment="left" />
           Personeelsbeheer
         </AuNavigationLink>
@@ -53,7 +53,7 @@
     {{/if}}
     {{#if this.currentSession.canAccessSubsidies}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="subsidy.applications.index">
+        <AuNavigationLink @linkRoute="subsidy.applications.index">
           <AuIcon @icon="documents" @alignment="left" />
           Subsidiebeheer
         </AuNavigationLink>

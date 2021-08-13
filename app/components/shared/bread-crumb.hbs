@@ -1,7 +1,7 @@
 {{#each this.crumbsForRoute as |crumb|}}
   <li class="au-c-list-horizontal__item">
     {{#if crumb.link}}
-      <AuLink @route={{crumb.link}} role="menuitem">
+      <AuLink @linkRoute={{crumb.link}} role="menuitem">
         {{crumb.label}}
       </AuLink>
     {{else}}
