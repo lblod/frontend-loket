@@ -11,10 +11,15 @@ import { validateForm } from '@lblod/ember-submission-form-fields';
 
 export default class SubsidyApplicationsEditStepEditController extends Controller {
 
+  // To mimic user testing as much as possible
+  // we introduce testMode queryparam, which skips some of the (blocking) frontend business logic.
+  queryParams = [ 'testMode' ];
+
   @service currentSession;
   @service store;
   @service router;
 
+  @tracked testMode;
   @tracked error;
   @tracked datasetTriples = [];
   @tracked addedTriples = [];
@@ -64,7 +69,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
   }
 
   get canSubmit(){
-    return !this.submitted && this.isActiveStep && this.isInSubmittablePeriod;
+    return (!this.submitted && this.isActiveStep && this.isInSubmittablePeriod) || this.testMode;
   }
 
   get isInSubmittablePeriod(){
