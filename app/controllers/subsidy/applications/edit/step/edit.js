@@ -8,7 +8,7 @@ import { timeout } from 'ember-concurrency';
 import { dropTask, task } from 'ember-concurrency-decorators';
 import fetch from 'fetch';
 import { validateForm } from '@lblod/ember-submission-form-fields';
-import { CONCEPT_STATUS } from '../../../../../models/submission-document-status';
+import { NEW_STATUS, CONCEPT_STATUS } from '../../../../../models/submission-document-status';
 
 export default class SubsidyApplicationsEditStepEditController extends Controller {
 
@@ -163,7 +163,9 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
       // NOTE update modified for the form and the consumption
       yield this.updateModified(this.semanticForm);
       yield this.updateModified(this.consumption);
-      yield this.updateStatus(this.semanticForm, CONCEPT_STATUS);
+
+      if ((yield this.semanticForm.status.get('uri')) == NEW_STATUS)
+        yield this.updateStatus(this.semanticForm, CONCEPT_STATUS);
 
       this.updateRecentlySaved(); // TODO can this be done on a more "data" driven way
     } catch (exception) {
