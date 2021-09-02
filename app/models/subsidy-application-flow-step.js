@@ -1,9 +1,9 @@
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class SubsidyApplicationFlowStepModel extends Model {
   @attr order;
 
-  @hasMany('file') formSpecifications;
+  @belongsTo('file') formSpecification;
   @belongsTo('subsidy-application-flow') applicationFlow;
   @belongsTo('subsidy-procedural-step') subsidyProceduralStep;
 
