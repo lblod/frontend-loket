@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { CONCEPT_STATUS } from '../../../../../models/submission-document-status';
+import { NEW_STATUS } from '../../../../../models/submission-document-status';
 
 export default class SubsidyApplicationsEditStepNewRoute extends Route {
 
@@ -8,13 +8,13 @@ export default class SubsidyApplicationsEditStepNewRoute extends Route {
   @service currentSession;
 
   async beforeModel() {
-    const conceptStatuses = await this.store.query('submission-document-status', {
+    const newStatuses = await this.store.query('submission-document-status', {
       page: {size: 1},
-      'filter[:uri:]': CONCEPT_STATUS,
+      'filter[:uri:]': NEW_STATUS,
     });
 
-    if (conceptStatuses.length)
-      this.conceptStatus = conceptStatuses.firstObject;
+    if (newStatuses.length)
+      this.newStatus = newStatuses.firstObject;
   }
 
   async model() {
@@ -28,7 +28,7 @@ export default class SubsidyApplicationsEditStepNewRoute extends Route {
       lastModifier: this.currentSession.user,
       subsidyApplicationFlowStep: step,
       subsidyMeasureConsumption: consumption,
-      status: this.conceptStatus,
+      status: this.newStatus,
     });
 
     form.sources.pushObject(spec);
