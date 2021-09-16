@@ -40,7 +40,7 @@ module.exports = function (environment) {
           baseUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/auth',
           scope: 'openid rrn vo profile abb_loketLB',
           redirectUri: 'https://loket.lblod.info/authorization/callback',
-          switchUrl: 'https://loket.lblod.info/switch-login',
+          returnUrl: 'https://loket.lblod.info/switch-login',
           logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout'
         }
       }
