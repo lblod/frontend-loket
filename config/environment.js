@@ -75,7 +75,7 @@ module.exports = function (environment) {
   if (process.env.DEPLOY_ENV === 'production') {
     ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '90a39574-e986-4007-84f2-becf6d9eb481';
     ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/auth';
-    ENV['torii']['providers']['acmidm-oauth2']['switchUrl'] = 'https://loket.lokaalbestuur.vlaanderen.be/switch-login';
+    ENV['torii']['providers']['acmidm-oauth2']['returnUrl'] = 'https://loket.lokaalbestuur.vlaanderen.be/switch-login';
     ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://loket.lokaalbestuur.vlaanderen.be/authorization/callback';
     ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/logout';
   }
