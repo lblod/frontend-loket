@@ -35,7 +35,7 @@
     "@glimmer/tracking": "^1.0.3",
     "@lblod/ember-acmidm-login": "1.3.0",
     "@lblod/ember-mock-login": "^0.5.0-beta",
-    "@lblod/ember-submission-form-fields": "0.15.2",
+    "@lblod/ember-submission-form-fields": "0.15.3",
     "@lblod/ember-toezicht-form-fields": "^0.6.1",
     "@lblod/ember-vo-mu-file-upload": "^0.6.2",
     "@lblod/ember-vo-webuniversum": "^0.22.7",
