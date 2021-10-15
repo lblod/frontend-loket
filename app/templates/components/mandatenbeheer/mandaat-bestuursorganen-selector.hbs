@@ -3,13 +3,13 @@
         @noMatchesMessage = 'Geen resultaten'
         @searchMessage = 'Typ om te zoeken'
         @searchEnabled={{true}}
-        @allowClear={{allowClear}}
-        @disabled={{disabled}}
+        @allowClear={{@allowClear}}
+        @disabled={{@disabled}}
         @placeholder="Zoek mandaat"
-        @options={{mandaten}}
-        @selected={{_mandaat}}
+        @options={{this.mandaten}}
+        @selected={{@mandaat}}
         @searchField="bestuursfunctie.label"
-        @onChange={{action "select"}}
+        @onChange={{this.select}}
         @triggerId="mandaat"
         as |mandaat|>
   {{mandaat.bestuursfunctie.label}}

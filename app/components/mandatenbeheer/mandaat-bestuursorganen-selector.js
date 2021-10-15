@@ -1,26 +1,33 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { oneWay } from '@ember/object/computed';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  store: service(),
+export default class MandatenbeheerMandaatBestuursorganenSelectorComponent extends Component {
+  @service store;
 
-  _mandaat: oneWay('mandaat'),
-  bestuursorganen: null,
+  @tracked mandaten;
 
-  async didReceiveAttrs(){
+  get bestuursorganen() {
+    return this.args.bestuursorganen;
+  }
+
+  constructor() {
+    super(...arguments);
+    this.initMandaten();
+  }
+
+  async initMandaten() {
     const mandaten = await this.store.query('mandaat', {
       sort: 'bestuursfunctie.label',
       include: 'bestuursfunctie',
       'filter[bevat-in][id]': this.bestuursorganen.map(o => o.get('id')).join(',')
     });
-    this.set('mandaten', mandaten);
-  },
-
-  actions: {
-    select(mandaat){
-      this.set('_mandaat', mandaat);
-      this.onSelect(mandaat);
-    }
+    this.mandaten = mandaten;
   }
-});
+
+  @action
+  select(mandaat) {
+    this.args.onSelect(mandaat);
+  }
+}
