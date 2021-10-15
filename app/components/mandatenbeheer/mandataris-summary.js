@@ -1,39 +1,49 @@
 import Component from '@glimmer/component';
-import { reads } from '@ember/object/computed';
 import { action } from '@ember/object';
 import { computed } from '@ember/object';
 
 export default class MandatenbeheerMandatarisSummaryComponent extends Component {
-  @reads('args.mandataris.bekleedt.bestuursfunctie.label') rol;
-  @reads('args.mandataris.start') start;
-  @reads('args.mandataris.einde') einde;
-  @reads('args.mandataris.heeftLidmaatschap.binnenFractie.naam') fractie;
-  @reads('args.mandataris.rangorde.content') rangorde;
-  @reads('args.mandataris.status.label') status;
+  get mandataris() {
+    return this.args.mandataris;
+  }
+
+  get rol() {
+    return this.mandataris.bekleedt.get('bestuursfunctie.label');
+  }
+
+  get start() {
+    return this.mandataris.start;
+  }
+
+  get einde() {
+    return this.mandataris.einde;
+  }
+
+  get fractie() {
+    return this.mandataris.get('heeftLidmaatschap.binnenFractie.naam');
+  }
+
+  get rangorde() {
+    return this.mandataris.get('rangorde.content');
+  }
+
+  get status() {
+    return this.mandataris.get('status.label');
+  }
 
   @computed('args.mandataris.beleidsdomein.@each.id')
-  get formattedBeleidsdomein(){
-    const beleidsdomeinen = this.args.mandataris.beleidsdomein;
-    if (beleidsdomeinen.length) {
-      return beleidsdomeinen.map(item => item.label);
+    get formattedBeleidsdomein(){
+      const beleidsdomeinen = this.args.mandataris.beleidsdomein;
+      if (beleidsdomeinen.length) {
+        return beleidsdomeinen.map(item => item.label);
+      }
+      else {
+        return [];
+      }
     }
-    else {
-      return [];
-    }
-  }
 
   @action
     edit(){
       this.args.onEdit();
-    }
-
-  @action
-    terminate(){
-      this.args.onTerminate();
-    }
-
-  @action
-    correct(){
-      this.args.onCorrect();
     }
 }
