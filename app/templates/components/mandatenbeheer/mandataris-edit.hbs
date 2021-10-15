@@ -98,7 +98,7 @@
 
       <div class="au-u-margin-top">
         {{#if requiredFieldError}}
-          <AuAlert @alertIcon="alert-triangle" @alertTitle="Gelieve een mandaat op te geven." @alertskin="error" @alertsize="small" />
+          <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.requiredFieldError}} @alertskin="error" @alertsize="small" />
         {{/if}}
         {{#if saveError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
@@ -164,7 +164,7 @@
       </div>
       <div class="au-u-margin-top">
         {{#if requiredFieldError}}
-          <AuAlert @alertIcon="alert-triangle" @alertTitle="Gelieve een mandaat op te geven." @alertskin="error" @alertsize="small" />
+          <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.requiredFieldError}} @alertskin="error" @alertsize="small" />
         {{/if}}
         {{#if saveError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
@@ -269,7 +269,7 @@
 
       <div class="au-u-margin-top">
         {{#if requiredFieldError}}
-          <AuAlert @alertIcon="alert-triangle" @alertTitle="Gelieve een mandaat op te geven." @alertskin="error" @alertsize="small" />
+          <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.requiredFieldError}} @alertskin="error" @alertsize="small" />
         {{/if}}
         {{#if saveError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
