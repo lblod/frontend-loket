@@ -6,18 +6,21 @@ import { tracked } from '@glimmer/tracking';
 export default class MandatenbeheerMandatarisStatusCodeSelectorComponent extends Component {
   @service() store;
 
-  @tracked selectedStatusCode;
   @tracked statusCodeList;
 
   constructor(){
     super(...arguments);
-    this.selectedStatusCode = this.args.statusCode;
-    this.statusCodeList = this.store.query('mandataris-status-code', { sort: 'label' });
+    this.initStatusCodeList();
+  }
+
+  async initStatusCodeList() {
+    const statusCodeList = await this.store.query('mandataris-status-code', { sort: 'label' });
+
+    this.statusCodeList = statusCodeList;
   }
 
   @action
     select(code){
-      this.selectedStatusCode = code;
       this.args.onSelect(code);
     }
 }
