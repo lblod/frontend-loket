@@ -65,8 +65,13 @@ export default Component.extend({
       yield this.saveLidmaatschap();
 
       if(!this.mandaat){
-        this.set('requiredFieldError', true);
-        return this.mandataris;
+        this.set('requiredFieldError', 'Gelieve een mandaat op te geven.');
+        return;
+      }
+
+      if(!this.status){
+        this.set('requiredFieldError', 'Gelieve een status op te geven.');
+        return;
       }
 
       this.set('mandataris.bekleedt', this.mandaat);
