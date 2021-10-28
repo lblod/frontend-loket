@@ -8,7 +8,8 @@
         <br>
         {{this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.label}}
         {{#if this.reeksHasStartOrEnd}}
-          ({{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin "DD MMMM YYYY"}}
+          ({{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin
+                           "DD MMMM YYYY"}}
           &#8211;
           {{moment-format this.consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end "DD MMMM YYYY"}})
         {{/if}}
@@ -19,30 +20,31 @@
     <AuButtonGroup>
       {{#if this.canDelete}}
         <AuButton
-                @disabled={{this.delete.isRunning}}
-                @disabled={{true}}
-                @loading={{this.deleteConsumption.isRunning}}
-                @skin="tertiary"
-                @alert="true"
+          @disabled={{this.delete.isRunning}}
+          @disabled={{true}}
+          @loading={{this.deleteConsumption.isRunning}}
+          @skin="tertiary"
+          @alert="true"
           {{on "click" (perform this.delete)}} >
           <AuIcon @icon="bin" @alignment="left"/>
           Verwijder aanvraag
         </AuButton>
       {{/if}}
       {{#if this.canArchive}}
-        {{!-- To discuss --}}
+      {{!-- To discuss --}}
         <AuButton
-                @disabled={{this.delete.isRunning}}
-                @disabled={{true}}
-                @loading={{this.deleteConsumption.isRunning}}
-                @skin="tertiary"
+          @disabled={{this.delete.isRunning}}
+          @disabled={{true}}
+          @loading={{this.deleteConsumption.isRunning}}
+          @skin="tertiary"
           {{on "click" (perform this.delete)}} >
           <AuIcon @icon="archive" @alignment="left"/>
           Archiveer verlopen aanvraag
         </AuButton>
       {{/if}}
       <AuLink @linkRoute="subsidy.applications.index" class="au-c-button au-c-button--tertiary">
-        <AuIcon @icon="cross" @alignment="left"/>Sluit
+        <AuIcon @icon="cross" @alignment="left"/>
+        Sluit
       </AuLink>
     </AuButtonGroup>
   </AuToolbarGroup>
@@ -54,9 +56,9 @@
       <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Bestuurseenheid</AuLabel>
         <p>{{this.organization.classificatie.label}}&nbsp;{{this.organization.naam}}</p>
-{{!--         <AuHelpText @skin="tertiary" class="au-u-margin-left-none">
-          Wissel rechtsbovenaan van bestuurseenheid.
-        </AuHelpText> TODO: FIND BETTER SOLUTION--}}
+        {{!--         <AuHelpText @skin="tertiary" class="au-u-margin-left-none">
+                  Wissel rechtsbovenaan van bestuurseenheid.
+                </AuHelpText> TODO: FIND BETTER SOLUTION--}}
       </li>
       <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Gewijzigd door</AuLabel>
@@ -94,9 +96,11 @@
           <ul class="au-c-list-navigation">
             {{#each this.consumption.subsidyApplicationFlow.sortedDefinedSteps as |step|}}
               <li class="au-c-list-navigation__item">
-                <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link" style="flex-direction: column; align-items: start;">
+                <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link"
+                        style="flex-direction: column; align-items: start;">
                   <div> {{step.subsidyProceduralStep.description}} </div>
-                  <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal">Instuurbaar tot {{moment-format  step.subsidyProceduralStep.period.end 'DD MMMM YYYY'}}</AuHelpText>
+                  <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal">Instuurbaar
+                    tot {{moment-format  step.subsidyProceduralStep.period.end 'DD MMMM YYYY'}}</AuHelpText>
                 </LinkTo>
               </li>
             {{/each}}
@@ -106,8 +110,6 @@
     </div>
   </div>
   <div class="au-c-sidebar-container__content">
-    <div class="au-c-body-container au-c-body-container--scroll">
-      {{outlet}}
-    </div>
+    {{outlet}}
   </div>
 </div>

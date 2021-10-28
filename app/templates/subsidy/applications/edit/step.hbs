@@ -1,0 +1,15 @@
+<AuToolbar  @border="bottom" @size="medium">
+  <AuToolbarGroup>
+    <AuButtonGroup>
+      <AuButton
+        @disabled={{this.open.isRunning}}
+        @loading={{this.open.isRunning}}
+        {{on "click" (perform this.open)}} >
+        (Her)openen
+      </AuButton>
+    </AuButtonGroup>
+  </AuToolbarGroup>
+</AuToolbar>
+<div class="au-c-body-container au-c-body-container--scroll">
+  {{outlet}}
+</div>
