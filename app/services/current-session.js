@@ -13,8 +13,8 @@ const MODULE = {
 };
 
 export default class CurrentSessionService extends Service {
-  @service('session') session;
-  @service('store') store;
+  @service session;
+  @service store;
 
   @tracked account;
   @tracked user;
@@ -30,8 +30,8 @@ export default class CurrentSessionService extends Service {
         include: 'gebruiker'
       });
 
-      this.user = await this.account.get('gebruiker');
-      this.roles = await this.session.data.authenticated.data.attributes.roles;
+      this.user = await this.account.gebruiker;
+      this.roles = this.session.data.authenticated.data.attributes.roles;
 
       let groupId = this.session.data.authenticated.relationships.group.data.id;
       this.group = await this.store.findRecord('bestuurseenheid', groupId, {
