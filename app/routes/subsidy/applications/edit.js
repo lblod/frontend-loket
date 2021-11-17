@@ -22,6 +22,7 @@ export default class SubsidyApplicationsEditRoute extends Route {
     return {
       consumption,
       organization: this.currentSession.group,
+      consumptionStatus: await consumption.status,
     };
   }
 }
