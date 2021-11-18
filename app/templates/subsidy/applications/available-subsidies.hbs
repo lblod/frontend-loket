@@ -68,9 +68,22 @@
       </td>
       <td>{{moment-format series.deadline.end "DD MMMM YYYY"}}</td>
       <td>
-        <LinkTo @route="subsidy.applications.new" @query={{hash seriesId=series.id}} class="au-c-link">
-          Start aanvraag
-        </LinkTo>
+        {{#if series.isExternallyProcessed}}
+          <a href={{series.activeApplicationFlow.firstApplicationStep.isReplacedBy}}
+             target="_blank"
+             rel="noopener noreferrer"
+             class="au-c-link">
+           Start aanvraag
+          </a>
+          <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+            <AuIcon @icon="export" @alignment="left" @size="default" @ariaHidden={{true}} />
+            Externe afhandeling
+          </AuHelpText>
+        {{else}}
+          <LinkTo @route="subsidy.applications.new" @query={{hash seriesId=series.id}} class="au-c-link">
+            Start aanvraag
+          </LinkTo>
+        {{/if}}
       </td>
     </c.body>
   </t.content>
