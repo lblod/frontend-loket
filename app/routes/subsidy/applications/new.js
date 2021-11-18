@@ -11,8 +11,10 @@ export default class SubsidyApplicationsNewRoute extends Route {
   @service store;
 
   async beforeModel(transition) {
+
     let seriesId = transition.to.queryParams.seriesId;
-    assert('A subsidy-measure-offer-series id needs to be provided through the `seriesId` query parameter', Boolean(seriesId));
+    assert('A subsidy-measure-offer-series id needs to be provided through the `seriesId` query parameter',
+      Boolean(seriesId));
 
     transition.data.series = await this.store.findRecord('subsidy-measure-offer-series', seriesId, {
       backgroundReload: false
@@ -23,13 +25,18 @@ export default class SubsidyApplicationsNewRoute extends Route {
       this.router.transitionTo('subsidy.applications.available-subsidies');
     }
 
+    if (transition.data.series.isExternallyProcessed) {
+      // TODO: Show a warning / error page
+      console.warn('This subsidy application should be processed externally');
+      this.router.transitionTo('subsidy.applications.available-subsidies');
+    }
+
     const statuses = await this.store.query('subsidy-measure-consumption-status', {
       page: {size: 1},
-      'filter[:uri:]': STATUS.CONCEPT,
+      'filter[:uri:]': STATUS.CONCEPT
     });
     if (statuses.length)
       this.concept = statuses.firstObject;
-
   }
 
   async model(params, transition) {

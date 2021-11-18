@@ -36,7 +36,7 @@ export default class SubsidyMeasureOfferSeriesModel extends Model {
       return false;
     } else if (!isReplacedBy && isExternallyProcessed) {
       console.warn('found no link to an external processes, but step is marked for external processing.');
-      return false;
+      return true;
     }
     return isReplacedBy && isExternallyProcessed;
   }
