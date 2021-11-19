@@ -69,7 +69,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     return this.consumption.activeSubsidyApplicationFlowStep.get('id') === this.step.id;
   }
 
-  get canSubmit(){
+  get canSubmit() {
     return (!this.submitted && this.isActiveStep && this.isInSubmittablePeriod) || this.testMode;
   }
 
@@ -111,63 +111,11 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     });
   }
 
-  @task
-  * saveSemanticForm() {
-    yield this.fetch(`/management-application-forms/${this.model.semanticForm.id}`, {
-      method: 'PUT',
-      headers: {'Content-Type': 'application/vnd.api+json'},
-      body: JSON.stringify(
-        {
-          ...this.formStore.serializeDataWithAddAndDelGraph(this.graphs.sourceGraph, 'application/n-triples'),
-        },
-      ),
-    });
-    // Since the sources of the application form will be set/updated by the backend
-    // and not via ember-data, we need to manually reload the application form record
-    // to keep the form up-to-date
-    yield this.model.semanticForm.reload();
-    yield this.model.semanticForm.hasMany('sources').reload();
-  }
-
-  @task
-  * submitSemanticForm() {
-    yield this.fetch(`/management-application-forms/${this.model.semanticForm.id}/submit`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/vnd.api+json'},
-    });
-    // Since the sent date and sent status of the application form will be set by the backend
-    // and not via ember-data, we need to manually reload the application form record
-    // to keep the index page up-to-date
-    const semanticForm = yield this.model.semanticForm.reload();
-    yield semanticForm.belongsTo('status').reload();
-  }
-
-  @task
-  * evaluateNextStep() {
-    // Since the active step of the consumption will be set by the backend
-    // and not via ember-data, we need to manually reload the consumption record
-    // to keep the everything up-to-date
-    yield this.fetch(`/flow-management/next-step/${this.consumption.id}`, {
-      method: 'PATCH',
-    });
-    yield this.consumption.reload();
-    yield this.consumption.belongsTo('activeSubsidyApplicationFlowStep').reload();
-    yield this.consumption.belongsTo('status').reload();
-  }
-
   @dropTask
-  * save() {
+  * saveConcept() {
     try {
+      this.preventConsumptionDeletion();
       yield this.saveSemanticForm.perform();
-
-      // NOTE update modified for the form and the consumption
-      yield this.updateModified(this.semanticForm);
-      yield this.updateModified(this.consumption);
-
-      if ((yield this.semanticForm.status.get('uri')) == NEW_STATUS)
-        yield this.updateStatus(this.semanticForm, CONCEPT_STATUS);
-
-      this.updateRecentlySaved(); // TODO can this be done on a more "data" driven way
     } catch (exception) {
       console.log(exception);
       this.error = {
@@ -175,13 +123,17 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
         exception,
       };
     }
+    finally {
+      this.enableConsumptionDeletion();
+    }
   }
 
   @dropTask
   * submit() {
     try {
-      if (this.canSubmit) {
-        yield this.save.perform();
+      if (this.canSubmit && this.consumption.isStable) {
+        this.preventConsumptionDeletion();
+        yield this.saveSemanticForm.perform();
         const options = {...this.graphs, sourceNode: this.sourceNode, store: this.formStore};
         this.isValidForm = validateForm(this.form, options);
         if (!this.isValidForm) {
@@ -205,8 +157,52 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
         action: 'verzenden',
         exception,
       };
+    } finally {
+      this.enableConsumptionDeletion();
     }
   }
+
+  @task
+  * saveSemanticForm() {
+    yield this.fetch(`/management-application-forms/${this.model.semanticForm.id}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/vnd.api+json'},
+      body: JSON.stringify(
+        {
+          ...this.formStore.serializeDataWithAddAndDelGraph(this.graphs.sourceGraph, 'application/n-triples'),
+        },
+      ),
+    });
+    // Since the sources of the application form will be set/updated by the backend
+    // and not via ember-data, we need to manually reload the application form record
+    // to keep the form up-to-date
+    yield this.model.semanticForm.reload();
+    yield this.model.semanticForm.hasMany('sources').reload();
+
+    // NOTE update modified for the form and the consumption
+    yield this.updateModified(this.semanticForm);
+    yield this.updateModified(this.consumption);
+
+    if ((yield this.semanticForm.status.get('uri')) == NEW_STATUS)
+      yield this.updateStatus(this.semanticForm, CONCEPT_STATUS);
+
+    this.updateRecentlySaved(); // TODO can this be done on a more "data" driven way
+  }
+
+
+  @task
+  * submitSemanticForm() {
+    yield this.fetch(`/management-application-forms/${this.model.semanticForm.id}/submit`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/vnd.api+json'},
+    });
+    // Since the sent date and sent status of the application form will be set by the backend
+    // and not via ember-data, we need to manually reload the application form record
+    // to keep the index page up-to-date
+    const semanticForm = yield this.model.semanticForm.reload();
+    yield semanticForm.belongsTo('status').reload();
+  }
+
 
   @task
   * next(){
@@ -216,6 +212,19 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     if (active && this.step.id !== active.get('id')) {
       this.router.transitionTo('subsidy.applications.edit', this.consumption.id);
     }
+  }
+
+  @task
+  * evaluateNextStep() {
+    // Since the active step of the consumption will be set by the backend
+    // and not via ember-data, we need to manually reload the consumption record
+    // to keep the everything up-to-date
+    yield this.fetch(`/flow-management/next-step/${this.consumption.id}`, {
+      method: 'PATCH',
+    });
+    yield this.consumption.reload();
+    yield this.consumption.belongsTo('activeSubsidyApplicationFlowStep').reload();
+    yield this.consumption.belongsTo('status').reload();
   }
 
   async updateRecentlySaved() {
@@ -239,6 +248,14 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
     if (statuses.length)
       model.status = statuses.firstObject;
       await model.save();
+  }
+
+  preventConsumptionDeletion() {
+    this.consumption.isStable = false;
+  }
+
+  enableConsumptionDeletion() {
+    this.consumption.isStable = true;
   }
 
   /**
