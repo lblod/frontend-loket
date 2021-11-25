@@ -26,6 +26,7 @@
       <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
       <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th></th>
+      <th></th>
     </c.header>
     <c.body as |row|>
       <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
@@ -58,6 +59,14 @@
       </td>
       <td>
         <LinkTo @route="supervision.submissions.edit" @model={{row.id}} class="au-c-link">Bekijk</LinkTo>
+      </td>
+      <td>
+        <AuButton
+          @skin="tertiary"
+          @alert={{true}}
+          {{on "click" (fn this.reopen row)}}>
+          Reopen
+        </AuButton>
       </td>
     </c.body>
   </t.content>
