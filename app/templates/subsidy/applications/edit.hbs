@@ -19,25 +19,27 @@
     <AuButtonGroup>
       {{#if this.canDelete}}
         <AuButton
-                @disabled={{this.delete.isRunning}}
-                @disabled={{true}}
-                @loading={{this.deleteConsumption.isRunning}}
-                @skin="tertiary"
-                @alert="true"
-          {{on "click" (perform this.delete)}} >
-          <AuIcon @icon="bin" @alignment="left"/>
+          @disabled={{not this.consumption.isStable}}
+          @loading={{this.delete.isRunning}}
+          @skin="tertiary"
+          @alert="true"
+          @icon="bin"
+          @iconAlignment="left"
+          {{on "click" (perform this.delete)}}
+        >
           Verwijder aanvraag
         </AuButton>
       {{/if}}
       {{#if this.canArchive}}
         {{!-- To discuss --}}
         <AuButton
-                @disabled={{this.delete.isRunning}}
-                @disabled={{true}}
-                @loading={{this.deleteConsumption.isRunning}}
-                @skin="tertiary"
-          {{on "click" (perform this.delete)}} >
-          <AuIcon @icon="archive" @alignment="left"/>
+          @disabled={{not this.consumption.isStable}}
+          @loading={{this.delete.isRunning}}
+          @skin="tertiary"
+          @icon="archive"
+          @iconAlignment="left"
+          {{on "click" (perform this.delete)}}
+        >
           Archiveer verlopen aanvraag
         </AuButton>
       {{/if}}
@@ -72,7 +74,7 @@
       </li>
       <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Bewerkt op</AuLabel>
-        <p>{{moment-format consumption.modified "DD-MM-YYYY — HH:mm"}}</p>
+        <p>{{moment-format this.consumption.modified "DD-MM-YYYY — HH:mm"}}</p>
       </li>
       {{#if this.consumption.deadline.end}}
         <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">

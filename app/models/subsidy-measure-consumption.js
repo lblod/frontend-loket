@@ -1,6 +1,13 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import { tracked } from '@glimmer/tracking';
 
 export default class SubsidyMeasureConsumptionModel extends Model {
+  // This flag can be used to mark this record "instable". It shouldn't be possible to delete instable records.
+  // Note that we assume there will only ever be 1 action that manipulates this value at the same time.
+  // If it needs to be possible to run actions concurrently this should replaced by an array
+  // of concurrency task instances and a getter which returns true if no tasks are running.
+  @tracked isStable = true;
+
   @attr('datetime') created;
   @attr('datetime') modified;
 
