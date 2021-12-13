@@ -1,19 +1,37 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+import { CONCEPT_STATUS_UUID } from '../../../models/submission-document-status';
 
 export default class SupervisionSubmissionsIndexController extends Controller {
+
+  @service router;
+
   page = 0;
   size = 20;
   sort = 'status.label,-sent-date,-modified';
 
   @action
+  lookAt(submission) {
+    this.router.transitionTo('supervision.submissions.edit', submission.id);
+  }
+
+  @action
   reopen(submission) {
-    if (confirm('Are you sure you wan\'t to do this? It might have unexpected consequences!'))
+    const hasAcknowledged = confirm('Weet je zeker dat je dit wilt doen? Deze actie kan onverwachte gevolgen hebben!');
+    if (hasAcknowledged) {
       this.store
-          .findRecord('submission-document-status', '79a52da4-f491-4e2f-9374-89a13cde8ecd')
+          .findRecord('submission-document-status', CONCEPT_STATUS_UUID)
           .then(function(concept) {
             submission.status = concept;
             submission.save();
           });
+      this.router.transitionTo('supervision.submissions.index',
+        {
+          queryParams: {
+            page: 0
+          }
+        });
+    }
   }
 }
