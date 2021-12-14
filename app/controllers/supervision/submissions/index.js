@@ -26,12 +26,6 @@ export default class SupervisionSubmissionsIndexController extends Controller {
             submission.status = concept;
             submission.save();
           });
-      this.router.transitionTo('supervision.submissions.index',
-        {
-          queryParams: {
-            page: 0
-          }
-        });
     }
   }
 }
