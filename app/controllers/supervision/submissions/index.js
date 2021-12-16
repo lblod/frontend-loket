@@ -24,6 +24,7 @@ export default class SupervisionSubmissionsIndexController extends Controller {
           .findRecord('submission-document-status', CONCEPT_STATUS_UUID)
           .then(function(concept) {
             submission.status = concept;
+            submission.sentDate = null;
             submission.save();
           });
     }
