@@ -26,7 +26,7 @@
     "test:ember": "ember test"
   },
   "overrides": {
-    "ember-get-config": "0.5.0"
+    "@embroider/macros": "0.50.0"
   },
   "devDependencies": {
     "@appuniversum/appuniversum": "0.0.15",
