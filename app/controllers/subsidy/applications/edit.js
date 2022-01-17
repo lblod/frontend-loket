@@ -4,7 +4,6 @@ import { task } from 'ember-concurrency-decorators';
 import fetch from 'fetch';
 
 export default class SubsidyApplicationsEditController extends Controller {
-
   @service router;
 
   get reeksHasStartOrEnd(){
@@ -20,20 +19,24 @@ export default class SubsidyApplicationsEditController extends Controller {
     return this.model.organization;
   }
 
-  get canDelete(){
-    return this.consumption.get('status.isConcept');
+  get canDelete() {
+    return this.model.consumptionStatus.isConcept;
   }
 
   @task
-  * delete() {
-    if (!this.canDelete) {
+  *delete() {
+    if (!this.canDelete || !this.consumption.isStable) {
       return;
     }
+
     try {
+      this.consumption.isStable = false;
       /**
        * NOTE: this endpoint prevents the removal of submitted forms, preventing the removal of a consumption all together.
        */
-      const forms = yield this.consumption.get('subsidyApplicationForms').toArray();
+      const forms = yield this.consumption
+        .get('subsidyApplicationForms')
+        .toArray();
       for (const form of forms) {
         yield fetch(`/management-application-forms/${form.id}`, {
           method: 'DELETE',
@@ -46,6 +49,8 @@ export default class SubsidyApplicationsEditController extends Controller {
       console.log('Removal of consumption failed because:');
       console.error(error);
       // TODO Error handling
+    } finally {
+      this.consumption.isStable = true;
     }
   }
 }

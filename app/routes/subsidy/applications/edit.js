@@ -2,9 +2,8 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default class SubsidyApplicationsEditRoute extends Route {
-
   @service store;
-  @service('current-session') session;
+  @service currentSession;
 
   async model({id: consumptionID}) {
     const consumption = await this.store.findRecord('subsidy-measure-consumption', consumptionID, {
@@ -20,11 +19,10 @@ export default class SubsidyApplicationsEditRoute extends Route {
       ].join(',')
     });
 
-    const organization = await this.session.groupContent;
-
     return {
       consumption,
-      organization
+      organization: this.currentSession.group,
+      consumptionStatus: await consumption.status,
     };
   }
 }
