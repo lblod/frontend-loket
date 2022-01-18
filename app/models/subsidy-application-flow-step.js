@@ -4,7 +4,7 @@ export default class SubsidyApplicationFlowStepModel extends Model {
   @attr order;
 
   /**
-   * If no form-specification is supplied, a reference to an external form could be found here.
+   * a reference to an external process could be found here.
    */
   @attr isReplacedBy;
 
