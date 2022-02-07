@@ -2,7 +2,8 @@ import { module, test } from 'qunit';
 import { visit, currentURL } from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import session from '../helpers/session';
-import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { setupMirage } from 'ember-cli-mirage/test-support';
+
 
 module('Acceptance | bbcdr', function(hooks) {
   setupApplicationTest(hooks);
