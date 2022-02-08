@@ -46,7 +46,7 @@
     "@lblod/ember-vo-webuniversum-widget": "^0.1.6",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
-    "ember-auto-import": "^1.10.1",
+    "ember-auto-import": "^2.4.0",
     "ember-awesome-macros": "^6.0.0",
     "ember-browser-update": "^0.1.1",
     "ember-cli": "~3.24.0",
@@ -104,7 +104,8 @@
     "qunit": "^2.17.2",
     "qunit-dom": "^2.0.0",
     "sass": "^1.49.7",
-    "svgxuse": "^1.2.6"
+    "svgxuse": "^1.2.6",
+    "webpack": "^5.68.0"
   },
   "engines": {
     "node": "10.* || >= 12"
