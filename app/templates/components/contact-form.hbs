@@ -1,53 +1,24 @@
-<form class="au-c-form js-formvalidation-bound">
-  <div>
-    <AuLabel for="select">Waar gaat uw bericht over?</AuLabel>
+<form class="au-c-form" ...attributes>
+  <fieldset>
+    <legend class="au-c-label">Waar gaat uw bericht over?</legend>
     <ul>
-      <li>
-        <WuRadioButton
-          @label="Een vraag of probleem over de applicatie"
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=Vraag of probleem - Loket Lokaal Bestuur"
-          @onChange={{fn (mut this.mailto)}}
-          @isBlock={{true}}
-        />
-      </li>
-      <li>
-        <WuRadioButton
-        @label="Toezicht"
-        @value="LoketLokaalBestuur@vlaanderen.be?subject=Toezicht - Loket Lokaal Bestuur"
-        @onChange={{fn (mut this.mailto)}}
-        @isBlock={{true}}
-        />
-      </li>
-      <li>
-        <WuRadioButton
-          @label="BBC-DR"
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=BBC-DR - Loket Lokaal Bestuur"
-          @onChange={{fn (mut this.mailto)}}
-          @isBlock={{true}}
-        />
-      </li>
-      <li>
-        <WuRadioButton
-          @label="Mandatenbeheer"
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=Mandatenbeheer - Loket Lokaal Bestuur"
-          @onChange={{fn (mut this.mailto)}}
-          @isBlock={{true}}
-        />
-      </li>
-      <li>
-        <WuRadioButton
-          @label="Leidinggevendenbeheer"
-          @value="LoketLokaalBestuur@vlaanderen.be?subject=Leidinggevendenbeheer - Loket Lokaal Bestuur"
-          @onChange={{fn (mut this.mailto)}}
-          @isBlock={{true}}
-        />
-      </li>
+      {{#each this.subjectOptions as |option|}}
+        <li>
+          <AuControlRadio
+            @label={{option.label}}
+            @value={{or option.subject option.label}}
+            @name="contact-subject"
+            @onChange={{fn (mut this.selected) option}}
+            checked={{eq this.subject option}}
+          />
+        </li>
+      {{/each}}
     </ul>
-  </div>
+  </fieldset>
 
-  {{#if this.mailto}}
-    <a href={{concat "mailto:" this.mailto}} class="au-c-button">Stel bericht op</a>
+  {{#if this.canSend}}
+    <a href={{this.mailto}} class="au-c-button">Stel bericht op</a>
   {{else}}
-    <AuButton @disabled="true">Stel bericht op</AuButton>
+    <AuButton @disabled={{true}}>Stel bericht op</AuButton>
   {{/if}}
 </form>
