@@ -30,8 +30,7 @@
     "@embroider/util": "^1.0.0"
   },
   "devDependencies": {
-    "@appuniversum/appuniversum": "0.0.15",
-    "@appuniversum/ember-appuniversum": "0.4.3",
+    "@appuniversum/ember-appuniversum": "^1.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
