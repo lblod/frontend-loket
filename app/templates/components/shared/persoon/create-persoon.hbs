@@ -24,11 +24,22 @@
         {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" id="mandataris-roepnaam" name="mandataris-roepnaam" placeholder="Jos" value=(mut roepnaam)}}
       </div>
       <div>
-        <AuLabel @error="{{if this.rijksregisternummerError 'true'}}"  for="mandataris-rijksregister">Rijksregisternummer</AuLabel>
-        {{one-way-input-mask rijksregisternummer mask='99.99.99-999.99' class=(with-error-class rijksregisternummerError "au-c-input au-c-input--block au-c-input--uppercase js-js-input-pattern-bound") placeholder="00.00.00-000.00" update=(action (mut rijksregisternummer)) id="mandataris-rijksregister" }}
-        {{#if rijksregisternummerError}}
-          <AuHelpText @error="true">{{rijksregisternummerError}}</AuHelpText>
-        {{/if}}
+        {{#let (if this.rijksregisternummerError true false) as |showError|}}
+          <AuLabel @error={{showError}} for="mandataris-rijksregister">Rijksregisternummer</AuLabel>
+          <AuInput
+            @error={{showError}}
+            @mask="99.99.99-999.99"
+            @maskPlaceholder="_"
+            @width="block"
+            @onChange={{fn (mut this.rijksregisternummer)}}
+            value={{this.rijksregisternummer}}
+            id="mandataris-rijksregister"
+            placeholder="00.00.00-000.00"
+          />
+          {{#if showError}}
+            <AuHelpText @error="true">{{this.rijksregisternummerError}}</AuHelpText>
+          {{/if}}
+        {{/let}}
       </div>
       <div>
         <AuLabel for="mandataris-geboorte">Geboortedatum</AuLabel>
