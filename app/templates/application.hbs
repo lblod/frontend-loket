@@ -7,7 +7,7 @@
   </li>
   <li class="au-c-list-horizontal__item">
     {{#if this.session.isAuthenticated}}
-      <AuDropdown @title="{{this.currentSession.user.voornaam}} {{this.currentSession.user.achternaam}} - {{this.currentSession.groupClassification.label}} {{this.currentSession.group.naam}}" @dropdownButtonLabel="Account settings" @alignment="right">
+      <AuDropdown @title="{{this.currentSession.user.voornaam}} {{this.currentSession.user.achternaam}} - {{this.currentSession.groupClassification.label}} {{this.currentSession.group.naam}}" @buttonLabel="Account settings" @alignment="right">
         <AcmidmSwitch @tagName="button" class="au-c-button au-c-button--tertiary" role="menuitem">
           <AuIcon @icon="switch" @alignment="left" />Wissel van bestuurseenheid
         </AcmidmSwitch>
