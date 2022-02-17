@@ -64,6 +64,9 @@
 </div>
 
 {{#if this.showExitModal}}
-<Bbcdr::ReportEditExitModal @onCancel={{this.cancelModal}} @onSave={{this.saveAndExitModal}}
-  @onDiscard={{this.discardAndExitModal}} />
+  <ExitConfirmationModal
+    @onSave={{this.saveAndExitModal}}
+    @onCancel={{this.cancelModal}}
+    @onDiscard={{this.discardAndExitModal}}
+  />
 {{/if}}

@@ -1,0 +1,37 @@
+<AuModal
+  @id="exit-confirmation"
+  @modalOpen={{true}}
+  @closeModal={{@onCancel}}
+  @title="Wil u de aangebrachte wijzigingen bewaren?"
+  as |Modal|
+>
+  <Modal.Body>
+    <p>
+      De wijzigingen zullen verloren gaan als u niet op bewaren klikt.
+    </p>
+  </Modal.Body>
+  <Modal.Footer>
+    <AuToolbar>
+      <AuToolbarGroup>
+        <AuButtonGroup>
+          <AuButton {{on "click" @onSave}}>
+            Bewaar
+          </AuButton>
+          <AuButton @skin="secondary" {{on "click" @onCancel}}>
+            Annuleer
+          </AuButton>
+        </AuButtonGroup>
+      </AuToolbarGroup>
+      <AuToolbarGroup>
+        <AuButton
+          @skin="link-secondary"
+          @icon="cross"
+          @iconAlignment="left"
+          {{on "click" @onDiscard}}
+        >
+          Verwerp wijzigingen
+        </AuButton>
+      </AuToolbarGroup>
+    </AuToolbar>
+  </Modal.Footer>
+</AuModal>
