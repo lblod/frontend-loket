@@ -1,34 +1,53 @@
-<div id="berichtencentrumvoorkeuren" class="au-c-modal is-visible" role="dialog" aria-describedby="au-c-modal-title-berichtencentrumvoorkeuren" tabindex="-1" {{focus-trap isActive=true focusTrapOptions=(hash onDeactivate=(fn @close) initialFocus=".au-c-modal__title" clickOutsideDeactivates=true)}}>
-  <div class="au-c-modal__header">
-    <h1 id="au-c-modal-title-berichtencentrumvoorkeuren" class="au-c-modal__title" tabindex="-1">
-      Configureer berichtencentrum
-    </h1>
-    <button type="button" {{on "click" @close}} class="au-c-modal__close">
-      <AuIcon @icon="cross" @size="large" />
-      <span class="au-u-hidden-visually">Venster sluiten</span>
-    </button>
-  </div>
-  <AuModalBody>
-    <AuHeading @level="2" @skin="4">Mail instellingen</AuHeading>
-    <div class="form__row au-u-margin-top-small">
-      <div class="form__label">
-        <label class="checkbox checkbox--block">
-          <Input class="checkbox__toggle" @type="checkbox" @checked={{this.wilMailOntvangen}} />
-          <span></span>
-          <span>Ontvang mails bij nieuwe berichten</span>
-        </label>
-      </div>
-    </div>
-    {{#if this.wilMailOntvangen}}
-    <div class="form__row">
-      <AuLabel for="voorkeurenmailadres">Mailadres</AuLabel>
-      <AuInput id="voorkeurenmailadres" @width="block" @value={{this.emailAddress}} {{auto-focus}}/>
-      <AuHelpText >vb. mail@adres.com</AuHelpText>
-    </div>
-    {{/if}}
-  </AuModalBody>
-  <AuModalFooter>
-    <AuButton {{on 'click' this.commit}}>Bewaar</AuButton>
-    <AuButton {{on "click" @close}} @skin="secondary">Sluit venster en verwerp wijzigingen</AuButton>
-  </AuModalFooter>
-</div>
+<AuModal
+  @id="notification-preferences"
+  @title="Configureer berichtencentrum"
+  @modalOpen={{true}}
+  @closeModal={{@close}}
+  ...attributes
+  as |Modal|
+>
+  <Modal.Body>
+    <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">
+      Mail instellingen
+    </AuHeading>
+    <form
+      id="notification-preferences-form"
+      class="au-o-flow--small"
+      {{on "submit" this.savePreferences}}
+    >
+      <AuControlCheckbox
+        @label="Ontvang mails bij nieuwe berichten"
+        @checked={{this.wilMailOntvangen}}
+        @onChange={{fn (mut this.wilMailOntvangen) (not this.wilMailOntvangen)}}
+      />
+
+      {{#if this.wilMailOntvangen}}
+        <div>
+          <AuLabel for="voorkeurenmailadres">E-mailadres</AuLabel>
+          <AuInput
+            id="voorkeurenmailadres"
+            @width="block"
+            @value={{this.emailAddress}}
+            {{auto-focus}}
+          />
+          <AuHelpText>vb. mail@adres.com</AuHelpText>
+        </div>
+      {{/if}}
+    </form>
+  </Modal.Body>
+  <Modal.Footer>
+    <AuButtonGroup>
+      {{! TODO: Replace this with an AuButton component once we update to 3.25+: https://github.com/emberjs/ember.js/issues/18232 }}
+      <button
+        class="au-c-button au-c-button--primary"
+        form="notification-preferences-form"
+        type="submit"
+      >
+        Bewaar
+      </button>
+      <AuButton {{on "click" @close}} @skin="secondary">
+        Sluit venster en verwerp wijzigingen
+      </AuButton>
+    </AuButtonGroup>
+  </Modal.Footer>
+</AuModal>
