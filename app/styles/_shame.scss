@@ -500,3 +500,16 @@ $au-non-editable-background: $au-gray-100 !default;
     flex-grow: 1;
   }
 }
+
+// "tiny" au-c-content modifier which matches the size of the help-text component
+// This is a simplified copy from the "small" modifier with a diferent font size
+// and only the styles we need at the moment.
+
+.au-c-content--tiny {
+  @include au-font-size(1.4rem); // same font size as the help-text component
+  line-height: 1.4;
+
+  > * + * {
+    margin-top: $au-unit-small;
+  }
+}
