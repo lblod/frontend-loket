@@ -7,26 +7,22 @@
     <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">Functie</AuHeading>
     <div class="au-o-grid au-o-grid--tiny">
       <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
-        <AuLabel for="datepicker-from">Start aanstellingsperiode</AuLabel>
-        <WuDatepicker
-          @value={{mut @model.start}}
-          @placeholder="01.01.2019"
-          @dateFormat="DD.MM.YYYY"
-          class="date-range__datepicker datepicker datepicker--block"
-          {{on 'submit' this.preventPageRefresh}}
+        <AuLabel for="date-picker-start">Start aanstellingsperiode</AuLabel>
+        <AuDatePicker
+          @value={{@model.start}}
+          @onChange={{fn this.handleDateChange "start"}}
+          @id="date-picker-start"
         />
         {{#unless @model.start}}
         <AuHelpText @error="true">Start aanstellingsperiode is verplicht</AuHelpText>
         {{/unless}}
       </div>
       <div class="au-o-grid__item au-u-1-2 au-u-1-3@medium">
-        <AuLabel for="datepicker-from">Einde aanstellingsperiode</AuLabel>
-        <WuDatepicker
-          @value={{mut @model.einde}}
-          @placeholder="31.12.2019"
-          @dateFormat="DD.MM.YYYY"
-          class="date-range__datepicker datepicker datepicker--block"
-          {{on 'submit' this.preventPageRefresh}}
+        <AuLabel for="date-picker-end">Einde aanstellingsperiode</AuLabel>
+        <AuDatePicker
+          @value={{@model.einde}}
+          @onChange={{fn this.handleDateChange "einde"}}
+          @id="date-picker-end"
         />
       </div>
     </div>

@@ -15,11 +15,10 @@ export default class LeidinggevendenbeheerFunctionarisFormComponent extends Comp
     this.getBestuursInfo();
   }
 
-  /**  Temporary fix until we start using new datepicker. */
   @action
-    preventPageRefresh(e) {
-      e.preventDefault();
-    }
+  handleDateChange(attributeName, isoDate, date) {
+    this.args.model[attributeName] = date;
+  }
 
   async getBestuursInfo() {
     const bestuursfunctie = await this.args.model.get('bekleedt');
