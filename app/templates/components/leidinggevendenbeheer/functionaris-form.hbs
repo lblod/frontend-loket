@@ -27,17 +27,18 @@
       </div>
     </div>
     {{#if (gt this.statusOptions.length 1)}}
+    {{!-- TODO: Use a fieldset + legend combo: https://github.com/appuniversum/ember-appuniversum/issues/210 --}}
     <AuLabel class="au-u-margin-top">Status</AuLabel>
     <div class="au-o-grid au-o-grid--tiny">
       {{#each this.statusOptions as |status|}}
       <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-        {{wu-radio-button
-          label=status.label
-          value=status
-          isBlock=true
-          onChange=(action (mut @model.status status))
-          checked=(eq status.id @model.status.id)
-        }}
+        <AuControlRadio
+          @label={{status.label}}
+          @name="functionary-status"
+          @value={{status.label}}
+          @onChange={{fn (mut @model.status) status}}
+          checked={{eq status.id @model.status.id}}
+        />
       </div>
       {{/each}}
     </div>
