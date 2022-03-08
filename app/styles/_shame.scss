@@ -209,67 +209,6 @@ $au-non-editable-background: $au-gray-100 !default;
   color: $au-gray-800;
 }
 
-// Upload
-.au-c-upload {
-  border: 2px dashed $au-gray-300;
-  background-color: $au-white;
-  transition: background $au-transition;
-
-  &:hover {
-    background-color: $au-gray-100;
-  }
-
-  &:focus,
-  &:focus-within {
-    background-color: $au-gray-100;
-    outline: .2rem solid $au-yellow-400;
-  }
-}
-
-.au-c-upload input {
-  display: block;
-  height: 0;
-  width: 0;
-  outline: 0;
-}
-
-.au-c-upload-message {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: $au-gray-100;
-  padding: $au-unit + $au-unit-tiny/4 $au-unit-small;
-}
-
-.au-c-upload-label {
-  display: flex;
-  flex-direction: column;
-  padding: $au-unit-small $au-unit-small;
-  text-align: center;
-  transition: background-color $au-transition;
-
-  &,
-  &:hover,
-  &:visited,
-  &:active {
-    text-decoration: none;
-    color: $au-gray-800;
-  }
-}
-
-.au-c-upload-label__title {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: $au-blue-700;
-  text-decoration: underline;
-  text-decoration-color: $au-blue-300;
-
-  &:hover {
-    color: $au-blue-600;
-    text-decoration: none;
-  }
-}
 
 // Close button
 .au-c-close {

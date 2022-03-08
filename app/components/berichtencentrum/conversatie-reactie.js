@@ -81,7 +81,8 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
     }
 
   @action
-    attachFile(file) {
+    async attachFile(fileId) {
+      let file = await this.store.findRecord('file', fileId);
       this.bijlagen.pushObject(file);
     }
 

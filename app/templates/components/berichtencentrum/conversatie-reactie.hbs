@@ -1,10 +1,10 @@
 {{#if this.isExpanded}}
-<div {{auto-focus}}>
+<div {{auto-focus}} ...attributes>
     <AuHeading @level="3" @skin="5" class="au-u-margin-bottom-small">
       Uw reactie
     </AuHeading>
 
-    <div class="au-o-grid au-o-grid--flush">
+    <div class="au-o-grid au-o-grid--flush au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-5">
         <p class="au-c-small-text"><strong>Naar</strong></p>
       </div>
@@ -31,15 +31,26 @@
       </div>
     </div>
 
-    <p class="au-c-small-text au-u-margin-top-small">
+    <p class="au-c-small-text au-u-margin-bottom-tiny">
       <strong>Uw antwoord als bijlage</strong>
     </p>
 
-    <div class="au-u-margin-top-tiny">
-      {{#each this.bijlagen as |bijlage|}}
-        <VoMuFileCard @file={{bijlage}} @onDelete={{this.deleteFile}} />
-      {{/each}}
-      <VoMuFileDropzone @onFinishUpload={{this.attachFile}} @maxFileSizeMB="1024" />
+    <div class="au-u-margin-bottom">
+      {{#if this.bijlagen}}
+        <ul class="au-o-flow au-o-flow--tiny au-u-margin-bottom-small">
+          {{#each this.bijlagen as |attachment|}}
+            <li>
+              <FileCard
+                @filename={{attachment.filename}}
+                @fileSize={{attachment.humanReadableSize}}
+                @downloadLink={{attachment.downloadLink}}
+                @onDelete={{fn this.deleteFile attachment}}
+              />
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+      <AuFileUpload @onFinishUpload={{this.attachFile}} @maxFileSizeMB="1024" />
     </div>
 
     <AuButtonGroup>
@@ -52,7 +63,7 @@
     </AuButtonGroup>
   </div>
 {{else}}
-  <div>
+  <div ...attributes>
     <AuButton {{on 'click' this.expandMe}} @width="block">
       <AuIcon @icon="message" @alignment="left" />
       Plaats reactie

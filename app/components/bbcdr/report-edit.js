@@ -81,7 +81,8 @@ export default class BbcdrReportEditComponent extends Component {
     }
 
   @action
-    async addFile(file) {
+    async addFile(fileId) {
+      let file = await this.store.findRecord('file', fileId);
       this.reportFiles.pushObject(file);
       this.didFilesChange = true;
     }

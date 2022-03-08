@@ -3,11 +3,21 @@
     <Berichtencentrum::ConversatieViewHeader @conversatie={{@model}} @close={{@close}} data-test-loket="berichtencentrum-conversatie-header"/>
 
     <div class="au-o-box au-c-body-container au-c-body-container--scroll">
-      {{#each this.sortedBerichten as |bericht|}}
-        <Berichtencentrum::BerichtView  @bericht={{bericht}} @conversatie={{@model}} data-test-loket="berichtencentrum-bericht-view"/>    
-        <AuHr />
-      {{/each}}
-      <Berichtencentrum::ConversatieReactie @conversatie={{@model}} data-test-loket="berichtencentrum-conversatie"/>
+      {{#if this.sortedBerichten}}
+        <ul class="au-o-flow">
+          {{#each this.sortedBerichten as |bericht|}}
+            <li>
+              <Berichtencentrum::BerichtView  @bericht={{bericht}} @conversatie={{@model}} data-test-loket="berichtencentrum-bericht-view"/>
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+
+      <Berichtencentrum::ConversatieReactie
+        @conversatie={{@model}}
+        class="au-u-margin-top"
+        data-test-loket="berichtencentrum-conversatie"
+      />
     </div>
 
     <div class="au-o-box au-c-action-sidebar__footer">
