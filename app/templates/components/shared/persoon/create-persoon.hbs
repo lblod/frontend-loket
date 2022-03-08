@@ -43,14 +43,12 @@
       </div>
       <div>
         <AuLabel for="mandataris-geboorte">Geboortedatum</AuLabel>
-        <WuDatepicker
-          @dateFormat="DD.MM.YYYY"
-          @value={{mut birthDate}}
-          @minDate={{minDate}}
-          @maxDate={{maxDate}}
-          class="datepicker--block u-spacer--small"
-          id="mandataris-geboorte"
-          onsubmit={{action "preventPageRefresh"}}
+        <AuDatePicker
+          @value={{this.birthDate}}
+          @min={{this.minDate}}
+          @max={{this.maxDate}}
+          @id="mandataris-geboorte"
+          @onChange={{action "setDateOfBirth"}}
         />
       </div>
       <div>
