@@ -42,9 +42,9 @@
   <div class="au-c-main-container__content">
     <div class="au-c-body-container">
       {{#unless this.isIndex}}
-        <AuToolbar @size="medium" @skin="tint" @border="bottom" class="au-c-toolbar__breadcrumbs">
+        <AuToolbar @size="medium" @skin="tint" @border="bottom">
           <AuToolbarGroup>
-            <ul class="au-c-list-horizontal">
+            <ul class="au-c-list-horizontal au-c-list-horizontal--small">
               <li class="au-c-list-horizontal__item">
                 <AuLink @route="index">
                   <AuIcon @icon="arrow-left" @alignment="left" />

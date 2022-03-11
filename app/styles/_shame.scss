@@ -5,15 +5,6 @@
    ========================================================================== */
 
 /* ==================================
-   #CHECKBOX
-   ================================== */
-
-.checkbox {
-  margin-right: 0;
-  min-height: 1.5rem;
-}
-
-/* ==================================
    #TEMPORARY GENERAL DISABLED STATE FOR FORM
    ================================== */
 
@@ -32,8 +23,7 @@
     pointer-events: none;
   }
 
-  .au-c-help-text--error,
-  .upload__element__label {
+  .au-c-help-text--error {
     color: $au-input-disabled-color;
     pointer-events: none;
   }
@@ -47,94 +37,8 @@
   }
 }
 
-
 /* ==================================
-   #DATE PICKER
-   ================================== */
-
-.au-c-date-picker-container .datepicker {
-  width: auto;
-
-  .input-field {
-    width: 100%;
-  }
-
-  .datepicker__icon {
-    right: 1.5rem;
-  }
-}
-
-
-.au-c-date-picker-container--error .input-field--datepicker {
-  border: .3rem solid $au-red-600;
-}
-
-
-/* ==================================
-   #TEMPORARY DISABLE YEAR PICKER IN DATEPICKER
-  this datepicker is part of webuniversum and the year picker requires setting an end- and start date to use the year picker.
-   ================================== */
-
-.pika-label + .pika-label {
-  pointer-events: none;
-  text-decoration: none;
-  color: $au-gray-900;
-}
-
-
-/* ==================================
-  #IE 11 appuniversum fixes
-  @TODO: update in appuniversum
-  ================================== */
-
-.au-c-alert__content {
-  display: block;
-}
-
-.checkbox + .au-c-label {
-  display: inline-block;
-}
-
-/* ==================================
-  NON-EDITABLE FORM
-  ================================== */
-
-$au-non-editable-background: $au-gray-100 !default;
-
-.au-c-form--non-editable {
-  background-color: $au-non-editable-background;
-  max-width: 100%;
-
-  table {
-    max-width: 100%;
-    width: 100%;
-  }
-}
-
-.input-field::placeholder {
-  font-weight: 400 !important;
-}
-
-.input-field::-webkit-input-placeholder {
-  font-weight: 400 !important;
-}
-
-.input-field::-moz-placeholder {
-  font-weight: 400 !important;
-}
-
-.input-field:-ms-input-placeholder {
-  font-weight: 400 !important;
-}
-
-// Remove duplicate border from file upload
-.js .upload__files {
-  border: 0;
-}
-
-
-/* ==================================
-  @TODO: update in appuniversum
+  @TODO: update in appuniversum: https://github.com/appuniversum/ember-appuniversum/issues/142
   ================================== */
 
 // Fix ACMIDM login alerts/loading in header
@@ -155,13 +59,6 @@ $au-non-editable-background: $au-gray-100 !default;
   padding: 0;
   background-color: $au-white;
 }
-
-// Make breadcrumb toolbar a smaller default font-size
-// @TODO: create a utility or toolbar modifier?
-.au-c-toolbar__breadcrumbs {
-  font-size: $au-base;
-}
-
 
 // Toolbar group rows
 .au-c-toolbar__group--row {
@@ -238,10 +135,6 @@ $au-non-editable-background: $au-gray-100 !default;
 
 
 // Vertical list
-.au-c-list-vertical {
-
-}
-
 .au-c-list-vertical__item {
   & + & {
     margin-top: $au-unit-small;
@@ -283,24 +176,6 @@ $au-non-editable-background: $au-gray-100 !default;
     display: block;
   }
 }
-
-// Block datepicker
-.datepicker--block,
-.datepicker--block .datepicker {
-  width: 100%;
-}
-
-
-.datepicker--block .input-field {
-  width: 100%;
-}
-
-// Uppercase input > input modifier
-.au-c-input--uppercase {
-  text-transform: uppercase;
-  letter-spacing: .15rem;
-}
-
 
 // Table
 .au-c-table-wrapper {
@@ -437,18 +312,5 @@ $au-non-editable-background: $au-gray-100 !default;
     height: 100%;
     flex-basis: 0;
     flex-grow: 1;
-  }
-}
-
-// "tiny" au-c-content modifier which matches the size of the help-text component
-// This is a simplified copy from the "small" modifier with a diferent font size
-// and only the styles we need at the moment.
-
-.au-c-content--tiny {
-  @include au-font-size(1.4rem); // same font size as the help-text component
-  line-height: 1.4;
-
-  > * + * {
-    margin-top: $au-unit-small;
   }
 }
