@@ -12,17 +12,23 @@
       <AuDataTableThSortable @label='Status' @field='status.label' @currentSorting={{@sort}}
         class="au-u-visible-small-up" />
       <th>
-        <!-- Actions -->
+        {{! Actions }}
       </th>
     </c.header>
     <c.body data-test-loket='bbcdr-report-table-body' as |row|>
       <td data-test-loket='bbcdr-report-table-files-column'>
-        {{#each row.files as |file|}}
-        <WuDocumentMiniature @isTiny={{true}} class="switch-text-overflow-ellipsis" @type={{uppercase file.extension}}
-          @label={{file.filename}} @metadata={{file.miniatureMetadata}} data-test-loket='bbcdr-file-miniature' />
+        {{#if row.files}}
+          <ul>
+            {{#each row.files as |file|}}
+              <li data-test-loket="bbcdr-file-miniature">
+                {{!-- TODO: Add back a file miniature once appuniversum has a solution for this --}}
+                {{file.filename}} <span class="au-c-info-text">{{file.miniatureMetadata}}</span>
+              </li>
+            {{/each}}
+          </ul>
         {{else}}
-        Geen bestanden
-        {{/each}}
+          Geen bestanden
+        {{/if}}
       </td>
       {{#unless @displaySubset}}
       <td class="au-u-visible-medium-up">{{row.lastModifier.fullName}}</td>
