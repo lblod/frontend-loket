@@ -38,7 +38,6 @@
     "@lblod/ember-acmidm-login": "1.3.0",
     "@lblod/ember-mock-login": "^0.6.0",
     "@lblod/ember-submission-form-fields": "lblod/ember-submission-form-fields#refactor/modernize-components",
-    "@lblod/ember-toezicht-form-fields": "^0.6.1",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^2.4.0",
