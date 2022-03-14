@@ -8,34 +8,35 @@
    #TEMPORARY GENERAL DISABLED STATE FOR FORM
    ================================== */
 
-.au-c-form--disabled {
-  .ember-basic-dropdown-trigger,
-  .au-c-textarea,
-  .au-c-input,
-  .au-c-textarea--error,
-  .au-c-input--error,
-  .ember-power-select--error .ember-power-select-trigger,
-  .au-c-date-picker-container--error .input-field--datepicker {
-    background-color: $au-input-disabled-background-color;
-    border-color: $au-input-disabled-border-color;
-    color: $au-input-disabled-color;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
+// TODO: enable and add new styles so the Appuniversum components look disabled as well
+// .au-c-form--disabled {
+//   .ember-basic-dropdown-trigger,
+//   .au-c-textarea,
+//   .au-c-input,
+//   .au-c-textarea--error,
+//   .au-c-input--error,
+//   .ember-power-select--error .ember-power-select-trigger,
+//   .au-c-date-picker-container--error .input-field--datepicker {
+//     background-color: $au-input-disabled-background-color;
+//     border-color: $au-input-disabled-border-color;
+//     color: $au-input-disabled-color;
+//     cursor: not-allowed;
+//     pointer-events: none;
+//   }
 
-  .au-c-help-text--error {
-    color: $au-input-disabled-color;
-    pointer-events: none;
-  }
+//   .au-c-help-text--error {
+//     color: $au-input-disabled-color;
+//     pointer-events: none;
+//   }
 
-  .au-c-label--error:before {
-    background-color: $au-input-disabled-color;
-  }
+//   .au-c-label--error:before {
+//     background-color: $au-input-disabled-color;
+//   }
 
-  .au-c-button {
-    background: $au-input-disabled-color;
-  }
-}
+//   .au-c-button {
+//     background: $au-input-disabled-color;
+//   }
+// }
 
 /* ==================================
   @TODO: update in appuniversum: https://github.com/appuniversum/ember-appuniversum/issues/142
