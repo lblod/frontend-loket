@@ -8,6 +8,9 @@ module.exports = function(defaults) {
     'ember-cli-babel': {
       includePolyfill: true
     },
+    'ember-simple-auth': {
+      useSessionSetupMethod: true,
+    }
   };
 
   if(process.env.EMBER_TEST_SELECTORS_STRIP == 'false'){
