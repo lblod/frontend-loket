@@ -1,8 +1,11 @@
 /* eslint-disable ember/no-mixins */
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.extend(DataTableRouteMixin) {
+  @service currentSession;
+
   modelName = 'subsidy-measure-offer-series';
 
   // To mimic user testing as much as possible
@@ -36,7 +39,12 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
         ':lte:begin': today.toISOString(),
         ':gte:end': today.toISOString()
       };
+
+      query[
+        'filter[subsidy-measure-offer][criteria][requirement-groups][criterion-requirements][:exact:is-satisfiable-by]'
+      ] = this.currentSession.groupClassification.uri;
+
       return query;
-    };
+    }
   }
 }
