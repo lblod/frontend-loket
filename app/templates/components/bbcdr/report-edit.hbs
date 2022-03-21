@@ -7,13 +7,29 @@
       <p>
         <AuLabel for="bestanden">Upload één XML en één XBRLfile</AuLabel>
       </p>
-      {{#each this.reportFiles as |file|}}
-      <VoMuFileCard @file={{file}} @onDelete={{fn this.deleteFile file}} @active={{not @report.status.isVerstuurd}}
-        data-test-loket='bbcdr-file-card' />
-      {{/each}}
+
+      {{#if this.reportFiles}}
+        <ul class="au-o-flow--tiny au-o-flow au-u-margin-bottom-small">
+          {{#each this.reportFiles as |file|}}
+            <li>
+              <FileCard
+                @filename={{file.filename}}
+                @fileSize={{file.humanReadableSize}}
+                @downloadLink={{file.downloadLink}}
+                @onDelete={{unless @report.status.isVerstuurd (fn this.deleteFile file)}}
+              />
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+
       {{#if this.enableUpload}}
-      <VoMuFileDropzone @onFinishUpload={{this.addFile}} @accept=".xbrl,.xml" @maxFileSizeMB='1024'
-        data-test-loket='bbcdr-file-upload' />
+        <AuFileUpload
+          @accept=".xbrl,.xml"
+          @maxFileSizeMB="1024"
+          @onFinishUpload={{this.addFile}}
+          data-test-loket="bbcdr-file-upload"
+        />
       {{/if}}
 
       {{#if this.showError}}
@@ -64,6 +80,9 @@
 </div>
 
 {{#if this.showExitModal}}
-<Bbcdr::ReportEditExitModal @onCancel={{this.cancelModal}} @onSave={{this.saveAndExitModal}}
-  @onDiscard={{this.discardAndExitModal}} />
+  <ExitConfirmationModal
+    @onSave={{this.saveAndExitModal}}
+    @onCancel={{this.cancelModal}}
+    @onDiscard={{this.discardAndExitModal}}
+  />
 {{/if}}

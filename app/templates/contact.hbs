@@ -1,23 +1,24 @@
 <div class="au-c-main-container">
   <div class="au-c-main-container__content au-c-main-container__content--scroll">
-    {{#if this.session.isAuthenticated}}
-      <section class="au-o-region-large">
-        <div class="au-o-layout">
-          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          <ContactForm/>
-        </div>
-      </section>
-    {{else}}
+    {{#unless this.session.isAuthenticated}}
       <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
-        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
+        <img
+          sizes="50vw"
+          src="/assets/images/loket-header-1600.jpg"
+          srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w"
+          alt=""
+          role="presentation"
+        >
       </AuContentHeader>
-      <section class="au-o-region-large">
-        <div class="au-o-layout">
-          <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
-          <ContactForm/>
-        </div>
-      </section>
-    {{/if}}
+    {{/unless}}
+
+    <section class="au-o-region-large">
+      <div class="au-o-layout">
+        <AuHeading class="au-u-margin-bottom">Contact</AuHeading>
+        <ContactForm/>
+      </div>
+    </section>
+
     {{outlet}}
 
     <AuMainFooter>
@@ -26,13 +27,13 @@
         <p>Uitgegeven door <a class="au-c-link" href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur">Agentschap Binnenlands Bestuur</a></p>
         <ul class="au-c-list-horizontal">
           <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.disclaimer" @skin="secondary">Disclaimer</AuLink>
+            <AuLink @route="legaal.disclaimer" @skin="secondary">Disclaimer</AuLink>
           </li>
           <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.cookieverklaring" @skin="secondary">Cookieverklaring</AuLink>
+            <AuLink @route="legaal.cookieverklaring" @skin="secondary">Cookieverklaring</AuLink>
           </li>
           <li class="au-c-list-horizontal__item">
-            <AuLink @linkRoute="legaal.toegankelijkheidsverklaring" @skin="secondary">Toegankelijkheid</AuLink>
+            <AuLink @route="legaal.toegankelijkheidsverklaring" @skin="secondary">Toegankelijkheid</AuLink>
           </li>
         </ul>
       </AuContent>

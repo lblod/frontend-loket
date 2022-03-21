@@ -37,11 +37,10 @@
   </AuToolbarGroup>
 </AuToolbar>
 
-{{!-- Modal confirmation dialog --}}
 {{#if this.showConfirmationDialog}}
-  <Leidinggevendenbeheer::FunctionarisCloseConfirmation
-    @cancel={{action (mut showConfirmationDialog false)}}
-    @save={{perform this.save}}
-    @reset={{perform this.resetChanges}}
+  <ExitConfirmationModal
+    @onSave={{perform this.save}}
+    @onDiscard={{perform this.resetChanges}}
+    @onCancel={{fn (mut this.showConfirmationDialog) false}}
   />
 {{/if}}
