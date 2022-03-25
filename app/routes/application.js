@@ -5,15 +5,18 @@ import 'moment';
 import 'moment-timezone';
 
 export default class ApplicationRoute extends Route {
-  @service() currentSession;
-  @service() moment;
-  @service() session;
+  @service currentSession;
+  @service moment;
+  @service session;
 
-  beforeModel() {
+  async beforeModel() {
+    await this.session.setup();
+
     const moment = this.moment;
     moment.setLocale('nl-be');
     moment.setTimeZone('Europe/Brussels');
     moment.set('defaultFormat', 'DD MMM YYYY, HH:mm');
+
     return this._loadCurrentSession();
   }
 

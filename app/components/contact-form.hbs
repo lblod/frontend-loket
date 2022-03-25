@@ -1,0 +1,24 @@
+<form class="au-c-form" ...attributes>
+  <fieldset>
+    <legend class="au-c-label">Waar gaat uw bericht over?</legend>
+    <ul>
+      {{#each this.subjectOptions as |option|}}
+        <li>
+          <AuControlRadio
+            @label={{option.label}}
+            @value={{or option.subject option.label}}
+            @name="contact-subject"
+            @onChange={{fn (mut this.selected) option}}
+            checked={{eq this.subject option}}
+          />
+        </li>
+      {{/each}}
+    </ul>
+  </fieldset>
+
+  {{#if this.canSend}}
+    <a href={{this.mailto}} class="au-c-button">Stel bericht op</a>
+  {{else}}
+    <AuButton @disabled={{true}}>Stel bericht op</AuButton>
+  {{/if}}
+</form>

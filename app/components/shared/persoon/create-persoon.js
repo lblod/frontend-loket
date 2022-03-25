@@ -14,8 +14,10 @@ const CreatePersoon = Component.extend({
     this._super(...arguments);
     this.set('errorMessages', A());
     const now = new Date();
-    const eighteenYearsAgo = `${now.getDay()}-${now.getMonth()}-${now.getFullYear() - 18}`;
-    const hundredYearsAgo = `${now.getDay()}-${now.getMonth()}-${now.getFullYear() - 100}`;
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth()}`.padStart(2, 0);
+    const eighteenYearsAgo = `${now.getFullYear() - 18}-${month}-${day}`;
+    const hundredYearsAgo = `${now.getFullYear() - 100}-${month}-${day}`;
     this.set('maxDate', eighteenYearsAgo);
     this.set('minDate', hundredYearsAgo);
     this.set('birthDate', new Date(now.getFullYear()-21,now.getMonth(), now.getDay()));
@@ -99,12 +101,11 @@ const CreatePersoon = Component.extend({
     }
   }),
   actions: {
-    /** Temporary fix until we start using new datepicker. */
-    preventPageRefresh(e) {
-      e.preventDefault();
-    },
     setGender(event) {
       this.set('geslacht', event.target.value);
+    },
+    setDateOfBirth(isoDate, date) {
+      this.set('birthDate', date);
     }
   }
 });

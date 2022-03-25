@@ -1,0 +1,53 @@
+<AuModal
+  @id="notification-preferences"
+  @title="Configureer berichtencentrum"
+  @modalOpen={{true}}
+  @closeModal={{@close}}
+  ...attributes
+  as |Modal|
+>
+  <Modal.Body>
+    <AuHeading @level="2" @skin="4" class="au-u-margin-bottom-small">
+      Mail instellingen
+    </AuHeading>
+    <form
+      id="notification-preferences-form"
+      class="au-o-flow--small"
+      {{on "submit" this.savePreferences}}
+    >
+      <AuControlCheckbox
+        @label="Ontvang mails bij nieuwe berichten"
+        @checked={{this.wilMailOntvangen}}
+        @onChange={{fn (mut this.wilMailOntvangen) (not this.wilMailOntvangen)}}
+      />
+
+      {{#if this.wilMailOntvangen}}
+        <div>
+          <AuLabel for="voorkeurenmailadres">E-mailadres</AuLabel>
+          <AuInput
+            id="voorkeurenmailadres"
+            @width="block"
+            @value={{this.emailAddress}}
+            {{auto-focus}}
+          />
+          <AuHelpText>vb. mail@adres.com</AuHelpText>
+        </div>
+      {{/if}}
+    </form>
+  </Modal.Body>
+  <Modal.Footer>
+    <AuButtonGroup>
+      {{! TODO: Replace this with an AuButton component once we update to 3.25+: https://github.com/emberjs/ember.js/issues/18232 }}
+      <button
+        class="au-c-button au-c-button--primary"
+        form="notification-preferences-form"
+        type="submit"
+      >
+        Bewaar
+      </button>
+      <AuButton {{on "click" @close}} @skin="secondary">
+        Sluit venster en verwerp wijzigingen
+      </AuButton>
+    </AuButtonGroup>
+  </Modal.Footer>
+</AuModal>

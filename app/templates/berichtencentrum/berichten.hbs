@@ -46,8 +46,8 @@
       <Berichtencentrum::ConversatieTable
         @content={{this.model}}
         @sort={{this.sort}}
-        @page={{this.page}} 
-        @size={{this.size}} 
+        @page={{this.page}}
+        @size={{this.size}}
         @displaySubset={{this.hasActiveChildRoute}}
         @renderSmallTable={{this.hasActiveChildRoute}}
         @data-test-loket="berichtencentrum-table"
@@ -58,16 +58,11 @@
   </div>
 
   {{#if this.preferences}}
-    <EmberWormhole @to="ember-appuniversum-wormhole">
-      <div class="au-c-modal-backdrop" role="presentation"></div>
-      <div class="modal-overlay modal-overlay-configure-berichtencentrum" {{auto-focus ".modal-dialog--sectioned"}}>
-
-        <Berichtencentrum::BerichtNotificatieVoorkeuren
-          @close={{this.hidePreferences}}
-          @data-test-loket="setting-email-component"
-        />
-      </div>
-    </EmberWormhole>
+    <Berichtencentrum::BerichtNotificatieVoorkeuren
+      @close={{this.hidePreferences}}
+      data-test-loket="setting-email-component"
+    />
   {{/if}}
+
   {{outlet}}
 </div>

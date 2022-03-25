@@ -20,7 +20,7 @@ export default class SubsidyApplicationsEditController extends Controller {
   }
 
   get canDelete() {
-    return this.model.consumptionStatus.isConcept;
+    return this.model.consumption.get('status.isConcept');
   }
 
   @task

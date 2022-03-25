@@ -245,6 +245,10 @@ export default Component.extend({
       this.set('status', status);
     },
 
+    handleDateChange(propName, isoDate, date) {
+      this.set(propName, date);
+    },
+
     async save(){
       let mandataris = await this.save.perform();
       if(!this.hasFatalError){

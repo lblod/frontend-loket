@@ -58,26 +58,24 @@
         <div>
           <div class="au-o-grid au-o-grid--tiny">
             <div class="au-o-grid__item au-u-1-2">
-              <AuLabel @error="{{if this.startDateError 'true'}}" for="datepicker-from">Start</AuLabel>
-              <WuDatepicker
-                @placeholder="01-01-2018"
-                @value={{mut startDate}}
-                @dateFormat={{dateFormat}}
-                class={{with-error-class startDateError "date-range__datepicker datepicker datepicker--block"}}
-                onsubmit={{action "preventPageRefresh"}}
+              <AuLabel @error="{{if this.startDateError 'true'}}" for="mandate-correction-start-date">Start</AuLabel>
+              <AuDatePicker
+                @value={{this.startDate}}
+                @error={{this.startDateError}}
+                @onChange={{action "handleDateChange" "startDate"}}
+                @id="mandate-correction-start-date"
               />
               {{#if startDateError}}
                 <AuHelpText @error="true">{{startDateError}}</AuHelpText>
               {{/if}}
             </div>
             <div class="au-o-grid__item au-u-1-2">
-              <AuLabel @error="{{if this.endDateError 'true'}}" for="datepicker-to">Einde</AuLabel>
-              <WuDatepicker
-                @placeholder="01-01-2019"
-                @value={{endDate}}
-                @dateFormat={{dateFormat}}
-                class={{with-error-class endDateError "date-range__datepicker datepicker datepicker--block"}}
-                onsubmit={{action "preventPageRefresh"}}
+              <AuLabel @error="{{if this.endDateError 'true'}}" for="mandate-correction-end-date">Einde</AuLabel>
+              <AuDatePicker
+                @value={{this.endDate}}
+                @error={{this.endDateError}}
+                @onChange={{action "handleDateChange" "endDate"}}
+                @id="mandate-correction-end-date"
               />
               {{#if endDateError}}
                 <AuHelpText @error="true">{{endDateError}}</AuHelpText>
@@ -164,24 +162,21 @@
     <div class="au-c-collapsible">
       <div class="au-o-grid au-o-grid--tiny">
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="datepicker-from">Start</AuLabel>
-          <WuDatepicker
-            @placeholder="01-01-2018"
-            @value={{mut startDate}}
-            @dateFormat={{dateFormat}}
-            @disabled={{true}}
-            class={{with-error-class startDateError "date-range__datepicker datepicker input-field--disabled datepicker--block"}}
-            onsubmit={{action "preventPageRefresh"}}
+          <AuLabel for="mandate-termination-start-date">Start</AuLabel>
+          <AuDatePicker
+            @value={{this.startDate}}
+            @error={{this.startDateError}}
+            @onChange={{action "handleDateChange" "startDate"}}
+            @id="mandate-termination-start-date"
           />
         </div>
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="datepicker-to">Einde</AuLabel>
-          <WuDatepicker
-            @placeholder="01-01-2019"
-            @value={{endDate}}
-            @dateFormat={{dateFormat}}
-            class={{with-error-class endDateError "date-range__datepicker datepicker datepicker--block"}}
-            onsubmit={{action "preventPageRefresh"}}
+          <AuLabel for="mandate-termination-end-date">Einde</AuLabel>
+          <AuDatePicker
+            @value={{this.endDate}}
+            @error={{this.endDateError}}
+            @onChange={{action "handleDateChange" "endDate"}}
+            @id="mandate-termination-end-date"
           />
           {{#if endDateError}}
             <div class="form__error">{{endDateError}}</div>
@@ -255,26 +250,24 @@
         <div>
           <div class="au-o-grid au-o-grid--tiny">
             <div class="au-o-grid__item au-u-1-2">
-              <AuLabel @error="{{if this.startDateError 'true'}}" for="datepicker-from">Start</AuLabel>
-              <WuDatepicker
-                @placeholder="01-01-2018"
-                @value={{mut startDate}}
-                @dateFormat={{dateFormat}}
-                class={{with-error-class startDateError "date-range__datepicker datepicker datepicker--block"}}
-                onsubmit={{action "preventPageRefresh"}}
+              <AuLabel @error={{this.startDateError}} for="mandate-creation-start-date">Start</AuLabel>
+              <AuDatePicker
+                @value={{this.startDate}}
+                @error={{this.startDateError}}
+                @onChange={{action "handleDateChange" "startDate"}}
+                @id="mandate-creation-start-date"
               />
               {{#if startDateError}}
                 <AuHelpText @error="true">{{startDateError}}</AuHelpText>
               {{/if}}
             </div>
             <div class="au-o-grid__item au-u-1-2">
-              <AuLabel @error="{{if this.endDateError 'true'}}" for="datepicker-to">Einde</AuLabel>
-              <WuDatepicker
-                @placeholder="01-01-2019"
-                @value={{endDate}}
-                @dateFormat={{dateFormat}}
-                class={{with-error-class endDateError "date-range__datepicker datepicker datepicker--block"}}
-                onsubmit={{action "preventPageRefresh"}}
+              <AuLabel @error={{this.endDateError}} for="mandate-creation-end-date">Einde</AuLabel>
+              <AuDatePicker
+                @value={{this.endDate}}
+                @error={{this.endDateError}}
+                @onChange={{action "handleDateChange" "endDate"}}
+                @id="mandate-creation-end-date"
               />
               {{#if endDateError}}
                 <AuHelpText @error="true">{{endDateError}}</AuHelpText>

@@ -6,20 +6,18 @@ import { tracked } from '@glimmer/tracking';
 export default class BerichtencentrumBerichtNotificatieVoorkeurenComponent extends Component {
   @service currentSession;
 
-  @tracked wilMailOntvangen = this.currentSession.group.wilMailOntvangen
-  @tracked emailAddress = this.currentSession.group.mailAdres
+  @tracked wilMailOntvangen = this.currentSession.group.wilMailOntvangen;
+  @tracked emailAddress = this.currentSession.group.mailAdres;
 
   @action
-    commit() {
-      // close the popup
-      this.args.close();
+  savePreferences(event) {
+    event.preventDefault();
 
-      // save the lot
-      let group = this.currentSession.group;
-      group.mailAdres = this.emailAddress;
-      group.wilMailOntvangen = this.wilMailOntvangen;
+    let group = this.currentSession.group;
+    group.mailAdres = this.emailAddress;
+    group.wilMailOntvangen = this.wilMailOntvangen;
+    group.save();
 
-      group.save();
-    }
+    this.args.close();
+  }
 }
-
