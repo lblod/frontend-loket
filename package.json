@@ -101,6 +101,7 @@
     "qunit-dom": "^2.0.0",
     "sass": "^1.49.7",
     "svgxuse": "^1.2.6",
+    "tracked-toolbox": "^1.2.3",
     "webpack": "^5.68.0"
   },
   "engines": {
