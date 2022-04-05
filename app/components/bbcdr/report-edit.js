@@ -4,6 +4,7 @@ import { and, not } from 'ember-awesome-macros';
 import { A } from '@ember/array';
 import { all } from 'rsvp';
 import { action } from '@ember/object';
+import { trackedReset } from 'tracked-toolbox';
 import { tracked } from '@glimmer/tracking';
 
 
@@ -14,15 +15,20 @@ export default class BbcdrReportEditComponent extends Component {
   @and('args.report.status.isConcept', not('readyToSend')) enableUpload;
 
   @tracked showExitModal = false;
-  @tracked showError = false;
-  @tracked reportFiles = A([]);
+  @trackedReset('args.report') showError = false;
+  @trackedReset({
+    memo: 'args.report',
+    update() {
+      if (this.args.reportFiles) {
+        // We make a copy of the original files so that we can safely discard
+        // changes without having to roll back any changes to the relationship itself.
+        let copiedFiles = this.args.reportFiles.toArray();
+        return A(copiedFiles);
+      }
 
-  constructor(){
-    super(...arguments);
-    if(this.args.report.get('files')){
-      this.reportFiles = this.args.report.get('files');
+      return A();
     }
-  }
+  }) reportFiles = A();
 
   get readyToSend() {
     return this.reportFiles.length == 2;

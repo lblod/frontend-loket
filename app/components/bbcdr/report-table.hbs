@@ -15,11 +15,11 @@
         {{! Actions }}
       </th>
     </c.header>
-    <c.body data-test-loket='bbcdr-report-table-body' as |row|>
+    <c.body data-test-loket='bbcdr-report-table-body' as |report|>
       <td data-test-loket='bbcdr-report-table-files-column'>
-        {{#if row.files}}
+        {{#if report.files}}
           <ul>
-            {{#each row.files as |file|}}
+            {{#each report.files as |file|}}
               <li data-test-loket="bbcdr-file-miniature">
                 {{!-- TODO: Add back a file miniature once appuniversum has a solution for this --}}
                 {{file.filename}} <span class="au-c-info-text">{{file.miniatureMetadata}}</span>
@@ -31,14 +31,14 @@
         {{/if}}
       </td>
       {{#unless @displaySubset}}
-      <td class="au-u-visible-medium-up">{{row.lastModifier.fullName}}</td>
-      <td class="au-u-visible-medium-up">{{moment-format row.modified 'DD-MM-YYYY'}}</td>
+      <td class="au-u-visible-medium-up">{{report.lastModifier.fullName}}</td>
+      <td class="au-u-visible-medium-up">{{moment-format report.modified 'DD-MM-YYYY'}}</td>
       {{/unless}}
       <td class="au-u-visible-small-up">
-        {{shared/document-status-pill row.status}}
+        {{shared/document-status-pill report.status}}
       </td>
       <td data-test-loket='bbcdr-report-table-open-details-column'>
-        <LinkTo @route='bbcdr.rapporten.edit' @model={{row}} class="au-c-link">Bekijk</LinkTo>
+        <LinkTo @route='bbcdr.rapporten.edit' @model={{report.id}} class="au-c-link">Bekijk</LinkTo>
       </td>
     </c.body>
   </t.content>
