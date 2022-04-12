@@ -1,0 +1,55 @@
+<tr>
+  <th scope="row" class="au-u-regular">
+    {{yield to="description"}}
+  </th>
+  <td>
+    <AuInput
+      @disabled={{@disabled}}
+      @width="block"
+      @value={{this.currentRange}}
+      @error={{if this.currentRangeErrors true false}}
+      @type="number"
+      lang="nl-BE"
+      {{on "blur" this.update}}
+    />
+    <div class="au-u-margin-top-tiny">{{@rangeLabel}}</div>
+
+    {{#each this.currentRangeErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td>
+    <AuInput
+      @disabled={{@disabled}}
+      @width="block"
+      @value={{this.plannedRange}}
+      @error={{if this.plannedRangeErrors true false}}
+      @type="number"
+      lang="nl-BE"
+      {{on "blur" this.update}}
+    />
+    <div class="au-u-margin-top-tiny">{{@rangeLabel}} (max. {{@maxRange}})</div>
+
+    {{#each this.plannedRangeErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td>
+    {{convert-to-currency this.contribution}}
+  </td>
+  <td>
+    <AuInput
+      @disabled={{@disabled}}
+      @width="block"
+      @value={{this.priority}}
+      @error={{if this.priorityErrors true false}}
+      @type="number"
+      lang="nl-BE"
+      {{on "blur" this.update}}
+    />
+
+    {{#each this.priorityErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+</tr>

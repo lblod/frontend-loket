@@ -11,6 +11,10 @@ module.exports = function (defaults) {
     'ember-simple-auth': {
       useSessionSetupMethod: true,
     },
+    '@lblod/ember-submission-form-fields': {
+      includeTableComponents: false,
+      includeSearchComponents: false,
+    },
   };
 
   if (process.env.EMBER_TEST_SELECTORS_STRIP == 'false') {

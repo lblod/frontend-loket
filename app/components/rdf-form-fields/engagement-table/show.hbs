@@ -1,0 +1,73 @@
+<AuLabel>
+  Welke was, ruw geschat, de gemiddelde maandelijkse personeelsinzet (VTE)
+</AuLabel>
+<AuLabel for={{this.inputFor}}>
+  {{@field.label}}
+  {{#if this.isRequired}}
+    <AuPill>Verplicht</AuPill>
+  {{/if}}
+</AuLabel>
+<table
+  class="data-table data-table--zebra data-table--tight au-u-margin-top-small"
+>
+  <thead>
+    <tr>
+      <th>
+        Bestaand personeelskader
+      </th>
+      <th>
+        (Tijdelijk) extra aangeworven betaald personeel
+      </th>
+      <th>
+        Vrijwilligers
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.entries as |entry index|}}
+      <tr>
+        <td>
+          <AuLabel for="existing-staff-{{index}}" class="au-u-hidden-visually">
+            Bestaand personeelskader
+          </AuLabel>
+          <AuInput
+            id="existing-staff-{{index}}"
+            @width="block"
+            @value={{entry.existingStaff.value}}
+            @disabled={{true}}
+            @type="number"
+          />
+        </td>
+        <td>
+          <AuLabel
+            for="additional-staff-{{index}}"
+            class="au-u-hidden-visually"
+          >
+            (Tijdelijk) extra aangeworven betaald personeel
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.additionalStaff.value}}
+            @disabled={{true}}
+            @type="number"
+            id="additional-staff-{{index}}"
+          />
+        </td>
+        <td>
+          <AuLabel for="volunteers-{{index}}" class="au-u-hidden-visually">
+            Vrijwilligers
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.volunteers.value}}
+            @disabled={{true}}
+            @type="number"
+            id="volunteers-{{index}}"
+          />
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{yield}}

@@ -1,0 +1,52 @@
+<tr>
+  <th scope="row" class="au-u-regular">
+    {{yield
+      (hash
+        actionDescription=(component
+          "rdf-form-fields/climate-subsidy-costs-table/table-cell-data"
+        )
+      )
+    }}
+  </th>
+  <td>
+    <AuInput
+      @disabled={{@disabled}}
+      @width="block"
+      @value={{this.costPerUnit}}
+      @error={{if this.costPerUnitErrors true false}}
+      @type="number"
+      lang="nl-BE"
+      {{on "blur" this.update}}
+    />
+    per actieplan
+    <br />
+    <span class="au-c-info-text">Indicatie:
+      {{convert-to-currency this.indication}}</span>
+    {{#each this.costPerUnitErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td>
+    <AuInput
+      @disabled={{@disabled}}
+      @width="block"
+      @value={{this.toRealiseUnits}}
+      @error={{if this.toRealiseUnitsErrors true false}}
+      @type="number"
+      lang="nl-BE"
+      {{on "blur" this.update}}
+    />
+    {{#each this.toRealiseUnitsErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td>
+    {{convert-to-currency this.amount}}
+  </td>
+  <td>
+    {{convert-to-currency this.restitution}}
+  </td>
+  {{#if @showDeleteColumn}}
+    <td></td>
+  {{/if}}
+</tr>
