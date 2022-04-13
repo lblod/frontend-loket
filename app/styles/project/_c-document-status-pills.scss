@@ -16,7 +16,7 @@
 }
 
 .au-c-pill[resource="http://data.lblod.info/document-statuses/verstuurd"] {
-  @extend .au-c-pill--action;
+  @extend .au-c-pill--action !optional;
 }
 
 .au-c-pill[resource="http://data.lblod.info/document-statuses/prullenbak"] {
