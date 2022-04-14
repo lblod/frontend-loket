@@ -67,6 +67,7 @@
     "ember-concurrency": "^2.2.0",
     "ember-data": "~3.27.0",
     "ember-fetch": "^8.1.1",
+    "ember-functions-as-helper-polyfill": "^2.0.1",
     "ember-load-initializers": "^2.1.2",
     "ember-moment": "^9.0.0",
     "ember-mu-transform-helpers": "^2.1.2",
