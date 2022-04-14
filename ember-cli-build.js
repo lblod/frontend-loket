@@ -23,8 +23,6 @@ module.exports = function(defaults) {
 
   let app = new EmberApp(defaults, customBuildConfig);
 
-  app.import('node_modules/svgxuse/svgxuse.js');
-
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //
