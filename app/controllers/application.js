@@ -6,6 +6,6 @@ export default class ApplicationController extends Controller {
   @service() session;
   @service() currentSession;
   @service() router;
-  
+
   @equal('router.currentRouteName', 'index') isIndex;
 }

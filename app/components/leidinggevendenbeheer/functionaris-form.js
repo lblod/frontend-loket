@@ -26,17 +26,23 @@ export default class LeidinggevendenbeheerFunctionarisFormComponent extends Comp
 
     let queryParams = {};
     if (bestuursfunctieCode.isLeidinggevendAmbtenaar) {
-      queryParams =  {
-        filter: { ':uri:': 'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd' } // aangesteld
+      queryParams = {
+        filter: {
+          ':uri:':
+            'http://data.vlaanderen.be/id/concept/functionarisStatusCode/45b4b155-d22a-4eaf-be3a-97022c6b7fcd',
+        }, // aangesteld
       };
     } else {
-      queryParams =  {
+      queryParams = {
         sort: 'label',
-        page: { size: 100 }
+        page: { size: 100 },
       };
     }
 
-    const statusOptions = await this.store.query('functionaris-status-code', queryParams);
+    const statusOptions = await this.store.query(
+      'functionaris-status-code',
+      queryParams
+    );
     this.statusOptions = statusOptions;
   }
 }

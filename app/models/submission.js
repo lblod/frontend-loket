@@ -2,12 +2,18 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class Submission extends Model {
   @attr('datetime', {
-    defaultValue(){ return new Date();}
-  }) created;
+    defaultValue() {
+      return new Date();
+    },
+  })
+  created;
 
   @attr('datetime', {
-    defaultValue(){ return new Date();}
-  }) modified;
+    defaultValue() {
+      return new Date();
+    },
+  })
+  modified;
 
   @attr('datetime') sentDate;
   @attr('datetime') receivedDate;
@@ -25,4 +31,3 @@ export default class Submission extends Model {
   @hasMany('file') files;
   @belongsTo('automatic-submission-task') task;
 }
-

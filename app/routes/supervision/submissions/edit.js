@@ -5,8 +5,8 @@ import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import { SENT_STATUS } from '../../../models/submission-document-status';
 
-const RDF = new rdflib.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-const FORM = new rdflib.Namespace("http://lblod.data.gift/vocabularies/forms/");
+const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 
 export default class SupervisionSubmissionsEditRoute extends Route {
   async model(params) {
@@ -17,7 +17,9 @@ export default class SupervisionSubmissionsEditRoute extends Route {
     const submissionStatus = await submission.status;
 
     if (!submissionDocument) {
-      warn('No submission document, Transitioning to index.', {id: 'no-submission-document'});
+      warn('No submission document, Transitioning to index.', {
+        id: 'no-submission-document',
+      });
       this.transitionTo('supervision.submissions');
     }
 
@@ -28,29 +30,42 @@ export default class SupervisionSubmissionsEditRoute extends Route {
 
     const formStore = new ForkingStore();
 
-    const metaGraph = new rdflib.NamedNode("http://data.lblod.info/metagraph");
-    formStore.parse(meta, metaGraph, "text/turtle");
-    const formGraph = new rdflib.NamedNode("http://data.lblod.info/form");
-    formStore.parse(form, formGraph, "text/turtle");
+    const metaGraph = new rdflib.NamedNode('http://data.lblod.info/metagraph');
+    formStore.parse(meta, metaGraph, 'text/turtle');
+    const formGraph = new rdflib.NamedNode('http://data.lblod.info/form');
+    formStore.parse(form, formGraph, 'text/turtle');
 
-    const sourceGraph = new rdflib.NamedNode(`http://data.lblod.info/submission-document/data/${submissionDocument.id}`);
-    if (removals || additions){
-      formStore.loadDataWithAddAndDelGraph(source, sourceGraph, additions, removals, "text/turtle");
-    }
-    else {
-      formStore.parse(source, sourceGraph, "text/turtle");
+    const sourceGraph = new rdflib.NamedNode(
+      `http://data.lblod.info/submission-document/data/${submissionDocument.id}`
+    );
+    if (removals || additions) {
+      formStore.loadDataWithAddAndDelGraph(
+        source,
+        sourceGraph,
+        additions,
+        removals,
+        'text/turtle'
+      );
+    } else {
+      formStore.parse(source, sourceGraph, 'text/turtle');
     }
 
     const graphs = { formGraph, sourceGraph, metaGraph };
-    const formNode = formStore.any(undefined, RDF("type"), FORM("Form"), formGraph);
+    const formNode = formStore.any(
+      undefined,
+      RDF('type'),
+      FORM('Form'),
+      formGraph
+    );
 
-    return { form: formNode,
+    return {
+      form: formNode,
       formStore,
       graphs,
       sourceNode: new rdflib.NamedNode(submissionDocument.uri),
       submission,
       submissionDocument,
-      submitted: submissionStatus.uri === SENT_STATUS
+      submitted: submissionStatus.uri === SENT_STATUS,
     };
   }
 

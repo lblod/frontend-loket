@@ -8,5 +8,5 @@ export default class BerichtModel extends Model {
   @belongsTo('bestuurseenheid') van;
   @belongsTo('gebruiker') auteur;
   @belongsTo('bestuurseenheid') naar;
-  @hasMany('file')bijlagen;
+  @hasMany('file') bijlagen;
 }

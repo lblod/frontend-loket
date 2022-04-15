@@ -6,17 +6,24 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   @service() router;
 
   @action
-    choosePeriode(person){
-      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.periode', person.get('id'));
-    }
+  choosePeriode(person) {
+    this.router.transitionTo(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.periode',
+      person.get('id')
+    );
+  }
 
   @action
-    createNewPerson() {
-      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person');
-    }
+  createNewPerson() {
+    this.router.transitionTo(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person'
+    );
+  }
 
   @action
-    cancel() {
-      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index');
-    }
+  cancel() {
+    this.router.transitionTo(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index'
+    );
+  }
 }

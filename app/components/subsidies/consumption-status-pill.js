@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { STATUS } from '../../models/subsidy-measure-consumption-status';
 
 export default class SubsidiesConsumptionStatusPill extends Component {
-
   get consumption() {
     return this.args.consumption;
   }
@@ -13,16 +12,16 @@ export default class SubsidiesConsumptionStatusPill extends Component {
 
   get label() {
     let title = this.status.get('label');
-    if(this.description)
-      return `${title} - ${this.description}`;
+    if (this.description) return `${title} - ${this.description}`;
     return title;
   }
 
   get description() {
     if (this.status.get('uri') === STATUS.ACTIVE) {
-      const step = this.consumption.get('activeSubsidyApplicationFlowStep.subsidyProceduralStep');
-      if (step)
-        return step.get('description')
+      const step = this.consumption.get(
+        'activeSubsidyApplicationFlowStep.subsidyProceduralStep'
+      );
+      if (step) return step.get('description');
     }
     return undefined;
   }

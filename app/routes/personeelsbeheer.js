@@ -14,6 +14,5 @@ export default Route.extend({
 
   model() {
     return this.currentSession.group; // bestuurseenheid
-  }
-
+  },
 });

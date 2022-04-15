@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import fetch from 'fetch';
 
 class AddressSuggestion {
-  constructor({id, street, housenumber, zipCode, municipality, fullAddress}) {
+  constructor({ id, street, housenumber, zipCode, municipality, fullAddress }) {
     this.adresRegisterId = id;
     this.street = street;
     this.housenumber = housenumber;
@@ -12,18 +12,28 @@ class AddressSuggestion {
   }
 
   isEmpty() {
-    return !this.adresRegisterId &&
+    return (
+      !this.adresRegisterId &&
       !this.street &&
       !this.housenumber &&
       !this.zipCode &&
       !this.municipality &&
-      !this.fullAddress;
+      !this.fullAddress
+    );
   }
 }
 
 class Address {
-
-  constructor({adresRegisterId, uri, street, housenumber, busnumber, zipCode, municipality, fullAddress}) {
+  constructor({
+    adresRegisterId,
+    uri,
+    street,
+    housenumber,
+    busnumber,
+    zipCode,
+    municipality,
+    fullAddress,
+  }) {
     this.uri = uri;
     this.adresRegisterId = adresRegisterId;
     this.street = street;
@@ -51,8 +61,10 @@ class Address {
 
 export default class AddressregisterService extends Service {
   async suggest(query) {
-    const results = await (await fetch(`/adressenregister/search?query=${query}`)).json();
-    return results.adressen.map(function(result) {
+    const results = await (
+      await fetch(`/adressenregister/search?query=${query}`)
+    ).json();
+    return results.adressen.map(function (result) {
       return new AddressSuggestion({
         id: result.ID,
         street: result.Thoroughfarename,
@@ -67,9 +79,12 @@ export default class AddressregisterService extends Service {
   async findAll(suggestion) {
     let addresses = [];
     if (!suggestion.isEmpty()) {
-      const results = await (await fetch(
-        `/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`)).json();
-      addresses = results.map(function(result) {
+      const results = await (
+        await fetch(
+          `/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`
+        )
+      ).json();
+      addresses = results.map(function (result) {
         return new Address({
           uri: result.identificator.id,
           adresRegisterId: result.identificator.objectId,

@@ -22,12 +22,12 @@ export default class CurrentSessionService extends Service {
   @tracked groupClassification;
   @tracked roles = [];
 
-
   async load() {
     if (this.session.isAuthenticated) {
-      let accountId = this.session.data.authenticated.relationships.account.data.id;
+      let accountId =
+        this.session.data.authenticated.relationships.account.data.id;
       this.account = await this.store.findRecord('account', accountId, {
-        include: 'gebruiker'
+        include: 'gebruiker',
       });
 
       this.user = await this.account.gebruiker;
@@ -35,7 +35,7 @@ export default class CurrentSessionService extends Service {
 
       let groupId = this.session.data.authenticated.relationships.group.data.id;
       this.group = await this.store.findRecord('bestuurseenheid', groupId, {
-        include: 'classificatie'
+        include: 'classificatie',
       });
       this.groupClassification = await this.group.classificatie;
     }

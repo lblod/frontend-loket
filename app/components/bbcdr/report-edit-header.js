@@ -3,8 +3,7 @@ import { action } from '@ember/object';
 
 export default class BbcdrReportEditHeaderComponent extends Component {
   @action
-    close(){
-      this.onClose();
-    }
+  close() {
+    this.onClose();
+  }
 }
-

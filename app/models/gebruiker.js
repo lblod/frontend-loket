@@ -4,16 +4,15 @@ export default class GebruikerModel extends Model {
   @attr() voornaam;
   @attr() achternaam;
   @attr() rijksregisterNummer;
-  @hasMany('account', { inverse: null}) account;
+  @hasMany('account', { inverse: null }) account;
   @hasMany('bestuurseenheid') bestuurseenheden;
-  
+
   get group() {
     return this.get('bestuurseenheden.firstObject');
-  } 
-  
+  }
+
   // used for mock login
   get fullName() {
     return `${this.voornaam} ${this.achternaam}`.trim();
   }
 }
-

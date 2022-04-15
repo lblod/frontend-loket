@@ -7,4 +7,3 @@ export default class GeslachtCodeModel extends Model {
 
   @equal('id', '5ab0e9b8a3b2ca7c5e000028') isMale;
 }
-

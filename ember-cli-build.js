@@ -2,21 +2,20 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   const customBuildConfig = {
     // Add options here
     'ember-cli-babel': {
-      includePolyfill: true
+      includePolyfill: true,
     },
     'ember-simple-auth': {
       useSessionSetupMethod: true,
-    }
+    },
   };
 
-  if(process.env.EMBER_TEST_SELECTORS_STRIP == 'false'){
+  if (process.env.EMBER_TEST_SELECTORS_STRIP == 'false') {
     customBuildConfig['ember-test-selectors'] = { strip: false };
-  }
-  else if(process.env.EMBER_TEST_SELECTORS_STRIP == 'true'){
+  } else if (process.env.EMBER_TEST_SELECTORS_STRIP == 'true') {
     customBuildConfig['ember-test-selectors'] = { strip: true };
   }
   //if EMBER_TEST_SELECTORS_STRIP left unspecificied, we fall back to default behavoir

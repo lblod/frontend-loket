@@ -7,4 +7,3 @@ export default class VerkiezingsresultaatModel extends Model {
   @belongsTo('kandidatenlijst', { inverse: null }) isResultaatVoor;
   @belongsTo('verkiezingsresultaat-gevolg-code', { inverse: null }) gevolg;
 }
-
