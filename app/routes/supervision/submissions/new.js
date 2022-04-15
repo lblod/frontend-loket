@@ -4,6 +4,7 @@ import { CONCEPT_STATUS } from '../../../models/submission-document-status';
 
 export default class SupervisionSubmissionsNewRoute extends Route {
   @service currentSession;
+  @service router;
 
   async beforeModel() {
     const conceptStatuses = await this.store.query(
@@ -41,6 +42,6 @@ export default class SupervisionSubmissionsNewRoute extends Route {
   }
 
   afterModel(model) {
-    this.transitionTo('supervision.submissions.edit', model.id);
+    this.router.transitionTo('supervision.submissions.edit', model.id);
   }
 }

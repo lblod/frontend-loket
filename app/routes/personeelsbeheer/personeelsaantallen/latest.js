@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class PersoneelsbeheerPersoneelsaantallenLatestRoute extends Route {
+  @service router;
+
   async model(params) {
     this.set('datasetId', params.dataset_id);
     const periods = await this.store.query('employee-period-slice', {
@@ -12,7 +15,7 @@ export default class PersoneelsbeheerPersoneelsaantallenLatestRoute extends Rout
   }
 
   afterModel(model) {
-    this.transitionTo(
+    this.router.transitionTo(
       'personeelsbeheer.personeelsaantallen.periodes.edit',
       this.datasetId,
       model.id
