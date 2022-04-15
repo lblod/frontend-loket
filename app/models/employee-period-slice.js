@@ -7,4 +7,3 @@ export default class EmployeePeriodSliceModel extends Model {
   @belongsTo('employee-time-period') timePeriod;
   @hasMany('employee-observation') observations;
 }
-

@@ -10,20 +10,30 @@ export default Component.extend({
 
   didReceiveAttrs() {
     this._super(...arguments);
-    if (this.observations && this.unitMeasure && this.educationalLevel && this.workingTimeCategory && this.legalStatus && this.sex) {
-      const observation = this.observations.find(obs => obs.unitMeasure.get('uri') == this.unitMeasure.get('uri')
-        && obs.educationalLevel.get('uri') == this.educationalLevel.get('uri')
-        && obs.workingTimeCategory.get('uri') == this.workingTimeCategory.get('uri')
-        && obs.legalStatus.get('uri') == this.legalStatus.get('uri')
-        && obs.sex.get('uri') == this.sex.get('uri'));
+    if (
+      this.observations &&
+      this.unitMeasure &&
+      this.educationalLevel &&
+      this.workingTimeCategory &&
+      this.legalStatus &&
+      this.sex
+    ) {
+      const observation = this.observations.find(
+        (obs) =>
+          obs.unitMeasure.get('uri') == this.unitMeasure.get('uri') &&
+          obs.educationalLevel.get('uri') == this.educationalLevel.get('uri') &&
+          obs.workingTimeCategory.get('uri') ==
+            this.workingTimeCategory.get('uri') &&
+          obs.legalStatus.get('uri') == this.legalStatus.get('uri') &&
+          obs.sex.get('uri') == this.sex.get('uri')
+      );
       this.set('observation', observation);
     }
   },
 
   actions: {
     setValue(value) {
-      if (value < 0 || value === "")
-        value = 0;
+      if (value < 0 || value === '') value = 0;
 
       if (this.isFloat) {
         const float = Number.parseFloat(value).toFixed(2);
@@ -33,6 +43,6 @@ export default Component.extend({
         this.observation.set('value', int);
       }
       this.onChange(this.observation);
-    }
-  }
+    },
+  },
 });

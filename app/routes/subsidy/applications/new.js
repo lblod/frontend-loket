@@ -5,31 +5,38 @@ import { ROLES } from 'frontend-loket/models/participation';
 import { STATUS } from '../../../models/subsidy-measure-consumption-status';
 
 export default class SubsidyApplicationsNewRoute extends Route {
-
   @service currentSession;
   @service router;
   @service store;
 
   async beforeModel(transition) {
     let seriesId = transition.to.queryParams.seriesId;
-    assert('A subsidy-measure-offer-series id needs to be provided through the `seriesId` query parameter', Boolean(seriesId));
+    assert(
+      'A subsidy-measure-offer-series id needs to be provided through the `seriesId` query parameter',
+      Boolean(seriesId)
+    );
 
-    transition.data.series = await this.store.findRecord('subsidy-measure-offer-series', seriesId, {
-      backgroundReload: false
-    });
+    transition.data.series = await this.store.findRecord(
+      'subsidy-measure-offer-series',
+      seriesId,
+      {
+        backgroundReload: false,
+      }
+    );
 
     if (!transition.data.series) {
       // TODO: Show a warning / error page
       this.router.transitionTo('subsidy.applications.available-subsidies');
     }
 
-    const statuses = await this.store.query('subsidy-measure-consumption-status', {
-      page: {size: 1},
-      'filter[:uri:]': STATUS.CONCEPT,
-    });
-    if (statuses.length)
-      this.concept = statuses.firstObject;
-
+    const statuses = await this.store.query(
+      'subsidy-measure-consumption-status',
+      {
+        page: { size: 1 },
+        'filter[:uri:]': STATUS.CONCEPT,
+      }
+    );
+    if (statuses.length) this.concept = statuses.firstObject;
   }
 
   async model(params, transition) {
@@ -39,7 +46,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
 
     let participation = this.store.createRecord('participation', {
       role: ROLES.APPLICANT,
-      participatingBestuurseenheid: organisation
+      participatingBestuurseenheid: organisation,
     });
 
     await participation.save();
@@ -56,7 +63,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
       lastModifier: currentUser,
       created: new Date(),
       modified: new Date(),
-      status: this.concept
+      status: this.concept,
     });
 
     consumption.participations.pushObject(participation);

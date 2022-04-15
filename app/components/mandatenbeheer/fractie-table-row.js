@@ -6,30 +6,36 @@ import { action } from '@ember/object';
 export default class MandatenbeheerFractieTableRowComponent extends Component {
   @tracked editMode = false;
 
-  constructor(){
+  constructor() {
     super(...arguments);
     this.editMode = this.args.editMode;
   }
 
   get isValid() {
-    return this.args.fractie && this.args.fractie.naam && this.args.fractie.hasDirtyAttributes;
+    return (
+      this.args.fractie &&
+      this.args.fractie.naam &&
+      this.args.fractie.hasDirtyAttributes
+    );
   }
 
-  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingStart') bestuursperiodeStart;
-  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingEinde') bestuursperiodeEnd;
+  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingStart')
+  bestuursperiodeStart;
+  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingEinde')
+  bestuursperiodeEnd;
 
   @action
-    cancel() {
-      this.editMode = false;
-      this.args.onCancel(this.args.fractie);
-      if(this.fractie){
-        this.fractie.rollbackAttributes();
-      }
-    }
-
-  @action
-    save() {
-      this.editMode = false;
-      this.args.onSave(this.args.fractie);
+  cancel() {
+    this.editMode = false;
+    this.args.onCancel(this.args.fractie);
+    if (this.fractie) {
+      this.fractie.rollbackAttributes();
     }
   }
+
+  @action
+  save() {
+    this.editMode = false;
+    this.args.onSave(this.args.fractie);
+  }
+}

@@ -20,7 +20,10 @@ const CreatePersoon = Component.extend({
     const hundredYearsAgo = `${now.getFullYear() - 100}-${month}-${day}`;
     this.set('maxDate', eighteenYearsAgo);
     this.set('minDate', hundredYearsAgo);
-    this.set('birthDate', new Date(now.getFullYear()-21,now.getMonth(), now.getDay()));
+    this.set(
+      'birthDate',
+      new Date(now.getFullYear() - 21, now.getMonth(), now.getDay())
+    );
   },
 
   isMale: equal('geslacht', maleId),
@@ -28,58 +31,70 @@ const CreatePersoon = Component.extend({
   /**
    * check if rijksregisternummer is valid
    */
-  isValidRijksRegister: computed('rijksregisternummer', function() {
+  isValidRijksRegister: computed('rijksregisternummer', function () {
     let rr = this.rijksregisternummer;
-    if (isBlank(rr))
-      return false;
+    if (isBlank(rr)) return false;
     if (rr.length != 11) {
       return false;
     }
-    const preNillies = parseInt(rr.slice(9,11)) === 97 - (parseInt(rr.slice(0,9)) % 97);
-    const postNillies = parseInt(rr.slice(9,11)) === 97 - ((2000000000 + parseInt(rr.slice(0,9))) % 97);
+    const preNillies =
+      parseInt(rr.slice(9, 11)) === 97 - (parseInt(rr.slice(0, 9)) % 97);
+    const postNillies =
+      parseInt(rr.slice(9, 11)) ===
+      97 - ((2000000000 + parseInt(rr.slice(0, 9))) % 97);
     return preNillies || postNillies;
   }),
   /**
    *
    */
-  loadOrCreateRijksregister: task( function * () {
+  loadOrCreateRijksregister: task(function* () {
     const store = this.store;
     let identificator;
-    let queryResult = yield store.query('identificator', {filter: {':exact:identificator': this.rijksregisternummer}});
-    if (queryResult.length >= 1)
-      identificator = queryResult.get('firstObject');
+    let queryResult = yield store.query('identificator', {
+      filter: { ':exact:identificator': this.rijksregisternummer },
+    });
+    if (queryResult.length >= 1) identificator = queryResult.get('firstObject');
     else {
-      identificator = yield store.createRecord('identificator', {identificator: this.rijksregisternummer}).save();
+      identificator = yield store
+        .createRecord('identificator', {
+          identificator: this.rijksregisternummer,
+        })
+        .save();
     }
     return identificator;
   }),
-  loadOrCreateGeboorte: task( function * () {
+  loadOrCreateGeboorte: task(function* () {
     const store = this.store;
     let geboorte;
-    let queryResult = yield store.query('geboorte', {filter: {'datum': this.birthDate.toISOString().substring(0, 10)}});
-    if (queryResult.length >= 1)
-      geboorte = queryResult.get('firstObject');
+    let queryResult = yield store.query('geboorte', {
+      filter: { datum: this.birthDate.toISOString().substring(0, 10) },
+    });
+    if (queryResult.length >= 1) geboorte = queryResult.get('firstObject');
     else {
-      geboorte = yield store.createRecord('geboorte', {datum: this.birthDate}).save();
+      geboorte = yield store
+        .createRecord('geboorte', { datum: this.birthDate })
+        .save();
     }
     return geboorte;
   }),
-  save: task( function * () {
+  save: task(function* () {
     // todo geboorte en identificator
     this.set('hasError', false);
     this.requiredFields.forEach((field) => {
       this.set(`${field}Error`, null);
       if (isBlank(this.get(field))) {
         this.set('hasError', true);
-        this.set(`${field}Error`,`${field} is een vereist veld.`);
+        this.set(`${field}Error`, `${field} is een vereist veld.`);
       }
     });
-    if (! this.isValidRijksRegister) {
-      this.set('rijksregisternummerError', 'rijksregisternummer is niet geldig.');
+    if (!this.isValidRijksRegister) {
+      this.set(
+        'rijksregisternummerError',
+        'rijksregisternummer is niet geldig.'
+      );
       this.set('hasError', true);
     }
-    if (this.hasError)
-      return;
+    if (this.hasError) return;
     const store = this.store;
     let persoon;
     this.set('saveError', '');
@@ -90,13 +105,12 @@ const CreatePersoon = Component.extend({
         alternatieveNaam: this.roepnaam,
         geslacht: yield store.findRecord('geslacht-code', this.geslacht),
         identificator: yield this.loadOrCreateRijksregister.perform(),
-        geboorte: yield this.loadOrCreateGeboorte.perform()
+        geboorte: yield this.loadOrCreateGeboorte.perform(),
       });
       const result = yield persoon.save();
       this.onCreate(result);
-    }
-    catch(e) {
-      this.set('saveError','Fout bij verwerking, probeer het later opnieuw.');
+    } catch (e) {
+      this.set('saveError', 'Fout bij verwerking, probeer het later opnieuw.');
       if (persoon) persoon.destroy();
     }
   }),
@@ -106,14 +120,19 @@ const CreatePersoon = Component.extend({
     },
     setDateOfBirth(isoDate, date) {
       this.set('birthDate', date);
-    }
-  }
+    },
+  },
 });
 
 CreatePersoon.reopen({
   // eslint-disable-next-line ember/avoid-leaking-state-in-ember-objects
-  requiredFields: [ 'geslacht', 'voornaam', 'familienaam', "rijksregisternummer" ],
+  requiredFields: [
+    'geslacht',
+    'voornaam',
+    'familienaam',
+    'rijksregisternummer',
+  ],
   male: maleId,
-  female: femaleId
+  female: femaleId,
 });
 export default CreatePersoon;

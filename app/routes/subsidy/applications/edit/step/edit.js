@@ -10,11 +10,13 @@ const META_GRAPH = new rdflib.NamedNode('http://data.lblod.info/metagraph');
 const SOURCE_GRAPH = new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`);
 
 export default class SubsidyApplicationsEditStepEditRoute extends Route {
-  async model({form_id: semanticFormID}) {
-
-    let {consumption} = this.modelFor('subsidy.applications.edit');
-    let {step} = this.modelFor('subsidy.applications.edit.step');
-    let semanticForm = await this.store.findRecord('subsidy-application-form', semanticFormID);
+  async model({ form_id: semanticFormID }) {
+    let { consumption } = this.modelFor('subsidy.applications.edit');
+    let { step } = this.modelFor('subsidy.applications.edit.step');
+    let semanticForm = await this.store.findRecord(
+      'subsidy-application-form',
+      semanticFormID
+    );
     await semanticForm.belongsTo('status').reload();
 
     // TODO: Set up the application form similar to how it was done in the edit route before
@@ -29,9 +31,18 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
       sourceGraph: SOURCE_GRAPH,
     };
 
-    await this.retrieveForm(`/management-application-forms/${semanticForm.id}`, formStore, graphs);
+    await this.retrieveForm(
+      `/management-application-forms/${semanticForm.id}`,
+      formStore,
+      graphs
+    );
 
-    const formNode = formStore.any(undefined, RDF('type'), FORM('Form'), FORM_GRAPH);
+    const formNode = formStore.any(
+      undefined,
+      RDF('type'),
+      FORM('Form'),
+      FORM_GRAPH
+    );
     const sourceNode = new rdflib.NamedNode(semanticForm.uri);
 
     return {
@@ -60,12 +71,11 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
   async retrieveForm(url, store, graphs) {
     let response = await fetch(url, {
       method: 'GET',
-      headers: {'Accept': 'application/vnd.api+json'},
+      headers: { Accept: 'application/vnd.api+json' },
     });
     const content = await response.json();
     store.parse(content.form, graphs.formGraph, 'text/turtle');
     store.parse(content.meta, graphs.metaGraph, 'text/turtle');
     store.parse(content.source, graphs.sourceGraph, 'text/turtle');
   }
-
 }

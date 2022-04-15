@@ -17,25 +17,31 @@ export default Component.extend({
   terminateMode: false,
   createMode: false,
   promptMode: false,
-  viewMode: computed('editOnlyMode', 'createMode', function(){
+  viewMode: computed('editOnlyMode', 'createMode', function () {
     return !(this.editOnlyMode || this.createMode);
   }),
   saveError: false,
-  hasFatalError: computed('saveError', 'requiredFieldError', function(){
+  hasFatalError: computed('saveError', 'requiredFieldError', function () {
     return this.saveError || this.requiredFieldError;
   }),
 
-  async didReceiveAttrs(){
+  async didReceiveAttrs() {
     await this.initComponentProperties();
   },
 
-  async initComponentProperties(){
+  async initComponentProperties() {
     this.toggleCreateMode();
     this.set('destroyOnError', A());
     this.set('saveError', false);
     this.set('requiredFieldError', false);
-    this.set('fractie', await this.get('mandataris.heeftLidmaatschap.binnenFractie'));
-    this.set('beleidsdomeinen', ((await this.get('mandataris.beleidsdomein')) || A()).toArray());
+    this.set(
+      'fractie',
+      await this.get('mandataris.heeftLidmaatschap.binnenFractie')
+    );
+    this.set(
+      'beleidsdomeinen',
+      ((await this.get('mandataris.beleidsdomein')) || A()).toArray()
+    );
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
@@ -43,12 +49,11 @@ export default Component.extend({
     this.set('status', await this.get('mandataris.status'));
   },
 
-  toggleCreateMode(){
-    if(!this.get('mandataris.id'))
-      this.set('createMode', true);
+  toggleCreateMode() {
+    if (!this.get('mandataris.id')) this.set('createMode', true);
   },
 
-  save: task(function* (){
+  save: task(function* () {
     this.set('saveError', false);
     this.set('requiredFieldError', false);
     try {
@@ -57,12 +62,12 @@ export default Component.extend({
       //fractie is a complex object, requires some special flow
       yield this.saveLidmaatschap();
 
-      if(!this.mandaat){
+      if (!this.mandaat) {
         this.set('requiredFieldError', 'Gelieve een mandaat op te geven.');
         return;
       }
 
-      if(!this.status){
+      if (!this.status) {
         this.set('requiredFieldError', 'Gelieve een status op te geven.');
         return;
       }
@@ -72,25 +77,26 @@ export default Component.extend({
       this.set('mandataris.start', this.startDate);
       this.set('mandataris.einde', this.endDate);
 
-      if(this.rangorde)
-        this.set('mandataris.rangorde', {content: this.rangorde, language: 'nl'});
-      else
-        this.set('mandataris.rangorde', undefined);
+      if (this.rangorde)
+        this.set('mandataris.rangorde', {
+          content: this.rangorde,
+          language: 'nl',
+        });
+      else this.set('mandataris.rangorde', undefined);
 
       this.set('mandataris.status', this.status);
 
       return yield this.mandataris.save();
-    }
-    catch (e){
+    } catch (e) {
       this.set('saveError', true);
       warn(`error during save ${e}`, { id: 'save-error' });
       this.cleanUpOnError();
     }
   }),
 
-  async saveNewBeleidsdomeinen(){
-    let savingD = this.beleidsdomeinen.map(async d => {
-      if(d.get('isNew')){
+  async saveNewBeleidsdomeinen() {
+    let savingD = this.beleidsdomeinen.map(async (d) => {
+      if (d.get('isNew')) {
         await d.save();
         this.destroyOnError.pushObject(d);
       }
@@ -98,55 +104,72 @@ export default Component.extend({
     return Promise.all(savingD);
   },
 
-  async saveLidmaatschap(){
-    if(!this.get('mandataris.heeftLidmaatschap.id')){
+  async saveLidmaatschap() {
+    if (!this.get('mandataris.heeftLidmaatschap.id')) {
       if (this.fractie) {
         await this.createNewLidmaatschap();
         return;
-      }
-      else {
+      } else {
         // old and new fraction are both undefined. Nothing needs to be done...
         return;
       }
     }
 
     // if new and old fractie are both onafhankelijk, nothing needs to be done...
-    let currFractie = await this.get('mandataris.heeftLidmaatschap.binnenFractie');
-    if(currFractie && (await currFractie.get('fractietype.isOnafhankelijk')) && this.get('fractie.fractietype.isOnafhankelijk')){
+    let currFractie = await this.get(
+      'mandataris.heeftLidmaatschap.binnenFractie'
+    );
+    if (
+      currFractie &&
+      (await currFractie.get('fractietype.isOnafhankelijk')) &&
+      this.get('fractie.fractietype.isOnafhankelijk')
+    ) {
       return;
     }
 
-    if((this.get('mandataris.heeftLidmaatschap.binnenFractie.id') !== this.get('fractie.id'))){
+    if (
+      this.get('mandataris.heeftLidmaatschap.binnenFractie.id') !==
+      this.get('fractie.id')
+    ) {
       await this.updateLidmaatschap();
       return;
     }
-    if(!this.fractie)
-      return;
-    this.set('mandataris.heeftLidmaatschap.tijdsinterval', await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde')));
+    if (!this.fractie) return;
+    this.set(
+      'mandataris.heeftLidmaatschap.tijdsinterval',
+      await this.getTijdsinterval(
+        this.get('mandataris.start'),
+        this.get('mandataris.einde')
+      )
+    );
   },
 
-  async updateLidmaatschap(){
+  async updateLidmaatschap() {
     let lidmaatschap = await this.get('mandataris.heeftLidmaatschap');
     let fractie = await lidmaatschap.get('binnenFractie');
     await lidmaatschap.destroyRecord();
-    if(fractie.get('fractietype.isOnafhankelijk')){
+    if (fractie.get('fractietype.isOnafhankelijk')) {
       await fractie.destroyRecord();
     }
-    if(this.fractie){
+    if (this.fractie) {
       await this.createNewLidmaatschap();
     }
   },
 
-  async createNewLidmaatschap(){
-    let tijdsinterval = await this.getTijdsinterval(this.get('mandataris.start'), this.get('mandataris.einde'));
+  async createNewLidmaatschap() {
+    let tijdsinterval = await this.getTijdsinterval(
+      this.get('mandataris.start'),
+      this.get('mandataris.einde')
+    );
     let fractie = this.fractie;
 
-    if(!fractie.get('id')){
+    if (!fractie.get('id')) {
       await fractie.save();
     }
 
-    let lidmaatschap =  await this.store.createRecord('lidmaatschap', {
-      binnenFractie: fractie, lidGedurende: tijdsinterval
+    let lidmaatschap = await this.store.createRecord('lidmaatschap', {
+      binnenFractie: fractie,
+      lidGedurende: tijdsinterval,
     });
     await lidmaatschap.save();
 
@@ -154,40 +177,48 @@ export default Component.extend({
     this.set('mandataris.heeftLidmaatschap', lidmaatschap);
   },
 
-  valideerStartEnEinde: observer('startDate', 'endDate', function() {
+  valideerStartEnEinde: observer('startDate', 'endDate', function () {
     const start = this.startDate;
     const end = this.endDate;
     this.set('startDateError', null);
     this.set('endDateError', null);
     if (isBlank(start))
       this.set('startDateError', 'geplande start is een vereist veld');
-    if (start && end  && end < start ) {
-      this.set('startDateError', 'geplande start moet voor gepland einde liggen');
+    if (start && end && end < start) {
+      this.set(
+        'startDateError',
+        'geplande start moet voor gepland einde liggen'
+      );
       this.set('endDateError', 'gepland einde moet na geplande start liggen');
     }
   }),
 
-  async getTijdsinterval(begin, einde){
+  async getTijdsinterval(begin, einde) {
     let tijdsinterval = await this.findTijdsinterval(begin, einde);
-    if(!tijdsinterval){
-      tijdsinterval = this.store.createRecord('tijdsinterval', {begin, einde});
+    if (!tijdsinterval) {
+      tijdsinterval = this.store.createRecord('tijdsinterval', {
+        begin,
+        einde,
+      });
       await tijdsinterval.save();
       this.destroyOnError.pushObject(tijdsinterval);
     }
     return tijdsinterval;
   },
 
-  async findTijdsinterval(startDate, endDate){
+  async findTijdsinterval(startDate, endDate) {
     let begin = startDate ? startDate.toISOString().substring(0, 10) : '';
     let einde = endDate ? endDate.toISOString().substring(0, 10) : '';
-    return await this.store.query('tijdsinterval',{filter: {begin, einde}});
+    return await this.store.query('tijdsinterval', {
+      filter: { begin, einde },
+    });
   },
 
-  async cleanUpOnError(){
+  async cleanUpOnError() {
     //TODO: better rollback of relations
     this.mandataris.rollbackAttributes();
-    this.destroyOnError.forEach(o => {
-        o.destroyRecord();
+    this.destroyOnError.forEach((o) => {
+      o.destroyRecord();
     });
   },
 
@@ -197,19 +228,19 @@ export default Component.extend({
       e.preventDefault();
     },
 
-    setFractie(fractie){
+    setFractie(fractie) {
       this.set('fractie', fractie);
     },
 
-    setMandaat(mandaat){
+    setMandaat(mandaat) {
       this.set('mandaat', mandaat);
     },
 
-    setBeleidsdomein(beleidsdomeinen){
+    setBeleidsdomein(beleidsdomeinen) {
       this.set('beleidsdomeinen', beleidsdomeinen);
     },
 
-    setStatusCode(status){
+    setStatusCode(status) {
       this.set('status', status);
     },
 
@@ -217,9 +248,9 @@ export default Component.extend({
       this.set(propName, date);
     },
 
-    async save(){
+    async save() {
       let mandataris = await this.save.perform();
-      if(!this.hasFatalError){
+      if (!this.hasFatalError) {
         this.set('createMode', false);
         this.set('promptMode', false);
         this.set('editMode', false);
@@ -229,13 +260,12 @@ export default Component.extend({
       }
     },
 
-    cancel(){
+    cancel() {
       this.initComponentProperties();
-      if(this.createMode){
+      if (this.createMode) {
         this.set('createMode', false);
         this.onCancelCreate(this.mandataris);
-      }
-      else {
+      } else {
         this.set('promptMode', false);
         this.set('editMode', false);
         this.set('terminateMode', false);
@@ -243,23 +273,23 @@ export default Component.extend({
       }
     },
 
-    previous(){
+    previous() {
       this.onPrevious();
     },
 
-    edit(){
+    edit() {
       this.set('editMode', false);
       this.set('promptMode', true);
     },
-    correct(){
+    correct() {
       this.set('promptMode', false);
       this.set('editMode', true);
       this.set('correctMode', !this.correctMode);
     },
-    terminate(){
+    terminate() {
       this.set('promptMode', false);
       this.set('editMode', true);
       this.set('terminateMode', !this.terminateMode);
-    }
-  }
+    },
+  },
 });

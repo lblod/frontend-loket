@@ -1,5 +1,3 @@
 import Controller from '@ember/controller';
 
-export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewController extends Controller {
-
-}
+export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewController extends Controller {}

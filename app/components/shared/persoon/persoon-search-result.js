@@ -6,12 +6,12 @@ export default class SharedPersoonPersoonSearchResultComponent extends Component
   @tracked showDetails = false;
 
   @action
-    select(){
-      this.args.onSelect(this.args.persoon);
-    }
+  select() {
+    this.args.onSelect(this.args.persoon);
+  }
 
   @action
-    toggleDetails(){
-      this.showDetails = !this.showDetails;
-    }
+  toggleDetails() {
+    this.showDetails = !this.showDetails;
+  }
 }

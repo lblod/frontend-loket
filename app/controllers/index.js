@@ -7,42 +7,42 @@ export default class IndexController extends Controller {
   @service() router;
 
   @action
-    goToToezicht() {
-      this.router.transitionTo('supervision.submissions');
-    }
+  goToToezicht() {
+    this.router.transitionTo('supervision.submissions');
+  }
 
   @action
-    goToBbcdr() {
-      this.router.transitionTo('bbcdr.rapporten');
-    }
+  goToBbcdr() {
+    this.router.transitionTo('bbcdr.rapporten');
+  }
 
   @action
-    goToMandatenbeheer() {
-      this.router.transitionTo('mandatenbeheer.mandatarissen');
-    }
+  goToMandatenbeheer() {
+    this.router.transitionTo('mandatenbeheer.mandatarissen');
+  }
 
   @action
-    goToBerichtencentrum() {
-      this.router.transitionTo('berichtencentrum.berichten');
-    }
+  goToBerichtencentrum() {
+    this.router.transitionTo('berichtencentrum.berichten');
+  }
 
   @action
-    goToAdministratievegegevens() {
-      this.router.transitionTo('administratieve-gegevens');
-    }
+  goToAdministratievegegevens() {
+    this.router.transitionTo('administratieve-gegevens');
+  }
 
   @action
-    goToLeidinggevendenbeheer() {
-      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties');
-    }
+  goToLeidinggevendenbeheer() {
+    this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties');
+  }
 
   @action
-    goToPersoneelsbeheer() {
-      this.router.transitionTo('personeelsbeheer.personeelsaantallen.index');
-    }
+  goToPersoneelsbeheer() {
+    this.router.transitionTo('personeelsbeheer.personeelsaantallen.index');
+  }
 
   @action
-    goToSubsidiebeheer() {
-      this.router.transitionTo('subsidy.applications.index');
-    }
+  goToSubsidiebeheer() {
+    this.router.transitionTo('subsidy.applications.index');
+  }
 }

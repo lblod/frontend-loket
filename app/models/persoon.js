@@ -8,5 +8,5 @@ export default class PersoonModel extends Model {
   @belongsTo('identificator', { inverse: null }) identificator;
   @belongsTo('geslacht-code', { inverse: null }) geslacht;
   @hasMany('mandataris', { inverse: 'isBestuurlijkeAliasVan' }) isAangesteldAls;
-  @hasMany('kandidatenlijst', { inverse: 'kandidaten'}) isKandidaatVoor;
+  @hasMany('kandidatenlijst', { inverse: 'kandidaten' }) isKandidaatVoor;
 }

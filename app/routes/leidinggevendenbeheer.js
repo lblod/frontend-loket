@@ -15,5 +15,4 @@ export default class LeidinggevendenbeheerRoute extends Route {
   model() {
     return this.currentSession.group;
   }
-
 }

@@ -30,30 +30,29 @@ export default class MandatenbeheerFractiesController extends Controller {
   }
 
   @action
-    cancelEdit(fractie) {
-      if (fractie.isNew)
-        this.newFractie = null;
-      fractie.rollbackAttributes(); // removes model from store if it's new
-    }
+  cancelEdit(fractie) {
+    if (fractie.isNew) this.newFractie = null;
+    fractie.rollbackAttributes(); // removes model from store if it's new
+  }
 
   @action
-    createNewFractie() {
-      const fractie = this.store.createRecord('fractie', {
-        fractietype: this.defaultFractieType,
-        bestuursorganenInTijd: this.bestuursorganen,
-        bestuurseenheid: this.bestuurseenheid
-      });
+  createNewFractie() {
+    const fractie = this.store.createRecord('fractie', {
+      fractietype: this.defaultFractieType,
+      bestuursorganenInTijd: this.bestuursorganen,
+      bestuurseenheid: this.bestuurseenheid,
+    });
 
-      this.newFractie = fractie;
-    }
+    this.newFractie = fractie;
+  }
 
   @action
-    selectPeriod(startDate) {
-      this.router.transitionTo('mandatenbeheer.fracties', {
-        queryParams: {
-          page: 0,
-          startDate: startDate
-        }
-      });
-    }
+  selectPeriod(startDate) {
+    this.router.transitionTo('mandatenbeheer.fracties', {
+      queryParams: {
+        page: 0,
+        startDate: startDate,
+      },
+    });
+  }
 }

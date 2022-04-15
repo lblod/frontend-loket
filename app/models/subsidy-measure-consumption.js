@@ -23,7 +23,9 @@ export default class SubsidyMeasureConsumptionModel extends Model {
 
   get deadline() {
     if (this.activeSubsidyApplicationFlowStep)
-      return this.activeSubsidyApplicationFlowStep.get('subsidyProceduralStep.period');
+      return this.activeSubsidyApplicationFlowStep.get(
+        'subsidyProceduralStep.period'
+      );
     return undefined;
   }
 }

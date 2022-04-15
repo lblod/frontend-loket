@@ -12,13 +12,15 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   page = 0;
   size = 20;
 
-
   @tracked mandatenbeheer;
   @tracked searchData;
 
   get hasActiveChildRoute() {
-    return this.router.currentRouteName.startsWith('mandatenbeheer.mandatarissen.') &&
-      this.router.currentRouteName != 'mandatenbeheer.mandatarissen.index';
+    return (
+      this.router.currentRouteName.startsWith(
+        'mandatenbeheer.mandatarissen.'
+      ) && this.router.currentRouteName != 'mandatenbeheer.mandatarissen.index'
+    );
   }
 
   @alias('mandatenbeheer.startDate') startDate;
@@ -34,25 +36,24 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   }
 
   @action
-    handleAddMandatarisClick() {
-      if (this.router.currentRouteName === 'mandatenbeheer.mandatarissen.new')
-        this.router.transitionTo('mandatenbeheer.mandatarissen.index');
-      else
-        this.router.transitionTo('mandatenbeheer.mandatarissen.new');
-    }
+  handleAddMandatarisClick() {
+    if (this.router.currentRouteName === 'mandatenbeheer.mandatarissen.new')
+      this.router.transitionTo('mandatenbeheer.mandatarissen.index');
+    else this.router.transitionTo('mandatenbeheer.mandatarissen.new');
+  }
 
   @action
-    handleBeheerFractiesClick() {
-      this.router.transitionTo('mandatenbeheer.fracties');
-    }
+  handleBeheerFractiesClick() {
+    this.router.transitionTo('mandatenbeheer.fracties');
+  }
 
   @action
-    selectPeriod(startDate) {
-      this.router.transitionTo('mandatenbeheer.mandatarissen', {
-        queryParams: {
-          page: 0,
-          startDate: startDate
-        }
-      });
-    }
+  selectPeriod(startDate) {
+    this.router.transitionTo('mandatenbeheer.mandatarissen', {
+      queryParams: {
+        page: 0,
+        startDate: startDate,
+      },
+    });
+  }
 }

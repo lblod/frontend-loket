@@ -14,7 +14,9 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   @tracked bestuursfunctie;
 
   @action
-    handleVoegNieuweAanstellingsperiodeClick() {
-      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new');
-    }
+  handleVoegNieuweAanstellingsperiodeClick() {
+    this.router.transitionTo(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new'
+    );
   }
+}

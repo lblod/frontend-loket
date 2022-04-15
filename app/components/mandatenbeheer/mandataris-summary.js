@@ -12,28 +12,27 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @reads('args.mandataris.status.label') status;
 
   @computed('args.mandataris.beleidsdomein.@each.id')
-  get formattedBeleidsdomein(){
+  get formattedBeleidsdomein() {
     const beleidsdomeinen = this.args.mandataris.beleidsdomein;
     if (beleidsdomeinen.length) {
-      return beleidsdomeinen.map(item => item.label);
-    }
-    else {
+      return beleidsdomeinen.map((item) => item.label);
+    } else {
       return [];
     }
   }
 
   @action
-    edit(){
-      this.args.onEdit();
-    }
+  edit() {
+    this.args.onEdit();
+  }
 
   @action
-    terminate(){
-      this.args.onTerminate();
-    }
+  terminate() {
+    this.args.onTerminate();
+  }
 
   @action
-    correct(){
-      this.args.onCorrect();
-    }
+  correct() {
+    this.args.onCorrect();
+  }
 }

@@ -1,5 +1,4 @@
-export default function() {
-
+export default function () {
   // These comments are here to help you get started. Feel free to delete them.
 
   /*
@@ -23,7 +22,7 @@ export default function() {
    */
   this.get('/accounts/:id/gebruiker');
   this.get('/bestuurseenheden/:id');
-  this.get('/bestuurseenheden/:id/classificatie', function(schema, request){
+  this.get('/bestuurseenheden/:id/classificatie', function (schema, request) {
     return schema.bestuurseenheidClassificatieCodes.find(request.params.id);
   });
   this.get('/accounts/:id');

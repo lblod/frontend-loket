@@ -25,6 +25,5 @@ export default class ApplicationRoute extends Route {
       warn(e, { id: 'session-load-failure' });
       this.session.invalidate();
     });
-
   }
 }

@@ -11,7 +11,7 @@ export default class BerichtencentrumConversatieViewComponent extends Component 
   @tracked generalSort = ['verzonden'];
   @tracked showExitModal = false;
 
-  get berichten(){
-    return this.args.model.berichten
-  } 
+  get berichten() {
+    return this.args.model.berichten;
+  }
 }

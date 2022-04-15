@@ -8,7 +8,6 @@ export default class BerichtencentrumRoute extends Route {
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
 
-    if (!this.currentSession.canAccessBerichten)
-      this.transitionTo('index');
+    if (!this.currentSession.canAccessBerichten) this.transitionTo('index');
   }
 }

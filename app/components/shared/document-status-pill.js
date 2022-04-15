@@ -7,11 +7,11 @@ const DocumentStatusPillComponent = Component.extend({
   attributeBindings: ['resource', 'data-test-loket'],
   status: null,
   resource: alias('status.uri'),
-  'data-test-loket': 'document-status-pill'
+  'data-test-loket': 'document-status-pill',
 });
 
 DocumentStatusPillComponent.reopenClass({
-  positionalParams: ['status']
+  positionalParams: ['status'],
 });
 
 export default DocumentStatusPillComponent;

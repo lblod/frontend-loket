@@ -8,13 +8,15 @@ export default class SubsidyApplicationForm extends Model {
     defaultValue() {
       return new Date();
     },
-  }) created;
+  })
+  created;
 
   @attr('datetime', {
     defaultValue() {
       return new Date();
     },
-  }) modified;
+  })
+  modified;
 
   // TODO faze out
   // @belongsTo('contact-punt') contactinfo; // default needed

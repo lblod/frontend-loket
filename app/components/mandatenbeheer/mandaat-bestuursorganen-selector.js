@@ -8,19 +8,21 @@ export default Component.extend({
   _mandaat: oneWay('mandaat'),
   bestuursorganen: null,
 
-  async didReceiveAttrs(){
+  async didReceiveAttrs() {
     const mandaten = await this.store.query('mandaat', {
       sort: 'bestuursfunctie.label',
       include: 'bestuursfunctie',
-      'filter[bevat-in][id]': this.bestuursorganen.map(o => o.get('id')).join(',')
+      'filter[bevat-in][id]': this.bestuursorganen
+        .map((o) => o.get('id'))
+        .join(','),
     });
     this.set('mandaten', mandaten);
   },
 
   actions: {
-    select(mandaat){
+    select(mandaat) {
       this.set('_mandaat', mandaat);
       this.onSelect(mandaat);
-    }
-  }
+    },
+  },
 });

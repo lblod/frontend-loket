@@ -6,4 +6,3 @@ export default class EmployeeTimePeriodModel extends Model {
   @attr('datetime') start;
   @hasMany('employee-period-slice') slices;
 }
-

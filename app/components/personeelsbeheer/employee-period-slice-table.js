@@ -16,15 +16,24 @@ export default Component.extend({
     this.initTable.perform();
   },
 
-  initTable: task(function*() {
+  initTable: task(function* () {
     const sexes = yield this.store.query('geslacht-code', {
       page: { size: 10 },
       sort: 'label',
-      'filter[id]': '5ab0e9b8a3b2ca7c5e000029,5ab0e9b8a3b2ca7c5e000028' // vrouwelijk, mannelijk
+      'filter[id]': '5ab0e9b8a3b2ca7c5e000029,5ab0e9b8a3b2ca7c5e000028', // vrouwelijk, mannelijk
     });
-    const workingTimeCategories = yield this.store.query('working-time-category', { page: { size: 10 }, sort: '-label' });
-    const legalStatuses = yield this.store.query('employee-legal-status', { page: { size: 10 }, sort: '-label' });
-    const educationalLevels = yield this.store.query('educational-level', { page: { size: 10 }, sort: 'label' });
+    const workingTimeCategories = yield this.store.query(
+      'working-time-category',
+      { page: { size: 10 }, sort: '-label' }
+    );
+    const legalStatuses = yield this.store.query('employee-legal-status', {
+      page: { size: 10 },
+      sort: '-label',
+    });
+    const educationalLevels = yield this.store.query('educational-level', {
+      page: { size: 10 },
+      sort: 'label',
+    });
 
     this.set('sexes', sexes);
     this.set('workingTimeCategories', workingTimeCategories);
@@ -35,14 +44,12 @@ export default Component.extend({
     this.set('unitMeasure', unitMeasure);
   }).keepLatest(),
 
-  total: computed('observations.@each.value', 'isFTEDataset', function() {
+  total: computed('observations.@each.value', 'isFTEDataset', function () {
     const totalValue = (this.observations || []).reduce((acc, obs) => {
       return acc + parseFloat(obs.value || 0);
     }, 0);
 
-    if( this.isFTEDataset )
-      return totalValue.toFixed(2);
-    else
-      return parseInt( totalValue );
-  })
+    if (this.isFTEDataset) return totalValue.toFixed(2);
+    else return parseInt(totalValue);
+  }),
 });

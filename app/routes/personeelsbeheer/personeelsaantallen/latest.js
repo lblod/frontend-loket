@@ -6,12 +6,16 @@ export default class PersoneelsbeheerPersoneelsaantallenLatestRoute extends Rout
     const periods = await this.store.query('employee-period-slice', {
       page: { size: 1 },
       sort: '-time-period.start',
-      'filter[dataset][id]': this.datasetId
+      'filter[dataset][id]': this.datasetId,
     });
     return periods.firstObject;
   }
 
   afterModel(model) {
-    this.transitionTo('personeelsbeheer.personeelsaantallen.periodes.edit', this.datasetId, model.id);
+    this.transitionTo(
+      'personeelsbeheer.personeelsaantallen.periodes.edit',
+      this.datasetId,
+      model.id
+    );
   }
 }

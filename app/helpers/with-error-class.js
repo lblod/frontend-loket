@@ -1,10 +1,9 @@
 import { helper } from '@ember/component/helper';
 
-export function withErrorClass([hasError,classes]) {
+export function withErrorClass([hasError, classes]) {
   if (hasError) {
     return `${classes} input-field--error`;
-  }
-  else {
+  } else {
     return classes;
   }
 }

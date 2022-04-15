@@ -1,4 +1,3 @@
 import Component from '@glimmer/component';
 
-export default class LeidinggevendenbeheerBestuursfunctieCardComponent extends Component {
-}
+export default class LeidinggevendenbeheerBestuursfunctieCardComponent extends Component {}

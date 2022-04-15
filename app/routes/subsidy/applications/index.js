@@ -4,7 +4,9 @@ import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { ROLES } from 'frontend-loket/models/participation';
 
-export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTableRouteMixin) {
+export default class SubsidyApplicationsIndexRoute extends Route.extend(
+  DataTableRouteMixin
+) {
   @service('current-session') currentSession;
   modelName = 'subsidy-measure-consumption';
 
@@ -21,12 +23,12 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(DataTabl
       ].join(','),
       filter: {
         participations: {
-           "participating-bestuurseenheid": {
-             "id": groupId,
-           },
-          ":exact:role": ROLES.APPLICANT
-        }
-      }
+          'participating-bestuurseenheid': {
+            id: groupId,
+          },
+          ':exact:role': ROLES.APPLICANT,
+        },
+      },
     };
   }
 }

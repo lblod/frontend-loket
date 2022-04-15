@@ -6,12 +6,15 @@ export default class MandatenbeheerMandatarissenNewPersonController extends Cont
   @service() router;
 
   @action
-    onCreate(user) {
-      this.router.transitionTo('mandatenbeheer.mandatarissen.edit', user.get('id'));
-    }
+  onCreate(user) {
+    this.router.transitionTo(
+      'mandatenbeheer.mandatarissen.edit',
+      user.get('id')
+    );
+  }
 
   @action
-    onCancel() {
-      this.router.transitionTo('mandatenbeheer.mandatarissen.new');
-    }
+  onCancel() {
+    this.router.transitionTo('mandatenbeheer.mandatarissen.new');
+  }
 }

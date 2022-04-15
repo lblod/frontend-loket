@@ -1,9 +1,10 @@
 import Route from '@ember/routing/route';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoRoute extends Route {
-
   async model() {
-    const bestuursfunctie = this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie');
+    const bestuursfunctie = this.modelFor(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
+    );
     this.set('bestuursfunctie', bestuursfunctie);
     let info = await bestuursfunctie.contactinfo;
     if (!info) {
@@ -26,7 +27,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
     return info;
   }
 
-  setupController( controller, model ) {
+  setupController(controller, model) {
     super.setupController(...arguments);
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
     controller.set('bestuursfunctie', this.bestuursfunctie);
