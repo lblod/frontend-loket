@@ -281,3 +281,6 @@ add|ember-template-lint|no-html-comments|186|8|186|8|b22a97a8e2d6a0b2c0b6630b09f
 add|ember-template-lint|no-negated-condition|35|6|35|6|b3bae55ef640fcf0f48029ae328b0c3b1bacfe61|1649980800000|||app/templates/subsidy/applications/edit/step/edit.hbs
 add|ember-template-lint|simple-unless|46|6|46|6|02b279bc993a1ee6632c7e6edf341a2aabc519cb|1649980800000|||app/templates/subsidy/applications/edit/step/edit.hbs
 add|ember-template-lint|simple-unless|134|8|134|8|02b279bc993a1ee6632c7e6edf341a2aabc519cb|1649980800000|||app/templates/subsidy/applications/edit/step/edit.hbs
+remove|ember-template-lint|require-context-role|11|82|11|82|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/templates/application.hbs
+remove|ember-template-lint|require-context-role|14|82|14|82|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/templates/application.hbs
+remove|ember-template-lint|require-context-role|19|26|19|26|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/templates/application.hbs
