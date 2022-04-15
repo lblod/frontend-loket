@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default class SubsidyApplicationsEditStepIndexRoute extends Route {
   @service router;
+  @service store;
 
   async beforeModel() {
     let { consumption, step } = this.modelFor('subsidy.applications.edit.step');

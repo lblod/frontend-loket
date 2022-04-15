@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default class PersoneelsbeheerPersoneelsaantallenLatestRoute extends Route {
   @service router;
+  @service store;
 
   async model(params) {
     this.set('datasetId', params.dataset_id);

@@ -1,10 +1,13 @@
 import Route from '@ember/routing/route';
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { action } from '@ember/object';
+import { inject as service } from '@ember/service';
+import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class MandatenbeheerMandatarissenRoute extends Route.extend(
   DataTableRouteMixin
 ) {
+  @service store;
+
   modelName = 'mandataris';
 
   beforeModel() {

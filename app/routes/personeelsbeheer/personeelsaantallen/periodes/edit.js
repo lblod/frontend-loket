@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditRoute extends Route {
+  @service store;
+
   async model(params) {
     return this.store.query('employee-observation', {
       page: { size: 100 },

@@ -1,11 +1,12 @@
 import Route from '@ember/routing/route';
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
+import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class SupervisionSubmissionsIndexRoute extends Route.extend(
   DataTableRouteMixin
 ) {
-  @service() session;
+  @service session;
+  @service store;
 
   modelName = 'submission';
 

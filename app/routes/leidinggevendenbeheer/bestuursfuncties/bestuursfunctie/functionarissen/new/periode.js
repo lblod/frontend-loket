@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewPeriodeRoute extends Route {
+  @service store;
+
   async model(params) {
     const person = await this.store.findRecord('persoon', params.persoon_id);
     const status = await this.store.query('functionaris-status-code', {

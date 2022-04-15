@@ -5,6 +5,7 @@ import { NEW_STATUS } from '../../../../../models/submission-document-status';
 export default class SubsidyApplicationsEditStepNewRoute extends Route {
   @service router;
   @service currentSession;
+  @service store;
 
   async beforeModel() {
     const newStatuses = await this.store.query('submission-document-status', {

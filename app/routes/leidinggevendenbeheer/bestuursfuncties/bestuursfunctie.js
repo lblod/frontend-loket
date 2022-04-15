@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieRoute extends Route {
   @service currentSession;
   @service router;
+  @service store;
 
   async afterModel() {
     const bestuurseenheidClassificatie =

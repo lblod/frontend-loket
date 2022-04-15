@@ -6,7 +6,8 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
 export default class MandatenbeheerFractiesController extends Controller {
-  @service() router;
+  @service router;
+  @service store;
 
   @tracked newFractie = null;
   @tracked isBusy = false;

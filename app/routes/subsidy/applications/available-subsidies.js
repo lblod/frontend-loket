@@ -7,6 +7,7 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
   DataTableRouteMixin
 ) {
   @service currentSession;
+  @service store;
 
   modelName = 'subsidy-measure-offer-series';
 

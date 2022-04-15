@@ -2,7 +2,8 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesIndexRoute extends Route {
-  @service('current-session') currentSession;
+  @service currentSession;
+  @service store;
 
   async model() {
     this.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));

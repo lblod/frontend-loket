@@ -1,4 +1,5 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import rdflib from 'browser-rdflib';
 import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
@@ -10,6 +11,8 @@ const META_GRAPH = new rdflib.NamedNode('http://data.lblod.info/metagraph');
 const SOURCE_GRAPH = new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`);
 
 export default class SubsidyApplicationsEditStepEditRoute extends Route {
+  @service store;
+
   async model({ form_id: semanticFormID }) {
     let { consumption } = this.modelFor('subsidy.applications.edit');
     let { step } = this.modelFor('subsidy.applications.edit.step');

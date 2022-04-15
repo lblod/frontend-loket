@@ -11,6 +11,7 @@ const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 
 export default class SupervisionSubmissionsEditRoute extends Route {
   @service router;
+  @service store;
 
   async model(params) {
     // Fetch data from backend
