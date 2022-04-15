@@ -6,7 +6,8 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   DataTableRouteMixin
 ) {
   modelName = 'functionaris';
-  @service('current-session') currentSession;
+  @service currentSession;
+  @service router;
 
   async beforeModel() {
     const bestuurseenheidClassificatie =
@@ -15,7 +16,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
       bestuurseenheidClassificatie.uri ===
       'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000002'
     ) {
-      this.transitionTo('leidinggevendenbeheer.bestuursfuncties.index');
+      this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.index');
     }
   }
 

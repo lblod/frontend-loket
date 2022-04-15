@@ -2,12 +2,14 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
 export default class BerichtencentrumRoute extends Route {
-  @service() session;
-  @service() currentSession;
+  @service session;
+  @service currentSession;
+  @service router;
 
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
 
-    if (!this.currentSession.canAccessBerichten) this.transitionTo('index');
+    if (!this.currentSession.canAccessBerichten)
+      this.router.transitionTo('index');
   }
 }

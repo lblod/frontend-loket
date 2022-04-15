@@ -5,6 +5,7 @@ import RSVP from 'rsvp';
 export default class MandatenbeheerRoute extends Route {
   @service currentSession;
   @service session;
+  @service router;
 
   queryParams = {
     startDate: { refreshModel: true },
@@ -13,7 +14,8 @@ export default class MandatenbeheerRoute extends Route {
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
 
-    if (!this.currentSession.canAccessMandaat) this.transitionTo('index');
+    if (!this.currentSession.canAccessMandaat)
+      this.router.transitionTo('index');
   }
 
   async model(params) {

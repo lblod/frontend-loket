@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { warn } from '@ember/debug';
+import { inject as service } from '@ember/service';
 import rdflib from 'browser-rdflib';
 import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
@@ -9,6 +10,8 @@ const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 
 export default class SupervisionSubmissionsEditRoute extends Route {
+  @service router;
+
   async model(params) {
     // Fetch data from backend
 
@@ -20,7 +23,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
       warn('No submission document, Transitioning to index.', {
         id: 'no-submission-document',
       });
-      this.transitionTo('supervision.submissions');
+      this.router.transitionTo('supervision.submissions');
     }
 
     const response = await fetch(`/submission-forms/${submissionDocument.id}`);
