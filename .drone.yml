@@ -14,7 +14,6 @@ steps:
   - npm run lint:js
 - name: lint:hbs
   image: danlynn/ember-cli:4.2.0-node_16.14
-  failure: ignore
   commands:
   - npm run lint:hbs
 - name: lint:dependencies
