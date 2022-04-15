@@ -7,7 +7,9 @@ import { ROLES } from 'frontend-loket/models/participation';
 export default class SubsidyApplicationsIndexRoute extends Route.extend(
   DataTableRouteMixin
 ) {
-  @service('current-session') currentSession;
+  @service currentSession;
+  @service store;
+
   modelName = 'subsidy-measure-consumption';
 
   mergeQueryOptions() {

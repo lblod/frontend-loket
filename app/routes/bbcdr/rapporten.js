@@ -1,11 +1,12 @@
 import Route from '@ember/routing/route';
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
+import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class BbcdrRapportenRoute extends Route.extend(
   DataTableRouteMixin
 ) {
-  @service() currentSession;
+  @service currentSession;
+  @service store;
 
   modelName = 'bbcdr-report';
 

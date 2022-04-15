@@ -6,6 +6,7 @@ export default class MandatenbeheerRoute extends Route {
   @service currentSession;
   @service session;
   @service router;
+  @service store;
 
   queryParams = {
     startDate: { refreshModel: true },

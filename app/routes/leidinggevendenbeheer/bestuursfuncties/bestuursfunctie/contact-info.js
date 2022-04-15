@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoRoute extends Route {
+  @service store;
+
   async model() {
     const bestuursfunctie = this.modelFor(
       'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'

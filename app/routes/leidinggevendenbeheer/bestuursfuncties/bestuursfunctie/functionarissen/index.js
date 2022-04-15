@@ -1,13 +1,15 @@
 import Route from '@ember/routing/route';
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
+import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenIndexRoute extends Route.extend(
   DataTableRouteMixin
 ) {
-  modelName = 'functionaris';
   @service currentSession;
   @service router;
+  @service store;
+
+  modelName = 'functionaris';
 
   async beforeModel() {
     const bestuurseenheidClassificatie =

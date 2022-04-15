@@ -5,6 +5,7 @@ import { CONCEPT_STATUS } from '../../../models/submission-document-status';
 export default class SupervisionSubmissionsNewRoute extends Route {
   @service currentSession;
   @service router;
+  @service store;
 
   async beforeModel() {
     const conceptStatuses = await this.store.query(
