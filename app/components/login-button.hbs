@@ -1,0 +1,22 @@
+<Acmidm::Login as |acmidm|>
+  <AuButton
+    @loading={{acmidm.isAuthenticating}}
+    @disabled={{acmidm.isAuthenticating}}
+    @skin={{if @isCompact "link" "primary"}}
+    @icon="login"
+    @iconAlignment="left"
+    {{on "click" acmidm.login}}
+  >
+    Aanmelden
+  </AuButton>
+
+  {{#if acmidm.errorMessage}}
+    <AuAlert
+      @alertIcon="alert-triangle"
+      @alertSize="small"
+      @alertTitle={{acmidm.errorMessage}}
+      @alertSkin="error"
+      class={{unless @isCompact "au-u-margin-top-small"}}
+    />
+  {{/if}}
+</Acmidm::Login>

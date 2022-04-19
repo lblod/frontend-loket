@@ -1,9 +1,0 @@
-<button type="button" {{on 'click' this.login}} class={{@styles}}>
-  {{yield}}
-</button>
-{{#if this.isAuthenticating}}
-  <AuLoader @padding="small" />
-{{/if}}
-{{#if this.errorMessage}}
-  <AuAlert @alertIcon="alert-triangle" @alertsize="small" @alertTitle={{this.errorMessage}} @alertskin="error" />
-{{/if}}
