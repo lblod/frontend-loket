@@ -19,7 +19,7 @@ export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditRoute extend
     });
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     const dataset = this.modelFor(
       'personeelsbeheer.personeelsaantallen.periodes'

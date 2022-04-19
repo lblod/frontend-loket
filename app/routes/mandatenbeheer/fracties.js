@@ -33,7 +33,7 @@ export default class MandatenbeheerFractiesRoute extends Route {
     this.set('defaultFractieType', defaultFractieType);
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     controller.set('mandatenbeheer', this.mandatenbeheer);
     controller.set('defaultFractieType', this.defaultFractieType);

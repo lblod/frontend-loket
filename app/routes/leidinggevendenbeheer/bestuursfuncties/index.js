@@ -17,7 +17,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesIndexRoute extends Rou
     });
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     if (
       this.bestuurseenheidClassificatie !==

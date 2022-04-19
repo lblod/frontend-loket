@@ -33,7 +33,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
     };
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
     controller.set('bestuursfunctie', this.bestuursfunctie);

@@ -41,7 +41,7 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
     return queryParams;
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     controller.searchData = this.paramsFor('mandatenbeheer.mandatarissen')[
       'filter'

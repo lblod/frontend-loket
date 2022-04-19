@@ -27,7 +27,7 @@ export default class BbcdrRapportenRoute extends Route.extend(
     };
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     controller.set('bestuurseenheid', this.bestuurseenheid);
   }
