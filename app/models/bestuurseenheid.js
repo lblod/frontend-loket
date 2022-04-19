@@ -14,7 +14,7 @@ export default class Bestuurseenheid extends Model {
   @attr uri;
   @attr naam;
   @attr alternatieveNaam;
-  @attr('string') mailAdres;
+  @attr mailAdres;
   @attr('boolean') wilMailOntvangen;
   @attr('boolean') isTrialUser;
 
