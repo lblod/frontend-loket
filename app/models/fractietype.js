@@ -2,8 +2,8 @@ import Model, { attr } from '@ember-data/model';
 import { equal } from '@ember/object/computed';
 
 export default class FractietypeModel extends Model {
-  @attr() uri;
-  @attr() label;
+  @attr uri;
+  @attr label;
 
   @equal(
     'uri',

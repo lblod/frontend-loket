@@ -2,8 +2,8 @@ import Model, { attr } from '@ember-data/model';
 import { equal } from '@ember/object/computed';
 
 export default class BestuursfunctieCodeModel extends Model {
-  @attr() uri;
-  @attr() label;
+  @attr uri;
+  @attr label;
   @equal(
     'uri',
     'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/855489b9-b584-4f34-90b2-39aea808cd9f'

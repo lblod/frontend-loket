@@ -1,8 +1,8 @@
 import Model, { attr } from '@ember-data/model';
 
 export default class RolModel extends Model {
-  @attr() uri;
-  @attr() label;
+  @attr uri;
+  @attr label;
 
   rdfaBindings = {
     // eslint-disable-line ember/avoid-leaking-state-in-ember-objects

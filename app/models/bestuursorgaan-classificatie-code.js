@@ -1,9 +1,9 @@
 import Model, { attr } from '@ember-data/model';
 
 export default class BestuursorgaanClassificatieCodeModel extends Model {
-  @attr() uri;
-  @attr() label;
-  @attr() scopeNote;
+  @attr uri;
+  @attr label;
+  @attr scopeNote;
 
   rdfaBindings = {
     // eslint-disable-line ember/avoid-leaking-state-in-ember-objects

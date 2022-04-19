@@ -6,7 +6,7 @@ export default class FunctionarisStatusCodeModel extends Model {
   // This is what mu-cl-resources uses to search on, and how the model will be presented while editing relationships.
   @collect.apply(this, ['id', 'label', 'scopeNote']) stringRep;
 
-  @attr() uri;
-  @attr() label;
-  @attr() scopeNote;
+  @attr uri;
+  @attr label;
+  @attr scopeNote;
 }

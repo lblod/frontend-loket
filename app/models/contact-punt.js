@@ -16,14 +16,14 @@ export default class ContactPuntModel extends Model {
     'website',
   ])
   stringRep;
-  @attr() uri;
-  @attr() aanschrijfprefix;
-  @attr() email;
-  @attr() fax;
-  @attr() naam;
-  @attr() voornaam;
-  @attr() achternaam;
-  @attr() website;
-  @attr() telefoon;
+  @attr uri;
+  @attr aanschrijfprefix;
+  @attr email;
+  @attr fax;
+  @attr naam;
+  @attr voornaam;
+  @attr achternaam;
+  @attr website;
+  @attr telefoon;
   @belongsTo('adres', { inverse: null }) adres;
 }

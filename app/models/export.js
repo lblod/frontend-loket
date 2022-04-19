@@ -5,9 +5,9 @@ import _moment from 'ember-moment/computeds/moment';
 import format from 'ember-moment/computeds/format';
 
 export default DS.Model.extend({
-  filename: attr(),
-  format: attr(),
-  filesize: attr(),
+  filename: attr,
+  format: attr,
+  filesize: attr,
   created: attr('datetime'),
 
   filesizeMb: computed('filesize', function () {

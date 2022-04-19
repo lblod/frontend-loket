@@ -1,7 +1,7 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class EmployeeDatasetModel extends Model {
-  @attr() uri;
+  @attr uri;
   @attr('string') title;
   @attr('string') description;
   @attr('datetime') modified;
