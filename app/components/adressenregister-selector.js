@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { empty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { keepLatestTask, task, timeout } from 'ember-concurrency';
 import { action } from '@ember/object';
@@ -7,8 +6,6 @@ import { tracked } from '@glimmer/tracking';
 
 export default class AdressenregisterSelectorComponent extends Component {
   @service() addressregister;
-
-  @empty('addressWithBusnumber') isDisabledBusnumberSelect;
 
   @tracked address = null;
   @tracked addressSuggestion;
@@ -18,6 +15,10 @@ export default class AdressenregisterSelectorComponent extends Component {
   constructor() {
     super(...arguments);
     this.getAddressInfo();
+  }
+
+  get isDisabledBusnumberSelect() {
+    return !this.addressWithBusnumber;
   }
 
   async getAddressInfo() {
