@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Controller from '@ember/controller';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
@@ -8,12 +9,11 @@ import { tracked } from '@glimmer/tracking';
 export default class MandatenbeheerMandatarissenController extends Controller {
   @service() router;
 
-  sort = 'is-bestuurlijke-alias-van.achternaam';
-  page = 0;
-  size = 20;
-
   @tracked mandatenbeheer;
-  @tracked searchData;
+  @tracked filter = '';
+  @tracked page = 0;
+  sort = 'is-bestuurlijke-alias-van.achternaam';
+  size = 20;
 
   get hasActiveChildRoute() {
     return (
@@ -31,8 +31,8 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   @restartableTask
   *search(searchData) {
     yield timeout(300);
-    this.set('page', 0);
-    this.set('filter', searchData);
+    this.page = 0;
+    this.filter = searchData;
   }
 
   @action

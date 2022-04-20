@@ -24,7 +24,8 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
       status: status.firstObject,
       start: new Date(),
     });
-    this.set('functionaris', functionaris);
+
+    this.functionaris = functionaris;
 
     return functionaris;
   }

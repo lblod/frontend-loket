@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-mixins */
 import Route from '@ember/routing/route';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
@@ -12,7 +13,7 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
 
   beforeModel() {
     const mandatenbeheer = this.modelFor('mandatenbeheer');
-    this.set('mandatenbeheer', mandatenbeheer);
+    this.mandatenbeheer = mandatenbeheer;
   }
 
   mergeQueryOptions(params) {
@@ -41,7 +42,7 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
     return queryParams;
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     controller.searchData = this.paramsFor('mandatenbeheer.mandatarissen')[
       'filter'

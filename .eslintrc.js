@@ -22,11 +22,6 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {
-    'ember/use-brace-expansion': 'off',
-    'ember/no-jquery': 'error',
-    'semi': [2, 'always']
-  },
   overrides: [
     // node files
     {

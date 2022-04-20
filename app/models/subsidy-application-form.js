@@ -1,5 +1,4 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
-import { A } from '@ember/array';
 
 export default class SubsidyApplicationForm extends Model {
   @attr uri;

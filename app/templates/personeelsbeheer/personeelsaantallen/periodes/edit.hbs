@@ -16,7 +16,7 @@
         <AuPill @skin="warning">Aantallen niet actueel</AuPill>
         {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
       {{/unless}}
-      {{#if this.isSaving}}
+      {{#if this.save.isRunning}}
         <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
           Wijzigingen opslaan...
         </p>
@@ -44,6 +44,6 @@
         {{/if}}
       </AuAlert>
     </div>
-    <Personeelsbeheer::EmployeePeriodSliceTable @observations={{this.model}} @onChangeObservation={{perform this.save}}/>
+    <Personeelsbeheer::EmployeePeriodSliceTable @observations={{this.model}} @onChangeObservation={{perform this.queueSave}}/>
   </div>
 </div>

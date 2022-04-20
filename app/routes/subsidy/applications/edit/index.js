@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import SubsidyMeasureConsumptionModel from '../../../../models/subsidy-measure-consumption';
 
 export default class SubsidyApplicationsEditIndexRoute extends Route {
   @service router;

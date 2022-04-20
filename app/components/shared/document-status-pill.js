@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/require-tagless-components */
 import { alias } from '@ember/object/computed';
 import Component from '@ember/component';
 

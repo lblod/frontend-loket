@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-mixins */
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
@@ -23,17 +24,17 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   }
 
   mergeQueryOptions() {
-    this.set(
-      'bestuursfunctie',
-      this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie')
+    this.bestuursfunctie = this.modelFor(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
     );
+
     return {
       'filter[bekleedt][id]': this.bestuursfunctie.id,
       include: 'is-bestuurlijke-alias-van',
     };
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
     controller.set('bestuursfunctie', this.bestuursfunctie);

@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/require-tagless-components, ember/require-computed-macros, ember/require-super-in-lifecycle-hooks, ember/no-component-lifecycle-hooks, ember/no-get, ember/no-observers, ember/no-actions-hash */
 import { warn } from '@ember/debug';
 import Component from '@ember/component';
 import { inject as service } from '@ember/service';
