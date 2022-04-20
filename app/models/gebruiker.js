@@ -1,9 +1,9 @@
 import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class GebruikerModel extends Model {
-  @attr() voornaam;
-  @attr() achternaam;
-  @attr() rijksregisterNummer;
+  @attr voornaam;
+  @attr achternaam;
+  @attr rijksregisterNummer;
   @hasMany('account', { inverse: null }) account;
   @hasMany('bestuurseenheid') bestuurseenheden;
 

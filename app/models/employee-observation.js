@@ -1,7 +1,7 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class EmployeeObservationModel extends Model {
-  @attr() uri;
+  @attr uri;
   @attr('number') value;
   @belongsTo('employee-unit-measure') unitMeasure;
   @belongsTo('educational-level') educationalLevel;

@@ -1,8 +1,8 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class BestuursorgaanModel extends Model {
-  @attr() uri;
-  @attr() naam;
+  @attr uri;
+  @attr naam;
   @attr('date') bindingStart;
   @attr('date') bindingEinde;
   @belongsTo('bestuurseenheid', { inverse: 'bestuursorganen' }) bestuurseenheid;
@@ -17,7 +17,6 @@ export default class BestuursorgaanModel extends Model {
   @hasMany('mandaat', { inverse: null }) bevat;
 
   rdfaBindings = {
-    // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
     naam: 'http://www.w3.org/2004/02/skos/core#prefLabel',
     class: 'http://data.vlaanderen.be/ns/besluit#Bestuursorgaan',
     bindingStart: 'http://data.vlaanderen.be/ns/mandaat#bindingStart',

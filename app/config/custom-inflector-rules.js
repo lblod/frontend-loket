@@ -96,6 +96,3 @@ inflector.irregular(
   'subsidy-measure-consumption-status',
   'subsidy-measure-consumption-statuses'
 );
-
-// Meet Ember Inspector's expectation of an export
-export default {};

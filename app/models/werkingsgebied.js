@@ -1,9 +1,9 @@
 import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class WerkingsgebiedModel extends Model {
-  @attr() uri;
-  @attr() naam;
-  @attr() niveau;
+  @attr uri;
+  @attr naam;
+  @attr niveau;
   @hasMany('bestuurseenheid', { inverse: 'werkingsgebied' }) bestuurseenheid;
 
   get longName() {
@@ -13,7 +13,6 @@ export default class WerkingsgebiedModel extends Model {
   }
 
   rdfaBindings = {
-    // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
     class: 'prov:Location',
     naam: 'rdfs:label',
   };

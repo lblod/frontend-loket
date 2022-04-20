@@ -2,7 +2,7 @@ import Model, { attr } from '@ember-data/model';
 
 export default class SubmissionDocumentStatus extends Model {
   @attr uri;
-  @attr('string') label;
+  @attr label;
 
   get isSent() {
     return this.uri === SENT_STATUS;
