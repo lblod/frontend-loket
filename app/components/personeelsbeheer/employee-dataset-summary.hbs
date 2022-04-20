@@ -1,8 +1,8 @@
-{{#if calculateTotals.isRunning}}
+{{#if this.calculateTotals.isRunning}}
   <AuLoader @padding="small" />
 {{else}}
   <ul class="au-c-list-horizontal au-u-margin-top-small">
-    {{#each summary as |entry|}}
+    {{#each this.summary as |entry|}}
       <li class="au-c-list-horizontal__item">
         {{entry.total}} {{entry.label}}
       </li>
