@@ -9,7 +9,6 @@ steps:
   - npm install
 - name: lint:js
   image: danlynn/ember-cli:4.2.0-node_16.14
-  failure: ignore
   commands:
   - npm run lint:js
 - name: lint:hbs
