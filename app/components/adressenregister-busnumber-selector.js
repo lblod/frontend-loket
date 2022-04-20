@@ -1,7 +1,9 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
 export default class AdressenregisterBusnumberSelectorComponent extends Component {
   get placeholder() {
-    return this.disabled ? 'Geen busnummer beschikbaar bij dit adres.' : '';
+    return this.args.disabled
+      ? 'Geen busnummer beschikbaar bij dit adres.'
+      : '';
   }
 }
