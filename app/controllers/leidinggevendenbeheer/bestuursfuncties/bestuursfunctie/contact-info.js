@@ -6,8 +6,8 @@ import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoController extends Controller {
   @service() router;
-  showConfirmationDialog = false;
 
+  @tracked showConfirmationDialog = false;
   @tracked bestuurseenheid;
   @tracked bestuursfunctie;
 
@@ -19,7 +19,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
   }
 
   exit() {
-    this.set('showConfirmationDialog', false);
+    this.showConfirmationDialog = false;
     this.router.transitionTo(
       'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen',
       this.bestuursfunctie.id
@@ -55,6 +55,6 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
   @action
   cancel() {
     if (!this.isDirty) this.exit();
-    else this.set('showConfirmationDialog', true);
+    else this.showConfirmationDialog = true;
   }
 }
