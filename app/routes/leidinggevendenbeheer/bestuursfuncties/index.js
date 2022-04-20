@@ -5,26 +5,29 @@ export default class LeidinggevendenbeheerBestuursfunctiesIndexRoute extends Rou
   @service currentSession;
   @service store;
 
-  async model() {
-    this.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
-    const bestuurseenheidClassificatie =
-      this.currentSession.groupClassification;
-    this.set('bestuurseenheidClassificatie', bestuurseenheidClassificatie.uri);
+  async model(params, transition) {
+    let bestuurseenheid = this.modelFor('leidinggevendenbeheer');
+    transition.data.bestuurseenheid = bestuurseenheid;
 
     return this.store.query('bestuursfunctie', {
       'filter[bevat-in][is-tijdsspecialisatie-van][bestuurseenheid][:id:]':
-        this.bestuurseenheid.id,
+        bestuurseenheid.id,
     });
   }
 
-  setupController(controller) {
+  setupController(controller, model, transition) {
     super.setupController(...arguments);
+
+    const bestuurseenheidClassificatie =
+      this.currentSession.groupClassification;
+
     if (
-      this.bestuurseenheidClassificatie !==
+      bestuurseenheidClassificatie.uri !==
       'http://data.vlaanderen.be/id/concept/BestuurseenheidClassificatieCode/5ab0e9b8a3b2ca7c5e000002'
     ) {
-      controller.set('allowed', true);
+      controller.allowed = true;
     }
-    controller.set('bestuurseenheid', this.bestuurseenheid);
+
+    controller.bestuurseenheid = transition.data.bestuurseenheid;
   }
 }

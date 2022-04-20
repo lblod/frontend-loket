@@ -13,7 +13,7 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
 
   beforeModel() {
     const mandatenbeheer = this.modelFor('mandatenbeheer');
-    this.set('mandatenbeheer', mandatenbeheer);
+    this.mandatenbeheer = mandatenbeheer;
   }
 
   mergeQueryOptions(params) {

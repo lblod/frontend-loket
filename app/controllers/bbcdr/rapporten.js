@@ -1,16 +1,18 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
 
 export default class BbcdrRapportenController extends Controller {
-  @service() router;
+  @service router;
+  @service currentSession;
 
   sort = 'status.label'; //TODO: someday we should have a hierarchy;
   page = 0;
   size = 20;
 
-  @tracked bestuurseenheid;
+  get bestuurseenheid() {
+    return this.currentSession.group;
+  }
 
   get hasActiveChildRoute() {
     return (

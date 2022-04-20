@@ -8,7 +8,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
     const bestuursfunctie = this.modelFor(
       'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
     );
-    this.set('bestuursfunctie', bestuursfunctie);
+
     let info = await bestuursfunctie.contactinfo;
     if (!info) {
       info = await this.store.createRecord('contact-punt');
@@ -33,6 +33,9 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
   setupController(controller) {
     super.setupController(...arguments);
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
-    controller.set('bestuursfunctie', this.bestuursfunctie);
+    controller.set(
+      'bestuursfunctie',
+      this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie')
+    );
   }
 }

@@ -24,10 +24,10 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   }
 
   mergeQueryOptions() {
-    this.set(
-      'bestuursfunctie',
-      this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie')
+    this.bestuursfunctie = this.modelFor(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
     );
+
     return {
       'filter[bekleedt][id]': this.bestuursfunctie.id,
       include: 'is-bestuurlijke-alias-van',

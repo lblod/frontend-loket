@@ -11,25 +11,16 @@ export default class BbcdrRapportenRoute extends Route.extend(
 
   modelName = 'bbcdr-report';
 
-  async beforeModel() {
-    const bestuurseenheid = this.currentSession.group;
-    this.set('bestuurseenheid', bestuurseenheid);
-  }
-
   mergeQueryOptions(params) {
+    const bestuurseenheid = this.currentSession.group;
     return {
       sort: params.sort,
       filter: {
         bestuurseenheid: {
-          id: this.bestuurseenheid.id,
+          id: bestuurseenheid.id,
         },
       },
       include: ['files', 'last-modifier', 'status'].join(','),
     };
-  }
-
-  setupController(controller) {
-    super.setupController(...arguments);
-    controller.set('bestuurseenheid', this.bestuurseenheid);
   }
 }
