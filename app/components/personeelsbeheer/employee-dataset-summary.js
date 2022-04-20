@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/no-get */
 import { get } from '@ember/object';
 import Component from '@ember/component';
 import { task, all } from 'ember-concurrency';

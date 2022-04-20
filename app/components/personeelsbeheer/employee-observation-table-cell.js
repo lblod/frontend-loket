@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/no-component-lifecycle-hooks, ember/no-actions-hash */
 import Component from '@ember/component';
 import { reads } from '@ember/object/computed';
 import { conditional, raw } from 'ember-awesome-macros';

@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Controller from '@ember/controller';
 import { restartableTask, timeout } from 'ember-concurrency';
 import { inject as service } from '@ember/service';

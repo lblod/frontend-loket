@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';

@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-get, ember/classic-decorator-no-classic-methods */
 import Model, { belongsTo, hasMany } from '@ember-data/model';
 
 export default class SubsidyApplicationFlowModel extends Model {
