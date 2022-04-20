@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { notEmpty } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
@@ -8,11 +7,14 @@ export default class LeidinggevendenbeheerFunctionarisFormComponent extends Comp
   @service() store;
 
   @tracked statusOptions;
-  @notEmpty('args.model.start') isValid;
 
   constructor() {
     super(...arguments);
     this.getBestuursInfo();
+  }
+
+  get isValid() {
+    return Boolean(this.args.model.start);
   }
 
   @action
