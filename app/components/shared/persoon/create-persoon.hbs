@@ -5,7 +5,11 @@
         <div class="au-o-grid au-o-grid--tiny">
           <div class="au-o-grid__item au-u-1-2">
             {{#let (if this.errors.voornaam true false) as |showError|}}
-              <AuLabel @error={{showError}} for="mandataris-naam">
+              <AuLabel
+                @error={{showError}}
+                @required={{true}}
+                for="mandataris-naam"
+              >
                 Voornaam
               </AuLabel>
               <AuInput
@@ -24,7 +28,11 @@
           </div>
           <div class="au-o-grid__item au-u-1-2">
             {{#let (if this.errors.familienaam true false) as |showError|}}
-              <AuLabel @error={{showError}} for="mandataris-familienaam">
+              <AuLabel
+                @error={{showError}}
+                @required={{true}}
+                for="mandataris-familienaam"
+              >
                 Familienaam
               </AuLabel>
               <AuInput
@@ -55,7 +63,11 @@
       </div>
       <div>
         {{#let (if this.errors.rijksregisternummer true false) as |showError|}}
-          <AuLabel @error={{showError}} for="mandataris-rijksregister">
+          <AuLabel
+            @error={{showError}}
+            @required={{true}}
+            for="mandataris-rijksregister"
+          >
             Rijksregisternummer
           </AuLabel>
           <AuInput
@@ -86,7 +98,9 @@
         />
       </div>
       <div>
-        <AuLabel @error={{if this.errors.geslacht true}}>Geslacht</AuLabel>
+        <AuLabel @error={{if this.errors.geslacht true}} @required={{true}}>
+          Geslacht
+        </AuLabel>
         <div class="au-o-grid au-o-grid--tiny">
           <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
             <AuControlRadio
@@ -126,7 +140,7 @@
 </div>
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    {{!-- TODO: use a form element with a submit event --}}
+    {{! TODO: use a form element with a submit event }}
     <AuButton
       @disabled={{this.save.isRunning}}
       @loading={{this.save.isRunning}}
