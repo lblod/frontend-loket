@@ -4,28 +4,60 @@
       <div>
         <div class="au-o-grid au-o-grid--tiny">
           <div class="au-o-grid__item au-u-1-2">
-            <AuLabel @error="{{if this.voornaamError 'true'}}" for="mandataris-naam">Voornaam</AuLabel>
-            {{input class=(with-error-class this.voornaamError "au-c-input au-c-input--block js-js-input-pattern-bound") id="mandataris-naam" name="mandataris-naam" value=(mut this.voornaam)}}
-            {{#if this.voornaamError}}
-              <AuHelpText @error="true">{{this.voornaamError}}</AuHelpText>
-            {{/if}}
+            {{#let (if this.errors.voornaam true false) as |showError|}}
+              <AuLabel @error={{showError}} for="mandataris-naam">
+                Voornaam
+              </AuLabel>
+              <AuInput
+                @value={{this.voornaam}}
+                @width="block"
+                @error={{showError}}
+                id="mandataris-naam"
+                name="mandataris-naam"
+              />
+              {{#if showError}}
+                <AuHelpText
+                  @error={{true}}
+                >{{this.errors.voornaam}}</AuHelpText>
+              {{/if}}
+            {{/let}}
           </div>
           <div class="au-o-grid__item au-u-1-2">
-            <AuLabel @error="{{if this.familienaamError 'true'}}" for="mandataris-familienaam">Familienaam</AuLabel>
-            {{input class=(with-error-class this.familienaamError "au-c-input au-c-input--block js-js-input-pattern-bound") id="mandataris-familienaam" name="mandataris-familienaam" value=(mut this.familienaam)}}
-            {{#if this.familienaamError}}
-              <AuHelpText @error="true">{{this.familienaamError}}</AuHelpText>
-            {{/if}}
+            {{#let (if this.errors.familienaam true false) as |showError|}}
+              <AuLabel @error={{showError}} for="mandataris-familienaam">
+                Familienaam
+              </AuLabel>
+              <AuInput
+                @value={{this.familienaam}}
+                @width="block"
+                @error={{showError}}
+                id="mandataris-familienaam"
+                name="mandataris-familienaam"
+              />
+              {{#if showError}}
+                <AuHelpText
+                  @error="true"
+                >{{this.errors.familienaam}}</AuHelpText>
+              {{/if}}
+            {{/let}}
           </div>
         </div>
       </div>
       <div>
         <AuLabel for="mandataris-roepnaam">Roepnaam</AuLabel>
-        {{input class="au-c-input au-c-input--block js-js-input-pattern-bound" id="mandataris-roepnaam" name="mandataris-roepnaam" placeholder="Jos" value=(mut this.roepnaam)}}
+        <AuInput
+          @value={{this.roepnaam}}
+          @width="block"
+          id="mandataris-roepnaam"
+          name="mandataris-roepnaam"
+          placeholder="Jos"
+        />
       </div>
       <div>
-        {{#let (if this.rijksregisternummerError true false) as |showError|}}
-          <AuLabel @error={{showError}} for="mandataris-rijksregister">Rijksregisternummer</AuLabel>
+        {{#let (if this.errors.rijksregisternummer true false) as |showError|}}
+          <AuLabel @error={{showError}} for="mandataris-rijksregister">
+            Rijksregisternummer
+          </AuLabel>
           <AuInput
             @error={{showError}}
             @mask="99.99.99-999.99"
@@ -37,7 +69,9 @@
             placeholder="00.00.00-000.00"
           />
           {{#if showError}}
-            <AuHelpText @error="true">{{this.rijksregisternummerError}}</AuHelpText>
+            <AuHelpText @error="true">
+              {{this.errors.rijksregisternummer}}
+            </AuHelpText>
           {{/if}}
         {{/let}}
       </div>
@@ -48,32 +82,43 @@
           @min={{this.minDate}}
           @max={{this.maxDate}}
           @id="mandataris-geboorte"
-          @onChange={{action "setDateOfBirth"}}
+          @onChange={{this.setDateOfBirth}}
         />
       </div>
       <div>
-        <AuLabel @error="{{if this.geslachtError 'true'}}">Geslacht</AuLabel>
+        <AuLabel @error={{if this.errors.geslacht true}}>Geslacht</AuLabel>
         <div class="au-o-grid au-o-grid--tiny">
           <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <label class="au-c-control au-c-control--radio">
-              <input class="au-c-control__input" name="radio-buttons" onclick={{action 'setGender'}} value="{{this.female}}" checked={{this.isFemale}} type="radio">
-              <span class="au-c-control__indicator"></span>Vrouw
-            </label>
+            <AuControlRadio
+              @label="Vrouw"
+              @checked={{this.isFemale}}
+              @value={{this.female}}
+              @onChange={{this.setGender}}
+              @name="gender"
+            />
           </div>
           <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <label class="au-c-control au-c-control--radio">
-              <input class="au-c-control__input" name="radio-buttons" onclick={{action 'setGender'}} value={{this.male}} checked={{this.isMale}} type="radio">
-              <span class="au-c-control__indicator"></span>Man
-            </label>
+            <AuControlRadio
+              @label="Man"
+              @checked={{this.isMale}}
+              @value={{this.male}}
+              @name="gender"
+              @onChange={{this.setGender}}
+            />
           </div>
-          {{#if this.geslachtError}}
-            <AuHelpText @error="true">{{this.geslachtError}}</AuHelpText>
+          {{#if this.errors.geslacht}}
+            <AuHelpText @error="true">{{this.errors.geslacht}}</AuHelpText>
           {{/if}}
         </div>
       </div>
-      {{#if this.saveError}}
-        <AuAlert @alertIcon="alert-triangle" @alertTitle="Fout bij opslaan" @alertskin="error" @alertsize="small">
-          <p>{{this.saveError}}</p>
+      {{#if this.errors.save}}
+        <AuAlert
+          @alertIcon="alert-triangle"
+          @alertTitle="Fout bij opslaan"
+          @alertSkin="error"
+          @alertSize="small"
+        >
+          <p>{{this.errors.save}}</p>
         </AuAlert>
       {{/if}}
     </div>
@@ -81,7 +126,16 @@
 </div>
 <AuToolbar @border="top" @size="large">
   <AuToolbarGroup>
-    <AuButton {{on "click" (perform this.save)}} @disabled={{this.save.isRunning}} @loading={{this.save.isRunning}} class="show-mandate-edit-new-next">Voeg persoon toe</AuButton>
-    <AuButton {{on "click" (action this.onCancel)}} @skin="secondary" class="toggle-person-new">Annuleer</AuButton>
+    {{!-- TODO: use a form element with a submit event --}}
+    <AuButton
+      @disabled={{this.save.isRunning}}
+      @loading={{this.save.isRunning}}
+      {{on "click" (perform this.save)}}
+    >
+      Voeg persoon toe
+    </AuButton>
+    <AuButton @skin="secondary" {{on "click" @onCancel}}>
+      Annuleer
+    </AuButton>
   </AuToolbarGroup>
 </AuToolbar>
