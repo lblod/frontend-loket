@@ -1,13 +1,13 @@
-{{#unless createMode}}
-<div class="js-accordion {{if editMode 'js-accordion--open'}}  {{if promptMode 'js-accordion--open'}}">
+{{#unless this.createMode}}
+<div class="js-accordion {{if this.editMode 'js-accordion--open'}}  {{if this.promptMode 'js-accordion--open'}}">
   {{mandatenbeheer/mandataris-summary
-    mandataris=mandataris
+    mandataris=this.mandataris
     onEdit=(action "edit")
     onTerminate=(action "terminate")
     onCorrect=(action "correct")
-    isEditing=editMode
+    isEditing=this.editMode
   }}
-  {{#if promptMode}}
+  {{#if this.promptMode}}
     {{mandatenbeheer/mandataris-edit-prompt
       class="au-c-collapsible au-u-margin-top-small"
       onTerminate=(action "terminate")
@@ -16,15 +16,15 @@
   {{/if}}
 
   {{!-- ***********************************CORRECT MANDATARIS*********************************** --}}
-  {{#if correctMode}}
+  {{#if this.correctMode}}
     <div class="au-c-collapsible">
       <div class="au-c-form">
         <div>
           <AuLabel for="mandaat">Mandaat</AuLabel>
           {{mandatenbeheer/mandaat-bestuursorganen-selector
             onSelect=(action 'setMandaat')
-            bestuursorganen=bestuursorganen
-            mandaat=mandaat
+            bestuursorganen=this.bestuursorganen
+            mandaat=this.mandaat
             allowClear=true
           }}
         </div>
@@ -32,7 +32,7 @@
           <AuLabel for="mandataris-status">Status</AuLabel>
           {{mandatenbeheer/mandataris-status-code-selector
             onSelect=(action "setStatusCode")
-            statusCode=status
+            statusCode=this.status
             allowClear=true
           }}
           <AuHelpText>Titelvoerdend is enkel voor burgemeester</AuHelpText>
@@ -41,7 +41,7 @@
           <AuLabel for="mandataris-beleidsdomein">Beleidsdomeinen</AuLabel>
           {{mandatenbeheer/beleidsdomein-selector-with-create
             onSelect=(action 'setBeleidsdomein')
-            beleidsdomeinen=beleidsdomeinen
+            beleidsdomeinen=this.beleidsdomeinen
             class="temporary-select__wrapper temporary-select__wrapper--block"
           }}
           <AuHelpText>Enkel voor schepenen en burgemeester</AuHelpText>
@@ -51,7 +51,7 @@
           {{input
             class="au-c-input au-c-input--block js-js-input-pattern-bound"
             placeholder="Eerste schepen"
-            value=rangorde
+            value=this.rangorde
           }}
           <AuHelpText>Enkel voor schepenen</AuHelpText>
         </div>
@@ -65,8 +65,8 @@
                 @onChange={{action "handleDateChange" "startDate"}}
                 @id="mandate-correction-start-date"
               />
-              {{#if startDateError}}
-                <AuHelpText @error="true">{{startDateError}}</AuHelpText>
+              {{#if this.startDateError}}
+                <AuHelpText @error="true">{{this.startDateError}}</AuHelpText>
               {{/if}}
             </div>
             <div class="au-o-grid__item au-u-1-2">
@@ -77,8 +77,8 @@
                 @onChange={{action "handleDateChange" "endDate"}}
                 @id="mandate-correction-end-date"
               />
-              {{#if endDateError}}
-                <AuHelpText @error="true">{{endDateError}}</AuHelpText>
+              {{#if this.endDateError}}
+                <AuHelpText @error="true">{{this.endDateError}}</AuHelpText>
               {{/if}}
             </div>
           </div>
@@ -87,35 +87,35 @@
           <AuLabel for="mandataris-fractie">Fractie</AuLabel>
           {{mandatenbeheer/fractie-selector
             onSelect=(action 'setFractie')
-            fractie=fractie
+            fractie=this.fractie
             allowClear=true
-            bestuursorganen=bestuursorganen
+            bestuursorganen=this.bestuursorganen
           }}
         </div>
       </div>
 
       <div class="au-u-margin-top">
-        {{#if requiredFieldError}}
+        {{#if this.requiredFieldError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.requiredFieldError}} @alertskin="error" @alertsize="small" />
         {{/if}}
-        {{#if saveError}}
+        {{#if this.saveError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
         {{/if}}
-        {{#if save.isRunning}}
+        {{#if this.save.isRunning}}
           <AuLoader @padding="small" />
         {{else}}
           <AuButtonGroup>
             <AuButton {{action "save"}}>
-              {{#if createMode}}
+              {{#if this.createMode}}
                 Voeg toe
-              {{else if correctMode}}
+              {{else if this.correctMode}}
                 Corrigeer informatie
               {{else}}
                 Pas aan
               {{/if}}
             </AuButton>
             <AuButton {{action "cancel"}} @skin="secondary">
-              {{#if correctMode}}
+              {{#if this.correctMode}}
                 Verwerp wijzigingen
               {{else}}
                 Annuleer
@@ -132,7 +132,7 @@
 
   {{!-- ***********************************TERMINATE MANDATARIS*********************************** --}}
 
-  {{#if terminateMode}}
+  {{#if this.terminateMode}}
     <div class="au-c-collapsible">
       <div class="au-o-grid au-o-grid--tiny">
         <div class="au-o-grid__item au-u-1-2">
@@ -152,19 +152,19 @@
             @onChange={{action "handleDateChange" "endDate"}}
             @id="mandate-termination-end-date"
           />
-          {{#if endDateError}}
-            <div class="form__error">{{endDateError}}</div>
+          {{#if this.endDateError}}
+            <div class="form__error">{{this.endDateError}}</div>
           {{/if}}
         </div>
       </div>
       <div class="au-u-margin-top">
-        {{#if requiredFieldError}}
+        {{#if this.requiredFieldError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.requiredFieldError}} @alertskin="error" @alertsize="small" />
         {{/if}}
-        {{#if saveError}}
+        {{#if this.saveError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
         {{/if}}
-        {{#if save.isRunning}}
+        {{#if this.save.isRunning}}
           <AuLoader @padding="small" />
         {{else}}
           <AuButtonGroup>
@@ -191,8 +191,8 @@
           <AuLabel for="mandaat">Mandaat</AuLabel>
           {{mandatenbeheer/mandaat-bestuursorganen-selector
             onSelect=(action 'setMandaat')
-            bestuursorganen=bestuursorganen
-            mandaat=mandaat
+            bestuursorganen=this.bestuursorganen
+            mandaat=this.mandaat
             allowClear=true
           }}
         </div>
@@ -200,7 +200,7 @@
           <AuLabel for="mandataris-status">Status</AuLabel>
           {{mandatenbeheer/mandataris-status-code-selector
             onSelect=(action "setStatusCode")
-            statusCode=status
+            statusCode=this.status
             allowClear=true
           }}
           <AuHelpText>Titelvoerdend is enkel voor burgemeester</AuHelpText>
@@ -209,7 +209,7 @@
           <AuLabel for="mandataris-beleidsdomein">Beleidsdomeinen</AuLabel>
           {{mandatenbeheer/beleidsdomein-selector-with-create
             onSelect=(action 'setBeleidsdomein')
-            beleidsdomeinen=beleidsdomeinen
+            beleidsdomeinen=this.beleidsdomeinen
           }}
         </div>
         <div>
@@ -217,7 +217,7 @@
           {{input
             class="au-c-input au-c-input--block js-js-input-pattern-bound"
             placeholder="Eerste schepen"
-            value=rangorde
+            value=this.rangorde
           }}
           <AuHelpText>Enkel voor schepenen</AuHelpText>
         </div>
@@ -231,8 +231,8 @@
                 @onChange={{action "handleDateChange" "startDate"}}
                 @id="mandate-creation-start-date"
               />
-              {{#if startDateError}}
-                <AuHelpText @error="true">{{startDateError}}</AuHelpText>
+              {{#if this.startDateError}}
+                <AuHelpText @error="true">{{this.startDateError}}</AuHelpText>
               {{/if}}
             </div>
             <div class="au-o-grid__item au-u-1-2">
@@ -243,8 +243,8 @@
                 @onChange={{action "handleDateChange" "endDate"}}
                 @id="mandate-creation-end-date"
               />
-              {{#if endDateError}}
-                <AuHelpText @error="true">{{endDateError}}</AuHelpText>
+              {{#if this.endDateError}}
+                <AuHelpText @error="true">{{this.endDateError}}</AuHelpText>
               {{/if}}
             </div>
           </div>
@@ -253,21 +253,21 @@
           <AuLabel for="fractie">Fractie</AuLabel>
           {{mandatenbeheer/fractie-selector
             onSelect=(action 'setFractie')
-            fractie=fractie
+            fractie=this.fractie
             allowClear=true
-            bestuursorganen=bestuursorganen
+            bestuursorganen=this.bestuursorganen
           }}
         </div>
       </div>
 
       <div class="au-u-margin-top">
-        {{#if requiredFieldError}}
+        {{#if this.requiredFieldError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle={{this.requiredFieldError}} @alertskin="error" @alertsize="small" />
         {{/if}}
-        {{#if saveError}}
+        {{#if this.saveError}}
           <AuAlert @alertIcon="alert-triangle" @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @alertskin="error" @alertsize="small" />
         {{/if}}
-        {{#if save.isRunning}}
+        {{#if this.save.isRunning}}
           <AuLoader @padding="small" />
         {{else}}
           <AuButtonGroup>

@@ -1,26 +1,26 @@
-{{#unless initTable.isRunning}}
+{{#unless this.initTable.isRunning}}
 <div class="au-c-table-wrapper">
   <table class="au-c-table au-c-table--zebra">
     <thead>
       <tr>
         <th rowspan="3" style="min-width: 10rem; max-width: 13rem;">Niveau</th>
-        {{#each workingTimeCategories as |category|}}
+        {{#each this.workingTimeCategories as |category|}}
           <th colspan="4">{{category.label}}</th>
         {{/each}}
         <th></th>
       </tr>
       <tr class="au-c-table__row-indent">
-        {{#each (repeat workingTimeCategories.length) as |i|}}
-          {{#each legalStatuses as |status|}}
+        {{#each (repeat this.workingTimeCategories.length) as |i|}}
+          {{#each this.legalStatuses as |status|}}
             <th colspan="2">{{status.label}}</th>
           {{/each}}
         {{/each}}
         <th></th>
       </tr>
       <tr class="au-c-table__row-indent">
-        {{#each (repeat workingTimeCategories.length) as |i|}}
-          {{#each (repeat legalStatuses.length) as |j|}}
-            {{#each sexes as |sex|}}
+        {{#each (repeat this.workingTimeCategories.length) as |i|}}
+          {{#each (repeat this.legalStatuses.length) as |j|}}
+            {{#each this.sexes as |sex|}}
               {{#if sex.isMale}}
                 <th>Mannen</th>
               {{else}}
@@ -30,7 +30,7 @@
           {{/each}}
         {{/each}}
         <th>Totaal<br>
-          {{#if isFTEDataset}}
+          {{#if this.isFTEDataset}}
             VTE's
           {{else}}
             koppen
@@ -39,27 +39,27 @@
       </tr>
     </thead>
     <tbody>
-      {{#each educationalLevels as |level|}}
+      {{#each this.educationalLevels as |level|}}
         <tr>
           <th style="max-width: 13rem;" class="au-u-no-wrap">{{level.label}}</th>
-          {{#each workingTimeCategories as |category|}}
-            {{#each legalStatuses as |status|}}
-              {{#each sexes as |sex|}}
+          {{#each this.workingTimeCategories as |category|}}
+            {{#each this.legalStatuses as |status|}}
+              {{#each this.sexes as |sex|}}
                 {{personeelsbeheer/employee-observation-table-cell
-                    observations=observations
-                    unitMeasure=unitMeasure
+                    observations=this.observations
+                    unitMeasure=this.unitMeasure
                     educationalLevel=level
                     workingTimeCategory=category
                     legalStatus=status
                     sex=sex
-                    onChange=onChangeObservation
+                    onChange=this.onChangeObservation
                 }}
               {{/each}}
             {{/each}}
           {{/each}}
           <td><strong>
             {{personeelsbeheer/employee-observation-table-total
-                observations=observations
+                observations=this.observations
                 aggregations=(array (hash groupBy="educationalLevel" concept=level))
             }}
           </strong></td>
@@ -68,45 +68,45 @@
 
       <tr>
         <th style="max-width: 12rem;">Totaal</th>
-        {{#each workingTimeCategories as |category|}}
-          {{#each legalStatuses as |status|}}
-            {{#each sexes as |sex|}}
+        {{#each this.workingTimeCategories as |category|}}
+          {{#each this.legalStatuses as |status|}}
+            {{#each this.sexes as |sex|}}
               <th>
                 {{personeelsbeheer/employee-observation-table-total
-                    observations=observations
+                    observations=this.observations
                     aggregations=(array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status) (hash groupBy="sex" concept=sex))
                 }} {{#if sex.isMale}}Mannen{{else}}Vrouwen{{/if}}
               </th>
             {{/each}}
           {{/each}}
         {{/each}}
-        <th><strong>{{total}}</strong></th>
+        <th><strong>{{this.total}}</strong></th>
       </tr>
       <tr>
         <th style="max-width: 12rem;">Totaal</th>
-        {{#each workingTimeCategories as |category|}}
-          {{#each legalStatuses as |status|}}
+        {{#each this.workingTimeCategories as |category|}}
+          {{#each this.legalStatuses as |status|}}
             <th colspan="2">
               {{personeelsbeheer/employee-observation-table-total
-                  observations=observations
+                  observations=this.observations
                   aggregations=(array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status))
               }} {{status.label}}
             </th>
           {{/each}}
         {{/each}}
-        <th><strong>{{total}}</strong></th>
+        <th><strong>{{this.total}}</strong></th>
       </tr>
       <tr>
         <th style="max-width: 12rem;">Totaal</th>
-        {{#each workingTimeCategories as |category|}}
+        {{#each this.workingTimeCategories as |category|}}
           <th colspan="4">
             {{personeelsbeheer/employee-observation-table-total
-                observations=observations
+                observations=this.observations
                 aggregations=(array (hash groupBy="workingTimeCategory" concept=category))
             }} {{category.label}}
           </th>
         {{/each}}
-        <th><strong>{{total}}</strong></th>
+        <th><strong>{{this.total}}</strong></th>
       </tr>
     </tbody>
   </table>
