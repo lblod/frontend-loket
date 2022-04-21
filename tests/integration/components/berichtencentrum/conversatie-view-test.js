@@ -93,11 +93,19 @@ module(
       };
 
       this.set('model', model);
+
+      mockCurrentSessionGroup(this.owner);
     });
 
     test('the component renders a header, a conversatie and a button', async function (assert) {
+      this.close = () => {};
+
       await render(
-        hbs`{{berichtencentrum/conversatie-view model=model data-test-loket="berichtencentrum-conversatie"}}`
+        hbs`<Berichtencentrum::ConversatieView
+          @model={{this.model}}
+          @close={{this.close}}
+          data-test-loket="berichtencentrum-conversatie"
+        />`
       );
 
       assert
@@ -105,13 +113,19 @@ module(
         .exists();
       assert.dom(`[data-test-loket=berichtencentrum-conversatie]`).exists();
       assert
-        .dom(`[data-test-loket=berichtencentrum-conversatie-button]`)
+        .dom(`[data-test-loket="berichtencentrum-conversatie-button"]`)
         .exists();
     });
 
     test('the conversatie has exactly one message', async function (assert) {
+      this.close = () => {};
+
       await render(
-        hbs`{{berichtencentrum/conversatie-view model=model data-test-loket="berichtencentrum-conversatie"}}`
+        hbs`<Berichtencentrum::ConversatieView
+          @model={{this.model}}
+          @close={{this.close}}
+          data-test-loket="berichtencentrum-conversatie"
+        />`
       );
 
       assert
@@ -120,3 +134,8 @@ module(
     });
   }
 );
+
+function mockCurrentSessionGroup(owner) {
+  let currentSession = owner.lookup('service:current-session');
+  currentSession.group = { id: '1234' };
+}
