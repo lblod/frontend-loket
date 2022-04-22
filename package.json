@@ -31,14 +31,14 @@
     "moment": "^2.29.1"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^1.0.0",
+    "@appuniversum/ember-appuniversum": "^1.0.6",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
-    "@lblod/ember-submission-form-fields": "^1.6.0",
+    "@lblod/ember-submission-form-fields": "^1.7.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "ember-auto-import": "^2.4.0",

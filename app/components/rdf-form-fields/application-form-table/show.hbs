@@ -1,0 +1,80 @@
+<AuLabel>
+  Vul in per organisator: het aantal opgevangen kinderen voor alle volle dagen, voor alle halve dagen en voor infrastructuur.
+</AuLabel>
+<AuHelpText class="au-u-margin-bottom-small">
+  Niet zeker wat u moet invullen? Ga naar de <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank" rel="noopener noreferrer">informatiepagina over subsidies</a> die u kan indienen via het loket.
+</AuHelpText>
+<table class="data-table data-table--zebra data-table--tight au-u-margin-top-small ">
+  <caption class="au-u-hidden-visually">Vul het aantal opgevangen kinderen voor alle volle en halve dagen en het aantal kinderen dat in aanmerking komt voor infrastructuursubsidies per organisator in</caption>
+  <thead>
+    <tr>
+      <th scope="col">
+        Naam&nbsp;organisator
+        <AuHelpText>bv. school, jeugdvereniging</AuHelpText>
+      </th>
+      <th scope="col">
+        Aantal kinderen voor alle volle dagen
+      </th>
+      <th scope="col">
+        Aantal kinderen voor alle halve dagen
+      </th>
+      <th scope="col">
+        Aantal kinderen in aanmerking voor infrastructuursubsidies
+      </th>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.sortedEntries as |entry index|}}
+      <tr>
+        <td>
+          <AuLabel for="actor-name-{{index}}" class="au-u-hidden-visually">Naam organisator</AuLabel>
+          <AuInput id="actor-name-{{index}}" @width="block" @value={{entry.actorName.value}} @disabled={{true}}/>
+        </td>
+        <td>
+          <AuLabel for="all-day-{{index}}" class="au-u-hidden-visually">
+            Kinderen voor <em>alle volle dagen</em>,
+            <br>
+            met personeel
+          </AuLabel>
+          <AuInput id="all-day-{{index}}" @width="block" @value={{entry.numberChildrenForFullDay.value}} @disabled={{true}}/>
+        </td>
+        <td>
+          <AuLabel for="half-day-{{index}}"  class="au-u-hidden-visually">
+            Kinderen voor alle halve dagen,
+            <br>
+            met personeel
+          </AuLabel>
+          <AuInput id="half-day-{{index}}" @width="block" @value={{entry.numberChildrenForHalfDay.value}} @disabled={{true}}/>
+        </td>
+        <td>
+          <AuLabel for="per-infra-{{index}}" class="au-u-hidden-visually">
+            Kinderen per infrastructuur per dag,
+            <br>
+            met of zonder personeel
+          </AuLabel>
+          <AuInput id="per-infra-{{index}}" @width="block" @value={{entry.numberChildrenPerInfrastructure.value}} @disabled={{true}}/>
+        </td>
+        <td style="white-space: nowrap; vertical-align: middle;" {{! template-lint-disable no-inline-styles }}>
+          €&hairsp;{{entry.totalAmount}}
+        </td>
+      </tr>
+    {{/each}}
+    {{#if this.usedParentalContribution}}
+      <tr>
+        <th colspan="3" class="data-table__add-row u-align-center"></th>
+        <th class="data-table__add-row u-align-right">
+          Ouderbijdrage:
+        </th>
+        <th>-50%</th>
+      </tr>
+    {{/if}}
+    <tr>
+      <th colspan="3" class="data-table__add-row u-align-center"></th>
+      <th class="data-table__add-row u-align-right">Totaal:</th>
+      <th class="data-table__add-row u-align-center">€&hairsp;{{this.aangevraagdBedrag}}</th>
+    </tr>
+  </tbody>
+</table>
+
+{{yield}}

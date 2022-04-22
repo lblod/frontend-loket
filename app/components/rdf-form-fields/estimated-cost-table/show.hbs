@@ -1,0 +1,59 @@
+<AuLabel for={{this.inputFor}}>
+  {{@field.label}}
+  {{#if this.isRequired}}
+    <AuPill>Verplicht</AuPill>
+  {{/if}}
+</AuLabel>
+<table
+  class="data-table data-table--zebra data-table--tight au-u-margin-top-small"
+>
+  <caption class="au-u-hidden-visually">
+    Vul de raming van de totale kostprijs voor de fietsinfrastructuur in
+  </caption>
+  <thead>
+    <tr>
+      <td></td>
+      <th scope="col">
+        Kosten (Excl. BTW)
+      </th>
+      <th scope="col">
+        Het gemeentelijk aandeel (%) in kosten
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.entries as |entry index|}}
+      <tr>
+        <th scope="row">
+          {{entry.description.value}}
+        </th>
+        <td>
+          <AuLabel for="costs-{{index}}" class="au-u-hidden-visually">
+            Kosten (Excl. BTW)
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.cost.value}}
+            @disabled={{true}}
+            @type="number"
+            id="costs-{{index}}"
+            step="any"
+          />
+        </td>
+        <td>
+          <AuLabel for="share-{{index}}" class="au-u-hidden-visually">
+            Het gemeentelijk aandeel (%) in kosten
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.share.value}}
+            @disabled={{true}}
+            @type="number"
+            id="share-{{index}}"
+            step="any"
+          />
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
