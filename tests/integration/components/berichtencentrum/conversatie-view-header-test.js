@@ -95,9 +95,10 @@ module(
       this.set('model', model);
     });
 
-    test('the compoenent renders and shows a dossiernummer, a typeCommunicatie, a cross and a betreft', async function (assert) {
+    test('it shows a dossiernummer, a typeCommunicatie, a cross and a betreft', async function (assert) {
+      this.set('close', () => {});
       await render(
-        hbs`{{berichtencentrum/conversatie-view-header conversatie=model}}`
+        hbs`<Berichtencentrum::ConversatieViewHeader @conversatie={{this.model}} @close={{this.close}} />`
       );
 
       assert
@@ -110,21 +111,20 @@ module(
       assert.dom(`[data-test-loket=berichtencentrum-header-betreft]`).exists();
     });
 
-    test('it calls the given onclick handler when the cross is clicked', async function (assert) {
-      this.set('crossClicked', false);
-      this.set('close', function () {
-        this.set('crossClicked', !this.crossClicked);
+    test('it calls the given `@close` action when the cross is clicked', async function (assert) {
+      this.set('close', () => {
         assert.step('cross-clicked');
       });
 
-      await render(
-        hbs`{{berichtencentrum/conversatie-view-header conversatie=model close=close crossClicked=crossClicked}}`
-      );
+      await render(hbs`
+        <Berichtencentrum::ConversatieViewHeader
+          @conversatie={{this.model}}
+          @close={{this.close}}
+          @crossClicked={{this.crossClicked}}
+        />
+      `);
 
-      assert.false(this.crossClicked);
       await click('[data-test-loket=berichtencentrum-header-cross]');
-      assert.true(this.crossClicked);
-
       assert.verifySteps(['cross-clicked']);
     });
   }

@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { and, not } from 'ember-awesome-macros';
 import { A } from '@ember/array';
 import { all } from 'rsvp';
 import { action } from '@ember/object';
@@ -8,10 +7,8 @@ import { trackedReset } from 'tracked-toolbox';
 import { tracked } from '@glimmer/tracking';
 
 export default class BbcdrReportEditComponent extends Component {
-  @service() router;
-  @service() store;
-
-  @and('args.report.status.isConcept', not('readyToSend')) enableUpload;
+  @service router;
+  @service store;
 
   @tracked showExitModal = false;
   @trackedReset('args.report') showError = false;
@@ -29,6 +26,10 @@ export default class BbcdrReportEditComponent extends Component {
     },
   })
   reportFiles = A();
+
+  get enableUpload() {
+    return this.args.report.get('status.isConcept') && !this.readyToSend;
+  }
 
   get readyToSend() {
     return this.reportFiles.length == 2;
