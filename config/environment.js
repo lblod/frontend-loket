@@ -26,12 +26,6 @@ module.exports = function (environment) {
       includeLocales: ['nl-be'],
       includeTimezone: 'all',
     },
-    browserUpdate: {
-      vs: { i: 11, f: -3, o: -3, s: -3, c: -3 },
-      style: 'corner',
-      l: 'nl',
-      shift_page_down: false,
-    },
     torii: {
       disableRedirectInitializer: true,
       providers: {
