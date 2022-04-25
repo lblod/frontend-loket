@@ -1,4 +1,3 @@
-/* eslint-disable ember/require-valid-css-selector-in-test-helpers */
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
@@ -32,7 +31,7 @@ module('Integration | Component | bbcdr/report-table', function (hooks) {
     ];
     this.set('reports', reports);
 
-    await render(hbs`{{bbcdr/report-table content=reports}}`);
+    await render(hbs`<Bbcdr::ReportTable @content={{this.reports}} />`);
 
     assert
       .dom('[data-test-loket=bbcdr-report-table-body] tr')
@@ -41,9 +40,7 @@ module('Integration | Component | bbcdr/report-table', function (hooks) {
 
   test('it displays a message if there are no reports', async function (assert) {
     this.set('reports', []);
-    await render(
-      hbs`{{bbcdr/report-table content=reports noDataMessage="Geen rapporten gevonden"}}`
-    );
+    await render(hbs`<Bbcdr::ReportTable @content={{this.reports}} />`);
 
     assert
       .dom('[data-test-loket=bbcdr-report-table-body] tr:first-child')
@@ -77,21 +74,21 @@ module('Integration | Component | bbcdr/report-table', function (hooks) {
     ];
     this.set('reports', reports);
 
-    await render(hbs`{{bbcdr/report-table content=reports}}`);
+    await render(hbs`<Bbcdr::ReportTable @content={{this.reports}} />`);
 
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(1) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature'
+        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(1) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]'
       )
       .exists({ count: 3 });
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(2) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature'
+        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(2) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]'
       )
       .exists({ count: 1 });
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(3) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature'
+        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(3) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]'
       )
       .doesNotExist();
   });
@@ -117,7 +114,7 @@ module('Integration | Component | bbcdr/report-table', function (hooks) {
     ];
     this.set('reports', reports);
 
-    await render(hbs`{{bbcdr/report-table content=reports}}`);
+    await render(hbs`<Bbcdr::ReportTable @content={{this.reports}} />`);
 
     for (let i = 0; i < reports.length; i++) {
       assert
