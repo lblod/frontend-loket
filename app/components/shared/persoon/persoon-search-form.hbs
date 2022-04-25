@@ -16,24 +16,36 @@
     <div class="au-o-grid au-o-grid--small">
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
-        <div class="au-c-input-wrapper">
-          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Voornaam" @value={{this.gebruikteVoornaam}} @key-up={{perform this.search}} @id="mandataris-voornaam" />
-          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
-        </div>
+        <AuInput
+          @icon="search"
+          @iconAlignment="left"
+          @value={{this.gebruikteVoornaam}}
+          id="mandataris-voornaam"
+          placeholder="Voornaam"
+          {{on "input" (perform this.search)}}
+        />
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-naam">Familienaam</AuLabel>
-        <div class="au-c-input-wrapper">
-          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Familienaam" @value={{this.achternaam}} @key-up={{perform this.search}} @id="mandataris-naam" />
-          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
-        </div>
+        <AuInput
+          @icon="search"
+          @iconAlignment="left"
+          @value={{this.achternaam}}
+          id="mandataris-naam"
+          placeholder="Familienaam"
+          {{on "input" (perform this.search)}}
+        />
       </div>
       <div class="au-o-grid__item">
         <AuLabel for="mandataris-rijksregisternummer">Zoek rijksregisternummer <AuPill>Optioneel</AuPill></AuLabel>
-        <div class="au-c-input-wrapper">
-          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Rijksregisternummer" @value={{this.identificator}} @key-up={{perform this.search}} @id="mandataris-rijksregisternummer" />
-          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
-        </div>
+        <AuInput
+          @icon="search"
+          @iconAlignment="left"
+          @value={{this.identificator}}
+          id="mandataris-rijksregisternummer"
+          placeholder="Rijksregisternummer"
+          {{on "input" (perform this.search)}}
+        />
       </div>
     </div>
   </AuToolbarGroup>

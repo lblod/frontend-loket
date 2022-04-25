@@ -48,11 +48,12 @@
         </div>
         <div>
           <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
-          {{input
-            class="au-c-input au-c-input--block js-js-input-pattern-bound"
+          <AuInput
+            @value={{this.rangorde}}
+            @width="block"
+            id="mandataris-rangorde"
             placeholder="Eerste schepen"
-            value=this.rangorde
-          }}
+          />
           <AuHelpText>Enkel voor schepenen</AuHelpText>
         </div>
         <div>
@@ -214,11 +215,12 @@
         </div>
         <div>
           <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
-          {{input
-            class="au-c-input au-c-input--block js-js-input-pattern-bound"
+          <AuInput
+            @value={{this.rangorde}}
+            @width="block"
+            id="mandataris-rangorde"
             placeholder="Eerste schepen"
-            value=this.rangorde
-          }}
+          />
           <AuHelpText>Enkel voor schepenen</AuHelpText>
         </div>
         <div>
