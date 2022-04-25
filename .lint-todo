@@ -77,13 +77,6 @@ add|ember-template-lint|no-whitespace-for-layout|37|12|37|12|3d0ab843e85844db870
 add|ember-template-lint|no-unknown-arguments-for-builtin-components|38|10|38|10|ec6586d354f5e09f8e7758035b1be186ddfb002d|1649980800000|||app/templates/mandatenbeheer/mandatarissen.hbs
 add|ember-template-lint|no-unknown-arguments-for-builtin-components|40|10|40|10|e8e726585e36ba8dafd795873181dcfd370e99bd|1649980800000|||app/templates/mandatenbeheer/mandatarissen.hbs
 add|ember-template-lint|require-input-label|36|8|36|8|34b0c2e848a90174989be6b00ea1304fe93db3f3|1649980800000|||app/templates/mandatenbeheer/mandatarissen.hbs
-add|ember-template-lint|no-action|51|20|51|20|9d210688d82ca2d429ebdcf858994aa0c1da7828|1649980800000|||app/components/shared/persoon/create-persoon.hbs
-add|ember-template-lint|no-action|59|78|59|78|2656c1f9f1cb2d5ee7920fff782d4aeeed500ba4|1649980800000|||app/components/shared/persoon/create-persoon.hbs
-add|ember-template-lint|no-action|65|78|65|78|2656c1f9f1cb2d5ee7920fff782d4aeeed500ba4|1649980800000|||app/components/shared/persoon/create-persoon.hbs
-add|ember-template-lint|no-action|85|27|85|27|280e7c84f9b42304257d4f735aed3849b032dc90|1650412800000|||app/components/shared/persoon/create-persoon.hbs
-add|ember-template-lint|no-curly-component-invocation|8|12|8|12|968864db8f273e47a82cfb7048259cd451b1682c|1650412800000|||app/components/shared/persoon/create-persoon.hbs
-add|ember-template-lint|no-curly-component-invocation|15|12|15|12|f2004344fe80d46a2c7408b6829d0f200398650e|1650412800000|||app/components/shared/persoon/create-persoon.hbs
-add|ember-template-lint|no-curly-component-invocation|24|8|24|8|2be4b55d553eb9c36aed1c29c6de0ed460012e7b|1650412800000|||app/components/shared/persoon/create-persoon.hbs
 add|ember-template-lint|no-action|11|41|11|41|5de42254dc8f13fe8065c6a49238adab52d87cd6|1650412800000|||app/components/shared/persoon/persoon-search-form-pagination.hbs
 add|ember-template-lint|no-action|20|41|20|41|ee7587da2f9edf362804b746083101ae33f681e7|1650412800000|||app/components/shared/persoon/persoon-search-form-pagination.hbs
 add|ember-template-lint|no-unknown-arguments-for-builtin-components|20|80|20|80|44b3bbc8409d452f5de5ac6c9599354633b9b626|1649980800000|||app/components/shared/persoon/persoon-search-form.hbs
