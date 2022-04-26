@@ -16,16 +16,16 @@
   <AuToolbar @size="large">
     {{#if (and this.forceShowErrors (not this.isValidForm))}}
       <AuToolbarGroup class="au-c-toolbar__group--row">
-        <AuAlert @alertIcon="alert-triangle" @alertTitle="Kan dossier niet versturen" @alertskin="error"
-                 @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
+        <AuAlert @icon="alert-triangle" @title="Kan dossier niet versturen" @skin="error"
+                 @size="small" @closable="true" class="au-u-margin-bottom-none">
           <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
         </AuAlert>
       </AuToolbarGroup>
     {{/if}}
     {{#if this.error}}
       <AuToolbarGroup class="au-c-toolbar__group--row">
-        <AuAlert @alertIcon="alert-triangle" @alertTitle="Oeps! Dit is een beetje gênant ..." @alertskin="error"
-                 @alertsize="small" @closable="true" class="au-u-margin-bottom-none">
+        <AuAlert @icon="alert-triangle" @title="Oeps! Dit is een beetje gênant ..." @skin="error"
+                 @size="small" @closable="true" class="au-u-margin-bottom-none">
           <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
         </AuAlert>
       </AuToolbarGroup>
@@ -51,10 +51,10 @@
 
               <div>
                 <AuAlert class="au-u-margin-bottom-small"
-                         @alertIcon="info-circle"
-                         @alertskin="info"
-                         @alertsize="small"
-                         @alertTitle="Deze stap kan u nog niet indienen.">
+                         @icon="info-circle"
+                         @skin="info"
+                         @size="small"
+                         @title="Deze stap kan u nog niet indienen.">
                   <AuContent>
                     <p>U kan pas vanaf een later moment indienen.</p>
 
@@ -89,9 +89,9 @@
               </div>
             {{else if this.submittablePeriodExpired}}
               <div>
-                <AuAlert @alertIcon="info-circle" @alertTitle="De deadline voor deze stap is verstreken."
-                         @alertskin="warning"
-                  @alertsize="small" class="au-u-margin-bottom-small">
+                <AuAlert @icon="info-circle" @title="De deadline voor deze stap is verstreken."
+                         @skin="warning"
+                  @size="small" class="au-u-margin-bottom-small">
                   <p> Deze stap was beschikbaar tot en met
                     {{moment-format this.step.subsidyProceduralStep.period.end 'DD-MM-YYYY'}}.
                   </p>
@@ -103,9 +103,9 @@
               </div>
             {{else}} <!-- GENERAL ISSUES (data is broken) -->
               <div>
-                <AuAlert @alertIcon="info-circle" @alertTitle="Algemene fout"
-                         @alertskin="error"
-                         @alertsize="small" class="au-u-margin-bottom-small">
+                <AuAlert @icon="info-circle" @title="Algemene fout"
+                         @skin="error"
+                         @size="small" class="au-u-margin-bottom-small">
                   <p>Indien dit blijft gebeuren, neem contact op met
                     <a href="mailto:LoketLokaalBestuur@vlaanderen.be" class="au-c-link">
                       LoketLokaalBestuur@vlaanderen.be
@@ -116,9 +116,9 @@
             {{/if}}
           {{else}} <!-- PREVIOUS STEP NEEDS TO BE COMPLETED FIRST -->
             <div>
-              <AuAlert @alertIcon="info-circle" @alertTitle="Deze subsidieaanvraag stap is nog niet beschikbaar."
-                       @alertskin="info"
-                       @alertsize="small" class="au-u-margin-bottom-small">
+              <AuAlert @icon="info-circle" @title="Deze subsidieaanvraag stap is nog niet beschikbaar."
+                       @skin="info"
+                       @size="small" class="au-u-margin-bottom-small">
                 <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
                 <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
                         href="mailto:LoketLokaalBestuur@vlaanderen.be"
@@ -133,8 +133,8 @@
           {{/if}}
         {{else}}
           <div>
-            <AuAlert @alertIcon="info-circle" @alertTitle="De subsidiestap werd verstuurd." @alertskin="success"
-                     @alertsize="small">
+            <AuAlert @icon="info-circle" @title="De subsidiestap werd verstuurd." @skin="success"
+                     @size="small">
               <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
                       href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
                       rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
@@ -157,40 +157,40 @@
         {{#if this.saveConcept.isRunning}}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
-                     @alertIcon="info-circle"
-                     @alertTitle="Aan het opslaan..."
-                     @alertskin="info"
-                     @alertsize="small"></AuAlert>
+                     @icon="info-circle"
+                     @title="Aan het opslaan..."
+                     @skin="info"
+                     @size="small"></AuAlert>
           </li>
         {{/if}}
         <!-- MOVING -->
         {{#if this.next.isRunning }}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
-                     @alertIcon="info-circle"
-                     @alertTitle="Volgende stap voorbereiden..."
-                     @alertskin="info"
-                     @alertsize="small"></AuAlert>
+                     @icon="info-circle"
+                     @title="Volgende stap voorbereiden..."
+                     @skin="info"
+                     @size="small"></AuAlert>
           </li>
         {{/if}}
         <!-- SENDING -->
         {{#if (and this.submit.isRunning (not this.saveConcept.isRunning) (not this.next.isRunning))}}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
-                     @alertIcon="info-circle"
-                     @alertTitle="Aan het versturen..."
-                     @alertskin="info"
-                     @alertsize="small"></AuAlert>
+                     @icon="info-circle"
+                     @title="Aan het versturen..."
+                     @skin="info"
+                     @size="small"></AuAlert>
           </li>
         {{/if}}
         <!-- RECENTLY SAVED -->
         {{#if (and this.recentlySaved (not this.saveConcept.isRunning) (not this.submit.isRunning) (not this.next.isRunning))}}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
-                     @alertIcon="info-circle"
-                     @alertTitle="Opgeslagen."
-                     @alertskin="success"
-                     @alertsize="small"></AuAlert>
+                     @icon="info-circle"
+                     @title="Opgeslagen."
+                     @skin="success"
+                     @size="small"></AuAlert>
           </li>
         {{/if}}
       </ul>

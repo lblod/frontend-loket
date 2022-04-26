@@ -54,7 +54,7 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box">
     {{#if this.error}}
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Fout bij het zoeken, gelieve opnieuw te proberen" @alertskin="warning">
+      <AuAlert @icon="alert-triangle" @title="Fout bij het zoeken, gelieve opnieuw te proberen" @skin="warning">
         <p class="au-u-margin-top-small">
           <AuButton {{on 'click' this.toggleError}}>OK</AuButton>
         </p>
@@ -89,7 +89,7 @@
             {{/each}}
           </ul>
 
-          <AuAlert @alertTitle="Komt het zoekresultaat niet overeen met wat u zocht?" @alertskin="info" @alertsize="tiny" class="au-u-margin-top-small">
+          <AuAlert @title="Komt het zoekresultaat niet overeen met wat u zocht?" @skin="info" @size="tiny" class="au-u-margin-top-small">
             <p>
               Kijk uw zoekopdracht na of
               <AuButton @skin="tertiary" {{on 'click' @onCreateNewPerson}} class="au-c-link">
@@ -99,7 +99,7 @@
             </p>
           </AuAlert>
         {{else}}
-          <AuAlert @alertTitle='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @alertskin="info" @alertsize="tiny">
+          <AuAlert @title='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @skin="info" @size="tiny">
             <p>
               Kijk uw zoekopdracht na of
               <AuButton @skin="tertiary" {{on 'click' @onCreateNewPerson}} class="au-c-link">
