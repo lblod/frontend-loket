@@ -32,7 +32,7 @@
     {{/if}}
     <AuToolbarGroup class="au-u-margin-top-small au-u-margin-bottom-small">
       <!-- DEFAULT CRUD CASE -->
-      {{#unless (not this.canSubmit) }}
+      {{#if this.canSubmit }}
         <AuButton @disabled={{if (or this.saveConcept.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                   @loading={{if this.submit.isRunning "true"}}
           {{on "click" (perform this.submit)}}>Verstuur naar de Vlaamse overheid
@@ -70,7 +70,7 @@
                       Meer informatie over de subsidieaanvragen vindt u
                       <a class="au-c-link"
                          href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies"
-                         target="_blank">
+                         target="_blank" rel="noopener noreferrer">
                         hier
                       </a>.<br>
                       Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met
@@ -147,7 +147,7 @@
             </AuAlert>
           </div>
         {{/unless}}
-      {{/unless}}
+      {{/if}}
     </AuToolbarGroup>
 
     <!-- USER NOTIFICATIONS -->
