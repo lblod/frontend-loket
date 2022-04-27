@@ -200,6 +200,10 @@ export default class SharedBreadCrumbComponent extends Component {
         { label: 'Bekijk subsidieaanvraag' },
       ],
     },
+    {
+      route: 'public-services',
+      crumbs: [{ label: 'Producten- en dienstencatalogus' }],
+    },
   ];
 
   get crumbsForRoute() {

@@ -12,6 +12,7 @@ Router.map(function () {
   this.route('mock-login');
 
   this.route('contact');
+  this.route('help');
 
   this.route('legaal', function () {
     this.route('disclaimer');
@@ -98,8 +99,9 @@ Router.map(function () {
     });
   });
 
+  this.route('public-services', { path: '/producten-en-dienstencatalogus' });
+
   this.route('route-not-found', {
     path: '/*wildcard',
   });
-  this.route('help');
 });

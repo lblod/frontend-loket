@@ -1,4 +1,4 @@
-<AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings">
+<AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings" role="menu">
   {{#if this.currentSession.canAccessToezicht}}
     <AuLink @route="supervision.submissions" role="menuitem">
       <AuIcon @icon="search-folder" @alignment="left" />
@@ -39,6 +39,11 @@
     <AuLink @route="subsidy.applications.index" role="menuitem">
       <AuIcon @icon="documents" @alignment="left" />
       Subsidiebeheer
+    </AuLink>
+  {{/if}}
+  {{#if this.currentSession.canAccessPublicServices}}
+    <AuLink @route="public-services" @icon="unordered-list" @iconAlignment="left" role="menuitem">
+      Producten- en dienstencatalogus
     </AuLink>
   {{/if}}
 </AuDropdown>
