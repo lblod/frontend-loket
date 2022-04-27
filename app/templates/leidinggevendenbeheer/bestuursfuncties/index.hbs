@@ -9,7 +9,7 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   {{#if (or (not this.allowed) (eq this.model.length 0))}}
     <div class="au-o-box">
-      <AuAlert @alertIcon="info-circle" @alertsize="small">
+      <AuAlert @icon="info-circle" @size="small">
         <p>Voor de bestuurseenheid {{this.bestuurseenheid.classificatie.label}} {{this.bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
       </AuAlert>
     </div>

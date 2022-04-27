@@ -16,7 +16,7 @@
               <AuLoader @padding="small" />
             {{else}}
               {{#if login.errorMessage}}
-                <AuAlert @alertIcon="alert-triangle" @alertTitle={{login.errorMessage}} @alertskin="warning" />
+                <AuAlert @icon="alert-triangle" @title={{login.errorMessage}} @skin="warning" />
               {{/if}}
               <login.each-account @accounts={{this.model}} as |account|>
                 <div class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small">

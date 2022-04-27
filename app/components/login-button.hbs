@@ -12,10 +12,10 @@
 
   {{#if acmidm.errorMessage}}
     <AuAlert
-      @alertIcon="alert-triangle"
-      @alertSize="small"
-      @alertTitle={{acmidm.errorMessage}}
-      @alertSkin="error"
+      @icon="alert-triangle"
+      @size="small"
+      @title={{acmidm.errorMessage}}
+      @skin="error"
       class={{unless @isCompact "au-u-margin-top-small"}}
     />
   {{/if}}

@@ -34,9 +34,9 @@
       {{/if}}
 
       {{#if this.showError}}
-      <AuAlert @alertIcon="alert-triangle"
-        @alertTitle="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren."
-        @alertskin="error" class="au-u-margin-top-tiny" />
+      <AuAlert @icon="alert-triangle"
+        @title="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren."
+        @skin="error" class="au-u-margin-top-tiny" />
       {{/if}}
     </div>
 
@@ -55,7 +55,7 @@
       </AuButtonGroup>
       {{else}}
       {{#unless @report.status.isConcept}}
-      <AuAlert @alertIcon="check" @alertTitle="Rapport verstuurd" @alertsize="small" @alertskin="success" data-test-loket="bbcdr-already-submitted-message" />
+      <AuAlert @icon="check" @title="Rapport verstuurd" @size="small" @skin="success" data-test-loket="bbcdr-already-submitted-message" />
       {{/unless}}
       <AuButtonGroup>
         {{#if @report.status.isConcept}}
