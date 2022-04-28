@@ -58,13 +58,6 @@ add|ember-template-lint|no-unused-block-params|22|61|22|61|98a31230e58d44280849f
 add|ember-template-lint|no-unused-block-params|21|67|21|67|de60c0d36460b955f120d22fb75da03360f42a90|1650412800000|||app/components/personeelsbeheer/employee-period-slice-table.hbs
 add|ember-template-lint|no-curly-component-invocation|48|16|48|16|b457c82ab2d2b7601a184a4557d0e3262eafebaa|1650412800000|||app/components/personeelsbeheer/employee-period-slice-table.hbs
 add|ember-template-lint|require-context-role|4|36|4|36|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/bread-crumb.hbs
-add|ember-template-lint|require-context-role|3|45|3|45|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/compact-menu.hbs
-add|ember-template-lint|require-context-role|9|48|9|48|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/compact-menu.hbs
-add|ember-template-lint|require-context-role|15|37|15|37|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/compact-menu.hbs
-add|ember-template-lint|require-context-role|21|50|21|50|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/compact-menu.hbs
-add|ember-template-lint|require-context-role|27|60|27|60|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/compact-menu.hbs
-add|ember-template-lint|require-context-role|33|64|33|64|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/compact-menu.hbs
-add|ember-template-lint|require-context-role|39|48|39|48|0be75355d0dd43dafc60091285ba906c43350d19|1649980800000|||app/components/shared/compact-menu.hbs
 add|ember-template-lint|no-html-comments|17|8|17|8|85c9f70994b497ae558a088d6eaaebe2f143828b|1649980800000|||app/templates/berichtencentrum/berichten.hbs
 add|ember-template-lint|no-whitespace-for-layout|37|12|37|12|3d0ab843e85844db8704ed38baba372be357b00a|1649980800000|||app/templates/legaal/cookieverklaring.hbs
 add|ember-template-lint|no-action|11|41|11|41|5de42254dc8f13fe8065c6a49238adab52d87cd6|1650412800000|||app/components/shared/persoon/persoon-search-form-pagination.hbs
