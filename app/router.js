@@ -99,7 +99,11 @@ Router.map(function () {
     });
   });
 
-  this.route('public-services', { path: '/producten-en-dienstencatalogus' });
+  this.route(
+    'public-services',
+    { path: '/producten-en-dienstencatalogus' },
+    function () {}
+  );
 
   this.route('route-not-found', {
     path: '/*wildcard',

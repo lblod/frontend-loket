@@ -1,0 +1,153 @@
+<AuToolbar @border="bottom" @size="large" @nowrap={{true}}>
+  <AuToolbarGroup>
+    <AuHeading @skin="2" data-test-loket="public-services-page-title">
+      Producten- en dienstencatalogus
+    </AuHeading>
+  </AuToolbarGroup>
+  <AuToolbarGroup class="au-u-flex au-u-flex--vertical-center">
+    <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
+
+    {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
+    <span class="au-c-input-wrapper au-c-input-wrapper--left">
+      <AuIcon @icon="search" />
+      <input
+        value={{this.search}}
+        id="search"
+        class="au-c-input"
+        placeholder="Vul uw zoekterm in"
+        {{on "input" (perform this.searchTask value="target.value")}}
+      />
+    </span>
+    <PublicServices::SectorSelect
+      @selected={{@model.sector}}
+      @onChange={{this.handleSectorSelection}}
+      @allowClear={{true}}
+    />
+    <AuLink
+      {{! TODO: Add the correct route }}
+      @route="public-services"
+      @icon="add"
+      @iconAlignment="left"
+      @skin="button"
+    >
+      Product toevoegen
+    </AuLink>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<AuDataTable
+  @content={{this.publicServices}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{20}}
+  as |Table|
+>
+  <Table.content class="hehe" as |Content|>
+    <Content.header>
+      <AuDataTableThSortable
+        @field="name"
+        @currentSorting={{this.sort}}
+        @label="Productnaam"
+      />
+      <AuDataTableThSortable
+        @field=""
+        @currentSorting={{this.sort}}
+        @label="PID"
+      />
+      <AuDataTableThSortable
+        @field=""
+        @currentSorting={{this.sort}}
+        @label="Sector"
+      />
+      <AuDataTableThSortable
+        @field=""
+        @currentSorting={{this.sort}}
+        @label="Laatst bewerkt"
+      />
+      <AuDataTableThSortable
+        @field=""
+        @currentSorting={{this.sort}}
+        @label="Vertalingen"
+      />
+      <AuDataTableThSortable
+        @field=""
+        @currentSorting={{this.sort}}
+        @label="Status"
+      />
+      <th class="u-table-cell-shrink-content">
+        <span class="au-u-hidden-visually">Product of dienst bewerken</span>
+      </th>
+    </Content.header>
+
+    {{#if this.showTableLoader}}
+      <tbody>
+        <tr>
+          <td colspan="100%" class="au-c-data-table__message">
+            <AuLoader @size="small" />
+          </td>
+        </tr>
+      </tbody>
+    {{else if this.hasErrored}}
+      <tr>
+        <td colspan="100%" class="au-c-data-table__message">
+          <AuAlert
+            @title="Er ging iets fout bij het opvragen van de producten en diensten."
+            @icon="info-circle"
+            @skin="error"
+            @size="small"
+            class="au-u-margin-bottom-none"
+          />
+        </td>
+      </tr>
+    {{else if this.hasResults}}
+      <Content.body as |publicService|>
+        <td>{{publicService.name}}</td>
+        <td>{{publicService.pid}}</td>
+        <td>{{publicService.sector.name}}</td>
+        <td>
+          {{moment-format publicService.dateModified "DD-MM-YYYY - HH:mm"}}
+        </td>
+        <td>
+          <PublicServices::TranslationStatus
+            @id={{publicService.translationStatus.id}}
+          >
+            {{publicService.translationStatus.label}}
+          </PublicServices::TranslationStatus>
+        </td>
+        <td>
+          <PublicServices::PublicationStatus
+            @id={{publicService.publicationStatus.id}}
+          >
+            {{publicService.publicationStatus.label}}
+          </PublicServices::PublicationStatus>
+        </td>
+        <td class="u-table-cell-fit-content">
+          <AuPill
+            @icon="chevron-right"
+            @hideText={{true}}
+            {{! TODO: Add the correct route }}
+            @route="public-services"
+          >
+            Bewerk
+          </AuPill>
+        </td>
+      </Content.body>
+    {{else}}
+      <tr>
+        <td colspan="100%" class="au-c-data-table__message">
+          <AuAlert
+            @title={{if
+              this.isFiltering
+              "Er werden geen producten of diensten gevonden"
+              "Er werden nog geen producten of diensten toegevoegd"
+            }}
+            @icon="info-circle"
+            @skin="info"
+            @size="small"
+            class="au-u-margin-bottom-none"
+          />
+        </td>
+      </tr>
+    {{/if}}
+  </Table.content>
+</AuDataTable>

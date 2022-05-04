@@ -1,0 +1,13 @@
+<div ...attributes>
+  <PowerSelect
+    @allowClear={{@allowClear}}
+    @options={{this.sectors}}
+    @onChange={{@onChange}}
+    @placeholder="Sector"
+    @matchTriggerWidth={{false}}
+    @selected={{@selected}}
+    as |sector|
+  >
+    {{sector.name}}
+  </PowerSelect>
+</div>

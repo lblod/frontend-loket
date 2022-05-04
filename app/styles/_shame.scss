@@ -315,3 +315,12 @@
     flex-grow: 1;
   }
 }
+
+.u-table-cell-shrink-content {
+  width: 1px !important;
+}
+
+// Fix a whitespace issue when the clear button is shown: https://github.com/appuniversum/ember-appuniversum/issues/248
+.ember-power-select-trigger {
+  padding: 0 5.6rem 0 0.6rem !important;
+}
