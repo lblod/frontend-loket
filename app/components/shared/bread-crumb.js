@@ -201,7 +201,7 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
-      route: 'public-services',
+      route: 'public-services.index',
       crumbs: [{ label: 'Producten- en dienstencatalogus' }],
     },
   ];

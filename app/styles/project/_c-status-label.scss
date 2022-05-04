@@ -1,0 +1,28 @@
+.status-label {
+  display: flex;
+  align-items: center;
+  color: var(--au-gray-700);
+}
+
+.status-label__status-color {
+  width: $au-unit-small;
+  height: $au-unit-small;
+  border-radius: var(--au-radius);
+  margin-right: $au-unit-tiny;
+}
+
+.status-label__status-color--info {
+  background-color: var(--au-gray-300);
+}
+
+.status-label__status-color--warning {
+  background-color: var(--au-orange-500);
+}
+
+.status-label__status-color--success {
+  background-color: var(--au-green-500);
+}
+
+.status-label__status-color--action {
+  background-color: var(--au-green-500);
+}
