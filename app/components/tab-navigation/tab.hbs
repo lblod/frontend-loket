@@ -1,13 +1,7 @@
-<li
-  class="tab-navigation-tab"
-  role="none"
-  {{!template-lint-disable no-invalid-role}}
->
+<li class="tab-navigation-tab">
   <LinkTo
     @route={{@route}}
     @activeClass="tab-navigation-tab__link--active"
     class="tab-navigation-tab__link"
-    role="menuitem"
-    {{!template-lint-disable require-context-role}}
   >{{yield}}</LinkTo>
 </li>
