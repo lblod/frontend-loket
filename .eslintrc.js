@@ -19,6 +19,9 @@ module.exports = {
     'plugin:ember/recommended',
     'plugin:prettier/recommended',
   ],
+  rules: {
+    'ember/routes-segments-snake-case': 'off',
+  },
   env: {
     browser: true,
   },
