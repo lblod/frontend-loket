@@ -102,7 +102,9 @@ Router.map(function () {
   this.route(
     'public-services',
     { path: '/producten-en-dienstencatalogus' },
-    function () {}
+    function () {
+      this.route('add');
+    }
   );
 
   this.route('route-not-found', {

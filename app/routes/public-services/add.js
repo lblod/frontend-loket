@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 import { restartableTask, timeout } from 'ember-concurrency';
 import {
-  addedMockPublicServices,
+  mockPublicServices,
   sectors,
 } from 'frontend-loket/mock-data/public-services';
 
-export default class PublicServicesIndexRoute extends Route {
+export default class PublicServicesAddRoute extends Route {
   queryParams = {
     search: {
       refreshModel: true,
@@ -40,8 +40,7 @@ export default class PublicServicesIndexRoute extends Route {
   *loadPublicServicesTask({ search, sector }) {
     yield timeout(1000);
 
-    // TODO: Retrieve the actual records from the backend
-    let publicServices = addedMockPublicServices;
+    let publicServices = mockPublicServices;
 
     if (search) {
       publicServices = publicServices.filter((service) => {
