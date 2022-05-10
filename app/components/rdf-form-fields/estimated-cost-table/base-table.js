@@ -102,8 +102,8 @@ export default class RdfFormFieldsEstimatedCostTableBaseTableComponent extends I
             new EstimatedCostEntry({
               estimatedCostEntrySubject: entry.object,
               description: parsedEntry.description,
-              cost: parsedEntry.cost,
-              share: parsedEntry.share,
+              cost: isNaN(parseInt(parsedEntry.cost)) ?  0 : parsedEntry.cost,
+              share: isNaN(parseInt(parsedEntry.share)) ? 100 : parsedEntry.share ,
               index: parsedEntry.index,
             })
           );
