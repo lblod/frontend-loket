@@ -314,7 +314,6 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
       );
     }
 
-   
     entry['cost'].value = entry['cost'].value.replace(/[^0-9/-]/g, '.');
 
     if (isNaN(parseInt(entry.cost.value))) {
@@ -323,12 +322,12 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
         entry['cost'].predicate,
         'Field is empty'
       );
-    } else if(parseInt(entry.cost.value) < 0 ) {
-    this.updateTripleObject(
-      entry.estimatedCostEntrySubject,
-      entry['cost'].predicate,
-      'Field is negative'
-    );
+    } else if (parseInt(entry.cost.value) < 0) {
+      this.updateTripleObject(
+        entry.estimatedCostEntrySubject,
+        entry['cost'].predicate,
+        'Field is negative'
+      );
     } else {
       this.updateTripleObject(
         entry.estimatedCostEntrySubject,
@@ -381,7 +380,10 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
       );
     }
 
-    if(parseInt(entry.share.value) <= 100 && parseInt(entry.share.value) >= 0){
+    if (
+      parseInt(entry.share.value) <= 100 &&
+      parseInt(entry.share.value) >= 0
+    ) {
       this.updateTripleObject(
         entry.estimatedCostEntrySubject,
         entry['share'].predicate,
