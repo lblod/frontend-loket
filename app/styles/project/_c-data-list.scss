@@ -1,0 +1,12 @@
+$data-list-whitespace-x: $au-unit;
+$data-list-whitespace-y: $au-unit-small;
+
+.data-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -#{$data-list-whitespace-y} -#{$data-list-whitespace-x};
+}
+
+.data-list__data {
+  padding: $data-list-whitespace-y $data-list-whitespace-x;
+}
