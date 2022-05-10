@@ -234,7 +234,6 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
       undefined,
       this.storeOptions.sourceGraph
     );
-
     this.storeOptions.store.removeStatements([...triples]);
 
     if (newObject) {
@@ -253,7 +252,7 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
   update(e) {
     this.errors = [];
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
-
+    
     if (!this.isPositiveInteger(this.kilometers)) {
       this.errors.pushObject({
         message: 'Het aantal kilometers mag niet onder 0 liggen',
@@ -271,13 +270,16 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
       );
     }
 
+    this.kilometers = this.kilometers.replace(/[^0-9/-]/g, '.');
     const parsedAmount = Number(this.kilometers);
-
-    this.updateTripleObject(
-      this.tableEntryUri,
-      kilometersPredicate,
-      rdflib.literal(parsedAmount)
-    );
+    if(parsedAmount >= 0){
+      this.updateTripleObject(
+        this.tableEntryUri,
+        kilometersPredicate,
+        rdflib.literal(parsedAmount)
+      );
+   }
+    
     return this.onUpdateCell();
   }
 
