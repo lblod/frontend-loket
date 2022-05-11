@@ -63,6 +63,6 @@ export default class PublicServicesAddController extends Controller {
   @action
   addPublicService(publicService) {
     addPublicService(publicService);
-    this.router.transitionTo('public-services');
+    this.router.transitionTo('public-services.details', publicService.id);
   }
 }

@@ -1,0 +1,108 @@
+{{page-title @model.publicService.name}}
+
+<AuToolbar @size="large">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">
+      {{@model.publicService.name}}
+    </AuHeading>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <DataList as |Data|>
+      <Data>
+        <:title>Sector</:title>
+        <:content>{{@model.publicService.sector.name}}</:content>
+      </Data>
+      <Data>
+        <:title>Product type</:title>
+        <:content>{{@model.publicService.type.name}}</:content>
+      </Data>
+      <Data>
+        <:title>Aangemaakt op</:title>
+        <:content>
+          {{moment-format
+            @model.publicService.dateCreated
+            "DD.MM.YYYY - HH:mm"
+          }}
+        </:content>
+      </Data>
+      <Data>
+        <:title>Bewerkt op</:title>
+        <:content>
+          {{moment-format
+            @model.publicService.dateModified
+            "DD.MM.YYYY - HH:mm"
+          }}
+        </:content>
+      </Data>
+      <Data>
+        <:title>Geldig vanaf</:title>
+        <:content>
+          {{moment-format @model.publicService.startDate "DD.MM.YYYY - HH:mm"}}
+        </:content>
+      </Data>
+      <Data>
+        <:title>Geldig tot</:title>
+        <:content>
+          {{moment-format @model.publicService.endDate "DD.MM.YYYY - HH:mm"}}
+        </:content>
+      </Data>
+      <Data>
+        <:title>Status</:title>
+        <:content>
+
+          <PublicServices::PublicationStatus
+            @id={{@model.publicService.publicationStatus.id}}
+          >
+            {{@model.publicService.publicationStatus.label}}
+          </PublicServices::PublicationStatus>
+        </:content>
+      </Data>
+    </DataList>
+  </AuToolbarGroup>
+</AuToolbar>
+
+<TabNavigation as |Tab|>
+  <Tab @route="public-services.details.content">Inhoud</Tab>
+  <Tab @route="public-services.details.properties">Eigenschappen</Tab>
+  <Tab @route="public-services.details.translations">Engelse vertalingen</Tab>
+</TabNavigation>
+
+<AuBodyContainer>
+  <AuBodyContainer @scroll={{true}}>
+    {{outlet}}
+  </AuBodyContainer>
+
+  <AuToolbar @border="top" @size="large">
+    <AuToolbarGroup>
+      <AuButtonGroup>
+        <AuButton>
+          Publiceer
+        </AuButton>
+        <AuButton @skin="secondary">
+          Bewaar
+        </AuButton>
+
+        {{! TODO: Replace this with the "naked" skin once it's available:
+            https://github.com/appuniversum/ember-appuniversum/issues/254
+        }}
+        <AuLink @route="public-services" class="au-u-margin-left-small">
+          Annuleer
+        </AuLink>
+      </AuButtonGroup>
+    </AuToolbarGroup>
+    <AuToolbarGroup>
+      <AuButton
+        @alert={{true}}
+        @icon="bin"
+        @iconAlignment="left"
+        @skin="secondary"
+        {{on "click" this.removePublicService}}
+      >
+        Product verwijderen
+      </AuButton>
+    </AuToolbarGroup>
+  </AuToolbar>
+</AuBodyContainer>

@@ -103,7 +103,12 @@ Router.map(function () {
     'public-services',
     { path: '/producten-en-dienstencatalogus' },
     function () {
-      this.route('add');
+      this.route('add', { path: '/toevoegen' });
+      this.route('details', { path: '/:serviceId' }, function () {
+        this.route('content', { path: '/inhoud' });
+        this.route('properties', { path: '/eigenschappen' });
+        this.route('translations', { path: '/vertalingen' });
+      });
     }
   );
 
