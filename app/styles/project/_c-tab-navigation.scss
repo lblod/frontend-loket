@@ -1,9 +1,9 @@
-$tab-navigation-link-bar-height: 3px;
-$tab-navigation-tab-padding: 10px;
-$tab-navigation-font-size: 18px;
+$tab-navigation-link-bar-height: .3rem;
+$tab-navigation-tab-padding: $au-unit-small;
+$tab-navigation-font-size: 1.8rem;
 
 .tab-navigation {
-  border-bottom: 1px solid var(--au-gray-300);
+  border-bottom: 1px solid var(--au-gray-200);
 }
 
 .tab-navigation__tab-list {
