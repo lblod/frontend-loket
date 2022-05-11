@@ -1,0 +1,59 @@
+<AuLabel>
+  Vul per opvangplaats de adresgegevens en het aantal slaapkamers in. Per opvangplaats moet je de facturen of bewijsstukken voor opknapwerken toevoegen
+</AuLabel>
+<AuLabel @error={{this.hasErrors}} @required={{this.isRequired}} for={{this.inputFor}}>
+  {{@field.label}}
+</AuLabel>
+<table class="data-table data-table--zebra data-table--tight au-u-margin-top-small">
+  <caption class="au-u-hidden-visually">Vul het aantal opgevangen kinderen voor alle volle en halve dagen en het aantal
+    kinderen dat in aanmerking komt voor infrastructuursubsidies per organisator in
+  </caption>
+  <thead>
+  <tr>
+    <th scope="col">
+      Adres
+    </th>
+    <th scope="col">
+      Aantal slaapkamers
+    </th>
+    <th scope="col">
+      zijn er facturen voor gemeenschap delen?
+    </th>
+    <th scope="col">
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  {{#each this.sortedEntries as |entry index|}}
+    <tr>
+      <td>
+        <AuLabel for="actor-name-{{index}}" class="au-u-hidden-visually">adres</AuLabel>
+      </td>
+      <td>
+        <AuLabel for="all-day-{{index}}" class="au-u-hidden-visually">
+          aantal slaapkamers
+        </AuLabel>
+      </td>
+      <td>
+        <AuLabel for="half-day-{{index}}" class="au-u-hidden-visually">
+          zijn er facturen voor gemeenschap delen?
+        </AuLabel>
+      </td>
+      <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
+        <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true"
+          {{on "click" (fn this.removeEntry entry)}}>
+          <AuIcon @icon="bin" @alignment="left"/>
+          Verwijder rij
+        </AuButton>
+      </td>
+    </tr>
+  {{/each}}
+  <tr>
+    <td colspan="6" class="data-table__add-row u-align-center">
+      <AuButton @iconAlignment="left" @icon="add" {{on "click" this.addEntry}}>Voeg opvangplaats toe</AuButton>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+{{yield}}
