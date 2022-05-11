@@ -1,0 +1,75 @@
+<tr>
+  <td class="au-u-2-3@medium" style="min-width: 200px;">
+    <AuLabel for="actor-name-{{@index}}" class="au-u-hidden-visually">adres</AuLabel>
+    <PowerSelect
+      @triggerId="address"
+      @allowClear={{true}}
+      @disabled={{@disabled}}
+      @search={{perform this.search}}
+      @selected={{@entry.address.value}}
+      @onChange={{perform this.selectAddress}}
+      @onBlur={{perform this.selectAddress}}
+      @loadingMessage="Aan het laden..."
+      @searchEnabled={{true}}
+      @noMatchesMessage="Geen resultaten"
+      @searchMessage="Typ om te zoeken"
+        as |suggestion|>
+        {{#if suggestion.fullAddress}}
+          {{suggestion.fullAddress}}
+        {{else}}
+          {{suggestion}}
+        {{/if}}
+    </PowerSelect>
+    {{#each @entry.address.errors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+    {{!-- {{#if this.addressesWithBusnumbers}}
+      <PowerSelect
+        @placeholder="Busnummer"
+        @selected={{this.address}}
+        @options={{this.addressesWithBusnumbers}}
+        @onChange={{perform this.selectAddress}}
+        @searchEnabled={{true}}
+        @loadingMessage="Aan het laden..."
+        @noMatchesMessage="Geen resultaten"
+        as |address|>
+        Bus {{address.busnumber}}
+      </PowerSelect>
+    {{/if}} --}}
+  </td>
+  <td>
+    <AuLabel for="all-day-{{@index}}" class="au-u-hidden-visually">
+      aantal slaapkamers
+    </AuLabel>
+    <AuInput
+      @width="block"
+      @value={{@entry.bedroomCount.value}}
+      @type="number"
+      id="bedroom-count-{{@index}}"
+      class={{if @entry.bedroomCount.errors "au-c-input--error"}}
+      {{on "change" this.updateBedroomCount}}
+    />
+    {{#each @entry.bedroomCount.errors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td>
+    <AuLabel for="shared-invoice-{{@index}}" class="au-u-hidden-visually">
+      zijn er facturen voor gemeenschap delen?
+    </AuLabel>
+    <AuControlCheckbox
+      @label="Ja"
+      @identifier="shared-invoice-{{@index}}"
+      @name="shared-invoice-{{@index}}"
+      @checked={{@entry.sharedInvoice.value}}
+      @onChange={{this.updateSharedInvoice}}
+    />
+  </td>
+  <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
+    <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true"
+      {{on "click" (fn @removeEntry @entry)}}>
+      <AuIcon @icon="bin" @alignment="left"/>
+      Verwijder rij
+    </AuButton>
+  </td>
+</tr>
