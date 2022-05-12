@@ -8,7 +8,6 @@
       @search={{perform this.search}}
       @selected={{@entry.address.value}}
       @onChange={{perform this.selectAddress}}
-      @onBlur={{perform this.selectAddress}}
       @loadingMessage="Aan het laden..."
       @searchEnabled={{true}}
       @noMatchesMessage="Geen resultaten"
@@ -64,6 +63,28 @@
       @checked={{@entry.sharedInvoice.value}}
       @onChange={{this.updateSharedInvoice}}
     />
+  </td>
+  <td>
+    <AuFileUpload
+      @maxFileSizeMB="1024"
+      @onFinishUpload={{this.addFile}}
+    /><br>
+     {{#each @entry.files as |fileField|}}
+      {{#if fileField.record}}
+        {{#let fileField.record as |file|}}
+          <li>
+            <FileCard
+              @filename={{file.filename}}
+              @fileSize={{file.humanReadableSize}}
+              @downloadLink={{file.downloadLink}}
+            />
+          </li>
+        {{/let}}
+      {{!-- {{else}} --}}
+      {{! TODO: Something went wrong when fetching the file }}
+      {{/if}}
+    {{/each}}
+
   </td>
   <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
     <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true"

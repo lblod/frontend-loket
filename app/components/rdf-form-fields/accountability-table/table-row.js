@@ -3,17 +3,31 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { keepLatestTask, task, timeout } from 'ember-concurrency';
+import rdflib from 'browser-rdflib';
+
+const filesPredicate = new rdflib.NamedNode(
+  'http://mu.semte.ch/vocabularies/ext/hasFiles'
+);
 
 export default class RdfFormFieldsAccountabilityTableTableRowComponent extends Component {
   @service() addressregister;
+  @service() store;
 
   @tracked addressesWithBusnumbers;
 
   @tracked address;
   @tracked busNumber;
 
+  get storeOptions() {
+    return this.args.storeOptions;
+  }
+
   get isDisabledBusnumberSelect() {
     return this.addressesWithBusnumbers > 1;
+  }
+
+  constructor() {
+    super(...arguments)
   }
 
   @keepLatestTask
@@ -37,10 +51,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     }
 
     this.args.updateFieldValueTriple(entry, 'address');
-
-    this.args.validate();
   }
-
 
   @action
   updateBedroomCount() {
@@ -53,9 +64,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
     this.args.updateFieldValueTriple(entry, 'bedroomCount');
 
-    this.args.validate();
   }
-
 
   @action
   updateSharedInvoice(value) {
@@ -64,14 +73,20 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     entry.sharedInvoice.value = value
 
     this.args.updateFieldValueTriple(entry, 'sharedInvoice');
-
-    this.args.validate();
   }
 
-
   @action
-  debug() {
-    console.log("debug")
+  async addFile(fileId) {
+    const accountabilityEntrySubject = this.args.entry.accountabilityEntrySubject;
+    let file = await this.store.findRecord('file', fileId);
+    this.storeOptions.store.addAll([
+      {
+        subject: accountabilityEntrySubject,
+        predicate: filesPredicate,
+        object: new rdflib.NamedNode(file.uri),
+        graph: this.storeOptions.sourceGraph,
+      },
+    ]);
   }
 
   isEmpty(value) {
