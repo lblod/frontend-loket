@@ -40,8 +40,15 @@ const bedroomCountPredicate = new rdflib.NamedNode(
 const sharedInvoicePredicate = new rdflib.NamedNode(
   'http://mu.semte.ch/vocabularies/ext/sharedInvoice'
 );
+const filesPredicate = new rdflib.NamedNode(
+  'http://mu.semte.ch/vocabularies/ext/hasFiles'
+);
 const createdPredicate = new rdflib.NamedNode(
   'http://purl.org/dc/terms/created'
+);
+
+const fileDataObjectType = new rdflib.NamedNode(
+  'http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileDataObject'
 );
 
 const LBLOD_SUBSIDIE = new rdflib.Namespace(
@@ -50,9 +57,10 @@ const LBLOD_SUBSIDIE = new rdflib.Namespace(
 
 const inputFieldNames = [
   'address',
-  'addressPrefLabel',
   'bedroomCount',
   'sharedInvoice',
+  'files',
+  'created'
 ];
 
 class EntryProperties {
@@ -76,6 +84,7 @@ class ApplicationFormEntry {
     address,
     bedroomCount,
     sharedInvoice,
+    files,
     created,
   }) {
     this.accountabilityEntrySubject = accountabilityEntrySubject;
@@ -89,7 +98,27 @@ class ApplicationFormEntry {
       sharedInvoice,
       sharedInvoicePredicate
     );
+
+    this.files = files
+
     this.created = new EntryProperties(created, createdPredicate);
+  }
+}
+
+class FileField {
+  @tracked errors = [];
+
+  constructor({ record, errors }) {
+    this.record = record;
+    this.errors = errors;
+  }
+
+  get isValid() {
+    return this.errors.length == 0;
+  }
+
+  get isInvalid() {
+    return !this.isValid;
   }
 }
 
@@ -97,6 +126,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
   id = `accountability-table-${guidFor(this)}`;
   
   @service() addressregister;
+  @service() store;
 
   @tracked accountabilityTableSubject = null;
   @tracked entries = [];
@@ -109,7 +139,6 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     next(this, () => {
       if (this.entries.length == 0) {
         this.addEntry();
-        this.hasBeenFocused = false;
       }
     });
   }
@@ -141,12 +170,10 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
   }
 
   get sortedEntries() {
-    return this.entries.sort((a, b) =>
-      a.created.value.localeCompare(b.created.value)
-    );
+    return this.entries;
   }
 
-  loadProvidedValue() {
+  async loadProvidedValue() {
     const matches = triplesForPath(this.storeOptions);
     const triples = matches.triples;
 
@@ -174,63 +201,83 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
         this.storeOptions.sourceGraph
       );
 
-      const parsedEntry = this.parseEntryProperties(entryProperties);
+      const fileEntryProperties = this.storeOptions.store.match(
+        entry.object,
+        filesPredicate,
+        undefined,
+        this.storeOptions.sourceGraph
+      );
 
-      const newEntry = new ApplicationFormEntry({
-        accountabilityEntrySubject: entry.object,
-        address: parsedEntry.address ? parsedEntry.address : '',
-        bedroomCount: parsedEntry.bedroomCount
-          ? parsedEntry.bedroomCount
-          : 0,
-        sharedInvoice: parsedEntry.sharedInvoice
-          ? parsedEntry.sharedInvoice
-          : false,
-        created: parsedEntry.created,
-      })
+      const parsedEntry = this.parseEntryProperties(entryProperties);
+      const files = await this.parseFileProperties(fileEntryProperties);
+      console.log(files)
+
+      const newEntry = new ApplicationFormEntry(
+        {
+          accountabilityEntrySubject: entry.object,
+          address: parsedEntry.address || '',
+          bedroomCount: parsedEntry.bedroomCount || 0,
+          sharedInvoice: parsedEntry.sharedInvoice || false,
+          files: files || [],
+          created: parsedEntry.created,
+        }
+      )
 
       this.entries.pushObject(newEntry);
     }
   }
 
-  /**
-   * Parse entry properties from triples to a simple object with the triple values
-   */
   parseEntryProperties(entryProperties) {
     let entry = {};
-    if (
-      entryProperties.find(
-        (entry) => entry.predicate.value == addressPredicate.value
-      )
-    )
-      entry.address = entryProperties.find(
-        (entry) => entry.predicate.value == addressPredicate.value
-      ).object.value;
-    if (
-      entryProperties.find(
-        (entry) =>
-          entry.predicate.value == bedroomCountPredicate.value
-      )
-    )
-      entry.bedroomCount = entryProperties.find(
-        (entry) =>
-          entry.predicate.value == bedroomCountPredicate.value
-      ).object.value;
-    if (
-      entryProperties.find(
-        (entry) =>
-          entry.predicate.value == sharedInvoicePredicate.value
-      )
-    )
-      entry.sharedInvoice = entryProperties.find(
-        (entry) =>
-          entry.predicate.value == sharedInvoicePredicate.value
-      ).object.value;
+    entry.files = [];
 
-      entry.created = entryProperties.find(
-        (entry) => entry.predicate.value == createdPredicate.value
-      ).object.value;
+    entry.address = entryProperties.find(
+      (entry) => entry.predicate.value == addressPredicate.value)?.object.value;
+
+    entry.bedroomCount = entryProperties.find(
+      (entry) => entry.predicate.value == bedroomCountPredicate.value)?.object.value;
+   
+    entry.sharedInvoice = entryProperties.find(
+      (entry) => entry.predicate.value == sharedInvoicePredicate.value)?.object.value;
+
+    entry.created = entryProperties.find(
+      (entry) => entry.predicate.value == createdPredicate.value)?.object.value;
+
     return entry;
   }
+
+  async parseFileProperties(fileProperties) {
+    const files = [];
+    for (const file of fileProperties) {
+      const fileUri = file.object.value;
+      const fileObject = await this.retrieveFileField(fileUri)
+      files.push(fileObject);
+    }
+    return files;
+  }
+
+  async retrieveFileField(uri) {
+    try {
+      const files = await this.store.query('file', {
+        'filter[:uri:]': uri,
+        page: { size: 1 },
+      });
+      const file = files.get('firstObject');
+      if (file) return new FileField({ record: file, errors: [] });
+      else
+        return new FileField({
+          record: null,
+          errors: ['Geen bestand gevonden'],
+        });
+    } catch (error) {
+      warn(`Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`);
+      return new FileField({
+        record: null,
+        errors: ['Ophalen van het bestand is mislukt'],
+      });
+    }
+  }
+
 
   createAccountabilityTable() {
     const uuid = uuidv4();
@@ -355,6 +402,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     }
   }
 
+
   @action
   addEntry() {
     if (!this.hasAccountabilityTable) this.createAccountabilityTable();
@@ -372,35 +420,6 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     super.updateValidations(); // Updates validation of the table
   }
 
-  @action
-  validate() {
-    this.hasBeenFocused = true; // Allows errors to be shown in canShowErrors()
-    super.updateValidations(); // Updates validation of the table
-  }
-
-  @action
-  updateAddressBusValue(entry, value) {
-    entry.address.errors = [];
-    entry.addressBus.value = value;
-    this.updateFieldValueTriple(entry, 'addressBus');
-
-
-    this.hasBeenFocused = true; // Allows errors to be shown in canShowErrors()
-    super.updateValidations(); // Updates validation of the table
-  }
-
-  @action
-  updateSharedInvoiceValue(entry) {
-    entry.sharedInvoice.errors = [];
-    const parsedValue = parseInt(entry.sharedInvoice.value);
-    entry.sharedInvoice.value = !isNaN(parsedValue)
-      ? parsedValue
-      : entry.sharedInvoice.value;
-    this.updateFieldValueTriple(entry, 'sharedInvoice');
-
-    this.hasBeenFocused = true; // Allows errors to be shown in canShowErrors()
-    super.updateValidations(); // Updates validation of the table
-  }
 
   @action
   removeEntry(entry) {
@@ -413,13 +432,5 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
     this.hasBeenFocused = true; // Allows errors to be shown in canShowErrors()
     super.updateValidations(); // Updates validation of the table
-  }
-
-  isEmpty(value) {
-    return value.toString().length == 0;
-  }
-
-  isPositiveInteger(value) {
-    return value === parseInt(value) && value >= 0;
   }
 }
