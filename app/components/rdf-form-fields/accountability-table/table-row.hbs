@@ -1,5 +1,5 @@
 <tr>
-  <td class="au-u-2-3@medium" style="min-width: 200px;">
+  <td class="au-u-1-4">
     <AuLabel for="actor-name-{{@index}}" class="au-u-hidden-visually">adres</AuLabel>
     <PowerSelect
       @triggerId="address"
@@ -36,7 +36,7 @@
       </PowerSelect>
     {{/if}} --}}
   </td>
-  <td>
+  <td class="au-u-1-5">
     <AuLabel for="all-day-{{@index}}" class="au-u-hidden-visually">
       aantal slaapkamers
     </AuLabel>
@@ -52,7 +52,7 @@
       <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
     {{/each}}
   </td>
-  <td>
+  <td class="au-u-1-5">
     <AuLabel for="shared-invoice-{{@index}}" class="au-u-hidden-visually">
       zijn er facturen voor gemeenschap delen?
     </AuLabel>
@@ -64,12 +64,12 @@
       @onChange={{this.updateSharedInvoice}}
     />
   </td>
-  <td>
+  <td style="width: 250px" {{!template-lint-disable no-inline-styles}}>
     <AuFileUpload
       @maxFileSizeMB="1024"
       @onFinishUpload={{this.addFile}}
     /><br>
-     {{#each @entry.files as |fileField|}}
+     {{#each this.files as |fileField index|}}
       {{#if fileField.record}}
         {{#let fileField.record as |file|}}
           <li>
@@ -77,6 +77,7 @@
               @filename={{file.filename}}
               @fileSize={{file.humanReadableSize}}
               @downloadLink={{file.downloadLink}}
+                  @onDelete={{fn this.deleteFile file index}}
             />
           </li>
         {{/let}}
