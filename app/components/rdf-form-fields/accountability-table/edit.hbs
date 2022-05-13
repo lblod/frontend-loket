@@ -27,21 +27,22 @@
   </tr>
   </thead>
   <tbody>
-  {{#each this.sortedEntries as |entry index|}}
-    <RdfFormFields::AccountabilityTable::TableRow
-      @index={{index}} 
-      @tableSubject={{this.accountabilityTableSubject}}
-      @tableEntrySubject={{entry.entrySubject}}
-      @storeOptions={{this.storeOptions}}
-      @onRemove={{this.removeEntry}}
-      @onUpdateRow={{this.validate}}
-     />
-  {{/each}}
-  <tr>
-    <td colspan="6" class="data-table__add-row u-align-center">
-      <AuButton @iconAlignment="left" @icon="add" {{on "click" this.createAccountabilityEntry}}>Voeg opvangplaats toe</AuButton>
-    </td>
-  </tr>
+    {{#each this.sortedEntries as |entry index|}}
+      <RdfFormFields::AccountabilityTable::TableRow
+        @index={{index}} 
+        @tableSubject={{this.accountabilityTableSubject}}
+        @tableEntrySubject={{entry.entrySubject}}
+        @storeOptions={{this.storeOptions}}
+        @onRemove={{this.removeEntry}}
+        @onUpdateRow={{this.validate}}
+      />
+    {{/each}}
+    <tr>
+      <td colspan="6" class="data-table__add-row u-align-center">
+        <AuButton @iconAlignment="left" @disabled={{this.disabledCreate}} @icon="add" {{on "click" this.createAccountabilityEntry}}>Voeg opvangplaats toe</AuButton>
+        <AuHelpText>Er mogen maximaal 20 rijen aangemaakt worden per formulier.</AuHelpText>
+      </td>
+    </tr>
   </tbody>
 </table>
 
