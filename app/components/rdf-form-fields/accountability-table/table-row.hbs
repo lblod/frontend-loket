@@ -4,14 +4,13 @@
     <PowerSelect
       @triggerId="address"
       @allowClear={{true}}
-      @disabled={{@disabled}}
       @search={{perform this.search}}
-      @selected={{@entry.address.value}}
-      @onChange={{perform this.selectAddress}}
+      @selected={{this.address}}
       @loadingMessage="Aan het laden..."
       @searchEnabled={{true}}
       @noMatchesMessage="Geen resultaten"
       @searchMessage="Typ om te zoeken"
+      @onChange={{this.updateAddress}} 
         as |suggestion|>
         {{#if suggestion.fullAddress}}
           {{suggestion.fullAddress}}
@@ -19,7 +18,7 @@
           {{suggestion}}
         {{/if}}
     </PowerSelect>
-    {{#each @entry.address.errors as |error|}}
+    {{#each this.addressErrors as |error|}}
       <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
     {{/each}}
     {{!-- {{#if this.addressesWithBusnumbers}}
@@ -42,13 +41,13 @@
     </AuLabel>
     <AuInput
       @width="block"
-      @value={{@entry.bedroomCount.value}}
+      @value={{this.bedroomCount}}
       @type="number"
       id="bedroom-count-{{@index}}"
-      class={{if @entry.bedroomCount.errors "au-c-input--error"}}
-      {{on "change" this.updateBedroomCount}}
+      class={{if this.bedroomCountErrors "au-c-input--error"}}
+      {{on 'blur' this.validate}}
     />
-    {{#each @entry.bedroomCount.errors as |error|}}
+    {{#each this.bedroomCountErrors as |error|}}
       <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
     {{/each}}
   </td>
@@ -60,9 +59,12 @@
       @label="Ja"
       @identifier="shared-invoice-{{@index}}"
       @name="shared-invoice-{{@index}}"
-      @checked={{@entry.sharedInvoice.value}}
-      @onChange={{this.updateSharedInvoice}}
+      @checked={{this.sharedInvoice}}
+      {{on 'blur' this.validate}}
     />
+    {{#each this.sharedInvoiceErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
   </td>
   <td style="width: 250px" {{!template-lint-disable no-inline-styles}}>
     <AuFileUpload
@@ -77,7 +79,7 @@
               @filename={{file.filename}}
               @fileSize={{file.humanReadableSize}}
               @downloadLink={{file.downloadLink}}
-                  @onDelete={{fn this.deleteFile file index}}
+              @onDelete={{fn this.deleteFile file index}}
             />
           </li>
         {{/let}}
@@ -89,7 +91,7 @@
   </td>
   <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
     <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true"
-      {{on "click" (fn @removeEntry @entry)}}>
+      {{on "click" this.removeEntry}}>
       <AuIcon @icon="bin" @alignment="left"/>
       Verwijder rij
     </AuButton>
