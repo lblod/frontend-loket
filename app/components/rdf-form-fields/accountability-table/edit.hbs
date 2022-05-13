@@ -1,9 +1,12 @@
 <AuLabel>
   Vul per opvangplaats de adresgegevens en het aantal slaapkamers in. Per opvangplaats moet je de facturen of bewijsstukken voor opknapwerken toevoegen
 </AuLabel>
-<AuLabel @error={{this.hasErrors}} @required={{this.isRequired}} for={{this.inputFor}}>
+<AuLabel for={{this.inputFor}}>
   {{@field.label}}
 </AuLabel>
+{{#each this.errors as |error|}}
+    <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+{{/each}}
 <table class="data-table data-table--zebra data-table--tight au-u-margin-top-small">
   <caption class="au-u-hidden-visually">Vul het aantal opgevangen kinderen voor alle volle en halve dagen en het aantal
     kinderen dat in aanmerking komt voor infrastructuursubsidies per organisator in
@@ -25,19 +28,18 @@
   </thead>
   <tbody>
   {{#each this.sortedEntries as |entry index|}}
-    <RdfFormFields::AccountabilityTable::TableRow 
-      @index={{index}}
-      @entry={{entry}}
+    <RdfFormFields::AccountabilityTable::TableRow
+      @index={{index}} 
+      @tableSubject={{this.accountabilityTableSubject}}
+      @tableEntrySubject={{entry.entrySubject}}
       @storeOptions={{this.storeOptions}}
-      @removeEntry={{this.removeEntry}}
-      @updateFieldValueTriple={{this.updateFieldValueTriple}}
-      @validate={{this.validate}}
-      @addFileTriple={{this.addFileTriple}}
+      @onRemove={{this.removeEntry}}
+      @onUpdateRow={{this.validate}}
      />
   {{/each}}
   <tr>
     <td colspan="6" class="data-table__add-row u-align-center">
-      <AuButton @iconAlignment="left" @icon="add" {{on "click" this.addEntry}}>Voeg opvangplaats toe</AuButton>
+      <AuButton @iconAlignment="left" @icon="add" {{on "click" this.createAccountabilityEntry}}>Voeg opvangplaats toe</AuButton>
     </td>
   </tr>
   </tbody>

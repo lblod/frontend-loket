@@ -2,107 +2,47 @@ import InputFieldComponent from '@lblod/ember-submission-form-fields/components/
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { keepLatestTask, task, timeout } from 'ember-concurrency';
-import { triplesForPath, XSD } from '@lblod/submission-form-helpers';
+import { triplesForPath } from '@lblod/submission-form-helpers';
 import rdflib from 'browser-rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
-import { next } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
 
 const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
 
+const subsidyBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/ukraine/';
+
 const accountabilityTableBaseUri =
   'http://data.lblod.info/accountability-tables';
+
 const accountabilityEntryBaseUri =
   'http://data.lblod.info/accountability-entries';
+
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
-const extBaseUri = 'http://mu.semte.ch/vocabularies/ext/';
 
 const AccountabilityTableType = new rdflib.NamedNode(
   `${lblodSubsidieBaseUri}AccountabilityTable`
 );
-const ApplicationFormEntryType = new rdflib.NamedNode(
-  `${extBaseUri}ApplicationFormEntry`
+const AccountabilityEntryType = new rdflib.NamedNode(
+  `${lblodSubsidieBaseUri}AccountabilityEntry`
 );
 const accountabilityTablePredicate = new rdflib.NamedNode(
   `${lblodSubsidieBaseUri}accountabilityTable`
 );
 const accountabilityEntryPredicate = new rdflib.NamedNode(
-  `${extBaseUri}accountabilityEntry`
+  `${lblodSubsidieBaseUri}accountabilityEntry`
 );
-const addressPredicate = new rdflib.NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/address'
-);
-const bedroomCountPredicate = new rdflib.NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/bedroomCount'
-);
-const sharedInvoicePredicate = new rdflib.NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/sharedInvoice'
-);
-const filesPredicate = new rdflib.NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/hasFiles'
-);
+
 const createdPredicate = new rdflib.NamedNode(
   'http://purl.org/dc/terms/created'
 );
 
-const fileDataObjectType = new rdflib.NamedNode(
-  'http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#FileDataObject'
+const hasInvalidRowPredicate = new rdflib.NamedNode(
+  `${subsidyBaseUri}hasInvalidAccountabilityTableEntry`
 );
-
-const LBLOD_SUBSIDIE = new rdflib.Namespace(
-  'http://lblod.data.gift/vocabularies/subsidie/'
+const validAccountabilityTable = new rdflib.NamedNode(
+  `${lblodSubsidieBaseUri}validAccountabilityTable`
 );
-
-const inputFieldNames = [
-  'address',
-  'bedroomCount',
-  'sharedInvoice',
-  'created'
-];
-
-class EntryProperties {
-  @tracked value;
-  @tracked oldValue;
-  @tracked errors = [];
-
-  constructor(value, predicate) {
-    this.value = value;
-    this.oldValue = value;
-    this.predicate = predicate;
-    this.errors = [];
-  }
-}
-
-class ApplicationFormEntry {
-  @tracked accountabilityEntrySubject;
-
-  constructor({
-    accountabilityEntrySubject,
-    address,
-    bedroomCount,
-    sharedInvoice,
-    files,
-    created,
-  }) {
-    this.accountabilityEntrySubject = accountabilityEntrySubject;
-
-    this.address = new EntryProperties(address, addressPredicate);
-    this.bedroomCount = new EntryProperties(
-      bedroomCount,
-      bedroomCountPredicate
-    );
-    this.sharedInvoice = new EntryProperties(
-      sharedInvoice,
-      sharedInvoicePredicate
-    );
-
-    this.files = files
-
-    this.created = new EntryProperties(created, createdPredicate);
-  }
-}
 
 class FileField {
   @tracked errors = [];
@@ -129,23 +69,11 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
   @tracked accountabilityTableSubject = null;
   @tracked entries = [];
-
-  constructor() {
-    super(...arguments);
-    this.loadProvidedValue();
-
-    // Add an entry by default as an example
-    next(this, () => {
-      if (this.entries.length == 0) {
-        this.addEntry();
-      }
-    });
-  }
+  @tracked errors;
 
   get hasAccountabilityTable() {
-    if (!this.accountabilityTableSubject) {
-      return false;
-    } else {
+    if (!this.accountabilityTableSubject) return false;
+    else
       return (
         this.storeOptions.store.match(
           this.sourceNode,
@@ -154,23 +82,21 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
           this.storeOptions.sourceGraph
         ).length > 0
       );
-    }
   }
 
-  get hasEntries() {
-    return (
-      this.storeOptions.store.match(
-        this.accountabilityTableSubject,
-        accountabilityEntryPredicate,
-        undefined,
-        this.storeOptions.sourceGraph
-      ).length > 0
-    );
+  constructor() {
+    super(...arguments);
+    this.loadProvidedValue();
+
+    if (!this.hasAccountabilityTable) {
+      this.createAccountabilityTable();
+      this.createAccountabilityEntry();
+    }
   }
 
   get sortedEntries() {
     return this.entries.sort((a, b) => {
-      a.created.value.localeCompare(b.created.value)
+      a.created.localeCompare(b.created)
     });
   }
 
@@ -195,55 +121,18 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     if (entriesTriples.length <= 0) return;
 
     for (const entry of entriesTriples) {
-      const entryProperties = this.storeOptions.store.match(
+      const createdEntryProperty = this.storeOptions.store.match(
         entry.object,
-        undefined,
+        createdPredicate,
         undefined,
         this.storeOptions.sourceGraph
       );
 
-      const fileEntryProperties = this.storeOptions.store.match(
-        entry.object,
-        filesPredicate,
-        undefined,
-        this.storeOptions.sourceGraph
-      );
-
-      const parsedEntry = this.parseEntryProperties(entryProperties);
-      const files = await this.parseFileProperties(fileEntryProperties);
-
-      const newEntry = new ApplicationFormEntry(
-        {
-          accountabilityEntrySubject: entry.object,
-          address: parsedEntry.address || '',
-          bedroomCount: parsedEntry.bedroomCount || 0,
-          sharedInvoice: parsedEntry.sharedInvoice || false,
-          files: files || [],
-          created: parsedEntry.created,
-        }
-      )
-
-      this.entries.pushObject(newEntry);
+      this.entries.pushObject({
+        entrySubject: entry.object,
+        created: createdEntryProperty[0]?.object.value,
+      });
     }
-  }
-
-  parseEntryProperties(entryProperties) {
-    let entry = {};
-    entry.files = [];
-
-    entry.address = entryProperties.find(
-      (entry) => entry.predicate.value == addressPredicate.value)?.object.value;
-
-    entry.bedroomCount = entryProperties.find(
-      (entry) => entry.predicate.value == bedroomCountPredicate.value)?.object.value;
-   
-    entry.sharedInvoice = entryProperties.find(
-      (entry) => entry.predicate.value == sharedInvoicePredicate.value)?.object.value;
-
-    entry.created = entryProperties.find(
-      (entry) => entry.predicate.value == createdPredicate.value)?.object.value;
-
-    return entry;
   }
 
   async parseFileProperties(fileProperties) {
@@ -278,7 +167,6 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     }
   }
 
-
   createAccountabilityTable() {
     const uuid = uuidv4();
     this.accountabilityTableSubject = new rdflib.NamedNode(
@@ -307,8 +195,10 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     this.storeOptions.store.addAll(triples);
   }
 
-  createApplicationFormEntry() {
+  @action
+  createAccountabilityEntry() {
     const uuid = uuidv4();
+    const created = new Date().toISOString();
     const accountabilityEntrySubject = new rdflib.NamedNode(
       `${accountabilityEntryBaseUri}/${uuid}`
     );
@@ -316,7 +206,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
       {
         subject: accountabilityEntrySubject,
         predicate: RDF('type'),
-        object: ApplicationFormEntryType,
+        object: AccountabilityEntryType,
         graph: this.storeOptions.sourceGraph,
       },
       {
@@ -336,120 +226,84 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     triples.push({
       subject: accountabilityEntrySubject,
       predicate: createdPredicate,
-      object: new Date().toISOString(),
+      object: created,
       graph: this.storeOptions.sourceGraph,
+    });
+
+    this.entries.pushObject({
+      entrySubject: accountabilityEntrySubject,
+      created: created,
     });
     
     this.storeOptions.store.addAll(triples);
     return accountabilityEntrySubject;
   }
 
-  removeAccountabilityTable() {
-    const accountabilityTableTriples = this.storeOptions.store.match(
-      this.accountabilityTableSubject,
-      undefined,
-      undefined,
-      this.storeOptions.sourceGraph
-    );
-    const triples = [
-      ...accountabilityTableTriples,
-      {
-        subject: this.storeOptions.sourceNode,
-        predicate: accountabilityTablePredicate,
-        object: this.accountabilityTableSubject,
-        graph: this.storeOptions.sourceGraph,
-      },
-    ];
-    this.storeOptions.store.removeStatements(triples);
-  }
-
-  removeEntryTriples(entry) {
-    inputFieldNames.forEach((key) => {
-      const propertiesTriples = [
-        {
-          subject: entry.accountabilityEntrySubject,
-          predicate: entry[key].predicate,
-          object: entry[key].oldValue,
-          graph: this.storeOptions.sourceGraph,
-        },
-      ];
-      this.storeOptions.store.removeStatements(propertiesTriples);
-    });
-
-    if(entry.files.length){
-      for(const file of entry.files) {
-        this.storeOptions.store.removeStatements([{
-          subject: this.accountabilityTableSubject,
-          predicate: accountabilityEntryPredicate,
-          object: new rdflib.NamedNode(file.record.uri),
-          graph: this.storeOptions.sourceGraph,
-        }]);
-      }
-    }
-
-    const entryTriples = [
+  @action
+  removeEntry(tableEntrySubject) {
+    const entryTriple = [
       {
         subject: this.accountabilityTableSubject,
         predicate: accountabilityEntryPredicate,
-        object: entry.accountabilityEntrySubject,
+        object: tableEntrySubject,
         graph: this.storeOptions.sourceGraph,
       },
     ];
-    this.storeOptions.store.removeStatements(entryTriples);
+
+    this.storeOptions.store.removeStatements(entryTriple);
+      
+    this.entries = this.entries.filter((entry) => entry.entrySubject == tableEntrySubject);
   }
 
-  @action
-  updateFieldValueTriple(entry, field) {
-    const fieldValueTriples = this.storeOptions.store.match(
-      entry.accountabilityEntrySubject,
-      entry[field].predicate,
+  updateTripleObject(subject, predicate, newObject = null) {
+    const triples = this.storeOptions.store.match(
+      subject,
+      predicate,
       undefined,
       this.storeOptions.sourceGraph
     );
-    const triples = [...fieldValueTriples];
-    this.storeOptions.store.removeStatements(triples);
 
-    if (entry[field].value.toString().length > 0) {
+    this.storeOptions.store.removeStatements([...triples]);
+
+    if (newObject) {
       this.storeOptions.store.addAll([
         {
-          subject: entry.accountabilityEntrySubject,
-          predicate: entry[field].predicate,
-          object: entry[field].value,
+          subject: subject,
+          predicate: predicate,
+          object: newObject,
           graph: this.storeOptions.sourceGraph,
         },
       ]);
     }
   }
 
-
   @action
-  addEntry() {
-    if (!this.hasAccountabilityTable) this.createAccountabilityTable();
+  validate() {
+    this.errors = [];
+    const invalidRow = this.storeOptions.store.any(
+      this.accountabilityTableSubject,
+      hasInvalidRowPredicate,
+      null,
+      this.storeOptions.sourceGraph
+    );
 
-    const accountabilityEntrySubject = this.createApplicationFormEntry();
-    const newEntry = new ApplicationFormEntry({
-      accountabilityEntrySubject,
-      address: '',
-      bedroomCount: 0,
-      sharedInvoice: 0,
-      created: new Date().toISOString(),
-    });
+    if (invalidRow) {
+      this.errors.pushObject({
+        message: 'Een van de rijen is niet correct ingevuld',
+      });
 
-    this.entries.pushObject(newEntry);
-    super.updateValidations(); // Updates validation of the table
-  }
+      this.updateTripleObject(
+        this.accountabilityTableSubject,
+        validAccountabilityTable,
+        null
+      );
 
-
-  @action
-  removeEntry(entry) {
-    if (this.accountabilityTableSubject) {
-      this.removeEntryTriples(entry);
-
-      if (!this.hasEntries) this.removeAccountabilityTable();
+    } else {
+      this.updateTripleObject(
+        this.accountabilityTableSubject,
+        validAccountabilityTable,
+        true
+      );
     }
-    this.entries.removeObject(entry);
-
-    this.hasBeenFocused = true; // Allows errors to be shown in canShowErrors()
-    super.updateValidations(); // Updates validation of the table
   }
 }
