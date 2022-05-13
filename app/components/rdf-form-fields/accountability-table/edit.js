@@ -59,7 +59,6 @@ const inputFieldNames = [
   'address',
   'bedroomCount',
   'sharedInvoice',
-  'files',
   'created'
 ];
 
@@ -170,7 +169,9 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
   }
 
   get sortedEntries() {
-    return this.entries;
+    return this.entries.sort((a, b) => {
+      a.created.value.localeCompare(b.created.value)
+    });
   }
 
   async loadProvidedValue() {
@@ -210,7 +211,6 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
       const parsedEntry = this.parseEntryProperties(entryProperties);
       const files = await this.parseFileProperties(fileEntryProperties);
-      console.log(files)
 
       const newEntry = new ApplicationFormEntry(
         {
@@ -332,6 +332,14 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
         graph: this.storeOptions.sourceGraph,
       },
     ];
+
+    triples.push({
+      subject: accountabilityEntrySubject,
+      predicate: createdPredicate,
+      object: new Date().toISOString(),
+      graph: this.storeOptions.sourceGraph,
+    });
+    
     this.storeOptions.store.addAll(triples);
     return accountabilityEntrySubject;
   }
@@ -367,6 +375,17 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
       ];
       this.storeOptions.store.removeStatements(propertiesTriples);
     });
+
+    if(entry.files.length){
+      for(const file of entry.files) {
+        this.storeOptions.store.removeStatements([{
+          subject: this.accountabilityTableSubject,
+          predicate: accountabilityEntryPredicate,
+          object: new rdflib.NamedNode(file.record.uri),
+          graph: this.storeOptions.sourceGraph,
+        }]);
+      }
+    }
 
     const entryTriples = [
       {
