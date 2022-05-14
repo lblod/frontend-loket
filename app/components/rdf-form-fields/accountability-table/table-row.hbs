@@ -1,5 +1,5 @@
 <tr>
-  <td class="au-u-1-4">
+  <td class="au-u-1-4 {{if this.addressErrors "ember-power-select--error"}}">
     <AuLabel for="actor-name-{{@index}}" class="au-u-hidden-visually">adres</AuLabel>
     <PowerSelect
       @triggerId="address"
@@ -11,6 +11,7 @@
       @noMatchesMessage="Geen resultaten"
       @searchMessage="Typ om te zoeken"
       @onChange={{this.updateAddress}} 
+      @disabled={{@disabled}}
         as |suggestion|>
         {{#if suggestion.fullAddress}}
           {{suggestion.fullAddress}}
@@ -43,6 +44,7 @@
       @width="block"
       @value={{this.bedroomCount}}
       @type="number"
+      @disabled={{@disabled}}
       id="bedroom-count-{{@index}}"
       class={{if this.bedroomCountErrors "au-c-input--error"}}
       {{on 'blur' this.validate}}
@@ -51,26 +53,33 @@
       <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
     {{/each}}
   </td>
-  <td class="au-u-1-5">
+  <td class="au-u-1-5 {{if this.sharedInvoiceErrors "ember-power-select--error"}}">
     <AuLabel for="shared-invoice-{{@index}}" class="au-u-hidden-visually">
       zijn er facturen voor gemeenschap delen?
     </AuLabel>
-    <AuControlCheckbox
-      @label="Ja"
-      @identifier="shared-invoice-{{@index}}"
-      @name="shared-invoice-{{@index}}"
-      @checked={{this.sharedInvoice}}
-      {{on 'blur' this.validate}}
-    />
+
+    <PowerSelect
+      @triggerId="sharedInvoice"
+      @allowClear={{true}}
+      @selected={{this.sharedInvoice}}
+      @onChange={{this.updateSharedInvoice}} 
+      @options={{this.sharedInvoiceOptions}}
+      @disabled={{@disabled}}
+        as |option|>
+        {{option}}
+    </PowerSelect>
     {{#each this.sharedInvoiceErrors as |error|}}
       <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
     {{/each}}
   </td>
   <td style="width: 250px" {{!template-lint-disable no-inline-styles}}>
-    <AuFileUpload
-      @maxFileSizeMB="1024"
-      @onFinishUpload={{this.addFile}}
-    /><br>
+    {{#unless @disabled}}
+        <AuFileUpload
+          @maxFileSizeMB="1024"
+          @onFinishUpload={{this.addFile}}
+          @disabled={{@disabled}}
+        />
+    {{/unless}}
      {{#each this.files as |fileField index|}}
       {{#if fileField.record}}
         {{#let fileField.record as |file|}}
@@ -79,18 +88,16 @@
               @filename={{file.filename}}
               @fileSize={{file.humanReadableSize}}
               @downloadLink={{file.downloadLink}}
-              @onDelete={{fn this.deleteFile file index}}
+              @onDelete={{unless @disabled (fn this.deleteFile file index)}}
             />
           </li>
         {{/let}}
-      {{!-- {{else}} --}}
-      {{! TODO: Something went wrong when fetching the file }}
       {{/if}}
     {{/each}}
 
   </td>
   <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
-    <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true"
+    <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true" @disabled={{@disabled}}
       {{on "click" this.removeEntry}}>
       <AuIcon @icon="bin" @alignment="left"/>
       Verwijder rij

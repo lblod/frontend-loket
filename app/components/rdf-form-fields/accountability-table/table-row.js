@@ -47,6 +47,8 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   @service() addressregister;
   @service() store;
 
+  sharedInvoiceOptions = ["Ja", "Nee"];
+
   @tracked address;
   @tracked bedroomCount;
   @tracked sharedInvoice;
@@ -100,7 +102,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
     this.address = this.findEntry(entryProperties, addressPredicate, "");
     this.bedroomCount = this.findEntry(entryProperties, bedroomCountPredicate, 0);
-    this.sharedInvoice = this.findEntry(entryProperties, sharedInvoicePredicate, false);
+    this.sharedInvoice = this.findEntry(entryProperties, sharedInvoicePredicate, "");
     this.files = await this.parseFileEntry(fileEntryProperties);
   }
 
@@ -185,7 +187,6 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.files.pushObject(await this.retrieveFileField(file.uri))
   }
 
-
   async retrieveFileField(uri) {
     try {
       const files = await this.store.query('file', {
@@ -240,6 +241,12 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.validate();
   }
 
+  @action
+  updateSharedInvoice(value) {
+    this.sharedInvoice = value;
+    this.validate();
+  }
+
   validateAddress() {
     this.addressErrors = [];
 
@@ -258,7 +265,23 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
         message: 'Het aantal slaapkamers moet groter zijn dan 0.',
       });
     }
+
+    if (!this.isValidInteger(Number(this.bedroomCount))) {
+      this.bedroomCountErrors.pushObject({
+        message: 'Het aantal slaapkamers moet een geheel getal zijn.',
+      });
+    }
   }
+
+  validateSharedInvoice() {
+    this.sharedInvoiceErrors = [];
+    if (!this.sharedInvoice || this.isEmpty(this.sharedInvoice)) {
+      this.sharedInvoiceErrors.pushObject({
+        message: 'Dit veld is verplicht.',
+      });
+    }
+  }
+
 
   @action
   validate(e) {
@@ -276,15 +299,17 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     /**Validation start */
     this.validateAddress();
     this.validateBedroomCount();
+    this.validateSharedInvoice();
 
     if (this.addressErrors.length) return this.onUpdateRow();
     if (this.bedroomCountErrors.length) return this.onUpdateRow();
+    if (this.sharedInvoiceErrors.length) return this.onUpdateRow();
     /**Validation end */
 
     this.updateTripleObject(
       this.tableEntrySubject,
       addressPredicate,
-      rdflib.literal(this.address, XSD('string'))
+      rdflib.literal(this.address.fullAddress, XSD('string'))
     );
 
     this.updateTripleObject(
@@ -295,7 +320,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.updateTripleObject(
       this.tableEntrySubject,
       sharedInvoicePredicate,
-      rdflib.literal(this.sharedInvoice, XSD('boolean'))
+      rdflib.literal(this.sharedInvoice, XSD('string'))
     );
 
     this.storeOptions.store.removeStatements(invalidRowTriple);
@@ -309,5 +334,9 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
   isPositiveInteger(value) {
     return parseInt(value) >= 0;
+  }
+
+  isValidInteger(value) {
+    return value % 1 === 0;
   }
 }
