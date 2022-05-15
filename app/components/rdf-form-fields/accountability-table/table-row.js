@@ -50,11 +50,13 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   sharedInvoiceOptions = ["Ja", "Nee"];
 
   @tracked address;
+  @tracked addressesWithBus;
   @tracked bedroomCount;
   @tracked sharedInvoice;
   @tracked files;
 
   @tracked addressErrors = [];
+  @tracked addressesWithBusErrors = [];
   @tracked bedroomCountErrors = [];
   @tracked sharedInvoiceErrors = [];
 
@@ -235,8 +237,25 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.args.onRemove(this.tableEntrySubject)
   }
 
+  async checkForBusNummer(addressSuggestion) {
+    this.addressesWithBus = [];
+
+    const addresses = await this.addressregister.findAll(addressSuggestion);
+    if (addresses.length == 1) return;
+    const sortedBusNumbers = addresses.sortBy('busnumber');
+    this.addressesWithBus = sortedBusNumbers;
+  }
+
   @action
-  updateAddress(value) {
+  async updateAddress(value) {
+    this.address = value;
+    await this.checkForBusNummer(value);
+    this.validate();
+  }
+
+  @action
+  updateAddressWithBus(value) {
+    this.addressesWithBus = [];
     this.address = value;
     this.validate();
   }
@@ -253,6 +272,16 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     if (!this.address || this.isEmpty(this.address)) {
       this.addressErrors.pushObject({
         message: 'Adres is verplicht.',
+      });
+    }
+  }
+
+  validateAddressWithBus() {
+    this.addressesWithBusErrors = [];
+
+    if (this.addressesWithBus?.length) {
+      this.addressesWithBusErrors.pushObject({
+        message: 'Busnummer voor dit adres is verplicht.',
       });
     }
   }
@@ -298,10 +327,12 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
     /**Validation start */
     this.validateAddress();
+    this.validateAddressWithBus();
     this.validateBedroomCount();
     this.validateSharedInvoice();
 
     if (this.addressErrors.length) return this.onUpdateRow();
+    if (this.addressesWithBusErrors.length) return this.onUpdateRow();
     if (this.bedroomCountErrors.length) return this.onUpdateRow();
     if (this.sharedInvoiceErrors.length) return this.onUpdateRow();
     /**Validation end */
