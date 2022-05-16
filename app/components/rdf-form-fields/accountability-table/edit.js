@@ -245,18 +245,25 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
   @action
   removeEntry(tableEntrySubject) {
-    const entryTriple = [
+    const entryTriples = [
       {
         subject: this.accountabilityTableSubject,
         predicate: accountabilityEntryPredicate,
         object: tableEntrySubject,
         graph: this.storeOptions.sourceGraph,
       },
+      {
+        subject: this.accountabilityTableSubject,
+        predicate: hasInvalidRowPredicate,
+        object: tableEntrySubject,
+        graph: this.storeOptions.sourceGraph,
+      }
     ];
 
-    this.storeOptions.store.removeStatements(entryTriple);
+    this.storeOptions.store.removeStatements(entryTriples);
       
     this.entries = this.entries.filter((entry) => entry.entrySubject != tableEntrySubject);
+    this.validate();
   }
 
   updateTripleObject(subject, predicate, newObject = null) {
