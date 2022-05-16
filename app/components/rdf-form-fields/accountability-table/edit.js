@@ -6,7 +6,6 @@ import { triplesForPath } from '@lblod/submission-form-helpers';
 import rdflib from 'browser-rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
-import { guidFor } from '@ember/object/internals';
 
 const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
 
@@ -61,9 +60,7 @@ class FileField {
   }
 }
 
-export default class RdfFormFieldsAccountabilityTableEditComponent extends InputFieldComponent {
-  id = `accountability-table-${guidFor(this)}`;
-  
+export default class RdfFormFieldsAccountabilityTableEditComponent extends InputFieldComponent { 
   @service() addressregister;
   @service() store;
 
