@@ -6,6 +6,7 @@ import { triplesForPath } from '@lblod/submission-form-helpers';
 import rdflib from 'browser-rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
+import { A } from '@ember/array';
 
 const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
 
@@ -65,8 +66,8 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
   @service() store;
 
   @tracked accountabilityTableSubject = null;
-  @tracked entries = [];
-  @tracked errors;
+  @tracked entries = A();
+  @tracked errors = A();
 
   get hasAccountabilityTable() {
     if (!this.accountabilityTableSubject) return false;
@@ -287,7 +288,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
   @action
   validate() {
-    this.errors = [];
+    this.errors = A([]);
     const invalidRow = this.storeOptions.store.any(
       this.accountabilityTableSubject,
       hasInvalidRowPredicate,
