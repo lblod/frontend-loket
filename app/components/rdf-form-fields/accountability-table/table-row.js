@@ -2,25 +2,21 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { keepLatestTask, task, timeout } from 'ember-concurrency';
+import { keepLatestTask, timeout } from 'ember-concurrency';
 import rdflib from 'browser-rdflib';
 import { XSD } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
 
 const subsidyBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/ukraine/';
 
-const addressPredicate = new rdflib.NamedNode(
-  `${subsidyBaseUri}address`
-);
+const addressPredicate = new rdflib.NamedNode(`${subsidyBaseUri}address`);
 const bedroomCountPredicate = new rdflib.NamedNode(
   `${subsidyBaseUri}bedroomCount`
 );
 const sharedInvoicePredicate = new rdflib.NamedNode(
   `${subsidyBaseUri}sharedInvoice`
 );
-const filesPredicate = new rdflib.NamedNode(
-  `${subsidyBaseUri}hasFiles`
-);
+const filesPredicate = new rdflib.NamedNode(`${subsidyBaseUri}hasFiles`);
 
 const hasInvalidRowPredicate = new rdflib.NamedNode(
   `${subsidyBaseUri}hasInvalidAccountabilityTableEntry`
@@ -47,7 +43,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   @service() addressregister;
   @service() store;
 
-  sharedInvoiceOptions = ["Ja", "Nee"];
+  sharedInvoiceOptions = ['Ja', 'Nee'];
 
   @tracked address;
   @tracked addressesWithBus;
@@ -87,14 +83,13 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   }
 
   async loadProvidedValue() {
-
     const entryProperties = this.storeOptions.store.match(
       this.tableEntrySubject,
       undefined,
       undefined,
       this.storeOptions.sourceGraph
     );
-      
+
     const fileEntryProperties = this.storeOptions.store.match(
       this.tableEntrySubject,
       filesPredicate,
@@ -102,22 +97,32 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
       this.storeOptions.sourceGraph
     );
 
-    this.address = this.findEntry(entryProperties, addressPredicate, "");
-    this.bedroomCount = this.findEntry(entryProperties, bedroomCountPredicate, 0);
-    this.sharedInvoice = this.findEntry(entryProperties, sharedInvoicePredicate, "");
+    this.address = this.findEntry(entryProperties, addressPredicate, '');
+    this.bedroomCount = this.findEntry(
+      entryProperties,
+      bedroomCountPredicate,
+      0
+    );
+    this.sharedInvoice = this.findEntry(
+      entryProperties,
+      sharedInvoicePredicate,
+      ''
+    );
     this.files = await this.parseFileEntry(fileEntryProperties);
   }
 
   findEntry(entryProperties, predicate, defaultValue) {
-    return entryProperties.find(
-      (entry) => entry.predicate.value == predicate.value)?.object.value || defaultValue;
+    return (
+      entryProperties.find((entry) => entry.predicate.value == predicate.value)
+        ?.object.value || defaultValue
+    );
   }
 
   async parseFileEntry(fileProperties) {
     const files = [];
     for (const file of fileProperties) {
       const fileUri = file.object.value;
-      const fileObject = await this.retrieveFileField(fileUri)
+      const fileObject = await this.retrieveFileField(fileUri);
       files.push(fileObject);
     }
     return files;
@@ -137,7 +142,9 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
           errors: ['Geen bestand gevonden'],
         });
     } catch (error) {
-      warn(`Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`);
+      console.log(
+        `Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`
+      );
       return new FileField({
         record: null,
         errors: ['Ophalen van het bestand is mislukt'],
@@ -186,41 +193,21 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
       },
     ]);
 
-    this.files.pushObject(await this.retrieveFileField(file.uri))
-  }
-
-  async retrieveFileField(uri) {
-    try {
-      const files = await this.store.query('file', {
-        'filter[:uri:]': uri,
-        page: { size: 1 },
-      });
-      const file = files.get('firstObject');
-      if (file) return new FileField({ record: file, errors: [] });
-      else
-        return new FileField({
-          record: null,
-          errors: ['Geen bestand gevonden'],
-        });
-    } catch (error) {
-      warn(`Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`);
-      return new FileField({
-        record: null,
-        errors: ['Ophalen van het bestand is mislukt'],
-      });
-    }
+    this.files.pushObject(await this.retrieveFileField(file.uri));
   }
 
   @action
   deleteFile(file, index) {
     this.files.removeAt(index);
 
-    this.storeOptions.store.removeStatements([{
-      subject: this.tableEntrySubject,
-      predicate: filesPredicate,
-      object: new rdflib.NamedNode(file.uri),
-      graph: this.storeOptions.sourceGraph,
-    }]);
+    this.storeOptions.store.removeStatements([
+      {
+        subject: this.tableEntrySubject,
+        predicate: filesPredicate,
+        object: new rdflib.NamedNode(file.uri),
+        graph: this.storeOptions.sourceGraph,
+      },
+    ]);
   }
 
   @action
@@ -234,12 +221,12 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
     this.storeOptions.store.removeStatements(propertyTriples);
 
-    this.args.onRemove(this.tableEntrySubject)
+    this.args.onRemove(this.tableEntrySubject);
   }
 
   async checkForBusNummer(addressSuggestion) {
     this.addressesWithBus = [];
-    
+
     const addresses = await this.addressregister.findAll(addressSuggestion);
     if (addresses.length == 1) return;
     const sortedBusNumbers = addresses.sortBy('busnumber');
@@ -250,7 +237,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   async updateAddress(value) {
     this.address = value?.fullAddress;
 
-    if(this.address) {
+    if (this.address) {
       await this.checkForBusNummer(value);
     }
 
@@ -315,19 +302,20 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     }
   }
 
-
   @action
   validate(e) {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
-    const invalidRowTriple = [{
-      subject: this.tableSubject,
-      predicate: hasInvalidRowPredicate,
-      object: this.tableEntrySubject,
-      graph: this.storeOptions.sourceGraph,
-    }]
+    const invalidRowTriple = [
+      {
+        subject: this.tableSubject,
+        predicate: hasInvalidRowPredicate,
+        object: this.tableEntrySubject,
+        graph: this.storeOptions.sourceGraph,
+      },
+    ];
 
-    this.storeOptions.store.addAll(invalidRowTriple)
+    this.storeOptions.store.addAll(invalidRowTriple);
 
     /**Validation start */
     this.validateAddress();

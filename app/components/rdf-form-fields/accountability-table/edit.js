@@ -61,7 +61,7 @@ class FileField {
   }
 }
 
-export default class RdfFormFieldsAccountabilityTableEditComponent extends InputFieldComponent { 
+export default class RdfFormFieldsAccountabilityTableEditComponent extends InputFieldComponent {
   @service() addressregister;
   @service() store;
 
@@ -98,7 +98,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
   get sortedEntries() {
     return this.entries.sort((a, b) => {
-      a.created.localeCompare(b.created)
+      a.created.localeCompare(b.created);
     });
   }
 
@@ -141,7 +141,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     const files = [];
     for (const file of fileProperties) {
       const fileUri = file.object.value;
-      const fileObject = await this.retrieveFileField(fileUri)
+      const fileObject = await this.retrieveFileField(fileUri);
       files.push(fileObject);
     }
     return files;
@@ -161,7 +161,9 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
           errors: ['Geen bestand gevonden'],
         });
     } catch (error) {
-      warn(`Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`);
+      console.log(
+        `Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`
+      );
       return new FileField({
         record: null,
         errors: ['Ophalen van het bestand is mislukt'],
@@ -236,7 +238,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
       entrySubject: accountabilityEntrySubject,
       created: created,
     });
-    
+
     this.storeOptions.store.addAll(triples);
     return accountabilityEntrySubject;
   }
@@ -255,12 +257,14 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
         predicate: hasInvalidRowPredicate,
         object: tableEntrySubject,
         graph: this.storeOptions.sourceGraph,
-      }
+      },
     ];
 
     this.storeOptions.store.removeStatements(entryTriples);
-      
-    this.entries = this.entries.filter((entry) => entry.entrySubject != tableEntrySubject);
+
+    this.entries = this.entries.filter(
+      (entry) => entry.entrySubject != tableEntrySubject
+    );
     this.validate();
   }
 
@@ -306,7 +310,6 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
         validAccountabilityTable,
         null
       );
-
     } else {
       this.updateTripleObject(
         this.accountabilityTableSubject,

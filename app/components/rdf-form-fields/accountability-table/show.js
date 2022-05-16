@@ -1,4 +1,3 @@
-import RdfFormFieldsAccountabilityTableEditComponent from "./edit";
+import RdfFormFieldsAccountabilityTableEditComponent from './edit';
 
-export default class RdfFormFieldsAccountabilityTableShowComponent extends RdfFormFieldsAccountabilityTableEditComponent {
-}
+export default class RdfFormFieldsAccountabilityTableShowComponent extends RdfFormFieldsAccountabilityTableEditComponent {}
