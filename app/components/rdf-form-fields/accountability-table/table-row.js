@@ -248,7 +248,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
   @action
   async updateAddress(value) {
-    this.address = value;
+    this.address = value?.fullAddress;
 
     if(this.address) {
       await this.checkForBusNummer(value);
@@ -260,7 +260,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   @action
   updateAddressWithBus(value) {
     this.addressesWithBus = [];
-    this.address = value;
+    this.address = value?.fullAddress;
     this.validate();
   }
 
@@ -344,7 +344,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.updateTripleObject(
       this.tableEntrySubject,
       addressPredicate,
-      rdflib.literal(this.address.fullAddress, XSD('string'))
+      rdflib.literal(this.address, XSD('string'))
     );
 
     this.updateTripleObject(
