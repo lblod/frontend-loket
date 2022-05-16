@@ -256,7 +256,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
     this.storeOptions.store.removeStatements(entryTriple);
       
-    this.entries = this.entries.filter((entry) => entry.entrySubject == tableEntrySubject);
+    this.entries = this.entries.filter((entry) => entry.entrySubject != tableEntrySubject);
   }
 
   updateTripleObject(subject, predicate, newObject = null) {
