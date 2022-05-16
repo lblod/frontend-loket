@@ -239,7 +239,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
   async checkForBusNummer(addressSuggestion) {
     this.addressesWithBus = [];
-
+    
     const addresses = await this.addressregister.findAll(addressSuggestion);
     if (addresses.length == 1) return;
     const sortedBusNumbers = addresses.sortBy('busnumber');
@@ -249,7 +249,11 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   @action
   async updateAddress(value) {
     this.address = value;
-    await this.checkForBusNummer(value);
+
+    if(this.address) {
+      await this.checkForBusNummer(value);
+    }
+
     this.validate();
   }
 
@@ -269,7 +273,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   validateAddress() {
     this.addressErrors = [];
 
-    if (!this.address || this.isEmpty(this.address)) {
+    if (!this.address) {
       this.addressErrors.pushObject({
         message: 'Adres is verplicht.',
       });
@@ -281,7 +285,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
     if (this.addressesWithBus?.length) {
       this.addressesWithBusErrors.pushObject({
-        message: 'Busnummer voor dit adres is verplicht.',
+        message: 'Het busnummer voor dit adres is verplicht.',
       });
     }
   }
@@ -304,7 +308,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
 
   validateSharedInvoice() {
     this.sharedInvoiceErrors = [];
-    if (!this.sharedInvoice || this.isEmpty(this.sharedInvoice)) {
+    if (!this.sharedInvoice) {
       this.sharedInvoiceErrors.pushObject({
         message: 'Dit veld is verplicht.',
       });
@@ -357,10 +361,6 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.storeOptions.store.removeStatements(invalidRowTriple);
 
     return this.onUpdateRow();
-  }
-
-  isEmpty(value) {
-    return value.toString().length == 0;
   }
 
   isPositiveInteger(value) {
