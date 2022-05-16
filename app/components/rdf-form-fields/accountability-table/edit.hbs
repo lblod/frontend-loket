@@ -1,9 +1,6 @@
 <AuLabel>
   Vul per opvangplaats de adresgegevens en het aantal slaapkamers in. Per opvangplaats moet je de facturen of bewijsstukken voor opknapwerken toevoegen
 </AuLabel>
-<AuLabel for={{this.inputFor}}>
-  {{@field.label}}
-</AuLabel>
 {{#each this.errors as |error|}}
     <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
 {{/each}}
@@ -45,5 +42,3 @@
     </tr>
   </tbody>
 </table>
-
-{{yield}}
