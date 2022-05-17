@@ -77,8 +77,8 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     scheduleOnce('actions', this, this.initializeTableRow);
   }
 
-  initializeTableRow() {
-    this.loadProvidedValue();
+  async initializeTableRow() {
+    await this.loadProvidedValue();
     this.validate();
   }
 
@@ -193,7 +193,14 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
       },
     ]);
 
-    this.files.pushObject(await this.retrieveFileField(file.uri));
+    if (file) {
+      this.files.pushObject(new FileField({ record: file, errors: [] }));
+    } else {
+      this.files.pushObject(new FileField({
+        record: null,
+        errors: ['Geen bestand gevonden'],
+      }));
+    }
   }
 
   @action

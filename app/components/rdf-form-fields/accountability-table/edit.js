@@ -83,7 +83,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
   }
 
   get disabledCreate() {
-    return this.entries.length >= 20;
+    return this.args.show || this.entries.length >= 20 
   }
 
   constructor() {
