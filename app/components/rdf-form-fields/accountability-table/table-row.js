@@ -196,10 +196,12 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     if (file) {
       this.files.pushObject(new FileField({ record: file, errors: [] }));
     } else {
-      this.files.pushObject(new FileField({
-        record: null,
-        errors: ['Geen bestand gevonden'],
-      }));
+      this.files.pushObject(
+        new FileField({
+          record: null,
+          errors: ['Geen bestand gevonden'],
+        })
+      );
     }
   }
 
