@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
+import commasToDecimalPointsFix from 'frontend-loket/helpers/subsidies/subsidies-decimal-point';
 
 const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
 
@@ -234,7 +235,6 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
       undefined,
       this.storeOptions.sourceGraph
     );
-
     this.storeOptions.store.removeStatements([...triples]);
 
     if (newObject) {
@@ -271,13 +271,16 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
       );
     }
 
+    this.kilometers = commasToDecimalPointsFix(this.kilometers);
     const parsedAmount = Number(this.kilometers);
+    if (parsedAmount >= 0) {
+      this.updateTripleObject(
+        this.tableEntryUri,
+        kilometersPredicate,
+        rdflib.literal(parsedAmount)
+      );
+    }
 
-    this.updateTripleObject(
-      this.tableEntryUri,
-      kilometersPredicate,
-      rdflib.literal(parsedAmount)
-    );
     return this.onUpdateCell();
   }
 

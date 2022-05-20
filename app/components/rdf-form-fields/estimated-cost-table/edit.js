@@ -20,6 +20,8 @@ import {
   validEstimatedCostTable,
 } from './base-table';
 
+import commasToDecimalPointsFix from '../../../helpers/subsidies/subsidies-decimal-point';
+
 const defaultRows = [
   {
     uuid: 'bda9c645-9520-44ff-bac4-8b77647a93e0',
@@ -314,11 +316,19 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
       );
     }
 
+    entry['cost'].value = commasToDecimalPointsFix(entry['cost'].value);
+
     if (isNaN(parseInt(entry.cost.value))) {
       this.updateTripleObject(
         entry.estimatedCostEntrySubject,
         entry['cost'].predicate,
         'Field is empty'
+      );
+    } else if (parseInt(entry.cost.value) < 0) {
+      this.updateTripleObject(
+        entry.estimatedCostEntrySubject,
+        entry['cost'].predicate,
+        'Field is negative'
       );
     } else {
       this.updateTripleObject(
@@ -334,7 +344,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
   @action
   updateShare(entry) {
     entry.share.errors = [];
-
+    entry['share'].value = commasToDecimalPointsFix(entry['share'].value);
     if (this.isEmpty(entry.share.value)) {
       entry.share.errors.pushObject({
         message: 'Gemeentelijk aandeel in kosten is verplicht.',
@@ -372,11 +382,16 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
       );
     }
 
-    this.updateTripleObject(
-      entry.estimatedCostEntrySubject,
-      entry['share'].predicate,
-      entry['share'].value
-    );
+    if (
+      parseInt(entry.share.value) <= 100 &&
+      parseInt(entry.share.value) >= 0
+    ) {
+      this.updateTripleObject(
+        entry.estimatedCostEntrySubject,
+        entry['share'].predicate,
+        entry['share'].value
+      );
+    }
   }
 
   isPositiveInteger(value) {
