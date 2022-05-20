@@ -20,6 +20,8 @@ import {
   validEstimatedCostTable,
 } from './base-table';
 
+import commasToDecimalPointsFix from '../../../helpers/subsidies/subsidies-decimal-point';
+
 const defaultRows = [
   {
     uuid: 'bda9c645-9520-44ff-bac4-8b77647a93e0',
@@ -314,7 +316,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
       );
     }
 
-    entry['cost'].value = entry['cost'].value.replace(/[^0-9/-]/g, '.');
+    entry['cost'].value = commasToDecimalPointsFix(entry['cost'].value);
 
     if (isNaN(parseInt(entry.cost.value))) {
       this.updateTripleObject(
@@ -342,7 +344,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
   @action
   updateShare(entry) {
     entry.share.errors = [];
-    entry['share'].value = entry['share'].value.replace(/[^0-9/-]/g, '.'); // make sure, only using decimal points
+    entry['share'].value = commasToDecimalPointsFix(entry['share'].value);
     if (this.isEmpty(entry.share.value)) {
       entry.share.errors.pushObject({
         message: 'Gemeentelijk aandeel in kosten is verplicht.',
