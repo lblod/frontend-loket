@@ -38,7 +38,7 @@
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
-    "@lblod/ember-submission-form-fields": "^1.7.0",
+    "@lblod/ember-submission-form-fields": "^1.7.2",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",
