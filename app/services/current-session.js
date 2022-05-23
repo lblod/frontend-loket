@@ -10,8 +10,7 @@ const MODULE = {
   LEIDINGGEVENDENBEHEER: 'LoketLB-leidinggevendenGebruiker',
   PERSONEELSBEHEER: 'LoketLB-personeelsbeheer',
   SUBSIDIES: 'LoketLB-subsidies',
-  // TODO: Use the correct role name once it's returned by the backend
-  PUBLIC_SERVICES: 'LoketLB-LPDC',
+  PUBLIC_SERVICES: 'LoketLB-LPDCGebruiker',
 };
 
 export default class CurrentSessionService extends Service {
@@ -34,9 +33,6 @@ export default class CurrentSessionService extends Service {
 
       this.user = await this.account.gebruiker;
       this.roles = this.session.data.authenticated.data.attributes.roles;
-
-      // TODO: remove this once the role is returned by the backend
-      this.roles.push(MODULE.PUBLIC_SERVICES);
 
       let groupId = this.session.data.authenticated.relationships.group.data.id;
       this.group = await this.store.findRecord('bestuurseenheid', groupId, {
