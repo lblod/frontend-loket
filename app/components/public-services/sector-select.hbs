@@ -1,13 +1,14 @@
 <div ...attributes>
   <PowerSelect
     @allowClear={{@allowClear}}
-    @options={{this.sectors}}
+    @options={{this.loadSectors.last}}
+    @loadingMessage="Aan het laden"
     @onChange={{@onChange}}
     @placeholder="Sector"
     @matchTriggerWidth={{false}}
     @selected={{@selected}}
     as |sector|
   >
-    {{sector.name}}
+    {{sector.label}}
   </PowerSelect>
 </div>

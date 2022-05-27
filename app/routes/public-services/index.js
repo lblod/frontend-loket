@@ -1,11 +1,10 @@
 import Route from '@ember/routing/route';
-import { restartableTask, timeout } from 'ember-concurrency';
-import {
-  addedMockPublicServices,
-  sectors,
-} from 'frontend-loket/mock-data/public-services';
+import { inject as service } from '@ember/service';
+import { restartableTask } from 'ember-concurrency';
 
 export default class PublicServicesIndexRoute extends Route {
+  @service store;
+
   queryParams = {
     search: {
       refreshModel: true,
@@ -23,10 +22,10 @@ export default class PublicServicesIndexRoute extends Route {
     },
   };
 
-  model(params) {
+  async model(params) {
     let sector;
     if (params.sector) {
-      sector = sectors.find((sector) => sector.id === params.sector);
+      sector = await this.store.findRecord('concept', params.sector);
     }
 
     return {
@@ -37,27 +36,25 @@ export default class PublicServicesIndexRoute extends Route {
   }
 
   @restartableTask
-  *loadPublicServicesTask({ search, sector }) {
-    yield timeout(1000);
-
-    // TODO: Retrieve the actual records from the backend
-    let publicServices = addedMockPublicServices;
+  *loadPublicServicesTask({ search, sector, page, sort }) {
+    let query = {
+      'page[number]': page,
+      include: 'sectors,status',
+      // TODO: Filter the results so only public services for the current organization are returned
+    };
 
     if (search) {
-      publicServices = publicServices.filter((service) => {
-        return (
-          service.name.toLowerCase().includes(search.toLowerCase().trim()) ||
-          service.pid.includes(search)
-        );
-      });
+      query['filter'] = search.trim();
+    }
+
+    if (sort) {
+      query.sort = sort;
     }
 
     if (sector) {
-      publicServices = publicServices.filter(
-        (service) => service.sector.id === sector
-      );
+      query['filter[sectors][:id:]'] = sector;
     }
 
-    return publicServices;
+    return yield this.store.query('public-service', query);
   }
 }
