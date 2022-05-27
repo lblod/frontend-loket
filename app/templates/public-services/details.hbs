@@ -17,24 +17,18 @@
       </Data>
       <Data>
         <:title>Product type</:title>
-        <:content>{{@model.publicService.type.name}}</:content>
+        <:content>{{@model.publicService.type.label}}</:content>
       </Data>
       <Data>
         <:title>Aangemaakt op</:title>
         <:content>
-          {{moment-format
-            @model.publicService.dateCreated
-            "DD.MM.YYYY - HH:mm"
-          }}
+          {{moment-format @model.publicService.created "DD.MM.YYYY - HH:mm"}}
         </:content>
       </Data>
       <Data>
         <:title>Bewerkt op</:title>
         <:content>
-          {{moment-format
-            @model.publicService.dateModified
-            "DD.MM.YYYY - HH:mm"
-          }}
+          {{moment-format @model.publicService.modified "DD.MM.YYYY - HH:mm"}}
         </:content>
       </Data>
       <Data>
@@ -52,12 +46,11 @@
       <Data>
         <:title>Status</:title>
         <:content>
-
-          <PublicServices::PublicationStatus
-            @id={{@model.publicService.publicationStatus.id}}
+          <PublicServices::Status
+            @uri={{@model.publicService.status.uri}}
           >
-            {{@model.publicService.publicationStatus.label}}
-          </PublicServices::PublicationStatus>
+            {{@model.publicService.status.label}}
+          </PublicServices::Status>
         </:content>
       </Data>
     </DataList>

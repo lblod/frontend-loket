@@ -47,7 +47,7 @@
         @label="Verplichting"
       />
       <AuDataTableThSortable
-        @field=""
+        @field="identifier"
         @currentSorting={{this.sort}}
         @label="PID"
       />
@@ -85,7 +85,7 @@
       <Content.body as |publicService|>
         <td>{{publicService.name}}</td>
         <td><AuPill>Nee</AuPill></td>
-        <td>{{publicService.pid}}</td>
+        <td>{{publicService.identifier}}</td>
         <td>{{publicService.sector.name}}</td>
         <td class="u-table-cell-fit-content">
           <AuButton

@@ -49,7 +49,7 @@
         @label="Productnaam"
       />
       <AuDataTableThSortable
-        @field=""
+        @field="identifier"
         @currentSorting={{this.sort}}
         @label="PID"
       />
@@ -59,15 +59,15 @@
         @label="Sector"
       />
       <AuDataTableThSortable
-        @field=""
+        @field="modified"
         @currentSorting={{this.sort}}
         @label="Laatst bewerkt"
       />
-      <AuDataTableThSortable
+      {{!-- <AuDataTableThSortable
         @field=""
         @currentSorting={{this.sort}}
         @label="Vertalingen"
-      />
+      /> --}}
       <AuDataTableThSortable
         @field=""
         @currentSorting={{this.sort}}
@@ -101,24 +101,24 @@
     {{else if this.hasResults}}
       <Content.body as |publicService|>
         <td>{{publicService.name}}</td>
-        <td>{{publicService.pid}}</td>
+        <td>{{publicService.identifier}}</td>
         <td>{{publicService.sector.name}}</td>
         <td>
-          {{moment-format publicService.dateModified "DD-MM-YYYY - HH:mm"}}
+          {{moment-format publicService.modified "DD-MM-YYYY - HH:mm"}}
         </td>
-        <td>
+        {{!-- <td>
           <PublicServices::TranslationStatus
             @id={{publicService.translationStatus.id}}
           >
             {{publicService.translationStatus.label}}
           </PublicServices::TranslationStatus>
-        </td>
+        </td> --}}
         <td>
-          <PublicServices::PublicationStatus
-            @id={{publicService.publicationStatus.id}}
+          <PublicServices::Status
+            @uri={{publicService.status.uri}}
           >
-            {{publicService.publicationStatus.label}}
-          </PublicServices::PublicationStatus>
+            {{publicService.status.label}}
+          </PublicServices::Status>
         </td>
         <td class="u-table-cell-fit-content">
           <AuPill
