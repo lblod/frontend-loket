@@ -57,11 +57,17 @@
   </AuToolbarGroup>
 </AuToolbar>
 
-<TabNavigation as |Tab|>
-  <Tab @route="public-services.details.content">Inhoud</Tab>
-  <Tab @route="public-services.details.properties">Eigenschappen</Tab>
-  <Tab @route="public-services.details.translations">Engelse vertalingen</Tab>
-</TabNavigation>
+<AuTabs as |Tab|>
+  <Tab>
+    <AuLink @route="public-services.details.content">Inhoud</AuLink>
+  </Tab>
+  <Tab>
+    <AuLink @route="public-services.details.properties">Eigenschappen</AuLink>
+  </Tab>
+  <Tab>
+    <AuLink @route="public-services.details.translations">Engelse vertalingen</AuLink>
+  </Tab>
+</AuTabs>
 
 <AuBodyContainer>
   <AuBodyContainer @scroll={{true}}>
