@@ -1,12 +1,12 @@
 {{page-title "Product of dienst toevoegen"}}
 
-<AuToolbar @border="bottom" @size="large" @nowrap={{true}}>
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" @nowrap={{true}} as |Group|>
+  <Group>
     <AuHeading @skin="2" data-test-loket="public-services-page-title">
       Product of dienst toevoegen
     </AuHeading>
-  </AuToolbarGroup>
-  <AuToolbarGroup class="au-u-flex au-u-flex--vertical-center">
+  </Group>
+  <Group class="au-u-flex au-u-flex--vertical-center">
     <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
     {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
     <span class="au-c-input-wrapper au-c-input-wrapper--left">
@@ -24,7 +24,7 @@
       @onChange={{this.handleSectorSelection}}
       @allowClear={{true}}
     />
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <AuDataTable

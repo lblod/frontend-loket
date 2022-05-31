@@ -1,15 +1,15 @@
 {{page-title @model.publicService.name}}
 
-<AuToolbar @size="large">
-  <AuToolbarGroup>
+<AuToolbar @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">
       {{@model.publicService.name}}
     </AuHeading>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <DataList as |Data|>
       <Data>
         <:title>Sector</:title>
@@ -46,30 +46,34 @@
       <Data>
         <:title>Status</:title>
         <:content>
-          <PublicServices::Status
-            @uri={{@model.publicService.status.uri}}
-          >
+          <PublicServices::Status @uri={{@model.publicService.status.uri}}>
             {{@model.publicService.status.label}}
           </PublicServices::Status>
         </:content>
       </Data>
     </DataList>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
-<TabNavigation as |Tab|>
-  <Tab @route="public-services.details.content">Inhoud</Tab>
-  <Tab @route="public-services.details.properties">Eigenschappen</Tab>
-  <Tab @route="public-services.details.translations">Engelse vertalingen</Tab>
-</TabNavigation>
+<AuTabs as |Tab|>
+  <Tab>
+    <AuLink @route="public-services.details.content">Inhoud</AuLink>
+  </Tab>
+  <Tab>
+    <AuLink @route="public-services.details.properties">Eigenschappen</AuLink>
+  </Tab>
+  <Tab>
+    <AuLink @route="public-services.details.translations">Engelse vertalingen</AuLink>
+  </Tab>
+</AuTabs>
 
 <AuBodyContainer>
   <AuBodyContainer @scroll={{true}}>
     {{outlet}}
   </AuBodyContainer>
 
-  <AuToolbar @border="top" @size="large">
-    <AuToolbarGroup>
+  <AuToolbar @border="top" @size="large" as |Group|>
+    <Group>
       <AuButtonGroup>
         <AuButton>
           Publiceer
@@ -78,15 +82,12 @@
           Bewaar
         </AuButton>
 
-        {{! TODO: Replace this with the "naked" skin once it's available:
-            https://github.com/appuniversum/ember-appuniversum/issues/254
-        }}
-        <AuLink @route="public-services" class="au-u-margin-left-small">
-          Annuleer
+        <AuLink @route="public-services" @skin="button-naked">
+          Terug naar het overzicht
         </AuLink>
       </AuButtonGroup>
-    </AuToolbarGroup>
-    <AuToolbarGroup>
+    </Group>
+    <Group>
       <AuButton
         @alert={{true}}
         @icon="bin"
@@ -96,6 +97,6 @@
       >
         Product verwijderen
       </AuButton>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 </AuBodyContainer>
