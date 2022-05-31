@@ -84,11 +84,8 @@
           Bewaar
         </AuButton>
 
-        {{! TODO: Replace this with the "naked" skin once it's available:
-            https://github.com/appuniversum/ember-appuniversum/issues/254
-        }}
-        <AuLink @route="public-services" class="au-u-margin-left-small">
-          Annuleer
+        <AuLink @route="public-services" @skin="button-naked">
+          Terug naar het overzicht
         </AuLink>
       </AuButtonGroup>
     </AuToolbarGroup>
