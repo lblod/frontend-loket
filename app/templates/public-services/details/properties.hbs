@@ -1,2 +1,6 @@
 {{page-title "Eigenschappen"}}
-{{outlet}}
+
+<PublicServices::DetailsForm
+  @publicService={{@model.publicService}}
+  @formId="properties" {{!TODO: replace this with the hardcoded form ids from the backend}}
+/>

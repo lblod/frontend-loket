@@ -1,2 +1,6 @@
 {{page-title "Engelse vertalingen"}}
-{{outlet}}
+
+<PublicServices::DetailsForm
+  @publicService={{@model.publicService}}
+  @formId="translations" {{!TODO: replace this with the hardcoded form ids from the backend}}
+/>

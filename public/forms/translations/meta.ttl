@@ -1,0 +1,39 @@
+<http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a>
+    a <http://www.w3.org/2004/02/skos/core#ConceptScheme>;
+    <http://mu.semte.ch/vocabularies/core/uuid> "21d1250c-6627-4111-934f-f2f7bd8c078a" ;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "Star Rating"@en.
+
+<http://redpencil.data.gift/concepts/a6e5bd0c-c200-4834-99b3-e80198672628>
+    a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/2000/01/rdf-schema#Class>;
+    <http://mu.semte.ch/vocabularies/core/uuid> "a6e5bd0c-c200-4834-99b3-e80198672628" ;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "5 stars"@en;
+    <http://purl.org/linked-data/cube#order> 5.
+
+<http://redpencil.data.gift/concepts/df2b8b6e-bcc2-4608-83da-98ab251fcf54>
+    a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/2000/01/rdf-schema#Class>;
+    <http://mu.semte.ch/vocabularies/core/uuid> "df2b8b6e-bcc2-4608-83da-98ab251fcf54" ;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "4 stars"@en;
+    <http://purl.org/linked-data/cube#order> 4.
+
+<http://redpencil.data.gift/concepts/d3bcb263-c4e4-4512-98c8-d0b45400eebd>
+    a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/2000/01/rdf-schema#Class>;
+    <http://mu.semte.ch/vocabularies/core/uuid> "d3bcb263-c4e4-4512-98c8-d0b45400eebd" ;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "3 stars"@en;
+    <http://purl.org/linked-data/cube#order> 3.
+
+<http://redpencil.data.gift/concepts/0d5b3b23-c055-4d56-83d0-b65d28050315>
+    a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/2000/01/rdf-schema#Class>;
+    <http://mu.semte.ch/vocabularies/core/uuid> "0d5b3b23-c055-4d56-83d0-b65d28050315" ;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "2 stars"@en;
+    <http://purl.org/linked-data/cube#order> 2.
+
+<http://redpencil.data.gift/concepts/1770b75a-95d7-4087-93d6-2c9322b7dfee>
+    a <http://www.w3.org/2004/02/skos/core#Concept>, <http://www.w3.org/2000/01/rdf-schema#Class>;
+    <http://mu.semte.ch/vocabularies/core/uuid> "1770b75a-95d7-4087-93d6-2c9322b7dfee" ;
+    <http://www.w3.org/2004/02/skos/core#inScheme> <http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a>;
+    <http://www.w3.org/2004/02/skos/core#prefLabel> "1 star"@en;
+    <http://purl.org/linked-data/cube#order> 1.

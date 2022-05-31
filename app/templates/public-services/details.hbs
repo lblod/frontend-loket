@@ -69,7 +69,9 @@
 
 <AuBodyContainer>
   <AuBodyContainer @scroll={{true}}>
-    {{outlet}}
+    <div class="au-o-box">
+      {{outlet}}
+    </div>
   </AuBodyContainer>
 
   <AuToolbar @border="top" @size="large" as |Group|>
@@ -78,10 +80,6 @@
         <AuButton>
           Publiceer
         </AuButton>
-        <AuButton @skin="secondary">
-          Bewaar
-        </AuButton>
-
         <AuLink @route="public-services" @skin="button-naked">
           Terug naar het overzicht
         </AuLink>

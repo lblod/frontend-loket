@@ -1,2 +1,6 @@
 {{page-title "Inhoud"}}
-{{outlet}}
+
+<PublicServices::DetailsForm
+  @publicService={{@model.publicService}}
+  @formId="content" {{!TODO: replace this with the hardcoded form ids from the backend}}
+/>
