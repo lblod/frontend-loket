@@ -1,15 +1,15 @@
 {{page-title @model.publicService.name}}
 
-<AuToolbar @size="large">
-  <AuToolbarGroup>
+<AuToolbar @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">
       {{@model.publicService.name}}
     </AuHeading>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <DataList as |Data|>
       <Data>
         <:title>Sector</:title>
@@ -46,15 +46,13 @@
       <Data>
         <:title>Status</:title>
         <:content>
-          <PublicServices::Status
-            @uri={{@model.publicService.status.uri}}
-          >
+          <PublicServices::Status @uri={{@model.publicService.status.uri}}>
             {{@model.publicService.status.label}}
           </PublicServices::Status>
         </:content>
       </Data>
     </DataList>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <AuTabs as |Tab|>
@@ -74,8 +72,8 @@
     {{outlet}}
   </AuBodyContainer>
 
-  <AuToolbar @border="top" @size="large">
-    <AuToolbarGroup>
+  <AuToolbar @border="top" @size="large" as |Group|>
+    <Group>
       <AuButtonGroup>
         <AuButton>
           Publiceer
@@ -88,8 +86,8 @@
           Terug naar het overzicht
         </AuLink>
       </AuButtonGroup>
-    </AuToolbarGroup>
-    <AuToolbarGroup>
+    </Group>
+    <Group>
       <AuButton
         @alert={{true}}
         @icon="bin"
@@ -99,6 +97,6 @@
       >
         Product verwijderen
       </AuButton>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 </AuBodyContainer>
