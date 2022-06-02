@@ -1,241 +1,504 @@
-# This form was generated using the form builder: https://poc-form-builder.relance.s.redpencil.io/formbuilder/6213B0B3B1D7CA00090000E2/edit
-
 @prefix form: <http://lblod.data.gift/vocabularies/forms/> .
 @prefix sh: <http://www.w3.org/ns/shacl#>.
 @prefix mu: <http://mu.semte.ch/vocabularies/core/> .
-@prefix fieldGroups: <http://data.lblod.info/field-groups/> .
-@prefix fields: <http://data.lblod.info/fields/> .
 @prefix displayTypes: <http://lblod.data.gift/display-types/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
 @prefix ext: <http://mu.semte.ch/vocabularies/ext/> .
-@prefix lblodBesluit: <http://lblod.data.gift/vocabularies/besluit/>.
-@prefix schema: <http://schema.org/>.
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
-@prefix nie: <http://www.semanticdesktop.org/ontologies/2007/01/19/nie#>.
 
-
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix skos:	<http://www.w3.org/2004/02/skos/core#> .
+@prefix mu:	<http://mu.semte.ch/vocabularies/core/> .
+@prefix cpsv:	<http://purl.org/vocab/cpsv#> .
+@prefix dct:	<http://purl.org/dc/terms/> .
+@prefix lpdcExt:	<http://lblod.data.gift/vocabularies/lpdc-ipdc/> .
+@prefix xkos:	<http://rdf-vocabulary.ddialliance.org/xkos#> .
+@prefix m8g:	<http://data.europa.eu/m8g/> .
+@prefix lblodLpdc:	<http://data.lblod.info/id/public-services/> .
+@prefix lblodIpdcLpdc:	<http://lblod.data.gift/vocabularies/lpdc-ipdc/> .
+@prefix dcat:	<http://www.w3.org/ns/dcat#> .
+@prefix lang:	<http://publications.europa.eu/resource/authority/language/> .
+@prefix lblodOrg:	<http://data.lblod.info/id/concept/organisatie/> .
+@prefix lblodIpdcThema:	<http://data.lblod.info/id/concept/ipdc-thema/> .
+@prefix belgif:	<http://vocab.belgif.be/ns/publicservice#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix schema: <http://schema.org>.
 
 ##########################################################
 # form
 ##########################################################
-fieldGroups:main a form:FieldGroup ;
-    mu:uuid "70eebdf0-14dc-47f7-85df-e1cfd41c3855" .
-
-form:6b70a6f0-cce2-4afe-81f5-5911f45b0b27 a form:Form ;
-    mu:uuid "6b70a6f0-cce2-4afe-81f5-5911f45b0b27" ;
-    form:hasFieldGroup fieldGroups:main .
+ext:form a form:Form, form:TopLevelForm ;
+    form:includes ext:titleF;
+    form:includes ext:descriptionF;
+    form:includes ext:requirementsL;
+    form:includes ext:rulesL;
+    form:includes ext:costsL;
+    form:includes ext:contactpointsL;
+    form:includes ext:websitesL.
 
 ##########################################################
-#  property-group
+#  property-group: title
 ##########################################################
-fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 a form:PropertyGroup;
-    mu:uuid "8e24d707-0e29-45b5-9bbf-a39e4fdb2c11";
-    sh:description "parent property-group, used to group fields and property-groups together";
-    sh:name "Inhoud" ;
+ext:titlePg a form:PropertyGroup;
+    sh:name "Titel" ;
+    form:help "Hier kan u de titel van de dienstverlening aanbrengen/wijzigen.";
     sh:order 1 .
 
-##########################################################
-# Checkbox
-##########################################################
-fields:5cf93775-37b3-4e38-8b00-c1690949dbd5 a form:Field ;
-    mu:uuid "5cf93775-37b3-4e38-8b00-c1690949dbd5";
-    sh:name "Checkbox" ;
-    sh:order 190 ;
-    sh:path ext:732e98da-2ea5-4414-9094-82af73717c27 ;
-    form:options """{}""" ;
-    form:displayType displayTypes:checkbox ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:5cf93775-37b3-4e38-8b00-c1690949dbd5 .
+  ##########################################################
+  #  field: title
+  ##########################################################
+  ext:titleF a form:Field ;
+      sh:order 1 ;
+      sh:path dct:title ;
+      form:displayType displayTypes:textArea ;
+      sh:group ext:titlePg .
 
 ##########################################################
-# Switch
+#  property-group: Beschrijving
 ##########################################################
-fields:f5aad1e9-41c6-48ec-aa45-b881098ec4e5 a form:Field ;
-    mu:uuid "f5aad1e9-41c6-48ec-aa45-b881098ec4e5";
-    sh:name "Switch" ;
-    sh:order 191 ;
-    sh:path ext:58cee24d-840f-4de4-9baf-8fb2499c5bda ;
-    form:options """{}""" ;
-    form:displayType displayTypes:switch ;
+ext:descriptionPg a form:PropertyGroup;
+    sh:name "Beschrijving" ;
+    form:help "Hier kan u de beschrijving van de dienstverlening aanbrengen/wijzigen.";
+    sh:order 2 .
 
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:f5aad1e9-41c6-48ec-aa45-b881098ec4e5 .
+  ##########################################################
+  #  field: description
+  ##########################################################
+  ext:descriptionF a form:Field ;
+      sh:order 1 ;
+      sh:path dct:description ;
+      form:displayType displayTypes:textArea ;
+      sh:group ext:descriptionPg .
 
 ##########################################################
-# Concept scheme multi select checkboxes
+#  property-group: Voorwaarden
 ##########################################################
-fields:5c854e33-7aa1-4571-b2e5-8ced8969f6e5 a form:Field ;
-    mu:uuid "5c854e33-7aa1-4571-b2e5-8ced8969f6e5";
-    sh:name "Concept scheme multi select checkbox" ;
-    sh:order 192 ;
-    sh:path ext:c41dbe1d-44b0-4672-b33d-3b27eff7195d ;
-    form:validations
-      [ a form:RequiredConstraint ;
+ext:requirementsPg a form:PropertyGroup;
+    sh:name "Voorwaarden" ;
+    form:help "Hier kan u de voorwaarden van de dienstverlening aanpassen/toevoegen.";
+    sh:order 3 .
+
+  ##########################################################
+  #  listing-scope: Voorwaarden
+  ##########################################################
+  ext:requirementsS a form:Scope;
+    sh:path belgif:hasRequirement.
+
+  ##########################################################
+  #  Listing: Voorwaarden
+  ##########################################################
+  ext:requirementsL a form:Listing;
+    form:each ext:requirementsSf;
+    form:scope ext:requirementsS;
+    form:createGenerator ext:requirementsG;
+    sh:group ext:requirementsPg;
+    form:addLabel "Voeg voorwaarde toe";
+    form:canAdd true;
+    form:canRemove true;
+    sh:maxCount 1;
+    sh:order 1 .
+
+ ##########################################################
+  #  Generator: Voorwaarden
+  ##########################################################
+  ext:requirementsG a form:Generator;
+    form:prototype [
+      form:shape [
+        a m8g:Requirement ;
+        dct:description " ";
+        dct:title " "
+      ];
+    ];
+    form:dataGenerator form:addMuUuid.
+
+  ##########################################################
+  #  property-group: Voorwaarden-sub
+  ##########################################################
+  ext:requirementsPg-sub a form:PropertyGroup;
+      sh:order 1 .
+
+  ##########################################################
+  #  Subform: Voorwaarden
+  ##########################################################
+  ext:requirementsSf a form:SubForm;
+     form:removeLabel "Verwijder voorwaarde";
+     form:includes ext:requirementTitleF;
+     form:includes ext:requirementDescriptionF.
+
+    ##########################################################
+    # Field: Requirement title
+    ##########################################################
+    ext:requirementTitleF a form:Field ;
+        sh:name "Titel voorwaarde" ;
+        sh:order 1 ;
+        sh:path dct:title ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:requirementsPg-sub .
+
+    ##########################################################
+    # Field: Requirement description
+    ##########################################################
+    ext:requirementDescriptionF a form:Field ;
+        sh:name "Beschrijving voorwaarde" ;
+        sh:order 2 ;
+        sh:path dct:description ;
+        form:displayType displayTypes:textArea ;
+        sh:group ext:requirementsPg-sub .
+
+
+##########################################################
+#  property-group: Procedure
+##########################################################
+ext:rulesPg a form:PropertyGroup;
+    sh:name "Procedure" ;
+    form:help "Hier kan u de procedure van de dienstverlening aanpassen/toevoegen.";
+    sh:order 4 .
+
+  ##########################################################
+  #  listing-scope: Proceduren
+  ##########################################################
+  ext:rulesS a form:Scope;
+    sh:path cpsv:follows.
+
+  ##########################################################
+  #  Listing: Proceduren
+  ##########################################################
+  ext:rulesL a form:Listing;
+    form:each ext:rulesSf;
+    form:scope ext:rulesS;
+    form:createGenerator ext:rulesG;
+    sh:group ext:rulesPg;
+    form:addLabel "Voeg procedure toe";
+    form:canAdd true;
+    form:canRemove true;
+    sh:maxCount 1;
+    sh:order 1 .
+
+ ##########################################################
+  #  Generator: Proceduren
+  ##########################################################
+  ext:rulesG a form:Generator;
+    form:prototype [
+      form:shape [
+        a cpsv:Rule;
+        dct:description " ";
+        dct:title " "
+      ];
+    ];
+    form:dataGenerator form:addMuUuid.
+
+  ##########################################################
+  #  property-group: Proceduren-sub
+  ##########################################################
+  ext:rulesPg-sub a form:PropertyGroup;
+      sh:order 1 .
+
+  ##########################################################
+  #  Subform: Proceduren
+  ##########################################################
+  ext:rulesSf a form:SubForm;
+     form:removeLabel "Verwijder procedure";
+     form:includes ext:ruleTitleF;
+     form:includes ext:ruleDescriptionF.
+
+    ##########################################################
+    # Field: Procedure title
+    ##########################################################
+    ext:ruleTitleF a form:Field ;
+        sh:name "Titel procedure" ;
+        sh:order 1 ;
+        sh:path dct:title ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:rulesPg-sub .
+
+    ##########################################################
+    # Field: Procedure description
+    ##########################################################
+    ext:ruleDescriptionF a form:Field ;
+        sh:name "Beschrijving procedure" ;
+        sh:order 2 ;
+        sh:path dct:description ;
+        form:displayType displayTypes:textArea ;
+        sh:group ext:rulesPg-sub .
+
+
+##########################################################
+#  property-group: Kost
+##########################################################
+ext:costPg a form:PropertyGroup;
+    sh:name "Kosten" ;
+    form:help "Hier kan u de bijbehorende kosten opgeven.";
+    sh:order 5 .
+
+  ##########################################################
+  #  listing-scope: Kostn
+  ##########################################################
+  ext:costsS a form:Scope;
+    sh:path m8g:hasCost.
+
+  ##########################################################
+  #  Listing: Kost
+  ##########################################################
+  ext:costsL a form:Listing;
+    form:each ext:costsSf;
+    form:scope ext:costsS;
+    form:createGenerator ext:costsG;
+    sh:group ext:costPg;
+    form:addLabel "Voeg kost toe";
+    form:canAdd true;
+    form:canRemove true;
+    sh:order 1 .
+
+ ##########################################################
+  #  Generator: Kost
+  ##########################################################
+  ext:costsG a form:Generator;
+    form:prototype [
+      form:shape [
+        a m8g:Cost;
+        dct:description " ";
+        dct:title " "
+      ];
+    ];
+    form:dataGenerator form:addMuUuid.
+
+  ##########################################################
+  #  property-group: Kost-sub
+  ##########################################################
+  ext:costsPg-sub a form:PropertyGroup;
+      sh:order 1 .
+
+  ##########################################################
+  #  Subform: Kost
+  ##########################################################
+  ext:costsSf a form:SubForm;
+     form:removeLabel "Verwijder kost";
+     form:includes ext:costTitleF;
+     form:includes ext:costDescriptionF.
+
+    ##########################################################
+    # Field: Kost title
+    ##########################################################
+    ext:costTitleF a form:Field ;
+        sh:name "Titel kost" ;
+        sh:order 1 ;
+        sh:path dct:title ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:costsPg-sub .
+
+    ##########################################################
+    # Field: Kost description
+    ##########################################################
+    ext:costDescriptionF a form:Field ;
+        sh:name "Beschrijving kost" ;
+        sh:order 2 ;
+        sh:path dct:description ;
+        form:displayType displayTypes:textArea ;
+        form:validations [
+        a form:RequiredConstraint ;
         form:grouping form:Bag ;
-        sh:resultMessage "Dit veld is verplicht."@nl;
-        sh:path ext:c41dbe1d-44b0-4672-b33d-3b27eff7195d] ;
-    form:options  """{"conceptScheme":"http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a", "orderBy": "http://purl.org/linked-data/cube#order"}""" ;
-    form:displayType displayTypes:conceptSchemeMultiSelectCheckboxes ;
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11.
-
-fieldGroups:main form:hasField fields:5c854e33-7aa1-4571-b2e5-8ced8969f6e5 .
-
-##########################################################
-# Radio buttons
-##########################################################
-fields:48cad714-6ba0-4900-b5c3-f85879a7f580 a form:Field ;
-    mu:uuid "48cad714-6ba0-4900-b5c3-f85879a7f580";
-    sh:name "Radio buttons" ;
-    sh:order 210 ;
-    sh:path ext:ffa9c18b-eb5d-43fc-9126-cc89cc2647ef ;
-    form:options """{"conceptScheme":"http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a","searchEnabled":false}""" ;
-    form:displayType displayTypes:conceptSchemeRadioButtons ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:48cad714-6ba0-4900-b5c3-f85879a7f580 .
-
-##########################################################
-# Input
-##########################################################
-fields:43dd5003-c9a4-48c6-b650-b90f2bce8c7d a form:Field ;
-    mu:uuid "43dd5003-c9a4-48c6-b650-b90f2bce8c7d";
-    sh:name "Simple input" ;
-    sh:order 220 ;
-    sh:path ext:b805ac8a-86dc-4a3e-aecd-81d2bcd46fc9 ;
-    form:options """{}""" ;
-    form:displayType displayTypes:defaultInput ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:43dd5003-c9a4-48c6-b650-b90f2bce8c7d .
-
-##########################################################
-# Numerical input
-##########################################################
-fields:e3c282b1-d177-462e-9270-b2ce294b7457 a form:Field ;
-    mu:uuid "e3c282b1-d177-462e-9270-b2ce294b7457";
-    sh:name "Numerical input" ;
-    sh:order 221 ;
-    sh:path ext:1b7146d1-d3ac-41db-9c4e-ba6f757750e1 ;
-    form:options """{}""" ;
-    form:displayType displayTypes:numericalInput ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:e3c282b1-d177-462e-9270-b2ce294b7457 .
-
-##########################################################
-# Text area
-##########################################################
-fields:c0bc308a-17c6-4ce4-a92e-a29cb8df93ca a form:Field ;
-    mu:uuid "c0bc308a-17c6-4ce4-a92e-a29cb8df93ca";
-    sh:name "Text area" ;
-    sh:order 230 ;
-    sh:path ext:47420052-2cc1-4e13-a62e-8d67b9c19493 ;
-    form:options """{}""" ;
-    form:displayType displayTypes:textArea ;
-    form:validations
-    [ a form:MaxLength ;
-      form:grouping form:MatchEvery ;
-      form:max "100" ;
-      sh:resultMessage "Max. karakters overschreden." ;
-      sh:path ext:2c7db782-3f7c-42b0-8b1c-18925082e6c4 ];
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:c0bc308a-17c6-4ce4-a92e-a29cb8df93ca .
-
-##########################################################
-# Date
-##########################################################
-fields:aa63b985-d33f-4a2e-81df-accf8730e5ee a form:Field ;
-    mu:uuid "aa63b985-d33f-4a2e-81df-accf8730e5ee";
-    sh:name "Datepicker" ;
-    sh:order 240 ;
-    sh:path ext:8625f921-a345-4b7e-9e0d-1d88283ebc4f ;
-    form:options """{}""" ;
-    form:displayType displayTypes:date ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:aa63b985-d33f-4a2e-81df-accf8730e5ee .
-
-##########################################################
-# Date and time
-##########################################################
-fields:fe1f44c6-c69b-4171-affe-2f7e19288c8d a form:Field ;
-    mu:uuid "fe1f44c6-c69b-4171-affe-2f7e19288c8d";
-    sh:name "Date and time picker" ;
-    sh:order 250 ;
-    sh:path ext:20123484-23c5-4502-aa92-4bbdefc382c0 ;
-    form:options """{}""" ;
-    form:displayType displayTypes:dateTime ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:fe1f44c6-c69b-4171-affe-2f7e19288c8d .
-
-##########################################################
-# Dropdown
-##########################################################
-fields:fd40cdcf-d085-4b71-930f-0b1c05e021d9 a form:Field ;
-    mu:uuid "fd40cdcf-d085-4b71-930f-0b1c05e021d9";
-    sh:name "Select" ;
-    sh:order 270 ;
-    sh:path ext:5cf85d01-a4d2-46a2-810f-130012881936 ;
-    form:options """{"conceptScheme":"http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a","searchEnabled":false}""" ;
-    form:displayType displayTypes:conceptSchemeSelector ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:fd40cdcf-d085-4b71-930f-0b1c05e021d9 .
-
-##########################################################
-# Multi selector
-##########################################################
-fields:797b6eb4-537b-4f6a-88c3-8c5421c589ab a form:Field ;
-    mu:uuid "797b6eb4-537b-4f6a-88c3-8c5421c589ab";
-    sh:name "Multiselect" ;
-    sh:order 280 ;
-    sh:path ext:f93ed635-b580-4218-a11d-bb065860f744 ;
-    form:options """{"conceptScheme":"http://redpencil.data.gift/concept-schemes/21d1250c-6627-4111-934f-f2f7bd8c078a","searchEnabled":false}""" ;
-    form:displayType displayTypes:conceptSchemeMultiSelector ;
-
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:797b6eb4-537b-4f6a-88c3-8c5421c589ab .
+        sh:resultMessage "Dit veld is verplicht." ;
+        sh:path dct:description ];
+        sh:group ext:costsPg-sub .
 
 
 ##########################################################
-# Urls
+#  property-group: Regelgeving
 ##########################################################
-fields:3fb43220-0cf2-441e-9d7c-c2e10b67c537 a form:Field ;
-    mu:uuid "3fb43220-0cf2-441e-9d7c-c2e10b67c537";
-    sh:name "Url selector" ;
-    sh:order 310 ;
-    sh:path ext:756ca950-f35b-46c5-ab3d-fd99886e91f7 ;
-    form:options """{}""" ;
-    form:displayType displayTypes:remoteUrls ;
+ext:regulationsPg a form:PropertyGroup;
+    sh:name "Regelgeving" ;
+    form:help "Pas hier de regelgeving aan.";
+    sh:order 6 .
 
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
-
-fieldGroups:main form:hasField fields:3fb43220-0cf2-441e-9d7c-c2e10b67c537 .
+  ##########################################################
+  #  field: Regelgeving
+  ##########################################################
+  ext:titleF a form:Field ;
+      sh:order 1 ;
+      sh:path lpdcExt:regulation;
+      form:displayType displayTypes:textArea ;
+      sh:group ext:regulationsPg .
 
 ##########################################################
-# Files
+#  property-group: Contactpunten
 ##########################################################
-fields:8bdb4749-74cd-4299-91a2-abbf47c33474 a form:Field ;
-    mu:uuid "8bdb4749-74cd-4299-91a2-abbf47c33474";
-    sh:name "File uploader" ;
-    sh:order 320 ;
-    sh:path ext:a08aa7dd-dd31-4842-a4a5-0389e7383ced ;
-    form:options """{}""" ;
-    form:displayType displayTypes:files ;
+ext:contactpointsPg a form:PropertyGroup;
+    sh:name "Contactpunten" ;
+    form:help "Voer hier contactpunt(en) in.";
+    sh:order 7 .
 
-    sh:group fields:8e24d707-0e29-45b5-9bbf-a39e4fdb2c11 .
+  ##########################################################
+  #  listing-scope: Contactpunten
+  ##########################################################
+  ext:contactpointsS a form:Scope;
+    sh:path m8g:hasContactPoint.
 
-fieldGroups:main form:hasField fields:8bdb4749-74cd-4299-91a2-abbf47c33474 .
+  ##########################################################
+  #  Listing: Contactpunten
+  ##########################################################
+  ext:contactpointsL a form:Listing;
+    form:each ext:contactpointsSf;
+    form:scope ext:contactpointsS;
+    form:createGenerator ext:contactpointsG;
+    sh:group ext:contactpointsPg;
+    form:addLabel "Voeg contactpunt toe";
+    form:canAdd true;
+    form:canRemove true;
+    sh:order 1 .
+
+ ##########################################################
+  #  Generator: Contactpunten
+  ##########################################################
+  ext:contactpointsG a form:Generator;
+    form:prototype [
+      form:shape [
+        a schema:ContactPoint ;
+        schema:email " ";
+        schema:telephone " ";
+        foaf:page " ";
+        schema:openingHours " "
+      ];
+    ];
+    form:dataGenerator form:addMuUuid.
+
+  ##########################################################
+  #  property-group: Contactpunten-sub
+  ##########################################################
+  ext:contactpointsPg-sub a form:PropertyGroup;
+      sh:name "Contactpunt" ;
+      sh:order 1 .
+
+  ##########################################################
+  #  Subform: Contactpunten
+  ##########################################################
+  ext:contactpointsSf a form:SubForm;
+     form:removeLabel "Verwijder contactpunt";
+     form:includes ext:contactPEmailF;
+     form:includes ext:contactPTelephoneF;
+     form:includes ext:contactPageF;
+     form:includes ext:contactPOpeningF.
+
+    ##########################################################
+    # Field: ContactPunt email
+    ##########################################################
+    ext:contactPEmailF a form:Field ;
+        sh:name "Email" ;
+        sh:order 1 ;
+        sh:path schema:email ;
+        form:help "Geef een geldig email-adres op";
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:contactpointsPg-sub .
+
+    ##########################################################
+    # Field: ContactPunt email
+    ##########################################################
+    ext:contactPTelephoneF a form:Field ;
+        sh:name "Telefoon" ;
+        sh:order 2 ;
+        sh:path schema:telephone ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:contactpointsPg-sub .
+
+    ##########################################################
+    # Field: ContactPunt website
+    ##########################################################
+    ext:contactPageF a form:Field ;
+        sh:name "Website" ;
+        sh:order 3 ;
+        sh:path foaf:page ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:contactpointsPg-sub .
+
+    ##########################################################
+    # Field: ContactPunt openingsuren
+    ##########################################################
+    ext:contactPOpeningF a form:Field ;
+        sh:name "openingsuren" ;
+        sh:order 4 ;
+        sh:path schema:openingHours ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:contactpointsPg-sub .
+
+##########################################################
+#  property-group: meer info
+##########################################################
+ext:websitesPg a form:PropertyGroup;
+    sh:name "Meer info" ;
+    sh:order 8 .
+
+  ##########################################################
+  #  listing-scope: Meer Info
+  ##########################################################
+  ext:websitesS a form:Scope;
+    sh:path rdfs:seeAlso.
+
+  ##########################################################
+  #  Listing: Meer Info
+  ##########################################################
+  ext:websitesL a form:Listing;
+    form:each ext:websitesSf;
+    form:scope ext:websitesS;
+    form:createGenerator ext:websitesG;
+    sh:group ext:websitesPg;
+    form:addLabel "Voeg website toe";
+    form:canAdd true;
+    form:canRemove true;
+    sh:order 1 .
+
+  ##########################################################
+  #  Generator: Meer Info
+  ##########################################################
+  ext:websitesG a form:Generator;
+    form:prototype [
+      form:shape [
+        a foaf:Document ;
+        dct:description " ";
+        dct:title " ";
+        schema:url ""
+      ];
+    ];
+    form:dataGenerator form:addMuUuid.
+
+  ##########################################################
+  #  property-group: Meer Info-sub
+  ##########################################################
+  ext:websitesPg-sub a form:PropertyGroup;
+      sh:name "Gegevens website";
+      sh:order 1 .
+
+  ##########################################################
+  #  Subform: Meer Info
+  ##########################################################
+  ext:websitesSf a form:SubForm;
+     form:removeLabel "Verwijder website";
+     form:includes ext:websiteTitleF;
+     form:includes ext:websiteDescriptionF;
+     form:includes ext:websiteUrlF.
+
+    ##########################################################
+    # Field:  Meer Info title
+    ##########################################################
+    ext:websiteTitleF a form:Field ;
+        sh:name "Titel website" ;
+        sh:order 1 ;
+        sh:path dct:title ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:websitesPg-sub .
+
+    ##########################################################
+    # Field: Meer Info description
+    ##########################################################
+    ext:websiteDescriptionF a form:Field ;
+        sh:name "Beschrijving website" ;
+        sh:order 2 ;
+        sh:path dct:description ;
+        form:displayType displayTypes:textArea ;
+        sh:group ext:websitesPg-sub .
+
+    ##########################################################
+    # Field: ContactPunt website
+    ##########################################################
+    ext:websiteUrlF a form:Field ;
+        sh:name "Website URL" ;
+        sh:order 3 ;
+        sh:path schema:url ;
+        form:displayType displayTypes:defaultInput ;
+        sh:group ext:websitesPg-sub .
