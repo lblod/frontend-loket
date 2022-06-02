@@ -422,6 +422,7 @@ ext:contactpointsPg a form:PropertyGroup;
 ##########################################################
 ext:websitesPg a form:PropertyGroup;
     sh:name "Meer info" ;
+    form:help "Hier kan u websites opgeven die meer informatie bevatten over de lokale dienst";
     sh:order 8 .
 
   ##########################################################
