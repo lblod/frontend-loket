@@ -1,0 +1,75 @@
+<AuLabel
+  @error={{this.hasErrors}}
+  @required={{this.isRequired}}
+  for={{this.inputFor}}
+>
+  {{@field.label}}
+</AuLabel>
+
+{{#each this.errors as |error|}}
+  <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+{{/each}}
+
+<table
+  class="data-table data-table--zebra data-table--tight au-u-margin-top-small"
+>
+  <caption class="au-u-hidden-visually">Vul de raming van de totale kostprijs
+    voor de fietsinfrastructuur in</caption>
+  <thead>
+    <tr>
+      <td>
+      </td>
+      <th scope="col">
+        Kosten (Excl. BTW)
+      </th>
+      <th scope="col">
+        Het gemeentelijk aandeel (%) in kosten
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.entries as |entry index|}}
+      <tr>
+        <th scope="row">
+          {{entry.description.value}}
+        </th>
+        <td>
+          <AuLabel for="costs-{{index}}" class="au-u-hidden-visually">
+            Kosten (Excl. BTW)
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.cost.value}}
+            @type="number"
+            id="costs-{{index}}"
+            step="any"
+            class={{if entry.cost.errors "au-c-input--error"}}
+            {{on "blur" (fn this.updateCost entry)}}
+          />
+          {{#each entry.cost.errors as |error|}}
+            <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+          {{/each}}
+        </td>
+        <td>
+          <AuLabel for="share-{{index}}" class="au-u-hidden-visually">
+            Het gemeentelijk aandeel (%) in kosten
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.share.value}}
+            @type="number"
+            id="share-{{index}}"
+            step="any"
+            class={{if entry.share.errors "au-c-input--error"}}
+            {{on "blur" (fn this.updateShare entry)}}
+          />
+          {{#each entry.share.errors as |error|}}
+            <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+          {{/each}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{yield}}

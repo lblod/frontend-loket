@@ -8,12 +8,25 @@
   <div class="au-o-box">
     <div class="au-c-form">
       <div>
-        <AuLabel for="mailadres">Mailadres</AuLabel>
-        <Input @id="mailadres" class="au-c-input au-u-2-3@medium js-dynamic-label__field" @name="bestuursfunctie-email" @placeholder=" " @inputmode="email" @value={{mut this.model.email}} />
+        <AuLabel for="email">E-mailadres</AuLabel>
+        <AuInput
+          @value={{this.model.email}}
+          class="au-u-2-3@medium"
+          inputmode="email"
+          id="email"
+          name="bestuursfunctie-email"
+        />
       </div>
       <div>
-        <AuLabel for="telefoonnummer">Telefoonnummer</AuLabel>
-        <Input @id="telefoonnummer" class="au-c-input au-u-2-3@medium js-dynamic-label__field" @name="bestuursfunctie-telefoon" @placeholder=" " @inputmode="tel" @type="tel" @value={{mut this.model.telefoon}} />
+        <AuLabel for="phone">Telefoonnummer</AuLabel>
+        <AuInput
+          @value={{this.model.telefoon}}
+          @type="tel"
+          class="au-u-2-3@medium"
+          id="phone"
+          inputmode="tel"
+          name="bestuursfunctie-telefoon"
+        />
       </div>
       <AdressenregisterSelector
         @address={{this.model.adres}}

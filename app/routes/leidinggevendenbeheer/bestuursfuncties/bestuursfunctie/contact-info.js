@@ -1,10 +1,14 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoRoute extends Route {
+  @service store;
 
   async model() {
-    const bestuursfunctie = this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie');
-    this.set('bestuursfunctie', bestuursfunctie);
+    const bestuursfunctie = this.modelFor(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
+    );
+
     let info = await bestuursfunctie.contactinfo;
     if (!info) {
       info = await this.store.createRecord('contact-punt');
@@ -26,9 +30,12 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
     return info;
   }
 
-  setupController( controller, model ) {
+  setupController(controller) {
     super.setupController(...arguments);
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
-    controller.set('bestuursfunctie', this.bestuursfunctie);
+    controller.set(
+      'bestuursfunctie',
+      this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie')
+    );
   }
 }

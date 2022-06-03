@@ -6,19 +6,24 @@ import { inject as service } from '@ember/service';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContactInfoController extends Controller {
   @service() router;
-  showConfirmationDialog = false;
 
+  @tracked showConfirmationDialog = false;
   @tracked bestuurseenheid;
   @tracked bestuursfunctie;
 
   get isDirty() {
-    return this.model.hasDirtyAttributes || this.model.get('adres.hasDirtyAttributes');
+    return (
+      this.model.hasDirtyAttributes ||
+      this.model.get('adres.hasDirtyAttributes')
+    );
   }
 
   exit() {
-    this.set('showConfirmationDialog', false);
-    this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen',
-      this.bestuursfunctie.id);
+    this.showConfirmationDialog = false;
+    this.router.transitionTo(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen',
+      this.bestuursfunctie.id
+    );
   }
 
   @task
@@ -43,15 +48,13 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
     if (adresProperties) {
       address.setProperties(adresProperties);
     } else {
-      address.eachAttribute(propName => address.set(propName, null));
+      address.eachAttribute((propName) => address.set(propName, null));
     }
   }
 
   @action
   cancel() {
-    if (!this.isDirty)
-      this.exit();
-    else
-      this.set('showConfirmationDialog', true);
+    if (!this.isDirty) this.exit();
+    else this.showConfirmationDialog = true;
   }
 }

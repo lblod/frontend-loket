@@ -9,7 +9,7 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   @service store;
 
   @tracked pageSize = 20;
-  @tracked showDefaultHead = true
+  @tracked showDefaultHead = true;
   @tracked queryParams;
   @tracked error;
   @tracked page;
@@ -19,9 +19,10 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   @tracked gebruikteVoornaam;
   @tracked identificator;
 
-
   get searchTerms() {
-    return [this.gebruikteVoornaam, this.achternaam, this.identificator].filter( t => t ).join(', ');
+    return [this.gebruikteVoornaam, this.achternaam, this.identificator]
+      .filter((t) => t)
+      .join(', ');
   }
 
   get isQuerying() {
@@ -32,7 +33,7 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
     return this.search.performCount > 0;
   }
 
-  constructor(){
+  constructor() {
     super(...arguments);
     this.personen = A();
   }
@@ -41,25 +42,26 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   *search() {
     yield timeout(300);
 
-    if(!(this.achternaam || this.gebruikteVoornaam || this.identificator)){
+    if (!(this.achternaam || this.gebruikteVoornaam || this.identificator)) {
       this.queryParams = {};
       this.personen = [];
       return;
     }
 
     let queryParams = {
-      sort:'achternaam',
-      include: ['geboorte',
-                'identificator'].join(','),
+      sort: 'achternaam',
+      include: ['geboorte', 'identificator'].join(','),
       filter: {
         achternaam: this.achternaam || undefined,
         'gebruikte-voornaam': this.gebruikteVoornaam || undefined,
-        identificator:  this.identificator && this.identificator.replace(/\D+/g, "") || undefined
+        identificator:
+          (this.identificator && this.identificator.replace(/\D+/g, '')) ||
+          undefined,
       },
-      page:{
+      page: {
         size: this.pageSize,
-        number: 0
-      }
+        number: 0,
+      },
     };
     this.queryParams = queryParams;
     this.personen = yield this.getPersoon.perform(queryParams);
@@ -69,37 +71,36 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   *getPersoon(queryParams) {
     try {
       return yield this.store.query('persoon', queryParams);
-    }
-    catch(e){
+    } catch (e) {
       this.error = true;
     }
   }
 
-  resetAfterError(){
+  resetAfterError() {
     this.error = false;
     this.search.cancelAll({ resetState: true });
   }
 
   @action
-    async selectPage(page){
-      this.page = page;
-      let queryParams = this.queryParams;
-      queryParams['page'] = {number: page};
-      this.personen = await this.getPersoon.perform(queryParams);
-    }
+  async selectPage(page) {
+    this.page = page;
+    let queryParams = this.queryParams;
+    queryParams['page'] = { number: page };
+    this.personen = await this.getPersoon.perform(queryParams);
+  }
 
   @action
-    selectPersoon(persoon){
-      this.args.onSelect(persoon);
-    }
+  selectPersoon(persoon) {
+    this.args.onSelect(persoon);
+  }
 
   @action
-    cancel(){
-      this.args.onCancel();
-    }
+  cancel() {
+    this.args.onCancel();
+  }
 
   @action
-    toggleError(){
-      this.resetAfterError();
-    }
+  toggleError() {
+    this.resetAfterError();
+  }
 }

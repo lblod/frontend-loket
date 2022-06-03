@@ -15,7 +15,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   @tracked bijlagen;
   @tracked inhoud;
 
-  get cantSend(){
+  get cantSend() {
     return this.ensureOriginator.isRunning || this.bijlagen.length == 0;
   }
 
@@ -39,9 +39,9 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
     const ourGroup = this.currentSession.group;
 
     // find first sender of message that is not our group
-    for( let bericht of sortedBerichten){
+    for (let bericht of sortedBerichten) {
       let sender = yield bericht.van;
-      if( sender && sender.id !== ourGroup.id ) {
+      if (sender && sender.id !== ourGroup.id) {
         this.originator = sender;
         return;
       }
@@ -52,63 +52,62 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   }
 
   @action
-    async verstuurBericht() {
-      const bestuurseenheid = this.currentSession.group;
-      const user = this.currentSession.user;
+  async verstuurBericht() {
+    const bestuurseenheid = this.currentSession.group;
+    const user = this.currentSession.user;
 
-      try {
-        this.collapse();
-
-        const reactie = await this.store.createRecord('bericht', {
-          inhoud                  : this.inhoud,
-          // aangekomen              : new Date(),
-          verzonden               : new Date(),
-          van                     : bestuurseenheid,
-          auteur                  : user,
-          naar                    : this.originator,
-          bijlagen                : this.bijlagen,
-          typeCommunicatie        : this.args.conversatie.currentTypeCommunicatie
-        });
-
-        await reactie.save();
-        this.args.conversatie.berichten.pushObject(reactie);
-        this.args.conversatie.laatsteBericht = reactie;
-        await this.args.conversatie.save();
-      }
-      catch (err) {
-        alert (err.message);
-      }
-    }
-
-  @action
-    async attachFile(fileId) {
-      let file = await this.store.findRecord('file', fileId);
-      this.bijlagen.pushObject(file);
-    }
-
-  @action
-    deleteFile(file) {
-      this.bijlagen.removeObject(file);
-    }
-
-  @action
-    expandMe() {
-      this.initInputState();
-      this.expand();
-    }
-
-  @action
-    collapseMe() {
+    try {
       this.collapse();
+
+      const reactie = await this.store.createRecord('bericht', {
+        inhoud: this.inhoud,
+        // aangekomen              : new Date(),
+        verzonden: new Date(),
+        van: bestuurseenheid,
+        auteur: user,
+        naar: this.originator,
+        bijlagen: this.bijlagen,
+        typeCommunicatie: this.args.conversatie.currentTypeCommunicatie,
+      });
+
+      await reactie.save();
+      this.args.conversatie.berichten.pushObject(reactie);
+      this.args.conversatie.laatsteBericht = reactie;
+      await this.args.conversatie.save();
+    } catch (err) {
+      alert(err.message);
     }
+  }
 
   @action
-    collapse() {
-      this.isExpanded = false;
-    }
+  async attachFile(fileId) {
+    let file = await this.store.findRecord('file', fileId);
+    this.bijlagen.pushObject(file);
+  }
 
   @action
-    expand() {
-      this.isExpanded = true;
-    }
+  deleteFile(file) {
+    this.bijlagen.removeObject(file);
+  }
+
+  @action
+  expandMe() {
+    this.initInputState();
+    this.expand();
+  }
+
+  @action
+  collapseMe() {
+    this.collapse();
+  }
+
+  @action
+  collapse() {
+    this.isExpanded = false;
+  }
+
+  @action
+  expand() {
+    this.isExpanded = true;
+  }
 }

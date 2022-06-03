@@ -5,7 +5,7 @@ export default class File extends Model {
   @attr filename;
   @attr format;
   @attr size;
-  @attr('string', {defaultValue: 'n/a'}) extension;
+  @attr({ defaultValue: 'n/a' }) extension;
   @attr('datetime') created;
 
   get humanReadableSize() {
@@ -17,7 +17,7 @@ export default class File extends Model {
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
   }
 
-  get miniatureMetadata(){
+  get miniatureMetadata() {
     return `${this.extension.toUpperCase()} - ${this.humanReadableSize}`;
   }
 

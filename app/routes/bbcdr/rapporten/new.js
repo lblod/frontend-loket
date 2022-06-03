@@ -1,11 +1,16 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class BbcdrRapportenNewRoute extends Route {
-  async model(){
-    let status =  (await this.store.query('document-status', {
-      filter: { ':uri:': 'http://data.lblod.info/document-statuses/concept' }
-    })).firstObject;
+  @service store;
 
-    return this.store.createRecord('bbcdr-report', {status});
+  async model() {
+    let status = (
+      await this.store.query('document-status', {
+        filter: { ':uri:': 'http://data.lblod.info/document-statuses/concept' },
+      })
+    ).firstObject;
+
+    return this.store.createRecord('bbcdr-report', { status });
   }
 }

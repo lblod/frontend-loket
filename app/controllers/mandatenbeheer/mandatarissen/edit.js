@@ -6,12 +6,12 @@ export default class MandatenbeheerMandatarissenEditController extends Controlle
   @service() router;
 
   @action
-    saveMandataris() {
-      this.send('reloadModel');
-    }
+  saveMandataris() {
+    this.send('reloadModel');
+  }
 
   @action
-    finish(){
-      this.router.transitionTo('mandatenbeheer.mandatarissen');
-    }
+  finish() {
+    this.router.transitionTo('mandatenbeheer.mandatarissen');
+  }
 }

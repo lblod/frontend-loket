@@ -3,23 +3,23 @@
     <div class="au-c-pagination">
       <ul class="au-c-pagination__list">
         <li class="au-c-pagination__list-item">
-          <span class="au-u-hidden-visually">Resultaten </span><strong>{{startItem}} - {{endItem}}</strong> van {{total}}
+          <span class="au-u-hidden-visually">Resultaten </span><strong>{{this.startItem}} - {{this.endItem}}</strong> van {{this.total}}
         </li>
-        {{#if hasMultiplePages}}
-          {{#unless isFirstPage}}
+        {{#if this.hasMultiplePages}}
+          {{#unless this.isFirstPage}}
             <li class="au-c-pagination__list-item">
-              <AuButton @skin="tertiary" {{action "changePage" links.prev}}>
+              <AuButton @skin="tertiary" {{action "changePage" this.links.prev}}>
                 <AuIcon @icon="nav-left" @alignment="left" />
                 vorige
-                <span class="au-u-hidden-visually"> {{pageSize}} resultaten</span>
+                <span class="au-u-hidden-visually"> {{this.pageSize}} resultaten</span>
               </AuButton>
             </li>
           {{/unless}}
-          {{#unless isLastPage}}
+          {{#unless this.isLastPage}}
             <li class="au-c-pagination__list-item">
-              <AuButton @skin="tertiary" {{action "changePage" links.next}}>
+              <AuButton @skin="tertiary" {{action "changePage" this.links.next}}>
                 volgende
-                <span class="au-u-hidden-visually"> {{pageSize}} resultaten</span>
+                <span class="au-u-hidden-visually"> {{this.pageSize}} resultaten</span>
                 <AuIcon @icon="nav-right" @alignment="right" />
               </AuButton>
             </li>

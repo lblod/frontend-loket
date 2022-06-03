@@ -10,7 +10,7 @@ export default class MandatenbeheerBeleidsdomeinSelectorWithCreateComponent exte
 
   @tracked _beleidsdomeinen = A();
 
-  constructor(){
+  constructor() {
     super(...arguments);
     this._beleidsdomeinen = (this.args.beleidsdomeinen || A()).toArray();
   }
@@ -19,27 +19,29 @@ export default class MandatenbeheerBeleidsdomeinSelectorWithCreateComponent exte
   *searchByName(searchData) {
     yield timeout(300);
     let queryParams = {
-      sort:'label',
-      'filter[label]': searchData
+      sort: 'label',
+      'filter[label]': searchData,
     };
     return yield this.store.query('beleidsdomein-code', queryParams);
   }
 
   @action
-    select(beleidsdomeinen){
-      this._beleidsdomeinen.setObjects(beleidsdomeinen);
-      this.args.onSelect(this._beleidsdomeinen);
-    }
+  select(beleidsdomeinen) {
+    this._beleidsdomeinen.setObjects(beleidsdomeinen);
+    this.args.onSelect(this._beleidsdomeinen);
+  }
 
   @action
-    async create(beleidsdomein){
-      let domein = await this.store.createRecord('beleidsdomein-code', {label: beleidsdomein});
-      this._beleidsdomeinen.pushObject(domein);
-      this.args.onSelect(this._beleidsdomeinen);
-    }
+  async create(beleidsdomein) {
+    let domein = await this.store.createRecord('beleidsdomein-code', {
+      label: beleidsdomein,
+    });
+    this._beleidsdomeinen.pushObject(domein);
+    this.args.onSelect(this._beleidsdomeinen);
+  }
 
   @action
-    suggest(term) {
-      return `Voeg "${term}" toe`;
-    }
+  suggest(term) {
+    return `Voeg "${term}" toe`;
+  }
 }

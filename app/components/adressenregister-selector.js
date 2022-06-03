@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { empty } from '@ember/object/computed';
 import { inject as service } from '@ember/service';
 import { keepLatestTask, task, timeout } from 'ember-concurrency';
 import { action } from '@ember/object';
@@ -7,8 +6,6 @@ import { tracked } from '@glimmer/tracking';
 
 export default class AdressenregisterSelectorComponent extends Component {
   @service() addressregister;
-
-  @empty('addressWithBusnumber') isDisabledBusnumberSelect;
 
   @tracked address = null;
   @tracked addressSuggestion;
@@ -20,13 +17,23 @@ export default class AdressenregisterSelectorComponent extends Component {
     this.getAddressInfo();
   }
 
+  get isDisabledBusnumberSelect() {
+    return !this.addressWithBusnumber;
+  }
+
   async getAddressInfo() {
     const address = await this.args.address;
     if (address) {
-      this.addressSuggestion = await this.addressregister.toAddressSuggestion(address);
-      const addresses = await this.addressregister.findAll(this.addressSuggestion);
+      this.addressSuggestion = await this.addressregister.toAddressSuggestion(
+        address
+      );
+      const addresses = await this.addressregister.findAll(
+        this.addressSuggestion
+      );
       if (addresses.length > 1) {
-        const selectedAddress = addresses.find(a => a.busnumber == address.busnummer);
+        const selectedAddress = addresses.find(
+          (a) => a.busnumber == address.busnummer
+        );
         this.addressesWithBusnumbers = addresses.sortBy('busnumber');
         this.addressWithBusnumber = selectedAddress;
       } else {
@@ -46,7 +53,8 @@ export default class AdressenregisterSelectorComponent extends Component {
       const addresses = yield this.addressregister.findAll(addressSuggestion);
       if (addresses.length == 1) {
         this.args.onChange(addresses[0].adresProperties);
-      } else { // selection of busnumber required
+      } else {
+        // selection of busnumber required
         const sortedBusNumbers = addresses.sortBy('busnumber');
         this.addressesWithBusnumbers = sortedBusNumbers;
         this.addressWithBusnumber = sortedBusNumbers[0];
@@ -65,8 +73,8 @@ export default class AdressenregisterSelectorComponent extends Component {
   }
 
   @action
-    selectAddressWithBusnumber(address) {
-      this.addressWithBusnumber = address;
-      this.args.onChange(address.adresProperties);
-    }
+  selectAddressWithBusnumber(address) {
+    this.addressWithBusnumber = address;
+    this.args.onChange(address.adresProperties);
+  }
 }

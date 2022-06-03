@@ -24,13 +24,7 @@ module.exports = function (environment) {
     moment: {
       allowEmpty: true,
       includeLocales: ['nl-be'],
-      includeTimezone: 'all'
-    },
-    browserUpdate: {
-      vs: {i:11,f:-3,o:-3,s:-3,c:-3},
-      style: 'corner',
-      l: 'nl',
-      shift_page_down: false
+      includeTimezone: 'all',
     },
     torii: {
       disableRedirectInitializer: true,
@@ -41,10 +35,10 @@ module.exports = function (environment) {
           scope: 'openid rrn vo profile abb_loketLB',
           redirectUri: 'https://loket.lblod.info/authorization/callback',
           returnUrl: 'https://loket.lblod.info/switch-login',
-          logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout'
-        }
-      }
-    }
+          logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout',
+        },
+      },
+    },
   };
 
   if (environment === 'development') {
@@ -73,11 +67,16 @@ module.exports = function (environment) {
   }
 
   if (process.env.DEPLOY_ENV === 'production') {
-    ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '90a39574-e986-4007-84f2-becf6d9eb481';
-    ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/auth';
-    ENV['torii']['providers']['acmidm-oauth2']['returnUrl'] = 'https://loket.lokaalbestuur.vlaanderen.be/switch-login';
-    ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://loket.lokaalbestuur.vlaanderen.be/authorization/callback';
-    ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/logout';
+    ENV['torii']['providers']['acmidm-oauth2']['apiKey'] =
+      '90a39574-e986-4007-84f2-becf6d9eb481';
+    ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] =
+      'https://authenticatie.vlaanderen.be/op/v1/auth';
+    ENV['torii']['providers']['acmidm-oauth2']['returnUrl'] =
+      'https://loket.lokaalbestuur.vlaanderen.be/switch-login';
+    ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] =
+      'https://loket.lokaalbestuur.vlaanderen.be/authorization/callback';
+    ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] =
+      'https://authenticatie.vlaanderen.be/op/v1/logout';
   }
 
   return ENV;

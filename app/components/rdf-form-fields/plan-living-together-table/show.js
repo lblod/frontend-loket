@@ -1,0 +1,3 @@
+import RdfFormFieldsPlanLivingTogetherTableEditComponent from './edit';
+
+export default class RdfFormFieldsPlanLivingTogetherTableShowComponent extends RdfFormFieldsPlanLivingTogetherTableEditComponent {}

@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
 import { alias } from '@ember/object/computed';
@@ -6,7 +7,8 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
 export default class MandatenbeheerFractiesController extends Controller {
-  @service() router;
+  @service router;
+  @service store;
 
   @tracked newFractie = null;
   @tracked isBusy = false;
@@ -30,30 +32,29 @@ export default class MandatenbeheerFractiesController extends Controller {
   }
 
   @action
-    cancelEdit(fractie) {
-      if (fractie.isNew)
-        this.newFractie = null;
-      fractie.rollbackAttributes(); // removes model from store if it's new
-    }
+  cancelEdit(fractie) {
+    if (fractie.isNew) this.newFractie = null;
+    fractie.rollbackAttributes(); // removes model from store if it's new
+  }
 
   @action
-    createNewFractie() {
-      const fractie = this.store.createRecord('fractie', {
-        fractietype: this.defaultFractieType,
-        bestuursorganenInTijd: this.bestuursorganen,
-        bestuurseenheid: this.bestuurseenheid
-      });
+  createNewFractie() {
+    const fractie = this.store.createRecord('fractie', {
+      fractietype: this.defaultFractieType,
+      bestuursorganenInTijd: this.bestuursorganen,
+      bestuurseenheid: this.bestuurseenheid,
+    });
 
-      this.newFractie = fractie;
-    }
+    this.newFractie = fractie;
+  }
 
   @action
-    selectPeriod(startDate) {
-      this.router.transitionTo('mandatenbeheer.fracties', {
-        queryParams: {
-          page: 0,
-          startDate: startDate
-        }
-      });
-    }
+  selectPeriod(startDate) {
+    this.router.transitionTo('mandatenbeheer.fracties', {
+      queryParams: {
+        page: 0,
+        startDate: startDate,
+      },
+    });
+  }
 }

@@ -6,9 +6,15 @@ import fetch from 'fetch';
 export default class SubsidyApplicationsEditController extends Controller {
   @service router;
 
-  get reeksHasStartOrEnd(){
-    return this.consumption.get('subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin') ||
-      this.consumption.get('subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end');
+  get reeksHasStartOrEnd() {
+    return (
+      this.consumption.get(
+        'subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin'
+      ) ||
+      this.consumption.get(
+        'subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end'
+      )
+    );
   }
 
   get consumption() {

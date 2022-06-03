@@ -1,0 +1,86 @@
+<AuLabel>
+  Welke was, ruw geschat, de gemiddelde maandelijkse personeelsinzet (VTE)
+</AuLabel>
+<AuLabel
+  @error={{this.hasErrors}}
+  @required={{this.isRequired}}
+  for={{this.inputFor}}
+>
+  {{@field.label}}
+</AuLabel>
+<table
+  class="data-table data-table--zebra data-table--tight au-u-margin-top-small"
+>
+  <thead>
+    <tr>
+      <th>
+        Bestaand personeelskader
+      </th>
+      <th>
+        (Tijdelijk) extra aangeworven betaald personeel
+      </th>
+      <th>
+        Vrijwilligers
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each this.entries as |entry index|}}
+      <tr>
+        <td>
+          <AuLabel for="existing-staff-{{index}}" class="au-u-hidden-visually">
+            Bestaand personeelskader
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.existingStaff.value}}
+            @type="number"
+            id="existing-staff-{{index}}"
+            class={{if entry.existingStaff.errors "au-c-input--error"}}
+            {{on "change" (fn this.updateExistingStaffValue entry)}}
+          />
+          {{#each entry.existingStaff.errors as |error|}}
+            <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+          {{/each}}
+        </td>
+        <td>
+          <AuLabel
+            for="additional-staff-{{index}}"
+            class="au-u-hidden-visually"
+          >
+            (Tijdelijk) extra aangeworven betaald personeel
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.additionalStaff.value}}
+            @type="number"
+            id="additional-staff-{{index}}"
+            class={{if entry.additionalStaff.errors "au-c-input--error"}}
+            {{on "change" (fn this.updateAdditionalStaffValue entry)}}
+          />
+          {{#each entry.additionalStaff.errors as |error|}}
+            <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+          {{/each}}
+        </td>
+        <td>
+          <AuLabel for="volunteers-{{index}}" class="au-u-hidden-visually">
+            Vrijwilligers
+          </AuLabel>
+          <AuInput
+            @width="block"
+            @value={{entry.volunteers.value}}
+            @type="number"
+            id="volunteers-{{index}}"
+            class={{if entry.volunteers.errors "au-c-input--error"}}
+            {{on "change" (fn this.updateVolunteersValue entry)}}
+          />
+          {{#each entry.volunteers.errors as |error|}}
+            <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+          {{/each}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{yield}}

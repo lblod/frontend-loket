@@ -16,7 +16,9 @@ export default class LoketSessionService extends SessionService {
     if (logoutUrl.startsWith('http')) {
       super.handleInvalidation(logoutUrl);
     } else {
-      warn('Incorrect logout URL configured', { id: 'session-invalidation-failure' });
+      warn('Incorrect logout URL configured', {
+        id: 'session-invalidation-failure',
+      });
     }
   }
 }

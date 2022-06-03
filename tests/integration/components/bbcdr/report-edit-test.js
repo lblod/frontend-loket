@@ -3,194 +3,268 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | bbcdr/report-edit', function(hooks) {
+module('Integration | Component | bbcdr/report-edit', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it displays the report details', async function(assert) {
-    const report = {
+  test('it displays the report details', async function (assert) {
+    let store = this.owner.lookup('service:store');
+    let report = store.createRecord('bbcdr-report', {
       created: new Date(),
       modified: new Date(),
-      lastModifier: {},
-      bestuurseenheid: {},
-      status: {
-        label: 'concept',
-        uri: 'http://data.lblod.info/document-statuses/concept'
-      },
-      files: [
-        { filename: 'test-1', extension: 'xml' },
-        { filename: 'test-2', extension: 'xbrl' }
-      ]
-    };
-    this.set('report', report);
+    });
 
-    await render(hbs`{{bbcdr/report-edit report=report}}`);
+    report.status = store.createRecord('document-status', {
+      label: 'concept',
+      uri: 'http://data.lblod.info/document-statuses/concept',
+    });
 
-    assert.dom('[data-test-loket=bbcdr-file-card]').exists({ count: 2 }, 'Displays 2 file cards');
+    report.files = [
+      store.createRecord('file', {
+        filename: 'test-1',
+        extension: 'xml',
+      }),
+      store.createRecord('file', {
+        filename: 'test-2',
+        extension: 'xbrl',
+      }),
+    ];
+
+    this.setProperties({ report, reportFiles: await report.files });
+
+    await render(hbs`
+      <Bbcdr::report-edit
+        @report={{this.report}}
+        @reportFiles={{this.reportFiles}}
+      />
+    `);
+
+    assert
+      .dom('[data-test-loket=bbcdr-file-card]')
+      .exists({ count: 2 }, 'Displays 2 file cards');
   });
 
-  test('it displays a file upload iff status is concept and less than 2 files have been uploaded', async function(assert) {
-    this.store = this.owner.lookup('service:store');
-    const conceptStatus = this.store.createRecord('document-status', {
-      label: 'concept',
-      uri: 'http://data.lblod.info/document-statuses/concept'
-    });
-
-    const verstuurdStatus = this.store.createRecord('document-status', {
-      label: 'verstuurd',
-      uri: 'http://data.lblod.info/document-statuses/verstuurd'
-    });
-
-    const reportWith1File = {
+  test('it displays a file upload if status is concept and less than 2 files have been uploaded', async function (assert) {
+    let store = this.owner.lookup('service:store');
+    let reportWith1File = store.createRecord('bbcdr-report', {
       created: new Date(),
       modified: new Date(),
-      status: conceptStatus,
-      files: [
-        { filename: 'test-1', extension: 'xml' }
-      ]
-    };
-    this.set('report', reportWith1File);
-    await render(hbs`{{bbcdr/report-edit report=report}}`);
+    });
+
+    reportWith1File.status = store.createRecord('document-status', {
+      label: 'concept',
+      uri: 'http://data.lblod.info/document-statuses/concept',
+    });
+
+    reportWith1File.files = [
+      store.createRecord('file', { filename: 'test-1', extension: 'xml' }),
+    ];
+
+    this.setProperties({
+      report: reportWith1File,
+      reportFiles: await reportWith1File.files,
+    });
+
+    await render(hbs`
+      <Bbcdr::ReportEdit
+        @report={{this.report}}
+        @reportFiles={{this.reportFiles}}
+      />
+    `);
 
     assert.dom('[data-test-loket=bbcdr-file-upload]').exists({ count: 1 });
 
-
-    const reportWith2Files = {
+    let reportWith2Files = store.createRecord('bbcdr-report', {
       created: new Date(),
       modified: new Date(),
-      status: conceptStatus,
-      files: [
-        { filename: 'test-1', extension: 'xml' },
-        { filename: 'test-2', extension: 'xbrl' }
-      ]
-    };
-    this.set('report', reportWith2Files);
-    await settled();
-    assert.dom('[data-test-loket=bbcdr-file-upload]').doesNotExist();
+    });
+    reportWith2Files.files = [
+      store.createRecord('file', { filename: 'test-1', extension: 'xml' }),
+      store.createRecord('file', { filename: 'test-2', extension: 'xbrl' }),
+    ];
 
-
-    const reportInSentState = {
-      created: new Date(),
-      modified: new Date(),
-      status: verstuurdStatus,
-      files: [
-        { filename: 'test-1', extension: 'xml' }
-      ]
-    };
-    this.set('report', reportInSentState);
-    await settled();
-    assert.dom('[data-test-loket=bbcdr-file-upload]').doesNotExist();
-  });
-
-  test('it displays only a close button if the report is in the sent state', async function(assert) {
-    this.store = this.owner.lookup('service:store');
-    const verstuurdStatus = this.store.createRecord('document-status', {
-      label: 'verstuurd',
-      uri: 'http://data.lblod.info/document-statuses/verstuurd'
+    this.setProperties({
+      report: reportWith2Files,
+      reportFiles: await reportWith2Files.files,
     });
 
-    const report = {
+    await settled();
+    assert
+      .dom('[data-test-loket=bbcdr-file-upload]')
+      .doesNotExist("it doesn't show the file uploader if 2 files are present");
+
+    let sentStatus = store.createRecord('document-status', {
+      label: 'verstuurd',
+      uri: 'http://data.lblod.info/document-statuses/verstuurd',
+    });
+
+    let reportInSentState = store.createRecord('bbcdr-report', {
       created: new Date(),
       modified: new Date(),
-      status: verstuurdStatus,
-      files: [
-        { filename: 'test-1', extension: 'xml' },
-        { filename: 'test-2', extension: 'xml' }
-      ]
-    };
-    this.set('report', report);
-    await render(hbs`{{bbcdr/report-edit report=report}}`);
+    });
+    reportInSentState.status = sentStatus;
+    reportInSentState.files = [
+      store.createRecord('file', { filename: 'test-1', extension: 'xml' }),
+    ];
 
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-close-panel-btn]').exists({ count: 1 });
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] .button').exists({ count: 1 });
+    this.setProperties({
+      report: reportInSentState,
+      reportFiles: await reportInSentState.files,
+    });
+    await settled();
+    assert.dom('[data-test-loket=bbcdr-file-upload]').doesNotExist();
   });
 
-  test('it enables the sent button iff the report is not in the sent state and 2 files have been uploaded', async function(assert) {
-    this.store = this.owner.lookup('service:store');
-    const conceptStatus = this.store.createRecord('document-status', {
+  test('it displays only a close button if the report is in the sent state', async function (assert) {
+    let store = this.owner.lookup('service:store');
+
+    store.push({
+      data: {
+        id: '1234',
+        type: 'bbcdr-report',
+      },
+    });
+
+    let report = store.peekRecord('bbcdr-report', '1234');
+
+    let sentStatus = store.createRecord('document-status', {
+      label: 'verstuurd',
+      uri: 'http://data.lblod.info/document-statuses/verstuurd',
+    });
+    report.status = sentStatus;
+    report.files = [
+      store.createRecord('file', { filename: 'test-1', extension: 'xml' }),
+      store.createRecord('file', { filename: 'test-2', extension: 'xbrl' }),
+    ];
+
+    this.setProperties({ report, reportFiles: await report.files });
+    await render(hbs`
+      <Bbcdr::ReportEdit
+        @report={{this.report}}
+        @reportFiles={{this.reportFiles}}
+      />`);
+
+    assert
+      .dom(
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-close-panel-btn]'
+      )
+      .exists({ count: 1 });
+
+    assert
+      .dom('[data-test-loket=bbcdr-already-submitted-message]')
+      .exists(
+        { count: 1 },
+        'It shows a message that the report was already submitted before'
+      );
+
+    assert.dom('[data-test-loket=bbcdr-send-btn]').doesNotExist();
+    assert.dom('[data-test-loket=bbcdr-save-btn]').doesNotExist();
+    assert.dom('[data-test-loket=bbcdr-cancel-btn]').doesNotExist();
+    assert.dom('[data-test-loket=bbcdr-delete-btn]').doesNotExist();
+  });
+
+  test('it enables the "send to government" button if the report is not in the sent state and 2 files have been uploaded', async function (assert) {
+    let store = this.owner.lookup('service:store');
+    let conceptStatus = store.createRecord('document-status', {
       label: 'concept',
-      uri: 'http://data.lblod.info/document-statuses/concept'
+      uri: 'http://data.lblod.info/document-statuses/concept',
     });
 
-    const verstuurdStatus = this.store.createRecord('document-status', {
+    let sentStatus = store.createRecord('document-status', {
       label: 'verstuurd',
-      uri: 'http://data.lblod.info/document-statuses/verstuurd'
+      uri: 'http://data.lblod.info/document-statuses/verstuurd',
     });
 
-    const file1 = this.store.createRecord('file', {
+    let file1 = store.createRecord('file', {
       filename: 'test-1',
-      extension: 'xml'
+      extension: 'xml',
     });
 
-    const file2 = this.store.createRecord('file', {
+    let file2 = store.createRecord('file', {
       filename: 'test-2',
-      extension: 'xbrl'
+      extension: 'xbrl',
     });
 
-    const unsavedReport = this.store.createRecord('bbcdr-report', {
+    let unsavedReport = store.createRecord('bbcdr-report', {
       created: new Date(),
       modified: new Date(),
-      status: conceptStatus,
-      files: []
     });
+
+    unsavedReport.status = conceptStatus;
     this.set('report', unsavedReport);
-    await render(hbs`{{bbcdr/report-edit report=report}}`);
 
-    assert.ok(unsavedReport.isNew, 'The report isNew');
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').exists({ count: 1 });
-    // dom(...).isDisabled() doesn't work on an anchor-tag
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').hasClass('button--disabled');
+    await render(
+      hbs`<Bbcdr::ReportEdit @report={{this.report}} @reportFiles={{this.reportFiles}} />`
+    );
 
+    assert.true(unsavedReport.isNew, 'The report isNew');
+    assert
+      .dom(
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+      )
+      .exists({ count: 1 })
+      .isDisabled();
 
-    const unsavedReportWith2Files = this.store.createRecord('bbcdr-report', {
+    let unsavedReportWith1File = store.createRecord('bbcdr-report', {
       created: new Date(),
       modified: new Date(),
-      status: conceptStatus,
-      files: [ file1, file2 ]
     });
-    this.set('report', unsavedReportWith2Files);
+    unsavedReportWith1File.status = conceptStatus;
+    unsavedReportWith1File.files = [file1];
+    this.setProperties({
+      report: unsavedReportWith1File,
+      reportFiles: await unsavedReportWith1File.files,
+    });
     await settled();
 
-    assert.ok(unsavedReportWith2Files.isNew, 'The report isNew');
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').exists({ count: 1 });
-    // dom(...).isDisabled() doesn't work on an anchor-tag
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').doesNotHaveClass('button--disabled');
+    assert
+      .dom(
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+      )
+      .exists({ count: 1 })
+      .isDisabled();
 
-
-    const reportWith1File = {
+    let unsavedReportWith2Files = store.createRecord('bbcdr-report', {
       created: new Date(),
       modified: new Date(),
-      status: conceptStatus,
-      files: [ file1 ]
-    };
-    this.set('report', reportWith1File);
+    });
+    unsavedReportWith2Files.status = conceptStatus;
+    unsavedReportWith2Files.files = [file1, file2];
+
+    this.setProperties({
+      report: unsavedReportWith2Files,
+      reportFiles: await unsavedReportWith2Files.files,
+    });
     await settled();
 
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').exists({ count: 1 });
-    // dom(...).isDisabled() doesn't work on an anchor-tag
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').hasClass('button--disabled');
+    assert.true(unsavedReportWith2Files.isNew, 'The report isNew');
+    assert
+      .dom(
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+      )
+      .exists({ count: 1 })
+      .isNotDisabled();
 
-    const reportWith2Files = {
-      created: new Date(),
-      modified: new Date(),
-      status: conceptStatus,
-      files: [ file1, file2 ]
-    };
-    this.set('report', reportWith2Files);
+    store.push({
+      data: {
+        id: '1234',
+        type: 'bbcdr-report',
+      },
+    });
+
+    let reportInSentState = store.peekRecord('bbcdr-report', '1234');
+    reportInSentState.status = sentStatus;
+    reportInSentState.files = [file1, file2];
+
+    this.setProperties({
+      report: reportInSentState,
+      reportFiles: await reportInSentState.files,
+    });
     await settled();
 
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').exists({ count: 1 });
-    // dom(...).isDisabled() doesn't work on an anchor-tag
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').doesNotHaveClass('button--disabled');
-
-
-    const reportInSentState = {
-      created: new Date(),
-      modified: new Date(),
-      status: verstuurdStatus,
-      files: [ file1, file2 ]
-    };
-    this.set('report', reportInSentState);
-    await settled();
-    assert.dom('[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]').doesNotExist();
+    assert
+      .dom(
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+      )
+      .doesNotExist();
   });
 });

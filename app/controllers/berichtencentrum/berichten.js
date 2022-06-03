@@ -13,19 +13,20 @@ export default class BerichtencentrumBerichtenController extends Controller {
   @tracked preferences = false;
   @tracked bestuurseenheid;
 
-  get hasActiveChildRoute(){
-    return this.router.currentRouteName.startsWith('berichtencentrum.berichten.')
-        && this.router.currentRouteName != 'berichtencentrum.berichten.index';
+  get hasActiveChildRoute() {
+    return (
+      this.router.currentRouteName.startsWith('berichtencentrum.berichten.') &&
+      this.router.currentRouteName != 'berichtencentrum.berichten.index'
+    );
   }
 
   @action
-    showPreferences() {
-      this.preferences = true;
-    }
+  showPreferences() {
+    this.preferences = true;
+  }
 
   @action
-    hidePreferences() {
-      this.preferences = false;
-    }
+  hidePreferences() {
+    this.preferences = false;
+  }
 }
-
