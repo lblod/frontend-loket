@@ -43,16 +43,18 @@ export default class PublicServicesDetailsFormComponent extends Component {
   @task
   *loadForm() {
     yield timeout(1000);
+    const formData = yield fetchFormData('53de1e9d-52c8-4edf-ae97-58474f7184eb', 'cd0b5eba-33c1-45d9-aed9-75194c3728d3');
 
     // TODO: retrieve the form data from the custom microservice
-    let [formTtl, metaTtl] = yield Promise.all([
-      fetchForm(this.args.formId),
-      fetchFormMeta(this.args.formId),
-    ]);
+    // let [formTtl, metaTtl] = yield Promise.all([
+    //   fetchForm(this.args.formId),
+    //   fetchFormMeta(this.args.formId),
+    // ]);
 
     let formStore = new ForkingStore();
-    formStore.parse(formTtl, FORM_GRAPHS.formGraph, 'text/turtle');
-    formStore.parse(metaTtl, FORM_GRAPHS.metaGraph, 'text/turtle');
+    formStore.parse(formData.form, FORM_GRAPHS.formGraph, 'text/turtle');
+    formStore.parse(formData.meta, FORM_GRAPHS.metaGraph, 'text/turtle');
+    formStore.parse(formData.source, FORM_GRAPHS.sourceGraph, 'text/turtle');
 
     let form = formStore.any(
       undefined,
@@ -61,10 +63,12 @@ export default class PublicServicesDetailsFormComponent extends Component {
       FORM_GRAPHS.formGraph
     );
 
-    formStore.registerObserver(this.updateFormDirtyState, this.id);
+    formStore.registerObserver(this.updateFormDirtyState, 'cd0b5eba-33c1-45d9-aed9-75194c3728d3');
 
     this.form = form;
     this.formStore = formStore;
+    this.graphs = FORM_GRAPHS;
+    this.sourceNode = new rdflib.NamedNode('http://data.lblod.info/id/public-services/53de1e9d-52c8-4edf-ae97-58474f7184eb');
   }
 
   @action
@@ -80,12 +84,11 @@ export default class PublicServicesDetailsFormComponent extends Component {
     // TODO: Do we need to disable deletion until while the save is running, similar to the subsidy module?
 
     // TODO: persist the form state to the backend
-    console.log(
-      this.formStore.serializeDataWithAddAndDelGraph(
+    const serializedData = this.formStore.serializeDataWithAddAndDelGraph(
         this.graphs.sourceGraph,
         'application/n-triples'
-      )
     );
+    yield saveFormData('53de1e9d-52c8-4edf-ae97-58474f7184eb', 'cd0b5eba-33c1-45d9-aed9-75194c3728d3', serializedData);
 
     yield this.args.publicService.reload();
 
@@ -97,6 +100,21 @@ export default class PublicServicesDetailsFormComponent extends Component {
 
     this.formStore.deregisterObserver(this.id);
   }
+}
+
+async function saveFormData(serviceId, formId, data){
+  let response = await fetch(`/lpdc-management/${serviceId}/form/${formId}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    }
+  });
+}
+
+async function fetchFormData(serviceId, formId) {
+  let response = await fetch(`/lpdc-management/${serviceId}/form/${formId}`);
+  return await response.json();
 }
 
 async function fetchForm(formName) {
