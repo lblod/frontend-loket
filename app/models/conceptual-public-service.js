@@ -1,6 +1,7 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class ConceptualPublicServiceModel extends Model {
+  @attr uri;
   @attr name;
   @attr identifier;
   @attr('datetime') startDate;
