@@ -1,0 +1,30 @@
+<AuModal
+  @modalOpen={{true}}
+  @closeModal={{this.close}}
+  data-test-confirm-deletion-modal="modal"
+>
+  <:title>Product of dienst permanent verwijderen?</:title>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton
+        @icon="bin"
+        @iconAlignment="left"
+        @alert={{true}}
+        @disabled={{this.delete.isRunning}}
+        @loading={{this.delete.isRunning}}
+        {{on "click" (perform this.delete)}}
+        data-test-confirm-deletion-modal="delete-button"
+      >
+        Verwijderen
+      </AuButton>
+      <AuButton
+        @skin="secondary"
+        @disabled={{this.delete.isRunning}}
+        {{on "click" this.close}}
+        data-test-confirm-deletion-modal="cancel-button"
+      >
+        Annuleer
+      </AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>
