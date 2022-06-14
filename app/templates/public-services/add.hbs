@@ -1,116 +1,123 @@
 {{page-title "Product of dienst toevoegen"}}
 
-<AuToolbar @border="bottom" @size="large" @nowrap={{true}} as |Group|>
-  <Group>
-    <AuHeading @skin="2" data-test-loket="public-services-page-title">
-      Product of dienst toevoegen
-    </AuHeading>
-  </Group>
-  <Group class="au-u-flex au-u-flex--vertical-center">
-    <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
-    {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
-    <span class="au-c-input-wrapper au-c-input-wrapper--left">
-      <AuIcon @icon="search" />
-      <input
-        value={{this.search}}
-        id="search"
-        class="au-c-input"
-        placeholder="Vul uw zoekterm in"
-        {{on "input" (perform this.searchTask value="target.value")}}
+{{#if this.addPublicService.isIdle}}
+  <AuToolbar @border="bottom" @size="large" @nowrap={{true}} as |Group|>
+    <Group>
+      <AuHeading @skin="2" data-test-loket="public-services-page-title">
+        Product of dienst toevoegen
+      </AuHeading>
+    </Group>
+    <Group class="au-u-flex au-u-flex--vertical-center">
+      <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
+      {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
+      <span class="au-c-input-wrapper au-c-input-wrapper--left">
+        <AuIcon @icon="search" />
+        <input
+          value={{this.search}}
+          id="search"
+          class="au-c-input"
+          placeholder="Vul uw zoekterm in"
+          {{on "input" (perform this.searchTask value="target.value")}}
+        />
+      </span>
+      <PublicServices::SectorSelect
+        @selected={{@model.sector}}
+        @onChange={{this.handleSectorSelection}}
+        @allowClear={{true}}
       />
-    </span>
-    <PublicServices::SectorSelect
-      @selected={{@model.sector}}
-      @onChange={{this.handleSectorSelection}}
-      @allowClear={{true}}
-    />
-  </Group>
-</AuToolbar>
+    </Group>
+  </AuToolbar>
 
-<AuDataTable
-  @content={{this.publicServices}}
-  @sort={{this.sort}}
-  @page={{this.page}}
-  @size={{20}}
-  as |Table|
->
-  <Table.content as |Content|>
-    <Content.header>
-      <AuDataTableThSortable
-        @field="name"
-        @currentSorting={{this.sort}}
-        @label="Productnaam"
-      />
-      <AuDataTableThSortable
-        @field=""
-        @currentSorting={{this.sort}}
-        @label="Verplichting"
-      />
-      <AuDataTableThSortable
-        @field="identifier"
-        @currentSorting={{this.sort}}
-        @label="PID"
-      />
-      <AuDataTableThSortable
-        @field=""
-        @currentSorting={{this.sort}}
-        @label="Sector"
-      />
-      <th class="u-table-cell-shrink-content">
-        <span class="au-u-hidden-visually">voeg product of dienst toe</span>
-      </th>
-    </Content.header>
+  <AuDataTable
+    @content={{this.publicServices}}
+    @sort={{this.sort}}
+    @page={{this.page}}
+    @size={{20}}
+    as |Table|
+  >
+    <Table.content as |Content|>
+      <Content.header>
+        <AuDataTableThSortable
+          @field="name"
+          @currentSorting={{this.sort}}
+          @label="Productnaam"
+        />
+        <AuDataTableThSortable
+          @field=""
+          @currentSorting={{this.sort}}
+          @label="Verplichting"
+        />
+        <AuDataTableThSortable
+          @field="identifier"
+          @currentSorting={{this.sort}}
+          @label="PID"
+        />
+        <AuDataTableThSortable
+          @field=""
+          @currentSorting={{this.sort}}
+          @label="Sector"
+        />
+        <th class="u-table-cell-shrink-content">
+          <span class="au-u-hidden-visually">voeg product of dienst toe</span>
+        </th>
+      </Content.header>
 
-    {{#if this.showTableLoader}}
-      <tbody>
+      {{#if this.showTableLoader}}
+        <tbody>
+          <tr>
+            <td colspan="100%" class="au-c-data-table__message">
+              <AuLoader @size="small" />
+            </td>
+          </tr>
+        </tbody>
+      {{else if this.hasErrored}}
         <tr>
           <td colspan="100%" class="au-c-data-table__message">
-            <AuLoader @size="small" />
+            <AuAlert
+              @title="Er ging iets fout bij het opvragen van de producten en diensten."
+              @icon="info-circle"
+              @skin="error"
+              @size="small"
+              class="au-u-margin-bottom-none"
+            />
           </td>
         </tr>
-      </tbody>
-    {{else if this.hasErrored}}
-      <tr>
-        <td colspan="100%" class="au-c-data-table__message">
-          <AuAlert
-            @title="Er ging iets fout bij het opvragen van de producten en diensten."
-            @icon="info-circle"
-            @skin="error"
-            @size="small"
-            class="au-u-margin-bottom-none"
-          />
-        </td>
-      </tr>
-    {{else if this.hasResults}}
-      <Content.body as |publicService|>
-        <td>{{publicService.name}}</td>
-        <td><AuPill>Nee</AuPill></td>
-        <td>{{publicService.identifier}}</td>
-        <td>{{publicService.sector.name}}</td>
-        <td class="u-table-cell-fit-content">
-          <AuButton
-            @icon="add"
-            @disabled={{this.addPublicService.isRunning}}
-            @skin="secondary"
-            @hideText={{true}}
-            {{on "click" (perform this.addPublicService publicService)}}
-          >
-            Voeg toe
-          </AuButton>
-        </td>
-      </Content.body>
-    {{else}}
-      <tr>
-        <td colspan="100%" class="au-c-data-table__message">
-          <AuAlert
-            @title="Er werden geen producten of diensten gevonden"
-            @icon="info-circle"
-            @skin="info"
-            @size="small"
-            class="au-u-margin-bottom-none"
-          />
-        </td>
-      </tr>
-    {{/if}}
-  </Table.content>
-</AuDataTable>
+      {{else if this.hasResults}}
+        <Content.body as |publicService|>
+          <td>{{publicService.name}}</td>
+          <td><AuPill>Nee</AuPill></td>
+          <td>{{publicService.identifier}}</td>
+          <td>{{publicService.sector.name}}</td>
+          <td class="u-table-cell-fit-content">
+            <AuButton
+              @icon="add"
+              @disabled={{this.addPublicService.isRunning}}
+              @skin="secondary"
+              @hideText={{true}}
+              {{on "click" (perform this.addPublicService publicService)}}
+            >
+              Voeg toe
+            </AuButton>
+          </td>
+        </Content.body>
+      {{else}}
+        <tr>
+          <td colspan="100%" class="au-c-data-table__message">
+            <AuAlert
+              @title="Er werden geen producten of diensten gevonden"
+              @icon="info-circle"
+              @skin="info"
+              @size="small"
+              class="au-u-margin-bottom-none"
+            />
+          </td>
+        </tr>
+      {{/if}}
+    </Table.content>
+  </AuDataTable>
+{{else}}
+  <div class="au-o-box">
+    <AuHeading @skin="4">Nieuw product of dienst aan het toevoegen</AuHeading>
+    <AuLoader @padding="small" />
+  </div>
+{{/if}}
