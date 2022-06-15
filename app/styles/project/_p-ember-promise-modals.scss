@@ -1,0 +1,4 @@
+// Disable the ember-promise-modals backdrop since Appuniversum modals already have a backdrop
+.epm-backdrop {
+  display: none;
+}
