@@ -8,6 +8,7 @@ import rdflib from 'browser-rdflib';
 import { dropTask, task } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
+import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
 const FORM_GRAPHS = {
   formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
@@ -19,8 +20,9 @@ const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
 export default class PublicServicesDetailsPageComponent extends Component {
-  @service router;
   @service modals;
+  @service router;
+  @service store;
 
   @tracked hasUnsavedChanges = false;
   id = guidFor(this);
@@ -85,7 +87,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
       serializedData
     );
 
-    yield this.args.publicService.reload();
+    yield loadPublicServiceDetails(this.store, this.args.publicService.id);
     this.hasUnsavedChanges = false;
   }
 
