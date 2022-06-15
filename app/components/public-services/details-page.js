@@ -7,6 +7,7 @@ import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import rdflib from 'browser-rdflib';
 import { dropTask, task } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
+import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 
 const FORM_GRAPHS = {
   formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
@@ -32,10 +33,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
     this.loadForm.perform();
     this.sourceNode = new rdflib.NamedNode(this.args.publicService.uri);
-
-    // TODO: Set up a routeWillChange event handler so we can show a confirmation modal before leaving the tab
-    // Even better would be to create a generic component which does this for us and which we can also use on other pages in the app.
-    // Design: https://www.figma.com/file/FEAkPmpEoalGutq5QvsQ2c/LPDC?node-id=1706%3A8837
+    this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
   }
 
   @task
@@ -101,10 +99,32 @@ export default class PublicServicesDetailsPageComponent extends Component {
     });
   }
 
+  async showUnsavedChangesModal(transition) {
+    if (transition.isAborted) {
+      return;
+    }
+
+    if (this.hasUnsavedChanges) {
+      transition.abort();
+
+      let shouldTransition = await this.modals.open(UnsavedChangesModal, {
+        saveHandler: async () => {
+          await this.saveSemanticForm.perform();
+        },
+      });
+
+      if (shouldTransition) {
+        this.hasUnsavedChanges = false;
+        transition.retry();
+      }
+    }
+  }
+
   willDestroy() {
     super.willDestroy(...arguments);
 
     this.formStore.deregisterObserver(this.id);
+    this.router.off('routeWillChange', this, this.showUnsavedChangesModal);
   }
 }
 
