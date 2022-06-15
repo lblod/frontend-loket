@@ -1,10 +1,12 @@
+import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import rdflib from 'browser-rdflib';
 import { dropTask, task } from 'ember-concurrency';
+import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
 
 const FORM_GRAPHS = {
   formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
@@ -15,14 +17,15 @@ const FORM_GRAPHS = {
 const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
-export default class PublicServicesDetailsFormComponent extends Component {
+export default class PublicServicesDetailsPageComponent extends Component {
   @service router;
+  @service modals;
 
+  @tracked hasUnsavedChanges = false;
   id = guidFor(this);
   form;
   formStore;
   graphs = FORM_GRAPHS;
-  hasUnsavedChanges = false;
 
   constructor() {
     super(...arguments);
@@ -69,7 +72,7 @@ export default class PublicServicesDetailsFormComponent extends Component {
 
   @dropTask
   *saveSemanticForm(event) {
-    event.preventDefault();
+    event?.preventDefault?.();
 
     // TODO: Do we need to disable deletion until while the save is running, similar to the subsidy module?
 
@@ -85,6 +88,17 @@ export default class PublicServicesDetailsFormComponent extends Component {
     );
 
     yield this.args.publicService.reload();
+    this.hasUnsavedChanges = false;
+  }
+
+  @action
+  removePublicService() {
+    this.modals.open(ConfirmDeletionModal, {
+      deleteHandler: async () => {
+        await this.model.publicService.destroyRecord();
+        this.router.replaceWith('public-services');
+      },
+    });
   }
 
   willDestroy() {

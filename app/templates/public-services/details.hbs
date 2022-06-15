@@ -68,36 +68,5 @@
 </AuTabs>
 
 <AuBodyContainer>
-  <AuBodyContainer @scroll={{true}}>
-    <div class="au-o-box">
-      {{outlet}}
-    </div>
-  </AuBodyContainer>
-
-  <AuToolbar @border="top" @size="large" as |Group|>
-    <Group>
-      <AuButtonGroup>
-        <AuButton>
-          Publiceer
-        </AuButton>
-        <AuLink @route="public-services" @skin="button-naked">
-          Terug naar het overzicht
-        </AuLink>
-      </AuButtonGroup>
-    </Group>
-    <Group>
-      <AuButton
-        @alert={{true}}
-        @icon="bin"
-        @iconAlignment="left"
-        @skin="secondary"
-        {{on "click" this.removePublicService}}
-      >
-        <span class="au-u-hidden-visually">
-          Product of dienst
-        </span>
-        Verwijderen
-      </AuButton>
-    </Group>
-  </AuToolbar>
+  {{outlet}}
 </AuBodyContainer>

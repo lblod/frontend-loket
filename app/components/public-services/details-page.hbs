@@ -1,0 +1,61 @@
+<AuBodyContainer @scroll={{true}}>
+  <div class="au-o-box">
+    {{#if this.loadForm.isRunning}}
+      <p class="au-u-h4 au-u-medium" aria-hidden="true">
+        Formulier aan het laden
+      </p>
+      <AuLoader @padding="small" />
+    {{else}}
+      <form id={{this.id}} {{on "submit" (perform this.saveSemanticForm)}}>
+        <RdfForm
+          @groupClass="au-o-grid__item"
+          @form={{this.form}}
+          @graphs={{this.graphs}}
+          @sourceNode={{this.sourceNode}}
+          @formStore={{this.formStore}}
+        />
+      </form>
+    {{/if}}
+  </div>
+</AuBodyContainer>
+
+<AuToolbar @border="top" @size="large" as |Group|>
+  <Group>
+    <AuButtonGroup>
+      <AuButton @disabled={{this.saveSemanticForm.isRunning}}>
+        Publiceer
+      </AuButton>
+
+      <AuButton
+        @skin="secondary"
+        @disabled={{or
+          (not this.hasUnsavedChanges)
+          this.saveSemanticForm.isRunning
+        }}
+        @loading={{this.saveSemanticForm.isRunning}}
+        form={{this.id}}
+        type="submit"
+      >
+        Wijzigingen bewaren
+      </AuButton>
+
+      <AuLink @route="public-services" @skin="button-naked">
+        Terug naar het overzicht
+      </AuLink>
+    </AuButtonGroup>
+  </Group>
+  <Group>
+    <AuButton
+      @alert={{true}}
+      @icon="bin"
+      @iconAlignment="left"
+      @skin="secondary"
+      {{on "click" this.removePublicService}}
+    >
+      <span class="au-u-hidden-visually">
+        Product of dienst
+      </span>
+      Verwijderen
+    </AuButton>
+  </Group>
+</AuToolbar>
