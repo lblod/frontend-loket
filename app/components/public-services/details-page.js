@@ -95,7 +95,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
   removePublicService() {
     this.modals.open(ConfirmDeletionModal, {
       deleteHandler: async () => {
-        await this.model.publicService.destroyRecord();
+        await this.args.publicService.destroyRecord();
         this.router.replaceWith('public-services');
       },
     });
