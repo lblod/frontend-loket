@@ -1,0 +1,9 @@
+{{#if @value}}
+  {{#if (has-block "value")}}
+    {{yield @value to="value"}}
+  {{else}}
+    {{@value}}
+  {{/if}}
+{{else}}
+  <span class="au-u-muted">-</span>
+{{/if}}
