@@ -31,16 +31,14 @@
       </div>
     </AuToolbarGroup>
     <AuToolbarGroup class="au-u-1-3@medium">
-      <div class="au-c-input-wrapper au-u-1-1">
-        {{!-- <Input @type="text" @placeholder="Zoek mandataris" {{on 'keyup' (perform this.search) }} @value={{this.searchData}} class="au-c-input au-c-input--block"/> --}}
-        <Input 
-          @type="text"
-          @placeholder="Zoek mandataris"
-          @value={{this.searchData}}
-          @key-up={{perform this.search}}
-          class="au-c-input au-c-input--block" />
-        <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
-      </div>
+      <AuInput
+        @value={{this.searchData}}
+        @icon="search"
+        @iconAlignment="left"
+        @width="block"
+        placeholder="Zoek mandataris"
+        {{on "input" (perform this.search value="target.value")}}
+      />
     </AuToolbarGroup>
   </AuToolbar>
 

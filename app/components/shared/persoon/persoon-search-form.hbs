@@ -16,24 +16,36 @@
     <div class="au-o-grid au-o-grid--small">
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
-        <div class="au-c-input-wrapper">
-          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Voornaam" @value={{this.gebruikteVoornaam}} @key-up={{perform this.search}} @id="mandataris-voornaam" />
-          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
-        </div>
+        <AuInput
+          @icon="search"
+          @iconAlignment="left"
+          @value={{this.gebruikteVoornaam}}
+          id="mandataris-voornaam"
+          placeholder="Voornaam"
+          {{on "input" (perform this.search)}}
+        />
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-naam">Familienaam</AuLabel>
-        <div class="au-c-input-wrapper">
-          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Familienaam" @value={{this.achternaam}} @key-up={{perform this.search}} @id="mandataris-naam" />
-          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
-        </div>
+        <AuInput
+          @icon="search"
+          @iconAlignment="left"
+          @value={{this.achternaam}}
+          id="mandataris-naam"
+          placeholder="Familienaam"
+          {{on "input" (perform this.search)}}
+        />
       </div>
       <div class="au-o-grid__item">
         <AuLabel for="mandataris-rijksregisternummer">Zoek rijksregisternummer <AuPill>Optioneel</AuPill></AuLabel>
-        <div class="au-c-input-wrapper">
-          <Input class="au-c-input au-c-input--block js-js-input-pattern-bound" @name="mandataris-pattern" @placeholder="Rijksregisternummer" @value={{this.identificator}} @key-up={{perform this.search}} @id="mandataris-rijksregisternummer" />
-          <AuIcon @icon="search" @size="large" class="au-c-input-wrapper__icon" />
-        </div>
+        <AuInput
+          @icon="search"
+          @iconAlignment="left"
+          @value={{this.identificator}}
+          id="mandataris-rijksregisternummer"
+          placeholder="Rijksregisternummer"
+          {{on "input" (perform this.search)}}
+        />
       </div>
     </div>
   </AuToolbarGroup>
@@ -42,7 +54,7 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box">
     {{#if this.error}}
-      <AuAlert @alertIcon="alert-triangle" @alertTitle="Fout bij het zoeken, gelieve opnieuw te proberen" @alertskin="warning">
+      <AuAlert @icon="alert-triangle" @title="Fout bij het zoeken, gelieve opnieuw te proberen" @skin="warning">
         <p class="au-u-margin-top-small">
           <AuButton {{on 'click' this.toggleError}}>OK</AuButton>
         </p>
@@ -77,7 +89,7 @@
             {{/each}}
           </ul>
 
-          <AuAlert @alertTitle="Komt het zoekresultaat niet overeen met wat u zocht?" @alertskin="info" @alertsize="tiny" class="au-u-margin-top-small">
+          <AuAlert @title="Komt het zoekresultaat niet overeen met wat u zocht?" @skin="info" @size="tiny" class="au-u-margin-top-small">
             <p>
               Kijk uw zoekopdracht na of
               <AuButton @skin="tertiary" {{on 'click' @onCreateNewPerson}} class="au-c-link">
@@ -87,7 +99,7 @@
             </p>
           </AuAlert>
         {{else}}
-          <AuAlert @alertTitle='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @alertskin="info" @alertsize="tiny">
+          <AuAlert @title='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @skin="info" @size="tiny">
             <p>
               Kijk uw zoekopdracht na of
               <AuButton @skin="tertiary" {{on 'click' @onCreateNewPerson}} class="au-c-link">

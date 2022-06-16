@@ -9,12 +9,14 @@ export default class SubsidyApplicationFlowStepModel extends Model {
 
   // TODO: add form relationship
   @belongsTo('subsidy-application-flow-step', {
-    inverse: 'nextApplicationStep'
-  }) previousApplicationStep;
+    inverse: 'nextApplicationStep',
+  })
+  previousApplicationStep;
 
   @belongsTo('subsidy-application-flow-step', {
-    inverse: 'previousApplicationStep'
-  }) nextApplicationStep;
+    inverse: 'previousApplicationStep',
+  })
+  nextApplicationStep;
 
   get deadline() {
     return this.subsidyProceduralStep.get('period');

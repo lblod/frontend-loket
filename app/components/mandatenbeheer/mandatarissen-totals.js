@@ -10,31 +10,31 @@ export default class MandatenbeheerMandatarissenTotalsComponent extends Componen
   @tracked isOpen = false;
   @tracked mandatarissenTotals;
 
-  getMandatenOrgaan(bestuursorgaan){
+  getMandatenOrgaan(bestuursorgaan) {
     const queryParams = {
       filter: {
         'bevat-in': {
-          id: bestuursorgaan.get('id')
-        }
+          id: bestuursorgaan.get('id'),
+        },
       },
       include: [
         'bestuursfunctie',
         'bevat-in',
-        'bevat-in.is-tijdsspecialisatie-van'
-      ].join(',')
+        'bevat-in.is-tijdsspecialisatie-van',
+      ].join(','),
     };
     return this.store.query('mandaat', queryParams);
   }
 
-  getMandatarissenMandaat(mandaat){
+  getMandatarissenMandaat(mandaat) {
     const queryParams = {
       filter: {
         bekleedt: {
-          id: mandaat.get('id')
-        }
+          id: mandaat.get('id'),
+        },
       },
       //'filter[:gte:einde]': new Date().toISOString().slice(0, 10), // doesn't work for older periods
-      page: { size: 1 }
+      page: { size: 1 },
     };
     return this.store.query('mandataris', queryParams);
   }
@@ -43,23 +43,27 @@ export default class MandatenbeheerMandatarissenTotalsComponent extends Componen
   *getMandatarissenTotals() {
     const bstOrgs = this.args.bestuursorganen;
 
-    const mapMandtnOrgs = yield Promise.all(bstOrgs.map(async (o) => {
-     return {org: o, mandtn: await this.getMandatenOrgaan(o)};
-    }));
+    const mapMandtnOrgs = yield Promise.all(
+      bstOrgs.map(async (o) => {
+        return { org: o, mandtn: await this.getMandatenOrgaan(o) };
+      })
+    );
 
     const mapMandtnMandarissen = async (mandaat) => {
       return {
         naam: await mandaat.get('bestuursfunctie.label'),
-        aantal: (await this.getMandatarissenMandaat(mandaat)).meta.count
+        aantal: (await this.getMandatarissenMandaat(mandaat)).meta.count,
       };
     };
 
-    const mapMandtrsOrgs = yield Promise.all(mapMandtnOrgs.map(async (e) => {
-      return {
-        orgaan: e.org,
-        mandaten: await Promise.all(e.mandtn.map(mapMandtnMandarissen))
-      };
-    }));
+    const mapMandtrsOrgs = yield Promise.all(
+      mapMandtnOrgs.map(async (e) => {
+        return {
+          orgaan: e.org,
+          mandaten: await Promise.all(e.mandtn.map(mapMandtnMandarissen)),
+        };
+      })
+    );
 
     this.mandatarissenTotals = mapMandtrsOrgs;
 
@@ -67,9 +71,8 @@ export default class MandatenbeheerMandatarissenTotalsComponent extends Componen
   }
 
   @action
-    toggleOpen(){
-      if(!this.isOpen)
-        this.getMandatarissenTotals.perform();
-      this.isOpen = !this.isOpen;
-    }
+  toggleOpen() {
+    if (!this.isOpen) this.getMandatarissenTotals.perform();
+    this.isOpen = !this.isOpen;
+  }
 }

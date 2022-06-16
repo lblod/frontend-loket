@@ -3,13 +3,12 @@ import { inject as service } from '@ember/service';
 
 export default class BbcdrRoute extends Route {
   @service session;
-  @service() currentSession;
+  @service currentSession;
+  @service router;
 
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
 
-    if (!this.currentSession.canAccessBbcdr)
-      this.transitionTo('index');
+    if (!this.currentSession.canAccessBbcdr) this.router.transitionTo('index');
   }
 }
-

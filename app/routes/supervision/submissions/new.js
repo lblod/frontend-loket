@@ -3,13 +3,18 @@ import { inject as service } from '@ember/service';
 import { CONCEPT_STATUS } from '../../../models/submission-document-status';
 
 export default class SupervisionSubmissionsNewRoute extends Route {
-  @service currentSession
+  @service currentSession;
+  @service router;
+  @service store;
 
   async beforeModel() {
-    const conceptStatuses = await this.store.query('submission-document-status', {
-      page: { size: 1 },
-      'filter[:uri:]': CONCEPT_STATUS
-    });
+    const conceptStatuses = await this.store.query(
+      'submission-document-status',
+      {
+        page: { size: 1 },
+        'filter[:uri:]': CONCEPT_STATUS,
+      }
+    );
 
     if (conceptStatuses.length)
       this.conceptStatus = conceptStatuses.firstObject;
@@ -18,7 +23,10 @@ export default class SupervisionSubmissionsNewRoute extends Route {
   async model() {
     const bestuurseenheid = this.currentSession.group;
 
-    const submissionDocument = this.store.createRecord('submissionDocument', {});
+    const submissionDocument = this.store.createRecord(
+      'submissionDocument',
+      {}
+    );
     await submissionDocument.save();
     const currentUser = this.currentSession.user;
     const submission = this.store.createRecord('submission', {
@@ -27,7 +35,7 @@ export default class SupervisionSubmissionsNewRoute extends Route {
       submissionDocument,
 
       creator: currentUser,
-      lastModifier: currentUser
+      lastModifier: currentUser,
     });
     await submission.save();
 
@@ -35,6 +43,6 @@ export default class SupervisionSubmissionsNewRoute extends Route {
   }
 
   afterModel(model) {
-    this.transitionTo('supervision.submissions.edit', model.id);
+    this.router.transitionTo('supervision.submissions.edit', model.id);
   }
 }

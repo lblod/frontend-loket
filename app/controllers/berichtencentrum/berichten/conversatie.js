@@ -6,8 +6,7 @@ export default class BerichtencentrumBerichtenConversatieController extends Cont
   @service() router;
 
   @action
-    transitionToOverview(){
-      this.router.transitionTo('berichtencentrum.berichten.index');
-    }
+  transitionToOverview() {
+    this.router.transitionTo('berichtencentrum.berichten.index');
+  }
 }
-

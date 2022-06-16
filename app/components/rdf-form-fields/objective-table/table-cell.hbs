@@ -1,0 +1,15 @@
+<td headers={{@tableHeaders}}>
+  <AuInput
+    @disabled={{@disabled}}
+    @type="number"
+    @width="block"
+    @value={{this.kilometers}}
+    @error={{if this.errors true false}}
+    lang="nl-BE"
+    step="any"
+    {{on "blur" this.update}}
+  />
+  {{#each this.errors as |error|}}
+    <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+  {{/each}}
+</td>

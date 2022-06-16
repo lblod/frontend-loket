@@ -1,0 +1,69 @@
+<tr>
+  <th scope="row" class="au-u-regular">
+    <label class="au-u-hidden-visually" for="description-{{this.id}}">
+      Omschrijving actie
+    </label>
+    <AuTextarea
+      @error={{if this.descriptionErrors true false}}
+      @value={{this.description}}
+      @disabled={{@disabled}}
+      @width="block"
+      placeholder="Omschrijving actie"
+      id="description-{{this.id}}"
+      style="resize: vertical;"
+      {{!template-lint-disable no-inline-styles}}
+      {{on "blur" this.update}}
+      {{auto-focus}}
+    />
+    {{#each this.descriptionErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </th>
+  <td>
+    <AuInput
+      @disabled={{@disabled}}
+      @width="block"
+      @value={{this.costPerUnit}}
+      @error={{if this.costPerUnitErrors true false}}
+      @type="number"
+      lang="nl-BE"
+      {{on "blur" this.update}}
+    />
+    {{#each this.costPerUnitErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td>
+    <AuInput
+      @disabled={{@disabled}}
+      @width="block"
+      @value={{this.toRealiseUnits}}
+      @error={{if this.toRealiseUnitsErrors true false}}
+      @type="number"
+      lang="nl-BE"
+      {{on "blur" this.update}}
+    />
+    {{#each this.toRealiseUnitsErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td>
+    {{convert-to-currency this.amount}}
+  </td>
+  <td>
+    {{convert-to-currency this.restitution}}
+  </td>
+  {{#if @showDeleteColumn}}
+    <td>
+      <AuButton
+        @skin="link"
+        @alert={{true}}
+        @icon="bin"
+        @iconAlignment="left"
+        {{on "click" this.deleteAction}}
+      >
+        Verwijder
+      </AuButton>
+    </td>
+  {{/if}}
+</tr>

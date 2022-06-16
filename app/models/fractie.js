@@ -2,7 +2,7 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import { computed } from '@ember/object';
 
 export default class FractieModel extends Model {
-  @attr() naam;
+  @attr naam;
   @belongsTo('fractietype', { inverse: null }) fractietype;
   @hasMany('bestuursorgaan', { inverse: null }) bestuursorganenInTijd;
   @belongsTo('bestuurseenheid', { inverse: null }) bestuurseenheid;

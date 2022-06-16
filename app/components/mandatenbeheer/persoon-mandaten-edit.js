@@ -8,30 +8,30 @@ export default class MandatenbeheerPersoonMandatenEditComponent extends Componen
 
   @tracked mandatarissen;
 
-  constructor(){
+  constructor() {
     super(...arguments);
     this.initComponentProperties();
   }
 
-  async initComponentProperties(){
-    let bestuursorganenIds = this.args.bestuursorganen.map(o => o.get('id'));
+  async initComponentProperties() {
+    let bestuursorganenIds = this.args.bestuursorganen.map((o) => o.get('id'));
     let queryParams = {
       filter: {
         'is-bestuurlijke-alias-van': {
-          id: this.args.persoon.id
+          id: this.args.persoon.id,
         },
-        'bekleedt': {
+        bekleedt: {
           'bevat-in': {
-            'id': bestuursorganenIds.join(',')
-          }
-        }
+            id: bestuursorganenIds.join(','),
+          },
+        },
       },
       include: [
         'is-bestuurlijke-alias-van',
         'bekleedt.bestuursfunctie',
         'beleidsdomein',
-        'heeft-lidmaatschap.binnen-fractie'
-      ].join(',')
+        'heeft-lidmaatschap.binnen-fractie',
+      ].join(','),
     };
 
     let mandatarissen = await this.store.query('mandataris', queryParams);
@@ -39,32 +39,32 @@ export default class MandatenbeheerPersoonMandatenEditComponent extends Componen
   }
 
   @action
-    mandatarisSaved(mandataris){
-      //here you can do some additional validation, e.g. validation over all mandaten for a person
-      this.onMandatarisSaved(mandataris);
-    }
+  mandatarisSaved(mandataris) {
+    //here you can do some additional validation, e.g. validation over all mandaten for a person
+    this.onMandatarisSaved(mandataris);
+  }
 
   @action
-    async mandatarisCreateCanceled(mandataris){
-      await mandataris.destroy();
-      this.mandatarissen.removeObject(mandataris);
-    }
+  async mandatarisCreateCanceled(mandataris) {
+    await mandataris.destroy();
+    this.mandatarissen.removeObject(mandataris);
+  }
 
   @action
-    async createMandataris(){
-      const mandataris = this.store.createRecord('mandataris');
-      mandataris.set('isBestuurlijkeAliasVan', await this.args.persoon);
-      this.mandatarissen.pushObject(mandataris);
-    }
-
-  @action
-    finish(){
-      this.args.onFinish();
-    }
+  async createMandataris() {
+    const mandataris = this.store.createRecord('mandataris');
+    mandataris.set('isBestuurlijkeAliasVan', await this.args.persoon);
+    this.mandatarissen.pushObject(mandataris);
+  }
 
   @action
   async updateVerifiedMandaten(){
     await this.args.persoon.set('verifiedMandaten', !this.args.persoon.verifiedMandaten);
     await this.args.persoon.save();
+  }
+  
+  @action
+  finish() {
+    this.args.onFinish();
   }
 }

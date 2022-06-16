@@ -9,14 +9,14 @@
     </AuToolbarGroup>
     <AuToolbarGroup>
       {{#if this.save.last.isError}}
-        <AuAlert @alertIcon="info-circle" @alertTitle="Wijzigingen niet opgeslagen, probeer later opnieuw." @alertskin={{"error"}} @alertsize={{"small"}}>
+        <AuAlert @icon="info-circle" @title="Wijzigingen niet opgeslagen, probeer later opnieuw." @skin={{"error"}} @size={{"small"}}>
         </AuAlert>
       {{/if}}
       {{#unless this.dataset.modified}}
         <AuPill @skin="warning">Aantallen niet actueel</AuPill>
         {{!-- Nu: Enkel tonen wanneer er niets ingevuld werd. Later: wanneer ABB een nieuwe update verwacht. --}}
       {{/unless}}
-      {{#if this.isSaving}}
+      {{#if this.save.isRunning}}
         <p class="small" aria-label="Alle aanpassingen worden automatisch opgeslagen">
           Wijzigingen opslaan...
         </p>
@@ -32,7 +32,7 @@
 
   <div class="au-c-body-container au-c-body-container--scroll">
     <div class="au-o-box">
-      <AuAlert @alertskin={{"info"}} @alertsize={{"tiny"}} class="au-u-2-3@medium">
+      <AuAlert @skin={{"info"}} @size={{"tiny"}} class="au-u-2-3@medium">
         {{#if this.isFTEDataset}}
           <p><strong>Iedere tewerkstelling moet uitgedrukt worden in een percentage (kommagetal) van een voltijds tewerkgesteld personeelslid.</strong> Eén VTE is een voltijds equivalent of tewerkgesteld volgens een regime van 38/38sten.  Wie minder dan voltijds tewerkgesteld is wordt pro rato meegerekend wat de VTE betreft.</p>
           <br>
@@ -44,6 +44,6 @@
         {{/if}}
       </AuAlert>
     </div>
-    <Personeelsbeheer::EmployeePeriodSliceTable @observations={{this.model}} @onChangeObservation={{perform this.save}}/>
+    <Personeelsbeheer::EmployeePeriodSliceTable @observations={{this.model}} @onChangeObservation={{perform this.queueSave}}/>
   </div>
 </div>

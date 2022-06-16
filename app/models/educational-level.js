@@ -1,6 +1,6 @@
 import Model, { attr } from '@ember-data/model';
 
 export default class EducationalLevelModel extends Model {
-  @attr() uri;
-  @attr('string') label;
+  @attr uri;
+  @attr label;
 }

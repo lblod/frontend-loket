@@ -8,7 +8,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
 
   @tracked initialStatus;
 
-  get statusIsDirty(){
+  get statusIsDirty() {
     return this.initialStatus.get('id') != this.model.status.get('id');
   }
 
@@ -33,6 +33,8 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   }
 
   exit() {
-    this.router.transitionTo('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen');
+    this.router.transitionTo(
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen'
+    );
   }
 }

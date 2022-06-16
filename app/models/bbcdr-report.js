@@ -8,4 +8,3 @@ export default class BbcdrReportModel extends Model {
   @belongsTo('bestuurseenheid') bestuurseenheid;
   @hasMany('file') files;
 }
-

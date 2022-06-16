@@ -1,9 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import SubsidyMeasureConsumptionModel from '../../../../models/subsidy-measure-consumption';
 
 export default class SubsidyApplicationsEditIndexRoute extends Route {
-
   @service router;
 
   /**
@@ -12,8 +10,7 @@ export default class SubsidyApplicationsEditIndexRoute extends Route {
    * NOTE: always assumes a consumption to have the proper model defined.
    */
   async beforeModel() {
-
-    let {consumption} = this.modelFor('subsidy.applications.edit');
+    let { consumption } = this.modelFor('subsidy.applications.edit');
 
     /**
      * NOTE: first we always try to transition to the defined active-step.
@@ -24,9 +21,10 @@ export default class SubsidyApplicationsEditIndexRoute extends Route {
     }
 
     await consumption.subsidyApplicationFlow.get('definedSteps');
-    const steps = await consumption.subsidyApplicationFlow.get('sortedDefinedSteps');
-    if (!steps || steps.length === 0)
-      throw "corrupt flow: no steps defined";
+    const steps = await consumption.subsidyApplicationFlow.get(
+      'sortedDefinedSteps'
+    );
+    if (!steps || steps.length === 0) throw 'corrupt flow: no steps defined';
     /**
      * NOTE: if no active-step was found and the consumption has been sent we transition to the last step.
      */
@@ -43,6 +41,10 @@ export default class SubsidyApplicationsEditIndexRoute extends Route {
   }
 
   redirectToStep(consumption, step) {
-    return this.router.transitionTo('subsidy.applications.edit.step', consumption.id, step.id);
+    return this.router.transitionTo(
+      'subsidy.applications.edit.step',
+      consumption.id,
+      step.id
+    );
   }
 }

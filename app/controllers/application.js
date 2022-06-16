@@ -1,11 +1,18 @@
 import Controller from '@ember/controller';
-import { equal } from '@ember/object/computed';
+import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class ApplicationController extends Controller {
   @service() session;
   @service() currentSession;
   @service() router;
-  
-  @equal('router.currentRouteName', 'index') isIndex;
+
+  get isIndex() {
+    return this.router.currentRouteName === 'index';
+  }
+
+  @action
+  logout() {
+    this.session.invalidate();
+  }
 }

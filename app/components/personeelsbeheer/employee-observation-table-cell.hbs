@@ -1,8 +1,17 @@
 <td>
-  {{#if observation}}
-    <AuLabel class="au-u-hidden-visually">Waarde</AuLabel>
-    {{input class="au-c-input au-c-input--block" type="number" step=step value=observation.value focus-out=(action "setValue") name="quantity"}}
+  {{#if this.observation}}
+    {{#let this.observation.id as |id|}}
+      <AuLabel for="observation-{{id}}" class="au-u-hidden-visually">Waarde</AuLabel>
+      <AuInput
+        @value={{this.observation.value}}
+        @width="block"
+        @type="number"
+        id="observation-{{id}}"
+        step={{this.step}}
+        {{on "focusout" (action "setValue" value="target.value")}}
+      />
+    {{/let}}
   {{else}}
-    {{!-- No observation found --}}
+    {{! No observation found }}
   {{/if}}
 </td>

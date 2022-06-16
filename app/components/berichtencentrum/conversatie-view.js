@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
@@ -11,7 +12,7 @@ export default class BerichtencentrumConversatieViewComponent extends Component 
   @tracked generalSort = ['verzonden'];
   @tracked showExitModal = false;
 
-  get berichten(){
-    return this.args.model.berichten
-  } 
+  get berichten() {
+    return this.args.model.berichten;
+  }
 }

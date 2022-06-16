@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
 import { action } from '@ember/object';
@@ -13,28 +14,27 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @reads('args.mandataris.generatedFromGelinktNotuleren') gelinktNotuleren;
 
   @computed('args.mandataris.beleidsdomein.@each.id')
-  get formattedBeleidsdomein(){
+  get formattedBeleidsdomein() {
     const beleidsdomeinen = this.args.mandataris.beleidsdomein;
     if (beleidsdomeinen.length) {
-      return beleidsdomeinen.map(item => item.label);
-    }
-    else {
+      return beleidsdomeinen.map((item) => item.label);
+    } else {
       return [];
     }
   }
 
   @action
-    edit(){
-      this.args.onEdit();
-    }
+  edit() {
+    this.args.onEdit();
+  }
 
   @action
-    terminate(){
-      this.args.onTerminate();
-    }
+  terminate() {
+    this.args.onTerminate();
+  }
 
   @action
-    correct(){
-      this.args.onCorrect();
-    }
+  correct() {
+    this.args.onCorrect();
+  }
 }

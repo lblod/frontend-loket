@@ -17,15 +17,10 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended',
-    // 'plugin:prettier/recommended', // Disable Prettier for now
+    'plugin:prettier/recommended',
   ],
   env: {
     browser: true,
-  },
-  rules: {
-    'ember/use-brace-expansion': 'off',
-    'ember/no-jquery': 'error',
-    'semi': [2, 'always']
   },
   overrides: [
     // node files

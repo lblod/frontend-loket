@@ -1,20 +1,21 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
-import { A } from '@ember/array';
 
 export default class SubsidyApplicationForm extends Model {
-  @attr() uri;
+  @attr uri;
 
   @attr('datetime', {
     defaultValue() {
       return new Date();
     },
-  }) created;
+  })
+  created;
 
   @attr('datetime', {
     defaultValue() {
       return new Date();
     },
-  }) modified;
+  })
+  modified;
 
   // TODO faze out
   // @belongsTo('contact-punt') contactinfo; // default needed

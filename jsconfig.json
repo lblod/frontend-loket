@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
-  }
+    "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "frontend-loket/*": ["./app/*"],
+      "frontend-loket/config/environment": ["./app/config/environment"], // Helps autocomplete the config path even though the file doesn't exist on disk
+      "frontend-loket/tests/*": ["./tests/*"]
+    },
+    "target": "es6"
+  },
+  "exclude": ["dist", "node_modules", "vendor"]
 }

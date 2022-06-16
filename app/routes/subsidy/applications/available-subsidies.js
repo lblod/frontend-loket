@@ -3,8 +3,11 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
-export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.extend(DataTableRouteMixin) {
+export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.extend(
+  DataTableRouteMixin
+) {
   @service currentSession;
+  @service store;
 
   modelName = 'subsidy-measure-offer-series';
 
@@ -16,7 +19,7 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
     filter: { refreshModel: true },
     page: { refreshModel: true },
     size: { refreshModel: true },
-    sort: { refreshModel: true }
+    sort: { refreshModel: true },
   };
 
   mergeQueryOptions(params) {
@@ -25,19 +28,20 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
         'period',
         'subsidy-measure-offer',
         // 'active-application-flow.first-application-step.subsidy-procedural-step.period' // This is so expensive to call
-      ].join(',')
+      ].join(','),
     };
 
-    if(params.testMode){
+    if (params.testMode) {
       return query;
-    }
-    else {
+    } else {
       //Add extra rules to available subsidies
       const today = new Date();
 
-      query['filter[active-application-flow][first-application-step][subsidy-procedural-step][period]'] = {
+      query[
+        'filter[active-application-flow][first-application-step][subsidy-procedural-step][period]'
+      ] = {
         ':lte:begin': today.toISOString(),
-        ':gte:end': today.toISOString()
+        ':gte:end': today.toISOString(),
       };
 
       query[

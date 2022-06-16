@@ -6,17 +6,20 @@ export default class MandatenbeheerMandatarissenNewController extends Controller
   @service() router;
 
   @action
-    selectPersoon(persoon){
-      this.router.transitionTo('mandatenbeheer.mandatarissen.edit', persoon.get('id'));
-    }
+  selectPersoon(persoon) {
+    this.router.transitionTo(
+      'mandatenbeheer.mandatarissen.edit',
+      persoon.get('id')
+    );
+  }
 
   @action
-    createNewPerson() {
-      this.router.transitionTo('mandatenbeheer.mandatarissen.new-person');
-    }
+  createNewPerson() {
+    this.router.transitionTo('mandatenbeheer.mandatarissen.new-person');
+  }
 
   @action
-    cancel(){
-      this.router.transitionTo('mandatenbeheer.mandatarissen');
-    }
+  cancel() {
+    this.router.transitionTo('mandatenbeheer.mandatarissen');
+  }
 }
