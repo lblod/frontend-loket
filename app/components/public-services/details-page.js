@@ -1,10 +1,14 @@
+import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import rdflib from 'browser-rdflib';
 import { dropTask, task } from 'ember-concurrency';
+import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
+import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
+import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
 const FORM_GRAPHS = {
   formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
@@ -15,24 +19,23 @@ const FORM_GRAPHS = {
 const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
-export default class PublicServicesDetailsFormComponent extends Component {
+export default class PublicServicesDetailsPageComponent extends Component {
+  @service modals;
   @service router;
+  @service store;
 
+  @tracked hasUnsavedChanges = false;
   id = guidFor(this);
   form;
   formStore;
   graphs = FORM_GRAPHS;
-  hasUnsavedChanges = false;
 
   constructor() {
     super(...arguments);
 
     this.loadForm.perform();
     this.sourceNode = new rdflib.NamedNode(this.args.publicService.uri);
-
-    // TODO: Set up a routeWillChange event handler so we can show a confirmation modal before leaving the tab
-    // Even better would be to create a generic component which does this for us and which we can also use on other pages in the app.
-    // Design: https://www.figma.com/file/FEAkPmpEoalGutq5QvsQ2c/LPDC?node-id=1706%3A8837
+    this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
   }
 
   @task
@@ -69,7 +72,7 @@ export default class PublicServicesDetailsFormComponent extends Component {
 
   @dropTask
   *saveSemanticForm(event) {
-    event.preventDefault();
+    event?.preventDefault?.();
 
     // TODO: Do we need to disable deletion until while the save is running, similar to the subsidy module?
 
@@ -84,13 +87,46 @@ export default class PublicServicesDetailsFormComponent extends Component {
       serializedData
     );
 
-    yield this.args.publicService.reload();
+    yield loadPublicServiceDetails(this.store, this.args.publicService.id);
+    this.hasUnsavedChanges = false;
+  }
+
+  @action
+  removePublicService() {
+    this.modals.open(ConfirmDeletionModal, {
+      deleteHandler: async () => {
+        await this.args.publicService.destroyRecord();
+        this.router.replaceWith('public-services');
+      },
+    });
+  }
+
+  async showUnsavedChangesModal(transition) {
+    if (transition.isAborted) {
+      return;
+    }
+
+    if (this.hasUnsavedChanges) {
+      transition.abort();
+
+      let shouldTransition = await this.modals.open(UnsavedChangesModal, {
+        saveHandler: async () => {
+          await this.saveSemanticForm.perform();
+        },
+      });
+
+      if (shouldTransition) {
+        this.hasUnsavedChanges = false;
+        transition.retry();
+      }
+    }
   }
 
   willDestroy() {
     super.willDestroy(...arguments);
 
     this.formStore.deregisterObserver(this.id);
+    this.router.off('routeWillChange', this, this.showUnsavedChangesModal);
   }
 }
 
