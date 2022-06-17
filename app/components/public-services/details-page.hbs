@@ -6,13 +6,14 @@
       </p>
       <AuLoader @padding="small" />
     {{else}}
-      <form id={{this.id}} {{on "submit" (perform this.saveSemanticForm)}}>
+      <form id={{this.id}} {{on "submit" (perform this.handleFormSubmit)}}>
         <RdfForm
           @groupClass="au-o-grid__item"
           @form={{this.form}}
           @graphs={{this.graphs}}
           @sourceNode={{this.sourceNode}}
           @formStore={{this.formStore}}
+          @forceShowErrors={{this.forceShowErrors}}
         />
       </form>
     {{/if}}
@@ -22,7 +23,11 @@
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
     <AuButtonGroup>
-      <AuButton @disabled={{this.saveSemanticForm.isRunning}}>
+      <AuButton
+        @disabled={{this.publicServiceAction.isRunning}}
+        @loading={{this.publishPublicService.isRunning}}
+        {{on "click" (perform this.publishPublicService)}}
+      >
         Publiceer
       </AuButton>
 
@@ -30,9 +35,9 @@
         @skin="secondary"
         @disabled={{or
           (not this.hasUnsavedChanges)
-          this.saveSemanticForm.isRunning
+          this.publicServiceAction.isRunning
         }}
-        @loading={{this.saveSemanticForm.isRunning}}
+        @loading={{this.handleFormSubmit.isRunning}}
         form={{this.id}}
         type="submit"
       >
@@ -50,6 +55,7 @@
       @icon="bin"
       @iconAlignment="left"
       @skin="secondary"
+      @disabled={{this.publicServiceAction.isRunning}}
       {{on "click" this.removePublicService}}
     >
       <span class="au-u-hidden-visually">
