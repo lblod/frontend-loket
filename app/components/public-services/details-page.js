@@ -3,9 +3,12 @@ import { guidFor } from '@ember/object/internals';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { ForkingStore } from '@lblod/ember-submission-form-fields';
+import {
+  ForkingStore,
+  validateForm,
+} from '@lblod/ember-submission-form-fields';
 import rdflib from 'browser-rdflib';
-import { dropTask, task } from 'ember-concurrency';
+import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
@@ -33,6 +36,8 @@ export default class PublicServicesDetailsPageComponent extends Component {
   }
 
   @tracked hasUnsavedChanges = false;
+  @tracked forceShowErrors = false;
+
   id = guidFor(this);
   form;
   formStore;
@@ -78,12 +83,44 @@ export default class PublicServicesDetailsPageComponent extends Component {
     this.hasUnsavedChanges = true;
   }
 
-  @dropTask
-  *saveSemanticForm(event) {
+  @dropTaskGroup publicServiceAction;
+
+  @task({ group: 'publicServiceAction' })
+  *publishPublicService() {
+    let isValidForm = validateForm(this.form, {
+      ...this.graphs,
+      sourceNode: this.sourceNode,
+      store: this.formStore,
+    });
+
+    this.forceShowErrors = !isValidForm;
+
+    if (isValidForm) {
+      if (this.hasUnsavedChanges) {
+        yield this.saveSemanticForm.unlinked().perform();
+      }
+
+      try {
+        yield publish(this.args.publicService.id);
+      } catch (error) {
+        // TODO: Show some sort of error message
+      }
+
+      this.router.transitionTo('public-services');
+    } else {
+      // TODO: Show some sort of error message
+    }
+  }
+
+  @task({ group: 'publicServiceAction' })
+  *handleFormSubmit(event) {
     event?.preventDefault?.();
 
-    // TODO: Do we need to disable deletion until while the save is running, similar to the subsidy module?
+    yield this.saveSemanticForm.unlinked().perform();
+  }
 
+  @dropTask
+  *saveSemanticForm() {
     let serializedData = this.formStore.serializeDataWithAddAndDelGraph(
       this.graphs.sourceGraph,
       'application/n-triples'
@@ -150,6 +187,16 @@ async function saveFormData(serviceId, formId, formData) {
   await fetch(`/lpdc-management/${serviceId}/form/${formId}`, {
     method: 'PUT',
     body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  });
+}
+
+async function publish(serviceId) {
+  await fetch(`/lpdc-management/${serviceId}/submit`, {
+    method: 'POST',
+    body: JSON.stringify({}),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
