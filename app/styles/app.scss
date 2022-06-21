@@ -21,11 +21,13 @@
 @import "ember-appuniversum/a-components";
 @import "project/c-data-list";
 @import "project/c-document-status-pills";
+@import "project/c-rich-text-editor";
 @import "project/c-status-label";
 
 // PLUGINS
 @import "ember-appuniversum/a-plugins";
 @import "project/p-ember-promise-modals";
+@import "ember-rdfa-editor";
 
 // UTILITIES
 @import "ember-appuniversum/a-utilities";
