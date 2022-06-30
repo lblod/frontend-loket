@@ -102,4 +102,12 @@ Router.map(function () {
     path: '/*wildcard',
   });
   this.route('help');
+
+  this.route('eredienst-mandatenbeheer', function () {
+    this.route('mandatarissen', function () {
+      this.route('edit');
+      this.route('new-person');
+      this.route('new');
+    });
+  });
 });
