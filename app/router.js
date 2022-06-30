@@ -98,15 +98,6 @@ Router.map(function () {
     });
   });
 
-  this.route('eredienst-mandatenbeheer', function () {
-    this.route('mandatarrissen', function () {
-      this.route('new');
-      this.route('new-person');
-      this.route('edit');
-    });
-    this.route('personen');
-  });
-
   this.route('route-not-found', {
     path: '/*wildcard',
   });
