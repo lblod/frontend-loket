@@ -10,6 +10,7 @@ const MODULE = {
   LEIDINGGEVENDENBEHEER: 'LoketLB-leidinggevendenGebruiker',
   PERSONEELSBEHEER: 'LoketLB-personeelsbeheer',
   SUBSIDIES: 'LoketLB-subsidies',
+  BEDIENARENBEHEER: 'LoketLB-bedienarenbeheer',
 };
 
 export default class CurrentSessionService extends Service {
@@ -71,5 +72,13 @@ export default class CurrentSessionService extends Service {
 
   get canAccessSubsidies() {
     return this.canAccess(MODULE.SUBSIDIES);
+  }
+
+  get canAccessBedienarenbeheer() {
+    return this.canAccess(MODULE.BEDIENARENBEHEER);
+  }
+
+  get canAccessEredienstMandatenbeheer() {
+    return this.canAccess(MODULE.BEDIENARENBEHEER);
   }
 }
