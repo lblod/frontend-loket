@@ -1,0 +1,52 @@
+$default-editor-height: 200px;
+
+.rich-text-editor {
+  .say-toolbar {
+    border-radius: var(--au-radius) var(--au-radius) 0 0;
+    border: 0.1rem solid var(--au-gray-300);
+    border-bottom: 0;
+  }
+
+  .say-container__main {
+    overflow: initial;
+  }
+
+  .say-editor {
+    padding: 1.2rem;
+    border: 0.1rem solid var(--au-gray-300);
+    border-radius: 0 0 var(--au-radius) var(--au-radius);
+
+    &:focus-within {
+      outline: none;
+      border-color: var(--au-outline-color);
+      box-shadow: inset 0 0 0 0.2rem var(--au-outline-color);
+    }
+  }
+
+  .say-editor__paper {
+    min-height: auto;
+  }
+
+  .say-container__aside {
+    display: none;
+  }
+
+  .say-container:not(.say-container--paper) .say-editor__inner {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .say-content {
+    min-height: $default-editor-height;
+  }
+}
+
+.rich-text-editor-content {
+  padding: 1.2rem;
+  border-radius: var(--au-radius);
+  border: 0.1rem solid var(--au-gray-300);
+  background-color: var(--au-gray-100);
+  border-color: var(--au-gray-300);
+  color: var(--au-gray-700);
+  cursor: not-allowed;
+}

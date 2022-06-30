@@ -32,12 +32,16 @@
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^1.0.17",
+    "@codemirror/basic-setup": "^0.20.0",
+    "@codemirror/lang-html": "^6.0.0",
+    "@codemirror/lang-xml": "^6.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
+    "@lblod/ember-rdfa-editor": "^0.59.1",
     "@lblod/ember-submission-form-fields": "https://github.com/lblod/ember-submission-form-fields#76aa1fb4d56386046ee3a",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -98,7 +102,8 @@
     "qunit-dom": "^2.0.0",
     "sass": "^1.49.7",
     "tracked-toolbox": "^1.2.3",
-    "webpack": "^5.68.0"
+    "webpack": "^5.68.0",
+    "xml-formatter": "^2.6.1"
   },
   "engines": {
     "node": "12.* || 14.* || >= 16"

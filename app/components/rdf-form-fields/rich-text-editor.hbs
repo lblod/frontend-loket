@@ -1,0 +1,30 @@
+<AuLabel
+  @error={{this.hasErrors}}
+  @required={{this.isRequired}}
+  for={{this.inputId}}
+>
+  {{@field.label}}
+</AuLabel>
+
+{{#if @field.description}}
+  <p class="au-u-light au-u-margin-bottom-tiny">{{@field.description}}</p>
+{{/if}}
+
+{{#if @show}}
+  <div class="rich-text-editor-content">
+    {{! template-lint-disable no-triple-curlies}}
+    {{{this.value}}}
+  </div>
+{{else}}
+  <div class="rich-text-editor" {{on "focusout" this.updateValue}}>
+    <Rdfa::RdfaEditor
+      @rdfaEditorInit={{this.handleRdfaEditorInit}}
+      @editorOptions={{this.editorOptions}}
+      @toolbarOptions={{this.toolbarOptions}}
+    />
+  </div>
+{{/if}}
+
+{{#each this.errors as |error|}}
+  <AuHelpText @error={{true}}>{{error.resultMessage}}</AuHelpText>
+{{/each}}

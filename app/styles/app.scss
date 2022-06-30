@@ -21,11 +21,34 @@
 @import "ember-appuniversum/a-components";
 @import "project/c-data-list";
 @import "project/c-document-status-pills";
+@import "project/c-rich-text-editor";
 @import "project/c-status-label";
 
 // PLUGINS
 @import "ember-appuniversum/a-plugins";
 @import "project/p-ember-promise-modals";
+
+// ember-rdfa-editor styles
+// TODO: `@import "ember-rdfa-editor";` imports annotation styles which are _huge_ when compiled
+// so we only import the base component styles for now.
+@import 'ember-rdfa-editor/c-container';
+@import 'ember-rdfa-editor/c-dropdown';
+@import 'ember-rdfa-editor/c-content';
+@import 'ember-rdfa-editor/c-editor';
+@import 'ember-rdfa-editor/c-editor-hints';
+@import 'ember-rdfa-editor/c-icon';
+@import 'ember-rdfa-editor/c-toast';
+@import 'ember-rdfa-editor/c-toolbar';
+@import 'ember-rdfa-editor/c-table';
+
+// UTILITIES > DEPRECATED > Use ember-appuniversum utilities where possible
+@import 'deprecated/u-align-text';
+@import 'deprecated/u-hide';
+@import 'deprecated/u-word-break';
+@import 'ember-rdfa-editor/shame';
+
+//  @import "ember-rdfa-editor/shame";
+
 
 // UTILITIES
 @import "ember-appuniversum/a-utilities";
