@@ -36,7 +36,10 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
   updateValue(e) {
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
-    const editorValue = this.editor.htmlContent;
-    super.updateValue(editorValue);
+    //rdfaEditor setup is async, updateValue may be called before it is set
+    if(this.editor) {
+      const editorValue = this.editor.htmlContent;
+      super.updateValue(editorValue);
+    }
   }
 }
