@@ -11,6 +11,7 @@ const MODULE = {
   PERSONEELSBEHEER: 'LoketLB-personeelsbeheer',
   SUBSIDIES: 'LoketLB-subsidies',
   BEDIENARENBEHEER: 'LoketLB-bedienarenbeheer',
+  EREDIENSTMANDATENBEHEER: 'LoketLB-eredienstMandaatGebruiker',
 };
 
 export default class CurrentSessionService extends Service {
@@ -79,6 +80,6 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessEredienstMandatenbeheer() {
-    return this.canAccess(MODULE.BEDIENARENBEHEER);
+    return this.canAccess(MODULE.EREDIENSTMANDATENBEHEER);
   }
 }
