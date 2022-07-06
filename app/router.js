@@ -104,10 +104,12 @@ Router.map(function () {
   this.route('help');
 
   this.route('eredienst-mandatenbeheer', function () {
-    this.route('mandatarissen', function () {
+    this.route('mandatarissen');
+
+    this.route('mandataris', { path: '/mandataris/:mandaat_id' }, function () {
       this.route('edit');
-      this.route('new-person');
-      this.route('new');
     });
+    this.route('new');
+    this.route('new-person');
   });
 });
