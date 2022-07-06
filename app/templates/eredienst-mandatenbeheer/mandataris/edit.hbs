@@ -1,0 +1,67 @@
+<AuToolbar @border="bottom" @size="large">
+  <AuToolbarGroup>
+    <AuHeading @skin="2">Bewerk mandataris<br>{{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{this.model.isBestuurlijkeAliasVan.achternaam}}</AuHeading>
+  </AuToolbarGroup>
+
+  <AuToolbarGroup>
+      <AuButtonGroup>
+        <AuButton {{on 'click' this.onSave}}>
+          Wijzigingen opslaan
+        </AuButton>
+        <AuButton {{on 'click' this.onCancel}} @skin="secondary">
+          Verwerp wijzigingen
+        </AuButton>
+      </AuButtonGroup>
+    </AuToolbarGroup>
+</AuToolbar>
+<div class="au-o-box">
+  <div >
+    <AuLabel for="mandaat">Mandaat</AuLabel>
+    <Mandatenbeheer::MandaatBestuursorganenSelector
+      @bestuursorganen={{this.currentSession.group.bestuursorganen}}
+      @isEredienst={{true}}
+      @mandaat={{this.model.bekleedt}}
+      @onSelect={{this.setMandaat}}
+      @allowClear={{true}}
+    />
+  </div>
+  <div class="au-o-grid au-o-grid--tiny">
+    <div class="au-o-grid__item au-u-1-2">
+      <AuLabel for="mandate-correction-start-date">Start</AuLabel>
+      <AuDatePicker
+        @value={{this.model.start}}
+        @onChange={{fn this.handleDateChange "start"}}
+        @id="mandate-correction-start-date"
+      />
+    </div>
+    <div class="au-o-grid__item au-u-1-2">
+      <AuLabel for="mandate-correction-end-date">Einde</AuLabel>
+      <AuDatePicker
+        @value={{this.model.einde}}
+        @onChange={{fn this.handleDateChange "einde"}}
+        @id="mandate-correction-end-date"
+      />
+    </div>
+  </div>
+    <div>
+      <AuLabel>
+        Type helft
+      </AuLabel>
+      <div class="au-o-grid au-o-grid--tiny">
+        {{#each this.typeHalfList as |typeHalf|}}
+          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
+            {{typeHalf.id}}
+            <AuControlRadio
+              @label={{typeHalf.label}}
+              @name="type-half"
+              @value={{typeHalf.id}}
+              checked={{eq this.model.typeHalf.label typeHalf.label}}
+              @onChange={{this.setTypeHalf}}
+            />
+          </div>
+        {{/each}}
+      </div>
+    </div>
+</div>
+
+{{outlet}}
