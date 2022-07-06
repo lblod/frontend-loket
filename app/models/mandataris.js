@@ -1,6 +1,8 @@
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import { attr, belongsTo, hasMany } from '@ember-data/model';
+import AgentInPosition from './agent-in-position';
 
-export default class MandatarisModel extends Model {
+// INHERITS FROM AGENT-IN-POSITION
+export default class MandatarisModel extends AgentInPosition {
   @attr('language-string') rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
