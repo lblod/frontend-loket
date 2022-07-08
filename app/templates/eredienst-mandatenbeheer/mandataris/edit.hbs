@@ -14,35 +14,37 @@
       </AuButtonGroup>
     </AuToolbarGroup>
 </AuToolbar>
-<div class="au-o-box">
-  <div >
-    <AuLabel for="mandaat">Mandaat</AuLabel>
-    <Mandatenbeheer::MandaatBestuursorganenSelector
-      @bestuursorganen={{this.currentSession.group.bestuursorganen}}
-      @isEredienst={{true}}
-      @mandaat={{this.model.bekleedt}}
-      @onSelect={{this.setMandaat}}
-      @allowClear={{true}}
-    />
-  </div>
-  <div class="au-o-grid au-o-grid--tiny">
-    <div class="au-o-grid__item au-u-1-2">
-      <AuLabel for="mandate-correction-start-date">Start</AuLabel>
-      <AuDatePicker
-        @value={{this.model.start}}
-        @onChange={{fn this.handleDateChange "start"}}
-        @id="mandate-correction-start-date"
+
+<div class="au-c-body-container">
+  <div class="au-u-2-3@medium au-o-box">
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="mandaat">Mandaat</AuLabel>
+      <Mandatenbeheer::MandaatBestuursorganenSelector
+        @bestuursorganen={{this.currentSession.group.bestuursorganen}}
+        @isEredienst={{true}}
+        @mandaat={{this.model.bekleedt}}
+        @onSelect={{this.setMandaat}}
+        @allowClear={{true}}
       />
     </div>
-    <div class="au-o-grid__item au-u-1-2">
-      <AuLabel for="mandate-correction-end-date">Einde</AuLabel>
-      <AuDatePicker
-        @value={{this.model.einde}}
-        @onChange={{fn this.handleDateChange "einde"}}
-        @id="mandate-correction-end-date"
-      />
+    <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandate-correction-start-date">Start</AuLabel>
+        <AuDatePicker
+          @value={{this.model.start}}
+          @onChange={{fn this.handleDateChange "start"}}
+          @id="mandate-correction-start-date"
+        />
+      </div>
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandate-correction-end-date">Einde</AuLabel>
+        <AuDatePicker
+          @value={{this.model.einde}}
+          @onChange={{fn this.handleDateChange "einde"}}
+          @id="mandate-correction-end-date"
+        />
+      </div>
     </div>
-  </div>
     <div>
       <AuLabel>
         Type helft
@@ -50,7 +52,6 @@
       <div class="au-o-grid au-o-grid--tiny">
         {{#each this.typeHalfList as |typeHalf|}}
           <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            {{typeHalf.id}}
             <AuControlRadio
               @label={{typeHalf.label}}
               @name="type-half"
@@ -62,6 +63,58 @@
         {{/each}}
       </div>
     </div>
+  </div>
+
+  <AuHr @size="small" />
+
+  <div class="au-o-box">
+    <AuToolbar class="au-u-margin-bottom-small">
+      <AuToolbarGroup>
+      </AuToolbarGroup>
+      <AuToolbarGroup>
+        <AuLink @route="eredienst-mandatenbeheer.mandataris.contact-points.new" @icon="add" @skin="button" @iconAlignment="left">
+          Nieuw contactgegeven
+        </AuLink>
+      </AuToolbarGroup>
+    </AuToolbar>
+
+    <AuTable>
+      <:title>Contactgegevens</:title>
+      <:header>
+        <tr>
+          <th>Adres</th>
+          <th>Bus</th>
+          <th>Provincie</th>
+          <th>E-mail</th>
+          <th>Primair telefoonnummer</th>
+          <th>Secundair telefoonnummer</th>
+          <th>Selecteer</th>
+          <th></th>
+        </tr>
+      </:header>
+      <:body>
+        {{#each this.contactList as |contact|}}
+          <tr>
+            <td>{{contact.adres.volledigAdres}}</td>
+            <td>{{contact.adres.busnummer}}</td>
+            <td>{{contact.adres.provincie}}</td>
+            <td>{{contact.email}}</td>
+            <td>{{contact.telefoon}}</td>
+            <td>Secundair telefoonnummer</td>
+            <td>
+              <AuControlRadio
+                @value={{contact.id}}
+                @name="contact"
+                @onChange={{fn (mut this.selectedContact) contact.id}}
+                checked={{eq contact.id}}
+              />
+            </td>
+            <td><AuLink @route="eredienst-mandatenbeheer.mandataris.contact-points.edit" @model={{contact.id}}>Corrigeer fout</AuLink></td>
+          </tr>
+        {{/each}}
+      </:body>
+    </AuTable>
+  </div>
 </div>
 
 {{outlet}}
