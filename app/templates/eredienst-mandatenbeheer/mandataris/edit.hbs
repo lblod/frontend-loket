@@ -100,13 +100,13 @@
             <td>{{contact.adres.provincie}}</td>
             <td>{{contact.email}}</td>
             <td>{{contact.telefoon}}</td>
-            <td>Secundair telefoonnummer</td>
+            <td></td>
             <td>
               <AuControlRadio
                 @value={{contact.id}}
                 @name="contact"
-                @onChange={{fn (mut this.selectedContact) contact.id}}
-                checked={{eq contact.id}}
+                @onChange={{fn (mut this.selectedContact) contact}}
+                checked={{eq contact.id this.selectedContact.id}}
               />
             </td>
             <td><AuLink @route="eredienst-mandatenbeheer.mandataris.contact-points.edit" @model={{contact.id}}>Corrigeer fout</AuLink></td>

@@ -8,6 +8,8 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @service store;
   @service router;
 
+  @tracked selectedContact;
+
   get typeHalfList() {
     return this.store.findAll('half-election');
   }
