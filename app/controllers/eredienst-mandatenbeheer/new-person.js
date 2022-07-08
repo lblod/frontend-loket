@@ -18,7 +18,6 @@ export default class EredienstMandatenbeheerNewPersonController extends Controll
 
   @action
   onCancel() {
-    this.send('reloadModel');
     this.router.transitionTo('eredienst-mandatenbeheer.new');
   }
 }
