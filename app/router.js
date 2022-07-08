@@ -108,6 +108,11 @@ Router.map(function () {
 
     this.route('mandataris', { path: '/mandataris/:mandaat_id' }, function () {
       this.route('edit');
+
+      this.route('contact-points', function () {
+        this.route('new');
+        this.route('edit', { path: '/:contact_id/edit' });
+      });
     });
     this.route('new');
     this.route('new-person');
