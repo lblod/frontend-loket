@@ -11,5 +11,5 @@ export default class ContactPuntModel extends Model {
   @attr website;
   @attr telefoon;
   @belongsTo('adres', { inverse: null }) adres;
-  @belongsTo('mandataris') mandataris;
+  @belongsTo('mandataris', { inverse: 'contactPoints' }) mandataris;
 }
