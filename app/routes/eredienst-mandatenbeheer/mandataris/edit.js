@@ -9,11 +9,12 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
 
     this.contacts = await this.store.query('contact-punt', {
       'filter[mandataris][is-bestuurlijke-alias-van][id]': persoon.id,
+      include: 'adres',
     });
   }
 
   setupController(controller) {
-    super.setupController(...arguments)
+    super.setupController(...arguments);
     controller.contactList = this.contacts;
   }
 }
