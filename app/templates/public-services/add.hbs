@@ -91,9 +91,9 @@
           <td class="u-table-cell-fit-content">
             <AuButton
               @icon="add"
+              @iconAlignment="left"
               @disabled={{this.addPublicService.isRunning}}
               @skin="secondary"
-              @hideText={{true}}
               {{on "click" (perform this.addPublicService publicService)}}
             >
               Voeg toe

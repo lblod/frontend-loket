@@ -12,6 +12,7 @@ const LIFECYCLE_STATUS = {
 const PUBLICATION_STATUS_SKIN = {
   [LIFECYCLE_STATUS.ACTIVE]: 'success',
   [LIFECYCLE_STATUS.NOT_ACTIVE]: 'error',
+  [LIFECYCLE_STATUS.CONCEPT]: 'warning',
 };
 
 export default class Status extends Component {
