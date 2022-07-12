@@ -47,7 +47,9 @@
         </td>
         <td class="au-u-visible-medium-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
         <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
-        <td><LinkTo @route="eredienst-mandatenbeheer.mandataris.edit" @model={{row.id}} class="au-c-link"> Bewerk </LinkTo></td>
+        <td>
+          <AuLink @route="eredienst-mandatenbeheer.mandataris.edit" @model={{row.id}}>Bewerk</AuLink>
+        </td>
       </c.body>
     </t.content>
   </AuDataTable>
