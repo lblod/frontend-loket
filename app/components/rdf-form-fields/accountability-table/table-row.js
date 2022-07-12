@@ -3,22 +3,18 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { keepLatestTask, timeout } from 'ember-concurrency';
-import rdflib from 'browser-rdflib';
+import { literal, NamedNode } from 'rdflib';
 import { XSD } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
 
 const subsidyBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/ukraine/';
 
-const addressPredicate = new rdflib.NamedNode(`${subsidyBaseUri}address`);
-const bedroomCountPredicate = new rdflib.NamedNode(
-  `${subsidyBaseUri}bedroomCount`
-);
-const sharedInvoicePredicate = new rdflib.NamedNode(
-  `${subsidyBaseUri}sharedInvoice`
-);
-const filesPredicate = new rdflib.NamedNode(`${subsidyBaseUri}hasFiles`);
+const addressPredicate = new NamedNode(`${subsidyBaseUri}address`);
+const bedroomCountPredicate = new NamedNode(`${subsidyBaseUri}bedroomCount`);
+const sharedInvoicePredicate = new NamedNode(`${subsidyBaseUri}sharedInvoice`);
+const filesPredicate = new NamedNode(`${subsidyBaseUri}hasFiles`);
 
-const hasInvalidRowPredicate = new rdflib.NamedNode(
+const hasInvalidRowPredicate = new NamedNode(
   `${subsidyBaseUri}hasInvalidAccountabilityTableEntry`
 );
 
@@ -188,7 +184,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
       {
         subject: this.tableEntrySubject,
         predicate: filesPredicate,
-        object: new rdflib.NamedNode(file.uri),
+        object: new NamedNode(file.uri),
         graph: this.storeOptions.sourceGraph,
       },
     ]);
@@ -213,7 +209,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
       {
         subject: this.tableEntrySubject,
         predicate: filesPredicate,
-        object: new rdflib.NamedNode(file.uri),
+        object: new NamedNode(file.uri),
         graph: this.storeOptions.sourceGraph,
       },
     ]);
@@ -285,7 +281,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.updateTripleObject(
       this.tableEntrySubject,
       addressPredicate,
-      rdflib.literal(this.address, XSD('string'))
+      literal(this.address, XSD('string'))
     );
   }
 
@@ -307,7 +303,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.updateTripleObject(
       this.tableEntrySubject,
       bedroomCountPredicate,
-      rdflib.literal(this.bedroomCount, XSD('integer'))
+      literal(this.bedroomCount, XSD('integer'))
     );
   }
 
@@ -322,7 +318,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
     this.updateTripleObject(
       this.tableEntrySubject,
       sharedInvoicePredicate,
-      rdflib.literal(this.sharedInvoice, XSD('string'))
+      literal(this.sharedInvoice, XSD('string'))
     );
   }
 

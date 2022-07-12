@@ -4,41 +4,35 @@ import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { triplesForPath } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
-import rdflib from 'browser-rdflib';
+import { NamedNode, Namespace } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
 
-const LBLOD_SUBSIDIE = new rdflib.Namespace(
+const LBLOD_SUBSIDIE = new Namespace(
   'http://lblod.data.gift/vocabularies/subsidie/'
 );
-const DBPEDIA = new rdflib.Namespace('http://dbpedia.org/ontology/');
-const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
+const DBPEDIA = new Namespace('http://dbpedia.org/ontology/');
+const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
 
 const climateTableBaseUri = 'http://data.lblod.info/climate-tables';
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
 const climateBaseUri = 'http://data.lblod.info/vocabularies/subsidie/climate/';
 
-const climateTableType = new rdflib.NamedNode(
-  `${lblodSubsidieBaseUri}ClimateTable`
-);
-const climateTablePredicate = new rdflib.NamedNode(
+const climateTableType = new NamedNode(`${lblodSubsidieBaseUri}ClimateTable`);
+const climateTablePredicate = new NamedNode(
   `${lblodSubsidieBaseUri}climateTable`
 );
-const hasInvalidRowPredicate = new rdflib.NamedNode(
+const hasInvalidRowPredicate = new NamedNode(
   `${climateTableBaseUri}/hasInvalidClimateTableEntry`
 );
-const validClimateTable = new rdflib.NamedNode(
+const validClimateTable = new NamedNode(
   `${lblodSubsidieBaseUri}validClimateTable`
 );
-const totalBudgettedAmount = new rdflib.NamedNode(
+const totalBudgettedAmount = new NamedNode(
   `${lblodSubsidieBaseUri}totalBudgettedAmount`
 );
-const allowNewActions = new rdflib.NamedNode(
-  `${climateTableBaseUri}/allowNewActions`
-);
-const climateEntryCustomAction = new rdflib.NamedNode(
-  `${climateBaseUri}customAction`
-);
+const allowNewActions = new NamedNode(`${climateTableBaseUri}/allowNewActions`);
+const climateEntryCustomAction = new NamedNode(`${climateBaseUri}customAction`);
 
 /*
  * Component wrapping the big subsidy table for climate action.
@@ -182,9 +176,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
 
   createClimateTable() {
     const uuid = uuidv4();
-    this.climateTableSubject = new rdflib.NamedNode(
-      `${climateTableBaseUri}/${uuid}`
-    );
+    this.climateTableSubject = new NamedNode(`${climateTableBaseUri}/${uuid}`);
     const triples = [
       {
         subject: this.climateTableSubject,
@@ -291,7 +283,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
     this.customActions = [
       ...this.customActions,
       {
-        businessRuleUri: new rdflib.NamedNode(
+        businessRuleUri: new NamedNode(
           `http://data.lblod.info/id/subsidies/rules/custom/${uuid}`
         ),
         order: highestOrderValue + 1,

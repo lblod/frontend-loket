@@ -1,14 +1,14 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import rdflib from 'browser-rdflib';
 import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import { RDF } from '@lblod/submission-form-helpers';
+import { NamedNode, Namespace } from 'rdflib';
 
-const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
-const FORM_GRAPH = new rdflib.NamedNode('http://data.lblod.info/form');
-const META_GRAPH = new rdflib.NamedNode('http://data.lblod.info/metagraph');
-const SOURCE_GRAPH = new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`);
+const FORM = new Namespace('http://lblod.data.gift/vocabularies/forms/');
+const FORM_GRAPH = new NamedNode('http://data.lblod.info/form');
+const META_GRAPH = new NamedNode('http://data.lblod.info/metagraph');
+const SOURCE_GRAPH = new NamedNode(`http://data.lblod.info/sourcegraph`);
 
 export default class SubsidyApplicationsEditStepEditRoute extends Route {
   @service store;
@@ -46,7 +46,7 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
       FORM('Form'),
       FORM_GRAPH
     );
-    const sourceNode = new rdflib.NamedNode(semanticForm.uri);
+    const sourceNode = new NamedNode(semanticForm.uri);
 
     return {
       step,
