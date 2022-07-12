@@ -1,11 +1,11 @@
 {{page-title "Bewerk"}}
 
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">Bewerk mandataris<br>{{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{this.model.isBestuurlijkeAliasVan.achternaam}}</AuHeading>
-  </AuToolbarGroup>
+  </Group>
 
-  <AuToolbarGroup>
+  <Group>
       <AuButtonGroup>
         <AuButton {{on 'click' this.onSave}}>
           Wijzigingen opslaan
@@ -14,7 +14,7 @@
           Verwerp wijzigingen
         </AuButton>
       </AuButtonGroup>
-    </AuToolbarGroup>
+    </Group>
 </AuToolbar>
 
 <div class="au-c-body-container">
@@ -70,14 +70,12 @@
   <AuHr @size="small" />
 
   <div class="au-o-box">
-    <AuToolbar class="au-u-margin-bottom-small">
-      <AuToolbarGroup>
-      </AuToolbarGroup>
-      <AuToolbarGroup>
+    <AuToolbar class="au-u-margin-bottom-small" @reverse={{true}} as |Group|>
+      <Group>
         <AuLink @route="eredienst-mandatenbeheer.mandataris.contact-points.new" @icon="add" @skin="button" @iconAlignment="left">
           Nieuw contactgegeven
         </AuLink>
-      </AuToolbarGroup>
+      </Group>
     </AuToolbar>
 
     <AuTable>

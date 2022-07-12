@@ -1,10 +1,8 @@
 
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">Contactgegevens bewerken</AuHeading>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-body-container">
@@ -38,12 +36,12 @@
   </div>
 </div>
 
-<AuToolbar @border="top" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="top" @size="large" as |Group|>
+  <Group>
     <AuButton {{on 'click' (perform this.submit)}}>Wijzigingen opslaan</AuButton>
     <AuLink @route="eredienst-mandatenbeheer.mandataris.edit" @skin="button-secondary">Wijzigingen verwerpen</AuLink>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
+  </Group>
+  <Group>
     {{#if this.submit.isRunning}}
       <AuAlert
         class="au-u-margin-none"
@@ -53,5 +51,5 @@
         @size="small">
       </AuAlert>
     {{/if}}
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>

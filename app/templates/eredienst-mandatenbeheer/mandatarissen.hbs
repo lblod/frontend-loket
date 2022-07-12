@@ -1,16 +1,16 @@
 <div class="au-c-body-container {{if this.hasActiveChildRoute "au-u-hidden"}}">
-  <AuToolbar @size="large" @nowrap="true" class="au-u-padding-bottom-none">
-    <AuToolbarGroup>
+  <AuToolbar @size="large" @nowrap="true" class="au-u-padding-bottom-none" as |Group|>
+    <Group>
       <div class="au-o-flow">
         <AuHeading @skin="2">Mandatenbeheer</AuHeading>
       </div>
-    </AuToolbarGroup>
+    </Group>
 
-    <AuToolbarGroup>
+    <Group>
       <AuButtonGroup>
          <AuLink @route="eredienst-mandatenbeheer.new" @skin="button">Voeg mandataris toe</AuLink>
       </AuButtonGroup>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 
 
