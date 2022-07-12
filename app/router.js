@@ -106,12 +106,12 @@ Router.map(function () {
   this.route('eredienst-mandatenbeheer', function () {
     this.route('mandatarissen');
 
-    this.route('mandataris', { path: '/mandataris/:mandaat_id' }, function () {
+    this.route('mandataris', { path: '/mandataris/:mandateeId' }, function () {
       this.route('edit');
 
       this.route('contact-points', function () {
         this.route('new');
-        this.route('edit', { path: '/:contact_id/edit' });
+        this.route('edit', { path: '/:contactId/edit' });
       });
     });
     this.route('new');
