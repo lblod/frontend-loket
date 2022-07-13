@@ -10,11 +10,6 @@ export default Component.extend({
   bestuursorganen: null,
 
   async didReceiveAttrs() {
-    if (this.isEredienst) {
-      this.bestuursorganen = await this.bestuursorganen.firstObject
-        ?.heeftTijdsspecialisaties;
-    }
-
     const mandaten = await this.store.query('mandaat', {
       sort: 'bestuursfunctie.label',
       include: 'bestuursfunctie',

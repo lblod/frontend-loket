@@ -22,8 +22,7 @@
     <div class="au-u-margin-bottom-small">
       <AuLabel for="mandaat">Mandaat</AuLabel>
       <Mandatenbeheer::MandaatBestuursorganenSelector
-        @bestuursorganen={{this.currentSession.group.bestuursorganen}}
-        @isEredienst={{true}}
+        @bestuursorganen={{this.bestuursorganen}}
         @mandaat={{this.model.bekleedt}}
         @onSelect={{this.setMandaat}}
         @allowClear={{true}}
