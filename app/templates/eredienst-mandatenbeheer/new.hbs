@@ -1,9 +1,100 @@
-<Shared::Persoon::PersoonSearchForm
-  class="au-c-body-container"
-  @onCreateNewPerson={{this.createNewPerson}}
-  @onCancel={{this.cancel}}
-  @onSelect={{this.selectPersoon}}
-  >
- <AuHeading @skin="2">Voeg mandataris toe uit de lijst van verkozenen</AuHeading>
-</Shared::Persoon::PersoonSearchForm>
+{{page-title "Voeg mandaat toe"}}
 
+{{#if this.shouldSelectPerson}}
+  <Shared::Persoon::PersoonSearchForm
+    class="au-c-body-container"
+    @onCreateNewPerson={{this.createNewPerson}}
+    @onCancel={{this.cancel}}
+    @onSelect={{this.selectPersoon}}
+  >
+    <AuHeading @skin="2">Voeg mandataris toe uit de lijst van verkozenen</AuHeading>
+  </Shared::Persoon::PersoonSearchForm>
+{{else}}
+  <AuToolbar @border="bottom" @size="large" as |Group|>
+    <Group>
+      <div>
+        <AuHeading @skin="2">
+          Nieuw mandaat toevoegen
+        </AuHeading>
+
+        <p class="au-u-h3">
+          {{@model.person.gebruikteVoornaam}}
+          {{@model.person.achternaam~}}
+
+          {{~#if @model.worshipMandatee.bekleedt~}}
+            ,
+            {{@model.worshipMandatee.bekleedt.bestuursfunctie.label}}
+          {{/if}}
+        </p>
+      </div>
+    </Group>
+
+    <Group>
+      <AuButtonGroup>
+        <AuButton
+          @loading={{this.createMandatee.isRunning}}
+          @disabled={{this.createMandatee.isRunning}}
+          type="submit"
+          form="create-mandatee"
+        >
+          Mandaat toevoegen
+        </AuButton>
+        <AuLink
+          @route="eredienst-mandatenbeheer.mandatarissen"
+          @skin="button-secondary"
+        >
+          Annuleer
+        </AuLink>
+      </AuButtonGroup>
+    </Group>
+  </AuToolbar>
+
+  <form id="create-mandatee" class="au-c-body-container" {{on "submit" (perform this.createMandatee)}}>
+    <div class="au-u-2-3@medium au-o-box">
+      <div class="au-u-margin-bottom-small">
+        <AuLabel for="mandaat">Mandaat</AuLabel>
+        <Mandatenbeheer::MandaatBestuursorganenSelector
+          @bestuursorganen={{@model.bestuursorganen}}
+          @mandaat={{@model.worshipMandatee.bekleedt}}
+          @onSelect={{fn (mut @model.worshipMandatee.bekleedt)}}
+        />
+      </div>
+      <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+        <div class="au-o-grid__item au-u-1-2">
+          <AuLabel for="mandate-start-date">Start</AuLabel>
+          <AuDatePicker
+            @value={{@model.worshipMandatee.start}}
+            @onChange={{fn this.handleDateChange "start"}}
+            @id="mandate-start-date"
+          />
+        </div>
+        <div class="au-o-grid__item au-u-1-2">
+          <AuLabel for="mandate-end-date">Einde</AuLabel>
+          <AuDatePicker
+            @value={{@model.worshipMandatee.einde}}
+            @onChange={{fn this.handleDateChange "einde"}}
+            @id="mandate-end-date"
+          />
+        </div>
+      </div>
+      <div>
+        <AuLabel>
+          Type helft
+        </AuLabel>
+        <div class="au-o-grid au-o-grid--tiny">
+          {{#each @model.halfElectionList as |typeHalf|}}
+            <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
+              <AuControlRadio
+                @label={{typeHalf.label}}
+                @name="type-half"
+                @value={{typeHalf}}
+                @onChange={{fn (mut @model.worshipMandatee.typeHalf) typeHalf}}
+                checked={{eq @model.worshipMandatee.typeHalf typeHalf}}
+              />
+            </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </form>
+{{/if}}

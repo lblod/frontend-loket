@@ -6,14 +6,12 @@ export default class EredienstMandatenbeheerNewPersonController extends Controll
   @service() router;
 
   @action
-  onCreate(persoon) {
-    const mandataris = this.store.createRecord('worship-mandatee');
-    mandataris.set('isBestuurlijkeAliasVan', persoon);
-
-    this.router.transitionTo(
-      'eredienst-mandatenbeheer.mandataris.edit',
-      mandataris
-    );
+  onCreate(person) {
+    this.router.transitionTo('eredienst-mandatenbeheer.new', {
+      queryParams: {
+        personId: person.id,
+      },
+    });
   }
 
   @action
