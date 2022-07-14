@@ -34,8 +34,18 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
       ].join(','),
     };
 
+    if (params.filter) {
+      queryParams['filter']['is-bestuurlijke-alias-van'] = params.filter;
+    }
 
     return queryParams;
   }
+
+  setupController(controller) {
+    super.setupController(...arguments);
+    controller.searchData = this.paramsFor(
+      'eredienst-mandatenbeheer.mandatarissen'
+    )['filter'];
+    controller.mandatenbeheer = this.mandatenbeheer;
   }
 }
