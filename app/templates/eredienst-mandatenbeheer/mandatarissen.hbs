@@ -14,6 +14,16 @@
   </AuToolbar>
 
 
+  <AuToolbar @size="large" as |Group|>
+    <Group>
+      <div class="">
+        <Mandatenbeheer::BestuursperiodenSelector
+          @options={{this.bestuursperioden}}
+          @selectedStartDate={{this.startDate}}
+          @onSelect={{this.selectPeriod}}/>
+      </div>
+    </Group>
+  </AuToolbar>
   <AuDataTable @content={{this.model}} @isLoading={{this.isLoading}} @noDataMessage="Geen mandatarissen gevonden"
    @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |t|>
     <t.content as |c|>
