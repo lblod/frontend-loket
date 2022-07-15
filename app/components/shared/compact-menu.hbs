@@ -1,3 +1,5 @@
+{{! the role="menu" is added by the AuDropdown component, so we can ignore the rule here.}}
+{{! template-lint-disable require-context-role}}
 <AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings">
   {{#if this.currentSession.canAccessToezicht}}
     <AuLink @route="supervision.submissions" role="menuitem">
