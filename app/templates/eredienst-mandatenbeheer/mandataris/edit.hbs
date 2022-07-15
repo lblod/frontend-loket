@@ -121,6 +121,8 @@
             </td>
             <td><AuLink @route="eredienst-mandatenbeheer.mandataris.contact-points.edit" @model={{contact.id}}>Corrigeer fout</AuLink></td>
           </tr>
+        {{else}}
+          <tr><td colspan="100%">Geen contactgegevens gevonden</td></tr>
         {{/each}}
       </:body>
     </AuTable>
