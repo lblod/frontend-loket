@@ -11,6 +11,11 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
     },
   };
 
+  beforeModel() {
+    const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
+    this.bestuursorganen = mandatenbeheer.bestuursorganen;
+  }
+
   async model({ personId }) {
     if (personId) {
       let [person, halfElectionList, tijdsspecialisaties] = await Promise.all([
@@ -18,11 +23,7 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
           backgroundReload: false,
         }),
         this.store.findAll('half-election'),
-        this.store.query('bestuursorgaan', {
-          'filter[is-tijdsspecialisatie-van][bestuurseenheid][:id:]':
-            this.currentSession.group.id,
-          'filter[binding-start]': '1971-11-03',
-        }),
+        this.bestuursorganen,
       ]);
 
       let worshipMandatee = this.store.createRecord('worship-mandatee');

@@ -5,16 +5,13 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service currentSession;
 
   async beforeModel() {
+    const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
+    this.bestuursorganen = mandatenbeheer.bestuursorganen;
+
     const mandataris = await this.modelFor(
       'eredienst-mandatenbeheer.mandataris'
     );
     const persoon = await mandataris.isBestuurlijkeAliasVan;
-
-    const bestuursorganen = await this.currentSession.group.bestuursorganen;
-    const tijdsspecialisaties = await bestuursorganen.firstObject
-      .heeftTijdsspecialisaties;
-
-    this.bestuursorganen = tijdsspecialisaties;
 
     this.contacts = await this.store.query('contact-punt', {
       'filter[mandataris][is-bestuurlijke-alias-van][id]': persoon.id,
