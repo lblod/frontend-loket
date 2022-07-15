@@ -1,29 +1,29 @@
 <AuBodyContainer @scroll={{true}}>
-  <div class="au-o-box">
-    {{#if this.loadForm.isRunning}}
+  {{#if this.loadForm.isRunning}}
+    <div class="au-o-box">
       <p class="au-u-h4 au-u-medium" aria-hidden="true">
         Formulier aan het laden
       </p>
       <AuLoader @padding="small" />
-    {{else}}
-      <form id={{this.id}} {{on "submit" (perform this.saveSemanticForm)}}>
-        <RdfForm
-          @groupClass="au-o-grid__item"
-          @form={{this.form}}
-          @graphs={{this.graphs}}
-          @sourceNode={{this.sourceNode}}
-          @formStore={{this.formStore}}
-        />
-      </form>
-    {{/if}}
-  </div>
+    </div>
+  {{else}}
+    <form id={{this.id}} {{on "submit" (perform this.saveSemanticForm)}} class="au-c-rdf-form">
+      <RdfForm
+        @groupClass="au-o-grid__item"
+        @form={{this.form}}
+        @graphs={{this.graphs}}
+        @sourceNode={{this.sourceNode}}
+        @formStore={{this.formStore}}
+      />
+    </form>
+  {{/if}}
 </AuBodyContainer>
 
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
     <AuButtonGroup>
       <AuButton @disabled={{this.saveSemanticForm.isRunning}}>
-        Publiceer
+        Verzend naar Vlaamse overheid
       </AuButton>
 
       <AuButton
