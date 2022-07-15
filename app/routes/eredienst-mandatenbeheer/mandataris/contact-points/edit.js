@@ -1,14 +1,28 @@
 import Route from '@ember/routing/route';
 
 export default class EredienstMandatenbeheerMandatarisContactPointsEditRoute extends Route {
-  model(params) {
-    return this.store.findRecord('contact-punt', params.contactId, {
-      include: 'adres',
-    });
+  async model(params) {
+    let contactPoint = await this.store.findRecord(
+      'contact-punt',
+      params.contactId,
+      {
+        include: 'adres',
+      }
+    );
+
+    this.adres = await contactPoint.adres;
+
+    return contactPoint;
   }
 
-  setupController(controller, model) {
+  setupController(controller) {
     super.setupController(...arguments);
-    controller.adres = model.adres;
+    controller.adres = this.adres;
+  }
+
+  resetController(controller) {
+    super.resetController(...arguments);
+
+    controller.model.rollbackAttributes();
   }
 }

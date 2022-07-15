@@ -30,7 +30,7 @@
     <div class="au-u-margin-bottom-small">
       <AdressenregisterSelector
         @address={{this.adres}}
-        @onChange={{perform this.updateAdres}}
+        @onChange={{fn (mut this.adres)}}
       />
     </div>
   </div>

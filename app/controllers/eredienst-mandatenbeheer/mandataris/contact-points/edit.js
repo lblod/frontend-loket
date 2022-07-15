@@ -1,22 +1,16 @@
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency-decorators';
-import { inject as service } from '@ember/service';
 
 export default class EredienstMandatenbeheerMandatarisContactPointsEditController extends Controller {
-  @service() store;
-  @service() router;
+  @service store;
+  @service router;
 
   @tracked adres;
 
   @task
-  *updateAdres(adres) {
-    this.adres = yield adres;
-  }
-
-  @task
   *submit() {
-    yield this.adres;
     const addresses = yield this.store.query('adres', {
       filter: {
         'volledig-adres': this.adres.volledigAdres,
