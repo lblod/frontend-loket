@@ -11,23 +11,24 @@ export default class EredienstMandatenbeheerMandatarisContactPointsEditControlle
 
   @task
   *submit() {
-    const addresses = yield this.store.query('adres', {
-      filter: {
-        'volledig-adres': this.adres.volledigAdres,
-      },
-    });
+    if (this.adres) {
+      const addresses = yield this.store.query('adres', {
+        filter: {
+          'volledig-adres': this.adres.volledigAdres,
+        },
+      });
 
-    let newAdres;
+      let newAdres;
 
-    if (addresses.length == 0) {
-      newAdres = this.store.createRecord('adres', this.adres);
-      yield newAdres.save();
+      if (addresses.length == 0) {
+        newAdres = this.store.createRecord('adres', this.adres);
+        yield newAdres.save();
+      }
+
+      this.model.adres = newAdres || addresses.firstObject;
     }
 
-    this.model.adres = newAdres || addresses.firstObject;
-
     yield this.model.save();
-
     yield this.router.transitionTo('eredienst-mandatenbeheer.mandataris.edit');
   }
 }
