@@ -1,4 +1,10 @@
-<AuMainHeader @brandLink="{{unless this.session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen">
+{{page-title this.appTitle}}
+
+<AuMainHeader
+  @brandLink={{unless this.session.isAuthenticated "https://www.vlaanderen.be/nl"}}
+  @homeRoute="index"
+  @appTitle={{this.appTitle}}
+>
   <li class="au-c-list-horizontal__item">
     <AuLink @route="help" @skin="secondary">
       <AuIcon @icon="question-circle" @alignment="left" />
