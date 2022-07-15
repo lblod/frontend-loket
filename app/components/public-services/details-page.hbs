@@ -7,7 +7,7 @@
       <AuLoader @padding="small" />
     </div>
   {{else}}
-    <form id={{this.id}} {{on "submit" (perform this.saveSemanticForm)}} class="au-c-rdf-form">
+    <form id={{this.id}} {{on "submit" (perform this.saveSemanticForm)}} class="au-c-rdf-form {{@tabName}}">
       <RdfForm
         @groupClass="au-o-grid__item"
         @form={{this.form}}
