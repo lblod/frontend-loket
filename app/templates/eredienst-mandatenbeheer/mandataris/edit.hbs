@@ -2,7 +2,18 @@
 
 <AuToolbar @border="bottom" @size="large" as |Group|>
   <Group>
-    <AuHeading @skin="2">Bewerk mandataris<br>{{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{this.model.isBestuurlijkeAliasVan.achternaam}}</AuHeading>
+    <div>
+      <AuHeading @skin="2">Bewerk mandataris</AuHeading>
+      <p class="au-u-h3">
+        {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+        {{this.model.isBestuurlijkeAliasVan.achternaam ~}}
+
+        {{~#if this.model.bekleedt~}}
+          ,
+          {{this.model.bekleedt.bestuursfunctie.label}}
+        {{/if}}
+      </p>
+    </div>
   </Group>
 
   <Group>
