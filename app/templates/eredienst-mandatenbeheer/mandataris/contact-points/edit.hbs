@@ -1,4 +1,3 @@
-
 <AuToolbar @border="bottom" @size="large" as |Group|>
   <Group>
     <AuHeading @skin="2">Contactgegevens bewerken</AuHeading>
@@ -6,26 +5,18 @@
 </AuToolbar>
 
 <div class="au-c-body-container">
-  <div class="au-o-grid__item au-u-2-3@medium au-u-1-1 ">
+  <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
     <div class="au-u-margin-bottom-small au-u-2-3@medium">
       <label class="au-c-label" for="email">
-          E-mail
+        E-mail
       </label>
-      <AuInput
-        id="email"
-        @width="block"
-        @value={{this.model.email}}
-      />
+      <AuInput id="email" @width="block" @value={{this.model.email}} />
     </div>
     <div class="au-u-margin-bottom-small au-u-2-3@medium">
       <label class="au-c-label" for="telephone">
-          Telefoonnummer
+        Telefoonnummer
       </label>
-      <AuInput
-        id="telephone"
-        @width="block"
-        @value={{this.model.telefoon}}
-      />
+      <AuInput id="telephone" @width="block" @value={{this.model.telefoon}} />
     </div>
     <div class="au-u-margin-bottom-small">
       <AdressenregisterSelector
@@ -38,18 +29,18 @@
 
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
-    <AuButton {{on 'click' (perform this.submit)}}>Wijzigingen opslaan</AuButton>
-    <AuLink @route="eredienst-mandatenbeheer.mandataris.edit" @skin="button-secondary">Wijzigingen verwerpen</AuLink>
-  </Group>
-  <Group>
-    {{#if this.submit.isRunning}}
-      <AuAlert
-        class="au-u-margin-none"
-        @icon="info-circle"
-        @title="Aan het toevoegen..."
-        @skin="info"
-        @size="small">
-      </AuAlert>
-    {{/if}}
+    <AuButton
+      @disabled={{this.submit.isRunning}}
+      @loading={{this.submit.isRunning}}
+      {{on "click" (perform this.submit)}}
+    >
+      Wijzigingen opslaan
+    </AuButton>
+    <AuLink
+      @route="eredienst-mandatenbeheer.mandataris.edit"
+      @skin="button-secondary"
+    >
+      Wijzigingen verwerpen
+    </AuLink>
   </Group>
 </AuToolbar>

@@ -28,6 +28,6 @@ export default class EredienstMandatenbeheerMandatarisContactPointsEditControlle
 
     yield this.model.save();
 
-    this.router.transitionTo('eredienst-mandatenbeheer.mandataris.edit');
+    yield this.router.transitionTo('eredienst-mandatenbeheer.mandataris.edit');
   }
 }
