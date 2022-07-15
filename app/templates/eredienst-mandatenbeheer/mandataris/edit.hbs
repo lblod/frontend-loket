@@ -17,15 +17,15 @@
   </Group>
 
   <Group>
-      <AuButtonGroup>
-        <AuButton {{on 'click' this.onSave}}>
-          Wijzigingen opslaan
-        </AuButton>
-        <AuButton {{on 'click' this.onCancel}} @skin="secondary">
-          Verwerp wijzigingen
-        </AuButton>
-      </AuButtonGroup>
-    </Group>
+    <AuButtonGroup>
+      <AuButton {{on "click" this.onSave}}>
+        Wijzigingen opslaan
+      </AuButton>
+      <AuButton {{on "click" this.onCancel}} @skin="secondary">
+        Annuleer
+      </AuButton>
+    </AuButtonGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-body-container">
@@ -81,8 +81,13 @@
   <div class="au-o-box">
     <AuToolbar class="au-u-margin-bottom-small" @reverse={{true}} as |Group|>
       <Group>
-        <AuLink @route="eredienst-mandatenbeheer.mandataris.contact-points.new" @icon="add" @skin="button" @iconAlignment="left">
-          Nieuw contactgegeven
+        <AuLink
+          @route="eredienst-mandatenbeheer.mandataris.contact-points.new"
+          @icon="add"
+          @skin="button"
+          @iconAlignment="left"
+        >
+          Contactgegevens toevoegen
         </AuLink>
       </Group>
     </AuToolbar>
@@ -118,7 +123,14 @@
                 checked={{eq contact.id this.selectedContact.id}}
               />
             </td>
-            <td><AuLink @route="eredienst-mandatenbeheer.mandataris.contact-points.edit" @model={{contact.id}}>Corrigeer fout</AuLink></td>
+            <td>
+              <AuLink
+                @route="eredienst-mandatenbeheer.mandataris.contact-points.edit"
+                @model={{contact.id}}
+              >
+                Corrigeer fout
+              </AuLink>
+            </td>
           </tr>
         {{else}}
           <tr><td colspan="100%">Geen contactgegevens gevonden</td></tr>
