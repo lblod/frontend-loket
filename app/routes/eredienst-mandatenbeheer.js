@@ -10,6 +10,7 @@ export default class EredienstMandatenbeheerRoute extends Route {
 
   queryParams = {
     startDate: { refreshModel: true },
+    endDate: { refreshModel: true },
   };
 
   beforeModel(transition) {
@@ -21,15 +22,18 @@ export default class EredienstMandatenbeheerRoute extends Route {
 
   async model(params) {
     this.startDate = params.startDate;
+    this.endDate = params.endDate;
+
     const bestuurseenheid = this.currentSession.group;
 
     return RSVP.hash({
       bestuurseenheid: bestuurseenheid,
-      bestuursorganen: this.getBestuursorganenInTijdByStartDate(
+      bestuursorganen: this.getBestuursorganenInTijdByPeriod(
         bestuurseenheid.get('id')
       ),
       bestuursperioden: this.getBestuursperioden(bestuurseenheid.get('id')),
       startDate: this.startDate,
+      endDate: this.endDate
     });
   }
 
@@ -39,7 +43,7 @@ export default class EredienstMandatenbeheerRoute extends Route {
    * TODO: ripped from routes/mandatenbeheer (BUT MODIFIED due to probably a bug in mandatenbeheer).
    *       Extract common code once we are sure of the common pattern.
    */
-  async getBestuursorganenInTijdByStartDate(bestuurseenheidId) {
+  async getBestuursorganenInTijdByPeriod(bestuurseenheidId) {
     const bestuursorganen = await this.store.query('bestuursorgaan', {
       'filter[bestuurseenheid][id]': bestuurseenheidId,
       'filter[heeft-tijdsspecialisaties][:has:bevat]': true, // only organs with a mandate
@@ -48,9 +52,10 @@ export default class EredienstMandatenbeheerRoute extends Route {
     let organenStartingOnStartDate = [];
 
     for(const bestuursorgaan of bestuursorganen.toArray()) {
-      const organen = await this.getBestuursorgaanInTijdByStartDate(
+      const organen = await this.getBestuursorgaanInTijdByPeriod(
           bestuursorgaan.get('id'),
-          this.startDate
+        this.startDate,
+        this.endDate
       );
       organenStartingOnStartDate = [ ...organenStartingOnStartDate, ...organen];
     }
@@ -62,13 +67,14 @@ export default class EredienstMandatenbeheerRoute extends Route {
    * TODO: ripped from routes/mandatenbeheer.
    *       Extract common code once we are sure of the common pattern.
    */
-  async getBestuursorgaanInTijdByStartDate(bestuursorgaanId, startDate) {
+  async getBestuursorgaanInTijdByPeriod(bestuursorgaanId, startDate, endDate) {
     const queryParams = {
       sort: '-binding-start',
       'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
     };
 
     if (startDate) queryParams['filter[binding-start]'] = startDate;
+    if (endDate) queryParams['filter[binding-einde]'] = endDate;
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
     return organen.toArray();

@@ -18,6 +18,10 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
     return this.mandatenbeheer.startDate;
   }
 
+  get endDate() {
+    return this.mandatenbeheer.endDate;
+  }
+
   get bestuursperioden() {
     return this.mandatenbeheer.bestuursperioden;
   }
@@ -38,12 +42,16 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   }
 
   @action
-  selectPeriod(startDate) {
-    this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen', {
-      queryParams: {
+  selectPeriod(startDate, endDate) {
+    const queryParams = {
         page: 0,
         startDate: startDate,
-      },
+    };
+
+    queryParams['endDate'] = endDate;
+
+    this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen', {
+      queryParams,
     });
   }
 }
