@@ -31,14 +31,12 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
       return this._options.find((o) => {
         return (
           o.bindingStart.toDateString() ==
-            new Date(this.args.selectedStartDate).toDateString()
-            &&
-            o.bindingEinde?.toDateString() ==
+            new Date(this.args.selectedStartDate).toDateString() &&
+          o.bindingEinde?.toDateString() ==
             new Date(this.args.selectedEndDate).toDateString()
         );
       });
-    }
-    else if (this.args.selectedStartDate) {
+    } else if (this.args.selectedStartDate) {
       return this._options.find((o) => {
         return (
           o.bindingStart.toDateString() ==
@@ -53,7 +51,9 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
   @action
   selectBestuursorgaan(periode) {
     const start = moment(periode.bindingStart).format('YYYY-MM-DD');
-    const einde = periode.bindingEinde ? moment(periode.bindingEinde).format('YYYY-MM-DD') : null;
+    const einde = periode.bindingEinde
+      ? moment(periode.bindingEinde).format('YYYY-MM-DD')
+      : null;
     this.args.onSelect(start, einde);
   }
 }

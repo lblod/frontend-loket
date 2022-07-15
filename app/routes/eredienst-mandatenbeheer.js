@@ -33,7 +33,7 @@ export default class EredienstMandatenbeheerRoute extends Route {
       ),
       bestuursperioden: this.getBestuursperioden(bestuurseenheid.get('id')),
       startDate: this.startDate,
-      endDate: this.endDate
+      endDate: this.endDate,
     });
   }
 
@@ -51,13 +51,13 @@ export default class EredienstMandatenbeheerRoute extends Route {
 
     let organenStartingOnStartDate = [];
 
-    for(const bestuursorgaan of bestuursorganen.toArray()) {
+    for (const bestuursorgaan of bestuursorganen.toArray()) {
       const organen = await this.getBestuursorgaanInTijdByPeriod(
-          bestuursorgaan.get('id'),
+        bestuursorgaan.get('id'),
         this.startDate,
         this.endDate
       );
-      organenStartingOnStartDate = [ ...organenStartingOnStartDate, ...organen];
+      organenStartingOnStartDate = [...organenStartingOnStartDate, ...organen];
     }
 
     return organenStartingOnStartDate.filter((orgaan) => orgaan); // filter null values

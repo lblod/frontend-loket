@@ -44,8 +44,8 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   @action
   selectPeriod(startDate, endDate) {
     const queryParams = {
-        page: 0,
-        startDate: startDate,
+      page: 0,
+      startDate: startDate,
     };
 
     queryParams['endDate'] = endDate;
