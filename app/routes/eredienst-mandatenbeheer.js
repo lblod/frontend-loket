@@ -36,7 +36,7 @@ export default class EredienstMandatenbeheerRoute extends Route {
   /*
    * Returns bestuursorgaan in tijd starting on the given start date
    * for all bestuursorganen of the given bestuurseenheid.
-   * TODO: ripped from routes/mandatenbeheer.
+   * TODO: ripped from routes/mandatenbeheer (BUT MODIFIED due to probably a bug in mandatenbeheer).
    *       Extract common code once we are sure of the common pattern.
    */
   async getBestuursorganenInTijdByStartDate(bestuurseenheidId) {
@@ -44,14 +44,17 @@ export default class EredienstMandatenbeheerRoute extends Route {
       'filter[bestuurseenheid][id]': bestuurseenheidId,
       'filter[heeft-tijdsspecialisaties][:has:bevat]': true, // only organs with a mandate
     });
-    const organenStartingOnStartDate = await Promise.all(
-      bestuursorganen.map((orgaan) => {
-        return this.getBestuursorgaanInTijdByStartDate(
-          orgaan.get('id'),
+
+    let organenStartingOnStartDate = [];
+
+    for(const bestuursorgaan of bestuursorganen.toArray()) {
+      const organen = await this.getBestuursorgaanInTijdByStartDate(
+          bestuursorgaan.get('id'),
           this.startDate
-        );
-      })
-    );
+      );
+      organenStartingOnStartDate = [ ...organenStartingOnStartDate, ...organen];
+    }
+
     return organenStartingOnStartDate.filter((orgaan) => orgaan); // filter null values
   }
 
@@ -61,7 +64,6 @@ export default class EredienstMandatenbeheerRoute extends Route {
    */
   async getBestuursorgaanInTijdByStartDate(bestuursorgaanId, startDate) {
     const queryParams = {
-      page: { size: 1 },
       sort: '-binding-start',
       'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
     };
@@ -69,13 +71,13 @@ export default class EredienstMandatenbeheerRoute extends Route {
     if (startDate) queryParams['filter[binding-start]'] = startDate;
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
-    return organen.firstObject;
+    return organen.toArray();
   }
 
   /*
    * Get all the bestuursorganen in tijd of a bestuursorgaan with at least 1 political mandate.
    * @return Array of bestuursorganen in tijd ressembling the bestuursperiodes
-   * TODO: ripped from routes/mandatenbeheer.
+   * TODO: ripped from routes/mandatenbeheer (BUT MODIFIED due to probably a bug in mandatenbeheer)
    *       Extract common code once we are sure of the common pattern.
    */
   async getBestuursperioden(bestuurseenheidId) {
