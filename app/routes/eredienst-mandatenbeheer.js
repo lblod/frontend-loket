@@ -20,6 +20,9 @@ export default class EredienstMandatenbeheerRoute extends Route {
       this.router.transitionTo('index');
   }
 
+  //TODO: this was based on mandatenbeheer, but turned out we needed to modify this,
+  //     since a lot of edge cases weren't taken into account.
+  //     Most likely we just fixed bugs, and these changes should be merged back again to mandatenbeheer
   async model(params) {
     this.startDate = params.startDate;
     this.endDate = params.endDate;
