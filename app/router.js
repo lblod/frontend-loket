@@ -107,7 +107,6 @@ Router.map(function () {
       this.route('details', { path: '/:serviceId' }, function () {
         this.route('content', { path: '/inhoud' });
         this.route('properties', { path: '/eigenschappen' });
-        this.route('translations', { path: '/vertalingen' });
       });
     }
   );
