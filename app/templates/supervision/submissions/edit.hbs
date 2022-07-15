@@ -1,8 +1,8 @@
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group class="au-c-toolbar__group--row">
     <AuHeading @skin="2" class="">Bekijk aanlevering dossier</AuHeading>
-  </AuToolbarGroup>
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+  </Group>
+  <Group class="au-c-toolbar__group--row">
     <ul class="au-o-grid">
       <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
         <AuLabel>Gewijzigd door</AuLabel>
@@ -41,7 +41,7 @@
         </li>
       {{/if}}
     </ul>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
@@ -60,22 +60,22 @@
   </div>
 </div>
 
-<AuToolbar @border="top" @size="large">
+<AuToolbar @border="top" @size="large" as |Group|>
   {{#if this.model.submitted}}
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+  <Group class="au-c-toolbar__group--row">
     <AuAlert @icon="check" @title="Dossier verstuurd" @skin="success" @size="small" class="au-u-margin-bottom-none">
       <p>Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
     </AuAlert>
-  </AuToolbarGroup>
+  </Group>
   {{/if}}
   {{#if (and this.forceShowErrors (not this.isValidForm))}}
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+  <Group class="au-c-toolbar__group--row">
     <AuAlert @icon="alert-triangle" @title="Kan dossier niet versturen"  @skin="error" @size="small" class="au-u-margin-bottom-none">
       <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
     </AuAlert>
-  </AuToolbarGroup>
+  </Group>
   {{/if}}
-  <AuToolbarGroup>
+  <Group>
     {{#unless this.model.submitted}}
       <AuButton data-test-field-uri="submit-form-button"
                 @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
@@ -97,10 +97,10 @@
     {{else}}
       <AuLink @route="supervision.submissions.index" @skin="secondary">Sluit</AuLink>
     {{/unless}}
-  </AuToolbarGroup>
+  </Group>
 
   {{#unless this.model.submitted}}
-  <AuToolbarGroup>
+  <Group>
     <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
               @loading={{if this.delete.isRunning "true"}}
               @skin={{"tertiary"}}
@@ -108,6 +108,6 @@
               {{on "click" (perform this.delete)}}>
       <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
     </AuButton>
-  </AuToolbarGroup>
+  </Group>
   {{/unless}}
 </AuToolbar>

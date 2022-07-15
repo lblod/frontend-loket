@@ -2,20 +2,20 @@
 <div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
   <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
     <div class="au-c-body-container">
-      <AuToolbar @size="large">
-        <AuToolbarGroup>
+      <AuToolbar @size="large" as |Group|>
+        <Group>
           <AuHeading @skin="2">BBC DR</AuHeading>
-        </AuToolbarGroup>
-        <AuToolbarGroup>
+        </Group>
+        <Group>
           <AuButton {{on 'click' this.createNewReport}} data-test-loket='bbcdr-create-report-btn'>Lever nieuw rapport aan</AuButton>
-        </AuToolbarGroup>
+        </Group>
       </AuToolbar>
 
       <Bbcdr::ReportTable
-        @content={{this.model}} 
-        @sort={{this.sort}} 
-        @page={{this.page}} 
-        @size={{this.size}} 
+        @content={{this.model}}
+        @sort={{this.sort}}
+        @page={{this.page}}
+        @size={{this.size}}
         @displaySubset={{this.hasActiveChildRoute}}
         data-test-loket='bbcdr-report-table'
         class="au-c-body-container"

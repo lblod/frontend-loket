@@ -13,24 +13,24 @@
     </div>
   </div>
 
-  <AuToolbar @size="large">
+  <AuToolbar @size="large" as |Group|>
     {{#if (and this.forceShowErrors (not this.isValidForm))}}
-      <AuToolbarGroup class="au-c-toolbar__group--row">
+      <Group class="au-c-toolbar__group--row">
         <AuAlert @icon="alert-triangle" @title="Kan dossier niet versturen" @skin="error"
                  @size="small" @closable="true" class="au-u-margin-bottom-none">
           <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
         </AuAlert>
-      </AuToolbarGroup>
+      </Group>
     {{/if}}
     {{#if this.error}}
-      <AuToolbarGroup class="au-c-toolbar__group--row">
+      <Group class="au-c-toolbar__group--row">
         <AuAlert @icon="alert-triangle" @title="Oeps! Dit is een beetje gênant ..." @skin="error"
                  @size="small" @closable="true" class="au-u-margin-bottom-none">
           <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
         </AuAlert>
-      </AuToolbarGroup>
+      </Group>
     {{/if}}
-    <AuToolbarGroup class="au-u-margin-top-small au-u-margin-bottom-small">
+    <Group class="au-u-margin-top-small au-u-margin-bottom-small">
       <!-- DEFAULT CRUD CASE -->
       {{#if this.canSubmit }}
         <AuButton @disabled={{if (or this.saveConcept.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
@@ -148,10 +148,10 @@
           </div>
         {{/unless}}
       {{/if}}
-    </AuToolbarGroup>
+    </Group>
 
     <!-- USER NOTIFICATIONS -->
-    <AuToolbarGroup>
+    <Group>
       <ul class="au-o-grid">
         <!-- SAVING -->
         {{#if this.saveConcept.isRunning}}
@@ -194,7 +194,6 @@
           </li>
         {{/if}}
       </ul>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
-
 </div>

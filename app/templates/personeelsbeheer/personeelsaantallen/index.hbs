@@ -1,7 +1,7 @@
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">Personeelsbeheer &mdash; Overzicht aantallen</AuHeading>
-  </AuToolbarGroup>
+  </Group>
 
   {{!-- TODO     <AuAlert @icon="info-circle" @title="Actie vereist" @skin={{"warning"}} class="au-u-margin-bottom-none">
       <p>Gelieve de aantallen die niet actueel zijn voor dit jaar aan te passen.</p>
@@ -10,8 +10,8 @@
 
 <div class="au-c-body-container au-c-body-container--scroll">
   {{#each this.model.datasets as |dataset|}}
-    <AuToolbar @size="large" @border="bottom">
-      <AuToolbarGroup>
+    <AuToolbar @size="large" @border="bottom" as |Group|>
+      <Group>
         <div>
           <AuHeading @level="2" @skin="4">
             <span class="au-u-margin-right-tiny">
@@ -29,15 +29,15 @@
           </AuHeading>
           <Personeelsbeheer::EmployeeDatasetSummary @dataset={{dataset}}/>
         </div>
-      </AuToolbarGroup>
-      <AuToolbarGroup>
+      </Group>
+      <Group>
         <div class="au-u-text-right">
           <LinkTo @route="personeelsbeheer.personeelsaantallen.latest" @model={{dataset.id}} class="au-c-button au-u-margin-bottom-tiny">
             Bekijk en bewerk aantallen
             <AuIcon @icon="nav-right" @alignment="right" />
           </LinkTo>
         </div>
-      </AuToolbarGroup>
+      </Group>
     </AuToolbar>
   {{/each}}
 </div>

@@ -1,18 +1,18 @@
 {{#if this.showDefaultHead}}
-  <AuToolbar @border="bottom" @size="large">
-    <AuToolbarGroup>
+  <AuToolbar @border="bottom" @size="large" as |Group|>
+    <Group>
       {{yield}}
-    </AuToolbarGroup>
-    <AuToolbarGroup>
+    </Group>
+    <Group>
       <AuButton @skin="primary" {{on 'click' @onCreateNewPerson}}>
         Voeg iemand buiten de lijst toe
       </AuButton>.
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 {{/if}}
 
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group class="au-c-toolbar__group--row">
     <div class="au-o-grid au-o-grid--small">
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
@@ -48,7 +48,7 @@
         />
       </div>
     </div>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
@@ -129,8 +129,8 @@
   {{/if}}
 {{/unless}}
 
-<AuToolbar @border="top" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="top" @size="large" as |Group|>
+  <Group>
     <AuButton {{on 'click' this.cancel}} @skin="secondary">Annuleer</AuButton>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
