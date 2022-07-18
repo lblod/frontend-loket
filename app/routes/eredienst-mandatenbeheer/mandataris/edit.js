@@ -26,6 +26,10 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
     ).sortBy('id');
   }
 
+  model() {
+    return this.modelFor('eredienst-mandatenbeheer.mandataris');
+  }
+
   setupController(controller) {
     super.setupController(...arguments);
 
