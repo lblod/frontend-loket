@@ -26,6 +26,8 @@ export default class EredienstMandatenbeheerMandatarisContactPointsEditControlle
       }
 
       this.model.adres = newAdres || addresses.firstObject;
+    } else {
+      this.model.adres = null;
     }
 
     yield this.model.save();
