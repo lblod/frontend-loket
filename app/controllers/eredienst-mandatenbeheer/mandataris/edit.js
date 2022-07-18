@@ -10,16 +10,6 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @tracked selectedContact;
 
-  get typeHalfList() {
-    return this.store.findAll('half-election');
-  }
-
-  @action
-  async setTypeHalf(id) {
-    const typeHalf = await this.store.findRecord('half-election', id);
-    this.model.typeHalf = typeHalf;
-  }
-
   @action
   setMandaat(mandaat) {
     this.model.bekleedt = mandaat;

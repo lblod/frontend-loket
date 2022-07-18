@@ -6,7 +6,7 @@
       <AuHeading @skin="2">Bewerk mandataris</AuHeading>
       <p class="au-u-h3">
         {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
-        {{this.model.isBestuurlijkeAliasVan.achternaam ~}}
+        {{this.model.isBestuurlijkeAliasVan.achternaam~}}
 
         {{~#if this.model.bekleedt~}}
           ,
@@ -67,8 +67,8 @@
               @label={{typeHalf.label}}
               @name="type-half"
               @value={{typeHalf.id}}
-              checked={{eq this.model.typeHalf.label typeHalf.label}}
-              @onChange={{this.setTypeHalf}}
+              @onChange={{fn (mut this.model.typeHalf) typeHalf}}
+              checked={{eq this.model.typeHalf.id typeHalf.id}}
             />
           </div>
         {{/each}}

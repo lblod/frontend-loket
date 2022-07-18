@@ -18,6 +18,12 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
       'filter[mandataris][is-bestuurlijke-alias-van][id]': persoon.id,
       include: 'adres',
     });
+
+    this.typeHalfList = (
+      await this.store.findAll('half-election', {
+        reload: true,
+      })
+    ).sortBy('id');
   }
 
   setupController(controller) {
@@ -25,5 +31,6 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
 
     controller.bestuursorganen = this.bestuursorganen;
     controller.contactList = this.contacts;
+    controller.typeHalfList = this.typeHalfList;
   }
 }
