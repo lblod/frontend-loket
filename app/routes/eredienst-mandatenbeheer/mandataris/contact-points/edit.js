@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class EredienstMandatenbeheerMandatarisContactPointsEditRoute extends Route {
+  @service store;
+
   async model(params) {
     let contactPoint = await this.store.findRecord(
       'contact-punt',

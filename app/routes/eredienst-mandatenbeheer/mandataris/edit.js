@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 
 export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service currentSession;
+  @service store;
 
   async beforeModel() {
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
