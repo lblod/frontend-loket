@@ -14,7 +14,7 @@ export default class EredienstMandatenbeheerMandatarisContactPointsEditControlle
     if (this.adres) {
       const addresses = yield this.store.query('adres', {
         filter: {
-          'volledig-adres': this.adres.volledigAdres,
+          'adres-register-uri': this.adres.adresRegisterUri,
         },
       });
 
