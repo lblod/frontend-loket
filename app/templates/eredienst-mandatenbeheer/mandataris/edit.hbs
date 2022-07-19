@@ -18,12 +18,19 @@
 
   <Group>
     <AuButtonGroup>
-      <AuButton {{on "click" this.onSave}}>
+      <AuButton
+        @disabled={{this.save.isRunning}}
+        @loading={{this.save.isRunning}}
+        {{on "click" (perform this.save)}}
+      >
         Wijzigingen opslaan
       </AuButton>
-      <AuButton {{on "click" this.onCancel}} @skin="secondary">
+      <AuLink
+        @route="eredienst-mandatenbeheer.mandatarissen"
+        @skin="button-secondary"
+      >
         Annuleer
-      </AuButton>
+      </AuLink>
     </AuButtonGroup>
   </Group>
 </AuToolbar>
