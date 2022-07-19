@@ -8,7 +8,7 @@
         @type="number"
         id="observation-{{id}}"
         step={{this.step}}
-        {{on "focusout" (fn this.setValue this.observation.value)}}
+        {{on "focusout" this.setValue}}
       />
     {{/let}}
   {{else}}

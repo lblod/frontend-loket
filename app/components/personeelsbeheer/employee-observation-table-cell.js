@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
-// TODO : Fix the NaN warning when unfocus on empty cells
-
 export default class EmployeeObservationTableCell extends Component {
   tagName = '';
 
@@ -54,14 +52,15 @@ export default class EmployeeObservationTableCell extends Component {
   }
 
   @action
-  setValue(value) {
-    if (value < 0 || value === '') value = 0;
+  setValue(event) {
+    if (event.target.value < 0 || event.target.value === '')
+      event.target.value = 0;
 
     if (this.isFloat) {
-      const float = Number.parseFloat(value).toFixed(2);
+      const float = Number.parseFloat(event.target.value).toFixed(2);
       this.observation.value = float;
     } else {
-      const int = Math.ceil(value);
+      const int = Math.ceil(event.target.value);
       this.observation.value = int;
     }
     this.saveChange(this.observation);
