@@ -1,18 +1,21 @@
-/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/require-tagless-components, ember/no-component-lifecycle-hooks, ember/no-get */
-import { get } from '@ember/object';
-import Component from '@ember/component';
-import { task, all } from 'ember-concurrency';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { all, keepLatestTask } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
 
-export default Component.extend({
-  store: service(),
+export default class EmployeeDatasetSummary extends Component {
+  @service store;
 
-  didReceiveAttrs() {
-    this._super(...arguments);
+  @tracked summary;
+  @tracked dataset;
+
+  constructor() {
+    super(...arguments);
+    this.dataset = this.args.dataset;
     if (this.dataset) this.calculateTotals.perform();
-  },
+  }
 
-  calculateTotals: task(function* () {
+  @keepLatestTask *calculateTotals() {
     const periods = yield this.store.query('employee-period-slice', {
       page: { size: 1 },
       sort: '-time-period.start',
@@ -36,10 +39,10 @@ export default Component.extend({
             return acc + parseFloat(obs.value || 0);
           }, 0);
 
-          let datasetSubjects = await get(this, 'dataset.subjects');
+          let datasetSubjects = await this.dataset.subjects;
 
-          const isFloat = get(datasetSubjects, 'firstObject')
-            ? get(datasetSubjects, 'firstObject.isFTE')
+          const isFloat = datasetSubjects.firstObject
+            ? datasetSubjects.firstObject.isFTE
             : false;
 
           if (isFloat) total = total.toFixed(2);
@@ -49,9 +52,9 @@ export default Component.extend({
         })
       );
 
-      this.set('summary', summary);
+      this.summary = summary;
     } else {
-      this.set('summary', []);
+      this.summary = [];
     }
-  }).keepLatest(),
-});
+  }
+}
