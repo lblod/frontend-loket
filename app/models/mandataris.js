@@ -18,5 +18,5 @@ export default class MandatarisModel extends AgentInPosition {
   @hasMany('mandataris', { inverse: null }) tijdelijkeVervangingen;
   @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
   @belongsTo('mandataris-status-code', { inverse: null }) status;
-  @hasMany('contact-punt') contactPoints;
+  @hasMany('contact-punt', { inverse: 'mandataris' }) contactPoints;
 }

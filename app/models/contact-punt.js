@@ -2,6 +2,7 @@ import Model, { attr, belongsTo } from '@ember-data/model';
 
 export default class ContactPuntModel extends Model {
   @attr uri;
+  @attr type;
   @attr aanschrijfprefix;
   @attr email;
   @attr fax;

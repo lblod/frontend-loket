@@ -1,6 +1,6 @@
 import Model, { belongsTo, hasMany } from '@ember-data/model';
 
 export default class AgentInPositionModel extends Model {
-  @belongsTo('post') post;
-  @hasMany('contact-punt') contacts;
+  @belongsTo('post', { inverse: null }) post;
+  @hasMany('contact-punt', { inverse: null }) contacts;
 }
