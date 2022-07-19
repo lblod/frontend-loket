@@ -1,49 +1,69 @@
-/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/no-component-lifecycle-hooks, ember/no-actions-hash */
-import Component from '@ember/component';
-import { reads } from '@ember/object/computed';
-import { conditional, raw } from 'ember-awesome-macros';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  tagName: '',
+// TODO : Fix the NaN warning when unfocus on empty cells
 
-  isFloat: reads('observation.unitMeasure.isFTE'),
-  step: conditional('isFloat', raw(0.01), raw(1)),
+export default class EmployeeObservationTableCell extends Component {
+  tagName = '';
 
-  didReceiveAttrs() {
-    this._super(...arguments);
+  isFloat;
+  handleOnChange;
+
+  constructor() {
+    super(...arguments);
+    const {
+      observations,
+      unitMeasure,
+      educationalLevel,
+      workingTimeCategory,
+      legalStatus,
+      sex,
+      onChange,
+    } = this.args;
+
+    this.handleOnChange = onChange;
+
     if (
-      this.observations &&
-      this.unitMeasure &&
-      this.educationalLevel &&
-      this.workingTimeCategory &&
-      this.legalStatus &&
-      this.sex
+      observations &&
+      unitMeasure &&
+      educationalLevel &&
+      workingTimeCategory &&
+      legalStatus &&
+      sex
     ) {
-      const observation = this.observations.find(
+      const observation = observations.find(
         (obs) =>
-          obs.unitMeasure.get('uri') == this.unitMeasure.get('uri') &&
-          obs.educationalLevel.get('uri') == this.educationalLevel.get('uri') &&
+          obs.unitMeasure.get('uri') == unitMeasure.get('uri') &&
+          obs.educationalLevel.get('uri') == educationalLevel.get('uri') &&
           obs.workingTimeCategory.get('uri') ==
-            this.workingTimeCategory.get('uri') &&
-          obs.legalStatus.get('uri') == this.legalStatus.get('uri') &&
-          obs.sex.get('uri') == this.sex.get('uri')
+            workingTimeCategory.get('uri') &&
+          obs.legalStatus.get('uri') == legalStatus.get('uri') &&
+          obs.sex.get('uri') == sex.get('uri')
       );
-      this.set('observation', observation);
+      this.observation = observation;
     }
-  },
+    this.isFloat = this.observation.unitMeasure.get('isFTE');
+  }
 
-  actions: {
-    setValue(value) {
-      if (value < 0 || value === '') value = 0;
+  get step() {
+    return this.isFloat ? 0.01 : 1;
+  }
 
-      if (this.isFloat) {
-        const float = Number.parseFloat(value).toFixed(2);
-        this.observation.set('value', float);
-      } else {
-        const int = Math.ceil(value);
-        this.observation.set('value', int);
-      }
-      this.onChange(this.observation);
-    },
-  },
-});
+  saveChange(change) {
+    this.handleOnChange(change);
+  }
+
+  @action
+  setValue(value) {
+    if (value < 0 || value === '') value = 0;
+
+    if (this.isFloat) {
+      const float = Number.parseFloat(value).toFixed(2);
+      this.observation.value = float;
+    } else {
+      const int = Math.ceil(value);
+      this.observation.value = int;
+    }
+    this.saveChange(this.observation);
+  }
+}
