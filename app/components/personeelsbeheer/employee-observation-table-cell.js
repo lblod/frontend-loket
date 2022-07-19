@@ -53,14 +53,15 @@ export default class EmployeeObservationTableCell extends Component {
 
   @action
   setValue(event) {
-    if (event.target.value < 0 || event.target.value === '')
-      event.target.value = 0;
+    let { value } = event.target;
+    console.log(value);
+    if (value < 0 || value === '') value = 0;
 
     if (this.isFloat) {
-      const float = Number.parseFloat(event.target.value).toFixed(2);
+      const float = Number.parseFloat(value).toFixed(2);
       this.observation.value = float;
     } else {
-      const int = Math.ceil(event.target.value);
+      const int = Math.ceil(value);
       this.observation.value = int;
     }
     this.saveChange(this.observation);
