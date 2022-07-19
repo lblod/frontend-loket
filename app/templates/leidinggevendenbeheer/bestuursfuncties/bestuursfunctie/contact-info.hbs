@@ -1,7 +1,7 @@
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">Bewerk algemene contactgegevens {{this.bestuursfunctie.rol.label}} {{this.bestuurseenheid.naam}}</AuHeading>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
@@ -36,18 +36,18 @@
   </div>
 </div>
 
-<AuToolbar @border="top" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="top" @size="large" as |Group|>
+  <Group>
     <AuButton {{on "click" (perform this.save)}} @loading={{not this.save.isIdle}}>
       Bewaar contactgegevens
     </AuButton>
     <AuButton {{on "click" (perform this.resetChanges)}} @skin="secondary" @disabled={{not this.isDirty}}>
       Verwerp wijzigingen
     </AuButton>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
+  </Group>
+  <Group>
     <AuButton {{on 'click' this.cancel}} @skin="secondary">Sluit</AuButton>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 {{#if this.showConfirmationDialog}}

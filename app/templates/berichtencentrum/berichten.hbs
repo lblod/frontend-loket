@@ -3,16 +3,16 @@
 <div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
   <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
     <div class="au-c-body-container" tabindex="0">
-      <AuToolbar @size="large">
-        <AuToolbarGroup>
+      <AuToolbar @size="large" as |Group|>
+        <Group>
           <AuHeading @skin="2">Berichtencentrum</AuHeading>
-        </AuToolbarGroup>
-        <AuToolbarGroup>
+        </Group>
+        <Group>
           <button type="button" class="au-c-button au-c-button--tertiary" data-test-loket="berichtencentrum-setting-email-button" {{on 'click' this.showPreferences}}>
             <AuIcon @icon="settings" @alignment="left" />
             Ontvang mails bij nieuwe berichten
           </button>
-        </AuToolbarGroup>
+        </Group>
 
         <!-- Hiding search options b/c they're not implemented yet -->
   {{!--         <div class="grid u-hidden-mobile u-hidden">

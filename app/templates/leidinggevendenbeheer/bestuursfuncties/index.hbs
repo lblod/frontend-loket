@@ -1,9 +1,9 @@
 {{page-title "Leidinggevendenbeheer" " " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
 
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">Leidinggevendenbeheer{{if this.allowed " — Overzicht functies"}}</AuHeading>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">

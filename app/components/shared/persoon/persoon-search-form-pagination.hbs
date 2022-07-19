@@ -1,5 +1,5 @@
-<AuToolbar @size="medium" @border="top">
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+<AuToolbar @size="medium" @border="top" as |Group|>
+  <Group class="au-c-toolbar__group--row">
     <div class="au-c-pagination">
       <ul class="au-c-pagination__list">
         <li class="au-c-pagination__list-item">
@@ -27,5 +27,5 @@
         {{/if}}
       </ul>
     </div>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
