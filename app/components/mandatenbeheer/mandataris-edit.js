@@ -77,10 +77,7 @@ export default Component.extend({
       this.get('mandataris.beleidsdomein').setObjects(this.beleidsdomeinen);
       this.set('mandataris.start', this.startDate);
       this.set('mandataris.einde', this.endDate);
-
-      if (this.rangorde) this.set('mandataris.rangorde', this.rangorde);
-      else this.set('mandataris.rangorde', undefined);
-
+      this.set('mandataris.rangorde', this.rangorde);
       this.set('mandataris.status', this.status);
 
       return yield this.mandataris.save();
