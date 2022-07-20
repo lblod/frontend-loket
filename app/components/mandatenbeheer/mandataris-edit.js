@@ -46,7 +46,7 @@ export default Component.extend({
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
-    this.set('rangorde', this.get('mandataris.rangorde.content'));
+    this.set('rangorde', this.get('mandataris.rangorde'));
     this.set('status', await this.get('mandataris.status'));
   },
 
@@ -78,11 +78,7 @@ export default Component.extend({
       this.set('mandataris.start', this.startDate);
       this.set('mandataris.einde', this.endDate);
 
-      if (this.rangorde)
-        this.set('mandataris.rangorde', {
-          content: this.rangorde,
-          language: 'nl',
-        });
+      if (this.rangorde) this.set('mandataris.rangorde', this.rangorde);
       else this.set('mandataris.rangorde', undefined);
 
       this.set('mandataris.status', this.status);

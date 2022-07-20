@@ -1,7 +1,7 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class MandatarisModel extends Model {
-  @attr('language-string') rangorde;
+  @attr('string') rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
   @belongsTo('mandaat', { inverse: null }) bekleedt;
