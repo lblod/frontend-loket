@@ -7,19 +7,17 @@ export default class EmployeeDatasetSummary extends Component {
   @service store;
 
   @tracked summary;
-  @tracked dataset;
 
   constructor() {
     super(...arguments);
-    this.dataset = this.args.dataset;
-    if (this.dataset) this.calculateTotals.perform();
+    if (this.args.dataset) this.calculateTotals.perform();
   }
 
   @keepLatestTask *calculateTotals() {
     const periods = yield this.store.query('employee-period-slice', {
       page: { size: 1 },
       sort: '-time-period.start',
-      'filter[dataset][id]': this.dataset.id,
+      'filter[dataset][id]': this.args.dataset.id,
     });
     const latestPeriod = periods.firstObject;
 
@@ -39,7 +37,7 @@ export default class EmployeeDatasetSummary extends Component {
             return acc + parseFloat(obs.value || 0);
           }, 0);
 
-          let datasetSubjects = await this.dataset.subjects;
+          let datasetSubjects = await this.args.dataset.subjects;
 
           const isFloat = datasetSubjects.firstObject
             ? datasetSubjects.firstObject.isFTE

@@ -1,22 +1,16 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
 import { keepLatestTask } from 'ember-concurrency';
 
 export default class EmployeePeriodSliceTable extends Component {
-  tagName = '';
-
   @service store;
-
-  @tracked observations;
 
   constructor() {
     super(...arguments);
-    const { observations, onChangeObservation } = this.args;
+    const { observations } = this.args;
     this.observations = observations;
-    this.onChange = onChangeObservation;
-    if (observations) this.initTable.perform();
     this.isFTEDataset = observations.firstObject.unitMeasure.get('isFTE');
+    if (observations) this.initTable.perform();
   }
 
   @keepLatestTask *initTable() {

@@ -6,8 +6,6 @@ const aggregate = function (aggregations, obs) {
   }, true);
 };
 export default class EmployeeObservationTableTotal extends Component {
-  tagName = '';
-
   get total() {
     const isFloat = this.args.observations.firstObject.unitMeasure.get('isFTE');
     if (this.args.observations && this.args.aggregations) {

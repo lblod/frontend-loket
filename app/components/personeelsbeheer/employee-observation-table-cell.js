@@ -2,11 +2,6 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class EmployeeObservationTableCell extends Component {
-  tagName = '';
-
-  isFloat;
-  handleOnChange;
-
   constructor() {
     super(...arguments);
     const {
@@ -16,10 +11,7 @@ export default class EmployeeObservationTableCell extends Component {
       workingTimeCategory,
       legalStatus,
       sex,
-      onChange,
     } = this.args;
-
-    this.handleOnChange = onChange;
 
     if (
       observations &&
@@ -47,14 +39,9 @@ export default class EmployeeObservationTableCell extends Component {
     return this.isFloat ? 0.01 : 1;
   }
 
-  saveChange(change) {
-    this.handleOnChange(change);
-  }
-
   @action
   setValue(event) {
     let { value } = event.target;
-    console.log(value);
     if (value < 0 || value === '') value = 0;
 
     if (this.isFloat) {
@@ -64,6 +51,6 @@ export default class EmployeeObservationTableCell extends Component {
       const int = Math.ceil(value);
       this.observation.value = int;
     }
-    this.saveChange(this.observation);
+    this.args.onChange(this.observation);
   }
 }

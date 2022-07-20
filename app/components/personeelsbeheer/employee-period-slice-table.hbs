@@ -3,7 +3,7 @@
   <table class="au-c-table au-c-table--zebra">
     <thead>
       <tr>
-        <th rowspan="3" style={{html-safe (concat "min-width: 10rem; max-width: 13rem;")}}>Niveau</th>
+        <th rowspan="3" style="min-width: 10rem; max-width: 13rem;" {{!template-lint-disable no-inline-styles}}>Niveau</th>
         {{#each this.workingTimeCategories as |category|}}
           <th colspan="4">{{category.label}}</th>
         {{/each}}
@@ -41,7 +41,7 @@
     <tbody>
       {{#each this.educationalLevels as |level|}}
         <tr>
-          <th style={{html-safe (concat "max-width: 13rem")}} class="au-u-no-wrap">{{level.label}}</th>
+          <th style="max-width: 13rem" class="au-u-no-wrap" {{!template-lint-disable no-inline-styles}}>{{level.label}}</th>
           {{#each this.workingTimeCategories as |category|}}
             {{#each this.legalStatuses as |status|}}
               {{#each this.sexes as |sex|}}
@@ -67,7 +67,7 @@
       {{/each}}
 
       <tr>
-        <th style={{html-safe (concat "max-width: 12rem")}}>Totaal</th>
+        <th style="max-width: 12rem" {{!template-lint-disable no-inline-styles}}>Totaal</th>
         {{#each this.workingTimeCategories as |category|}}
           {{#each this.legalStatuses as |status|}}
             {{#each this.sexes as |sex|}}
@@ -84,7 +84,7 @@
         <th><strong>{{this.total}}</strong></th>
       </tr>
       <tr>
-        <th style={{html-safe (concat "max-width: 12rem")}}>Totaal</th>
+        <th style="max-width: 12rem" {{!template-lint-disable no-inline-styles}}>Totaal</th>
         {{#each this.workingTimeCategories as |category|}}
           {{#each this.legalStatuses as |status|}}
             <th colspan="2">
@@ -99,7 +99,7 @@
         <th><strong>{{this.total}}</strong></th>
       </tr>
       <tr>
-        <th style={{html-safe (concat "max-width: 12rem")}}>Totaal</th>
+        <th style="max-width: 12rem" {{!template-lint-disable no-inline-styles}}>Totaal</th>
         {{#each this.workingTimeCategories as |category|}}
           <th colspan="4">
             <Personeelsbeheer::EmployeeObservationTableTotal
