@@ -13,9 +13,14 @@
       <span class="au-u-hidden-visually">Venster sluiten</span>
     </button>
   </AuToolbar>
-  <AuToolbar class="au-u-margin-bottom-small">
-      <AuHeading @level="2" @skin="3"  data-test-loket="berichtencentrum-header-type-communicatie">{{@conversatie.typeCommunicatie}}</AuHeading>
-  </AuToolbar>
+  <AuHeading
+    @level="2"
+    @skin="3"
+    class="au-u-margin-bottom-small"
+    data-test-loket="berichtencentrum-header-type-communicatie"
+  >
+    {{@conversatie.currentTypeCommunicatie}}
+  </AuHeading>
   <div class="grid u-spacer--small">
     <div class="col--12-12">
       <div class="au-c-content" data-test-loket="berichtencentrum-header-betreft">
