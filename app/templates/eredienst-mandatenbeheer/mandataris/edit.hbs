@@ -121,12 +121,12 @@
             <td>{{contact.adres.provincie}}</td>
             <td>{{contact.email}}</td>
             <td>{{contact.telefoon}}</td>
-            <td></td>
+            <td>{{contact.secondaryContactPoint.telefoon}}</td>
             <td>
-              <AuControlRadio
+              <AuControlCheckbox
                 @value={{contact.id}}
                 @name="contact"
-                @onChange={{fn (mut this.selectedContact) contact}}
+                @onChange={{fn this.handleContactChange contact}}
                 checked={{eq contact.id this.selectedContact.id}}
               />
             </td>

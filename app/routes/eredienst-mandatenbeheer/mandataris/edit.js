@@ -1,5 +1,9 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import {
+  CONTACT_TYPE,
+  findPrimaryContactPoint,
+} from 'frontend-loket/models/contact-punt';
 
 export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service currentSession;
@@ -14,9 +18,13 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
     );
     const persoon = await mandataris.isBestuurlijkeAliasVan;
 
+    let positionContacts = await mandataris.contacts;
+    this.selectedContact = findPrimaryContactPoint(positionContacts);
+
     this.contacts = await this.store.query('contact-punt', {
-      'filter[mandataris][is-bestuurlijke-alias-van][id]': persoon.id,
-      include: 'adres',
+      'filter[agents-in-position][is-bestuurlijke-alias-van][id]': persoon.id,
+      'filter[type]': CONTACT_TYPE.PRIMARY,
+      include: 'adres,secondary-contact-point',
     });
 
     this.typeHalfList = (
@@ -36,5 +44,6 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
     controller.bestuursorganen = this.bestuursorganen;
     controller.contactList = this.contacts;
     controller.typeHalfList = this.typeHalfList;
+    controller.selectedContact = this.selectedContact;
   }
 }
