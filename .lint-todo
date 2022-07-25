@@ -90,3 +90,5 @@ add|ember-template-lint|no-html-comments|176|8|176|8|08f6fb89e624ced332e22803d2f
 add|ember-template-lint|no-html-comments|186|8|186|8|b22a97a8e2d6a0b2c0b6630b09f0b9cae9d86a89|1649980800000|||app/templates/subsidy/applications/edit/step/edit.hbs
 add|ember-template-lint|simple-unless|134|8|134|8|02b279bc993a1ee6632c7e6edf341a2aabc519cb|1649980800000|||app/templates/subsidy/applications/edit/step/edit.hbs
 add|ember-template-lint|no-action|11|24|11|24|ddedce34a8333bd81cbc747afcadd4a6a78eac1d|1650931200000|||app/components/personeelsbeheer/employee-observation-table-cell.hbs
+remove|ember-template-lint|no-action|11|41|11|41|5de42254dc8f13fe8065c6a49238adab52d87cd6|1650412800000|||app/components/shared/persoon/persoon-search-form-pagination.hbs
+remove|ember-template-lint|no-action|20|41|20|41|ee7587da2f9edf362804b746083101ae33f681e7|1650412800000|||app/components/shared/persoon/persoon-search-form-pagination.hbs
