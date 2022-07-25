@@ -2,18 +2,8 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class PersoonSearchFormPagination extends Component {
-  classNames = ['data-table-pagination'];
-
-  constructor() {
-    super(...arguments);
-  }
-
   get currentPage() {
-    if (this.args.page) {
-      if (this.args.links.self.number !== this.args.page) return 1;
-      return parseInt(this.args.page) + 1;
-    }
-    return 1;
+    return this.args.page ? parseInt(this.args.page) + 1 : 1;
   }
 
   get firstPage() {
