@@ -7,6 +7,7 @@ import { observer } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 export default Component.extend({
   tag: 'li',
@@ -246,7 +247,9 @@ export default Component.extend({
     },
 
     handleDateChange(propName, isoDate, date) {
-      this.set(propName, date);
+      //Convert to desired (Belgian) timezone
+      const converted = zonedTimeToUtc(date, 'Europe/Brussels');
+      this.set(propName, converted);
     },
 
     async save() {
