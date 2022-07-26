@@ -10,6 +10,8 @@ export default class EredienstMandatenbeheerMandatarisContactPointsNewRoute exte
 
     controller.adres = null;
     controller.telephone = '';
+    controller.secondaryTelephone = '';
     controller.email = '';
+    controller.hasError = false;
   }
 }

@@ -14,16 +14,41 @@
     </div>
     <div class="au-u-margin-bottom-small au-u-2-3@medium">
       <label class="au-c-label" for="telephone">
-        Telefoonnummer
+        Primair telefoonnummer
       </label>
       <AuInput id="telephone" @width="block" @value={{this.telephone}} />
     </div>
-    <div class="au-u-margin-bottom-small">
+    <div class="au-u-margin-bottom-small au-u-2-3@medium">
+      <label class="au-c-label" for="secondary-telephone">
+        Secundair telefoonnummer
+      </label>
+      <AuInput
+        id="secondary-telephone"
+        @width="block"
+        @value={{this.secondaryTelephone}}
+      />
+    </div>
+    <div class="au-u-margin-bottom">
       <AdressenregisterSelector
         @address={{this.adres}}
         @onChange={{fn (mut this.adres)}}
       />
     </div>
+
+    {{#if this.showErrorMessage}}
+      <AuAlert
+        @title={{this.title}}
+        @skin="error"
+        @icon="cross"
+        @size="small"
+        class="au-u-2-3@medium"
+      >
+        <p>
+          Gelieve minstens het "E-mail", "Primair telefoonnummer" of "Adres"
+          veld in te vullen.
+        </p>
+      </AuAlert>
+    {{/if}}
   </div>
 </div>
 
