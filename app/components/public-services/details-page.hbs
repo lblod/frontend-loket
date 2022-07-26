@@ -22,7 +22,7 @@
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
     <AuButtonGroup>
-      <AuButton @disabled={{this.saveSemanticForm.isRunning}}>
+      <AuButton {{on "click" this.sending}} @disabled={{this.saveSemanticForm.isRunning}}>
         Verzend naar Vlaamse overheid
       </AuButton>
 
@@ -59,3 +59,24 @@
     </AuButton>
   </Group>
 </AuToolbar>
+
+<AuModal
+  @modalOpen={{this.submitToGoverment}}
+  @closeModal={{this.sending}}
+  @size="small"
+>
+  <:title>Verzend naar Vlaamse overheid</:title>
+  <:body>
+    <p>Ben je zeker dat je dit product wil versturen naar de Vlaamse overheid? Deze actie kan je niet ongedaan maken.</p>
+    <p>Als je nieuwe wijzigingen doet kan je die steeds opnieuw versturen.</p>
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton @disabled={{this.saveSemanticForm.isRunning}}
+        @loading={{this.saveSemanticForm.isRunning}}
+        form={{this.id}}
+        type="submit">Verzend naar Vlaamse overheid</AuButton>
+      <AuButton @skin="secondary" {{on "click" this.sending}}>Annuleer</AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>

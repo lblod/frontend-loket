@@ -1,3 +1,8 @@
+{{#if @submitted}}
+<AuPill @skin="success">
+  Verzonden
+</AuPill>
+{{else}}
 <AuPill @skin={{this.statusSkin}}>
   {{#if (eq yield Concept)}}
   Ontwerp
@@ -5,3 +10,4 @@
   {{yield}}
   {{/if}}
 </AuPill>
+{{/if}}
