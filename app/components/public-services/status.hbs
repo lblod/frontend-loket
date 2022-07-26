@@ -4,8 +4,8 @@
 </AuPill>
 {{else}}
 <AuPill @skin={{this.statusSkin}}>
-  {{#if (eq yield Concept)}}
-  Ontwerp
+  {{#if this.label}}
+    {{this.label}}
   {{else}}
   {{yield}}
   {{/if}}
