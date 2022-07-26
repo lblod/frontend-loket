@@ -1,3 +1,7 @@
 <AuPill @skin={{this.statusSkin}}>
+  {{#if (eq yield Concept)}}
+  Ontwerp
+  {{else}}
   {{yield}}
+  {{/if}}
 </AuPill>
