@@ -65,6 +65,7 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
     };
     this.queryParams = queryParams;
     this.personen = yield this.getPersoon.perform(queryParams);
+    if (this.personen.meta.pagination.self.number !== this.page) this.page = 0;
   }
 
   @task
@@ -82,7 +83,7 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   }
 
   @action
-  async selectPage(page) {
+  async selectPage(page = 0) {
     this.page = page;
     let queryParams = this.queryParams;
     queryParams['page'] = { number: page };
