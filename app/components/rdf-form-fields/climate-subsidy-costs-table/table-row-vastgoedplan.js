@@ -65,11 +65,11 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowVastgoedplanCo
 
   get indication() {
     if (this.populationCount < 25000) {
-      return 15000;
+      return 16350;
     } else if (this.populationCount >= 25000 && this.populationCount < 100000) {
-      return 40000;
+      return 43600;
     } else {
-      return 60000;
+      return 65400;
     }
   }
 
