@@ -14,10 +14,10 @@
         <Adres.BusSelector />
       </td>
     </AdressenregisterSelector>
-    <td>
-      {{! TODO: Implement province selection }}
+    {{! TODO: Implement province selection }}
+    {{!-- <td>
       {{@adres.provincie}}
-    </td>
+    </td> --}}
     <td>
       <AuInput
         @width="block"
@@ -57,7 +57,7 @@
   <tr>
     <td>{{@adres.volledigAdres}}</td>
     <td>{{@adres.busnummer}}</td>
-    <td>{{@adres.provincie}}</td>
+    {{!-- <td>{{@adres.provincie}}</td> --}}
     <td>{{@contact.email}}</td>
     <td>{{@contact.telefoon}}</td>
     <td>{{@secondaryContact.telefoon}}</td>
