@@ -25,7 +25,7 @@ export default class ConceptualPublicServiceModel extends Model {
   sectors;
 
   get nameNl() {
-    if (this.name.length) {
+    if (this.name && this.name.length) {
       const nameNl = this.name.find((name) => name.language == 'nl');
       if (nameNl) {
         return nameNl.content;
