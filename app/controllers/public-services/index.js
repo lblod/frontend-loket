@@ -48,7 +48,7 @@ export default class PublicServicesIndexController extends Controller {
   get hasErrored() {
     return this.model.loadPublicServices.isError;
   }
-  
+
   @dropTask
   *addNewProduct() {
     let publicService = this.store.createRecord('public-service');
