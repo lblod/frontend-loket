@@ -24,11 +24,11 @@
       @allowClear={{true}}
     />
     <AuButton
-      @route="public-services.add"
       @icon="add"
       @iconAlignment="left"
       @skin="button"
-      @disabled={{this.addNewService.isRunning}}
+      @disabled={{this.addNewProduct.isRunning}}
+      @loading={{this.addNewProduct.isRunning}}
       {{on "click" (perform this.addNewProduct)}}
     >
       Product toevoegen
