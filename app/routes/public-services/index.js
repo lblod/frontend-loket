@@ -39,7 +39,7 @@ export default class PublicServicesIndexRoute extends Route {
   *loadPublicServicesTask({ search, sector, page, sort }) {
     let query = {
       'page[number]': page,
-      include: 'sectors,status',
+      include: 'sectors,status,lifecycle-status',
       // TODO: Filter the results so only public services for the current organization are returned
     };
 

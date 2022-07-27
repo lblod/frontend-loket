@@ -70,6 +70,11 @@
         @label="Sector"
       />
       <AuDataTableThSortable
+        @field=""
+        @currentSorting={{this.sort}}
+        @label="Status dienstverlening"
+      />
+      <AuDataTableThSortable
         @field="modified"
         @currentSorting={{this.sort}}
         @label="Laatst bewerkt"
@@ -82,7 +87,7 @@
       <AuDataTableThSortable
         @field=""
         @currentSorting={{this.sort}}
-        @label="Status"
+        @label="Status Document"
       />
       <th class="u-table-cell-shrink-content">
         <span class="au-u-hidden-visually">Product of dienst bewerken</span>
@@ -114,6 +119,13 @@
         <td>{{{publicService.nameNl}}}</td>
         <td>{{publicService.identifier}}</td>
         <td>{{publicService.sector.name}}</td>
+        <td>
+          <PublicServices::Status
+            @uri={{publicService.lifecycleStatus.uri}}
+          >
+            {{publicService.lifecycleStatus.label}}
+          </PublicServices::Status>
+        </td>
         <td>
           {{moment-format publicService.modified "DD-MM-YYYY - HH:mm"}}
         </td>

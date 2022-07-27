@@ -19,6 +19,11 @@ export default class ConceptualPublicServiceModel extends Model {
   })
   status;
 
+   @belongsTo('concept', {
+    inverse: null,
+  })
+  lifecycleStatus;
+
   @hasMany('concept', {
     inverse: null,
   })
