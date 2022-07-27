@@ -98,18 +98,20 @@
                 </c.footer>
               </AuCard>
             </div>
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="user-fill">
-                  <AuHeading @level="3" @skin="4">
-                    Eredienst mandatenbeheer
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de erediensten bij.</p>
-                </c.content>
-              </AuCard>
-            </div>
+            {{#if (is-feature-enabled "eredienst-mandatenbeheer")}}
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="user-fill">
+                    <AuHeading @level="3" @skin="4">
+                      Eredienst mandatenbeheer
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Hou de mandaten binnen de erediensten bij.</p>
+                  </c.content>
+                </AuCard>
+              </div>
+            {{/if}}
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
               <AuCard @textCenter="true" as |c|>
                 <c.header @badgeSkin="brand" @badgeIcon="user-popup">
