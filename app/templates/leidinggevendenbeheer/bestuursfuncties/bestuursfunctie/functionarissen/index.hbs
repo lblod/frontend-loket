@@ -1,19 +1,19 @@
 {{page-title this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam " " this.bestuursfunctie.rol.label}}
 
-<AuToolbar @size="large" class="au-u-padding-bottom-none">
-  <AuToolbarGroup>
+<AuToolbar @size="large" class="au-u-padding-bottom-none" as |Group|>
+  <Group>
     <AuHeading @skin="2">Bekijk en bewerk aanstellingsperiode</AuHeading>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
+  </Group>
+  <Group>
     <AuButton {{on 'click' this.handleVoegNieuweAanstellingsperiodeClick}}>
       <AuIcon @icon="add" @alignment="left" />
       Voeg nieuwe aanstellingsperiode toe
     </AuButton>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
-<AuToolbar @size="large">
-  <AuToolbarGroup>
+<AuToolbar @size="large" as |Group|>
+  <Group>
     <ul class="au-c-list-horizontal">
       <li class="au-c-list-horizontal__item">
         {{#if this.bestuursfunctie.contactinfo.email}}
@@ -43,7 +43,7 @@
         </LinkTo>
       </li>
     </ul>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <Leidinggevendenbeheer::FunctionarisTable

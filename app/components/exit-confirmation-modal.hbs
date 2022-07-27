@@ -11,8 +11,8 @@
     </p>
   </Modal.Body>
   <Modal.Footer>
-    <AuToolbar>
-      <AuToolbarGroup>
+    <AuToolbar as |Group|>
+      <Group>
         <AuButtonGroup>
           <AuButton {{on "click" @onSave}}>
             Bewaar
@@ -21,8 +21,8 @@
             Annuleer
           </AuButton>
         </AuButtonGroup>
-      </AuToolbarGroup>
-      <AuToolbarGroup>
+      </Group>
+      <Group>
         <AuButton
           @skin="link-secondary"
           @icon="cross"
@@ -31,7 +31,7 @@
         >
           Verwerp wijzigingen
         </AuButton>
-      </AuToolbarGroup>
+      </Group>
     </AuToolbar>
   </Modal.Footer>
 </AuModal>

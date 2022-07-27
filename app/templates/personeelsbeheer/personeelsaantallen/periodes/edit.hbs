@@ -1,13 +1,13 @@
 
 <div class="au-c-body-container">
-  <AuToolbar @border="bottom" @size="large">
-    <AuToolbarGroup>
+  <AuToolbar @border="bottom" @size="large" as |Group|>
+    <Group>
       {{!-- {{#link-to 'personeelsbeheer.personeelsaantallen.index' class="link link--dark smaller"}}
         &leftarrow; Terug naar personeelsbeheer overzicht
       {{/link-to}} --}}
       <AuHeading @skin="2">Personeelsbeheer &mdash; {{this.dataset.title}}</AuHeading>
-    </AuToolbarGroup>
-    <AuToolbarGroup>
+    </Group>
+    <Group>
       {{#if this.save.last.isError}}
         <AuAlert @icon="info-circle" @title="Wijzigingen niet opgeslagen, probeer later opnieuw." @skin={{"error"}} @size={{"small"}}>
         </AuAlert>
@@ -27,7 +27,7 @@
           </p>
         {{/if}}
       {{/if}}
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 
   <div class="au-c-body-container au-c-body-container--scroll">

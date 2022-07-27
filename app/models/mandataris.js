@@ -3,7 +3,7 @@ import AgentInPosition from './agent-in-position';
 
 // INHERITS FROM AGENT-IN-POSITION
 export default class MandatarisModel extends AgentInPosition {
-  @attr('language-string') rangorde;
+  @attr rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
   @belongsTo('mandaat', { inverse: null }) bekleedt;

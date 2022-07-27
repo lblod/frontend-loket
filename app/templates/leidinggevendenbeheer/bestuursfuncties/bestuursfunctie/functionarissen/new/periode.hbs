@@ -1,23 +1,23 @@
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup class="au-c-toolbar__group--row">
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group class="au-c-toolbar__group--row">
     <AuHeading @skin="3">Voeg een nieuwe aanstellingsperiode toe</AuHeading>
-  </AuToolbarGroup>
-  <AuToolbarGroup class="au-c-toolbar__group--row au-u-margin-top-none">
+  </Group>
+  <Group class="au-c-toolbar__group--row au-u-margin-top-none">
     <AuHeading @level="3" @skin="2">
       2. Voeg aanstellingsperiode voor {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
       {{this.model.isBestuurlijkeAliasVan.achternaam}} als {{this.model.bekleedt.rol.label}} toe</AuHeading>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <Leidinggevendenbeheer::FunctionarisForm @model={{this.model}} as |isValid|>
-  <AuToolbar @border="top" @size="large">
-    <AuToolbarGroup>
+  <AuToolbar @border="top" @size="large" as |Group|>
+    <Group>
       <AuButton {{on 'click' this.goBackToSearch}} @skin="tertiary" @disabled={{this.save.isRunning}}>
         <AuIcon @icon="arrow-left" @alignment="left" />
         Vorige stap
       </AuButton>
-    </AuToolbarGroup>
-    <AuToolbarGroup>
+    </Group>
+    <Group>
       <AuButtonGroup>
         <AuButton @skin="secondary" @disabled={{this.save.isRunning}} {{on 'click' this.cancel}}>
           Annuleer
@@ -26,6 +26,6 @@
           Voeg aanstellingsperiode toe
         </AuButton>
       </AuButtonGroup>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 </Leidinggevendenbeheer::FunctionarisForm>

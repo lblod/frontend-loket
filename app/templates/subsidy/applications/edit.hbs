@@ -1,7 +1,7 @@
 {{page-title "Bekijk subsidieaanvraag"}}
 
-<AuToolbar @nowrap={{true}} @size="large" class="au-u-padding-bottom-tiny">
-  <AuToolbarGroup class="au-c-toolbar__group--col">
+<AuToolbar @nowrap={{true}} @size="large" class="au-u-padding-bottom-tiny" as |Group|>
+  <Group class="au-c-toolbar__group--col">
     <div>
       <AuHeading @skin="2">
         {{this.consumption.subsidyMeasureOffer.title}}
@@ -14,8 +14,8 @@
         {{/if}}
       </AuHeading>
     </div>
-  </AuToolbarGroup>
-  <AuToolbarGroup class="au-c-toolbar__group--col">
+  </Group>
+  <Group class="au-c-toolbar__group--col">
     <AuButtonGroup>
       {{#if this.canDelete}}
         <AuButton
@@ -47,11 +47,11 @@
         <AuIcon @icon="cross" @alignment="left"/>Sluit
       </AuLink>
     </AuButtonGroup>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup class="au-c-toolbar__group--row au-c-toolbar__group--align-top">
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group class="au-c-toolbar__group--row au-c-toolbar__group--align-top">
     <ul class="au-o-grid au-o-grid--tiny">
       <li class="au-o-grid__item au-u-1-2 au-u-1-3@small au-u-1-6@medium">
         <AuLabel>Bestuurseenheid</AuLabel>
@@ -85,7 +85,7 @@
         </li>
       {{/if}}
     </ul>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-sidebar-container">

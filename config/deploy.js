@@ -11,7 +11,7 @@ module.exports = function (deployTarget) {
     'ssh-index': {
       // copy and deploy index.html
       username: 'root',
-      host: 'rpio-dev.s.redpencil.io',
+      host: 'abb-bfg.s.redpencil.io',
       port: 22,
       remoteDir: '/data/app-digitaal-loket-dev/loket-app',
       allowOverwrite: true,
@@ -19,7 +19,7 @@ module.exports = function (deployTarget) {
     },
     rsync: {
       // copy assets
-      host: 'root@rpio-dev.s.redpencil.io',
+      host: 'root@abb-bfg.s.redpencil.io',
       port: 22,
       dest: '/data/app-digitaal-loket-dev/loket-app',
       delete: false,

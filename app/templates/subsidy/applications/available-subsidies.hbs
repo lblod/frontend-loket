@@ -1,7 +1,7 @@
 {{page-title "Beschikbare subsidiemaatregelen"}}
 
-<AuToolbar @border="bottom" @size="large" @nowrap="{{true}}">
-  <AuToolbarGroup class="au-u-1-2@medium">
+<AuToolbar @border="bottom" @size="large" @nowrap="{{true}}" as |Group|>
+  <Group class="au-u-1-2@medium">
     <div>
       <AuHeading @skin="2">Beschikbare subsidiemaatregelen</AuHeading>
       <p>
@@ -9,12 +9,12 @@
                   rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
       </p>
     </div>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
+  </Group>
+  <Group>
     <LinkTo @route="subsidy.applications" class="au-c-button au-c-button--secondary" type="button">
       <AuIcon @icon="arrow-left" @alignment="left"/> Terug naar lopende subsidiedossiers
     </LinkTo>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <AuDataTable

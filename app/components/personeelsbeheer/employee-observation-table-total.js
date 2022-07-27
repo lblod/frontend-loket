@@ -1,22 +1,16 @@
-/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/require-computed-property-dependencies, ember/no-get */
-import { get } from '@ember/object';
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
 
 const aggregate = function (aggregations, obs) {
   return aggregations.reduce((acc, { groupBy, concept }) => {
     return acc && obs.get(`${groupBy}.uri`) == concept.get('uri');
   }, true);
 };
-
-export default Component.extend({
-  tagName: '',
-
-  total: computed('observations.@each.value', 'aggregations', function () {
-    const isFloat = get(this, 'observations.firstObject.unitMeasure.isFTE');
-    if (this.observations && this.aggregations) {
-      const observedValue = this.observations
-        .filter((obs) => aggregate(this.aggregations, obs))
+export default class EmployeeObservationTableTotal extends Component {
+  get total() {
+    const isFloat = this.args.observations.firstObject.unitMeasure.get('isFTE');
+    if (this.args.observations && this.args.aggregations) {
+      const observedValue = this.args.observations
+        .filter((obs) => aggregate(this.args.aggregations, obs))
         .reduce((acc, obs) => {
           return acc + parseFloat(obs.value || 0);
         }, 0);
@@ -25,5 +19,5 @@ export default Component.extend({
     } else {
       return 0;
     }
-  }),
-});
+  }
+}
