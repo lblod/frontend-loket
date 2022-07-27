@@ -25,6 +25,20 @@ export default class ContactPuntModel extends Model {
   @hasMany('mandataris') mandatarissen;
 }
 
+export function createPrimaryContactPoint(store) {
+  let record = store.createRecord('contact-punt');
+  record.type = CONTACT_TYPE.PRIMARY; // Workaround for: https://github.com/emberjs/ember-inspector/issues/1898
+
+  return record;
+}
+
+export function createSecondaryContactPoint(store) {
+  let record = store.createRecord('contact-punt');
+  record.type = CONTACT_TYPE.SECONDARY; // Workaround for: https://github.com/emberjs/ember-inspector/issues/1898
+
+  return record;
+}
+
 export function findPrimaryContactPoint(contactList) {
   return contactList.findBy('type', CONTACT_TYPE.PRIMARY);
 }

@@ -46,4 +46,10 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
     controller.typeHalfList = this.typeHalfList;
     controller.selectedContact = this.selectedContact;
   }
+
+  resetController(controller) {
+    super.resetController(...arguments);
+
+    controller.rollbackUnsavedChanges();
+  }
 }

@@ -86,64 +86,36 @@
   <AuHr @size="small" />
 
   <div class="au-o-box">
-    <AuToolbar class="au-u-margin-bottom-small" @reverse={{true}} as |Group|>
-      <Group>
-        <AuLink
-          @route="eredienst-mandatenbeheer.mandataris.contact-points.new"
-          @icon="add"
-          @skin="button"
-          @iconAlignment="left"
-        >
-          Contactgegevens toevoegen
-        </AuLink>
-      </Group>
-    </AuToolbar>
+    <ContactInformationTable
+      @contacts={{this.contactList}}
+      @selectedContact={{this.selectedContact}}
+      @editingContact={{this.editingContact}}
+      @onAddNewContact={{this.addNewContact}}
+      @onEditContact={{this.setEditingContact}}
+      @onEditContactCancel={{this.handleEditContactCancel}}
+      @onContactSelectionChange={{this.handleContactSelectionChange}}
+    />
 
-    <AuTable>
-      <:title>Contactgegevens</:title>
-      <:header>
-        <tr>
-          <th>Adres</th>
-          <th>Bus</th>
-          <th>Provincie</th>
-          <th>E-mail</th>
-          <th>Primair telefoonnummer</th>
-          <th>Secundair telefoonnummer</th>
-          <th>Selecteer</th>
-          <th></th>
-        </tr>
-      </:header>
-      <:body>
-        {{#each this.contactList as |contact|}}
-          <tr>
-            <td>{{contact.adres.volledigAdres}}</td>
-            <td>{{contact.adres.busnummer}}</td>
-            <td>{{contact.adres.provincie}}</td>
-            <td>{{contact.email}}</td>
-            <td>{{contact.telefoon}}</td>
-            <td>{{contact.secondaryContactPoint.telefoon}}</td>
-            <td>
-              <AuControlCheckbox
-                @value={{contact.id}}
-                @name="contact"
-                @onChange={{fn this.handleContactChange contact}}
-                checked={{eq contact.id this.selectedContact.id}}
-              />
-            </td>
-            <td>
-              <AuLink
-                @route="eredienst-mandatenbeheer.mandataris.contact-points.edit"
-                @model={{contact.id}}
-              >
-                Corrigeer fout
-              </AuLink>
-            </td>
-          </tr>
-        {{else}}
-          <tr><td colspan="100%">Geen contactgegevens gevonden</td></tr>
-        {{/each}}
-      </:body>
-    </AuTable>
+    {{#if
+      (and
+        this.editingContact.errors.telefoon
+        this.editingContact.errors.adres
+        this.editingContact.errors.email
+      )
+    }}
+      <AuAlert
+        @title={{this.title}}
+        @skin="error"
+        @icon="cross"
+        @size="small"
+        class="au-u-margin-top-small"
+      >
+        <p>
+          Gelieve minstens het "Adres", "E-mail" of "Primair telefoonnummer"
+          veld in te vullen.
+        </p>
+      </AuAlert>
+    {{/if}}
   </div>
 </div>
 
