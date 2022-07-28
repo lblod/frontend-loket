@@ -84,16 +84,16 @@
         </tr>
       {{else if this.hasResults}}
         <Content.body as |publicService|>
-          <td>{{publicService.name}}</td>
+          <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
           <td><AuPill>Nee</AuPill></td>
           <td>{{publicService.identifier}}</td>
           <td>{{publicService.sector.name}}</td>
           <td class="u-table-cell-fit-content">
             <AuButton
               @icon="add"
+              @iconAlignment="left"
               @disabled={{this.addPublicService.isRunning}}
               @skin="secondary"
-              @hideText={{true}}
               {{on "click" (perform this.addPublicService publicService)}}
             >
               Voeg toe

@@ -1,3 +1,13 @@
-<AuPill @skin={{this.statusSkin}}>
-  {{yield}}
+{{#if @submitted}}
+<AuPill @skin="success">
+  Verzonden
 </AuPill>
+{{else}}
+<AuPill @skin={{this.statusSkin}}>
+  {{#if this.label}}
+    {{this.label}}
+  {{else}}
+  {{yield}}
+  {{/if}}
+</AuPill>
+{{/if}}

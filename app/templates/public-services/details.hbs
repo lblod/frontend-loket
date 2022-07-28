@@ -3,7 +3,8 @@
 <AuToolbar @size="large" as |Group|>
   <Group>
     <AuHeading @skin="2">
-      {{@model.publicService.name}}
+      {{! template-lint-disable no-triple-curlies}}
+      {{{@model.publicService.nameNl}}}
     </AuHeading>
   </Group>
 </AuToolbar>
@@ -81,9 +82,6 @@
   </Tab>
   <Tab>
     <AuLink @route="public-services.details.properties">Eigenschappen</AuLink>
-  </Tab>
-  <Tab>
-    <AuLink @route="public-services.details.translations">Engelse vertalingen</AuLink>
   </Tab>
 </AuTabs>
 

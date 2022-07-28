@@ -1,12 +1,13 @@
 <AuBodyContainer @scroll={{true}}>
-  <div class="au-o-box">
-    {{#if this.loadForm.isRunning}}
+  {{#if this.loadForm.isRunning}}
+    <div class="au-o-box">
       <p class="au-u-h4 au-u-medium" aria-hidden="true">
         Formulier aan het laden
       </p>
       <AuLoader @padding="small" />
+    </div>
     {{else}}
-      <form id={{this.id}} {{on "submit" (perform this.handleFormSubmit)}}>
+      <form id={{this.id}} {{on "submit" (perform this.handleFormSubmit)}} class="au-c-rdf-form {{@tabName}}">
         <RdfForm
           @groupClass="au-o-grid__item"
           @form={{this.form}}
@@ -17,7 +18,6 @@
         />
       </form>
     {{/if}}
-  </div>
 </AuBodyContainer>
 
 <AuToolbar @border="top" @size="large" as |Group|>
@@ -28,7 +28,7 @@
         @loading={{this.publishPublicService.isRunning}}
         {{on "click" (perform this.publishPublicService)}}
       >
-        Publiceer
+        Verzend naar Vlaamse overheid
       </AuButton>
 
       <AuButton
@@ -65,3 +65,24 @@
     </AuButton>
   </Group>
 </AuToolbar>
+
+<AuModal
+  @modalOpen={{this.submitToGoverment}}
+  @closeModal={{this.sending}}
+  @size="small"
+>
+  <:title>Verzend naar Vlaamse overheid</:title>
+  <:body>
+    <p>Ben je zeker dat je dit product wil versturen naar de Vlaamse overheid? Deze actie kan je niet ongedaan maken.</p>
+    <p>Als je nieuwe wijzigingen doet kan je die steeds opnieuw versturen.</p>
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton @disabled={{this.saveSemanticForm.isRunning}}
+        @loading={{this.saveSemanticForm.isRunning}}
+        form={{this.id}}
+        type="submit">Verzend naar Vlaamse overheid</AuButton>
+      <AuButton @skin="secondary" {{on "click" this.sending}}>Annuleer</AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>

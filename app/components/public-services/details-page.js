@@ -27,6 +27,14 @@ export default class PublicServicesDetailsPageComponent extends Component {
   @service router;
   @service store;
 
+  @tracked submitToGoverment = false;
+  @tracked isSubmit = false;
+
+  @action
+  sending() {
+    this.submitToGoverment = !this.submitToGoverment;
+  }
+
   @tracked hasUnsavedChanges = false;
   @tracked forceShowErrors = false;
 
@@ -123,6 +131,8 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
     yield loadPublicServiceDetails(this.store, this.args.publicService.id);
     this.hasUnsavedChanges = false;
+
+    this.submitToGoverment = false;
   }
 
   @action
