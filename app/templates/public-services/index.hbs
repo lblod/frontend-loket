@@ -105,7 +105,7 @@
       </tr>
     {{else if this.hasResults}}
       <Content.body as |publicService|>
-        <td>{{{publicService.nameNl}}}</td>
+        <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
         <td>{{publicService.identifier}}</td>
         <td>{{publicService.sector.name}}</td>
         <td>
