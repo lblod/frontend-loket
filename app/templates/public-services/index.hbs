@@ -23,17 +23,6 @@
       @onChange={{this.handleSectorSelection}}
       @allowClear={{true}}
     />
-    <AuButton
-      @icon="add"
-      @iconAlignment="left"
-      @skin="button"
-      @disabled={{this.addNewProduct.isRunning}}
-      @loading={{this.addNewProduct.isRunning}}
-      {{on "click" (perform this.addNewProduct)}}
-    >
-      Product toevoegen
-    </AuButton>
-
     <AuLink
       @route="public-services.add"
       @icon="add"

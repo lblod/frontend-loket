@@ -1,11 +1,9 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { inject as service } from '@ember/service';
-import { restartableTask, dropTask, timeout } from 'ember-concurrency';
+import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class PublicServicesIndexController extends Controller {
-  @service router;
   queryParams = ['search', 'sector', 'sort', 'page'];
   @tracked search = '';
   @tracked sector = '';
@@ -47,13 +45,6 @@ export default class PublicServicesIndexController extends Controller {
 
   get hasErrored() {
     return this.model.loadPublicServices.isError;
-  }
-
-  @dropTask
-  *addNewProduct() {
-    let publicService = this.store.createRecord('public-service');
-    yield publicService.save();
-    this.router.transitionTo('public-services.details', publicService.id);
   }
 
   @restartableTask
