@@ -69,7 +69,7 @@ export default class PublicServicesAddController extends Controller {
 
     this.router.transitionTo('public-services.details', publicService.id);
   }
-  
+
   @dropTask
   *addNewProduct() {
     let publicService = this.store.createRecord('public-service');
