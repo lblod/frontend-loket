@@ -25,6 +25,16 @@
         @onChange={{this.handleSectorSelection}}
         @allowClear={{true}}
       />
+      <AuButton
+        @icon="add"
+        @iconAlignment="left"
+        @skin="button"
+        @disabled={{this.addNewProduct.isRunning}}
+        @loading={{this.addNewProduct.isRunning}}
+        {{on "click" (perform this.addNewProduct)}}
+      >
+        Volledig nieuw product toevoegen
+      </AuButton>
     </Group>
   </AuToolbar>
 

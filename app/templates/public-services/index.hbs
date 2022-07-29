@@ -109,11 +109,13 @@
         <td>{{publicService.identifier}}</td>
         <td>{{publicService.sector.name}}</td>
         <td>
-          <PublicServices::Status
-            @uri={{publicService.lifecycleStatus.uri}}
-          >
-            {{publicService.lifecycleStatus.label}}
-          </PublicServices::Status>
+          {{#if publicService.lifecycleStatus.uri}}
+            <PublicServices::Status
+              @uri={{publicService.lifecycleStatus.uri}}
+            >
+              {{publicService.lifecycleStatus.label}}
+            </PublicServices::Status>
+          {{/if}}
         </td>
         <td>
           {{moment-format publicService.modified "DD-MM-YYYY - HH:mm"}}
