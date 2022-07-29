@@ -26,9 +26,9 @@
       <AuButton
         @disabled={{this.publicServiceAction.isRunning}}
         @loading={{this.publishPublicService.isRunning}}
-        {{on "click" (perform this.publishPublicService)}}
+        {{on "click" this.sending}}
       >
-        Verzend naar Vlaamse overheid
+        Publiceer
       </AuButton>
 
       <AuButton
@@ -78,10 +78,12 @@
   </:body>
   <:footer>
     <AuButtonGroup>
-      <AuButton @disabled={{this.saveSemanticForm.isRunning}}
-        @loading={{this.saveSemanticForm.isRunning}}
+      <AuButton
+        @disabled={{this.publishPublicService.isRunning}}
+        @loading={{this.publishPublicService.isRunning}}
         form={{this.id}}
-        type="submit">Verzend naar Vlaamse overheid</AuButton>
+        type="submit"
+        {{on "click" (perform this.publishPublicService)}}>Verzend naar Vlaamse overheid</AuButton>
       <AuButton @skin="secondary" {{on "click" this.sending}}>Annuleer</AuButton>
     </AuButtonGroup>
   </:footer>

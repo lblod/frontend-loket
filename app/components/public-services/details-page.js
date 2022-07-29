@@ -100,8 +100,12 @@ export default class PublicServicesDetailsPageComponent extends Component {
         yield this.saveSemanticForm.unlinked().perform();
       }
 
-      // TODO: replace this with the function call to the backend
-      yield timeout(1000);
+      yield publish(this.args.publicService.id);
+
+      // TODO: Success notification
+      this.isSubmit = true;
+
+      yield timeout(2000);
 
       this.router.transitionTo('public-services');
     } else {
@@ -183,6 +187,16 @@ async function saveFormData(serviceId, formId, formData) {
   await fetch(`/lpdc-management/${serviceId}/form/${formId}`, {
     method: 'PUT',
     body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  });
+}
+
+async function publish(serviceId) {
+  await fetch(`/lpdc-management/${serviceId}/submit`, {
+    method: 'POST',
+    body: JSON.stringify({}),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
