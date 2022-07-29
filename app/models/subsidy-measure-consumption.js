@@ -29,12 +29,11 @@ export default class SubsidyMeasureConsumptionModel extends Model {
     return undefined;
   }
 
-  get projectName(){
+  get projectName() {
     let projectNames = new Set();
-    for ( let form of this.subsidyApplicationForms.toArray() ){
-      if (form.projectName)
-        projectNames.add(form.projectName);
-      }
+    for (let form of this.subsidyApplicationForms.toArray()) {
+      if (form.projectName) projectNames.add(form.projectName);
+    }
     return [...projectNames].join(', ');
   }
 }
