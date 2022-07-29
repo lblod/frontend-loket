@@ -92,6 +92,10 @@
 }
 
 .au-c-rdf-form--content {
+  > .au-o-grid > .au-o-grid__item .au-c-input {
+    width: 100%;
+  }
+
   @include mq(medium) {
     > .au-o-grid > .au-o-grid__item {
       display: flex;

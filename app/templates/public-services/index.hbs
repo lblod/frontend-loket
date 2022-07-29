@@ -115,6 +115,8 @@
             >
               {{publicService.lifecycleStatus.label}}
             </PublicServices::Status>
+          {{else}}
+          –
           {{/if}}
         </td>
         <td>
@@ -128,11 +130,15 @@
           </PublicServices::TranslationStatus>
         </td> --}}
         <td>
+          {{#if publicService.status.uri}}
           <PublicServices::Status
             @uri={{publicService.status.uri}}
           >
             {{publicService.status.label}}
           </PublicServices::Status>
+          {{else}}
+          –
+          {{/if}}
         </td>
         <td class="u-table-cell-fit-content">
           <AuLink

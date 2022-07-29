@@ -65,11 +65,27 @@
         </:content>
       </Data>
       <Data>
-        <:title>Status</:title>
+        <:title>Status dienstverlening</:title>
         <:content>
+          {{#if @model.publicService.lifecycleStatus.label}}
+          <PublicServices::Status @uri={{@model.publicService.lifecycleStatus.uri}}>
+            {{@model.publicService.lifecycleStatus.label}}
+          </PublicServices::Status>
+          {{else}}
+          –
+          {{/if}}
+        </:content>
+      </Data>
+      <Data>
+        <:title>Status document</:title>
+        <:content>
+          {{#if @model.publicService.status.label}}
           <PublicServices::Status @uri={{@model.publicService.status.uri}}>
             {{@model.publicService.status.label}}
           </PublicServices::Status>
+          {{else}}
+          –
+          {{/if}}
         </:content>
       </Data>
     </DataList>
