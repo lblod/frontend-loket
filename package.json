@@ -26,6 +26,7 @@
     "test:ember": "ember test"
   },
   "overrides": {
+    "ember-cli-babel": "$ember-cli-babel",
     "@embroider/macros": "^1.0.0",
     "@embroider/util": "^1.0.0",
     "moment": "^2.29.1"
