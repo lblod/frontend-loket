@@ -2,31 +2,31 @@ import InputFieldComponent from '@lblod/ember-submission-form-fields/components/
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { triplesForPath } from '@lblod/submission-form-helpers';
-import rdflib from 'browser-rdflib';
+import { NamedNode, Namespace } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
 
-const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
+const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
 
 const bicycleInfrastructureUri =
   'http://lblod.data.gift/vocabularies/subsidie/bicycle-infrastructure#';
 const resourceInstanceBaseUri =
   'http://lblod.data.gift/id/subsidie/bicycle-infrastructure';
-const ObjectiveTableType = new rdflib.NamedNode(
+const ObjectiveTableType = new NamedNode(
   `${bicycleInfrastructureUri}ObjectiveTable`
 );
-const objectiveTablePredicate = new rdflib.NamedNode(
+const objectiveTablePredicate = new NamedNode(
   `${bicycleInfrastructureUri}objectiveTable`
 );
-const kilometersPredicate = new rdflib.NamedNode(
+const kilometersPredicate = new NamedNode(
   `${bicycleInfrastructureUri}kilometers`
 );
 
-const hasInvalidCellPredicate = new rdflib.NamedNode(
+const hasInvalidCellPredicate = new NamedNode(
   `${bicycleInfrastructureUri}/hasInvalidObjectiveTableEntry`
 );
-const validObjectiveTable = new rdflib.NamedNode(
+const validObjectiveTable = new NamedNode(
   `${bicycleInfrastructureUri}validObjectiveTable`
 );
 
@@ -71,7 +71,7 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
 
   createObjectiveTable() {
     const uuid = uuidv4();
-    this.objectiveTableSubject = new rdflib.NamedNode(
+    this.objectiveTableSubject = new NamedNode(
       `${resourceInstanceBaseUri}/${uuid}`
     );
     const triples = [
