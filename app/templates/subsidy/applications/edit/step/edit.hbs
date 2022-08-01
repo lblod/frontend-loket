@@ -44,11 +44,25 @@
           Bewaar als concept
         </AuButton>
       {{else}} {{!-- SENDING NOT POSSIBLE --}}
-        {{#unless this.submitted}}
+        {{#if this.submitted}}
+          <div>
+            <AuAlert @icon="info-circle" @title="De subsidiestap werd verstuurd." @skin="success"
+                     @size="small">
+              <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
+                      href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
+                      rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
+                subsidies</a>.
+              </p>
+              <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
+                      href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                      class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
+              </p>
+            </AuAlert>
+          </div>
+        {{else}}
           {{#if this.isActiveStep}}
             {{!-- DEADLINE ISSUES --}}
             {{#if this.submittablePeriodNeedsToStart}}
-
               <div>
                 <AuAlert class="au-u-margin-bottom-small"
                          @icon="info-circle"
@@ -131,22 +145,7 @@
               </AuLink>
             </div>
           {{/if}}
-        {{else}}
-          <div>
-            <AuAlert @icon="info-circle" @title="De subsidiestap werd verstuurd." @skin="success"
-                     @size="small">
-              <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
-                      href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
-                      rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
-                subsidies</a>.
-              </p>
-              <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
-                      href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                      class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
-              </p>
-            </AuAlert>
-          </div>
-        {{/unless}}
+        {{/if}}
       {{/if}}
     </Group>
 
