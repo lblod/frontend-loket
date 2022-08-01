@@ -9,7 +9,7 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @reads('args.mandataris.start') start;
   @reads('args.mandataris.einde') einde;
   @reads('args.mandataris.heeftLidmaatschap.binnenFractie.naam') fractie;
-  @reads('args.mandataris.rangorde.content') rangorde;
+  @reads('args.mandataris.rangorde') rangorde;
   @reads('args.mandataris.status.label') status;
 
   @computed('args.mandataris.beleidsdomein.@each.id')

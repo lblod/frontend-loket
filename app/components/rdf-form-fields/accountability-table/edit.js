@@ -3,12 +3,12 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { triplesForPath } from '@lblod/submission-form-helpers';
-import rdflib from 'browser-rdflib';
+import { NamedNode, Namespace } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
 import { A } from '@ember/array';
 
-const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
+const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
 
 const subsidyBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/ukraine/';
 
@@ -20,27 +20,25 @@ const accountabilityEntryBaseUri =
 
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
 
-const AccountabilityTableType = new rdflib.NamedNode(
+const AccountabilityTableType = new NamedNode(
   `${lblodSubsidieBaseUri}AccountabilityTable`
 );
-const AccountabilityEntryType = new rdflib.NamedNode(
+const AccountabilityEntryType = new NamedNode(
   `${lblodSubsidieBaseUri}AccountabilityEntry`
 );
-const accountabilityTablePredicate = new rdflib.NamedNode(
+const accountabilityTablePredicate = new NamedNode(
   `${lblodSubsidieBaseUri}accountabilityTable`
 );
-const accountabilityEntryPredicate = new rdflib.NamedNode(
+const accountabilityEntryPredicate = new NamedNode(
   `${lblodSubsidieBaseUri}accountabilityEntry`
 );
 
-const createdPredicate = new rdflib.NamedNode(
-  'http://purl.org/dc/terms/created'
-);
+const createdPredicate = new NamedNode('http://purl.org/dc/terms/created');
 
-const hasInvalidRowPredicate = new rdflib.NamedNode(
+const hasInvalidRowPredicate = new NamedNode(
   `${subsidyBaseUri}hasInvalidAccountabilityTableEntry`
 );
-const validAccountabilityTable = new rdflib.NamedNode(
+const validAccountabilityTable = new NamedNode(
   `${lblodSubsidieBaseUri}validAccountabilityTable`
 );
 
@@ -173,7 +171,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
 
   createAccountabilityTable() {
     const uuid = uuidv4();
-    this.accountabilityTableSubject = new rdflib.NamedNode(
+    this.accountabilityTableSubject = new NamedNode(
       `${accountabilityTableBaseUri}/${uuid}`
     );
     const triples = [
@@ -203,7 +201,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
   createAccountabilityEntry() {
     const uuid = uuidv4();
     const created = new Date().toISOString();
-    const accountabilityEntrySubject = new rdflib.NamedNode(
+    const accountabilityEntrySubject = new NamedNode(
       `${accountabilityEntryBaseUri}/${uuid}`
     );
     const triples = [

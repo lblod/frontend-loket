@@ -1,23 +1,19 @@
-/* eslint-disable ember/no-classic-components, ember/no-classic-classes, ember/no-component-lifecycle-hooks */
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
-import { reads } from '@ember/object/computed';
-import { task } from 'ember-concurrency';
+import { keepLatestTask } from 'ember-concurrency';
 
-export default Component.extend({
-  tagName: '',
+export default class EmployeePeriodSliceTable extends Component {
+  @service store;
 
-  store: service(),
+  constructor() {
+    super(...arguments);
+    const { observations } = this.args;
+    this.observations = observations;
+    this.isFTEDataset = observations.firstObject.unitMeasure.get('isFTE');
+    if (observations) this.initTable.perform();
+  }
 
-  isFTEDataset: reads('observations.firstObject.unitMeasure.isFTE'),
-
-  didReceiveAttrs() {
-    this._super(...arguments);
-    this.initTable.perform();
-  },
-
-  initTable: task(function* () {
+  @keepLatestTask *initTable() {
     const sexes = yield this.store.query('geslacht-code', {
       page: { size: 10 },
       sort: 'label',
@@ -36,21 +32,21 @@ export default Component.extend({
       sort: 'label',
     });
 
-    this.set('sexes', sexes);
-    this.set('workingTimeCategories', workingTimeCategories);
-    this.set('legalStatuses', legalStatuses);
-    this.set('educationalLevels', educationalLevels);
+    this.sexes = sexes;
+    this.workingTimeCategories = workingTimeCategories;
+    this.legalStatuses = legalStatuses;
+    this.educationalLevels = educationalLevels;
 
     const unitMeasure = (this.observations.firstObject || {}).unitMeasure;
-    this.set('unitMeasure', unitMeasure);
-  }).keepLatest(),
+    this.unitMeasure = unitMeasure;
+  }
 
-  total: computed('observations.@each.value', 'isFTEDataset', function () {
+  get total() {
     const totalValue = (this.observations || []).reduce((acc, obs) => {
       return acc + parseFloat(obs.value || 0);
     }, 0);
 
     if (this.isFTEDataset) return totalValue.toFixed(2);
     else return parseInt(totalValue);
-  }),
-});
+  }
+}

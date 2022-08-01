@@ -1,13 +1,13 @@
 import Route from '@ember/routing/route';
 import { warn } from '@ember/debug';
 import { inject as service } from '@ember/service';
-import rdflib from 'browser-rdflib';
 import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
+import { NamedNode, Namespace } from 'rdflib';
 import { SENT_STATUS } from '../../../models/submission-document-status';
 
-const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
+const RDF = new Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+const FORM = new Namespace('http://lblod.data.gift/vocabularies/forms/');
 
 export default class SupervisionSubmissionsEditRoute extends Route {
   @service router;
@@ -34,12 +34,12 @@ export default class SupervisionSubmissionsEditRoute extends Route {
 
     const formStore = new ForkingStore();
 
-    const metaGraph = new rdflib.NamedNode('http://data.lblod.info/metagraph');
+    const metaGraph = new NamedNode('http://data.lblod.info/metagraph');
     formStore.parse(meta, metaGraph, 'text/turtle');
-    const formGraph = new rdflib.NamedNode('http://data.lblod.info/form');
+    const formGraph = new NamedNode('http://data.lblod.info/form');
     formStore.parse(form, formGraph, 'text/turtle');
 
-    const sourceGraph = new rdflib.NamedNode(
+    const sourceGraph = new NamedNode(
       `http://data.lblod.info/submission-document/data/${submissionDocument.id}`
     );
     if (removals || additions) {
@@ -66,7 +66,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
       form: formNode,
       formStore,
       graphs,
-      sourceNode: new rdflib.NamedNode(submissionDocument.uri),
+      sourceNode: new NamedNode(submissionDocument.uri),
       submission,
       submissionDocument,
       submitted: submissionStatus.uri === SENT_STATUS,
