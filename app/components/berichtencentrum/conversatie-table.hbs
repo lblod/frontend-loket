@@ -19,7 +19,7 @@
          <AuDataTableThSortable @label='Laatste bericht' @field='laatste-bericht.verzonden' @currentSorting={{@sort}} class="au-u-visible-small-up" />
          <AuDataTableThSortable @label='Laatste bericht van' @field='laatste-bericht.van.naam' @currentSorting={{@sort}} class="au-u-visible-small-up" />
       {{/unless}}
-      <th><!-- Actions --></th>
+      <th>{{!-- Actions --}}</th>
     </c.header>
     <c.body data-test-loket="berichtencentrum-body" as |row|>
       <td>{{row.betreft}}</td>

@@ -76,7 +76,9 @@
   </Group>
   {{/if}}
   <Group>
-    {{#unless this.model.submitted}}
+    {{#if this.model.submitted}}
+      <AuLink @route="supervision.submissions.index" @skin="secondary">Sluit</AuLink>
+      {{else}}
       <AuButton data-test-field-uri="submit-form-button"
                 @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}
@@ -94,9 +96,7 @@
                 {{/if}}
               </AuButton>
       <AuLink @route="supervision.submissions.index" @skin="secondary">Annuleer</AuLink>
-    {{else}}
-      <AuLink @route="supervision.submissions.index" @skin="secondary">Sluit</AuLink>
-    {{/unless}}
+    {{/if}}
   </Group>
 
   {{#unless this.model.submitted}}

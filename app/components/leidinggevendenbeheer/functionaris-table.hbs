@@ -14,7 +14,7 @@
       <AuDataTableThSortable @label='Status' @field='status.label' @currentSorting={{@sort}} />
       <AuDataTableThSortable @label='Start periode' @field='start' @currentSorting={{@sort}} class="au-u-visible-small-up"/>
       <AuDataTableThSortable @label='Einde periode' @field='einde' @currentSorting={{@sort}} class="au-u-visible-small-up"/>
-      <th><!-- Actions --></th>
+      <th>{{!-- Actions --}}</th>
     </c.header>
 
     {{#if (eq @content.length 0)}}
