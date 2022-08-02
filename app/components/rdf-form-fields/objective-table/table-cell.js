@@ -1,41 +1,42 @@
 import Component from '@glimmer/component';
 import { schedule } from '@ember/runloop';
-import rdflib from 'browser-rdflib';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { literal, NamedNode, Namespace } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
+import commasToDecimalPointsFix from 'frontend-loket/helpers/subsidies/subsidies-decimal-point';
 
-const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
+const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
 
 const bicycleInfrastructureUri =
   'http://lblod.data.gift/vocabularies/subsidie/bicycle-infrastructure#';
 const resourceInstanceBaseUri =
   'http://lblod.data.gift/id/subsidie/bicycle-infrastructure';
-const objectiveEntryPredicate = new rdflib.NamedNode(
+const objectiveEntryPredicate = new NamedNode(
   `${bicycleInfrastructureUri}objectiveEntry`
 );
-const ObjectiveEntryType = new rdflib.NamedNode(
+const ObjectiveEntryType = new NamedNode(
   `${bicycleInfrastructureUri}ObjectiveEntry`
 );
 
-const objectiveTablePredicate = new rdflib.NamedNode(
+const objectiveTablePredicate = new NamedNode(
   `${bicycleInfrastructureUri}objectiveTable`
 );
-const approachTypePredicate = new rdflib.NamedNode(
+const approachTypePredicate = new NamedNode(
   `${bicycleInfrastructureUri}approachType`
 );
-const directionTypePredicate = new rdflib.NamedNode(
+const directionTypePredicate = new NamedNode(
   `${bicycleInfrastructureUri}directionType`
 );
-const bikeLaneTypePredicate = new rdflib.NamedNode(
+const bikeLaneTypePredicate = new NamedNode(
   `${bicycleInfrastructureUri}bikeLaneType`
 );
-const kilometersPredicate = new rdflib.NamedNode(
+const kilometersPredicate = new NamedNode(
   `${bicycleInfrastructureUri}kilometers`
 );
 
-const hasInvalidCellPredicate = new rdflib.NamedNode(
+const hasInvalidCellPredicate = new NamedNode(
   `${bicycleInfrastructureUri}/hasInvalidObjectiveTableEntry`
 );
 
@@ -55,7 +56,7 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
       null,
       this.storeOptions.sourceGraph
     );
-    return new rdflib.NamedNode(triple[0].object.value);
+    return new NamedNode(triple[0].object.value);
   }
 
   get bikeLaneType() {
@@ -160,9 +161,7 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
 
   initializeDefault() {
     const uuid = uuidv4();
-    const tableEntryUri = new rdflib.NamedNode(
-      `${resourceInstanceBaseUri}/${uuid}`
-    );
+    const tableEntryUri = new NamedNode(`${resourceInstanceBaseUri}/${uuid}`);
 
     let triples = [
       {
@@ -234,7 +233,6 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
       undefined,
       this.storeOptions.sourceGraph
     );
-
     this.storeOptions.store.removeStatements([...triples]);
 
     if (newObject) {
@@ -271,13 +269,16 @@ export default class RdfFormFieldsObjectiveTableTableCellComponent extends Compo
       );
     }
 
+    this.kilometers = commasToDecimalPointsFix(this.kilometers);
     const parsedAmount = Number(this.kilometers);
+    if (parsedAmount >= 0) {
+      this.updateTripleObject(
+        this.tableEntryUri,
+        kilometersPredicate,
+        literal(parsedAmount)
+      );
+    }
 
-    this.updateTripleObject(
-      this.tableEntryUri,
-      kilometersPredicate,
-      rdflib.literal(parsedAmount)
-    );
     return this.onUpdateCell();
   }
 

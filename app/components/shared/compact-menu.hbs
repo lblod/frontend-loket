@@ -1,4 +1,4 @@
-<AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings" role="menu">
+<AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings" role="group">
   {{#if this.currentSession.canAccessToezicht}}
     <AuLink @route="supervision.submissions" role="menuitem">
       <AuIcon @icon="search-folder" @alignment="left" />

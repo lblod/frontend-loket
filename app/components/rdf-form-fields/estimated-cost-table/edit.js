@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-import rdflib from 'browser-rdflib';
+import { NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
 import { next } from '@ember/runloop';
@@ -19,6 +19,8 @@ import {
   costPredicate,
   validEstimatedCostTable,
 } from './base-table';
+
+import commasToDecimalPointsFix from '../../../helpers/subsidies/subsidies-decimal-point';
 
 const defaultRows = [
   {
@@ -97,7 +99,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
 
   createEstimatedCostTable() {
     const uuid = uuidv4();
-    this.estimatedCostTableSubject = new rdflib.NamedNode(
+    this.estimatedCostTableSubject = new NamedNode(
       `${estimatedCostTableBaseUri}/${uuid}`
     );
     const triples = [
@@ -154,7 +156,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
 
     rows.forEach((target) => {
       const uuid = uuidv4();
-      const estimatedCostEntrySubject = new rdflib.NamedNode(
+      const estimatedCostEntrySubject = new NamedNode(
         `${subsidyRulesUri}/${uuid}`
       );
 
@@ -314,11 +316,19 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
       );
     }
 
+    entry['cost'].value = commasToDecimalPointsFix(entry['cost'].value);
+
     if (isNaN(parseInt(entry.cost.value))) {
       this.updateTripleObject(
         entry.estimatedCostEntrySubject,
         entry['cost'].predicate,
         'Field is empty'
+      );
+    } else if (parseInt(entry.cost.value) < 0) {
+      this.updateTripleObject(
+        entry.estimatedCostEntrySubject,
+        entry['cost'].predicate,
+        'Field is negative'
       );
     } else {
       this.updateTripleObject(
@@ -334,7 +344,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
   @action
   updateShare(entry) {
     entry.share.errors = [];
-
+    entry['share'].value = commasToDecimalPointsFix(entry['share'].value);
     if (this.isEmpty(entry.share.value)) {
       entry.share.errors.pushObject({
         message: 'Gemeentelijk aandeel in kosten is verplicht.',
@@ -372,11 +382,16 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
       );
     }
 
-    this.updateTripleObject(
-      entry.estimatedCostEntrySubject,
-      entry['share'].predicate,
-      entry['share'].value
-    );
+    if (
+      parseInt(entry.share.value) <= 100 &&
+      parseInt(entry.share.value) >= 0
+    ) {
+      this.updateTripleObject(
+        entry.estimatedCostEntrySubject,
+        entry['share'].predicate,
+        entry['share'].value
+      );
+    }
   }
 
   isPositiveInteger(value) {

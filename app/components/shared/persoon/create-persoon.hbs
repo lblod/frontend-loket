@@ -138,8 +138,8 @@
     </div>
   </div>
 </div>
-<AuToolbar @border="top" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="top" @size="large" as |Group|>
+  <Group>
     {{! TODO: use a form element with a submit event }}
     <AuButton
       @disabled={{this.save.isRunning}}
@@ -151,5 +151,5 @@
     <AuButton @skin="secondary" {{on "click" @onCancel}}>
       Annuleer
     </AuButton>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>

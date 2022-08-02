@@ -13,25 +13,25 @@
     </div>
   </div>
 
-  <AuToolbar @size="large">
+  <AuToolbar @size="large" as |Group|>
     {{#if (and this.forceShowErrors (not this.isValidForm))}}
-      <AuToolbarGroup class="au-c-toolbar__group--row">
+      <Group class="au-c-toolbar__group--row">
         <AuAlert @icon="alert-triangle" @title="Kan dossier niet versturen" @skin="error"
                  @size="small" @closable="true" class="au-u-margin-bottom-none">
           <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
         </AuAlert>
-      </AuToolbarGroup>
+      </Group>
     {{/if}}
     {{#if this.error}}
-      <AuToolbarGroup class="au-c-toolbar__group--row">
+      <Group class="au-c-toolbar__group--row">
         <AuAlert @icon="alert-triangle" @title="Oeps! Dit is een beetje gênant ..." @skin="error"
                  @size="small" @closable="true" class="au-u-margin-bottom-none">
           <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het {{this.error.action}} van het formulier.</p>
         </AuAlert>
-      </AuToolbarGroup>
+      </Group>
     {{/if}}
-    <AuToolbarGroup class="au-u-margin-top-small au-u-margin-bottom-small">
-      <!-- DEFAULT CRUD CASE -->
+    <Group class="au-u-margin-top-small au-u-margin-bottom-small">
+      {{!-- DEFAULT CRUD CASE --}}
       {{#if this.canSubmit }}
         <AuButton @disabled={{if (or this.saveConcept.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                   @loading={{if this.submit.isRunning "true"}}
@@ -43,12 +43,26 @@
           {{on "click" (perform this.saveConcept)}}>
           Bewaar als concept
         </AuButton>
-      {{else}} <!-- SENDING NOT POSSIBLE -->
-        {{#unless this.submitted}}
+      {{else}} {{!-- SENDING NOT POSSIBLE --}}
+        {{#if this.submitted}}
+          <div>
+            <AuAlert @icon="info-circle" @title="De subsidiestap werd verstuurd." @skin="success"
+                     @size="small">
+              <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
+                      href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
+                      rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
+                subsidies</a>.
+              </p>
+              <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
+                      href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                      class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
+              </p>
+            </AuAlert>
+          </div>
+        {{else}}
           {{#if this.isActiveStep}}
-            <!-- DEADLINE ISSUES -->
+            {{!-- DEADLINE ISSUES --}}
             {{#if this.submittablePeriodNeedsToStart}}
-
               <div>
                 <AuAlert class="au-u-margin-bottom-small"
                          @icon="info-circle"
@@ -101,7 +115,7 @@
                   </p>
                 </AuAlert>
               </div>
-            {{else}} <!-- GENERAL ISSUES (data is broken) -->
+            {{else}} {{!-- GENERAL ISSUES (data is broken) --}}
               <div>
                 <AuAlert @icon="info-circle" @title="Algemene fout"
                          @skin="error"
@@ -114,7 +128,7 @@
                 </AuAlert>
               </div>
             {{/if}}
-          {{else}} <!-- PREVIOUS STEP NEEDS TO BE COMPLETED FIRST -->
+          {{else}} {{!-- PREVIOUS STEP NEEDS TO BE COMPLETED FIRST --}}
             <div>
               <AuAlert @icon="info-circle" @title="Deze subsidieaanvraag stap is nog niet beschikbaar."
                        @skin="info"
@@ -131,29 +145,14 @@
               </AuLink>
             </div>
           {{/if}}
-        {{else}}
-          <div>
-            <AuAlert @icon="info-circle" @title="De subsidiestap werd verstuurd." @skin="success"
-                     @size="small">
-              <p>We nemen contact op met de opgegeven contactpersoon over het verdere verloop. <a
-                      href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
-                      rel="noreferrer noopener">Vind hier meer informatie over de inhoud en het verloop van de
-                subsidies</a>.
-              </p>
-              <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem contact op met <a
-                      href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                      class="au-c-link">LoketLokaalBestuur@vlaanderen.be</a>.
-              </p>
-            </AuAlert>
-          </div>
-        {{/unless}}
+        {{/if}}
       {{/if}}
-    </AuToolbarGroup>
+    </Group>
 
-    <!-- USER NOTIFICATIONS -->
-    <AuToolbarGroup>
+    {{!-- USER NOTIFICATIONS --}}
+    <Group>
       <ul class="au-o-grid">
-        <!-- SAVING -->
+        {{!-- SAVING --}}
         {{#if this.saveConcept.isRunning}}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
@@ -163,7 +162,7 @@
                      @size="small"></AuAlert>
           </li>
         {{/if}}
-        <!-- MOVING -->
+        {{!-- MOVING --}}
         {{#if this.next.isRunning }}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
@@ -173,7 +172,7 @@
                      @size="small"></AuAlert>
           </li>
         {{/if}}
-        <!-- SENDING -->
+        {{!-- SENDING --}}
         {{#if (and this.submit.isRunning (not this.saveConcept.isRunning) (not this.next.isRunning))}}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
@@ -183,7 +182,7 @@
                      @size="small"></AuAlert>
           </li>
         {{/if}}
-        <!-- RECENTLY SAVED -->
+        {{!-- RECENTLY SAVED --}}
         {{#if (and this.recentlySaved (not this.saveConcept.isRunning) (not this.submit.isRunning) (not this.next.isRunning))}}
           <li class="au-o-grid__item">
             <AuAlert class="au-u-margin-none"
@@ -194,7 +193,6 @@
           </li>
         {{/if}}
       </ul>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
-
 </div>
