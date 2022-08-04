@@ -19,8 +19,8 @@ export default class MinisterManagementIndexRoute extends Route.extend(
   //     this.router.transitionTo('index');
   // }
 
-  async model() {
-    console.log(this.store.findAll('persoon'));
-    return this.store.findAll('agent-in-position');
-  }
+  // async model() {
+  //   console.log(this.store.findAll('persoon'));
+  //   return this.store.findAll('agent-in-position');
+  // }
 }
