@@ -98,14 +98,6 @@ Router.map(function () {
     });
   });
 
-  this.route('minister-management', { path: 'bedienarenbeheer' }, function () {
-    this.route('new', { path: '/nieuw' });
-    this.route('minister', { path: '/bedienaar/:bedienaar_id' }, function () {
-      this.route('index'); // overview page
-      this.route('edit', { path: '/:bedienaar_id/bewerk' });
-    });
-  });
-
   this.route('route-not-found', {
     path: '/*wildcard',
   });
@@ -119,5 +111,13 @@ Router.map(function () {
     });
     this.route('new');
     this.route('new-person');
+  });
+
+  this.route('worship-ministers-management', { path: 'bedienarenbeheer' }, function () {
+    this.route('new', { path: '/nieuw' });
+    this.route('minister', { path: '/bedienaar/:bedienaar_id' }, function () {
+      this.route('index'); // overview page
+      this.route('edit', { path: '/:bedienaar_id/bewerk' });
+    });
   });
 });
