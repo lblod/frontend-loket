@@ -35,6 +35,14 @@
         </AuNavigationLink>
       </li>
     {{/if}}
+    {{#if this.currentSession.canAccessBedienarenbeheer}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @route="bedienarenbeheer">
+          <AuIcon @icon="user" @alignment="left" />
+          Bedienarenbeheer
+        </AuNavigationLink>
+      </li>
+    {{/if}}
     {{#if this.currentSession.canAccessLeidinggevenden}}
       <li class="au-c-list-navigation__item">
         <AuNavigationLink @route="leidinggevendenbeheer.bestuursfuncties">

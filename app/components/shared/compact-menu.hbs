@@ -25,6 +25,12 @@
       Mandatenbeheer
     </AuLink>
   {{/if}}
+  {{#if this.currentSession.canAccessBedienarenbeheer}}
+    <AuLink @route="bedienarenbeheer" role="menuitem">
+      <AuIcon @icon="user" @alignment="left" />
+      Bedienarenbeheer
+    </AuLink>
+  {{/if}}
   {{#if this.currentSession.canAccessLeidinggevenden}}
     <AuLink @route="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
       <AuIcon @icon="user-popup" @alignment="left" />
