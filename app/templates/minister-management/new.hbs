@@ -1,0 +1,66 @@
+{{page-title "Voeg bedienar toe" }}
+
+<div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
+  <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
+    <div class="au-c-body-container" tabindex="0">
+      <AuToolbar @size="large" as |Group|>
+        <Group>
+          <AuHeading @skin="2">Bedienarenbeheer
+          <p>Voeg een nieuwe positie toe</p>
+          </AuHeading>
+        </Group>
+        <Group>
+          <p>Zoek een reeds gekende persoon in de databank op naam, of <AuLink>voeg een nieuwe persoon toe</AuLink></p>
+        </Group>
+      </AuToolbar>
+
+      <div class="">
+        {{!-- <div class="au-c-form"> --}}
+          {{!-- <div> --}}
+            <AuLabel for="firstname">Voornaam</AuLabel>
+            <AuInput
+              @value={{this.model.voornaam}}
+              class="au-u-2-3@medium"
+              inputmode="text"
+              id="firstname"
+              name="bedienarenbeheer-voornaam"
+            />
+          {{!-- </div> --}}
+          {{!-- <div> --}}
+            <AuLabel for="lastname">Achternaam</AuLabel>
+            <AuInput
+              @value={{this.model.achternaam}}
+              class="au-u-2-3@medium"
+              id="lastname"
+              inputmode="text"
+              name="bedienarenbeheer-achternaam"
+            />
+          {{!-- </div> --}}
+        {{!-- </div> --}}
+      </div>
+
+      <AuDataTable
+        @content={{this.model}}
+        @isLoading={{this.isLoadingModel}}
+        @noDataMessage="Geen meldingen gevonden"
+        @sort={{this.sort}}
+        @page={{this.page}}
+        @size={{this.size}}
+        as |t| >
+        <t.content as |c|>
+          <c.header>
+            <AuDataTableThSortable @field="" @currentSorting={{this.sort}} @label="Voornaam"/>
+            <AuDataTableThSortable @field="" @currentSorting={{this.sort}} @label="Achternaam"/>
+          </c.header>
+          <c.body as |row|>
+            <td>Jan</td>
+            <td>Kirk</td>
+            <td>
+              <LinkTo @route="" class="au-c-link">Selecteer</LinkTo>
+            </td>
+          </c.body>
+        </t.content>
+      </AuDataTable>
+    </div>
+  </div>
+</div>
