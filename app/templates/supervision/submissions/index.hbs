@@ -1,13 +1,11 @@
 {{page-title  "Toezicht " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2" data-test-loket="inzendingen-page-title">Toezicht</AuHeading>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
-    <LinkTo @route="supervision.submissions.new" class="au-c-button" type="button"
-            data-test-field-uri="new-form-button">Maak nieuwe melding
-    </LinkTo>
-  </AuToolbarGroup>
+  </Group>
+  <Group>
+    <LinkTo @route="supervision.submissions.new" class="au-c-button" type="button" data-test-field-uri="new-form-button">Maak nieuwe melding</LinkTo>
+  </Group>
 </AuToolbar>
 
 <AuDataTable

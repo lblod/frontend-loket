@@ -1,15 +1,14 @@
 {{page-title "Mandatenbeheer " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
 <div class="au-c-body-container {{if this.hasActiveChildRoute "au-u-hidden"}}">
-  <AuToolbar @size="large" @nowrap="true" class="au-u-padding-bottom-none">
-    <AuToolbarGroup>
+  <AuToolbar @size="large" @nowrap="true" class="au-u-padding-bottom-none" as |Group|>
+    <Group>
       <div class="au-o-flow">
         <AuHeading @skin="2">Mandatenbeheer</AuHeading>
         <Mandatenbeheer::MandatarissenTotals class="js-accordion" @bestuursorganen={{this.bestuursorganen}} />
-
       </div>
-    </AuToolbarGroup>
+    </Group>
 
-    <AuToolbarGroup>
+    <Group>
       <AuButtonGroup>
         <AuButton {{on 'click' this.handleBeheerFractiesClick}} @skin="secondary">
           Beheer fracties
@@ -18,19 +17,19 @@
           Voeg mandataris toe
         </AuButton>
       </AuButtonGroup>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 
-  <AuToolbar @size="large">
-    <AuToolbarGroup>
+  <AuToolbar @size="large" as |Group|>
+    <Group>
       <div class="">
         <Mandatenbeheer::BestuursperiodenSelector
           @options={{this.bestuursperioden}}
           @selectedStartDate={{this.startDate}}
           @onSelect={{this.selectPeriod}}/>
       </div>
-    </AuToolbarGroup>
-    <AuToolbarGroup class="au-u-1-3@medium">
+    </Group>
+    <Group class="au-u-1-3@medium">
       <AuInput
         @value={{this.searchData}}
         @icon="search"
@@ -39,7 +38,7 @@
         placeholder="Zoek mandataris"
         {{on "input" (perform this.search value="target.value")}}
       />
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 
   <Mandatenbeheer::MandatarisTable

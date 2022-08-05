@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
-import rdflib from 'browser-rdflib';
+import { NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
 import { next } from '@ember/runloop';
@@ -99,7 +99,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
 
   createEstimatedCostTable() {
     const uuid = uuidv4();
-    this.estimatedCostTableSubject = new rdflib.NamedNode(
+    this.estimatedCostTableSubject = new NamedNode(
       `${estimatedCostTableBaseUri}/${uuid}`
     );
     const triples = [
@@ -156,7 +156,7 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
 
     rows.forEach((target) => {
       const uuid = uuidv4();
-      const estimatedCostEntrySubject = new rdflib.NamedNode(
+      const estimatedCostEntrySubject = new NamedNode(
         `${subsidyRulesUri}/${uuid}`
       );
 

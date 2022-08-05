@@ -2,9 +2,9 @@ import { tracked } from '@glimmer/tracking';
 
 import InputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/input-field';
 import { triplesForPath } from '@lblod/submission-form-helpers';
-import rdflib from 'browser-rdflib';
+import { NamedNode, Namespace } from 'rdflib';
 
-export const MU = new rdflib.Namespace('http://mu.semte.ch/vocabularies/core/');
+export const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
 
 export const estimatedCostTableBaseUri =
   'http://lblod.data.gift/id/subsidie/bicycle-infrastructure/table';
@@ -13,33 +13,29 @@ export const bicycleInfrastructureUri =
 export const extBaseUri = 'http://mu.semte.ch/vocabularies/ext/';
 export const subsidyRulesUri = 'http://data.lblod.info/id/subsidies/rules/';
 
-export const EstimatedCostTableType = new rdflib.NamedNode(
+export const EstimatedCostTableType = new NamedNode(
   `${bicycleInfrastructureUri}EstimatedCostTable`
 );
-export const EstimatedCostEntryType = new rdflib.NamedNode(
+export const EstimatedCostEntryType = new NamedNode(
   `${bicycleInfrastructureUri}EstimatedCostEntry`
 );
-export const estimatedCostTablePredicate = new rdflib.NamedNode(
+export const estimatedCostTablePredicate = new NamedNode(
   `${bicycleInfrastructureUri}estimatedCostTable`
 );
-export const estimatedCostEntryPredicate = new rdflib.NamedNode(
+export const estimatedCostEntryPredicate = new NamedNode(
   `${bicycleInfrastructureUri}estimatedCostEntry`
 );
 
-export const descriptionPredicate = new rdflib.NamedNode(
+export const descriptionPredicate = new NamedNode(
   `${bicycleInfrastructureUri}costEstimationType`
 );
-export const costPredicate = new rdflib.NamedNode(
-  `${bicycleInfrastructureUri}cost`
-);
-export const sharePredicate = new rdflib.NamedNode(
-  `${bicycleInfrastructureUri}share`
-);
-export const indexPredicate = new rdflib.NamedNode(`${extBaseUri}index`);
-export const validEstimatedCostTable = new rdflib.NamedNode(
+export const costPredicate = new NamedNode(`${bicycleInfrastructureUri}cost`);
+export const sharePredicate = new NamedNode(`${bicycleInfrastructureUri}share`);
+export const indexPredicate = new NamedNode(`${extBaseUri}index`);
+export const validEstimatedCostTable = new NamedNode(
   `${bicycleInfrastructureUri}validEstimatedCostTable`
 );
-export const optionsPredicate = new rdflib.NamedNode(
+export const optionsPredicate = new NamedNode(
   'http://lblod.data.gift/vocabularies/forms/options'
 );
 

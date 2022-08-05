@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.63.1",
+  "version": "0.64.1",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -28,6 +28,7 @@
   "overrides": {
     "@embroider/macros": "^1.0.0",
     "@embroider/util": "^1.0.0",
+    "ember-cli-babel": "$ember-cli-babel",
     "moment": "^2.29.1"
   },
   "devDependencies": {
@@ -38,12 +39,11 @@
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
-    "@lblod/ember-submission-form-fields": "^1.8.1",
+    "@lblod/ember-submission-form-fields": "^1.9.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",
     "ember-auto-import": "^2.4.0",
-    "ember-awesome-macros": "^6.0.0",
     "ember-cli": "~3.28.5",
     "ember-cli-app-version": "^5.0.0",
     "ember-cli-babel": "^7.26.11",
@@ -94,6 +94,7 @@
     "prettier": "^2.5.1",
     "qunit": "^2.17.2",
     "qunit-dom": "^2.0.0",
+    "rdflib": "^2.2.19",
     "sass": "^1.49.7",
     "tracked-toolbox": "^1.2.3",
     "webpack": "^5.68.0"

@@ -1,4 +1,10 @@
-<AuMainHeader @brandLink="{{unless this.session.isAuthenticated "https://www.vlaanderen.be/nl"}}" @homeRoute="index" @appTitle="Loket voor lokale besturen">
+{{page-title this.appTitle}}
+
+<AuMainHeader
+  @brandLink={{unless this.session.isAuthenticated "https://www.vlaanderen.be/nl"}}
+  @homeRoute="index"
+  @appTitle={{this.appTitle}}
+>
   <li class="au-c-list-horizontal__item">
     <AuLink @route="help" @skin="secondary">
       <AuIcon @icon="question-circle" @alignment="left" />
@@ -62,8 +68,8 @@
   <div class="au-c-main-container__content">
     <div class="au-c-body-container">
       {{#unless this.isIndex}}
-        <AuToolbar @size="medium" @skin="tint" @border="bottom">
-          <AuToolbarGroup>
+        <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+          <Group>
             <ul class="au-c-list-horizontal au-c-list-horizontal--small">
               <li class="au-c-list-horizontal__item">
                 <AuLink @route="index">
@@ -76,7 +82,7 @@
               </li>
               <Shared::BreadCrumb/>
             </ul>
-          </AuToolbarGroup>
+          </Group>
         </AuToolbar>
       {{/unless}}
       <div id="content" class="au-c-body-container">

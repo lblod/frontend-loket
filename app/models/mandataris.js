@@ -2,7 +2,7 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import { computed } from '@ember/object';
 
 export default class MandatarisModel extends Model {
-  @attr('language-string') rangorde;
+  @attr rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
   @attr('string') duplicationReason;

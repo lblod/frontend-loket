@@ -1,14 +1,14 @@
 {{page-title "Mandatenbeheer " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
-<AuToolbar @size="large" class="au-u-padding-bottom-none">
-  <AuToolbarGroup>
+<AuToolbar @size="large" class="au-u-padding-bottom-none" as |Group|>
+  <Group>
     <AuHeading @skin="2">Beheer Fracties</AuHeading>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
+  </Group>
+  <Group>
     <AuButton {{on 'click' this.createNewFractie}}>Voeg fractie toe</AuButton>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
-<AuToolbar @size="large">
-  <AuToolbarGroup>
+<AuToolbar @size="large" as |Group|>
+  <Group>
     <div class="power-select">
       <Mandatenbeheer::BestuursperiodenSelector
         @options={{this.bestuursperioden}}
@@ -17,7 +17,7 @@
       />
 
     </div>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 {{#if this.saveFractie.isRunning}}

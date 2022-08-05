@@ -1,7 +1,7 @@
- <AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+ <AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">Bewerk mandaten<br><strong>{{@persoon.gebruikteVoornaam}} {{@persoon.achternaam}}</strong></AuHeading>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
@@ -68,8 +68,8 @@
   </div>
 </div>
 
-<AuToolbar @border="top" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="top" @size="large" as |Group|>
+  <Group>
     <AuButton {{on 'click' this.finish}} @skin="secondary">Sluit</AuButton>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
