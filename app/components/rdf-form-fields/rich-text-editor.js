@@ -40,6 +40,8 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
     if (this.editor) {
       const editorValue = this.editor.htmlContent;
       // hack to prevent validations from firing on page load
+      // this is due to a behaviour in the editor that fires a focusout event on init
+      // TODO: remove this once its fixed in the editor
       if (!this.firstRun) {
         super.updateValue(editorValue);
       }
