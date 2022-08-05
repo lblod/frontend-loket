@@ -5,7 +5,7 @@ import SimpleInputFieldComponent from '@lblod/ember-submission-form-fields/compo
 export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFieldComponent {
   editor;
   inputId = 'richtext-' + guidFor(this);
-
+  firstRun = true;
   get editorOptions() {
     return {
       showToggleRdfaAnnotations: false,
@@ -39,7 +39,10 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
     //rdfaEditor setup is async, updateValue may be called before it is set
     if (this.editor) {
       const editorValue = this.editor.htmlContent;
-      super.updateValue(editorValue);
+      if(!this.firstRun){
+        super.updateValue(editorValue);
+      }
+      this.firstRun = false;
     }
   }
 }
