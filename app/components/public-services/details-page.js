@@ -7,7 +7,7 @@ import {
   ForkingStore,
   validateForm,
 } from '@lblod/ember-submission-form-fields';
-import rdflib from 'browser-rdflib';
+import rdflib from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
