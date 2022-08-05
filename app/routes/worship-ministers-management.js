@@ -7,12 +7,12 @@ export default class WorshipMinistersManagementRoute extends Route {
   @service router;
   @service store;
 
-  // beforeModel(transition) {
-  //   this.session.requireAuthentication(transition, 'login');
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'login');
 
-  //   if (!this.currentSession.canAccessBedienarenbeheer)
-  //     this.router.transitionTo('index');
-  // }
+    if (!this.currentSession.canAccessBedienarenbeheer)
+      this.router.transitionTo('index');
+  }
 
   async model() {
     return this.currentSession.group; // bestuurseenheid
