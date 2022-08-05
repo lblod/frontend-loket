@@ -1,5 +1,5 @@
-<AuToolbar @size="large" @border="bottom">
-  <AuToolbarGroup>
+<AuToolbar @size="large" @border="bottom" as |Group|>
+  <Group>
     <div>
       <AuHeading @level="2" @skin="4">{{@model.rol.label}}</AuHeading>
       <ul class="au-c-list-horizontal au-u-margin-top-small">
@@ -30,11 +30,11 @@
         </li>
       </ul>
     </div>
-  </AuToolbarGroup>
-  <AuToolbarGroup>
+  </Group>
+  <Group>
     <AuButton {{on 'click' @onClick}}>
       Bekijk en bewerk aanstellingsperiodes
       <AuIcon @icon="nav-right" @alignment="right" />
     </AuButton>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>

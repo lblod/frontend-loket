@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { registerFormFields } from '@lblod/ember-submission-form-fields';
+
 import ApplicationFormTableEditComponent from 'frontend-loket/components/rdf-form-fields/application-form-table/edit';
 import ApplicationFormTableShowComponent from 'frontend-loket/components/rdf-form-fields/application-form-table/show';
 import ClimateSubsidyCostsTableComponent from 'frontend-loket/components/rdf-form-fields/climate-subsidy-costs-table';
@@ -12,6 +13,8 @@ import ObjectiveTableEditComponent from 'frontend-loket/components/rdf-form-fiel
 import ObjectiveTableShowComponent from 'frontend-loket/components/rdf-form-fields/objective-table/show';
 import PlanLivingTogetherTableEditComponent from 'frontend-loket/components/rdf-form-fields/plan-living-together-table/edit';
 import PlanLivingTogetherTableShowComponent from 'frontend-loket/components/rdf-form-fields/plan-living-together-table/show';
+import AccountabilityTableEditComponent from 'frontend-loket/components/rdf-form-fields/accountability-table/edit';
+import AccountabilityTableShowComponent from 'frontend-loket/components/rdf-form-fields/accountability-table/show';
 
 export default class SubsidyApplicationsEditRoute extends Route {
   @service store;
@@ -80,6 +83,11 @@ export default class SubsidyApplicationsEditRoute extends Route {
           'http://lblod.data.gift/display-types/planLivingTogetherTable',
         edit: PlanLivingTogetherTableEditComponent,
         show: PlanLivingTogetherTableShowComponent,
+      },
+      {
+        displayType: 'http://lblod.data.gift/display-types/accountabilityTable',
+        edit: AccountabilityTableEditComponent,
+        show: AccountabilityTableShowComponent,
       },
     ]);
   }

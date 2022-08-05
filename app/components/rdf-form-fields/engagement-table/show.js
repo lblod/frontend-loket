@@ -1,20 +1,18 @@
 import InputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/input-field';
 import { tracked } from '@glimmer/tracking';
 import { triplesForPath } from '@lblod/submission-form-helpers';
-import rdflib from 'browser-rdflib';
 import { next } from '@ember/runloop';
+import { NamedNode } from 'rdflib';
 
 const extBaseUri = 'http://mu.semte.ch/vocabularies/ext/';
-const engagementEntryPredicate = new rdflib.NamedNode(
-  `${extBaseUri}engagementEntry`
-);
-const existingStaffPredicate = new rdflib.NamedNode(
+const engagementEntryPredicate = new NamedNode(`${extBaseUri}engagementEntry`);
+const existingStaffPredicate = new NamedNode(
   'http://mu.semte.ch/vocabularies/ext/existingStaff'
 );
-const additionalStaffPredicate = new rdflib.NamedNode(
+const additionalStaffPredicate = new NamedNode(
   'http://mu.semte.ch/vocabularies/ext/additionalStaff'
 );
-const volunteersPredicate = new rdflib.NamedNode(
+const volunteersPredicate = new NamedNode(
   'http://mu.semte.ch/vocabularies/ext/volunteers'
 );
 

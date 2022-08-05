@@ -1,0 +1,114 @@
+<tr>
+  <td class="au-u-1-3">
+    <AuLabel for="address-{{@index}}" class="au-u-hidden-visually">adres</AuLabel>
+    <div  class="{{if this.addressErrors "ember-power-select--error"}}">
+      <PowerSelect
+        @triggerId="address-{{@index}}"
+        @allowClear={{true}}
+        @search={{perform this.search}}
+        @selected={{this.address}}
+        @loadingMessage="Aan het laden..."
+        @searchEnabled={{true}}
+        @noMatchesMessage="Geen resultaten"
+        @searchMessage="Typ om te zoeken"
+        @onChange={{this.updateAddress}} 
+        @disabled={{@disabled}}
+          as |suggestion|>
+          {{#if suggestion.fullAddress}}
+            {{suggestion.fullAddress}}
+          {{else}}
+            {{suggestion}}
+          {{/if}}
+      </PowerSelect>
+    </div>
+    {{#each this.addressErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+    <br>
+    {{#if this.addressesWithBus}}
+      <div class="{{if this.addressesWithBusErrors "ember-power-select--error"}}">
+        <PowerSelect
+          @placeholder="Busnummer"
+          @selected={{this.address}}
+          @options={{this.addressesWithBus}}
+          @onChange={{this.updateAddressWithBus}}
+          @loadingMessage="Aan het laden..."
+          @noMatchesMessage="Geen resultaten"
+          as |address|>
+          Bus {{address.busnumber}}
+        </PowerSelect>
+      </div>
+      {{#each this.addressesWithBusErrors as |error|}}
+        <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+      {{/each}}
+    {{/if}}
+  </td>
+  <td class="au-u-1-5">
+    <AuLabel for="bedroom-count-{{@index}}" class="au-u-hidden-visually">
+      aantal slaapkamers
+    </AuLabel>
+    <AuInput
+      @width="block"
+      @value={{this.bedroomCount}}
+      @type="number"
+      @disabled={{@disabled}}
+      id="bedroom-count-{{@index}}"
+      @error={{if this.bedroomCountErrors true false}}
+      {{on 'blur' this.validate}}
+    />
+    {{#each this.bedroomCountErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td class="au-u-1-5 {{if this.sharedInvoiceErrors "ember-power-select--error"}}">
+    <AuLabel for="shared-invoice-{{@index}}" class="au-u-hidden-visually">
+      zijn er facturen voor gemeenschap delen?
+    </AuLabel>
+
+    <PowerSelect
+      @triggerId="sharedInvoice"
+      @allowClear={{true}}
+      @selected={{this.sharedInvoice}}
+      @onChange={{this.updateSharedInvoice}} 
+      @options={{this.sharedInvoiceOptions}}
+      @disabled={{@disabled}}
+        as |option|>
+        {{option}}
+    </PowerSelect>
+    {{#each this.sharedInvoiceErrors as |error|}}
+      <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
+    {{/each}}
+  </td>
+  <td style="width: 250px" {{!template-lint-disable no-inline-styles}}>
+    {{#unless @disabled}}
+        <AuFileUpload
+          @maxFileSizeMB="1024"
+          @onFinishUpload={{this.addFile}}
+          @disabled={{@disabled}}
+        />
+        <br>
+    {{/unless}}
+     {{#each this.files as |fileField index|}}
+      {{#if fileField.record}}
+        {{#let fileField.record as |file|}}
+          <li>
+            <FileCard
+              @filename={{file.filename}}
+              @fileSize={{file.humanReadableSize}}
+              @downloadLink={{file.downloadLink}}
+              @onDelete={{unless @disabled (fn this.deleteFile file index)}}
+            />
+          </li>
+        {{/let}}
+      {{/if}}
+    {{/each}}
+
+  </td>
+  <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
+    <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true" @disabled={{@disabled}}
+      {{on "click" this.removeEntry}}>
+      <AuIcon @icon="bin" @alignment="left"/>
+      Verwijder rij
+    </AuButton>
+  </td>
+</tr>

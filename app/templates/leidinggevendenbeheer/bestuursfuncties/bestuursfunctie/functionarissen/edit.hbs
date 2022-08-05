@@ -1,7 +1,7 @@
-<AuToolbar @border="bottom" @size="large">
-  <AuToolbarGroup>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
     <AuHeading @skin="2">Bewerk aanstellingsperiode voor {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}} {{this.model.isBestuurlijkeAliasVan.achternaam}} als {{this.model.bekleedt.rol.label}}</AuHeading>
-  </AuToolbarGroup>
+  </Group>
 </AuToolbar>
 
 <Leidinggevendenbeheer::FunctionarisForm @model={{this.model}} as |isValid| >
@@ -10,15 +10,15 @@
       <AuContent @skin="small">
         <p>Hou de <strong>historiek</strong> van afgelopen aanstellingsperiodes bij.</p>
         <ul>
-          <li>Nieuwe aanstellingsperiode of status: &nbsp;<AuLink @route="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen">voeg een nieuwe aanstellingsperiode toe</AuLink>.</li>
-          <li>Aanstellingsperiode verwijderen: &nbsp;<a href="mailto:LoketLokaalBestuur@vlaanderen.be?subject=Leidinggevendenbeheer - Loket Lokaal Bestuur" class="au-c-link">neem contact op met ons</a>.</li>
+          <li>Nieuwe aanstellingsperiode of status: <AuLink @route="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen">voeg een nieuwe aanstellingsperiode toe</AuLink>.</li>
+          <li>Aanstellingsperiode verwijderen: <a href="mailto:LoketLokaalBestuur@vlaanderen.be?subject=Leidinggevendenbeheer - Loket Lokaal Bestuur" class="au-c-link">neem contact op met ons</a>.</li>
         </ul>
       </AuContent>
     </AuAlert>
   </div>
 
-  <AuToolbar @border="top" @size="large">
-    <AuToolbarGroup>
+  <AuToolbar @border="top" @size="large" as |Group|>
+    <Group>
       <AuButtonGroup>
         <AuButton
           @disabled={{not isValid}}
@@ -31,6 +31,6 @@
           Annuleer
         </AuButton>
       </AuButtonGroup>
-    </AuToolbarGroup>
+    </Group>
   </AuToolbar>
 </Leidinggevendenbeheer::FunctionarisForm>
