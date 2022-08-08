@@ -262,6 +262,30 @@ export default class SharedBreadCrumbComponent extends Component {
         { label: 'Wijzig contactgegeven' },
       ],
     },
+    {
+      route: 'worship-ministers-management.index',
+      crumbs: [{ label: 'Bedienarenbeheer' }],
+    },
+    {
+      route: 'worship-ministers-management.new',
+      crumbs: [
+        { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
+        { label: 'Voeg bedienaar toe' },
+      ],
+    },
+    {
+      route: 'worship-ministers-management.new-worship-minister',
+      crumbs: [
+        { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
+        { label: 'Voeg een nieuw persoon toe' },
+      ],
+    },
+    {
+      route: 'worship-ministers-management.details.edit',
+      crumbs: [
+        { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
+      ],
+    },
   ];
 
   get crumbsForRoute() {
