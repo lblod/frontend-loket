@@ -113,11 +113,17 @@ Router.map(function () {
     this.route('new-person');
   });
 
-  this.route('worship-ministers-management', { path: 'bedienarenbeheer' }, function () {
-    this.route('new', { path: '/nieuw' });
-    this.route('minister', { path: '/bedienaar/:bedienaar_id' }, function () {
-      this.route('index'); // overview page
-      this.route('edit', { path: '/:bedienaar_id/bewerk' });
-    });
-  });
+  this.route(
+    'worship-ministers-management',
+    { path: 'bedienarenbeheer' },
+    function () {
+      this.route('new', { path: '/nieuw' });
+      this.route('new-worship-minister', { path: '/nieuw-bedienaar' });
+
+      this.route('minister', { path: '/bedienaar/:bedienaar_id' }, function () {
+        // this.route('index', { path: '' }); // overview page
+        this.route('edit', { path: '/bewerk' });
+      });
+    }
+  );
 });
