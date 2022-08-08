@@ -6,12 +6,11 @@
           <AuHeading @skin="2">Bedienarenbeheer</AuHeading>
         </Group>
         <Group>
-          <button type="button" class="au-c-button au-c-button--primary" {{ on "click" this.newMinister}}>
+          <AuButton skin="primary" {{ on "click" this.addNewMinister}}>
             Voeg bedienaar toe
-          </button>
+          </AuButton>
         </Group>
       </AuToolbar>
-
       <AuDataTable
         @content={{this.model}}
         @isLoading={{this.isLoadingModel}}
@@ -32,10 +31,10 @@
             <td>{{row.ministerPosition.function.label}}</td>
             <td>{{row.person.gebruikteVoornaam}}</td>
             <td>{{row.person.achternaam}}</td>
-            <td>{{moment-format row.startDate "DD/MM/YYYY"}}</td>
-            <td>{{moment-format row.eindeDate "DD/MM/YYYY"}}</td>
+            <td>{{moment-format row.startAgentDate "DD/MM/YYYY"}}</td>
+            <td>{{moment-format row.eindeAgentDate "DD/MM/YYYY"}}</td>
             <td>
-              <LinkTo @route="worshipt-ministers-management.minister.edit" @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link">Bekijk en bewerk</LinkTo>
+              <AuLink @route="worship-ministers-management.minister.edit" @model={{row.id}} class="au-c-link">Bekijk en bewerk</AuLink>
             </td>
           </c.body>
         </t.content>
