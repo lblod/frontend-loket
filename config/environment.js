@@ -39,6 +39,7 @@ module.exports = function (environment) {
         },
       },
     },
+    features: {},
   };
 
   if (environment === 'development') {
