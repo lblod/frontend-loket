@@ -153,7 +153,8 @@
               </AuCard>
             </div>
 
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+            {{#if (is-feature-enabled "public-services")}}
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
               <AuCard @textCenter="true" as |c|>
                 <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
                   <AuHeading @level="3" @skin="4">
@@ -165,7 +166,9 @@
                 </c.content>
                 {{! TODO: Add the needed documentation links }}
               </AuCard>
-            </div>
+              </div>
+            {{/if}}
+
           </div>
         </div>
       </section>
