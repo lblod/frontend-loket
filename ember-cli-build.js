@@ -5,9 +5,6 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function (defaults) {
   const customBuildConfig = {
     // Add options here
-    'ember-cli-babel': {
-      includePolyfill: true,
-    },
     'ember-simple-auth': {
       useSessionSetupMethod: true,
     },
