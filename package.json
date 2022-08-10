@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.64.0",
+  "version": "0.64.1",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -43,7 +43,7 @@
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^0.59.1",
-    "@lblod/ember-submission-form-fields": "^1.9.0",
+    "@lblod/ember-submission-form-fields": "^2.0.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",
@@ -75,8 +75,8 @@
     "ember-moment": "^9.0.0",
     "ember-mu-transform-helpers": "^2.1.2",
     "ember-page-title": "^7.0.0",
-    "ember-power-select": "^5.0.3",
-    "ember-power-select-with-create": "^0.9.1",
+    "ember-power-select": "^6.0.0",
+    "ember-power-select-with-create": "^1.0.0",
     "ember-promise-helpers": "^2.0.0",
     "ember-promise-modals": "^3.0.1",
     "ember-qunit": "^5.1.5",
