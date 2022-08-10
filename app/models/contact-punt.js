@@ -21,7 +21,7 @@ export default class ContactPuntModel extends Model {
   @belongsTo('contact-punt', { inverse: null })
   secondaryContactPoint;
 
-  @hasMany('agent-in-position', { inverse: 'contactPoints' }) agentsInPosition;
+  @hasMany('agent-in-position', { inverse: null }) agentsInPosition;
   @hasMany('mandataris') mandatarissen;
 }
 

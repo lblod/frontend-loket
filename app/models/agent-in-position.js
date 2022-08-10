@@ -1,13 +1,12 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class AgentInPositionModel extends Model {
-  @attr start;
   @attr agentStartDate;
   @attr agentEndDate;
 
   @belongsTo('post', { inverse: null }) post;
   @belongsTo('persoon') person;
-  @belongsTo('persoon', { inverse: 'isAangesteldAls' }) isBestuurlijkeAliasVan;
+  @belongsTo('persoon', { inverse: null }) isBestuurlijkeAliasVan;
 
   @hasMany('contact-punt', { inverse: null }) contacts;
 
