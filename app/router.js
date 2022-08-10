@@ -117,4 +117,20 @@ Router.map(function () {
   this.route('route-not-found', {
     path: '/*wildcard',
   });
+
+  if (isFeatureEnabled('eredienst-mandatenbeheer')) {
+    this.route('eredienst-mandatenbeheer', function () {
+      this.route('mandatarissen');
+
+      this.route(
+        'mandataris',
+        { path: '/mandataris/:mandateeId' },
+        function () {
+          this.route('edit');
+        }
+      );
+      this.route('new');
+      this.route('new-person');
+    });
+  }
 });

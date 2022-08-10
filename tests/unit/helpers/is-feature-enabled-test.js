@@ -6,14 +6,7 @@ module('Unit | Helper | is-feature-enabled', function () {
   test('it works', function (assert) {
     let originalFeaturesConfig = config.features;
 
-    config.features = {
-      foo: 'bar',
-    };
-
-    assert.false(
-      isFeatureEnabled('foo'),
-      "it returns false if the value isn't the boolean `true` or the string 'true'"
-    );
+    config.features = {};
 
     config.features.foo = true;
     assert.true(
@@ -25,6 +18,24 @@ module('Unit | Helper | is-feature-enabled', function () {
     assert.true(
       isFeatureEnabled('foo'),
       "it returns true if the value is the string 'true'"
+    );
+
+    config.features.foo = false;
+    assert.false(
+      isFeatureEnabled('foo'),
+      'it returns true if the value is the boolean `false`'
+    );
+
+    config.features.foo = null;
+    assert.false(
+      isFeatureEnabled('foo'),
+      'it returns false if the value is falsy'
+    );
+
+    config.features.foo = 'bar';
+    assert.false(
+      isFeatureEnabled('foo'),
+      'it returns false if the value is any string other than "true"'
     );
 
     assert.throws(

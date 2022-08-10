@@ -11,6 +11,8 @@ const MODULE = {
   LEIDINGGEVENDENBEHEER: 'LoketLB-leidinggevendenGebruiker',
   PERSONEELSBEHEER: 'LoketLB-personeelsbeheer',
   SUBSIDIES: 'LoketLB-subsidies',
+  BEDIENARENBEHEER: 'LoketLB-bedienarenbeheer',
+  EREDIENSTMANDATENBEHEER: 'LoketLB-eredienstMandaatGebruiker',
   PUBLIC_SERVICES: 'LoketLB-LPDCGebruiker',
 };
 
@@ -73,6 +75,17 @@ export default class CurrentSessionService extends Service {
 
   get canAccessSubsidies() {
     return this.canAccess(MODULE.SUBSIDIES);
+  }
+
+  get canAccessBedienarenbeheer() {
+    return this.canAccess(MODULE.BEDIENARENBEHEER);
+  }
+
+  get canAccessEredienstMandatenbeheer() {
+    return (
+      isFeatureEnabled('eredienst-mandatenbeheer') &&
+      this.canAccess(MODULE.EREDIENSTMANDATENBEHEER)
+    );
   }
 
   get canAccessPublicServices() {

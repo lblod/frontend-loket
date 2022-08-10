@@ -59,6 +59,12 @@
         </AuNavigationLink>
       </li>
     {{/if}}
+    {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
+      <AuNavigationLink @route="eredienst-mandatenbeheer.mandatarissen">
+        <AuIcon @icon="users-four-of-four" @alignment="left" />
+        Eredienst mandatenbeheer
+      </AuNavigationLink>
+    {{/if}}
     {{#if this.currentSession.canAccessPublicServices}}
       <li class="au-c-list-navigation__item">
         <AuNavigationLink @route="public-services">

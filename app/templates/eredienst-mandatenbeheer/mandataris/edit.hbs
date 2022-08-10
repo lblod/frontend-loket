@@ -1,0 +1,122 @@
+{{page-title "Bewerk"}}
+
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
+    <div>
+      <AuHeading @skin="2">Bewerk mandataris</AuHeading>
+      <p class="au-u-h3">
+        {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+        {{this.model.isBestuurlijkeAliasVan.achternaam~}}
+
+        {{~#if this.model.bekleedt~}}
+          ,
+          {{this.model.bekleedt.bestuursfunctie.label}}
+        {{/if}}
+      </p>
+    </div>
+  </Group>
+
+  <Group>
+    <AuButtonGroup>
+      <AuButton
+        @disabled={{this.save.isRunning}}
+        @loading={{this.save.isRunning}}
+        {{on "click" (perform this.save)}}
+      >
+        Wijzigingen opslaan
+      </AuButton>
+      <AuLink
+        @route="eredienst-mandatenbeheer.mandatarissen"
+        @skin="button-secondary"
+      >
+        Annuleer
+      </AuLink>
+    </AuButtonGroup>
+  </Group>
+</AuToolbar>
+
+<div class="au-c-body-container">
+  <div class="au-u-2-3@medium au-o-box">
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="mandaat">Mandaat</AuLabel>
+      <Mandatenbeheer::MandaatBestuursorganenSelector
+        @bestuursorganen={{this.bestuursorganen}}
+        @mandaat={{this.model.bekleedt}}
+        @onSelect={{this.setMandaat}}
+      />
+    </div>
+    <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandate-correction-start-date">Start</AuLabel>
+        <AuDatePicker
+          @value={{this.model.start}}
+          @onChange={{fn this.handleDateChange "start"}}
+          @id="mandate-correction-start-date"
+        />
+      </div>
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="mandate-correction-end-date">Einde</AuLabel>
+        <AuDatePicker
+          @value={{this.model.einde}}
+          @onChange={{fn this.handleDateChange "einde"}}
+          @id="mandate-correction-end-date"
+        />
+      </div>
+    </div>
+    <div>
+      <AuLabel>
+        Type helft
+      </AuLabel>
+      <div class="au-o-grid au-o-grid--tiny">
+        {{#each this.typeHalfList as |typeHalf|}}
+          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
+            <AuControlRadio
+              @label={{typeHalf.label}}
+              @name="type-half"
+              @value={{typeHalf.id}}
+              @onChange={{fn (mut this.model.typeHalf) typeHalf}}
+              checked={{eq this.model.typeHalf.id typeHalf.id}}
+            />
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <AuHr @size="small" />
+
+  <div class="au-o-box">
+    <ContactInformationTable
+      @contacts={{this.contactList}}
+      @selectedContact={{this.selectedContact}}
+      @editingContact={{this.editingContact}}
+      @onAddNewContact={{this.addNewContact}}
+      @onEditContact={{this.setEditingContact}}
+      @onEditContactCancel={{this.handleEditContactCancel}}
+      @onContactSelectionChange={{this.handleContactSelectionChange}}
+    />
+
+    {{#if
+      (and
+        this.editingContact.errors.telefoon
+        this.editingContact.errors.adres
+        this.editingContact.errors.email
+      )
+    }}
+      <AuAlert
+        @title={{this.title}}
+        @skin="error"
+        @icon="cross"
+        @size="small"
+        class="au-u-margin-top-small"
+      >
+        <p>
+          Gelieve minstens het "Adres", "E-mail" of "Primair telefoonnummer"
+          veld in te vullen.
+        </p>
+      </AuAlert>
+    {{/if}}
+  </div>
+</div>
+
+{{outlet}}

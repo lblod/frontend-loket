@@ -201,6 +201,68 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
+      route: 'eredienst-mandatenbeheer.mandatarissen',
+      crumbs: [{ label: 'Eredienst mandatenbeheer' }],
+    },
+    {
+      route: 'eredienst-mandatenbeheer.mandataris.edit',
+      crumbs: [
+        {
+          label: 'Eredienst mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        { label: 'Bewerk mandataris' },
+      ],
+    },
+    {
+      route: 'eredienst-mandatenbeheer.new',
+      crumbs: [
+        {
+          label: 'Eredienst mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        { label: 'Voeg mandaat toe' },
+      ],
+    },
+    {
+      route: 'eredienst-mandatenbeheer.new-person',
+      crumbs: [
+        {
+          label: 'Eredienst mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        { label: 'Voeg nieuwe persoon toe' },
+      ],
+    },
+    {
+      route: 'eredienst-mandatenbeheer.mandataris.contact-points.new',
+      crumbs: [
+        {
+          label: 'Eredienst mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        {
+          label: 'Bewerk mandataris',
+          link: 'eredienst-mandatenbeheer.mandataris.edit',
+        },
+        { label: 'Nieuw contactgegeven' },
+      ],
+    },
+    {
+      route: 'eredienst-mandatenbeheer.mandataris.contact-points.edit',
+      crumbs: [
+        {
+          label: 'Eredienst mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        {
+          label: 'Bewerk mandataris',
+          link: 'eredienst-mandatenbeheer.mandataris.edit',
+        },
+        { label: 'Wijzig contactgegeven' },
+      ],
+    },
+    {
       route: 'public-services.index',
       crumbs: [{ label: 'Producten- en dienstencatalogus' }],
     },

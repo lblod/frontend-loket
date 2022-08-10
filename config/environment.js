@@ -40,6 +40,8 @@ module.exports = function (environment) {
       },
     },
     features: {
+      'eredienst-mandatenbeheer':
+        '{{FEATURE_EREDIENSTEN_MANDATENBEHEER_ENABLED}}',
       'public-services': '{{FEATURE_PUBLIC_SERVICES_ENABLED}}',
     },
   };
@@ -51,6 +53,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
+    ENV.features['eredienst-mandatenbeheer'] = true;
     ENV.features['public-services'] = true;
   }
 
