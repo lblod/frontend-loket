@@ -65,30 +65,6 @@ trigger:
       - pull_request
 
 ---
-# Temporary pipeline for the new LPDC module
-# Remove this once the feature branch is merged in development
-kind: pipeline
-type: docker
-name: push-ldpc-feature-build
-steps:
-- name: push-lpdc-feature-build
-  image: plugins/docker
-  settings:
-    repo: ${DRONE_REPO}
-    tags: feature-lpdc-module
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-    purge: true
-trigger:
-  branch:
-    - feature/lpdc-module
-  event:
-    exclude:
-      - pull_request
-
----
 kind: pipeline
 type: docker
 name: release
