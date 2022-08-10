@@ -262,6 +262,52 @@ export default class SharedBreadCrumbComponent extends Component {
         { label: 'Wijzig contactgegeven' },
       ],
     },
+    {
+      route: 'public-services.index',
+      crumbs: [{ label: 'Producten- en dienstencatalogus' }],
+    },
+    {
+      route: 'public-services.add',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        { label: 'Product of dienst toevoegen' },
+      ],
+    },
+    {
+      route: 'public-services.details',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        // TODO: this should be the name of the service, but the breadcrumbs system doesn't support that
+        { label: 'Details' },
+      ],
+    },
+    {
+      route: 'public-services.details.content',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        // TODO: this should be the name of the service, but the breadcrumbs system doesn't support that
+        { label: 'Details' },
+        { label: 'Inhoud' },
+      ],
+    },
+    {
+      route: 'public-services.details.properties',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        // TODO: this should be the name of the service, but the breadcrumbs system doesn't support that
+        { label: 'Details' },
+        { label: 'Eigenschappen' },
+      ],
+    },
+    {
+      route: 'public-services.details.translations',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        // TODO: this should be the name of the service, but the breadcrumbs system doesn't support that
+        { label: 'Details' },
+        { label: 'Engelse vertalingen' },
+      ],
+    },
   ];
 
   get crumbsForRoute() {

@@ -49,4 +49,9 @@
       Eredienst<br> mandatenbeheer
     </AuLink>
   {{/if}}
+  {{#if this.currentSession.canAccessPublicServices}}
+    <AuLink @route="public-services" @icon="unordered-list" @iconAlignment="left" role="menuitem">
+      Producten- en dienstencatalogus
+    </AuLink>
+  {{/if}}
 </AuDropdown>

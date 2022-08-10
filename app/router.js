@@ -13,6 +13,7 @@ Router.map(function () {
   this.route('mock-login');
 
   this.route('contact');
+  this.route('help');
 
   this.route('legaal', function () {
     this.route('disclaimer');
@@ -99,10 +100,23 @@ Router.map(function () {
     });
   });
 
+  if (isFeatureEnabled('public-services')) {
+    this.route(
+      'public-services',
+      { path: '/producten-en-dienstencatalogus' },
+      function () {
+        this.route('add', { path: '/toevoegen' });
+        this.route('details', { path: '/:serviceId' }, function () {
+          this.route('content', { path: '/inhoud' });
+          this.route('properties', { path: '/eigenschappen' });
+        });
+      }
+    );
+  }
+
   this.route('route-not-found', {
     path: '/*wildcard',
   });
-  this.route('help');
 
   if (isFeatureEnabled('eredienst-mandatenbeheer')) {
     this.route('eredienst-mandatenbeheer', function () {

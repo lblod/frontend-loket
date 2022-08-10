@@ -65,5 +65,13 @@
         Eredienst mandatenbeheer
       </AuNavigationLink>
     {{/if}}
+    {{#if this.currentSession.canAccessPublicServices}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @route="public-services">
+          <AuIcon @icon="unordered-list" @alignment="left" />
+          Producten- en dienstencatalogus
+        </AuNavigationLink>
+      </li>
+    {{/if}}
   </ul>
 </nav>

@@ -120,10 +120,25 @@
           <:title>Subsidiebeheer</:title>
           <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
           <:link>
-            <AuLink @route="subsidy.applications" @skin="button">Ga naar subsidiebeheer</AuLink>
+          <AuLink @route="subsidy.applications" @skin="button">Ga naar subsidiebeheer</AuLink>
           </:link>
         </LoketModuleCard>
       </li>
+      {{#if (is-feature-enabled "public-services")}}
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+        <LoketModuleCard
+          @isAvailable={{this.currentSession.canAccessPublicServices}}
+          @icon="unordered-list"
+          {{! TODO: Add the needed documentation links }}
+        >
+          <:title>Producten- en dienstencatalogus</:title>
+          <:description>Beheer uw producten en diensten.</:description>
+          <:link>
+            <AuLink @route="public-services" @skin="button">Ga naar de producten- en dienstencatalogus</AuLink>
+          </:link>
+        </LoketModuleCard>
+        </li>
+      {{/if}}
     </ul>
   </div>
 </div>
