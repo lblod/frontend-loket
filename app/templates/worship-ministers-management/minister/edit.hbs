@@ -1,75 +1,97 @@
 {{ page-title "Bekijk en bewerk : " this.model.ministerPosition.function.label " " this.model.person.gebruikteVoornaam " " this.model.person.achternaam }}
-<div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
-  <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
-    <div class="au-c-body-container" tabindex="0">
-      <AuToolbar @size="large" as |Group|>
-        <Group>
-          <AuHeading @skin="2">Bekijk en bewerk: {{this.model.ministerPosition.function.label}} {{this.model.person.gebruikteVoornaam}} {{this.model.person.achternaam}}</AuHeading>
-        </Group>
-        <Group>
-          <AuButtonGroup>
-          <AuButton>
-            Opslaan
-          </AuButton>
-          <AuButton @skin="secondary" {{on "click" this.onCancel}}>
-            Annuleer
-          </AuButton>
-        </AuButtonGroup>
-        </Group>
-      </AuToolbar>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
+    <div>
+      <AuHeading @skin="2">Bewerk bedienaar</AuHeading>
+      <p class="au-u-h3">
+        {{#if this.model.ministerPosition}}
+          {{this.model.ministerPosition.function.label}},
+        {{/if}}
+        {{this.model.person.gebruikteVoornaam}}
+        {{this.model.person.achternaam}}
+      </p>
+    </div>
+  </Group>
 
-      <AuLabel>Persoonlijke gegevens</AuLabel>
-      {{!-- Card --}}
-      {{!-- Form --}}
-      {{!-- Two column --}}
-      {{!-- Col 1 --}}
-      <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
-      <div class="au-o-grid__item au-u-1-2">
-      <AuLabel>Voornaam *</AuLabel>
-      <AuInput></AuInput>
-      </div>
-      <div class="au-o-grid__item au-u-1-2">
-      <AuLabel>Achternaam *</AuLabel>
-      <AuInput></AuInput>
-      </div>
-      {{!-- Col 2 --}}
-      </div>
+  <Group>
+    <AuButtonGroup>
+      <AuButton
+        @disabled={{this.save.isRunning}}
+        @loading={{this.save.isRunning}}
+        {{on "click" (perform this.save)}}
+      >
+        Wijzigingen opslaan
+      </AuButton>
+      <AuLink
+        @route="worship-ministers-management"
+        @skin="button-secondary"
+      >
+        Annuleer
+      </AuLink>
+    </AuButtonGroup>
+  </Group>
+</AuToolbar>
 
-      <div class="au-o-box">
-        {{!-- <ContactInformationTable
-          @contacts={{this.contactList}}
-          @selectedContact={{this.selectedContact}}
-          @editingContact={{this.editingContact}}
-          @onAddNewContact={{this.addNewContact}}
-          @onEditContact={{this.setEditingContact}}
-          @onEditContactCancel={{this.handleEditContactCancel}}
-          @onContactSelectionChange={{this.handleContactSelectionChange}}
+<div class="au-c-body-container">
+  <div class="au-u-2-3@medium au-o-box">
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="worship-minister">Bedienaar</AuLabel>
+      <AuInput @value={{this.function}} @id="worship-minister" />
+      {{!-- TODO: Minister Component ? --}}
+    </div>
+    <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="worship-minister-correction-start-date">Start</AuLabel>
+        <AuDatePicker
+          @value={{this.model.agentStartDate}}
+          @onChange={{fn this.handleDateChange "agentStartDate"}}
+          @id="worship-minister-correction-start-date"
         />
-
-        {{#if
-          (and
-            this.editingContact.errors.telefoon
-            this.editingContact.errors.adres
-            this.editingContact.errors.email
-          )
-        }}
-          <AuAlert
-            @title={{this.title}}
-            @skin="error"
-            @icon="cross"
-            @size="small"
-            class="au-u-margin-top-small"
-          >
-            <p>
-              Gelieve minstens het "Adres", "E-mail" of "Primair telefoonnummer"
-              veld in te vullen.
-            </p>
-          </AuAlert>
-        {{/if}} --}}
       </div>
-
-      <AuLabel>Postie</AuLabel>
-
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="worship-minister-correction-end-date">Einde</AuLabel>
+        <AuDatePicker
+          @value={{this.model.agentEndDate}}
+          @onChange={{fn this.handleDateChange "agentEndDate"}}
+          @id="worship-minister-correction-end-date"
+        />
+      </div>
     </div>
   </div>
+
+  <AuHr @size="small" />
+  <div class="au-o-box">
+    <ContactInformationTable
+      @contacts={{this.contactList}}
+      @selectedContact={{this.selectedContact}}
+      @editingContact={{this.editingContact}}
+      @onAddNewContact={{this.addNewContact}}
+      @onEditContact={{this.setEditingContact}}
+      @onEditContactCancel={{this.handleEditContactCancel}}
+      @onContactSelectionChange={{this.handleContactSelectionChange}}
+    />
+
+    {{#if
+      (and
+        this.editingContact.errors.telefoon
+        this.editingContact.errors.adres
+        this.editingContact.errors.email
+      )
+    }}
+      <AuAlert
+        @title={{this.title}}
+        @skin="error"
+        @icon="cross"
+        @size="small"
+        class="au-u-margin-top-small"
+      >
+        <p>
+          Gelieve minstens het "Adres", "E-mail" of "Primair telefoonnummer"
+          veld in te vullen.
+        </p>
+      </AuAlert>
+    {{/if}}
+  </div>
 </div>
+
+{{outlet}}
