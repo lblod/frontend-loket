@@ -53,11 +53,6 @@
           @label="Productnaam"
         />
         <AuDataTableThSortable
-          @field=""
-          @currentSorting={{this.sort}}
-          @label="Verplichting"
-        />
-        <AuDataTableThSortable
           @field="identifier"
           @currentSorting={{this.sort}}
           @label="PID"
@@ -95,7 +90,6 @@
       {{else if this.hasResults}}
         <Content.body as |publicService|>
           <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
-          <td><AuPill>Nee</AuPill></td>
           <td>{{publicService.identifier}}</td>
           <td>{{publicService.sector.name}}</td>
           <td class="u-table-cell-fit-content">
