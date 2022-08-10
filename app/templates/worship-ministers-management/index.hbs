@@ -31,8 +31,8 @@
             <td>{{row.ministerPosition.function.label}}</td>
             <td>{{row.person.gebruikteVoornaam}}</td>
             <td>{{row.person.achternaam}}</td>
-            <td>{{moment-format row.startAgentDate "DD/MM/YYYY"}}</td>
-            <td>{{moment-format row.eindeAgentDate "DD/MM/YYYY"}}</td>
+            <td>{{moment-format row.agentStartDate "DD/MM/YYYY"}}</td>
+            <td>{{moment-format row.agentEndDate "DD/MM/YYYY"}}</td>
             <td>
               <AuLink @route="worship-ministers-management.minister.edit" @model={{row.id}} class="au-c-link">Bekijk en bewerk</AuLink>
             </td>
@@ -42,3 +42,4 @@
     </div>
   </div>
 </div>
+{{outlet}}
