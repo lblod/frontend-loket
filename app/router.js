@@ -120,9 +120,9 @@ Router.map(function () {
       this.route('new', { path: '/nieuw' });
       this.route('new-worship-minister', { path: '/nieuw-bedienaar' });
 
-      this.route('minister', { path: '/bedienaar/:bedienaar_id' }, function () {
+      this.route('minister', { path: '/bedienaar' }, function () {
         // this.route('index', { path: '' }); // overview page
-        this.route('edit', { path: '/bewerk' });
+        this.route('edit', { path: '/:minister_id/bewerk' });
       });
     }
   );
