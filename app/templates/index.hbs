@@ -67,6 +67,22 @@
           </:link>
         </LoketModuleCard>
       </li>
+      {{#if (is-feature-enabled "eredienst-mandatenbeheer")}}
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @isAvailable={{this.currentSession.canAccessEredienstMandatenbeheer}}
+            @icon="users-four-of-four"
+            @extraInformationLink="TODO"
+            @userManualLink="TODO"
+          >
+            <:title>Eredienst mandatenbeheer</:title>
+            <:description>Hou de mandaten binnen de erediensten bij.</:description>
+            <:link>
+              <AuLink @route="eredienst-mandatenbeheer.mandatarissen" @skin="button">Ga naar eredienst mandatenbeheer</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
+      {{/if}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessLeidinggevenden}}

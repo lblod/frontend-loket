@@ -1,0 +1,64 @@
+<div ...attributes>
+  <AuToolbar class="au-u-margin-bottom-small" @reverse={{true}} as |Group|>
+    <Group>
+      <AuButton
+        @disabled={{this.isEditing}}
+        @icon="add"
+        @iconAlignment="left"
+        {{on "click" @onAddNewContact}}
+      >
+        Contactgegevens toevoegen
+      </AuButton>
+    </Group>
+  </AuToolbar>
+
+  <AuTable>
+    <:title>Contactgegevens</:title>
+    <:header>
+      <tr>
+        <th id="contact-point-address" width="20%">Adres</th>
+        <th id="contact-point-address-bus-number">Bus</th>
+        {{! <th id="contact-point-address-province">Provincie</th> }}
+        <th id="contact-point-email">E-mail</th>
+        <th id="contact-point-telephone">Primair telefoonnummer</th>
+        <th id="contact-point-telephone-secondary">Secundair telefoonnummer</th>
+        <th id="contact-point-selection-status">Selecteer</th>
+        <th></th>
+      </tr>
+    </:header>
+    <:body>
+      {{#if (or @contacts @editingContact)}}
+        {{#each @contacts as |contact|}}
+          <ContactInformationTable::Row
+            @contact={{contact}}
+            @secondaryContact={{contact.secondaryContactPoint}}
+            @adres={{contact.adres}}
+            @onAdresChange={{this.handleAdresChange}}
+            @isEditing={{(and this.isEditing (eq @editingContact contact))}}
+            @isDisabled={{and this.isEditing (not-eq @editingContact contact)}}
+            @isSelected={{and
+              (eq @selectedContact contact)
+              (not @editingContact.isNew)
+            }}
+            @onContactSelectionChange={{@onContactSelectionChange}}
+            @onEditContact={{@onEditContact}}
+            @onEditContactCancel={{@onEditContactCancel}}
+          />
+        {{/each}}
+
+        {{#if @editingContact.isNew}}
+          <ContactInformationTable::Row
+            @contact={{@editingContact}}
+            @secondaryContact={{@editingContact.secondaryContactPoint}}
+            @isEditing={{true}}
+            @isSelected={{true}}
+            @onContactSelectionChange={{@onContactSelectionChange}}
+            @onEditContactCancel={{@onEditContactCancel}}
+          />
+        {{/if}}
+      {{else}}
+        <tr><td colspan="100%">Geen contactgegevens gevonden</td></tr>
+      {{/if}}
+    </:body>
+  </AuTable>
+</div>

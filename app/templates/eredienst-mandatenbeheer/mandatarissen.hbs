@@ -1,0 +1,81 @@
+<div class="au-c-body-container">
+  <AuToolbar @size="large" @nowrap="true" class="au-u-padding-bottom-none" as |Group|>
+    <Group>
+      <div class="au-o-flow">
+        <AuHeading @skin="2">Mandatenbeheer</AuHeading>
+      </div>
+    </Group>
+
+    <Group>
+      <AuButtonGroup>
+        <AuLink @route="eredienst-mandatenbeheer.new" @skin="button">Voeg mandataris toe</AuLink>
+      </AuButtonGroup>
+    </Group>
+  </AuToolbar>
+
+
+  <AuToolbar @size="large" as |Group|>
+    <Group>
+      <div class="">
+        <Mandatenbeheer::BestuursperiodenSelector
+          @options={{this.bestuursperioden}}
+          @selectedStartDate={{this.startDate}}
+          @selectedEndDate={{this.endDate}}
+          @onSelect={{this.selectPeriod}}/>
+      </div>
+    </Group>
+    <Group class="au-u-1-3@medium">
+      <AuInput
+        @value={{this.searchData}}
+        @icon="search"
+        @iconAlignment="left"
+        @width="block"
+        placeholder="Zoek mandataris"
+        {{on "input" (perform this.search value="target.value")}}
+      />
+    </Group>
+  </AuToolbar>
+
+
+  <AuDataTable @content={{this.model}} @isLoading={{this.isLoading}} @noDataMessage="Geen mandatarissen gevonden"
+   @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |t|>
+    <t.content as |c|>
+      <c.header>
+        <th class="au-u-visible-small-up">Orgaan</th>
+        <AuDataTableThSortable @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{this.sort}} @label='Naam' class="au-u-visible-small-up" />
+        <AuDataTableThSortable @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{this.sort}} @label='Familienaam'/>
+        <AuDataTableThSortable @field='typeHalf.label' @currentSorting={{this.sort}} @label='Type helft' class="au-u-visible-medium-up" />
+        <AuDataTableThSortable @field='bekleedt.bestuursfunctie.label' @currentSorting={{this.sort}} @label='Mandaat' />
+        <AuDataTableThSortable @field='start' @currentSorting={{this.sort}} @label='Start mandaat' class="au-u-visible-medium-up" />
+        <AuDataTableThSortable @field='einde' @currentSorting={{this.sort}} @label='Einde mandaat' class="au-u-visible-medium-up" />
+        <th></th>
+      </c.header>
+      <c.body data-test-loket="mandatarissen-body" as |row|>
+        <td class="au-u-visible-small-up">
+          {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}
+            {{bestuursorgaan.isTijdsspecialisatieVan.naam}}<br>
+          {{/each}}
+        </td>
+        <td class="au-u-visible-small-up">
+          {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+        </td>
+        <td>
+          {{row.isBestuurlijkeAliasVan.achternaam}}
+        </td>
+        <td class="au-u-visible-medium-up">
+          {{row.typeHalf.label}}
+        </td>
+        <td>
+          {{row.bekleedt.bestuursfunctie.label}}
+        </td>
+        <td class="au-u-visible-medium-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
+        <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
+        <td>
+          <AuLink @route="eredienst-mandatenbeheer.mandataris.edit" @model={{row.id}}>Bewerk</AuLink>
+        </td>
+      </c.body>
+    </t.content>
+  </AuDataTable>
+</div>
+
+{{outlet}}

@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 
 const MODULE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
@@ -10,6 +11,8 @@ const MODULE = {
   LEIDINGGEVENDENBEHEER: 'LoketLB-leidinggevendenGebruiker',
   PERSONEELSBEHEER: 'LoketLB-personeelsbeheer',
   SUBSIDIES: 'LoketLB-subsidies',
+  BEDIENARENBEHEER: 'LoketLB-bedienarenbeheer',
+  EREDIENSTMANDATENBEHEER: 'LoketLB-eredienstMandaatGebruiker',
 };
 
 export default class CurrentSessionService extends Service {
@@ -71,5 +74,16 @@ export default class CurrentSessionService extends Service {
 
   get canAccessSubsidies() {
     return this.canAccess(MODULE.SUBSIDIES);
+  }
+
+  get canAccessBedienarenbeheer() {
+    return this.canAccess(MODULE.BEDIENARENBEHEER);
+  }
+
+  get canAccessEredienstMandatenbeheer() {
+    return (
+      isFeatureEnabled('eredienst-mandatenbeheer') &&
+      this.canAccess(MODULE.EREDIENSTMANDATENBEHEER)
+    );
   }
 }

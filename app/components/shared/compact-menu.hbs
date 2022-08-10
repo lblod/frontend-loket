@@ -1,4 +1,6 @@
-<AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings" role="group">
+{{! the role="menu" is added by the AuDropdown component, so we can ignore the rule here.}}
+{{! template-lint-disable require-context-role}}
+<AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings">
   {{#if this.currentSession.canAccessToezicht}}
     <AuLink @route="supervision.submissions" role="menuitem">
       <AuIcon @icon="search-folder" @alignment="left" />
@@ -39,6 +41,12 @@
     <AuLink @route="subsidy.applications.index" role="menuitem">
       <AuIcon @icon="documents" @alignment="left" />
       Subsidiebeheer
+    </AuLink>
+  {{/if}}
+  {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
+    <AuLink @route="eredienst-mandatenbeheer.mandatarissen" role="menuitem">
+      <AuIcon @icon="users-four-of-four" @alignment="left" />
+      Eredienst<br> mandatenbeheer
     </AuLink>
   {{/if}}
 </AuDropdown>
