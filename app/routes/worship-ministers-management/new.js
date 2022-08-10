@@ -1,18 +1,40 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
-export default class MinisterManagementNewRoute extends Route {
+export default class WorshipMinisterManagementNewRoute extends Route {
   @service currentSession;
-  @service session;
-  @service router;
   @service store;
 
-  // beforeModel(transition) {
-  //   this.session.requireAuthentication(transition, 'login');
+  queryParams = {
+    personId: {
+      refreshModel: true,
+    },
+  };
 
-  //   if (!this.currentSession.canAccessBedienarenbeheer)
-  //     this.router.transitionTo('index');
-  // }
+  async model({ personId }) {
+    if (personId) {
+      let person = await this.store.findRecord('persoon', personId, {
+        backgroundReload: false,
+      });
 
-  async model() {}
+      let worshipMinister = this.store.createRecord('minister');
+      worshipMinister.isBestuurlijkeAliasVan = person;
+
+      return {
+        worshipMinister,
+        person,
+      };
+    }
+
+    return {};
+  }
+
+  resetController(controller, isExiting) {
+    super.resetController(...arguments);
+
+    if (isExiting) {
+      controller.personId = '';
+      controller.model?.worshipMinister?.rollbackAttributes();
+    }
+  }
 }
