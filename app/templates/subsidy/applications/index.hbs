@@ -45,12 +45,14 @@
 
     <c.body as |consumption|>
       {{#let consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries as |series|}}
-        <td>{{consumption.subsidyMeasureOffer.title}}
-           <AuHelpText @skin="secondary" class="au-u-margin-top-none">
-            {{#if (eq consumption.subsidyMeasureOffer.title "Fietsinfrastructuur")}}
-              {{consumption.projectName}}
-            {{/if}}
-          </AuHelpText>
+        <td>
+          {{consumption.subsidyMeasureOffer.title}}
+
+          {{#if consumption.subsidyApplicationForms.firstObject.projectName}}
+            <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+              {{consumption.subsidyApplicationForms.firstObject.projectName}}
+            </AuHelpText>
+          {{/if}}
         </td>
         <td>
           {{series.label}}
