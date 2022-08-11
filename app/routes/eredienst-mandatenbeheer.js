@@ -76,8 +76,15 @@ export default class EredienstMandatenbeheerRoute extends Route {
       'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
     };
 
-    if (startDate) queryParams['filter[binding-start]'] = startDate;
-    if (endDate) queryParams['filter[binding-einde]'] = endDate;
+    if (startDate && endDate) {
+      queryParams['filter[binding-start]'] = startDate;
+      queryParams['filter[binding-einde]'] = endDate;
+    } else if (startDate) {
+      queryParams['filter[binding-start]'] = startDate;
+      // Bestuursorganen can overlap in start date,
+      // so if no end date is provided, explicitly filter em out
+      queryParams['filter[:has-no:binding-einde]'] = true;
+    }
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
     return organen.toArray();
