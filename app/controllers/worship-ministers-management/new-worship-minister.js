@@ -6,7 +6,7 @@ export default class WorshipMinistersManagementNewWorshipMinisterController exte
 
   @action
   onCreate(person) {
-    this.router.transitionTo('worship-ministers-management.minister.edit', {
+    this.router.transitionTo('worship-ministers-management.new', {
       queryParams: {
         personId: person.id,
       },
