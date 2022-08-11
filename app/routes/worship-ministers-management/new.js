@@ -16,9 +16,23 @@ export default class WorshipMinisterManagementNewRoute extends Route {
       let person = await this.store.findRecord('persoon', personId, {
         backgroundReload: false,
       });
+      // let [person, post] = await Promise.all([
+      //   this.store.findRecord('persoon', personId, {
+      //     backgroundReload: false,
+      //   }),
+      //   this.store.findAll('minister-position'),
+      // ]);
 
       let worshipMinister = this.store.createRecord('minister');
-      worshipMinister.isBestuurlijkeAliasVan = person;
+      let ministerPosition = this.store.createRecord('minister-position');
+      let ministerPositionFunction = this.store.createRecord(
+        'minister-position-function'
+      );
+      worshipMinister.person = person;
+      worshipMinister.post = ministerPosition;
+      worshipMinister.post.function = ministerPositionFunction;
+
+      console.log('worship minister', worshipMinister);
 
       return {
         worshipMinister,
