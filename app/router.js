@@ -118,7 +118,7 @@ Router.map(function () {
     { path: 'bedienarenbeheer' },
     function () {
       this.route('new', { path: '/nieuw' });
-      this.route('new-worship-minister', { path: '/nieuw-bedienaar' });
+      this.route('new-person', { path: '/nieuw-bedienaar' });
 
       this.route('minister', { path: '/bedienaar' }, function () {
         // this.route('index', { path: '' }); // overview page
