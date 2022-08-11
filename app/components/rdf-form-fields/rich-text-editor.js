@@ -5,7 +5,14 @@ import SimpleInputFieldComponent from '@lblod/ember-submission-form-fields/compo
 export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFieldComponent {
   editor;
   inputId = 'richtext-' + guidFor(this);
-  firstRun = true;
+
+  constructor() {
+    super(...arguments);
+
+    // The editor returns an empty string if it contains no content, so we default to that as well.
+    this.value = '';
+  }
+
   get editorOptions() {
     return {
       showToggleRdfaAnnotations: false,
@@ -29,7 +36,11 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
-    editor.setHtmlContent(this.value ? this.value : '');
+
+    // We only set the value if it contains actual content. This prevents the browser from focusing the editor field due to the content update.
+    if (this.value) {
+      editor.setHtmlContent(this.value);
+    }
   }
 
   @action
@@ -39,13 +50,12 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
     //rdfaEditor setup is async, updateValue may be called before it is set
     if (this.editor) {
       const editorValue = this.editor.htmlContent;
-      // hack to prevent validations from firing on page load
-      // this is due to a behaviour in the editor that fires a focusout event on init
-      // TODO: remove this once its fixed in the editor
-      if (!this.firstRun) {
+
+      // Only trigger an update if the value actually changed.
+      // This prevents that the form observer is triggered even though no editor content was changed.
+      if (this.value !== editorValue) {
         super.updateValue(editorValue);
       }
-      this.firstRun = false;
     }
   }
 }
