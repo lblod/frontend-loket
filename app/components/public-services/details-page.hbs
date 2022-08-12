@@ -89,3 +89,14 @@
     </AuButtonGroup>
   </:footer>
 </AuModal>
+<AuModal @modalOpen={{this.showSubmitErrorModal}} @size="small">
+  <:title>Formulierfout</:title>
+  <:body>
+    {{this.submitErrorMessage}}
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton @skin="secondary" {{on "click" this.closeSubmitErrorModal}}>Annuleer</AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>

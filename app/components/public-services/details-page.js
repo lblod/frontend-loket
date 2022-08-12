@@ -13,6 +13,12 @@ import ConfirmDeletionModal from 'frontend-loket/components/public-services/conf
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
+//TODO: this is a bad idea this is the third time (as far as i know) these ids have been hardcoded
+const FORM_MAPPING = {
+  "cd0b5eba-33c1-45d9-aed9-75194c3728d3": "inhoud",
+  "149a7247-0294-44a5-a281-0a4d3782b4fd": "eigenschappen",
+};
+
 const FORM_GRAPHS = {
   formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
   metaGraph: new rdflib.NamedNode('http://data.lblod.info/metagraph'),
@@ -27,8 +33,15 @@ export default class PublicServicesDetailsPageComponent extends Component {
   @service router;
   @service store;
 
+  @tracked submitErrorMessage;
+  @tracked showSubmitErrorModal = false;
   @tracked submitToGoverment = false;
   @tracked isSubmit = false;
+
+  @action
+  closeSubmitErrorModal(){
+    this.showSubmitErrorModal=false;
+  }
 
   @action
   sending() {
@@ -92,24 +105,30 @@ export default class PublicServicesDetailsPageComponent extends Component {
       sourceNode: this.sourceNode,
       store: this.formStore,
     });
-
-    this.forceShowErrors = !isValidForm;
-
+    this.forceShowErrors=!isValidForm;
     if (isValidForm) {
       if (this.hasUnsavedChanges) {
         yield this.saveSemanticForm.unlinked().perform();
       }
+      const response=yield publish(this.args.publicService.id);
+      const errors=response.data.errors;
 
-      try {
-        yield publish(this.args.publicService.id);
-      } catch (error) {
-        // TODO: Show some sort of error message
+      if(errors.length == 0){
+        this.router.transitionTo("public-services");
       }
-
-      this.router.transitionTo('public-services');
-    } else {
-      // TODO: Show some sort of error message
+      else if(errors.length == 1){
+        //TODO: should probably handle this more in a more user friendly way
+        //ie: redirect to said form and scroll down to the first invalid field 
+        this.showSubmitErrorModal = true;
+        const formId = errors[0].form.id;
+        this.submitErrorMessage = 'Het formulier "'+FORM_MAPPING[formId]+'" is onjuist ingevuld';
+      }
+      else if(errors.length > 1){
+        this.showSubmitErrorModal = true;
+        this.submitErrorMessage = 'Meerdere formulieren zijn onjuist ingevuld';
+      }
     }
+    this.sending();
   }
 
   @task({ group: 'publicServiceAction' })
@@ -143,8 +162,8 @@ export default class PublicServicesDetailsPageComponent extends Component {
     this.modals.open(ConfirmDeletionModal, {
       deleteHandler: async () => {
         await this.args.publicService.destroyRecord();
-        this.hasUnsavedChanges = false;
-        this.router.replaceWith('public-services');
+          this.hasUnsavedChanges = false;
+          this.router.replaceWith('public-services');
       },
     });
   }
@@ -194,11 +213,18 @@ async function saveFormData(serviceId, formId, formData) {
 }
 
 async function publish(serviceId) {
-  await fetch(`/lpdc-management/${serviceId}/submit`, {
+  const response = await fetch(`/lpdc-management/${serviceId}/submit`, {
     method: 'POST',
     body: JSON.stringify({}),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
   });
+  if(response.status==500){
+    throw `Unexpected error during validation  of service "${serviceId}".`
+  }
+  else{
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  }  
 }
