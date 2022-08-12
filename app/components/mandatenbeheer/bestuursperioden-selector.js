@@ -40,7 +40,8 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
       return this._options.find((o) => {
         return (
           o.bindingStart.toDateString() ==
-          new Date(this.args.selectedStartDate).toDateString()
+            new Date(this.args.selectedStartDate).toDateString() &&
+          !o.bindingEinde
         );
       });
     } else {

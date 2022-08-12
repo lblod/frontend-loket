@@ -20,9 +20,8 @@ export default class EredienstMandatenbeheerRoute extends Route {
       this.router.transitionTo('index');
   }
 
-  //TODO: this was based on mandatenbeheer, but turned out we needed to modify this,
-  //     since a lot of edge cases weren't taken into account.
-  //     Most likely we just fixed bugs, and these changes should be merged back again to mandatenbeheer
+  //TODO: this needs to be kept in sync with mandatenbeheer
+  // Let's first wait a little more before extracing commmon bits
   async model(params) {
     this.startDate = params.startDate;
     this.endDate = params.endDate;
@@ -41,9 +40,9 @@ export default class EredienstMandatenbeheerRoute extends Route {
   }
 
   /*
-   * Returns bestuursorgaan in tijd starting on the given start date
+   * Returns bestuursorgaan in tijd starting on the given a period
    * for all bestuursorganen of the given bestuurseenheid.
-   * TODO: ripped from routes/mandatenbeheer (BUT MODIFIED due to probably a bug in mandatenbeheer).
+   * TODO: keep in sync with routes/mandatenbeheer.
    *       Extract common code once we are sure of the common pattern.
    */
   async getBestuursorganenInTijdByPeriod(bestuurseenheidId) {
@@ -67,7 +66,7 @@ export default class EredienstMandatenbeheerRoute extends Route {
   }
 
   /*
-   * TODO: ripped from routes/mandatenbeheer.
+   * TODO: keep in sync with routes/mandatenbeheer.
    *       Extract common code once we are sure of the common pattern.
    */
   async getBestuursorgaanInTijdByPeriod(bestuursorgaanId, startDate, endDate) {
@@ -76,17 +75,24 @@ export default class EredienstMandatenbeheerRoute extends Route {
       'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
     };
 
-    if (startDate) queryParams['filter[binding-start]'] = startDate;
-    if (endDate) queryParams['filter[binding-einde]'] = endDate;
+    if (startDate && endDate) {
+      queryParams['filter[binding-start]'] = startDate;
+      queryParams['filter[binding-einde]'] = endDate;
+    } else if (startDate) {
+      queryParams['filter[binding-start]'] = startDate;
+      // Bestuursorganen can overlap in start date,
+      // so if no end date is provided, explicitly filter em out
+      queryParams['filter[:has-no:binding-einde]'] = true;
+    }
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
     return organen.toArray();
   }
 
   /*
-   * Get all the bestuursorganen in tijd of a bestuursorgaan with at least 1 political mandate.
+   * Get all the bestuursorganen in tijd of a bestuursorgaan with at least 1 political or worship mandate.
    * @return Array of bestuursorganen in tijd ressembling the bestuursperiodes
-   * TODO: ripped from routes/mandatenbeheer (BUT MODIFIED due to probably a bug in mandatenbeheer)
+   * TODO: keep in sync with routes/mandatenbeheer.
    *       Extract common code once we are sure of the common pattern.
    */
   async getBestuursperioden(bestuurseenheidId) {
