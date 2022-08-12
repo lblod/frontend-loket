@@ -109,7 +109,8 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
       if (!response) {
         this.modals.open(SubmitErrorModal, {
-          submitErrorMessage: `Unexpected error during validation  of service "${this.args.publicService.id}".`,
+          submitErrorMessage:
+            'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
         });
         this.sending();
         return;
