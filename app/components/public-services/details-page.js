@@ -121,7 +121,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
         this.showSubmitErrorModal = true;
         const formId = errors[0].form.id;
         this.submitErrorMessage =
-          'Het formulier "' + FORM_MAPPING[formId] + '" is onjuist ingevuld';
+          'Er zijn fouten opgetreden in de tab "' + FORM_MAPPING[formId] + '". Gelieve deze te verbeteren!';
       } else if (errors.length > 1) {
         this.showSubmitErrorModal = true;
         this.submitErrorMessage = 'Meerdere formulieren zijn onjuist ingevuld';
