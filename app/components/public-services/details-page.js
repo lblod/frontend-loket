@@ -37,8 +37,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
   @tracked submitToGoverment = false;
   @tracked isSubmit = false;
 
-  
-
   @action
   sending() {
     this.submitToGoverment = !this.submitToGoverment;
@@ -111,7 +109,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
       if (!response) {
         this.modals.open(SubmitErrorModal, {
-          submitErrorMessage: `Unexpected error during validation  of service "${this.args.publicService.id}".`
+          submitErrorMessage: `Unexpected error during validation  of service "${this.args.publicService.id}".`,
         });
         this.sending();
         return;
@@ -126,11 +124,11 @@ export default class PublicServicesDetailsPageComponent extends Component {
         //ie: redirect to said form and scroll down to the first invalid field
         const formId = errors[0].form.id;
         this.modals.open(SubmitErrorModal, {
-          submitErrorMessage: `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`
+          submitErrorMessage: `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
         });
       } else if (errors.length > 1) {
         this.modals.open(SubmitErrorModal, {
-          submitErrorMessage: 'Meerdere formulieren zijn onjuist ingevuld'
+          submitErrorMessage: 'Meerdere formulieren zijn onjuist ingevuld',
         });
       }
     }
