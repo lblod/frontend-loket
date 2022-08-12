@@ -1,7 +1,7 @@
 
 <AuModal 
-@modalOpen={{this.showSubmitErrorModal}} 
-@closeModal={{this.closeSubmitErrorModal}}
+@modalOpen={{true}} 
+@closeModal={{@close}}
 @size="small">
   <:title>Problemen bij het versturen!</:title>
   <:body>
@@ -9,7 +9,7 @@
   </:body>
   <:footer>
     <AuButtonGroup>
-      <AuButton @skin="secondary" {{on "click" this.closeSubmitErrorModal}}>Begrepen</AuButton>
+      <AuButton @skin="secondary" {{on "click" @close}}>Begrepen</AuButton>
     </AuButtonGroup>
   </:footer>
 </AuModal>
