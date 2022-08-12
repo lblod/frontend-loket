@@ -10,8 +10,15 @@ import {
 import rdflib from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
+import SubmitErrorModal from 'frontend-loket/components/public-services/submit-error-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
+
+//TODO: this is a bad idea this is the third time (as far as i know) these ids have been hardcoded
+const FORM_MAPPING = {
+  'cd0b5eba-33c1-45d9-aed9-75194c3728d3': 'inhoud',
+  '149a7247-0294-44a5-a281-0a4d3782b4fd': 'eigenschappen',
+};
 
 const FORM_GRAPHS = {
   formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
@@ -92,24 +99,41 @@ export default class PublicServicesDetailsPageComponent extends Component {
       sourceNode: this.sourceNode,
       store: this.formStore,
     });
-
     this.forceShowErrors = !isValidForm;
-
     if (isValidForm) {
       if (this.hasUnsavedChanges) {
         yield this.saveSemanticForm.unlinked().perform();
       }
 
-      try {
-        yield publish(this.args.publicService.id);
-      } catch (error) {
-        // TODO: Show some sort of error message
+      const response = yield publish(this.args.publicService.id);
+
+      if (!response) {
+        this.modals.open(SubmitErrorModal, {
+          submitErrorMessage:
+            'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
+        });
+        this.sending();
+        return;
       }
 
-      this.router.transitionTo('public-services');
-    } else {
-      // TODO: Show some sort of error message
+      const errors = response.data.errors;
+
+      if (errors.length == 0) {
+        this.router.transitionTo('public-services');
+      } else if (errors.length == 1) {
+        //TODO: should probably handle this more in a more user friendly way
+        //ie: redirect to said form and scroll down to the first invalid field
+        const formId = errors[0].form.id;
+        this.modals.open(SubmitErrorModal, {
+          submitErrorMessage: `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
+        });
+      } else if (errors.length > 1) {
+        this.modals.open(SubmitErrorModal, {
+          submitErrorMessage: 'Meerdere formulieren zijn onjuist ingevuld',
+        });
+      }
     }
+    this.sending();
   }
 
   @task({ group: 'publicServiceAction' })
@@ -194,11 +218,20 @@ async function saveFormData(serviceId, formId, formData) {
 }
 
 async function publish(serviceId) {
-  await fetch(`/lpdc-management/${serviceId}/submit`, {
+  const response = await fetch(`/lpdc-management/${serviceId}/submit`, {
     method: 'POST',
     body: JSON.stringify({}),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     },
   });
+  if (response.status == 500) {
+    console.warn(
+      `Unexpected error during validation  of service "${serviceId}".`
+    );
+    return null;
+  } else {
+    const jsonResponse = await response.json();
+    return jsonResponse;
+  }
 }

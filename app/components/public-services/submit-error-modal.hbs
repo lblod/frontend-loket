@@ -1,0 +1,15 @@
+
+<AuModal 
+@modalOpen={{true}} 
+@closeModal={{@close}}
+@size="small">
+  <:title>Problemen bij het versturen!</:title>
+  <:body>
+    {{@data.submitErrorMessage}}
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton @skin="secondary" {{on "click" @close}}>Begrepen</AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>
