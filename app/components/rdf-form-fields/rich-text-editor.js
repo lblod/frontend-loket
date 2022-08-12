@@ -6,13 +6,6 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
   editor;
   inputId = 'richtext-' + guidFor(this);
 
-  constructor() {
-    super(...arguments);
-
-    // The editor returns an empty string if it contains no content, so we default to that as well.
-    this.value = '';
-  }
-
   get editorOptions() {
     return {
       showToggleRdfaAnnotations: false,
@@ -56,6 +49,15 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
       if (this.value !== editorValue) {
         super.updateValue(editorValue);
       }
+    }
+  }
+
+  loadProvidedValue() {
+    super.loadProvidedValue();
+
+    if (this.value == null) {
+      // The editor returns an empty string if it contains no content, so we default to that to make the value comparison check works as expected.
+      this.value = '';
     }
   }
 }
