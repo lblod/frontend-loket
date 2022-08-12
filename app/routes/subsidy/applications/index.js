@@ -18,6 +18,7 @@ export default class SubsidyApplicationsIndexRoute extends Route.extend(
       include: [
         'status',
         'subsidy-measure-offer',
+        'subsidy-application-forms',
         'subsidy-application-flow.subsidy-measure-offer-series.period',
         'active-subsidy-application-flow-step.subsidy-procedural-step.period',
         'participations',

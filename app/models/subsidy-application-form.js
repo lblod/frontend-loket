@@ -17,6 +17,8 @@ export default class SubsidyApplicationForm extends Model {
   })
   modified;
 
+  @attr projectName;
+
   // TODO faze out
   // @belongsTo('contact-punt') contactinfo; // default needed
   // @belongsTo('bank-account') bankAccount; // default needed
