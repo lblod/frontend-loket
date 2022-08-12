@@ -13,29 +13,23 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
   async model({ personId }) {
     if (personId) {
-      let person = await this.store.findRecord('persoon', personId, {
-        backgroundReload: false,
-      });
-      // let [person, post] = await Promise.all([
-      //   this.store.findRecord('persoon', personId, {
-      //     backgroundReload: false,
-      //   }),
-      //   this.store.findAll('minister-position'),
-      // ]);
+      let [person, ministerPositionFunctions] = await Promise.all([
+        this.store.findRecord('persoon', personId, {
+          backgroundReload: false,
+        }),
+        this.store.findAll('minister-position-function'),
+      ]);
 
       let worshipMinister = this.store.createRecord('minister');
-      let ministerPosition = this.store.createRecord('minister-position');
-      let ministerPositionFunction = this.store.createRecord(
-        'minister-position-function'
-      );
+      worshipMinister.ministerPosition =
+        this.store.createRecord('minister-position');
       worshipMinister.person = person;
-      worshipMinister.post = ministerPosition;
-      worshipMinister.post.function = ministerPositionFunction;
-
-      console.log('worship minister', worshipMinister);
-
+      // worshipMinister.ministerPosition.function = {};
+      // Don't know how to actually link a minister position function to a minister
+      // worshipMinister.post.function = ministerPositionFunctions;
       return {
         worshipMinister,
+        ministerPositionFunctions,
         person,
       };
     }

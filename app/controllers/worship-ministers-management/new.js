@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
@@ -10,6 +11,14 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
   queryParams = ['personId'];
   @tracked personId = '';
+  @tracked options = A(this.getWorshipFunctionsLabels());
+  @tracked selected = '';
+
+  getWorshipFunctionsLabels() {
+    return this.model.ministerPositionFunctions.map((a) => {
+      return a.label;
+    });
+  }
 
   get shouldSelectPerson() {
     return !this.model?.person;
@@ -26,6 +35,11 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
+  setWorshipMinisterFunction(worshipFunction) {
+    console.log(worshipFunction);
+  }
+
+  @action
   handleDateChange(type, isoDate, date) {
     this.model.worshipMinister[type] = date;
   }
@@ -39,7 +53,9 @@ export default class WorshipMinistersManagementNewController extends Controller 
   *createWorshipMinister(event) {
     event.preventDefault();
 
+    // Need to update the minister-position-function aswell
     let { worshipMinister } = this.model;
+    // console.log(worshipMinister);
     yield worshipMinister.save();
 
     this.router.transitionTo(

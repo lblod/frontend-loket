@@ -51,14 +51,32 @@
   >
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
-        {{!-- TODO: Need to link the ministerPosition.function to the created minister --}}
-        <AuLabel for="worship-minister">Bedienaar</AuLabel>
-        <AuInput @id="worship-minister" @width="block" @value={{@model.ministerPosition.function.label}} placeholder="Bedienarennaam"/>
+        {{!-- TODO: Need to link the ministerPosition to the created minister --}}
+          <AuLabel for="worship-minister-function">Postie</AuLabel>
+          {{!-- TODO: Minister Component ? --}}
+          <PowerSelect
+            @id="worship-minister-function"
+            {{!-- @value={{@model.worshipMinister.ministerPosition.function.label}} --}}
+            @allowClear={{this.allowClear}}
+            @renderInPlace={{this.renderInPlace}}
+            @disabled={{this.disabled}}
+            @searchEnabled={{this.searchEnabled}}
+            @loadingMessage={{this.loadingMessage}}
+            @noMatchesMessage={{this.noMatchesMessage}}
+            @searchMessage={{this.searchMessage}}
+            @options={{this.options}}
+            @selected={{this.selected}}
+            @onChange={{fn (mut this.selected)}}
+            @onFocus={{fn this.setWorshipMinisterFunction this.selected}}
+            @placeholder="Kerkbedienaar"
+            as |singleselect|>
+            {{singleselect}}
+          </PowerSelect>
       </div>
 
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="worship-minister-start-date">Start</AuLabel>
+          <AuLabel for="worship-minister-start-date">Startdatum</AuLabel>
           <AuDatePicker
             @value={{@model.worshipMinister.agentStartDate}}
             @onChange={{fn this.handleDateChange "agentStartDate"}}
@@ -67,7 +85,7 @@
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="worship-minister-end-date">Einde</AuLabel>
+          <AuLabel for="worship-minister-end-date">Eindedatum</AuLabel>
           <AuDatePicker
             @value={{@model.worshipMinister.agentEndDate}}
             @onChange={{fn this.handleDateChange "agentEndDate"}}
