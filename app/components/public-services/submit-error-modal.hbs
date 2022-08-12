@@ -1,0 +1,15 @@
+
+<AuModal 
+@modalOpen={{this.showSubmitErrorModal}} 
+@closeModal={{this.closeSubmitErrorModal}}
+@size="small">
+  <:title>Problemen bij het versturen!</:title>
+  <:body>
+    {{@data.submitErrorMessage}}
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton @skin="secondary" {{on "click" this.closeSubmitErrorModal}}>Annuleer</AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>

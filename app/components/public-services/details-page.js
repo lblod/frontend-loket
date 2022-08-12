@@ -10,6 +10,7 @@ import {
 import rdflib from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
+import SubmitErrorModal from 'frontend-loket/components/public-services/submit-error-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
@@ -33,15 +34,10 @@ export default class PublicServicesDetailsPageComponent extends Component {
   @service router;
   @service store;
 
-  @tracked submitErrorMessage;
-  @tracked showSubmitErrorModal = false;
   @tracked submitToGoverment = false;
   @tracked isSubmit = false;
 
-  @action
-  closeSubmitErrorModal() {
-    this.showSubmitErrorModal = false;
-  }
+  
 
   @action
   sending() {
@@ -110,7 +106,17 @@ export default class PublicServicesDetailsPageComponent extends Component {
       if (this.hasUnsavedChanges) {
         yield this.saveSemanticForm.unlinked().perform();
       }
+
       const response = yield publish(this.args.publicService.id);
+
+      if (!response) {
+        this.modals.open(SubmitErrorModal, {
+          submitErrorMessage: `Unexpected error during validation  of service "${this.args.publicService.id}".`
+        });
+        this.sending();
+        return;
+      }
+
       const errors = response.data.errors;
 
       if (errors.length == 0) {
@@ -118,13 +124,14 @@ export default class PublicServicesDetailsPageComponent extends Component {
       } else if (errors.length == 1) {
         //TODO: should probably handle this more in a more user friendly way
         //ie: redirect to said form and scroll down to the first invalid field
-        this.showSubmitErrorModal = true;
         const formId = errors[0].form.id;
-        this.submitErrorMessage =
-          'Er zijn fouten opgetreden in de tab "' + FORM_MAPPING[formId] + '". Gelieve deze te verbeteren!';
+        this.modals.open(SubmitErrorModal, {
+          submitErrorMessage: `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`
+        });
       } else if (errors.length > 1) {
-        this.showSubmitErrorModal = true;
-        this.submitErrorMessage = 'Meerdere formulieren zijn onjuist ingevuld';
+        this.modals.open(SubmitErrorModal, {
+          submitErrorMessage: 'Meerdere formulieren zijn onjuist ingevuld'
+        });
       }
     }
     this.sending();
@@ -220,7 +227,10 @@ async function publish(serviceId) {
     },
   });
   if (response.status == 500) {
-    throw `Unexpected error during validation  of service "${serviceId}".`;
+    console.warn(
+      `Unexpected error during validation  of service "${serviceId}".`
+    );
+    return null;
   } else {
     const jsonResponse = await response.json();
     return jsonResponse;
