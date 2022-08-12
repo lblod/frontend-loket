@@ -10,6 +10,7 @@ export default class MandatenbeheerRoute extends Route {
 
   queryParams = {
     startDate: { refreshModel: true },
+    endDate: { refreshModel: true },
   };
 
   beforeModel(transition) {
@@ -21,54 +22,76 @@ export default class MandatenbeheerRoute extends Route {
 
   async model(params) {
     this.startDate = params.startDate;
+    this.endDate = params.endDate;
+
     const bestuurseenheid = this.currentSession.group;
 
     return RSVP.hash({
       bestuurseenheid: bestuurseenheid,
-      bestuursorganen: this.getBestuursorganenInTijdByStartDate(
+      bestuursorganen: this.getBestuursorganenInTijdByPeriod(
         bestuurseenheid.get('id')
       ),
       bestuursperioden: this.getBestuursperioden(bestuurseenheid.get('id')),
       startDate: this.startDate,
+      endDate: this.endDate,
     });
   }
 
   /*
-   * Returns bestuursorgaan in tijd starting on the given start date
+   * Returns bestuursorgaan in tijd starting on the given a period
    * for all bestuursorganen of the given bestuurseenheid.
+   * TODO: keep in sync with routes/eredienst-mandatenbeheer.
+   *       Extract common code once we are sure of the common pattern.
    */
-  async getBestuursorganenInTijdByStartDate(bestuurseenheidId) {
+  async getBestuursorganenInTijdByPeriod(bestuurseenheidId) {
     const bestuursorganen = await this.store.query('bestuursorgaan', {
       'filter[bestuurseenheid][id]': bestuurseenheidId,
-      'filter[heeft-tijdsspecialisaties][:has:bevat]': true, // only organs with a political mandate
+      'filter[heeft-tijdsspecialisaties][:has:bevat]': true, // only organs with a mandate
     });
-    const organenStartingOnStartDate = await Promise.all(
-      bestuursorganen.map((orgaan) => {
-        return this.getBestuursorgaanInTijdByStartDate(
-          orgaan.get('id'),
-          this.startDate
-        );
-      })
-    );
+
+    let organenStartingOnStartDate = [];
+
+    for (const bestuursorgaan of bestuursorganen.toArray()) {
+      const organen = await this.getBestuursorgaanInTijdByPeriod(
+        bestuursorgaan.get('id'),
+        this.startDate,
+        this.endDate
+      );
+      organenStartingOnStartDate = [...organenStartingOnStartDate, ...organen];
+    }
+
     return organenStartingOnStartDate.filter((orgaan) => orgaan); // filter null values
   }
 
-  async getBestuursorgaanInTijdByStartDate(bestuursorgaanId, startDate) {
+  /*
+   * TODO: keep in sync with routes/eredienst-mandatenbeheer.
+   *       Extract common code once we are sure of the common pattern.
+   */
+  async getBestuursorgaanInTijdByPeriod(bestuursorgaanId, startDate, endDate) {
     const queryParams = {
-      page: { size: 1 },
       sort: '-binding-start',
       'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
     };
 
-    if (startDate) queryParams['filter[binding-start]'] = startDate;
+    if (startDate && endDate) {
+      queryParams['filter[binding-start]'] = startDate;
+      queryParams['filter[binding-einde]'] = endDate;
+    } else if (startDate) {
+      queryParams['filter[binding-start]'] = startDate;
+      // Bestuursorganen can overlap in start date,
+      // so if no end date is provided, explicitly filter em out
+      queryParams['filter[:has-no:binding-einde]'] = true;
+    }
 
     const organen = await this.store.query('bestuursorgaan', queryParams);
-    return organen.firstObject;
+    return organen.toArray();
   }
 
   /*
-   * Get all the bestuursorganen in tijd of a bestuursorgaan with at least 1 political mandate.
+   * Get all the bestuursorganen in tijd of a bestuursorgaan with at least 1 political or worship mandate.
    * @return Array of bestuursorganen in tijd ressembling the bestuursperiodes
+   * TODO: keep in sync with routes/eredienst-mandatenbeheer.
+   *       Extract common code once we are sure of the common pattern.
    */
   async getBestuursperioden(bestuurseenheidId) {
     return await this.store.query('bestuursorgaan', {

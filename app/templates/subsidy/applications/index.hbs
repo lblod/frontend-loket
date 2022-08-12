@@ -45,7 +45,15 @@
 
     <c.body as |consumption|>
       {{#let consumption.subsidyApplicationFlow.subsidyMeasureOfferSeries as |series|}}
-        <td>{{consumption.subsidyMeasureOffer.title}}</td>
+        <td>
+          {{consumption.subsidyMeasureOffer.title}}
+
+          {{#if consumption.subsidyApplicationForms.firstObject.projectName}}
+            <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+              {{consumption.subsidyApplicationForms.firstObject.projectName}}
+            </AuHelpText>
+          {{/if}}
+        </td>
         <td>
           {{series.label}}
           <AuHelpText @skin="secondary" class="au-u-margin-top-none">
@@ -54,7 +62,7 @@
               &#8211;
               {{moment-format series.period.end "DD MMMM YYYY"}}
             {{else}}
-              N.V.T
+              N.V.T.
            {{/if}}
           </AuHelpText>
         </td>
