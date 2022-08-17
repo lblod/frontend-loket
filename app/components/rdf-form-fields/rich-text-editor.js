@@ -29,7 +29,11 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
   @action
   handleRdfaEditorInit(editor) {
     this.editor = editor;
-    editor.setHtmlContent(this.value ? this.value : '');
+
+    // We only set the value if it contains actual content. This prevents the browser from focusing the editor field due to the content update.
+    if (this.value) {
+      editor.setHtmlContent(this.value);
+    }
   }
 
   @action
@@ -39,7 +43,21 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
     //rdfaEditor setup is async, updateValue may be called before it is set
     if (this.editor) {
       const editorValue = this.editor.htmlContent;
-      super.updateValue(editorValue);
+
+      // Only trigger an update if the value actually changed.
+      // This prevents that the form observer is triggered even though no editor content was changed.
+      if (this.value !== editorValue) {
+        super.updateValue(editorValue);
+      }
+    }
+  }
+
+  loadProvidedValue() {
+    super.loadProvidedValue();
+
+    if (this.value == null) {
+      // The editor returns an empty string if it contains no content, so we default to that to make the value comparison check works as expected.
+      this.value = '';
     }
   }
 }
