@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 
 const DOCUMENT_STATUS = {
-
   'http://lblod.data.gift/concepts/79a52da4-f491-4e2f-9374-89a13cde8ecd': {
     skin: 'warning',
     label: 'ontwerp',
@@ -15,9 +14,9 @@ const DOCUMENT_STATUS = {
 
 export default class Status extends Component {
   get label() {
-    return DOCUMENT_STATUS[this.args.uri].label;
+    return DOCUMENT_STATUS[this.args.uri]?.label;
   }
   get statusSkin() {
-    return DOCUMENT_STATUS[this.args.uri].skin;
+    return DOCUMENT_STATUS[this.args.uri]?.skin;
   }
 }
