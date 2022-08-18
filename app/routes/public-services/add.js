@@ -29,6 +29,7 @@ export default class PublicServicesAddRoute extends Route {
   *loadPublicServicesTask({ search, page, sort }) {
     let query = {
       'page[number]': page,
+      include:'target-audiences,concept-tags,type,competent-authority-levels',
     };
 
     if (search) {
