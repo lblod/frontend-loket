@@ -34,6 +34,11 @@ export default class ConceptualPublicServiceModel extends Model {
   })
   competentAuthorityLevels;
 
+  @hasMany('concept', {
+    inverse: null,
+  })
+  executingAuthorityLevels;
+
   get nameNl() {
     if (this.name?.length) {
       const nameNl = this.name.find((name) => name.language == 'nl');

@@ -44,6 +44,17 @@
         @label="Productnaam"
       />
       <AuDataTableThSortable
+        @field="type"
+        @currentSorting={{this.sort}}
+        @label="ProductType"
+      />
+      <th>
+        Doelgroepen
+      </th>
+      <th>
+        Uitvoerende bestuursniveaus
+      </th>
+      <AuDataTableThSortable
         @field="modified"
         @currentSorting={{this.sort}}
         @label="Laatst bewerkt"
@@ -86,25 +97,40 @@
     {{else if this.hasResults}}
       <Content.body as |publicService|>
         <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
+        <td>{{publicService.type.label}}</td>
+        <td>
+          {{#each publicService.targetAudiences as |tag|}}
+            <AuPill>
+              {{tag.label}}
+            </AuPill>
+          {{/each}}
+        </td>
+        <td>
+          {{#each publicService.executingAuthorityLevels as |tag|}}
+            <AuPill>
+              {{tag.label}}
+            </AuPill>
+          {{/each}}
+        </td>
         <td>
           {{moment-format publicService.modified "DD-MM-YYYY - HH:mm"}}
         </td>
         {{!-- <td>
-          <PublicServices::TranslationStatus
-            @id={{publicService.translationStatus.id}}
-          >
-            {{publicService.translationStatus.label}}
-          </PublicServices::TranslationStatus>
-        </td> --}}
+             <PublicServices::TranslationStatus
+             @id={{publicService.translationStatus.id}}
+             >
+             {{publicService.translationStatus.label}}
+             </PublicServices::TranslationStatus>
+             </td> --}}
         <td>
           {{#if publicService.status.uri}}
-          <PublicServices::Status
-            @uri={{publicService.status.uri}}
-          >
-            {{publicService.status.label}}
-          </PublicServices::Status>
+            <PublicServices::Status
+              @uri={{publicService.status.uri}}
+            >
+              {{publicService.status.label}}
+            </PublicServices::Status>
           {{else}}
-          –
+            –
           {{/if}}
         </td>
         <td class="u-table-cell-fit-content">
