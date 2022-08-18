@@ -10,10 +10,6 @@ export default class PublicServicesIndexRoute extends Route {
       refreshModel: true,
       replace: true,
     },
-    sector: {
-      refreshModel: true,
-      replace: true,
-    },
     page: {
       refreshModel: true,
     },
@@ -23,23 +19,16 @@ export default class PublicServicesIndexRoute extends Route {
   };
 
   async model(params) {
-    let sector;
-    if (params.sector) {
-      sector = await this.store.findRecord('concept', params.sector);
-    }
-
     return {
       loadPublicServices: this.loadPublicServicesTask.perform(params),
       loadedPublicServices: this.loadPublicServicesTask.lastSuccessful?.value,
-      sector,
     };
   }
 
   @restartableTask
-  *loadPublicServicesTask({ search, sector, page, sort }) {
+  *loadPublicServicesTask({ search, page, sort }) {
     let query = {
       'page[number]': page,
-      include: 'sectors,status,lifecycle-status',
       // TODO: Filter the results so only public services for the current organization are returned
     };
 
@@ -50,11 +39,6 @@ export default class PublicServicesIndexRoute extends Route {
     if (sort) {
       query.sort = sort;
     }
-
-    if (sector) {
-      query['filter[sectors][:id:]'] = sector;
-    }
-
     return yield this.store.query('public-service', query);
   }
 }

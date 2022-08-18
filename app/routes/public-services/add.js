@@ -10,10 +10,6 @@ export default class PublicServicesAddRoute extends Route {
       refreshModel: true,
       replace: true,
     },
-    sector: {
-      refreshModel: true,
-      replace: true,
-    },
     page: {
       refreshModel: true,
     },
@@ -23,23 +19,16 @@ export default class PublicServicesAddRoute extends Route {
   };
 
   async model(params) {
-    let sector;
-    if (params.sector) {
-      sector = await this.store.findRecord('concept', params.sector);
-    }
-
     return {
       loadPublicServices: this.loadPublicServicesTask.perform(params),
       loadedPublicServices: this.loadPublicServicesTask.lastSuccessful?.value,
-      sector,
     };
   }
 
   @restartableTask
-  *loadPublicServicesTask({ search, sector, page, sort }) {
+  *loadPublicServicesTask({ search, page, sort }) {
     let query = {
       'page[number]': page,
-      include: 'sectors',
     };
 
     if (search) {
@@ -49,11 +38,6 @@ export default class PublicServicesAddRoute extends Route {
     if (sort) {
       query.sort = sort;
     }
-
-    if (sector) {
-      query['filter[sectors][:id:]'] = sector;
-    }
-
     return yield this.store.query('conceptual-public-service', query);
   }
 }

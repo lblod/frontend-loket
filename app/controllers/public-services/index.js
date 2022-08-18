@@ -1,12 +1,10 @@
 import Controller from '@ember/controller';
-import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class PublicServicesIndexController extends Controller {
-  queryParams = ['search', 'sector', 'sort', 'page'];
+  queryParams = ['search', 'sort', 'page'];
   @tracked search = '';
-  @tracked sector = '';
   @tracked sort = 'name';
   @tracked page = 0;
 
@@ -19,7 +17,7 @@ export default class PublicServicesIndexController extends Controller {
   }
 
   get isFiltering() {
-    return Boolean(this.search) || Boolean(this.sector);
+    return Boolean(this.search);
   }
 
   get isLoading() {
@@ -53,10 +51,5 @@ export default class PublicServicesIndexController extends Controller {
 
     this.search = searchValue;
     this.page = 0;
-  }
-
-  @action
-  handleSectorSelection(sector) {
-    this.sector = sector?.id || '';
   }
 }

@@ -19,16 +19,6 @@ export default class ConceptualPublicServiceModel extends Model {
   })
   status;
 
-  @belongsTo('concept', {
-    inverse: null,
-  })
-  lifecycleStatus;
-
-  @hasMany('concept', {
-    inverse: null,
-  })
-  sectors;
-
   get nameNl() {
     if (this.name?.length) {
       const nameNl = this.name.find((name) => name.language == 'nl');

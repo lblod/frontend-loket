@@ -20,11 +20,6 @@
           {{on "input" (perform this.searchTask value="target.value")}}
         />
       </span>
-      <PublicServices::SectorSelect
-        @selected={{@model.sector}}
-        @onChange={{this.handleSectorSelection}}
-        @allowClear={{true}}
-      />
       <AuButton
         @icon="add"
         @iconAlignment="left"
@@ -51,16 +46,6 @@
           @field="name"
           @currentSorting={{this.sort}}
           @label="Productnaam"
-        />
-        <AuDataTableThSortable
-          @field="identifier"
-          @currentSorting={{this.sort}}
-          @label="PID"
-        />
-        <AuDataTableThSortable
-          @field=""
-          @currentSorting={{this.sort}}
-          @label="Sector"
         />
         <th class="u-table-cell-shrink-content">
           <span class="au-u-hidden-visually">voeg product of dienst toe</span>
@@ -90,8 +75,6 @@
       {{else if this.hasResults}}
         <Content.body as |publicService|>
           <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
-          <td>{{publicService.identifier}}</td>
-          <td>{{publicService.sector.name}}</td>
           <td class="u-table-cell-fit-content">
             <AuButton
               @icon="add"
