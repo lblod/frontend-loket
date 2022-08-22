@@ -3,7 +3,6 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 export default class ConceptualPublicServiceModel extends Model {
   @attr uri;
   @attr('language-string-set') name;
-  @attr identifier;
   @attr('datetime') startDate;
   @attr('datetime') endDate;
   @attr('datetime') created;
@@ -18,16 +17,6 @@ export default class ConceptualPublicServiceModel extends Model {
     inverse: null,
   })
   status;
-
-  @belongsTo('concept', {
-    inverse: null,
-  })
-  lifecycleStatus;
-
-  @hasMany('concept', {
-    inverse: null,
-  })
-  sectors;
 
   get nameNl() {
     if (this.name?.length) {

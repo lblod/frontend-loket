@@ -13,12 +13,6 @@
   <Group>
     <DataList as |Data|>
       <Data>
-        <:title>Sector</:title>
-        <:content>
-          <ValueWithPlaceholder @value={{@model.publicService.sector.name}} />
-        </:content>
-      </Data>
-      <Data>
         <:title>Product type</:title>
         <:content>
           <ValueWithPlaceholder @value={{@model.publicService.type.label}} />
@@ -62,18 +56,6 @@
               {{moment-format value "DD.MM.YYYY"}}
             </:value>
           </ValueWithPlaceholder>
-        </:content>
-      </Data>
-      <Data>
-        <:title>Status dienstverlening</:title>
-        <:content>
-          {{#if @model.publicService.lifecycleStatus.label}}
-          <PublicServices::Status @uri={{@model.publicService.lifecycleStatus.uri}}>
-            {{@model.publicService.lifecycleStatus.label}}
-          </PublicServices::Status>
-          {{else}}
-          –
-          {{/if}}
         </:content>
       </Data>
       <Data>
