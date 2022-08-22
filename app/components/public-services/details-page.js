@@ -10,7 +10,6 @@ import {
 import rdflib from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
-import SubmitErrorModal from 'frontend-loket/components/public-services/submit-error-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
