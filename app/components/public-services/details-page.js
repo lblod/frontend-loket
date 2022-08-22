@@ -13,12 +13,7 @@ import ConfirmDeletionModal from 'frontend-loket/components/public-services/conf
 import SubmitErrorModal from 'frontend-loket/components/public-services/submit-error-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
-
-//TODO: this is a bad idea this is the third time (as far as i know) these ids have been hardcoded
-const FORM_MAPPING = {
-  'cd0b5eba-33c1-45d9-aed9-75194c3728d3': 'inhoud',
-  '149a7247-0294-44a5-a281-0a4d3782b4fd': 'eigenschappen',
-};
+import { FORM_MAPPING, LIFECYCLE_STATUS } from 'frontend-loket/utils/constants';
 
 const FORM_GRAPHS = {
   formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
@@ -119,6 +114,12 @@ export default class PublicServicesDetailsPageComponent extends Component {
       const errors = response.data.errors;
 
       if (errors.length == 0) {
+        const activeStatus = (yield this.store.query('concept', {
+          filter: { ':uri:': LIFECYCLE_STATUS.ACTIVE },
+        })).firstObject;
+        const publicService = yield this.args.publicService;
+        publicService.status = activeStatus;
+        yield publicService.save();
         this.router.transitionTo('public-services');
       } else if (errors.length == 1) {
         //TODO: should probably handle this more in a more user friendly way
