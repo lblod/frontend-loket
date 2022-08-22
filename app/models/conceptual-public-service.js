@@ -18,6 +18,26 @@ export default class ConceptualPublicServiceModel extends Model {
   })
   status;
 
+  @hasMany('concept', {
+    inverse: null,
+  })
+  conceptTags;
+
+  @hasMany('concept', {
+    inverse: null,
+  })
+  targetAudiences;
+
+  @hasMany('concept', {
+    inverse: null,
+  })
+  competentAuthorityLevels;
+
+  @hasMany('concept', {
+    inverse: null,
+  })
+  executingAuthorityLevels;
+
   get nameNl() {
     if (this.name?.length) {
       const nameNl = this.name.find((name) => name.language == 'nl');

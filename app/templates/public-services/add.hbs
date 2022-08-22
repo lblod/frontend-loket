@@ -47,6 +47,21 @@
           @currentSorting={{this.sort}}
           @label="Productnaam"
         />
+        <AuDataTableThSortable
+          @field="type"
+          @currentSorting={{this.sort}}
+          @label="ProductType"
+        />
+        <th>
+          Doelgroepen
+        </th>
+        <th>
+          Bevoegde bestuursniveaus
+        </th>
+        <th>
+          Concept tags
+        </th>
+
         <th class="u-table-cell-shrink-content">
           <span class="au-u-hidden-visually">voeg product of dienst toe</span>
         </th>
@@ -75,6 +90,28 @@
       {{else if this.hasResults}}
         <Content.body as |publicService|>
           <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
+          <td>{{publicService.type.label}}</td>
+          <td>
+            {{#each publicService.targetAudiences as |targetAudience|}}
+              <AuPill>
+                {{targetAudience.label}}
+              </AuPill>
+            {{/each}}
+          </td>
+          <td>
+            {{#each publicService.competentAuthorityLevels as |level|}}
+              <AuPill>
+                {{level.label}}
+              </AuPill>
+            {{/each}}
+          </td>
+          <td>
+            {{#each publicService.conceptTags as |tag|}}
+              <AuPill>
+                {{tag.label}}
+              </AuPill>
+            {{/each}}
+          </td>
           <td class="u-table-cell-fit-content">
             <AuButton
               @icon="add"
