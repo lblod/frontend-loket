@@ -92,16 +92,16 @@
           <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
           <td>{{publicService.type.label}}</td>
           <td>
-            {{#each publicService.targetAudiences as |tag|}}
+            {{#each publicService.targetAudiences as |targetAudience|}}
               <AuPill>
-                {{tag.label}}
+                {{targetAudience.label}}
               </AuPill>
             {{/each}}
           </td>
           <td>
-            {{#each publicService.competentAuthorityLevels as |tag|}}
+            {{#each publicService.competentAuthorityLevels as |level|}}
               <AuPill>
-                {{tag.label}}
+                {{level.label}}
               </AuPill>
             {{/each}}
           </td>
