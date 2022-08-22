@@ -10,7 +10,6 @@ import {
 import rdflib from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
-import SubmitErrorModal from 'frontend-loket/components/public-services/submit-error-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
@@ -33,6 +32,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
   @service modals;
   @service router;
   @service store;
+  @service toaster;
 
   @tracked submitToGoverment = false;
   @tracked isSubmit = false;
@@ -52,7 +52,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   constructor() {
     super(...arguments);
-
     this.loadForm.perform();
     this.sourceNode = new rdflib.NamedNode(this.args.publicService.uri);
     this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
@@ -108,10 +107,10 @@ export default class PublicServicesDetailsPageComponent extends Component {
       const response = yield publish(this.args.publicService.id);
 
       if (!response) {
-        this.modals.open(SubmitErrorModal, {
-          submitErrorMessage:
-            'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
-        });
+        this.toaster.error(
+          'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
+          'Fout'
+        );
         this.sending();
         return;
       }
@@ -124,14 +123,18 @@ export default class PublicServicesDetailsPageComponent extends Component {
         //TODO: should probably handle this more in a more user friendly way
         //ie: redirect to said form and scroll down to the first invalid field
         const formId = errors[0].form.id;
-        this.modals.open(SubmitErrorModal, {
-          submitErrorMessage: `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
-        });
+        this.toaster.error(
+          `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
+          'Fout'
+        );
       } else if (errors.length > 1) {
-        this.modals.open(SubmitErrorModal, {
-          submitErrorMessage: 'Meerdere formulieren zijn onjuist ingevuld',
-        });
+        this.toaster.error(
+          'Meerdere formulieren zijn onjuist ingevuld',
+          'Fout'
+        );
       }
+    } else {
+      this.toaster.error('Formulier is ongeldig', 'Fout');
     }
     this.sending();
   }
