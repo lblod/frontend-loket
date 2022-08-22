@@ -85,6 +85,11 @@ export default class PublicServicesDetailsPageComponent extends Component {
     this.hasUnsavedChanges = true;
   }
 
+  get readOnly() {
+    const statusUri = this.args.publicService.status.get('uri')
+    return statusUri !== LIFECYCLE_STATUS.CONCEPT;
+  }
+
   @dropTaskGroup publicServiceAction;
 
   @task({ group: 'publicServiceAction' })
