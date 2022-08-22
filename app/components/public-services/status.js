@@ -1,17 +1,11 @@
 import Component from '@glimmer/component';
-import { LIFECYCLE_STATUS, LABEL } from 'frontend-loket/utils/constants';
-
-const PUBLICATION_STATUS_SKIN = {
-  [LIFECYCLE_STATUS.ACTIVE]: 'success',
-  [LIFECYCLE_STATUS.NOT_ACTIVE]: 'error',
-  [LIFECYCLE_STATUS.CONCEPT]: 'warning',
-};
+import { DOCUMENT_STATUS } from 'frontend-loket/utils/constants';
 
 export default class Status extends Component {
   get label() {
-    return LABEL[this.args.uri];
+    return DOCUMENT_STATUS[this.args.uri]?.label;
   }
   get statusSkin() {
-    return PUBLICATION_STATUS_SKIN[this.args.uri];
+    return DOCUMENT_STATUS[this.args.uri]?.skin;
   }
 }

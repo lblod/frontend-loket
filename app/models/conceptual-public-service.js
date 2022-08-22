@@ -3,7 +3,6 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 export default class ConceptualPublicServiceModel extends Model {
   @attr uri;
   @attr('language-string-set') name;
-  @attr identifier;
   @attr('datetime') startDate;
   @attr('datetime') endDate;
   @attr('datetime') created;
@@ -19,15 +18,25 @@ export default class ConceptualPublicServiceModel extends Model {
   })
   status;
 
-  @belongsTo('concept', {
+  @hasMany('concept', {
     inverse: null,
   })
-  lifecycleStatus;
+  conceptTags;
 
   @hasMany('concept', {
     inverse: null,
   })
-  sectors;
+  targetAudiences;
+
+  @hasMany('concept', {
+    inverse: null,
+  })
+  competentAuthorityLevels;
+
+  @hasMany('concept', {
+    inverse: null,
+  })
+  executingAuthorityLevels;
 
   get nameNl() {
     if (this.name?.length) {

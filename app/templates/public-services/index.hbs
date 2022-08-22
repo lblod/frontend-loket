@@ -18,11 +18,6 @@
         {{on "input" (perform this.searchTask value="target.value")}}
       />
     </span>
-    <PublicServices::SectorSelect
-      @selected={{@model.sector}}
-      @onChange={{this.handleSectorSelection}}
-      @allowClear={{true}}
-    />
     <AuLink
       @route="public-services.add"
       @icon="add"
@@ -49,20 +44,16 @@
         @label="Productnaam"
       />
       <AuDataTableThSortable
-        @field="identifier"
+        @field="type"
         @currentSorting={{this.sort}}
-        @label="PID"
+        @label="Producttype"
       />
-      <AuDataTableThSortable
-        @field=""
-        @currentSorting={{this.sort}}
-        @label="Sector"
-      />
-      <AuDataTableThSortable
-        @field=""
-        @currentSorting={{this.sort}}
-        @label="Status dienstverlening"
-      />
+      <th>
+        Doelgroepen
+      </th>
+      <th>
+        Uitvoerende bestuursniveaus
+      </th>
       <AuDataTableThSortable
         @field="modified"
         @currentSorting={{this.sort}}
@@ -106,38 +97,40 @@
     {{else if this.hasResults}}
       <Content.body as |publicService|>
         <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
-        <td>{{publicService.identifier}}</td>
-        <td>{{publicService.sector.name}}</td>
+        <td>{{publicService.type.label}}</td>
         <td>
-          {{#if publicService.lifecycleStatus.uri}}
-            <PublicServices::Status
-              @uri={{publicService.lifecycleStatus.uri}}
-            >
-              {{publicService.lifecycleStatus.label}}
-            </PublicServices::Status>
-          {{else}}
-          –
-          {{/if}}
+          {{#each publicService.targetAudiences as |tag|}}
+            <AuPill>
+              {{tag.label}}
+            </AuPill>
+          {{/each}}
+        </td>
+        <td>
+          {{#each publicService.executingAuthorityLevels as |tag|}}
+            <AuPill>
+              {{tag.label}}
+            </AuPill>
+          {{/each}}
         </td>
         <td>
           {{moment-format publicService.modified "DD-MM-YYYY - HH:mm"}}
         </td>
         {{!-- <td>
-          <PublicServices::TranslationStatus
-            @id={{publicService.translationStatus.id}}
-          >
-            {{publicService.translationStatus.label}}
-          </PublicServices::TranslationStatus>
-        </td> --}}
+             <PublicServices::TranslationStatus
+             @id={{publicService.translationStatus.id}}
+             >
+             {{publicService.translationStatus.label}}
+             </PublicServices::TranslationStatus>
+             </td> --}}
         <td>
           {{#if publicService.status.uri}}
-          <PublicServices::Status
-            @uri={{publicService.status.uri}}
-          >
-            {{publicService.status.label}}
-          </PublicServices::Status>
+            <PublicServices::Status
+              @uri={{publicService.status.uri}}
+            >
+              {{publicService.status.label}}
+            </PublicServices::Status>
           {{else}}
-          –
+            –
           {{/if}}
         </td>
         <td class="u-table-cell-fit-content">
