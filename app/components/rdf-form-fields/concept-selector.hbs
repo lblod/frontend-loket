@@ -9,8 +9,8 @@
   <this.selectComponent
     @triggerId={{this.inputId}}
     @selected={{this.selected}}
-    @searchEnabled={{not this.shouldPreloadData}}
-    @search={{perform this.search}}
+    @searchEnabled={{this.isSearchEnabled}}
+    @search={{if this.backendSearch (perform this.search)}}
     @searchField="label"
     @options={{this.options}}
     @onClose={{fn (mut this.hasBeenFocused) true}}

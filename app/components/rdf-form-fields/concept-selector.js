@@ -26,12 +26,20 @@ export default class RdfFormFieldsConceptSchemeSelectorComponent extends InputFi
     this.loadPersistedValues();
   }
 
-  get searchMessage() {
-    return this.args.field.options.searchMessage || 'Typ om te zoeken';
+  get shouldPreloadData() {
+    return this.args.field.options.preload ?? true;
   }
 
-  get shouldPreloadData() {
-    return Boolean(this.args.field.options.preload);
+  get isSearchEnabled() {
+    return this.args.field.options.search ?? true;
+  }
+
+  get isBackendSearch() {
+    return this.args.field.options.backendSearch ?? true;
+  }
+
+  get searchMessage() {
+    return this.args.field.options.searchMessage || 'Typ om te zoeken';
   }
 
   get isMultiSelect() {
