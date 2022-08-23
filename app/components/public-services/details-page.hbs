@@ -15,7 +15,7 @@
         @sourceNode={{this.sourceNode}}
         @formStore={{this.formStore}}
         @forceShowErrors={{this.forceShowErrors}}
-        @show={{this.readOnly}}
+        @show={{@readOnly}}
       />
     </form>
   {{/if}}
@@ -24,7 +24,7 @@
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
     <AuButtonGroup>
-      {{#unless this.readOnly}}
+      {{#unless @readOnly}}
         <AuButton
           @disabled={{this.publicServiceAction.isRunning}}
           @loading={{this.publishPublicService.isRunning}}
@@ -52,7 +52,7 @@
     </AuButtonGroup>
   </Group>
   
-  {{#unless this.readOnly}}
+  {{#unless @readOnly}}
     <Group>
       <AuButton
         @alert={{true}}

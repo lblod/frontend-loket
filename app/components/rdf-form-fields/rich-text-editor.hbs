@@ -11,12 +11,10 @@
 {{/if}}
 
 {{#if @show}}
-  {{#if this.value}}
-    <div class="rich-text-editor-content">
-      {{! template-lint-disable no-triple-curlies}}
-      {{{this.value}}}
-    </div>
-  {{/if}}
+  <div class="rich-text-editor-content">
+    {{! template-lint-disable no-triple-curlies}}
+    {{{this.value}}}
+  </div>
 {{else}}
   <div class="rich-text-editor" {{on "focusout" this.updateValue}}>
     <Rdfa::RdfaEditor
