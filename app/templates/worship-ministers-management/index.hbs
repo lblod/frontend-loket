@@ -21,11 +21,11 @@
         as |t| >
         <t.content as |c|>
           <c.header>
-            <AuDataTableThSortable @field="post" @currentSorting={{this.sort}} @label="Postie"/>
-            <AuDataTableThSortable @field="voornaam" @currentSorting={{this.sort}} @label="Voornaam"/>
-            <AuDataTableThSortable @field="achternaam" @currentSorting={{this.sort}} @label="Achternaam"/>
-            <AuDataTableThSortable @field="startDate" @currentSorting={{this.sort}} @label="Startdatum"/>
-            <AuDataTableThSortable @field="eindeDate" @currentSorting={{this.sort}} @label="Eindedatum"/>
+            <AuDataTableThSortable @field="ministerPosition.function" @currentSorting={{this.sort}} @label="Functienaam"/>
+            <AuDataTableThSortable @field="person.gebruikte-voornaam" @currentSorting={{this.sort}} @label="Voornaam"/>
+            <AuDataTableThSortable @field="person.achternaam" @currentSorting={{this.sort}} @label="Achternaam"/>
+            <AuDataTableThSortable @field="agentStartDate" @currentSorting={{this.sort}} @label="Startdatum"/>
+            <AuDataTableThSortable @field="agentEndDate" @currentSorting={{this.sort}} @label="Eindedatum"/>
           </c.header>
           <c.body as |row|>
             <td>{{row.ministerPosition.function.label}}</td>

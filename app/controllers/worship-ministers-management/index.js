@@ -7,6 +7,7 @@ export default class WorshipMinistersManagementIndexController extends Controlle
   @service router;
   @service store;
 
+  sort = 'person.gebruikte-voornaam';
   @tracked page = 0;
   @tracked size = 20;
 
