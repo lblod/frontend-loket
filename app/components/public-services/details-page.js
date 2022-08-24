@@ -26,7 +26,7 @@ const FORM_GRAPHS = {
 
 const SERVICE_STATUSES = {
   sent: 'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
-}
+};
 
 const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
@@ -96,48 +96,57 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @task({ group: 'publicServiceAction' })
   *publishPublicService() {
-    let isValidForm = validateForm(this.form, {
-      ...this.graphs,
-      sourceNode: this.sourceNode,
-      store: this.formStore,
-    });
-    this.forceShowErrors = !isValidForm;
+    try {
+      let isValidForm = validateForm(this.form, {
+        ...this.graphs,
+        sourceNode: this.sourceNode,
+        store: this.formStore,
+      });
+      this.forceShowErrors = !isValidForm;
 
-    if (isValidForm) {
-      if (this.hasUnsavedChanges) {
-        yield this.saveSemanticForm.unlinked().perform();
-      }
-
-      const response = yield submitFormData(this.args.publicService.id);
-
-      if(response.ok){
-        yield this.setServiceStatus(this.args.publicService, SERVICE_STATUSES.sent);
-        this.router.transitionTo('public-services');
-      }
-      else {
-        const jsonResponse = yield response.json();
-        const errors = jsonResponse?.data?.errors;
-
-        if(response.status == 500 || !errors) {
-          this.toaster.error(
-            'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
-            'Fout'
-          );
+      if (isValidForm) {
+        if (this.hasUnsavedChanges) {
+          yield this.saveSemanticForm.unlinked().perform();
         }
-        else {
-          for(const error of errors) {
-            //TODO: should probably handle this more in a more user friendly way
-            //ie: redirect to said form and scroll down to the first invalid field
-            const formId = error.form.id;
-            this.toaster.error(
-              `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
-              'Fout'
-            );
+
+        const response = yield submitFormData(this.args.publicService.id);
+
+        if (response.ok) {
+          yield this.setServiceStatus(
+            this.args.publicService,
+            SERVICE_STATUSES.sent
+          );
+          this.router.transitionTo('public-services');
+        } else {
+          const jsonResponse = yield response.json();
+          const errors = jsonResponse?.data?.errors;
+
+          if (response.status == 500 || !errors) {
+            throw 'Unexpected error while validating data in backend';
+          } else {
+            for (const error of errors) {
+              //TODO: should probably handle this more in a more user friendly way
+              //ie: redirect to said form and scroll down to the first invalid field
+              const formId = error.form.id;
+              this.toaster.error(
+                `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
+                'Fout'
+              );
+            }
           }
         }
       }
+    } catch (e) {
+      console.error(e);
+      this.toaster.error(
+        `Onverwachte fout bij het verwerken van het product,
+               gelieve de helpdesk te contacteren.
+             Foutboodschap: ${e.message || e}`,
+        'Fout'
+      );
+    } finally {
+      this.sending();
     }
-    this.sending();
   }
 
   @task({ group: 'publicServiceAction' })
@@ -199,12 +208,14 @@ export default class PublicServicesDetailsPageComponent extends Component {
   }
 
   async setServiceStatus(service, status) {
-        const sentStatus = (await this.store.query('concept', {
-          filter: {
-            ':uri:': status
-          },
-        })).firstObject;
-        service.status = sentStatus;
+    const sentStatus = (
+      await this.store.query('concept', {
+        filter: {
+          ':uri:': status,
+        },
+      })
+    ).firstObject;
+    service.status = sentStatus;
     await service.save();
   }
 
