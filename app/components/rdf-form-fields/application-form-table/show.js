@@ -1,7 +1,8 @@
 import InputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/input-field';
 import { tracked } from '@glimmer/tracking';
 import { triplesForPath } from '@lblod/submission-form-helpers';
-import { NamedNode, Namespace } from 'rdflib';
+import { NamedNode } from 'rdflib';
+import { LBLOD_SUBSIDIE } from 'frontend-loket/rdf/namespaces';
 
 const extBaseUri = 'http://mu.semte.ch/vocabularies/ext/';
 
@@ -21,10 +22,6 @@ const numberChildrenPerInfrastructurePredicate = new NamedNode(
   `http://mu.semte.ch/vocabularies/ext/numberChildrenPerInfrastructure`
 );
 const createdPredicate = new NamedNode('http://purl.org/dc/terms/created');
-
-const LBLOD_SUBSIDIE = new Namespace(
-  'http://lblod.data.gift/vocabularies/subsidie/'
-);
 
 class EntryProperties {
   @tracked value;

@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { literal, NamedNode, Namespace } from 'rdflib';
+import { literal, NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
@@ -10,9 +10,7 @@ import {
   XSD,
   removeSimpleFormValue,
 } from '@lblod/submission-form-helpers';
-import { MU } from 'frontend-loket/rdf/namespaces';
-
-const QB = new Namespace('http://purl.org/linked-data/cube#');
+import { MU, QB } from 'frontend-loket/rdf/namespaces';
 
 const climateBaseUri = 'http://data.lblod.info/vocabularies/subsidie/climate/';
 const climateTableBaseUri = 'http://data.lblod.info/climate-tables';

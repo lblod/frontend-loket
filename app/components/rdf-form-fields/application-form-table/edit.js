@@ -2,11 +2,11 @@ import InputFieldComponent from '@lblod/ember-submission-form-fields/components/
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { RDF, triplesForPath, XSD } from '@lblod/submission-form-helpers';
-import { literal, NamedNode, Namespace } from 'rdflib';
+import { literal, NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { next } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
-import { MU } from 'frontend-loket/rdf/namespaces';
+import { LBLOD_SUBSIDIE, MU } from 'frontend-loket/rdf/namespaces';
 
 const applicationFormTableBaseUri =
   'http://data.lblod.info/application-form-tables';
@@ -43,10 +43,6 @@ const totalAmountPredicate = new NamedNode(
   'http://lblod.data.gift/vocabularies/subsidie/totalAmount'
 );
 const createdPredicate = new NamedNode('http://purl.org/dc/terms/created');
-
-const LBLOD_SUBSIDIE = new Namespace(
-  'http://lblod.data.gift/vocabularies/subsidie/'
-);
 
 const inputFieldNames = [
   'actorName',
