@@ -90,7 +90,7 @@ export default class CurrentSessionService extends Service {
 
   get canAccessPublicServices() {
     return (
-      isFeatureEnabled('public-services') && this.canAccess(MODULE.SUBSIDIES)
+      isFeatureEnabled('public-services') && this.canAccess(MODULE.PUBLIC_SERVICES)
     );
   }
 }
