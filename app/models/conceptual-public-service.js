@@ -15,6 +15,7 @@ export default class ConceptualPublicServiceModel extends Model {
 
   @belongsTo('concept', {
     inverse: null,
+    async: false,
   })
   status;
 
