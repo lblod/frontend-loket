@@ -24,6 +24,10 @@ const FORM_GRAPHS = {
   sourceGraph: new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`),
 };
 
+const SERVICE_STATUSES = {
+  sent: 'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
+}
+
 const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
 const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
@@ -98,51 +102,40 @@ export default class PublicServicesDetailsPageComponent extends Component {
       store: this.formStore,
     });
     this.forceShowErrors = !isValidForm;
+
     if (isValidForm) {
       if (this.hasUnsavedChanges) {
         yield this.saveSemanticForm.unlinked().perform();
       }
 
-      const response = yield publish(this.args.publicService.id);
+      const response = yield submitFormData(this.args.publicService.id);
 
-      if (!response) {
-        this.toaster.error(
-          'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
-          'Fout'
-        );
-        this.sending();
-        return;
-      }
-
-      const errors = response.data.errors;
-
-      if (errors.length == 0) {
-        const sentStatus = (yield this.store.query('concept', {
-          filter: {
-            ':uri:':
-              'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
-          },
-        })).firstObject;
-        const publicService = this.args.publicService;
-        publicService.status = sentStatus;
-        yield publicService.save();
+      if(response.ok){
+        yield this.setServiceStatus(this.args.publicService, SERVICE_STATUSES.sent);
         this.router.transitionTo('public-services');
-      } else if (errors.length == 1) {
-        //TODO: should probably handle this more in a more user friendly way
-        //ie: redirect to said form and scroll down to the first invalid field
-        const formId = errors[0].form.id;
-        this.toaster.error(
-          `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
-          'Fout'
-        );
-      } else if (errors.length > 1) {
-        this.toaster.error(
-          'Meerdere formulieren zijn onjuist ingevuld',
-          'Fout'
-        );
       }
-    } else {
-      this.toaster.error('Formulier is ongeldig', 'Fout');
+      else {
+        const jsonResponse = yield response.json();
+        const errors = jsonResponse?.data?.errors;
+
+        if(response.status == 500 || !errors) {
+          this.toaster.error(
+            'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
+            'Fout'
+          );
+        }
+        else {
+          for(const error of errors) {
+            //TODO: should probably handle this more in a more user friendly way
+            //ie: redirect to said form and scroll down to the first invalid field
+            const formId = error.form.id;
+            this.toaster.error(
+              `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
+              'Fout'
+            );
+          }
+        }
+      }
     }
     this.sending();
   }
@@ -205,6 +198,16 @@ export default class PublicServicesDetailsPageComponent extends Component {
     }
   }
 
+  async setServiceStatus(service, status) {
+        const sentStatus = (await this.store.query('concept', {
+          filter: {
+            ':uri:': status
+          },
+        })).firstObject;
+        service.status = sentStatus;
+    await service.save();
+  }
+
   willDestroy() {
     super.willDestroy(...arguments);
 
@@ -228,7 +231,7 @@ async function saveFormData(serviceId, formId, formData) {
   });
 }
 
-async function publish(serviceId) {
+async function submitFormData(serviceId) {
   const response = await fetch(`/lpdc-management/${serviceId}/submit`, {
     method: 'POST',
     body: JSON.stringify({}),
@@ -236,13 +239,5 @@ async function publish(serviceId) {
       'Content-Type': 'application/json; charset=UTF-8',
     },
   });
-  if (response.status == 500) {
-    console.warn(
-      `Unexpected error during validation  of service "${serviceId}".`
-    );
-    return null;
-  } else {
-    const jsonResponse = await response.json();
-    return jsonResponse;
-  }
+  return response;
 }
