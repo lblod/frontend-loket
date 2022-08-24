@@ -14,10 +14,14 @@ export default class PublicServicesDetailsRoute extends Route {
   }
 
   async model({ serviceId }) {
-    let publicService = await loadPublicServiceDetails(this.store, serviceId);
-
+    const publicService = await loadPublicServiceDetails(this.store, serviceId);
+    const status = await publicService.status;
+    const readOnly =
+      status.uri !==
+      'http://lblod.data.gift/concepts/79a52da4-f491-4e2f-9374-89a13cde8ecd';
     return {
       publicService,
+      readOnly,
     };
   }
 

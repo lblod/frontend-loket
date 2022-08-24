@@ -13,7 +13,6 @@ import ConfirmDeletionModal from 'frontend-loket/components/public-services/conf
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
-//TODO: this is a bad idea this is the third time (as far as i know) these ids have been hardcoded
 const FORM_MAPPING = {
   'cd0b5eba-33c1-45d9-aed9-75194c3728d3': 'inhoud',
   '149a7247-0294-44a5-a281-0a4d3782b4fd': 'eigenschappen',
@@ -118,6 +117,15 @@ export default class PublicServicesDetailsPageComponent extends Component {
       const errors = response.data.errors;
 
       if (errors.length == 0) {
+        const sentStatus = (yield this.store.query('concept', {
+          filter: {
+            ':uri:':
+              'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
+          },
+        })).firstObject;
+        const publicService = this.args.publicService;
+        publicService.status = sentStatus;
+        yield publicService.save();
         this.router.transitionTo('public-services');
       } else if (errors.length == 1) {
         //TODO: should probably handle this more in a more user friendly way

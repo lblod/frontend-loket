@@ -134,15 +134,15 @@
           {{/if}}
         </td>
         <td class="u-table-cell-fit-content">
-          <AuLink
-            @icon="pencil"
-            @iconAlignment="left"
-            @skin="primary"
-            @route="public-services.details"
-            @model={{publicService.id}}
-          >
-            Bewerk
-          </AuLink>
+              <AuLink
+                @icon={{if publicService.isSent "eye" "pencil"}}
+                @iconAlignment="left"
+                @skin="primary"
+                @route="public-services.details"
+                @model={{publicService.id}}
+              >
+                {{if publicService.isSent "Bekijk" "Bewerk"}}
+              </AuLink>
         </td>
       </Content.body>
     {{else}}

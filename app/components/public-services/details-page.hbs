@@ -15,6 +15,7 @@
         @sourceNode={{this.sourceNode}}
         @formStore={{this.formStore}}
         @forceShowErrors={{this.forceShowErrors}}
+        @show={{@readOnly}}
       />
     </form>
   {{/if}}
@@ -23,47 +24,51 @@
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
     <AuButtonGroup>
-      <AuButton
-        @disabled={{this.publicServiceAction.isRunning}}
-        @loading={{this.publishPublicService.isRunning}}
-        {{on "click" this.sending}}
-      >
-        Verzend naar Vlaamse overheid
-      </AuButton>
+      {{#unless @readOnly}}
+        <AuButton
+          @disabled={{this.publicServiceAction.isRunning}}
+          @loading={{this.publishPublicService.isRunning}}
+          {{on "click" this.sending}}
+        >
+          Verzend naar Vlaamse overheid
+        </AuButton>
 
-      <AuButton
-        @skin="secondary"
-        @disabled={{or
-          (not this.hasUnsavedChanges)
-          this.publicServiceAction.isRunning
-        }}
-        @loading={{this.handleFormSubmit.isRunning}}
-        form={{this.id}}
-        type="submit"
-      >
-        Wijzigingen bewaren
-      </AuButton>
-
+        <AuButton
+          @skin="secondary"
+          @disabled={{or
+            (not this.hasUnsavedChanges)
+            this.publicServiceAction.isRunning
+          }}
+          @loading={{this.handleFormSubmit.isRunning}}
+          form={{this.id}}
+          type="submit"
+        >
+          Wijzigingen bewaren
+        </AuButton>
+      {{/unless}}
       <AuLink @route="public-services" @skin="button-naked">
         Terug naar het overzicht
       </AuLink>
     </AuButtonGroup>
   </Group>
-  <Group>
-    <AuButton
-      @alert={{true}}
-      @icon="bin"
-      @iconAlignment="left"
-      @skin="secondary"
-      @disabled={{this.publicServiceAction.isRunning}}
-      {{on "click" this.removePublicService}}
-    >
-      <span class="au-u-hidden-visually">
-        Product of dienst
-      </span>
-      Verwijderen
-    </AuButton>
-  </Group>
+  
+  {{#unless @readOnly}}
+    <Group>
+      <AuButton
+        @alert={{true}}
+        @icon="bin"
+        @iconAlignment="left"
+        @skin="secondary"
+        @disabled={{this.publicServiceAction.isRunning}}
+        {{on "click" this.removePublicService}}
+      >
+        <span class="au-u-hidden-visually">
+          Product of dienst
+        </span>
+        Verwijderen
+      </AuButton>
+    </Group>
+  {{/unless}}
 </AuToolbar>
 
 <AuModal
