@@ -128,6 +128,8 @@ export default class PublicServicesDetailsPageComponent extends Component {
             }
           }
         }
+      } else {
+        this.toaster.error('Formulier is ongeldig', 'Fout');
       }
     } catch (e) {
       console.error(e);
