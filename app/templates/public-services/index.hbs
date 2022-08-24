@@ -134,15 +134,27 @@
           {{/if}}
         </td>
         <td class="u-table-cell-fit-content">
-          <AuLink
-            @icon="pencil"
-            @iconAlignment="left"
-            @skin="primary"
-            @route="public-services.details"
-            @model={{publicService.id}}
-          >
-            Bewerk
-          </AuLink>
+          {{#if publicService.isSent}}
+            <AuLink
+              @icon="eye"
+              @iconAlignment="left"
+              @skin="primary"
+              @route="public-services.details"
+              @model={{publicService.id}}
+            >
+              Bekijk
+            </AuLink>
+          {{else}}
+            <AuLink
+              @icon="pencil"
+              @iconAlignment="left"
+              @skin="primary"
+              @route="public-services.details"
+              @model={{publicService.id}}
+            >
+              Bewerk
+            </AuLink>
+          {{/if}}
         </td>
       </Content.body>
     {{else}}
