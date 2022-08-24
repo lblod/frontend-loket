@@ -7,12 +7,12 @@ import { scheduleOnce } from '@ember/runloop';
 import { NamedNode, Namespace } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
+import { MU } from 'frontend-loket/rdf/namespaces';
 
 const LBLOD_SUBSIDIE = new Namespace(
   'http://lblod.data.gift/vocabularies/subsidie/'
 );
 const DBPEDIA = new Namespace('http://dbpedia.org/ontology/');
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
 
 const climateTableBaseUri = 'http://data.lblod.info/climate-tables';
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';

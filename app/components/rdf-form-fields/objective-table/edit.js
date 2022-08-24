@@ -2,12 +2,11 @@ import InputFieldComponent from '@lblod/ember-submission-form-fields/components/
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { triplesForPath } from '@lblod/submission-form-helpers';
-import { NamedNode, Namespace } from 'rdflib';
+import { NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
-
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+import { MU } from 'frontend-loket/rdf/namespaces';
 
 const bicycleInfrastructureUri =
   'http://lblod.data.gift/vocabularies/subsidie/bicycle-infrastructure#';

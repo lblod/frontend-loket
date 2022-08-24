@@ -2,12 +2,11 @@ import Component from '@glimmer/component';
 import { schedule } from '@ember/runloop';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { literal, NamedNode, Namespace } from 'rdflib';
+import { literal, NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { RDF } from '@lblod/submission-form-helpers';
 import commasToDecimalPointsFix from 'frontend-loket/helpers/subsidies/subsidies-decimal-point';
-
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+import { MU } from 'frontend-loket/rdf/namespaces';
 
 const bicycleInfrastructureUri =
   'http://lblod.data.gift/vocabularies/subsidie/bicycle-infrastructure#';

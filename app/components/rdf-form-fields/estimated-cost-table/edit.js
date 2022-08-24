@@ -9,7 +9,6 @@ import { next } from '@ember/runloop';
 import BaseTable from './base-table';
 import { EstimatedCostEntry } from './base-table';
 import {
-  MU,
   estimatedCostTableBaseUri,
   EstimatedCostTableType,
   estimatedCostTablePredicate,
@@ -19,6 +18,7 @@ import {
   costPredicate,
   validEstimatedCostTable,
 } from './base-table';
+import { MU } from 'frontend-loket/rdf/namespaces';
 
 import commasToDecimalPointsFix from '../../../helpers/subsidies/subsidies-decimal-point';
 

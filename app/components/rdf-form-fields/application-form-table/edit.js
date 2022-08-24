@@ -1,14 +1,12 @@
 import InputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/input-field';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { triplesForPath, XSD } from '@lblod/submission-form-helpers';
+import { RDF, triplesForPath, XSD } from '@lblod/submission-form-helpers';
 import { literal, NamedNode, Namespace } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF } from '@lblod/submission-form-helpers';
 import { next } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
-
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+import { MU } from 'frontend-loket/rdf/namespaces';
 
 const applicationFormTableBaseUri =
   'http://data.lblod.info/application-form-tables';

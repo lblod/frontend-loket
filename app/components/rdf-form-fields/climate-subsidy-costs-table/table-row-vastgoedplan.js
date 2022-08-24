@@ -1,14 +1,12 @@
 import Component from '@glimmer/component';
-import { literal, NamedNode, Namespace } from 'rdflib';
+import { literal, NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { A } from '@ember/array';
 import { scheduleOnce } from '@ember/runloop';
-
 import { RDF, XSD } from '@lblod/submission-form-helpers';
-
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+import { MU } from 'frontend-loket/rdf/namespaces';
 
 const climateBaseUri = 'http://data.lblod.info/vocabularies/subsidie/climate/';
 const climateTableBaseUri = 'http://data.lblod.info/climate-tables';

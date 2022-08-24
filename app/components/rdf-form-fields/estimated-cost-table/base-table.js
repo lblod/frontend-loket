@@ -2,9 +2,7 @@ import { tracked } from '@glimmer/tracking';
 
 import InputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/input-field';
 import { triplesForPath } from '@lblod/submission-form-helpers';
-import { NamedNode, Namespace } from 'rdflib';
-
-export const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+import { NamedNode } from 'rdflib';
 
 export const estimatedCostTableBaseUri =
   'http://lblod.data.gift/id/subsidie/bicycle-infrastructure/table';

@@ -5,14 +5,13 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { scheduleOnce } from '@ember/runloop';
-
 import {
   RDF,
   XSD,
   removeSimpleFormValue,
 } from '@lblod/submission-form-helpers';
+import { MU } from 'frontend-loket/rdf/namespaces';
 
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
 const QB = new Namespace('http://purl.org/linked-data/cube#');
 
 const climateBaseUri = 'http://data.lblod.info/vocabularies/subsidie/climate/';
