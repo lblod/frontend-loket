@@ -7,7 +7,7 @@ import {
   ForkingStore,
   validateForm,
 } from '@lblod/ember-submission-form-fields';
-import rdflib from 'rdflib';
+import { NamedNode, Namespace } from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
 import ConfirmSubmitModal from 'frontend-loket/components/public-services/confirm-submit-modal';
@@ -20,17 +20,17 @@ const FORM_MAPPING = {
 };
 
 const FORM_GRAPHS = {
-  formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
-  metaGraph: new rdflib.NamedNode('http://data.lblod.info/metagraph'),
-  sourceGraph: new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`),
+  formGraph: new NamedNode('http://data.lblod.info/form'),
+  metaGraph: new NamedNode('http://data.lblod.info/metagraph'),
+  sourceGraph: new NamedNode(`http://data.lblod.info/sourcegraph`),
 };
 
 const SERVICE_STATUSES = {
   sent: 'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
 };
 
-const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
-const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+const FORM = new Namespace('http://lblod.data.gift/vocabularies/forms/');
+const RDF = new Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
 export default class PublicServicesDetailsPageComponent extends Component {
   @service modals;
@@ -49,7 +49,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
   constructor() {
     super(...arguments);
     this.loadForm.perform();
-    this.sourceNode = new rdflib.NamedNode(this.args.publicService.uri);
+    this.sourceNode = new NamedNode(this.args.publicService.uri);
     this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
   }
 
