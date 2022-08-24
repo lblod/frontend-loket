@@ -152,6 +152,9 @@ export default class PublicServicesDetailsPageComponent extends Component {
     event?.preventDefault?.();
 
     yield this.saveSemanticForm.unlinked().perform();
+
+    this.hasUnsavedChanges = false;
+    this.submitToGoverment = false;
   }
 
   @dropTask
@@ -168,9 +171,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
     );
 
     yield loadPublicServiceDetails(this.store, this.args.publicService.id);
-    this.hasUnsavedChanges = false;
-
-    this.submitToGoverment = false;
   }
 
   @action
