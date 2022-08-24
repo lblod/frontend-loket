@@ -68,7 +68,7 @@ export default class RdfFormFieldsConceptSchemeSelectorComponent extends InputFi
   }
 
   async loadPersistedValues() {
-    const matches = triplesForPath(this.storeOptions, true).values;
+    const matches = triplesForPath(this.storeOptions).values;
 
     if (matches.length > 0) {
       if (this.isMultiSelect) {
