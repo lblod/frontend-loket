@@ -10,6 +10,7 @@ import {
 import rdflib from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
+import ConfirmSubmitModal from 'frontend-loket/components/public-services/confirm-submit-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
@@ -36,14 +37,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
   @service router;
   @service store;
   @service toaster;
-
-  @tracked submitToGoverment = false;
-  @tracked isSubmit = false;
-
-  @action
-  sending() {
-    this.submitToGoverment = !this.submitToGoverment;
-  }
 
   @tracked hasUnsavedChanges = false;
   @tracked forceShowErrors = false;
@@ -144,8 +137,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
              Foutboodschap: ${e.message || e}`,
         'Fout'
       );
-    } finally {
-      this.sending();
     }
   }
 
@@ -156,7 +147,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
     yield this.saveSemanticForm.unlinked().perform();
 
     this.hasUnsavedChanges = false;
-    this.submitToGoverment = false;
   }
 
   @dropTask
@@ -173,6 +163,15 @@ export default class PublicServicesDetailsPageComponent extends Component {
     );
 
     yield loadPublicServiceDetails(this.store, this.args.publicService.id);
+  }
+
+  @action
+  requestSubmitConfirmation() {
+    this.modals.open(ConfirmSubmitModal, {
+      submitHandler: async () => {
+        await this.publishPublicService.perform();
+      },
+    });
   }
 
   @action

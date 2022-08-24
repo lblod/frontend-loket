@@ -27,8 +27,7 @@
       {{#unless @readOnly}}
         <AuButton
           @disabled={{this.publicServiceAction.isRunning}}
-          @loading={{this.publishPublicService.isRunning}}
-          {{on "click" this.sending}}
+          {{on "click" this.requestSubmitConfirmation}}
         >
           Verzend naar Vlaamse overheid
         </AuButton>
@@ -51,7 +50,7 @@
       </AuLink>
     </AuButtonGroup>
   </Group>
-  
+
   {{#unless @readOnly}}
     <Group>
       <AuButton
@@ -70,27 +69,3 @@
     </Group>
   {{/unless}}
 </AuToolbar>
-
-<AuModal
-  @modalOpen={{this.submitToGoverment}}
-  @closeModal={{this.sending}}
-  @size="small"
->
-  <:title>Verzend naar Vlaamse overheid</:title>
-  <:body>
-    <p>Ben je zeker dat je dit product wil versturen naar de Vlaamse overheid? Deze actie kan je niet ongedaan maken.</p>
-    <p>Als je nieuwe wijzigingen doet kan je die steeds opnieuw versturen.</p>
-  </:body>
-  <:footer>
-    <AuButtonGroup>
-      <AuButton
-        @disabled={{this.publishPublicService.isRunning}}
-        @loading={{this.publishPublicService.isRunning}}
-        {{on "click" (perform this.publishPublicService)}}
-      >
-        Verzend naar Vlaamse overheid
-      </AuButton>
-      <AuButton @skin="secondary" {{on "click" this.sending}}>Annuleer</AuButton>
-    </AuButtonGroup>
-  </:footer>
-</AuModal>
