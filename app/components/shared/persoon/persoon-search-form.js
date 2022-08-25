@@ -9,7 +9,6 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   @service store;
 
   @tracked pageSize = 20;
-  @tracked showDefaultHead = true;
   @tracked queryParams;
   @tracked error;
   @tracked page;
@@ -31,6 +30,10 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
 
   get hasSearched() {
     return this.search.performCount > 0;
+  }
+
+  get showDefaultHead() {
+    return this.args.showDefaultHead ?? true;
   }
 
   constructor() {
