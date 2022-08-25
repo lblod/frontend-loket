@@ -21,12 +21,7 @@ export default class WorshipMinisterManagementNewRoute extends Route {
       ]);
 
       let worshipMinister = this.store.createRecord('minister');
-      worshipMinister.ministerPosition =
-        this.store.createRecord('minister-position');
-      worshipMinister.person = person;
-      // worshipMinister.ministerPosition.function = {};
-      // Don't know how to actually link a minister position function to a minister
-      // worshipMinister.post.function = ministerPositionFunctions;
+
       return {
         worshipMinister,
         ministerPositionFunctions,

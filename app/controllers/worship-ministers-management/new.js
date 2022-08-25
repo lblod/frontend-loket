@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
@@ -10,13 +9,23 @@ export default class WorshipMinistersManagementNewController extends Controller 
   @service store;
 
   queryParams = ['personId'];
+
   @tracked personId = '';
-  @tracked options = A(this.getWorshipFunctionsLabels());
+  @tracked functionId = '';
+
+  @tracked options = this.labels;
   @tracked selected = '';
 
-  getWorshipFunctionsLabels() {
-    return this.model.ministerPositionFunctions.map((a) => {
-      return a.label;
+  // TODO: to refactor
+  get labels() {
+    return this.model.ministerPositionFunctions.map(({ label }) => {
+      return label;
+    });
+  }
+
+  getWorshipFunctionsAttributes() {
+    return this.model.ministerPositionFunctions.map(({ id, label }) => {
+      return { label, id };
     });
   }
 
@@ -35,8 +44,15 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
-  setWorshipMinisterFunction(worshipFunction) {
-    console.log(worshipFunction);
+  getWorshipMinisterFunctionId(worshipFunction) {
+    const userSelection = this.getWorshipFunctionsAttributes().find(
+      ({ label }, obj) => {
+        return label === worshipFunction ? obj : '';
+      }
+    );
+
+    const { id } = userSelection || '';
+    this.functionId = id;
   }
 
   @action
@@ -44,6 +60,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
     this.model.worshipMinister[type] = date;
   }
 
+  // TODO : fix Uncaught (in promise) DOMException: The object could not be cloned.
   @action
   cancel() {
     this.router.transitionTo('worship-ministers-management');
@@ -53,14 +70,30 @@ export default class WorshipMinistersManagementNewController extends Controller 
   *createWorshipMinister(event) {
     event.preventDefault();
 
-    // Need to update the minister-position-function aswell
-    let { worshipMinister } = this.model;
-    // console.log(worshipMinister);
+    let { worshipMinister, person } = this.model;
+
+    const worshipFunction = this.getWorshipFunction(this.functionId);
+
+    const ministerPosition = this.store.createRecord('minister-position');
+    ministerPosition.set('function', worshipFunction);
+
+    yield ministerPosition.save();
+
+    worshipMinister.ministerPosition = ministerPosition;
+    worshipMinister.person = person;
+
     yield worshipMinister.save();
 
     this.router.transitionTo(
       'worship-ministers-management.minister.edit',
       worshipMinister.id
+    );
+  }
+
+  getWorshipFunction(worshipFunctionId) {
+    return this.store.peekRecord(
+      'minister-position-function',
+      worshipFunctionId
     );
   }
 }
