@@ -134,17 +134,19 @@ Router.map(function () {
     });
   }
 
-  this.route(
-    'worship-ministers-management',
-    { path: 'bedienarenbeheer' },
-    function () {
-      this.route('new', { path: '/nieuw' });
-      this.route('new-person', { path: '/nieuw-bedienaar' });
+  if (isFeatureEnabled('worship-minister-management')) {
+    this.route(
+      'worship-ministers-management',
+      { path: 'bedienarenbeheer' },
+      function () {
+        this.route('new', { path: '/nieuw' });
+        this.route('new-person', { path: '/nieuw-bedienaar' });
 
-      this.route('minister', { path: '/bedienaar' }, function () {
-        // this.route('index', { path: '' }); // overview page
-        this.route('edit', { path: '/:minister_id/bewerk' });
-      });
-    }
-  );
+        this.route('minister', { path: '/bedienaar' }, function () {
+          // this.route('index', { path: '' }); // overview page
+          this.route('edit', { path: '/:minister_id/bewerk' });
+        });
+      }
+    );
+  }
 });

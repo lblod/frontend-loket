@@ -67,20 +67,22 @@
           </:link>
         </LoketModuleCard>
       </li>
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessBedienarenbeheer}}
-          @icon="user"
-          @extraInformationLink="https://lokaalbestuur.vlaanderen.be/erediensten"
-          @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bedienarenbeheer"
-        >
-          <:title>Bedienarenbeheer</:title>
-          <:description>Hou de bedienaren binnen de erediensten bij.</:description>
-          <:link>
-          <AuLink @route="worship-ministers-management" @skin="button">Ga naar bedienarenbeheer</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+      {{#if (is-feature-enabled "worship-minister-management")}}
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @isAvailable={{this.currentSession.canAccessBedienarenbeheer}}
+            @icon="user"
+            @extraInformationLink="https://lokaalbestuur.vlaanderen.be/erediensten"
+            @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bedienarenbeheer"
+          >
+            <:title>Bedienarenbeheer</:title>
+            <:description>Hou de bedienaren binnen de erediensten bij.</:description>
+            <:link>
+              <AuLink @route="worship-ministers-management" @skin="button">Ga naar bedienarenbeheer</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
+      {{/if}}
       {{#if (is-feature-enabled "eredienst-mandatenbeheer")}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
           <LoketModuleCard

@@ -78,7 +78,10 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessBedienarenbeheer() {
-    return this.canAccess(MODULE.BEDIENARENBEHEER);
+    return (
+      isFeatureEnabled('worship-minister-management') &&
+      this.canAccess(MODULE.BEDIENARENBEHEER)
+    );
   }
 
   get canAccessEredienstMandatenbeheer() {
