@@ -10,7 +10,7 @@ export default class WorshipMinistersManagementRoute extends Route {
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
 
-    if (!this.currentSession.canAccessBedienarenbeheer)
+    if (!this.currentSession.canAccessWorshipMinisterManagement)
       this.router.transitionTo('index');
   }
 
