@@ -4,7 +4,7 @@
     <div>
       <AuHeading @skin="2">Bewerk bedienaar</AuHeading>
       <p class="au-u-h3">
-        {{#if this.model.ministerPosition}}
+        {{#if this.model.ministerPosition.function}}
           {{this.model.ministerPosition.function.label}},
         {{/if}}
         {{this.model.person.gebruikteVoornaam}}
@@ -35,23 +35,22 @@
 <div class="au-c-body-container">
   <div class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
-      <AuLabel for="worship-minister-function">Postie</AuLabel>
+      <AuLabel for="worship-minister-function">Functienaam</AuLabel>
       {{!-- minister-position-function component ? --}}
       <PowerSelect
         @id="worship-minister-function"
-        {{!-- @value={{this.model.ministerPosition.function.label}} --}}
         @allowClear={{this.allowClear}}
         @renderInPlace={{this.renderInPlace}}
         @disabled={{this.disabled}}
-        @searchEnabled={{this.searchEnabled}}
-        @loadingMessage={{this.loadingMessage}}
-        @noMatchesMessage={{this.noMatchesMessage}}
-        @searchMessage={{this.searchMessage}}
+        @searchEnabled={{true}}
+        @loadingMessage = 'Aan het laden...'
+        @noMatchesMessage = 'Geen resultaten'
+        @searchMessage = 'Typ om te zoeken'
+        @placeholder="Selecteer bedienaar functie"
         @options={{this.options}}
         @selected={{this.selected}}
         @onChange={{fn (mut this.selected)}}
-        @onFocus={{fn this.setWorshipMinisterFunction this.selected}}
-        @placeholder="Selecteer bedienaar postie"
+        @onFocus={{fn this.editWorshipMinisterFunction this.selected}}
         as |singleselect|>
         {{singleselect}}
       </PowerSelect>

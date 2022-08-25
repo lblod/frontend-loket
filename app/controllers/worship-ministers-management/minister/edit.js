@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
@@ -15,22 +14,35 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   @service store;
   @service router;
 
-  bedienaar;
+  worshipMinister;
   ministerPositionFunctions;
+  originalContactAdres;
 
-  @tracked function = '';
-  @tracked options = A(this.getWorshipFunctionsLabels());
+  @tracked options = this.labels;
   @tracked selected = '';
+  @tracked selectedFunction;
+  @tracked functionId = '';
+  @tracked selectedContact;
+  @tracked editingContact;
 
-  getWorshipFunctionsLabels() {
-    return this.ministerPositionFunctions.map((a) => {
-      return a.label;
+  get isEditingContactPoint() {
+    return Boolean(this.editingContact);
+  }
+
+  get ministerPosition() {
+    return this.worshipMinister.get('ministerPosition');
+  }
+
+  get labels() {
+    return this.ministerPositionFunctions.map(({ label }) => {
+      return label;
     });
   }
 
-  @action
-  setWorshipMinister(minister) {
-    this.model.persoon = minister;
+  getWorshipFunctionsAttributes() {
+    return this.ministerPositionFunctions.map(({ id, label }) => {
+      return { label, id };
+    });
   }
 
   @action
@@ -38,8 +50,26 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     this.router.transitionTo('worship-ministers-management');
   }
 
+  // fix weird behavior on edit same with new.
+  // The data backend call only resolve 2 entries when the page loads (might try to call async req will solve this)
+
   @action
-  setWorshipMinisterFunction(worshipFunction) {}
+  editWorshipMinisterFunction(worshipFunction) {
+    // This is creating error, I need to fix it.
+    const userSelection = this.getWorshipFunctionsAttributes().find(
+      ({ label }, obj) => {
+        return label === worshipFunction ? obj : '';
+      }
+    );
+
+    const { id } = userSelection || '';
+    this.functionId = id;
+
+    const updatedFunction = this.getWorshipFunction(this.functionId);
+    this.ministerPosition.set('function', updatedFunction);
+
+    // TODO: fix bug when leaving the route the unsaved model persists (Should not happen)
+  }
 
   @action
   handleDateChange(attributeName, isoDate, date) {
@@ -81,6 +111,13 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   @action
   async handleEditContactCancel() {
     this.rollbackUnsavedContactChanges();
+  }
+
+  getWorshipFunction(worshipFunctionId) {
+    return this.store.peekRecord(
+      'minister-position-function',
+      worshipFunctionId
+    );
   }
 
   @dropTask

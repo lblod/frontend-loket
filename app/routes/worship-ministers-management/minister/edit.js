@@ -8,15 +8,14 @@ import {
 
 export default class WorshipMinistersManagementMinisterEditRoute extends Route {
   @service store;
+  @service currentSession;
 
   queryParams = ['minister_id'];
   @tracked ministerId = '';
 
-  async beforeModel() {
-    // TODO: Adding contacts to the table
-  }
-
   async model(params) {
+    // const bestuurseenheid = this.currentSession.group;
+    // console.log(bestuurseenheid.get('id'));
     const minister = await this.store.findRecord(
       'minister',
       params.minister_id
@@ -24,34 +23,49 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
     const ministerPositionFunctions = await this.store.findAll(
       'minister-position-function'
     );
-    this.bedienaar = minister;
-    // TODO: Filter the right position function from the selected worship cult
-    this.ministerPositionFunctions = ministerPositionFunctions;
-    // let persoon = this.bedienaar.person;
-    // let positionContacts = await this.bedienaar.contacts;
-    // this.selectedContact = findPrimaryContactPoint(positionContacts);
+    // This is giving me a 500 error
+    // const ministerPositionFunctions = await this.store.query(
+    //   'minister-position',
+    //   { 'filter[worship-administrative-unit][:id:]': bestuurseenheid.get('id') }
+    // );
 
-    // this.contacts = await this.store.query('contact-punt', {
-    //   'filter[agents-in-position][is-bestuurlijke-alias-van][id]': persoon.id,
-    //   'filter[type]': CONTACT_TYPE.PRIMARY,
-    //   include: 'adres,secondary-contact-point',
-    // });
-    return this.store.findRecord('minister', params.minister_id);
+    // console.log(ministerPositionFunctions);
+    this.worshipMinister = minister;
+
+    this.ministerPositionFunctions = ministerPositionFunctions;
+
+    let person = await this.worshipMinister.get('person');
+
+    let positionContacts = await this.worshipMinister.get('contacts');
+    this.selectedContact = findPrimaryContactPoint(positionContacts);
+
+    this.contacts = await this.store.query('contact-punt', {
+      'filter[agents-in-position][person][id]': person.get('id'),
+      'filter[type]': CONTACT_TYPE.PRIMARY,
+      include: 'adres,secondary-contact-point',
+    });
+    return minister;
   }
 
   setupController(controller) {
     super.setupController(...arguments);
 
-    controller.bedienaar = this.bedienaar;
+    controller.worshipMinister = this.worshipMinister;
     controller.ministerPositionFunctions = this.ministerPositionFunctions;
 
-    // controller.contactList = this.contacts;
-    // controller.selectedContact = this.selectedContact;
+    controller.contactList = this.contacts;
+    controller.selectedContact = this.selectedContact;
   }
 
-  resetController(controller) {
+  resetController(controller, isExiting) {
     super.resetController(...arguments);
 
     controller.rollbackUnsavedChanges();
+
+    if (isExiting) {
+      // TODO: fix minister-position-function does not rollback
+      controller.ministerId = '';
+      controller.model?.worshipMinister?.rollbackAttributes();
+    }
   }
 }
