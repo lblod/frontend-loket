@@ -17,7 +17,6 @@ steps:
   - npm run lint:hbs
 - name: lint:dependencies
   image: danlynn/ember-cli:4.2.0-node_16.14
-  failure: ignore
   commands:
   - ember dependency-lint
 - name: test

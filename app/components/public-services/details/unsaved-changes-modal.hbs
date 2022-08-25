@@ -1,0 +1,40 @@
+<AuModal @modalOpen={{true}} @closeModal={{this.cancel}}>
+  <:title>Wijzigingen bewaren?</:title>
+  <:body>
+    <p class="au-c-content">
+      Er zijn velden gewijzigd. Wil je deze bewaren voor je naar een andere
+      sectie gaat? Indien niet dan worden deze wijzigingen niet bewaard.
+    </p>
+  </:body>
+  <:footer>
+    <AuToolbar as |Group|>
+      <Group>
+        <AuButtonGroup>
+          <AuButton
+            @disabled={{this.save.isRunning}}
+            @loading={{this.save.isRunning}}
+            {{on "click" (perform this.save)}}
+          >
+            Bewaar
+          </AuButton>
+          <AuButton
+            @disabled={{this.save.isRunning}}
+            @skin="secondary"
+            {{on "click" this.discardChanges}}
+          >
+            Niet bewaren
+          </AuButton>
+        </AuButtonGroup>
+      </Group>
+      <Group>
+        <AuButton
+          @disabled={{this.save.isRunning}}
+          @skin="naked"
+          {{on "click" this.cancel}}
+        >
+          Annuleer
+        </AuButton>
+      </Group>
+    </AuToolbar>
+  </:footer>
+</AuModal>
