@@ -1,7 +1,7 @@
 import Model, { belongsTo, hasMany } from '@ember-data/model';
-import BestuurseenheideModel from './bestuurseenheid';
+import BestuurseenheidModel from './bestuurseenheid';
 
-export default class WorshipAdministrativeUnitModel extends BestuurseenheideModel {
+export default class WorshipAdministrativeUnitModel extends BestuurseenheidModel {
   @belongsTo('recognized-worship-type') recognizedWorshipType;
 
   @hasMany('minister-position', { inverse: null }) ministerPositions;
