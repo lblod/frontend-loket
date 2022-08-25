@@ -1,45 +1,72 @@
-<div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
-  <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
-    <div class="au-c-body-container" tabindex="0">
-      <AuToolbar @size="large" as |Group|>
-        <Group>
-          <AuHeading @skin="2">Bedienarenbeheer</AuHeading>
-        </Group>
-        <Group>
-          <AuButton skin="primary" {{ on "click" this.addNewMinister}}>
-            Voeg bedienaar toe
-          </AuButton>
-        </Group>
-      </AuToolbar>
-      <AuDataTable
-        @content={{this.model}}
-        @isLoading={{this.isLoadingModel}}
-        @noDataMessage="Geen bedienaren gevonden"
-        @sort={{this.sort}}
-        @page={{this.page}}
-        @size={{this.size}}
-        as |t| >
-        <t.content as |c|>
-          <c.header>
-            <AuDataTableThSortable @field="ministerPosition.function" @currentSorting={{this.sort}} @label="Functienaam"/>
-            <AuDataTableThSortable @field="person.gebruikte-voornaam" @currentSorting={{this.sort}} @label="Voornaam"/>
-            <AuDataTableThSortable @field="person.achternaam" @currentSorting={{this.sort}} @label="Achternaam"/>
-            <AuDataTableThSortable @field="agentStartDate" @currentSorting={{this.sort}} @label="Startdatum"/>
-            <AuDataTableThSortable @field="agentEndDate" @currentSorting={{this.sort}} @label="Eindedatum"/>
-          </c.header>
-          <c.body as |row|>
-            <td>{{row.ministerPosition.function.label}}</td>
-            <td>{{row.person.gebruikteVoornaam}}</td>
-            <td>{{row.person.achternaam}}</td>
-            <td>{{moment-format row.agentStartDate "DD/MM/YYYY"}}</td>
-            <td>{{moment-format row.agentEndDate "DD/MM/YYYY"}}</td>
-            <td>
-              <AuLink @route="worship-ministers-management.minister.edit" @model={{row.id}} class="au-c-link">Bekijk en bewerk</AuLink>
-            </td>
-          </c.body>
-        </t.content>
-      </AuDataTable>
-    </div>
-  </div>
-</div>
-{{outlet}}
+<AuToolbar @size="large" @nowrap="true" as |Group|>
+  <Group>
+    <AuHeading @skin="2">Bedienarenbeheer</AuHeading>
+  </Group>
+
+  <Group>
+    <AuLink @route="worship-ministers-management.new" @skin="button">
+      Voeg bedienaar toe
+    </AuLink>
+  </Group>
+</AuToolbar>
+
+<AuDataTable
+  @content={{this.model}}
+  @isLoading={{this.isLoadingModel}}
+  @noDataMessage="Geen bedienaren gevonden"
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
+  as |t|
+>
+  <t.content as |c|>
+    <c.header>
+      <AuDataTableThSortable
+        @field="ministerPosition.function.label"
+        @currentSorting={{this.sort}}
+        @label="Functienaam"
+      />
+      <AuDataTableThSortable
+        @field="person.gebruikteVoornaam"
+        @currentSorting={{this.sort}}
+        @label="Voornaam"
+      />
+      <AuDataTableThSortable
+        @field="person.achternaam"
+        @currentSorting={{this.sort}}
+        @label="Achternaam"
+      />
+      <AuDataTableThSortable
+        @field="agentStartDate"
+        @currentSorting={{this.sort}}
+        @label="Startdatum"
+      />
+      <AuDataTableThSortable
+        @field="agentEndDate"
+        @currentSorting={{this.sort}}
+        @label="Eindedatum"
+      />
+      <th class="u-table-cell-shrink-content">
+        <span class="au-u-hidden-visually">Bedienaar bewerken</span>
+      </th>
+    </c.header>
+    <c.body as |minister|>
+      <td>{{minister.ministerPosition.function.label}}</td>
+      <td>{{minister.person.gebruikteVoornaam}}</td>
+      <td>{{minister.person.achternaam}}</td>
+      <td>{{moment-format minister.agentStartDate "DD/MM/YYYY"}}</td>
+      <td>{{moment-format minister.agentEndDate "DD/MM/YYYY"}}</td>
+      <td class="u-table-cell-fit-content">
+        <AuLink
+          @icon="pencil"
+          @iconAlignment="left"
+          @skin="primary"
+          @route="worship-ministers-management.minister.edit"
+          @model={{minister.id}}
+        >
+          Bewerk
+        </AuLink>
+      </td>
+    </c.body>
+  </t.content>
+</AuDataTable>

@@ -6,8 +6,15 @@ import DataTableRouteMixin from 'ember-data-table/mixins/route';
 export default class WorshipMinistersManagementIndexRoute extends Route.extend(
   DataTableRouteMixin
 ) {
-  @service session;
   @service store;
 
   modelName = 'minister';
+
+  mergeQueryOptions() {
+    const queryParams = {
+      include: ['person', 'minister-position.function'].join(','),
+    };
+
+    return queryParams;
+  }
 }
