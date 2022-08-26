@@ -52,19 +52,12 @@
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
         <AuLabel for="worship-minister-position-select">Functienaam</AuLabel>
-        {{! TODO: Replace this with a component so we can reuse it on the edit page }}
-        <PowerSelect
-          @id="worship-minister-position-select"
-          @noMatchesMessage="Geen resultaten"
-          @searchMessage="Typ om te zoeken"
-          @placeholder="Selecteer een functie"
-          @options={{@model.ministerPositions}}
+        <WorshipMinistersManagement::PositionSelect
+          @worshipService={{@model.currentWorshipService}}
           @selected={{@model.worshipMinister.ministerPosition}}
           @onChange={{fn (mut @model.worshipMinister.ministerPosition)}}
-          as |ministerPosition|
-        >
-          {{ministerPosition.function.label}}
-        </PowerSelect>
+          id="worship-minister-position-select"
+        />
       </div>
 
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
