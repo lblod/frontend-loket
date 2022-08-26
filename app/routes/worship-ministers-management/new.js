@@ -13,18 +13,22 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
   async model({ personId }) {
     if (personId) {
-      let [person, ministerPositionFunctions] = await Promise.all([
+      let [person, ministerPositions] = await Promise.all([
         this.store.findRecord('persoon', personId, {
           backgroundReload: false,
         }),
-        this.store.findAll('minister-position-function'),
+        this.store.query('minister-position', {
+          'filter[worship-service][:uri:]': this.currentSession.group.uri,
+          include: 'function',
+        }),
       ]);
 
       let worshipMinister = this.store.createRecord('minister');
+      worshipMinister.person = person;
 
       return {
         worshipMinister,
-        ministerPositionFunctions,
+        ministerPositions,
         person,
       };
     }

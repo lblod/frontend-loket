@@ -1,29 +1,22 @@
-{{page-title "Voeg bedienar toe" }}
+{{page-title "Voeg bedienaar toe"}}
 
-  {{#if this.shouldSelectPerson}}
-    <Shared::Persoon::PersoonSearchForm
-      class="au-c-body-container"
-      @onCreateNewPerson={{this.createNewPerson}}
-      @onCancel={{this.cancel}}
-      @onSelect={{this.selectPersoon}}
-    >
-      <AuHeading @skin="2">Voeg een nieuwe positie toe</AuHeading>
-    </Shared::Persoon::PersoonSearchForm>
-  {{else}}
-  <AuToolbar @border="bottom" @size="large" as |Group|>
-    <Group>
-      <div>
-        <AuHeading @skin="2">
-          Nieuw bedienaar toevoegen
-        </AuHeading>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
+    <div>
+      <AuHeading @skin="2">
+        Voeg een nieuwe positie toe
+      </AuHeading>
 
+      {{#if @model.person}}
         <p class="au-u-h3">
           {{@model.person.gebruikteVoornaam}}
           {{@model.person.achternaam~}}
         </p>
-      </div>
-    </Group>
+      {{/if}}
+    </div>
+  </Group>
 
+  {{#unless this.shouldSelectPerson}}
     <Group>
       <AuButtonGroup>
         <AuButton
@@ -34,16 +27,23 @@
         >
           Bedienaar toevoegen
         </AuButton>
-        <AuLink
-          @route="worship-ministers-management"
-          @skin="button-secondary"
-        >
+        <AuLink @route="worship-ministers-management" @skin="button-secondary">
           Annuleer
         </AuLink>
       </AuButtonGroup>
     </Group>
-  </AuToolbar>
+  {{/unless}}
+</AuToolbar>
 
+{{#if this.shouldSelectPerson}}
+  <Shared::Persoon::PersoonSearchForm
+    class="au-c-body-container"
+    @onCreateNewPerson={{this.createNewPerson}}
+    @onCancel={{this.cancel}}
+    @onSelect={{this.selectPersoon}}
+    @showDefaultHead={{false}}
+  />
+{{else}}
   <form
     id="create-worship-minister"
     class="au-c-body-container"
@@ -51,24 +51,20 @@
   >
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
-          <AuLabel for="worship-minister-function">Functienaam</AuLabel>
-          <PowerSelect
-            @id="worship-minister-function"
-            @allowClear={{this.allowClear}}
-            @renderInPlace={{this.renderInPlace}}
-            @disabled={{this.disabled}}
-            @searchEnabled={{true}}
-            @loadingMessage = 'Aan het laden...'
-            @noMatchesMessage = 'Geen resultaten'
-            @searchMessage = 'Typ om te zoeken'
-            @placeholder="Selecteer bedienaar functie"
-            @options={{this.options}}
-            @selected={{this.selected}}
-            @onChange={{fn (mut this.selected)}}
-            @onFocus={{fn this.getWorshipMinisterFunctionId this.selected}}
-            as |singleselect|>
-            {{singleselect}}
-          </PowerSelect>
+        <AuLabel for="worship-minister-position-select">Functienaam</AuLabel>
+        {{! TODO: Replace this with a component so we can reuse it on the edit page }}
+        <PowerSelect
+          @id="worship-minister-position-select"
+          @noMatchesMessage="Geen resultaten"
+          @searchMessage="Typ om te zoeken"
+          @placeholder="Selecteer een functie"
+          @options={{@model.ministerPositions}}
+          @selected={{@model.worshipMinister.ministerPosition}}
+          @onChange={{fn (mut @model.worshipMinister.ministerPosition)}}
+          as |ministerPosition|
+        >
+          {{ministerPosition.function.label}}
+        </PowerSelect>
       </div>
 
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
@@ -78,7 +74,7 @@
             @value={{@model.worshipMinister.agentStartDate}}
             @onChange={{fn this.handleDateChange "agentStartDate"}}
             @id="worship-minister-start-date"
-            />
+          />
         </div>
 
         <div class="au-o-grid__item au-u-1-2">

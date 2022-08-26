@@ -11,23 +11,6 @@ export default class WorshipMinistersManagementNewController extends Controller 
   queryParams = ['personId'];
 
   @tracked personId = '';
-  @tracked functionId = '';
-
-  @tracked options = this.labels;
-  @tracked selected = '';
-
-  // TODO: to refactor
-  get labels() {
-    return this.model.ministerPositionFunctions.map(({ label }) => {
-      return label;
-    });
-  }
-
-  getWorshipFunctionsAttributes() {
-    return this.model.ministerPositionFunctions.map(({ id, label }) => {
-      return { label, id };
-    });
-  }
 
   get shouldSelectPerson() {
     return !this.model?.person;
@@ -44,23 +27,10 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
-  getWorshipMinisterFunctionId(worshipFunction) {
-    const userSelection = this.getWorshipFunctionsAttributes().find(
-      ({ label }, obj) => {
-        return label === worshipFunction ? obj : '';
-      }
-    );
-
-    const { id } = userSelection || '';
-    this.functionId = id;
-  }
-
-  @action
   handleDateChange(type, isoDate, date) {
     this.model.worshipMinister[type] = date;
   }
 
-  // TODO : fix Uncaught (in promise) DOMException: The object could not be cloned.
   @action
   cancel() {
     this.router.transitionTo('worship-ministers-management');
@@ -70,30 +40,12 @@ export default class WorshipMinistersManagementNewController extends Controller 
   *createWorshipMinister(event) {
     event.preventDefault();
 
-    let { worshipMinister, person } = this.model;
-
-    const worshipFunction = this.getWorshipFunction(this.functionId);
-
-    const ministerPosition = this.store.createRecord('minister-position');
-    ministerPosition.set('function', worshipFunction);
-
-    yield ministerPosition.save();
-
-    worshipMinister.ministerPosition = ministerPosition;
-    worshipMinister.person = person;
-
+    let { worshipMinister } = this.model;
     yield worshipMinister.save();
 
     this.router.transitionTo(
       'worship-ministers-management.minister.edit',
       worshipMinister.id
-    );
-  }
-
-  getWorshipFunction(worshipFunctionId) {
-    return this.store.peekRecord(
-      'minister-position-function',
-      worshipFunctionId
     );
   }
 }
