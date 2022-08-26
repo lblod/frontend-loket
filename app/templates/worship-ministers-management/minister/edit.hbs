@@ -1,14 +1,14 @@
-{{ page-title "Bekijk en bewerk : " this.model.ministerPosition.function.label " " this.model.person.gebruikteVoornaam " " this.model.person.achternaam }}
+{{ page-title "Bekijk en bewerk : " @model.minister.ministerPosition.function.label " " @model.person.gebruikteVoornaam " " @model.person.achternaam }}
 <AuToolbar @border="bottom" @size="large" as |Group|>
   <Group>
     <div>
       <AuHeading @skin="2">Bewerk bedienaar</AuHeading>
       <p class="au-u-h3">
-        {{#if this.model.ministerPosition.function}}
-          {{this.model.ministerPosition.function.label}},
+        {{#if @model.minister.ministerPosition.function}}
+          {{@model.minister.ministerPosition.function.label}},
         {{/if}}
-        {{this.model.person.gebruikteVoornaam}}
-        {{this.model.person.achternaam}}
+        {{@model.person.gebruikteVoornaam}}
+        {{@model.person.achternaam}}
       </p>
     </div>
   </Group>
@@ -36,30 +36,16 @@
   <div class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
       <AuLabel for="worship-minister-function">Functienaam</AuLabel>
-      {{!-- minister-position-function component ? --}}
-      <PowerSelect
-        @id="worship-minister-function"
-        @allowClear={{this.allowClear}}
-        @renderInPlace={{this.renderInPlace}}
-        @disabled={{this.disabled}}
-        @searchEnabled={{true}}
-        @loadingMessage = 'Aan het laden...'
-        @noMatchesMessage = 'Geen resultaten'
-        @searchMessage = 'Typ om te zoeken'
-        @placeholder="Selecteer bedienaar functie"
-        @options={{this.options}}
-        @selected={{this.selected}}
-        @onChange={{fn (mut this.selected)}}
-        @onFocus={{fn this.editWorshipMinisterFunction this.selected}}
-        as |singleselect|>
-        {{singleselect}}
-      </PowerSelect>
+      <WorshipMinistersManagement::WorshipPositionSelector
+          @options={{@model.ministerPosition}}
+          @selected={{@model.minister.ministerPosition}}
+      />
     </div>
     <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="worship-minister-correction-start-date">Startdatum</AuLabel>
         <AuDatePicker
-          @value={{this.model.agentStartDate}}
+          @value={{@model.minister.agentStartDate}}
           @onChange={{fn this.handleDateChange "agentStartDate"}}
           @id="worship-minister-correction-start-date"
         />
@@ -67,7 +53,7 @@
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="worship-minister-correction-end-date">Eindedatum</AuLabel>
         <AuDatePicker
-          @value={{this.model.agentEndDate}}
+          @value={{@model.minister.agentEndDate}}
           @onChange={{fn this.handleDateChange "agentEndDate"}}
           @id="worship-minister-correction-end-date"
         />

@@ -14,25 +14,17 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
   @tracked ministerId = '';
 
   async model(params) {
-    // const bestuurseenheid = this.currentSession.group;
-    // console.log(bestuurseenheid.get('id'));
     const minister = await this.store.findRecord(
       'minister',
       params.minister_id
     );
-    const ministerPositionFunctions = await this.store.findAll(
-      'minister-position-function'
-    );
-    // This is giving me a 500 error
-    // const ministerPositionFunctions = await this.store.query(
-    //   'minister-position',
-    //   { 'filter[worship-administrative-unit][:id:]': bestuurseenheid.get('id') }
-    // );
 
-    // console.log(ministerPositionFunctions);
+    const ministerPosition = await this.store.query('minister-position', {
+      'filter[worship-service][:uri:]': this.currentSession.group.uri,
+      include: 'function',
+    });
+
     this.worshipMinister = minister;
-
-    this.ministerPositionFunctions = ministerPositionFunctions;
 
     let person = await this.worshipMinister.get('person');
 
@@ -44,14 +36,12 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
       'filter[type]': CONTACT_TYPE.PRIMARY,
       include: 'adres,secondary-contact-point',
     });
-    return minister;
+
+    return { minister, ministerPosition, person, contacts: this.contacts };
   }
 
   setupController(controller) {
     super.setupController(...arguments);
-
-    controller.worshipMinister = this.worshipMinister;
-    controller.ministerPositionFunctions = this.ministerPositionFunctions;
 
     controller.contactList = this.contacts;
     controller.selectedContact = this.selectedContact;
@@ -63,9 +53,7 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
     controller.rollbackUnsavedChanges();
 
     if (isExiting) {
-      // TODO: fix minister-position-function does not rollback
       controller.ministerId = '';
-      controller.model?.worshipMinister?.rollbackAttributes();
     }
   }
 }

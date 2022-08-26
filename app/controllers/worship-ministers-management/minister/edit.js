@@ -14,13 +14,8 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   @service store;
   @service router;
 
-  worshipMinister;
-  ministerPositionFunctions;
   originalContactAdres;
 
-  @tracked options = this.labels;
-  @tracked selected = '';
-  @tracked selectedFunction;
   @tracked functionId = '';
   @tracked selectedContact;
   @tracked editingContact;
@@ -29,51 +24,14 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     return Boolean(this.editingContact);
   }
 
-  get ministerPosition() {
-    return this.worshipMinister.get('ministerPosition');
-  }
-
-  get labels() {
-    return this.ministerPositionFunctions.map(({ label }) => {
-      return label;
-    });
-  }
-
-  getWorshipFunctionsAttributes() {
-    return this.ministerPositionFunctions.map(({ id, label }) => {
-      return { label, id };
-    });
-  }
-
   @action
   onCancel() {
     this.router.transitionTo('worship-ministers-management');
   }
 
-  // fix weird behavior on edit same with new.
-  // The data backend call only resolve 2 entries when the page loads (might try to call async req will solve this)
-
-  @action
-  editWorshipMinisterFunction(worshipFunction) {
-    // This is creating error, I need to fix it.
-    const userSelection = this.getWorshipFunctionsAttributes().find(
-      ({ label }, obj) => {
-        return label === worshipFunction ? obj : '';
-      }
-    );
-
-    const { id } = userSelection || '';
-    this.functionId = id;
-
-    const updatedFunction = this.getWorshipFunction(this.functionId);
-    this.ministerPosition.set('function', updatedFunction);
-
-    // TODO: fix bug when leaving the route the unsaved model persists (Should not happen)
-  }
-
   @action
   handleDateChange(attributeName, isoDate, date) {
-    this.model[attributeName] = date;
+    this.model.minister[attributeName] = date;
   }
 
   @action
@@ -113,15 +71,10 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     this.rollbackUnsavedContactChanges();
   }
 
-  getWorshipFunction(worshipFunctionId) {
-    return this.store.peekRecord(
-      'minister-position-function',
-      worshipFunctionId
-    );
-  }
-
   @dropTask
   *save() {
+    let { minister, contacts } = this.model;
+
     if (this.isEditingContactPoint) {
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
@@ -156,22 +109,20 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     }
 
     if (this.selectedContact) {
-      let primaryContactPoint = findPrimaryContactPoint(
-        yield this.model.contacts
-      );
+      let primaryContactPoint = findPrimaryContactPoint(yield contacts);
 
       if (this.selectedContact.id !== primaryContactPoint?.id) {
         let secondaryContact = yield this.selectedContact.secondaryContactPoint;
 
-        this.model.contacts = [this.selectedContact, secondaryContact].filter(
+        minister.contacts = [this.selectedContact, secondaryContact].filter(
           Boolean
         );
       }
     } else {
-      this.model.contacts = [];
+      minister.contacts = [];
     }
 
-    yield this.model.save();
+    yield minister.save();
 
     try {
       yield this.router.transitionTo('worship-ministers-management');
@@ -182,8 +133,9 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   }
 
   rollbackUnsavedChanges() {
+    this.model?.minister?.rollbackAttributes();
+    this.model?.ministerPosition?.function?.rollbackAttributes();
     this.rollbackUnsavedContactChanges();
-    this.model.rollbackAttributes();
   }
 
   async rollbackUnsavedContactChanges() {
