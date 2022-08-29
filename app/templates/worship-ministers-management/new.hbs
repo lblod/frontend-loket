@@ -52,9 +52,11 @@
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
         <AuLabel for="worship-minister-position-select">Functienaam</AuLabel>
-        <WorshipMinistersManagement::WorshipPositionSelector
-          @options={{@model.ministerPositions}}
+        <WorshipMinistersManagement::PositionSelect
+          @worshipService={{@model.currentWorshipService}}
           @selected={{@model.worshipMinister.ministerPosition}}
+          @onChange={{fn (mut @model.worshipMinister.ministerPosition)}}
+          id="worship-minister-position-select"
         />
       </div>
 
