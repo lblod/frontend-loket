@@ -12,6 +12,15 @@
     @extend .au-c-heading--4;
   }
 
+  .au-c-datepicker {
+    max-width: 14rem;
+  }
+
+  .au-c-datepicker .duet-date__dialog {
+    left: 0;
+    right: auto;
+  }
+
   > .au-o-grid {
     margin: 0;
   }
