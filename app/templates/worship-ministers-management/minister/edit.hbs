@@ -36,10 +36,12 @@
   <div class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
       <AuLabel for="worship-minister-function">Functienaam</AuLabel>
-      <WorshipMinistersManagement::WorshipPositionSelector
-          @options={{@model.ministerPosition}}
+      <WorshipMinistersManagement::PositionSelect
+          @worshipService={{@model.currentWorshipService}}
           @selected={{@model.minister.ministerPosition}}
-      />
+          @onChange={{fn (mut @model.minister.ministerPosition)}}
+          id="worship-minister-position-select"
+        />
     </div>
     <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-2">

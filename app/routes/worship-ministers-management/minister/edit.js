@@ -19,11 +19,6 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
       params.minister_id
     );
 
-    const ministerPosition = await this.store.query('minister-position', {
-      'filter[worship-service][:uri:]': this.currentSession.group.uri,
-      include: 'function',
-    });
-
     this.worshipMinister = minister;
 
     let person = await this.worshipMinister.get('person');
@@ -37,7 +32,12 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
       include: 'adres,secondary-contact-point',
     });
 
-    return { minister, ministerPosition, person, contacts: this.contacts };
+    return {
+      minister,
+      person,
+      contacts: this.contacts,
+      currentWorshipService: this.currentSession.group,
+    };
   }
 
   setupController(controller) {
