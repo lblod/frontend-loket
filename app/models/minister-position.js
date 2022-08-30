@@ -2,10 +2,13 @@ import { belongsTo, hasMany } from '@ember-data/model';
 import Post from './post';
 
 export default class MinisterPositionModel extends Post {
-  @belongsTo('minister-position-function') function;
-  @belongsTo('worship-administrative-unit', { inverse: null })
-  worshipService;
-  @belongsTo('representative-body') representativeBody;
+  @belongsTo('minister-position-function', { inverse: null }) function;
 
-  @hasMany('minister', { inverse: null }) heldByMinisters;
+  @belongsTo('worship-administrative-unit', { inverse: 'ministerPositions' })
+  worshipService;
+
+  @belongsTo('representative-body', { inverse: 'ministerPosition' })
+  representativeBody;
+
+  @hasMany('minister', { inverse: 'ministerPosition' }) heldByMinisters;
 }

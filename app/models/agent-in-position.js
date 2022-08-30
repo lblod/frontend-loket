@@ -4,37 +4,9 @@ export default class AgentInPositionModel extends Model {
   @attr('date') agentStartDate;
   @attr('date') agentEndDate;
 
-  @belongsTo('post', { inverse: null }) post;
-  @belongsTo('persoon') person;
-  @belongsTo('persoon', { inverse: null }) isBestuurlijkeAliasVan;
+  @belongsTo('post', { inverse: 'agentsInPosition' }) post;
+  @belongsTo('persoon', { inverse: null }) person;
+  @belongsTo('persoon', { inverse: 'isAangesteldAls' }) isBestuurlijkeAliasVan;
 
-  @hasMany('contact-punt', { inverse: null }) contacts;
-
-  get startDate() {
-    return this.agentStartDate || null;
-  }
-
-  get eindeDate() {
-    return this.agentEndDate || null;
-  }
-
-  get postie() {
-    return this.post || null;
-  }
-
-  get voornaam() {
-    return (
-      this.person.get('gebruikteVoornaam') ||
-      this.isBestuurlijkeAliasVan.get('gebruikteVoornaam') ||
-      null
-    );
-  }
-
-  get achternaam() {
-    return (
-      this.person.get('achternaam') ||
-      this.isBestuurlijkeAliasVan.get('achternaam') ||
-      null
-    );
-  }
+  @hasMany('contact-punt', { inverse: 'agentsInPosition' }) contacts;
 }
