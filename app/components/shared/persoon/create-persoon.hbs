@@ -87,6 +87,29 @@
           {{/if}}
         {{/let}}
       </div>
+      {{#if this.isNationalityFieldRequired}}
+      {{#let (if this.errors.nationaliteit true false) as |showError|}}
+        <div>
+          <AuLabel for="mandataris-nationaliteit"
+            @error={{showError}}
+            @required={{true}}
+            >
+            Nationaliteit
+          </AuLabel>
+
+          <Shared::Persoon::NationalitySelector
+            @id="mandataris-nationaliteit"
+            @selected={{this.nationaliteit}}
+            @onChange={{fn (mut this.nationaliteit)}}
+          />
+        </div>
+        {{#if showError}}
+          <AuHelpText @error="true">
+            {{this.errors.nationaliteit}}
+          </AuHelpText>
+        {{/if}}
+      {{/let}}
+      {{/if}}
       <div>
         <AuLabel for="mandataris-geboorte">Geboortedatum</AuLabel>
         <AuDatePicker
