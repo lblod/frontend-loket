@@ -35,6 +35,14 @@
         </AuNavigationLink>
       </li>
     {{/if}}
+    {{#if this.currentSession.canAccessWorshipMinisterManagement}}
+      <li class="au-c-list-navigation__item">
+        <AuNavigationLink @route="worship-ministers-management">
+          <AuIcon @icon="user" @alignment="left" />
+          Bedienarenbeheer
+        </AuNavigationLink>
+      </li>
+    {{/if}}
     {{#if this.currentSession.canAccessLeidinggevenden}}
       <li class="au-c-list-navigation__item">
         <AuNavigationLink @route="leidinggevendenbeheer.bestuursfuncties">

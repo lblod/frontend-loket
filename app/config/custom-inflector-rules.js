@@ -98,3 +98,10 @@ inflector.irregular(
 );
 
 inflector.irregular('half-election', 'half-elections');
+
+inflector.irregular(
+  'minister-position-function',
+  'minister-position-functions'
+);
+
+inflector.irregular('minister-position', 'minister-positions');

@@ -43,6 +43,8 @@ module.exports = function (environment) {
       'eredienst-mandatenbeheer':
         '{{FEATURE_EREDIENSTEN_MANDATENBEHEER_ENABLED}}',
       'public-services': '{{FEATURE_PUBLIC_SERVICES_ENABLED}}',
+      'worship-minister-management':
+        '{{FEATURE_WORSHIP_MINISTER_MANAGEMENT_ENABLED}}',
     },
   };
 
@@ -55,6 +57,7 @@ module.exports = function (environment) {
 
     ENV.features['eredienst-mandatenbeheer'] = true;
     ENV.features['public-services'] = true;
+    ENV.features['worship-minister-management'] = true;
   }
 
   if (environment === 'test') {
