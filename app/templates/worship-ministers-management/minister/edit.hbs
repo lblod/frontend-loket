@@ -1,51 +1,64 @@
-{{ page-title "Bekijk en bewerk : " @model.minister.ministerPosition.function.label " " @model.person.gebruikteVoornaam " " @model.person.achternaam }}
-<AuToolbar @border="bottom" @size="large" as |Group|>
-  <Group>
-    <div>
-      <AuHeading @skin="2">Bewerk bedienaar</AuHeading>
-      <p class="au-u-h3">
-        {{#if @model.minister.ministerPosition.function}}
-          {{@model.minister.ministerPosition.function.label}},
-        {{/if}}
-        {{@model.person.gebruikteVoornaam}}
-        {{@model.person.achternaam}}
-      </p>
-    </div>
-  </Group>
+{{#let @model.minister.ministerPosition as |hasMinisterPosition|}}
+  {{page-title
+    "Bewerk bedienaar "
+    @model.person.gebruikteVoornaam
+    " "
+    @model.person.achternaam
+    (if
+      hasMinisterPosition
+      (concat ", " @model.minister.ministerPosition.function.label)
+    )
+  }}
 
-  <Group>
-    <AuButtonGroup>
-      <AuButton
-        @disabled={{this.save.isRunning}}
-        @loading={{this.save.isRunning}}
-        {{on "click" (perform this.save)}}
-      >
-        Wijzigingen opslaan
-      </AuButton>
-      <AuLink
-        @route="worship-ministers-management"
-        @skin="button-secondary"
-      >
-        Annuleer
-      </AuLink>
-    </AuButtonGroup>
-  </Group>
-</AuToolbar>
+  <AuToolbar @border="bottom" @size="large" as |Group|>
+    <Group>
+      <div>
+        <AuHeading @skin="2">Bewerk bedienaar</AuHeading>
+        <p class="au-u-h3">
+          {{@model.person.gebruikteVoornaam}}
+          {{@model.person.achternaam~}}
+          {{#if hasMinisterPosition~}}
+            ,
+            {{@model.minister.ministerPosition.function.label}}
+          {{/if}}
+        </p>
+      </div>
+    </Group>
+
+    <Group>
+      <AuButtonGroup>
+        <AuButton
+          @disabled={{this.save.isRunning}}
+          @loading={{this.save.isRunning}}
+          @loadingMessage="Aan het opslaan"
+          {{on "click" (perform this.save)}}
+        >
+          Wijzigingen opslaan
+        </AuButton>
+        <AuLink @route="worship-ministers-management" @skin="button-secondary">
+          Annuleer
+        </AuLink>
+      </AuButtonGroup>
+    </Group>
+  </AuToolbar>
+{{/let}}
 
 <div class="au-c-body-container">
   <div class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
       <AuLabel for="worship-minister-function">Functienaam</AuLabel>
       <WorshipMinistersManagement::PositionSelect
-          @worshipService={{@model.currentWorshipService}}
-          @selected={{@model.minister.ministerPosition}}
-          @onChange={{fn (mut @model.minister.ministerPosition)}}
-          id="worship-minister-position-select"
-        />
+        @worshipService={{@model.currentWorshipService}}
+        @selected={{@model.minister.ministerPosition}}
+        @onChange={{fn (mut @model.minister.ministerPosition)}}
+        id="worship-minister-position-select"
+      />
     </div>
     <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel for="worship-minister-correction-start-date">Startdatum</AuLabel>
+        <AuLabel for="worship-minister-correction-start-date">
+          Startdatum
+        </AuLabel>
         <AuDatePicker
           @value={{@model.minister.agentStartDate}}
           @onChange={{fn this.handleDateChange "agentStartDate"}}
@@ -66,7 +79,7 @@
   <AuHr @size="small" />
   <div class="au-o-box">
     <ContactInformationTable
-      @contacts={{this.contactList}}
+      @contacts={{@model.contacts}}
       @selectedContact={{this.selectedContact}}
       @editingContact={{this.editingContact}}
       @onAddNewContact={{this.addNewContact}}
@@ -97,5 +110,3 @@
     {{/if}}
   </div>
 </div>
-
-{{outlet}}

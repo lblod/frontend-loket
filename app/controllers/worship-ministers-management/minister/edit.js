@@ -10,23 +10,16 @@ import {
 } from 'frontend-loket/models/contact-punt';
 
 export default class WorshipMinistersManagementMinisterEditController extends Controller {
-  @service currentSession;
   @service store;
   @service router;
 
-  originalContactAdres;
-
-  @tracked functionId = '';
   @tracked selectedContact;
   @tracked editingContact;
 
+  originalContactAdres;
+
   get isEditingContactPoint() {
     return Boolean(this.editingContact);
-  }
-
-  @action
-  onCancel() {
-    this.router.transitionTo('worship-ministers-management');
   }
 
   @action
@@ -133,8 +126,7 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   }
 
   rollbackUnsavedChanges() {
-    this.model?.minister?.rollbackAttributes();
-    this.model?.ministerPosition?.function?.rollbackAttributes();
+    this.model.minister.rollbackAttributes();
     this.rollbackUnsavedContactChanges();
   }
 

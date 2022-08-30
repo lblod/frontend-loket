@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
 import {
   CONTACT_TYPE,
   findPrimaryContactPoint,
@@ -10,24 +9,19 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
   @service store;
   @service currentSession;
 
-  queryParams = ['minister_id'];
-  @tracked ministerId = '';
-
-  async model(params) {
-    const minister = await this.store.findRecord(
-      'minister',
-      params.minister_id
+  async model() {
+    let { worshipMinisterId } = this.paramsFor(
+      'worship-ministers-management.minister'
     );
 
-    this.worshipMinister = minister;
+    const minister = await this.store.findRecord('minister', worshipMinisterId);
 
-    let person = await this.worshipMinister.get('person');
-
-    let positionContacts = await this.worshipMinister.get('contacts');
+    let person = await minister.person;
+    let positionContacts = await minister.contacts;
     this.selectedContact = findPrimaryContactPoint(positionContacts);
 
-    this.contacts = await this.store.query('contact-punt', {
-      'filter[agents-in-position][person][id]': person.get('id'),
+    let contacts = await this.store.query('contact-punt', {
+      'filter[agents-in-position][person][:id:]': person.id,
       'filter[type]': CONTACT_TYPE.PRIMARY,
       include: 'adres,secondary-contact-point',
     });
@@ -35,7 +29,7 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
     return {
       minister,
       person,
-      contacts: this.contacts,
+      contacts,
       currentWorshipService: this.currentSession.group,
     };
   }
@@ -43,17 +37,12 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
   setupController(controller) {
     super.setupController(...arguments);
 
-    controller.contactList = this.contacts;
     controller.selectedContact = this.selectedContact;
   }
 
-  resetController(controller, isExiting) {
+  resetController(controller) {
     super.resetController(...arguments);
 
     controller.rollbackUnsavedChanges();
-
-    if (isExiting) {
-      controller.ministerId = '';
-    }
   }
 }

@@ -142,10 +142,13 @@ Router.map(function () {
         this.route('new', { path: '/nieuw' });
         this.route('new-person', { path: '/nieuw-bedienaar' });
 
-        this.route('minister', { path: '/bedienaar' }, function () {
-          // this.route('index', { path: '' }); // overview page
-          this.route('edit', { path: '/:minister_id/bewerk' });
-        });
+        this.route(
+          'minister',
+          { path: '/bedienaar/:worshipMinisterId' },
+          function () {
+            this.route('edit', { path: '/bewerk' });
+          }
+        );
       }
     );
   }
