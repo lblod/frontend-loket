@@ -7,12 +7,12 @@ import {
   ForkingStore,
   validateForm,
 } from '@lblod/ember-submission-form-fields';
-import { FORM, RDF } from '@lblod/submission-form-helpers';
 import { NamedNode } from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
 import ConfirmSubmitModal from 'frontend-loket/components/public-services/confirm-submit-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
+import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
 const FORM_MAPPING = {

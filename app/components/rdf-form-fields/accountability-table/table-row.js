@@ -4,7 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { keepLatestTask, timeout } from 'ember-concurrency';
 import { literal, NamedNode } from 'rdflib';
-import { XSD } from '@lblod/submission-form-helpers';
+import { XSD } from 'frontend-loket/rdf/namespaces';
 import { scheduleOnce } from '@ember/runloop';
 
 const subsidyBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/ukraine/';

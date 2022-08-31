@@ -4,9 +4,8 @@ import { tracked } from '@glimmer/tracking';
 import { triplesForPath } from '@lblod/submission-form-helpers';
 import { NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF } from '@lblod/submission-form-helpers';
 import { next } from '@ember/runloop';
-import { MU } from 'frontend-loket/rdf/namespaces';
+import { MU, RDF } from 'frontend-loket/rdf/namespaces';
 
 const engagementTableBaseUri = 'http://data.lblod.info/engagement-tables';
 const engagementEntryBaseUri = 'http://data.lblod.info/engagement-entries';

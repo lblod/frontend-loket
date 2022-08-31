@@ -1,5 +1,7 @@
 import { Namespace } from 'rdflib';
 
+export { FORM, RDF, XSD } from '@lblod/submission-form-helpers';
+
 export const DBPEDIA = new Namespace('http://dbpedia.org/ontology/');
 export const LBLOD_SUBSIDIE = new Namespace(
   'http://lblod.data.gift/vocabularies/subsidie/'

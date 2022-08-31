@@ -4,9 +4,8 @@ import { action } from '@ember/object';
 import { triplesForPath } from '@lblod/submission-form-helpers';
 import { NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
-import { MU } from 'frontend-loket/rdf/namespaces';
+import { MU, RDF } from 'frontend-loket/rdf/namespaces';
 
 const bicycleInfrastructureUri =
   'http://lblod.data.gift/vocabularies/subsidie/bicycle-infrastructure#';

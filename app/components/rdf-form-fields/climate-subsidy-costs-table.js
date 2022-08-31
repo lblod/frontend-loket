@@ -6,8 +6,12 @@ import { triplesForPath } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
 import { NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF } from '@lblod/submission-form-helpers';
-import { DBPEDIA, LBLOD_SUBSIDIE, MU } from 'frontend-loket/rdf/namespaces';
+import {
+  DBPEDIA,
+  LBLOD_SUBSIDIE,
+  MU,
+  RDF,
+} from 'frontend-loket/rdf/namespaces';
 
 const climateTableBaseUri = 'http://data.lblod.info/climate-tables';
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';

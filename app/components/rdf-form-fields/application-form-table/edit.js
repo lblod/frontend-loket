@@ -1,12 +1,12 @@
 import InputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/input-field';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { RDF, triplesForPath, XSD } from '@lblod/submission-form-helpers';
+import { triplesForPath } from '@lblod/submission-form-helpers';
 import { literal, NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
 import { next } from '@ember/runloop';
 import { guidFor } from '@ember/object/internals';
-import { LBLOD_SUBSIDIE, MU } from 'frontend-loket/rdf/namespaces';
+import { LBLOD_SUBSIDIE, MU, RDF, XSD } from 'frontend-loket/rdf/namespaces';
 
 const applicationFormTableBaseUri =
   'http://data.lblod.info/application-form-tables';

@@ -5,8 +5,7 @@ import { action } from '@ember/object';
 import { literal, NamedNode } from 'rdflib';
 import { scheduleOnce } from '@ember/runloop';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF, XSD } from '@lblod/submission-form-helpers';
-import { MU } from 'frontend-loket/rdf/namespaces';
+import { MU, RDF, XSD } from 'frontend-loket/rdf/namespaces';
 
 const planBaseUri =
   'http://lblod.data.gift/vocabularies/subsidie/plan-samenleven/';

@@ -4,9 +4,8 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { literal, NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF } from '@lblod/submission-form-helpers';
 import commasToDecimalPointsFix from 'frontend-loket/helpers/subsidies/subsidies-decimal-point';
-import { MU } from 'frontend-loket/rdf/namespaces';
+import { MU, RDF } from 'frontend-loket/rdf/namespaces';
 
 const bicycleInfrastructureUri =
   'http://lblod.data.gift/vocabularies/subsidie/bicycle-infrastructure#';
