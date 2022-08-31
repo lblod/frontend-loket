@@ -15,8 +15,9 @@ export default class SharedPersoonNationalitySelectorComponent extends Component
 
     if (search.trim() !== '') {
       query['filter[nationality-label]'] = search;
+      return yield this.store.query('nationality', query);
     }
 
-    return yield this.store.query('nationality', query);
+    return [];
   }
 }

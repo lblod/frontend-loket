@@ -99,8 +99,10 @@
 
           <Shared::Persoon::NationalitySelector
             @id="mandataris-nationaliteit"
+            @allowClear={{not this.isNationalityFieldRequired}}
             @selected={{this.nationaliteit}}
             @onChange={{fn (mut this.nationaliteit)}}
+            @error={{showError}}
           />
         </div>
         {{#if showError}}

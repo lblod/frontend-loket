@@ -1,16 +1,18 @@
-<PowerSelect
-  @allowClear={{true}}
-  @loadingMessage="Aan het laden..."
-  @noMatchesMessage="Geen resultaten"
-  @searchEnabled={{true}}
-  @searchField="label"
-  @searchMessage="Typ om te zoeken"
-  @search={{perform this.searchNationalitiesTask}}
-  @selected={{@selected}}
-  @onChange={{@onChange}}
-  @placeholder="Selecteer een nationaliteit"
-  ...attributes
-  as |nationality|
->
-  {{nationality.nationalityLabel}} ({{nationality.countryLabel}})
-</PowerSelect>
+<div class={{if @error "ember-power-select--error"}}>
+  <PowerSelect
+    @allowClear={{@allowClear}}
+    @loadingMessage="Aan het laden..."
+    @noMatchesMessage="Geen resultaten"
+    @searchEnabled={{true}}
+    @searchField="label"
+    @searchMessage="Typ om te zoeken"
+    @search={{perform this.searchNationalitiesTask}}
+    @selected={{@selected}}
+    @onChange={{@onChange}}
+    @placeholder="Selecteer een nationaliteit"
+    ...attributes
+    as |nationality|
+  >
+    {{nationality.nationalityLabel}} ({{nationality.countryLabel}})
+  </PowerSelect>
+</div>

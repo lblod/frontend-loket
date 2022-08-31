@@ -7,7 +7,7 @@ export default class PersoonModel extends Model {
   @belongsTo('geboorte', { inverse: null }) geboorte;
   @belongsTo('identificator', { inverse: null }) identificator;
   @belongsTo('geslacht-code', { inverse: null }) geslacht;
-  @belongsTo('nationality') nationality;
+  @belongsTo('nationality', { inverse: null }) nationality;
   @hasMany('mandataris', {
     inverse: 'isBestuurlijkeAliasVan',
     polymorphic: true,
