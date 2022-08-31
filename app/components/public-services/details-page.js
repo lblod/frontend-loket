@@ -7,9 +7,10 @@ import {
   ForkingStore,
   validateForm,
 } from '@lblod/ember-submission-form-fields';
-import rdflib from 'rdflib';
+import { NamedNode, Namespace } from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
+import ConfirmSubmitModal from 'frontend-loket/components/public-services/confirm-submit-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
@@ -19,27 +20,23 @@ const FORM_MAPPING = {
 };
 
 const FORM_GRAPHS = {
-  formGraph: new rdflib.NamedNode('http://data.lblod.info/form'),
-  metaGraph: new rdflib.NamedNode('http://data.lblod.info/metagraph'),
-  sourceGraph: new rdflib.NamedNode(`http://data.lblod.info/sourcegraph`),
+  formGraph: new NamedNode('http://data.lblod.info/form'),
+  metaGraph: new NamedNode('http://data.lblod.info/metagraph'),
+  sourceGraph: new NamedNode(`http://data.lblod.info/sourcegraph`),
 };
 
-const FORM = new rdflib.Namespace('http://lblod.data.gift/vocabularies/forms/');
-const RDF = new rdflib.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+const SERVICE_STATUSES = {
+  sent: 'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
+};
+
+const FORM = new Namespace('http://lblod.data.gift/vocabularies/forms/');
+const RDF = new Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
 export default class PublicServicesDetailsPageComponent extends Component {
   @service modals;
   @service router;
   @service store;
   @service toaster;
-
-  @tracked submitToGoverment = false;
-  @tracked isSubmit = false;
-
-  @action
-  sending() {
-    this.submitToGoverment = !this.submitToGoverment;
-  }
 
   @tracked hasUnsavedChanges = false;
   @tracked forceShowErrors = false;
@@ -52,7 +49,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
   constructor() {
     super(...arguments);
     this.loadForm.perform();
-    this.sourceNode = new rdflib.NamedNode(this.args.publicService.uri);
+    this.sourceNode = new NamedNode(this.args.publicService.uri);
     this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
   }
 
@@ -92,66 +89,62 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @task({ group: 'publicServiceAction' })
   *publishPublicService() {
-    let isValidForm = validateForm(this.form, {
-      ...this.graphs,
-      sourceNode: this.sourceNode,
-      store: this.formStore,
-    });
-    this.forceShowErrors = !isValidForm;
-    if (isValidForm) {
+    try {
       if (this.hasUnsavedChanges) {
         yield this.saveSemanticForm.unlinked().perform();
       }
 
-      const response = yield publish(this.args.publicService.id);
+      const response = yield submitFormData(this.args.publicService.id);
 
-      if (!response) {
-        this.toaster.error(
-          'Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.',
-          'Fout'
+      if (response.ok) {
+        yield this.setServiceStatus(
+          this.args.publicService,
+          SERVICE_STATUSES.sent
         );
-        this.sending();
-        return;
-      }
-
-      const errors = response.data.errors;
-
-      if (errors.length == 0) {
-        const sentStatus = (yield this.store.query('concept', {
-          filter: {
-            ':uri:':
-              'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
-          },
-        })).firstObject;
-        const publicService = this.args.publicService;
-        publicService.status = sentStatus;
-        yield publicService.save();
         this.router.transitionTo('public-services');
-      } else if (errors.length == 1) {
-        //TODO: should probably handle this more in a more user friendly way
-        //ie: redirect to said form and scroll down to the first invalid field
-        const formId = errors[0].form.id;
-        this.toaster.error(
-          `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
-          'Fout'
-        );
-      } else if (errors.length > 1) {
-        this.toaster.error(
-          'Meerdere formulieren zijn onjuist ingevuld',
-          'Fout'
-        );
+      } else {
+        const jsonResponse = yield response.json();
+        const errors = jsonResponse?.data?.errors;
+
+        if (response.status == 500 || !errors) {
+          throw 'Unexpected error while validating data in backend';
+        } else {
+          for (const error of errors) {
+            //TODO: should probably handle this more in a more user friendly way
+            //ie: redirect to said form and scroll down to the first invalid field
+            const formId = error.form.id;
+            this.toaster.error(
+              `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
+              'Fout'
+            );
+          }
+        }
       }
-    } else {
-      this.toaster.error('Formulier is ongeldig', 'Fout');
+    } catch (error) {
+      console.error(error);
+      this.toaster.error(
+        `Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.
+         Foutboodschap: ${error.message || error}`,
+        'Fout'
+      );
     }
-    this.sending();
   }
 
   @task({ group: 'publicServiceAction' })
   *handleFormSubmit(event) {
     event?.preventDefault?.();
 
-    yield this.saveSemanticForm.unlinked().perform();
+    try {
+      yield this.saveSemanticForm.unlinked().perform();
+      this.hasUnsavedChanges = false;
+    } catch (error) {
+      console.error(error);
+      this.toaster.error(
+        `Onverwachte fout bij het bewaren van het formulier, gelieve de helpdesk te contacteren.
+         Foutboodschap: ${error.message || error}`,
+        'Fout'
+      );
+    }
   }
 
   @dropTask
@@ -168,18 +161,44 @@ export default class PublicServicesDetailsPageComponent extends Component {
     );
 
     yield loadPublicServiceDetails(this.store, this.args.publicService.id);
-    this.hasUnsavedChanges = false;
+  }
 
-    this.submitToGoverment = false;
+  @action
+  requestSubmitConfirmation() {
+    let isValidForm = validateForm(this.form, {
+      ...this.graphs,
+      sourceNode: this.sourceNode,
+      store: this.formStore,
+    });
+    this.forceShowErrors = !isValidForm;
+
+    if (isValidForm) {
+      this.modals.open(ConfirmSubmitModal, {
+        submitHandler: async () => {
+          await this.publishPublicService.perform();
+        },
+      });
+    } else {
+      this.toaster.error('Formulier is ongeldig', 'Fout');
+    }
   }
 
   @action
   removePublicService() {
     this.modals.open(ConfirmDeletionModal, {
       deleteHandler: async () => {
-        await this.args.publicService.destroyRecord();
-        this.hasUnsavedChanges = false;
-        this.router.replaceWith('public-services');
+        try {
+          await this.args.publicService.destroyRecord();
+          this.hasUnsavedChanges = false;
+          this.router.replaceWith('public-services');
+        } catch (error) {
+          console.error(error);
+          this.toaster.error(
+            `Onverwachte fout bij het verwijderen van het product, gelieve de helpdesk te contacteren.
+             Foutboodschap: ${error.message || error}`,
+            'Fout'
+          );
+        }
       },
     });
   }
@@ -205,6 +224,18 @@ export default class PublicServicesDetailsPageComponent extends Component {
     }
   }
 
+  async setServiceStatus(service, status) {
+    const sentStatus = (
+      await this.store.query('concept', {
+        filter: {
+          ':uri:': status,
+        },
+      })
+    ).firstObject;
+    service.status = sentStatus;
+    await service.save();
+  }
+
   willDestroy() {
     super.willDestroy(...arguments);
 
@@ -228,7 +259,7 @@ async function saveFormData(serviceId, formId, formData) {
   });
 }
 
-async function publish(serviceId) {
+async function submitFormData(serviceId) {
   const response = await fetch(`/lpdc-management/${serviceId}/submit`, {
     method: 'POST',
     body: JSON.stringify({}),
@@ -236,13 +267,5 @@ async function publish(serviceId) {
       'Content-Type': 'application/json; charset=UTF-8',
     },
   });
-  if (response.status == 500) {
-    console.warn(
-      `Unexpected error during validation  of service "${serviceId}".`
-    );
-    return null;
-  } else {
-    const jsonResponse = await response.json();
-    return jsonResponse;
-  }
+  return response;
 }
