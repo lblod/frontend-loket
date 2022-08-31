@@ -45,6 +45,7 @@
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^0.59.1",
     "@lblod/ember-submission-form-fields": "^2.0.3",
+    "@lblod/submission-form-helpers": "^2.1.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",

@@ -7,11 +7,12 @@ import {
   ForkingStore,
   validateForm,
 } from '@lblod/ember-submission-form-fields';
-import { NamedNode, Namespace } from 'rdflib';
+import { NamedNode } from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
 import ConfirmSubmitModal from 'frontend-loket/components/public-services/confirm-submit-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
+import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
 import { loadPublicServiceDetails } from 'frontend-loket/utils/public-services';
 
 const FORM_MAPPING = {
@@ -28,9 +29,6 @@ const FORM_GRAPHS = {
 const SERVICE_STATUSES = {
   sent: 'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
 };
-
-const FORM = new Namespace('http://lblod.data.gift/vocabularies/forms/');
-const RDF = new Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 
 export default class PublicServicesDetailsPageComponent extends Component {
   @service modals;
