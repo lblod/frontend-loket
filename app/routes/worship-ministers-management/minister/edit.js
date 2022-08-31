@@ -14,7 +14,13 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
       'worship-ministers-management.minister'
     );
 
-    const minister = await this.store.findRecord('minister', worshipMinisterId);
+    const minister = await this.store.findRecord(
+      'minister',
+      worshipMinisterId,
+      {
+        include: ['person', 'contacts', 'minister-position.function'].join(),
+      }
+    );
 
     let person = await minister.person;
     let positionContacts = await minister.contacts;
