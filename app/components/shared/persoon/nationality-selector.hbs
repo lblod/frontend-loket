@@ -1,5 +1,5 @@
 <div class={{if @error "ember-power-select--error"}}>
-  <PowerSelect
+  <PowerSelectMultiple
     @allowClear={{@allowClear}}
     @loadingMessage="Aan het laden..."
     @noMatchesMessage="Geen resultaten"
@@ -14,5 +14,5 @@
     as |nationality|
   >
     {{nationality.nationalityLabel}} ({{nationality.countryLabel}})
-  </PowerSelect>
+  </PowerSelectMultiple>
 </div>
