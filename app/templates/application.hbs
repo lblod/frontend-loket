@@ -1,98 +1,110 @@
 {{page-title this.appTitle}}
-<AuToaster />
-<AuMainHeader
-  @brandLink={{unless this.session.isAuthenticated "https://www.vlaanderen.be/nl"}}
-  @homeRoute="index"
-  @appTitle={{this.appTitle}}
->
-  <li class="au-c-list-horizontal__item">
-    <AuLink @route="help" @skin="secondary">
-      <AuIcon @icon="question-circle" @alignment="left" />
-      Help
-    </AuLink>
-  </li>
-  <li class="au-c-list-horizontal__item">
-    {{#if this.session.isAuthenticated}}
-      <AuDropdown
-        @title="{{this.currentSession.user.voornaam}} {{this.currentSession.user.achternaam}} - {{this.currentSession.groupClassification.label}} {{this.currentSession.group.naam}}"
-        @buttonLabel="Account settings"
-        @alignment="right"
-        role="menu"
-      >
-        <Acmidm::Switch as |acmidm|>
+
+<AuApp>
+  <AuMainHeader
+    @brandLink={{unless
+      this.session.isAuthenticated
+      "https://www.vlaanderen.be/nl"
+    }}
+    @homeRoute="index"
+    @appTitle={{this.appTitle}}
+  >
+    <li class="au-c-list-horizontal__item">
+      <AuLink @route="help" @skin="secondary">
+        <AuIcon @icon="question-circle" @alignment="left" />
+        Help
+      </AuLink>
+    </li>
+    <li class="au-c-list-horizontal__item">
+      {{#if this.session.isAuthenticated}}
+        <AuDropdown
+          @title="{{this.currentSession.user.voornaam}} {{this.currentSession.user.achternaam}} - {{this.currentSession.groupClassification.label}} {{this.currentSession.group.naam}}"
+          @buttonLabel="Account settings"
+          @alignment="right"
+          role="menu"
+        >
+          <Acmidm::Switch as |acmidm|>
+            <AuButton
+              @disabled={{acmidm.isSwitching}}
+              @skin="link"
+              @icon="switch"
+              @iconAlignment="left"
+              role="menuitem"
+              {{on "click" acmidm.switch}}
+              {{!template-lint-disable require-context-role}}
+            >
+              Wissel van bestuurseenheid
+            </AuButton>
+          </Acmidm::Switch>
+
           <AuButton
-            @disabled={{acmidm.isSwitching}}
             @skin="link"
-            @icon="switch"
+            @icon="logout"
             @iconAlignment="left"
             role="menuitem"
-            {{on "click" acmidm.switch}}
-            {{!template-lint-disable require-context-role}}
+            {{on "click" this.logout}}
           >
-            Wissel van bestuurseenheid
+            Afmelden
           </AuButton>
-        </Acmidm::Switch>
+        </AuDropdown>
+      {{else}}
+        <LoginButton @isCompact={{true}} />
+      {{/if}}
+    </li>
+  </AuMainHeader>
 
-        <AuButton
-          @skin="link"
-          @icon="logout"
-          @iconAlignment="left"
-          role="menuitem"
-          {{on "click" this.logout}}
-        >
-          Afmelden
-        </AuButton>
-      </AuDropdown>
-    {{else}}
-      <LoginButton @isCompact={{true}} />
-    {{/if}}
-  </li>
-</AuMainHeader>
-
-{{#if this.session.isAuthenticated}}
-<main id="main" class="au-c-main-container">
-  {{#if this.isIndex}}
-  <div class="au-c-main-container__sidebar">
-    <div class="au-c-sidebar">
-      <div class="au-c-sidebar__content">
-        <Shared::MainMenu/>
-      </div>
-      <div class="au-c-sidebar__footer">
-        <a href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/" target="_blank" rel="noopener noreferrer" class="au-c-link au-c-link--secondary au-c-link--icon">
-          <AuIcon @icon="documents" @alignment="left" /> Bekijk handleiding
-        </a>
-      </div>
-    </div>
-  </div>
+  {{#if this.session.isAuthenticated}}
+    <AuMainContainer as |main|>
+      {{#if this.isIndex}}
+        <main.sidebar>
+          <div class="au-c-sidebar">
+            <div class="au-c-sidebar__content">
+              <Shared::MainMenu />
+            </div>
+            <div class="au-c-sidebar__footer">
+              <a
+                href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="au-c-link au-c-link--secondary au-c-link--icon"
+              >
+                <AuIcon @icon="documents" @alignment="left" />
+                Bekijk handleiding
+              </a>
+            </div>
+          </div>
+        </main.sidebar>
+      {{/if}}
+      <main.content>
+        <AuBodyContainer>
+          {{#unless this.isIndex}}
+            <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+              <Group>
+                <ul class="au-c-list-horizontal au-c-list-horizontal--small">
+                  <li class="au-c-list-horizontal__item">
+                    <AuLink @route="index">
+                      <AuIcon @icon="arrow-left" @alignment="left" />
+                      Overzicht modules
+                    </AuLink>
+                  </li>
+                  <li class="au-c-list-horizontal__item">
+                    <Shared::CompactMenu />
+                  </li>
+                  <Shared::BreadCrumb />
+                </ul>
+              </Group>
+            </AuToolbar>
+          {{/unless}}
+          <AuBodyContainer id="content">
+            {{outlet}}
+          </AuBodyContainer>
+        </AuBodyContainer>
+      </main.content>
+    </AuMainContainer>
+  {{else}}
+    {{outlet}}
   {{/if}}
-  <div class="au-c-main-container__content">
-    <div class="au-c-body-container">
-      {{#unless this.isIndex}}
-        <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
-          <Group>
-            <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-              <li class="au-c-list-horizontal__item">
-                <AuLink @route="index">
-                  <AuIcon @icon="arrow-left" @alignment="left" />
-                  Overzicht modules
-                </AuLink>
-              </li>
-              <li class="au-c-list-horizontal__item">
-                <Shared::CompactMenu/>
-              </li>
-              <Shared::BreadCrumb/>
-            </ul>
-          </Group>
-        </AuToolbar>
-      {{/unless}}
-      <div id="content" class="au-c-body-container">
-        {{outlet}}
-      </div>
-    </div>
-  </div>
-</main>
-{{else}}
-  {{outlet}}
-{{/if}}
+</AuApp>
 
 <EpmModalContainer />
+<AuToaster />
