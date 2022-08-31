@@ -6,8 +6,26 @@
       </p>
       <AuLoader @padding="small" />
     </div>
+  {{else if this.loadForm.last.isError}}
+    <div class="au-o-box">
+      <AuAlert
+        @title="Onverwachte fout"
+        @skin="error"
+        @icon="circle-x"
+        @size="small"
+        class="au-u-max-width-small"
+      >
+        <p>
+          Er ging iets fout bij het laden van het formulier, gelieve de helpdesk te contacteren.
+        </p>
+      </AuAlert>
+    </div>
   {{else}}
-    <form id={{this.id}} {{on "submit" (perform this.handleFormSubmit)}} class="au-c-rdf-form {{@tabName}}">
+    <form
+      id={{this.id}}
+      {{on "submit" (perform this.handleFormSubmit)}}
+      class="au-c-rdf-form {{@tabName}}"
+    >
       <RdfForm
         @groupClass="au-o-grid__item"
         @form={{this.form}}

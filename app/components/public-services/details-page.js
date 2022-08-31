@@ -131,12 +131,11 @@ export default class PublicServicesDetailsPageComponent extends Component {
       } else {
         this.toaster.error('Formulier is ongeldig', 'Fout');
       }
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
       this.toaster.error(
-        `Onverwachte fout bij het verwerken van het product,
-               gelieve de helpdesk te contacteren.
-             Foutboodschap: ${e.message || e}`,
+        `Onverwachte fout bij het verwerken van het product, gelieve de helpdesk te contacteren.
+         Foutboodschap: ${error.message || error}`,
         'Fout'
       );
     }
@@ -146,9 +145,17 @@ export default class PublicServicesDetailsPageComponent extends Component {
   *handleFormSubmit(event) {
     event?.preventDefault?.();
 
-    yield this.saveSemanticForm.unlinked().perform();
-
-    this.hasUnsavedChanges = false;
+    try {
+      yield this.saveSemanticForm.unlinked().perform();
+      this.hasUnsavedChanges = false;
+    } catch (error) {
+      console.error(error);
+      this.toaster.error(
+        `Onverwachte fout bij het bewaren van het formulier, gelieve de helpdesk te contacteren.
+         Foutboodschap: ${error.message || error}`,
+        'Fout'
+      );
+    }
   }
 
   @dropTask
@@ -180,9 +187,18 @@ export default class PublicServicesDetailsPageComponent extends Component {
   removePublicService() {
     this.modals.open(ConfirmDeletionModal, {
       deleteHandler: async () => {
-        await this.args.publicService.destroyRecord();
-        this.hasUnsavedChanges = false;
-        this.router.replaceWith('public-services');
+        try {
+          await this.args.publicService.destroyRecord();
+          this.hasUnsavedChanges = false;
+          this.router.replaceWith('public-services');
+        } catch (error) {
+          console.error(error);
+          this.toaster.error(
+            `Onverwachte fout bij het verwijderen van het product, gelieve de helpdesk te contacteren.
+             Foutboodschap: ${error.message || error}`,
+            'Fout'
+          );
+        }
       },
     });
   }
