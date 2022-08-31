@@ -90,46 +90,35 @@ export default class PublicServicesDetailsPageComponent extends Component {
   @task({ group: 'publicServiceAction' })
   *publishPublicService() {
     try {
-      let isValidForm = validateForm(this.form, {
-        ...this.graphs,
-        sourceNode: this.sourceNode,
-        store: this.formStore,
-      });
-      this.forceShowErrors = !isValidForm;
+      if (this.hasUnsavedChanges) {
+        yield this.saveSemanticForm.unlinked().perform();
+      }
 
-      if (isValidForm) {
-        if (this.hasUnsavedChanges) {
-          yield this.saveSemanticForm.unlinked().perform();
-        }
+      const response = yield submitFormData(this.args.publicService.id);
 
-        const response = yield submitFormData(this.args.publicService.id);
+      if (response.ok) {
+        yield this.setServiceStatus(
+          this.args.publicService,
+          SERVICE_STATUSES.sent
+        );
+        this.router.transitionTo('public-services');
+      } else {
+        const jsonResponse = yield response.json();
+        const errors = jsonResponse?.data?.errors;
 
-        if (response.ok) {
-          yield this.setServiceStatus(
-            this.args.publicService,
-            SERVICE_STATUSES.sent
-          );
-          this.router.transitionTo('public-services');
+        if (response.status == 500 || !errors) {
+          throw 'Unexpected error while validating data in backend';
         } else {
-          const jsonResponse = yield response.json();
-          const errors = jsonResponse?.data?.errors;
-
-          if (response.status == 500 || !errors) {
-            throw 'Unexpected error while validating data in backend';
-          } else {
-            for (const error of errors) {
-              //TODO: should probably handle this more in a more user friendly way
-              //ie: redirect to said form and scroll down to the first invalid field
-              const formId = error.form.id;
-              this.toaster.error(
-                `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
-                'Fout'
-              );
-            }
+          for (const error of errors) {
+            //TODO: should probably handle this more in a more user friendly way
+            //ie: redirect to said form and scroll down to the first invalid field
+            const formId = error.form.id;
+            this.toaster.error(
+              `Er zijn fouten opgetreden in de tab "${FORM_MAPPING[formId]}". Gelieve deze te verbeteren!`,
+              'Fout'
+            );
           }
         }
-      } else {
-        this.toaster.error('Formulier is ongeldig', 'Fout');
       }
     } catch (error) {
       console.error(error);
@@ -176,11 +165,22 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @action
   requestSubmitConfirmation() {
-    this.modals.open(ConfirmSubmitModal, {
-      submitHandler: async () => {
-        await this.publishPublicService.perform();
-      },
+    let isValidForm = validateForm(this.form, {
+      ...this.graphs,
+      sourceNode: this.sourceNode,
+      store: this.formStore,
     });
+    this.forceShowErrors = !isValidForm;
+
+    if (isValidForm) {
+      this.modals.open(ConfirmSubmitModal, {
+        submitHandler: async () => {
+          await this.publishPublicService.perform();
+        },
+      });
+    } else {
+      this.toaster.error('Formulier is ongeldig', 'Fout');
+    }
   }
 
   @action
