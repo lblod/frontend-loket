@@ -90,7 +90,7 @@
       {{#if this.isNationalityFieldRequired}}
       {{#let (if this.errors.nationaliteit true false) as |showError|}}
         <div>
-          <AuLabel for="mandataris-nationaliteit"
+          <AuLabel for="person-nationalities"
             @error={{showError}}
             @required={{true}}
             >
@@ -98,7 +98,7 @@
           </AuLabel>
 
           <Shared::Persoon::NationalitySelector
-            @id="mandataris-nationaliteit"
+            id="person-nationalities"
             @allowClear={{not this.isNationalityFieldRequired}}
             @selected={{this.nationaliteit}}
             @onChange={{fn (mut this.nationaliteit)}}
