@@ -149,7 +149,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
       });
 
       if (this.isNationalityFieldRequired)
-        persoon.nationality = this.nationaliteit;
+        persoon.nationalities = this.nationaliteit;
 
       yield persoon.save();
       this.args.onCreate?.(persoon);
