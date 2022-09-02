@@ -136,11 +136,9 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       metaGraph
     )[0].object.value;
 
-
-
     this.drawingRight = drawingRight;
     this.restitutionToDestribute = drawingRight;
-    this.climateTwo = (lekpValidation == '2.0');
+    this.climateTwo = lekpValidation == '2.0';
 
     this.loadCustomActions();
   }
