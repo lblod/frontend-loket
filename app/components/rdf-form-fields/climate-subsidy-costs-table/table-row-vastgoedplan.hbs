@@ -20,11 +20,13 @@
     />
     per Strategisch Vastgoedplan
     <br />
+    {{#unless this.args.climateTwo}}
     <span class="au-c-info-text">Indicatie:
       {{convert-to-currency this.indication}}</span>
     {{#each this.costPerUnitErrors as |error|}}
       <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
     {{/each}}
+    {{/unless}}
   </td>
   <td>
     <AuInput
