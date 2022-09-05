@@ -1,0 +1,96 @@
+<AuBodyContainer @scroll={{true}}>
+  {{#if this.loadForm.isRunning}}
+    <div class="au-o-box">
+      <p class="au-u-h4 au-u-medium" aria-hidden="true">
+        Formulier aan het laden
+      </p>
+      <AuLoader @padding="small" />
+    </div>
+  {{else}}
+    <form id={{this.id}} {{on "submit" (perform this.handleFormSubmit)}} class="au-c-rdf-form {{@tabName}}">
+      <RdfForm
+        @groupClass="au-o-grid__item"
+        @form={{this.form}}
+        @graphs={{this.graphs}}
+        @sourceNode={{this.sourceNode}}
+        @formStore={{this.formStore}}
+        @forceShowErrors={{this.forceShowErrors}}
+        @show={{@readOnly}}
+      />
+    </form>
+  {{/if}}
+</AuBodyContainer>
+
+<AuToolbar @border="top" @size="large" as |Group|>
+  <Group>
+    <AuButtonGroup>
+      {{#unless @readOnly}}
+        <AuButton
+          @disabled={{this.publicServiceAction.isRunning}}
+          @loading={{this.publishPublicService.isRunning}}
+          {{on "click" this.sending}}
+        >
+          Verzend naar Vlaamse overheid
+        </AuButton>
+
+        <AuButton
+          @skin="secondary"
+          @disabled={{or
+            (not this.hasUnsavedChanges)
+            this.publicServiceAction.isRunning
+          }}
+          @loading={{this.handleFormSubmit.isRunning}}
+          form={{this.id}}
+          type="submit"
+        >
+          Wijzigingen bewaren
+        </AuButton>
+      {{/unless}}
+      <AuLink @route="public-services" @skin="button-naked">
+        Terug naar het overzicht
+      </AuLink>
+    </AuButtonGroup>
+  </Group>
+  
+  {{#unless @readOnly}}
+    <Group>
+      <AuButton
+        @alert={{true}}
+        @icon="bin"
+        @iconAlignment="left"
+        @skin="secondary"
+        @disabled={{this.publicServiceAction.isRunning}}
+        {{on "click" this.removePublicService}}
+      >
+        <span class="au-u-hidden-visually">
+          Product of dienst
+        </span>
+        Verwijderen
+      </AuButton>
+    </Group>
+  {{/unless}}
+</AuToolbar>
+
+<AuModal
+  @modalOpen={{this.submitToGoverment}}
+  @closeModal={{this.sending}}
+  @size="small"
+>
+  <:title>Verzend naar Vlaamse overheid</:title>
+  <:body>
+    <p>Ben je zeker dat je dit product wil versturen naar de Vlaamse overheid? Deze actie kan je niet ongedaan maken.</p>
+    <p>Als je nieuwe wijzigingen doet kan je die steeds opnieuw versturen.</p>
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton
+        @disabled={{this.publishPublicService.isRunning}}
+        @loading={{this.publishPublicService.isRunning}}
+        {{on "click" (perform this.publishPublicService)}}
+      >
+        Verzend naar Vlaamse overheid
+      </AuButton>
+      <AuButton @skin="secondary" {{on "click" this.sending}}>Annuleer</AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>

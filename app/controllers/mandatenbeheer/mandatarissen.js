@@ -15,6 +15,14 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   sort = 'is-bestuurlijke-alias-van.achternaam';
   size = 20;
 
+  get startDate() {
+    return this.mandatenbeheer.startDate;
+  }
+
+  get endDate() {
+    return this.mandatenbeheer.endDate;
+  }
+
   get hasActiveChildRoute() {
     return (
       this.router.currentRouteName.startsWith(
@@ -48,12 +56,16 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   }
 
   @action
-  selectPeriod(startDate) {
+  selectPeriod(startDate, endDate) {
+    const queryParams = {
+      page: 0,
+      startDate: startDate,
+    };
+
+    queryParams['endDate'] = endDate;
+
     this.router.transitionTo('mandatenbeheer.mandatarissen', {
-      queryParams: {
-        page: 0,
-        startDate: startDate,
-      },
+      queryParams,
     });
   }
 }

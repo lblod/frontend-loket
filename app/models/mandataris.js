@@ -1,7 +1,9 @@
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import { attr, belongsTo, hasMany } from '@ember-data/model';
+import AgentInPosition from './agent-in-position';
 import { computed } from '@ember/object';
 
-export default class MandatarisModel extends Model {
+// INHERITS FROM AGENT-IN-POSITION
+export default class MandatarisModel extends AgentInPosition {
   @attr rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
@@ -19,6 +21,7 @@ export default class MandatarisModel extends Model {
   @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
   @belongsTo('mandataris-status-code', { inverse: null }) status;
 
+
   @belongsTo('mandataris', { inverse: null }) duplicateOf;
   @attr('uri-set') generatedFrom;
 
@@ -26,4 +29,7 @@ export default class MandatarisModel extends Model {
   get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(uri => uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService');
   }
+
+  @hasMany('contact-punt', { inverse: 'mandatarissen' }) contactPoints;
+
 }

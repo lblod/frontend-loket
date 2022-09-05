@@ -1,0 +1,88 @@
+{{page-title @model.publicService.name}}
+
+<AuToolbar @size="large" as |Group|>
+  <Group>
+    <AuHeading @skin="2">
+      {{! template-lint-disable no-triple-curlies}}
+      {{{@model.publicService.nameNl}}}
+    </AuHeading>
+  </Group>
+</AuToolbar>
+
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
+    <DataList as |Data|>
+      <Data>
+        <:title>Product type</:title>
+        <:content>
+          <ValueWithPlaceholder @value={{@model.publicService.type.label}} />
+        </:content>
+      </Data>
+      <Data>
+        <:title>Aangemaakt op</:title>
+        <:content>
+          <ValueWithPlaceholder @value={{@model.publicService.created}}>
+            <:value as |value|>
+              {{moment-format value "DD.MM.YYYY - HH:mm"}}
+            </:value>
+          </ValueWithPlaceholder>
+        </:content>
+      </Data>
+      <Data>
+        <:title>Bewerkt op</:title>
+        <:content>
+          <ValueWithPlaceholder @value={{@model.publicService.modified}}>
+            <:value as |value|>
+              {{moment-format value "DD.MM.YYYY - HH:mm"}}
+            </:value>
+          </ValueWithPlaceholder>
+        </:content>
+      </Data>
+      <Data>
+        <:title>Geldig vanaf</:title>
+        <:content>
+          <ValueWithPlaceholder @value={{@model.publicService.startDate}}>
+            <:value as |value|>
+              {{moment-format value "DD.MM.YYYY"}}
+            </:value>
+          </ValueWithPlaceholder>
+        </:content>
+      </Data>
+      <Data>
+        <:title>Geldig tot</:title>
+        <:content>
+          <ValueWithPlaceholder @value={{@model.publicService.endDate}}>
+            <:value as |value|>
+              {{moment-format value "DD.MM.YYYY"}}
+            </:value>
+          </ValueWithPlaceholder>
+        </:content>
+      </Data>
+      <Data>
+        <:title>Status document</:title>
+        <:content>
+          {{#if @model.publicService.status.label}}
+          <PublicServices::Status @uri={{@model.publicService.status.uri}}>
+            {{@model.publicService.status.label}}
+          </PublicServices::Status>
+          {{else}}
+          –
+          {{/if}}
+        </:content>
+      </Data>
+    </DataList>
+  </Group>
+</AuToolbar>
+
+<AuTabs as |Tab|>
+  <Tab>
+    <AuLink @route="public-services.details.content">Inhoud</AuLink>
+  </Tab>
+  <Tab>
+    <AuLink @route="public-services.details.properties">Eigenschappen</AuLink>
+  </Tab>
+</AuTabs>
+
+<AuBodyContainer>
+  {{outlet}}
+</AuBodyContainer>
