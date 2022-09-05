@@ -84,25 +84,6 @@
         </div>
       </div>
 
-      <div class="au-u-margin-bottom">
-        <AuLabel>
-          Type helft
-        </AuLabel>
-        <div class="au-o-grid au-o-grid--tiny">
-          {{#each @model.halfElectionList as |typeHalf|}}
-            <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-              <AuControlRadio
-                @label={{typeHalf.label}}
-                @name="type-half"
-                @value={{typeHalf}}
-                @onChange={{fn (mut @model.worshipMandatee.typeHalf) typeHalf}}
-                checked={{eq @model.worshipMandatee.typeHalf typeHalf}}
-              />
-            </div>
-          {{/each}}
-        </div>
-      </div>
-
       <AuAlert @skin="info" @icon="info-circle" @size="small">
         <p>
           Klik op "Mandaat toevoegen" om contactgegevens verder aan te vullen.

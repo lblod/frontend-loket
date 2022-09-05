@@ -63,24 +63,6 @@
         />
       </div>
     </div>
-    <div>
-      <AuLabel>
-        Type helft
-      </AuLabel>
-      <div class="au-o-grid au-o-grid--tiny">
-        {{#each this.typeHalfList as |typeHalf|}}
-          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <AuControlRadio
-              @label={{typeHalf.label}}
-              @name="type-half"
-              @value={{typeHalf.id}}
-              @onChange={{fn (mut this.model.typeHalf) typeHalf}}
-              checked={{eq this.model.typeHalf.id typeHalf.id}}
-            />
-          </div>
-        {{/each}}
-      </div>
-    </div>
   </div>
 
   <AuHr @size="small" />
