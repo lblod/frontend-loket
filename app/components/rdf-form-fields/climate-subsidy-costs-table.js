@@ -55,6 +55,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
   @tracked errors = A();
   @tracked populationCount;
   @tracked drawingRight;
+  @tracked climateTwo = false;
   @tracked customActions = [];
   orderCounter = 0;
 
@@ -128,8 +129,16 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       metaGraph
     )[0].object.value;
 
+    const lekpValidation = this.args.formStore.match(
+      undefined,
+      LBLOD_SUBSIDIE('lekp'),
+      undefined,
+      metaGraph
+    )[0].object.value;
+
     this.drawingRight = drawingRight;
     this.restitutionToDestribute = drawingRight;
+    this.climateTwo = lekpValidation == '2.0';
 
     this.loadCustomActions();
   }
