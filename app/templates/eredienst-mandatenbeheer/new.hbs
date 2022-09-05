@@ -6,8 +6,9 @@
     @onCreateNewPerson={{this.createNewPerson}}
     @onCancel={{this.cancel}}
     @onSelect={{this.selectPersoon}}
+    @showDefaultHead={{true}}
   >
-    <AuHeading @skin="2">Voeg mandataris toe uit de lijst van verkozenen</AuHeading>
+    <AuHeading @skin="2">Voeg mandataris toe</AuHeading>
   </Shared::Persoon::PersoonSearchForm>
 {{else}}
   <AuToolbar @border="bottom" @size="large" as |Group|>
