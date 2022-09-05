@@ -88,13 +88,7 @@
       @onContactSelectionChange={{this.handleContactSelectionChange}}
     />
 
-    {{#if
-      (and
-        this.editingContact.errors.telefoon
-        this.editingContact.errors.adres
-        this.editingContact.errors.email
-      )
-    }}
+    {{#if (and this.errors this.isEditingContactPoint)}}
       <AuAlert
         @title={{this.title}}
         @skin="error"
@@ -102,9 +96,9 @@
         @size="small"
         class="au-u-margin-top-small"
       >
-        <p>
-          Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te vullen.
-        </p>
+      <p>
+        Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te vullen.
+      </p>
       </AuAlert>
     {{/if}}
   </div>
