@@ -1,20 +1,10 @@
 {{page-title "Voeg mandaat toe"}}
 
-{{#if this.shouldSelectPerson}}
-  <Shared::Persoon::PersoonSearchForm
-    class="au-c-body-container"
-    @onCreateNewPerson={{this.createNewPerson}}
-    @onCancel={{this.cancel}}
-    @onSelect={{this.selectPersoon}}
-  >
-    <AuHeading @skin="2">Voeg mandataris toe uit de lijst van verkozenen</AuHeading>
-  </Shared::Persoon::PersoonSearchForm>
-{{else}}
   <AuToolbar @border="bottom" @size="large" as |Group|>
     <Group>
       <div>
         <AuHeading @skin="2">
-          Nieuw mandaat toevoegen
+          Voeg mandataris toe
         </AuHeading>
 
         <p class="au-u-h3">
@@ -29,6 +19,7 @@
       </div>
     </Group>
 
+   {{#unless this.shouldSelectPerson}}
     <Group>
       <AuButtonGroup>
         <AuButton
@@ -47,8 +38,19 @@
         </AuLink>
       </AuButtonGroup>
     </Group>
-  </AuToolbar>
+   {{/unless}}
+ </AuToolbar>
 
+{{#if this.shouldSelectPerson}}
+  <Shared::Persoon::PersoonSearchForm
+    class="au-c-body-container"
+    @onCreateNewPerson={{this.createNewPerson}}
+    @onCancel={{this.cancel}}
+    @onSelect={{this.selectPersoon}}
+    @showDefaultHead={{false}}
+  >
+  </Shared::Persoon::PersoonSearchForm>
+{{else}}
   <form
     id="create-mandatee"
     class="au-c-body-container"
