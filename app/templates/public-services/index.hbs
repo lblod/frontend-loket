@@ -38,11 +38,9 @@
 >
   <Table.content as |Content|>
     <Content.header>
-      <AuDataTableThSortable
-        @field="name"
-        @currentSorting={{this.sort}}
-        @label="Productnaam"
-      />
+      <th>
+        Productnaam
+      </th>
       <AuDataTableThSortable
         @field="type"
         @currentSorting={{this.sort}}
@@ -65,7 +63,7 @@
         @label="Vertalingen"
       /> --}}
       <AuDataTableThSortable
-        @field=""
+        @field="status.label"
         @currentSorting={{this.sort}}
         @label="Status Document"
       />
