@@ -75,7 +75,7 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
-      if (isValidPrimaryContact(contactPoint)) {
+      if (yield isValidPrimaryContact(contactPoint)) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
