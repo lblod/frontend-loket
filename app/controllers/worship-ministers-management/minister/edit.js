@@ -7,6 +7,7 @@ import {
   createPrimaryContactPoint,
   createSecondaryContactPoint,
   findPrimaryContactPoint,
+  isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 
 export default class WorshipMinistersManagementMinisterEditController extends Controller {
@@ -73,14 +74,13 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
-      if (contactPoint.telefoon || contactPoint.email || adres) {
+      if (yield isValidPrimaryContact(contactPoint)) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
           // The secondary contact point is empty so we can remove it if it was ever persisted before
           yield secondaryContactPoint.destroyRecord();
         }
-
         if (adres?.isNew) {
           yield adres.save();
         }
@@ -92,11 +92,6 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
         yield contactPoint.save();
       } else {
-        // We set generic error flags so we can display the real message in the template.
-        // Once any of these properties receive a new value the message will disappear since only 1 value is required.
-        contactPoint.errors.add('adres', 'ERROR');
-        contactPoint.errors.add('email', 'ERROR');
-        contactPoint.errors.add('telefoon', 'ERROR');
         return;
       }
     }
