@@ -11,8 +11,7 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
       .map((b) => {
         return { bindingStart: b.bindingStart, bindingEinde: b.bindingEinde };
       })
-      .sortBy('bindingStart')
-      .reverse();
+      .sortBy('bindingStart');
     return options.filter(
       (o, i) =>
         options
@@ -24,6 +23,7 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
   constructor() {
     super(...arguments);
     this._options = this.getUniqueBestuursperiodes(this.args.options) || [];
+    console.log(this._options);
   }
 
   get selectedBestuursorgaan() {
