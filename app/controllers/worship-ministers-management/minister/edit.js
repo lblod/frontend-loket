@@ -16,7 +16,6 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
   @tracked selectedContact;
   @tracked editingContact;
-  @tracked errors;
 
   originalContactAdres;
 
@@ -93,7 +92,6 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
         yield contactPoint.save();
       } else {
-        this.errors = contactPoint.errors;
         return;
       }
     }
