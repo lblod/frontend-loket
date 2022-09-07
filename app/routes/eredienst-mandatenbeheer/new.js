@@ -13,7 +13,8 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
 
   beforeModel() {
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
-    this.bestuursorganen = mandatenbeheer.bestuursorganen;
+    this.bestuursorganen =
+      mandatenbeheer.bestuursorganen.sortBy('bindingStart');
   }
 
   async model({ personId }) {
@@ -23,7 +24,9 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
           backgroundReload: false,
         }),
         this.store.findAll('half-election'),
-        this.bestuursorganen,
+        this.bestuursorganen.length > 1
+          ? [this.bestuursorganen.at(0)] // The recent bindingStart selected by default
+          : this.bestuursorganen,
       ]);
 
       let worshipMandatee = this.store.createRecord('worship-mandatee');
