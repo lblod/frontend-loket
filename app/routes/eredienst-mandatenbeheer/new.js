@@ -23,7 +23,6 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
         this.store.findRecord('persoon', personId, {
           backgroundReload: false,
         }),
-        this.store.findAll('half-election'),
         this.bestuursorganen.length > 1
           ? [this.bestuursorganen.at(0)] // The recent bindingStart selected by default
           : this.bestuursorganen,
