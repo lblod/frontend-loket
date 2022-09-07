@@ -158,6 +158,8 @@ export default class PublicServicesDetailsPageComponent extends Component {
     );
 
     this.hasUnsavedChanges = false;
+    this.updateLastModifiedDate();
+    yield this.args.publicService.save();
 
     yield loadPublicServiceDetails(this.store, this.args.publicService.id);
   }
@@ -232,7 +234,13 @@ export default class PublicServicesDetailsPageComponent extends Component {
       })
     ).firstObject;
     service.status = sentStatus;
+    this.updateLastModifiedDate();
+
     await service.save();
+  }
+
+  updateLastModifiedDate() {
+    this.args.publicService.modified = new Date();
   }
 
   willDestroy() {
