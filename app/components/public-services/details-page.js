@@ -134,7 +134,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
     try {
       yield this.saveSemanticForm.unlinked().perform();
-      this.hasUnsavedChanges = false;
     } catch (error) {
       console.error(error);
       this.toaster.error(
@@ -157,6 +156,8 @@ export default class PublicServicesDetailsPageComponent extends Component {
       this.args.formId,
       serializedData
     );
+
+    this.hasUnsavedChanges = false;
 
     yield loadPublicServiceDetails(this.store, this.args.publicService.id);
   }
