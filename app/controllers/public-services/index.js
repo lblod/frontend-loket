@@ -5,7 +5,7 @@ import { restartableTask, timeout } from 'ember-concurrency';
 export default class PublicServicesIndexController extends Controller {
   queryParams = ['search', 'sort', 'page'];
   @tracked search = '';
-  @tracked sort = 'name';
+  @tracked sort = '-modified';
   @tracked page = 0;
 
   get publicServices() {
