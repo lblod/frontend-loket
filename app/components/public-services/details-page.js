@@ -134,7 +134,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
     try {
       yield this.saveSemanticForm.unlinked().perform();
-      this.hasUnsavedChanges = false;
     } catch (error) {
       console.error(error);
       this.toaster.error(
@@ -157,6 +156,10 @@ export default class PublicServicesDetailsPageComponent extends Component {
       this.args.formId,
       serializedData
     );
+
+    this.hasUnsavedChanges = false;
+    this.updateLastModifiedDate();
+    yield this.args.publicService.save();
 
     yield loadPublicServiceDetails(this.store, this.args.publicService.id);
   }
@@ -231,7 +234,13 @@ export default class PublicServicesDetailsPageComponent extends Component {
       })
     ).firstObject;
     service.status = sentStatus;
+    this.updateLastModifiedDate();
+
     await service.save();
+  }
+
+  updateLastModifiedDate() {
+    this.args.publicService.modified = new Date();
   }
 
   willDestroy() {
