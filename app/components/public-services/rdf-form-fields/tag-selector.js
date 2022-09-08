@@ -19,6 +19,10 @@ export default class TagSelectorComponent extends InputFieldComponent {
     this.loadPersistedTags();
   }
 
+  get hasTags() {
+    return this.selectedTags.length > 0;
+  }
+
   @action
   handleTagSelection(newTagSelection) {
     this.selectedTags = newTagSelection;
