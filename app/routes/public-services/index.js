@@ -4,6 +4,7 @@ import { restartableTask } from 'ember-concurrency';
 
 export default class PublicServicesIndexRoute extends Route {
   @service store;
+  @service currentSession;
 
   queryParams = {
     search: {
@@ -28,9 +29,9 @@ export default class PublicServicesIndexRoute extends Route {
   @restartableTask
   *loadPublicServicesTask({ search, page, sort }) {
     let query = {
+      'filter[created-by][:uri:]': this.currentSession.group.uri,
       'page[number]': page,
       include: 'target-audiences,type,executing-authority-levels,status',
-      // TODO: Filter the results so only public services for the current organization are returned
     };
 
     if (search) {
