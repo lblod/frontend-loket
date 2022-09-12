@@ -83,6 +83,7 @@
     "ember-promise-modals": "^3.0.1",
     "ember-qunit": "^5.1.5",
     "ember-resolver": "^8.0.3",
+    "ember-router-service-refresh-polyfill": "^1.0.1",
     "ember-simple-auth": "^4.2.1",
     "ember-source": "~3.28.8",
     "ember-template-lint": "^4.0.0",
