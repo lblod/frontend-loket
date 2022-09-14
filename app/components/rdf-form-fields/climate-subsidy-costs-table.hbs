@@ -90,6 +90,39 @@
         </row.actionDescription>
       </RdfFormFields::ClimateSubsidyCostsTable::TableRowBurgemeesters>
     {{/unless}}
+    {{#if this.climateTwo}}
+    <RdfFormFields::ClimateSubsidyCostsTable::TableRowClimateTables
+        @disabled={{@show}}
+        @storeOptions={{this.storeOptions}}
+        @businessRuleUriStr="http://data.lblod.info/id/subsidies/rules/26358160-ea1b-4416-86b6-b60faf5c7afa"
+        @climateTableSubject={{this.climateTableSubject}}
+        @populationCount={{this.populationCount}}
+        @updateTotalRestitution={{this.updateTotaleRestitution}}
+        @onUpdateRow={{this.validate}}
+        @showDeleteColumn={{this.canAddNewActions}}
+        as |row|
+      >
+        <row.actionDescription>
+          <RdfFormFields::ClimateSubsidyCostsTable::Accordion
+            @label="Algemene beleidsdoelstellingen"
+            @subtitle="Organisatie en ondersteuning Klimaattafels"
+          >
+            <p>
+              Lokale besturen kunnen deze middelen gebruiken om over te gaan tot het faciliteren 
+              van klimaattafels ter bespreking van een wijkgerichte aanpak 
+              (met een focus op de verduurzaming van de warmtevraag en de synergie tussen de vier werven) 
+              voor einde 2024. Op deze wijze krijgt de burger de kans om samen met de gemeente 
+              aanpassingen in te plannen en door te voeren ten voordele van het klimaat.
+            </p>
+            <AuLinkExternal
+              href="https://www.vvsg.be/netwerkklimaat/lokaal-energie-en-klimaatpact"
+            >
+              www.vvsg.be/netwerkklimaat/lokaal-energie-en-klimaatpact
+            </AuLinkExternal>
+          </RdfFormFields::ClimateSubsidyCostsTable::Accordion>
+        </row.actionDescription>
+    </RdfFormFields::ClimateSubsidyCostsTable::TableRowClimateTables>
+    {{/if}}
       <RdfFormFields::ClimateSubsidyCostsTable::TableRowVastgoedplan
         @disabled={{@show}}
         @storeOptions={{this.storeOptions}}
