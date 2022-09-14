@@ -86,6 +86,15 @@
         </div>
       </div>
 
+      <div class="au-u-margin-bottom-small">
+        <AuLabel for="mandate-expected-end-date">GeplandeEinddatumAanstelling</AuLabel>
+        <AuDatePicker
+          @value={{@model.worshipMandatee.expectedEndDate}}
+          @disabled={{true}}
+          @id="mandate-expected-end-date"
+        />
+      </div>
+
       <AuAlert @skin="info" @icon="info-circle" @size="small">
         <p>
           Klik op "Mandaat toevoegen" om contactgegevens verder aan te vullen.
