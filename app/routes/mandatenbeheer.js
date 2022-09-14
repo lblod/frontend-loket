@@ -26,12 +26,20 @@ export default class MandatenbeheerRoute extends Route {
     this.endDate = params.endDate;
 
     const bestuurseenheid = this.currentSession.group;
-    const bestuursorganen = await this.getRelevantBestuursorganen(bestuurseenheid.get('id'));
-    const bestuursperiods = this.calculateUniqueBestuursperiods(bestuursorganen);
-    const selectedPeriod = this.calculateSelectedPeriod(bestuursperiods,
-                                                        { startDate: this.startDate, endDate: this.endDate});
+    const bestuursorganen = await this.getRelevantBestuursorganen(
+      bestuurseenheid.get('id')
+    );
+    const bestuursperiods =
+      this.calculateUniqueBestuursperiods(bestuursorganen);
+    const selectedPeriod = this.calculateSelectedPeriod(bestuursperiods, {
+      startDate: this.startDate,
+      endDate: this.endDate,
+    });
 
-    const selectedBestuursOrganen = this.getBestuursorganenForPeriod(bestuursorganen, selectedPeriod);
+    const selectedBestuursOrganen = this.getBestuursorganenForPeriod(
+      bestuursorganen,
+      selectedPeriod
+    );
 
     return RSVP.hash({
       bestuurseenheid,
@@ -42,41 +50,47 @@ export default class MandatenbeheerRoute extends Route {
   }
 
   calculateUniqueBestuursperiods(bestuursorganen) {
-    const periods = bestuursorganen
-          .map((b) => ({
-            startDate: moment(b.bindingStart).format('YYYY-MM-DD'),
-            endDate: b.bindingEinde ? moment(b.bindingEinde).format('YYYY-MM-DD') : null
-          }));
+    const periods = bestuursorganen.map((b) => ({
+      startDate: moment(b.bindingStart).format('YYYY-MM-DD'),
+      endDate: b.bindingEinde
+        ? moment(b.bindingEinde).format('YYYY-MM-DD')
+        : null,
+    }));
 
-    const comparablePeriods = periods.map(period => JSON.stringify(period));
-    const uniquePeriods = [ ...new Set(comparablePeriods) ].map(period => JSON.parse(period));
+    const comparablePeriods = periods.map((period) => JSON.stringify(period));
+    const uniquePeriods = [...new Set(comparablePeriods)].map((period) =>
+      JSON.parse(period)
+    );
 
     return uniquePeriods;
   }
 
-  calculateSelectedPeriod(periods, { startDate, endDate } ) {
+  calculateSelectedPeriod(periods, { startDate, endDate }) {
     //Note: the assumptions: no messy data, i.e.
     // - no intersection between periods
     // - start > end
     const sortedPeriods = periods.sortBy('startDate');
-    if(!(startDate || endDate)) {
+    if (!(startDate || endDate)) {
       const today = moment(new Date()).format('YYYY-MM-DD');
 
-      const currentPeriod = sortedPeriods.find(p => p.startDate <= today  && ( today < p.endDate || !p.endDate ));
-      const futurePeriod = sortedPeriods.find(p => p.startDate > today);
+      const currentPeriod = sortedPeriods.find(
+        (p) => p.startDate <= today && (today < p.endDate || !p.endDate)
+      );
+      const futurePeriod = sortedPeriods.find((p) => p.startDate > today);
       const firstPeriod = sortedPeriods[0]; //TODO; Perhaps we could take the previous.
 
       return currentPeriod || futurePeriod || firstPeriod;
-    }
-    else {
+    } else {
       return { startDate, endDate };
     }
   }
 
   getBestuursorganenForPeriod(bestuursorganen, period) {
-    return bestuursorganen.filter(b => {
+    return bestuursorganen.filter((b) => {
       const start = moment(b.bindingStart).format('YYYY-MM-DD');
-      const end = b.bindingEinde ? moment(b.bindingEinde).format('YYYY-MM-DD') : null;
+      const end = b.bindingEinde
+        ? moment(b.bindingEinde).format('YYYY-MM-DD')
+        : null;
       return start == period.startDate && end == period.endDate;
     });
   }
