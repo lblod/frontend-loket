@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
+import moment from 'moment';
 
 export default class MandatenbeheerRoute extends Route {
   @service currentSession;
@@ -25,66 +26,59 @@ export default class MandatenbeheerRoute extends Route {
     this.endDate = params.endDate;
 
     const bestuurseenheid = this.currentSession.group;
+    const bestuursorganen = await this.getRelevantBestuursorganen(bestuurseenheid.get('id'));
+    const bestuursperiods = this.calculateUniqueBestuursperiods(bestuursorganen);
+    const selectedPeriod = this.calculateSelectedPeriod(bestuursperiods,
+                                                        { startDate: this.startDate, endDate: this.endDate});
+
+    const selectedBestuursOrganen = this.getBestuursorganenForPeriod(bestuursorganen, selectedPeriod);
 
     return RSVP.hash({
-      bestuurseenheid: bestuurseenheid,
-      bestuursorganen: this.getBestuursorganenInTijdByPeriod(
-        bestuurseenheid.get('id')
-      ),
-      bestuursperioden: this.getBestuursperioden(bestuurseenheid.get('id')),
-      startDate: this.startDate,
-      endDate: this.endDate,
+      bestuurseenheid,
+      bestuursorganen: selectedBestuursOrganen,
+      bestuursperiods,
+      selectedPeriod,
     });
   }
 
-  /*
-   * Returns bestuursorgaan in tijd starting on the given a period
-   * for all bestuursorganen of the given bestuurseenheid.
-   * TODO: keep in sync with routes/eredienst-mandatenbeheer.
-   *       Extract common code once we are sure of the common pattern.
-   */
-  async getBestuursorganenInTijdByPeriod(bestuurseenheidId) {
-    const bestuursorganen = await this.store.query('bestuursorgaan', {
-      'filter[bestuurseenheid][id]': bestuurseenheidId,
-      'filter[heeft-tijdsspecialisaties][:has:bevat]': true, // only organs with a mandate
-    });
+  calculateUniqueBestuursperiods(bestuursorganen) {
+    const periods = bestuursorganen
+          .map((b) => ({
+            startDate: moment(b.bindingStart).format('YYYY-MM-DD'),
+            endDate: b.bindingEinde ? moment(b.bindingEinde).format('YYYY-MM-DD') : null
+          }));
 
-    let organenStartingOnStartDate = [];
+    const comparablePeriods = periods.map(period => JSON.stringify(period));
+    const uniquePeriods = [ ...new Set(comparablePeriods) ].map(period => JSON.parse(period));
 
-    for (const bestuursorgaan of bestuursorganen.toArray()) {
-      const organen = await this.getBestuursorgaanInTijdByPeriod(
-        bestuursorgaan.get('id'),
-        this.startDate,
-        this.endDate
-      );
-      organenStartingOnStartDate = [...organenStartingOnStartDate, ...organen];
-    }
-
-    return organenStartingOnStartDate.filter((orgaan) => orgaan); // filter null values
+    return uniquePeriods;
   }
 
-  /*
-   * TODO: keep in sync with routes/eredienst-mandatenbeheer.
-   *       Extract common code once we are sure of the common pattern.
-   */
-  async getBestuursorgaanInTijdByPeriod(bestuursorgaanId, startDate, endDate) {
-    const queryParams = {
-      sort: '-binding-start',
-      'filter[is-tijdsspecialisatie-van][id]': bestuursorgaanId,
-    };
+  calculateSelectedPeriod(periods, { startDate, endDate } ) {
+    //Note: the assumptions: no messy data, i.e.
+    // - no intersection between periods
+    // - start > end
+    const sortedPeriods = periods.sortBy('startDate');
+    if(!(startDate || endDate)) {
+      const today = moment(new Date()).format('YYYY-MM-DD');
 
-    if (startDate && endDate) {
-      queryParams['filter[binding-start]'] = startDate;
-      queryParams['filter[binding-einde]'] = endDate;
-    } else if (startDate) {
-      queryParams['filter[binding-start]'] = startDate;
-      // Bestuursorganen can overlap in start date,
-      // so if no end date is provided, explicitly filter em out
-      queryParams['filter[:has-no:binding-einde]'] = true;
+      const currentPeriod = sortedPeriods.find(p => p.startDate <= today  && ( today < p.endDate || !p.endDate ));
+      const futurePeriod = sortedPeriods.find(p => p.startDate > today);
+      const firstPeriod = sortedPeriods[0]; //TODO; Perhaps we could take the previous.
+
+      return currentPeriod || futurePeriod || firstPeriod;
     }
+    else {
+      return { startDate, endDate };
+    }
+  }
 
-    const organen = await this.store.query('bestuursorgaan', queryParams);
-    return organen.toArray();
+  getBestuursorganenForPeriod(bestuursorganen, period) {
+    return bestuursorganen.filter(b => {
+      const start = moment(b.bindingStart).format('YYYY-MM-DD');
+      const end = b.bindingEinde ? moment(b.bindingEinde).format('YYYY-MM-DD') : null;
+      return start == period.startDate && end == period.endDate;
+    });
   }
 
   /*
@@ -92,8 +86,9 @@ export default class MandatenbeheerRoute extends Route {
    * @return Array of bestuursorganen in tijd ressembling the bestuursperiodes
    * TODO: keep in sync with routes/eredienst-mandatenbeheer.
    *       Extract common code once we are sure of the common pattern.
+   * TODO: note, this is going to fail once we have more then 20 organen, oh well...
    */
-  async getBestuursperioden(bestuurseenheidId) {
+  async getRelevantBestuursorganen(bestuurseenheidId) {
     return await this.store.query('bestuursorgaan', {
       'filter[is-tijdsspecialisatie-van][bestuurseenheid][id]':
         bestuurseenheidId,
