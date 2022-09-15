@@ -42,13 +42,13 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   }
 
   @action
-  selectPeriod(startDate, endDate) {
+  selectPeriod(period) {
     const queryParams = {
       page: 0,
-      startDate: startDate,
+      startDate: period.startDate,
     };
 
-    queryParams['endDate'] = endDate;
+    queryParams['endDate'] = period.endDate;
 
     this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen', {
       queryParams,
