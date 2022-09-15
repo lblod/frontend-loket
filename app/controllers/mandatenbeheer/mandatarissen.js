@@ -56,13 +56,13 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   }
 
   @action
-  selectPeriod(startDate, endDate) {
+  selectPeriod(period) {
     const queryParams = {
       page: 0,
-      startDate: startDate,
+      startDate: period.startDate,
     };
 
-    queryParams['endDate'] = endDate;
+    queryParams['endDate'] = period.endDate;
 
     this.router.transitionTo('mandatenbeheer.mandatarissen', {
       queryParams,
