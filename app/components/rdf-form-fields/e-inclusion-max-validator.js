@@ -8,6 +8,9 @@ import { LBLOD_SUBSIDIE } from 'frontend-loket/rdf/namespaces';
 
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
 const amountPredicate = new NamedNode(`${lblodSubsidieBaseUri}amount`);
+const validAmountPredicate = new NamedNode(
+  `${lblodSubsidieBaseUri}validatedAmount`
+);
 
 export default class RdfFormFieldsEInclusionMaxValidatorComponent extends SimpleInputFieldComponent {
   inputId = 'e-inclusion-max-validator' + guidFor(this);
@@ -29,10 +32,11 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
       undefined,
       LBLOD_SUBSIDIE('drawingRightEInclusion'),
       undefined,
-      metaGraph
+      this.args.graphs.metaGraph
     )[0].object.value;
 
     this.maximumvalue = maxValue;
+    this.validate();
   }
 
   updateTripleObject(subject, predicate, newObject = null) {
@@ -66,19 +70,23 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
       this.errors.pushObject({
         message: 'Geef een bedrag groter dan 0 in',
       });
-    } else if (!this.isValidEuroAmount(num)) {
+      this.updateTripleObject(source, validAmountPredicate, null);
+    } else if (!this.isValidEuroAmount(this.value)) {
       this.errors.pushObject({
         message: 'Geef een bedrag met maximaal 2 cijfers na de komma in',
       });
+      this.updateTripleObject(source, validAmountPredicate, null);
     } else if (!this.isValidAmountLB(num)) {
       this.errors.pushObject({
         message:
-          'Het aangevraagde bedrag overschrijdt de maximale waarde voor dit bestuuur: ' +
-          this.maximumvalue,
+          'Het aangevraagde bedrag overschrijdt de maximale waarde voor dit bestuuur: €' +
+          Math.round(this.maximumvalue),
       });
+      this.updateTripleObject(source, validAmountPredicate, null);
     } else {
-      this.updateTripleObject(source, amountPredicate, num);
+      this.updateTripleObject(source, validAmountPredicate, true);
     }
+    this.updateTripleObject(source, amountPredicate, num);
   }
 
   isRealPositiveNumber(value) {
@@ -87,12 +95,11 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
   }
 
   isValidEuroAmount(value) {
-    const num = Number(value);
-    if (Number.isInteger(num)) {
-      return true;
+    const split = value.toString().split('.')[1];
+    if(split){
+      return split.length <= 2
     }
-
-    return num.toString().split('.')[1].length <= 2;
+    return true;
   }
 
   isValidAmountLB(value) {
