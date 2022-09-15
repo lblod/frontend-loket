@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.65.3",
+  "version": "0.66.2",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@appuniversum/appuniversum": "^1.2.0",
-    "@appuniversum/ember-appuniversum": "1.3.0",
+    "@appuniversum/ember-appuniversum": "^1.5.0",
     "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/lang-html": "^6.0.0",
     "@codemirror/lang-xml": "^6.0.0",
@@ -45,6 +45,7 @@
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^0.59.1",
     "@lblod/ember-submission-form-fields": "^2.0.3",
+    "@lblod/submission-form-helpers": "^2.1.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",

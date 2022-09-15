@@ -63,24 +63,6 @@
         />
       </div>
     </div>
-    <div>
-      <AuLabel>
-        Type helft
-      </AuLabel>
-      <div class="au-o-grid au-o-grid--tiny">
-        {{#each this.typeHalfList as |typeHalf|}}
-          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <AuControlRadio
-              @label={{typeHalf.label}}
-              @name="type-half"
-              @value={{typeHalf.id}}
-              @onChange={{fn (mut this.model.typeHalf) typeHalf}}
-              checked={{eq this.model.typeHalf.id typeHalf.id}}
-            />
-          </div>
-        {{/each}}
-      </div>
-    </div>
   </div>
 
   <AuHr @size="small" />
@@ -96,13 +78,7 @@
       @onContactSelectionChange={{this.handleContactSelectionChange}}
     />
 
-    {{#if
-      (and
-        this.editingContact.errors.telefoon
-        this.editingContact.errors.adres
-        this.editingContact.errors.email
-      )
-    }}
+    {{#if (and this.editingContact (not this.editingContact.isValid))}}
       <AuAlert
         @title={{this.title}}
         @skin="error"
@@ -111,8 +87,8 @@
         class="au-u-margin-top-small"
       >
         <p>
-          Gelieve minstens het "Adres", "E-mail" of "Primair telefoonnummer"
-          veld in te vullen.
+          Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te
+          vullen.
         </p>
       </AuAlert>
     {{/if}}

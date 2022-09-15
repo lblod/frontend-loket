@@ -2,12 +2,10 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
-import { literal, NamedNode, Namespace } from 'rdflib';
+import { literal, NamedNode } from 'rdflib';
 import { scheduleOnce } from '@ember/runloop';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF, XSD } from '@lblod/submission-form-helpers';
-
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+import { MU, RDF, XSD } from 'frontend-loket/rdf/namespaces';
 
 const planBaseUri =
   'http://lblod.data.gift/vocabularies/subsidie/plan-samenleven/';

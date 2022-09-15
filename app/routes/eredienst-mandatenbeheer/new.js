@@ -18,11 +18,10 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
 
   async model({ personId }) {
     if (personId) {
-      let [person, halfElectionList, tijdsspecialisaties] = await Promise.all([
+      let [person, tijdsspecialisaties] = await Promise.all([
         this.store.findRecord('persoon', personId, {
           backgroundReload: false,
         }),
-        this.store.findAll('half-election'),
         this.bestuursorganen,
       ]);
 
@@ -32,7 +31,6 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
       return {
         worshipMandatee,
         person,
-        halfElectionList,
         bestuursorganen: tijdsspecialisaties,
       };
     }

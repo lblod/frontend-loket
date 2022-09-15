@@ -4,15 +4,14 @@ import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { triplesForPath } from '@lblod/submission-form-helpers';
 import { scheduleOnce } from '@ember/runloop';
-import { NamedNode, Namespace } from 'rdflib';
+import { NamedNode } from 'rdflib';
 import { v4 as uuidv4 } from 'uuid';
-import { RDF } from '@lblod/submission-form-helpers';
-
-const LBLOD_SUBSIDIE = new Namespace(
-  'http://lblod.data.gift/vocabularies/subsidie/'
-);
-const DBPEDIA = new Namespace('http://dbpedia.org/ontology/');
-const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+import {
+  DBPEDIA,
+  LBLOD_SUBSIDIE,
+  MU,
+  RDF,
+} from 'frontend-loket/rdf/namespaces';
 
 const climateTableBaseUri = 'http://data.lblod.info/climate-tables';
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';

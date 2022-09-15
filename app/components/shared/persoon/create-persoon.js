@@ -22,6 +22,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   @tracked familienaam;
   @tracked roepnaam;
   @tracked rijksregisternummer;
+  @tracked nationaliteit;
   @tracked birthDate;
   @tracked errors;
 
@@ -70,6 +71,10 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     return preNillies || postNillies;
   }
 
+  get isNationalityFieldRequired() {
+    return !!this.args.nationalityRequired;
+  }
+
   @task
   *loadOrCreateRijksregister() {
     let identificator;
@@ -111,6 +116,8 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     // todo geboorte en identificator
     let errors = {};
 
+    if (this.isNationalityFieldRequired) requiredFields.push('nationaliteit');
+
     requiredFields.forEach((field) => {
       if (isBlank(this[field])) {
         errors[field] = `${field} is een vereist veld.`;
@@ -140,6 +147,9 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
         identificator: yield this.loadOrCreateRijksregister.perform(),
         geboorte: yield this.loadOrCreateGeboorte.perform(),
       });
+
+      if (this.isNationalityFieldRequired)
+        persoon.nationalities = this.nationaliteit;
 
       yield persoon.save();
       this.args.onCreate?.(persoon);

@@ -97,4 +97,11 @@ inflector.irregular(
   'subsidy-measure-consumption-statuses'
 );
 
-inflector.irregular('half-election', 'half-elections');
+inflector.irregular(
+  'minister-position-function',
+  'minister-position-functions'
+);
+
+inflector.irregular('minister-position', 'minister-positions');
+
+inflector.irregular('nationality', 'nationalities');

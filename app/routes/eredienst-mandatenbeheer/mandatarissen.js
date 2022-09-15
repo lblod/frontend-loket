@@ -30,8 +30,7 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
         },
       },
       include: [
-        'type-half',
-        'bekleedt',
+        'bekleedt.bevat-in.is-tijdsspecialisatie-van',
         'is-bestuurlijke-alias-van',
         'bekleedt.bestuursfunctie',
       ].join(','),

@@ -6,8 +6,26 @@
       </p>
       <AuLoader @padding="small" />
     </div>
+  {{else if this.loadForm.last.isError}}
+    <div class="au-o-box">
+      <AuAlert
+        @title="Onverwachte fout"
+        @skin="error"
+        @icon="circle-x"
+        @size="small"
+        class="au-u-max-width-small"
+      >
+        <p>
+          Er ging iets fout bij het laden van het formulier, gelieve de helpdesk te contacteren.
+        </p>
+      </AuAlert>
+    </div>
   {{else}}
-    <form id={{this.id}} {{on "submit" (perform this.handleFormSubmit)}} class="au-c-rdf-form {{@tabName}}">
+    <form
+      id={{this.id}}
+      {{on "submit" (perform this.handleFormSubmit)}}
+      class="au-c-rdf-form {{@tabName}}"
+    >
       <RdfForm
         @groupClass="au-o-grid__item"
         @form={{this.form}}
@@ -27,8 +45,7 @@
       {{#unless @readOnly}}
         <AuButton
           @disabled={{this.publicServiceAction.isRunning}}
-          @loading={{this.publishPublicService.isRunning}}
-          {{on "click" this.sending}}
+          {{on "click" this.requestSubmitConfirmation}}
         >
           Verzend naar Vlaamse overheid
         </AuButton>
@@ -51,7 +68,7 @@
       </AuLink>
     </AuButtonGroup>
   </Group>
-  
+
   {{#unless @readOnly}}
     <Group>
       <AuButton
@@ -62,35 +79,8 @@
         @disabled={{this.publicServiceAction.isRunning}}
         {{on "click" this.removePublicService}}
       >
-        <span class="au-u-hidden-visually">
-          Product of dienst
-        </span>
-        Verwijderen
+        Product verwijderen
       </AuButton>
     </Group>
   {{/unless}}
 </AuToolbar>
-
-<AuModal
-  @modalOpen={{this.submitToGoverment}}
-  @closeModal={{this.sending}}
-  @size="small"
->
-  <:title>Verzend naar Vlaamse overheid</:title>
-  <:body>
-    <p>Ben je zeker dat je dit product wil versturen naar de Vlaamse overheid? Deze actie kan je niet ongedaan maken.</p>
-    <p>Als je nieuwe wijzigingen doet kan je die steeds opnieuw versturen.</p>
-  </:body>
-  <:footer>
-    <AuButtonGroup>
-      <AuButton
-        @disabled={{this.publishPublicService.isRunning}}
-        @loading={{this.publishPublicService.isRunning}}
-        {{on "click" (perform this.publishPublicService)}}
-      >
-        Verzend naar Vlaamse overheid
-      </AuButton>
-      <AuButton @skin="secondary" {{on "click" this.sending}}>Annuleer</AuButton>
-    </AuButtonGroup>
-  </:footer>
-</AuModal>

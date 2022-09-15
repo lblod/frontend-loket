@@ -1,0 +1,23 @@
+<AuModal
+  @modalOpen={{true}}
+  @closeModal={{this.close}}
+  @size="small"
+>
+  <:title>Verzend naar Vlaamse overheid</:title>
+  <:body>
+    <p>Ben je zeker dat je dit product wil versturen naar de Vlaamse overheid? Deze actie kan je niet ongedaan maken.</p>
+    <p>Als je nieuwe wijzigingen doet kan je die steeds opnieuw versturen.</p>
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton
+        @disabled={{this.submit.isRunning}}
+        @loading={{this.submit.isRunning}}
+        {{on "click" (perform this.submit)}}
+      >
+        Verzend naar Vlaamse overheid
+      </AuButton>
+      <AuButton @skin="secondary" {{on "click" this.close}}>Annuleer</AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>

@@ -1,0 +1,106 @@
+{{#let @model.minister.ministerPosition as |hasMinisterPosition|}}
+  {{page-title
+    "Bewerk bedienaar "
+    @model.person.gebruikteVoornaam
+    " "
+    @model.person.achternaam
+    (if
+      hasMinisterPosition
+      (concat ", " @model.minister.ministerPosition.function.label)
+    )
+  }}
+
+  <AuToolbar @border="bottom" @size="large" as |Group|>
+    <Group>
+      <div>
+        <AuHeading @skin="2">Bewerk bedienaar</AuHeading>
+        <p class="au-u-h3">
+          {{@model.person.gebruikteVoornaam}}
+          {{@model.person.achternaam~}}
+          {{#if hasMinisterPosition~}}
+            ,
+            {{@model.minister.ministerPosition.function.label}}
+          {{/if}}
+        </p>
+      </div>
+    </Group>
+
+    <Group>
+      <AuButtonGroup>
+        <AuButton
+          @disabled={{this.save.isRunning}}
+          @loading={{this.save.isRunning}}
+          @loadingMessage="Aan het opslaan"
+          {{on "click" (perform this.save)}}
+        >
+          Wijzigingen opslaan
+        </AuButton>
+        <AuLink @route="worship-ministers-management" @skin="button-secondary">
+          Annuleer
+        </AuLink>
+      </AuButtonGroup>
+    </Group>
+  </AuToolbar>
+{{/let}}
+
+<div class="au-c-body-container">
+  <div class="au-u-2-3@medium au-o-box">
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="worship-minister-function">Functienaam</AuLabel>
+      <WorshipMinistersManagement::PositionSelect
+        @worshipService={{@model.currentWorshipService}}
+        @selected={{@model.minister.ministerPosition}}
+        @onChange={{fn (mut @model.minister.ministerPosition)}}
+        id="worship-minister-position-select"
+      />
+    </div>
+    <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="worship-minister-correction-start-date">
+          Startdatum
+        </AuLabel>
+        <AuDatePicker
+          @value={{@model.minister.agentStartDate}}
+          @onChange={{fn this.handleDateChange "agentStartDate"}}
+          @id="worship-minister-correction-start-date"
+        />
+      </div>
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel for="worship-minister-correction-end-date">Eindedatum</AuLabel>
+        <AuDatePicker
+          @value={{@model.minister.agentEndDate}}
+          @onChange={{fn this.handleDateChange "agentEndDate"}}
+          @id="worship-minister-correction-end-date"
+        />
+      </div>
+    </div>
+  </div>
+
+  <AuHr @size="small" />
+  <div class="au-o-box">
+    <ContactInformationTable
+      @contacts={{@model.contacts}}
+      @selectedContact={{this.selectedContact}}
+      @editingContact={{this.editingContact}}
+      @onAddNewContact={{this.addNewContact}}
+      @onEditContact={{this.setEditingContact}}
+      @onEditContactCancel={{this.handleEditContactCancel}}
+      @onContactSelectionChange={{this.handleContactSelectionChange}}
+    />
+
+    {{#if (and this.isEditingContactPoint (not this.editingContact.isValid))}}
+      <AuAlert
+        @title={{this.title}}
+        @skin="error"
+        @icon="cross"
+        @size="small"
+        class="au-u-margin-top-small"
+      >
+        <p>
+          Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te
+          vullen.
+        </p>
+      </AuAlert>
+    {{/if}}
+  </div>
+</div>

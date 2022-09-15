@@ -18,9 +18,8 @@
     <Group>
       <div class="">
         <Mandatenbeheer::BestuursperiodenSelector
-          @options={{this.bestuursperioden}}
-          @selectedStartDate={{this.startDate}}
-          @selectedEndDate={{this.endDate}}
+          @options={{this.mandatenbeheer.bestuursperiods}}
+          @selectedPeriod={{this.mandatenbeheer.selectedPeriod}}
           @onSelect={{this.selectPeriod}}/>
       </div>
     </Group>
@@ -44,7 +43,6 @@
         <th class="au-u-visible-small-up">Orgaan</th>
         <AuDataTableThSortable @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{this.sort}} @label='Naam' class="au-u-visible-small-up" />
         <AuDataTableThSortable @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{this.sort}} @label='Familienaam'/>
-        <AuDataTableThSortable @field='typeHalf.label' @currentSorting={{this.sort}} @label='Type helft' class="au-u-visible-medium-up" />
         <AuDataTableThSortable @field='bekleedt.bestuursfunctie.label' @currentSorting={{this.sort}} @label='Mandaat' />
         <AuDataTableThSortable @field='start' @currentSorting={{this.sort}} @label='Start mandaat' class="au-u-visible-medium-up" />
         <AuDataTableThSortable @field='einde' @currentSorting={{this.sort}} @label='Einde mandaat' class="au-u-visible-medium-up" />
@@ -61,9 +59,6 @@
         </td>
         <td>
           {{row.isBestuurlijkeAliasVan.achternaam}}
-        </td>
-        <td class="au-u-visible-medium-up">
-          {{row.typeHalf.label}}
         </td>
         <td>
           {{row.bekleedt.bestuursfunctie.label}}

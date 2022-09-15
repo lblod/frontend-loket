@@ -1,0 +1,14 @@
+<div data-test class={{if @error "ember-power-select--error"}}>
+  <PowerSelect
+    @noMatchesMessage="Geen resultaten"
+    @searchMessage="Typ om te zoeken"
+    @placeholder="Selecteer een functie"
+    @options={{this.optionsPromise}}
+    @selected={{@selected}}
+    @onChange={{@onChange}}
+    ...attributes
+    as |ministerPosition|
+  >
+    {{ministerPosition.function.label}}
+  </PowerSelect>
+</div>

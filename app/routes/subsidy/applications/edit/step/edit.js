@@ -2,10 +2,9 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
-import { RDF } from '@lblod/submission-form-helpers';
-import { NamedNode, Namespace } from 'rdflib';
+import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
+import { NamedNode } from 'rdflib';
 
-const FORM = new Namespace('http://lblod.data.gift/vocabularies/forms/');
 const FORM_GRAPH = new NamedNode('http://data.lblod.info/form');
 const META_GRAPH = new NamedNode('http://data.lblod.info/metagraph');
 const SOURCE_GRAPH = new NamedNode(`http://data.lblod.info/sourcegraph`);

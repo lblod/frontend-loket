@@ -21,8 +21,8 @@ export default class ContactPuntModel extends Model {
   @belongsTo('contact-punt', { inverse: null })
   secondaryContactPoint;
 
-  // @hasMany('agent-in-position', { inverse: 'contactPoints' }) agentsInPosition;
-  @hasMany('mandataris') mandatarissen;
+  @hasMany('agent-in-position', { inverse: 'contacts' }) agentsInPosition;
+  @hasMany('mandataris', { inverse: 'contactPoints' }) mandatarissen;
 }
 
 export function createPrimaryContactPoint(store) {
@@ -45,4 +45,30 @@ export function findPrimaryContactPoint(contactList) {
 
 export function findSecondaryContactPoint(contactList) {
   return contactList.findBy('type', CONTACT_TYPE.SECONDARY);
+}
+
+export async function isValidPrimaryContact(primaryContactPoint) {
+  let requiredFields = ['email', 'telefoon'];
+
+  requiredFields.forEach((field) => {
+    let value = primaryContactPoint[field];
+
+    if (!(typeof value === 'string' && value.trim().length > 0)) {
+      primaryContactPoint.errors.add(field, `${field} is een vereist veld.`);
+    }
+  });
+
+  let adres = await primaryContactPoint.adres;
+  if (!adres) {
+    // TODO: This works around a problem in Ember Data where adding an error without the record being in a dirty state triggers an exception.
+    // Ember Data doesn't consider relationship changes a "dirty" change, so this causes issues if the adres is cleared.
+    // This workaround uses `.send` but that is a private API which is no longer present in Ember Data 4.x
+    // The bug is fixed in Ember Data 4.6 so we need to update to that version instead of 4.4 LTS
+    // More information in the Discord: https://discord.com/channels/480462759797063690/1016327513900847134
+    // Same old issue where they use this workaround: https://stackoverflow.com/questions/27698496/attempted-to-handle-event-becameinvalid-while-in-state-root-loaded-saved
+    primaryContactPoint.send?.('becomeDirty');
+    primaryContactPoint.errors.add('adres', 'adres is een vereist veld.');
+  }
+
+  return primaryContactPoint.isValid;
 }

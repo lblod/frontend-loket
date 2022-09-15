@@ -263,6 +263,31 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
+      route: 'worship-ministers-management.index',
+      crumbs: [{ label: 'Bedienarenbeheer' }],
+    },
+    {
+      route: 'worship-ministers-management.new',
+      crumbs: [
+        { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
+        { label: 'Voeg bedienaar toe' },
+      ],
+    },
+    {
+      route: 'worship-ministers-management.new-person',
+      crumbs: [
+        { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
+        { label: 'Voeg nieuwe persoon toe' },
+      ],
+    },
+    {
+      route: 'worship-ministers-management.minister.edit',
+      crumbs: [
+        { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
+        { label: 'Bewerk bedienaar' },
+      ],
+    },
+    {
       route: 'public-services.index',
       crumbs: [{ label: 'Producten- en dienstencatalogus' }],
     },
