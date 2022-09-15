@@ -1,15 +1,15 @@
 <PowerSelect
-  @selected={{this.selectedBestuursorgaan}}
+  @selected={{@selectedPeriod}}
   @options={{this._options}}
   class="is-optional"
-  @onChange={{this.selectBestuursorgaan}}
+  @onChange={{this.selectPeriod}}
   @searchEnabled={{false}}
-  as |orgaan|>
-    Bestuursperiode {{moment-format orgaan.bindingStart 'YYYY'}}
-    -
-    {{#if orgaan.bindingEinde}}
-      {{moment-format orgaan.bindingEinde 'YYYY'}}
-    {{else}}
-      heden
-    {{/if}}
+  as |period|>
+  Bestuursperiode {{moment-format period.startDate 'YYYY'}}
+  -
+  {{#if period.endDate}}
+    {{moment-format period.endDate 'YYYY'}}
+  {{else}}
+    heden
+  {{/if}}
 </PowerSelect>
