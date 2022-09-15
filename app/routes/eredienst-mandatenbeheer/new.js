@@ -27,6 +27,10 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
 
       let worshipMandatee = this.store.createRecord('worship-mandatee');
       worshipMandatee.isBestuurlijkeAliasVan = person;
+      let bestuursperiodesEndDates = tijdsspecialisaties.map(
+        ({ bindingEinde }) => bindingEinde
+      );
+      worshipMandatee.expectedEndDate = bestuursperiodesEndDates[0];
 
       return {
         worshipMandatee,
