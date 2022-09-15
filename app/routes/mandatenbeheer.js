@@ -68,7 +68,9 @@ export default class MandatenbeheerRoute extends Route {
   calculateSelectedPeriod(periods, { startDate, endDate }) {
     //Note: the assumptions: no messy data, i.e.
     // - no intersection between periods
-    // - start > end
+    // - start < end
+    //So, basically it assumes e.g.
+    //  - [2001-2002][2003-2023] and possibly [2024-2025|null]
     const sortedPeriods = periods.sortBy('startDate');
     if (!(startDate || endDate)) {
       const today = moment(new Date()).format('YYYY-MM-DD');
@@ -76,10 +78,10 @@ export default class MandatenbeheerRoute extends Route {
       const currentPeriod = sortedPeriods.find(
         (p) => p.startDate <= today && (today < p.endDate || !p.endDate)
       );
-      const futurePeriod = sortedPeriods.find((p) => p.startDate > today);
-      const firstPeriod = sortedPeriods[0]; //TODO; Perhaps we could take the previous.
+      const firstfuturePeriod = sortedPeriods.find((p) => p.startDate > today);
+      const firstPreviousPeriod = sortedPeriods.slice(-1)[0];
 
-      return currentPeriod || futurePeriod || firstPeriod;
+      return currentPeriod || firstfuturePeriod || firstPreviousPeriod;
     } else {
       return { startDate, endDate };
     }
