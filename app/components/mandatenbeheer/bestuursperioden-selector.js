@@ -7,7 +7,7 @@ export default class MandatenbeheerBestuursperiodenSelectorComponent extends Com
 
   constructor() {
     super(...arguments);
-    this._options = this.args.options || [];
+    this._options = this.args.options.sortBy('startDate') || [];
   }
 
   @action
