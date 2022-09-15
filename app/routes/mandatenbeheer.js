@@ -71,7 +71,7 @@ export default class MandatenbeheerRoute extends Route {
     // - start < end
     //So, basically it assumes e.g.
     //  - [2001-2003][2003-2023] and possibly [2024-2025|null]
-    const sortedPeriods = periods.sortBy('startDate');
+    const sortedPeriods = periods.sort((a, b) => a.startDate > b.startDate);
     if (!(startDate || endDate)) {
       const today = moment(new Date()).format('YYYY-MM-DD');
 
