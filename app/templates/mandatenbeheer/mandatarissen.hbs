@@ -24,9 +24,8 @@
     <Group>
       <div class="">
         <Mandatenbeheer::BestuursperiodenSelector
-          @options={{this.bestuursperioden}}
-          @selectedStartDate={{this.startDate}}
-          @selectedEndDate={{this.endDate}}
+          @options={{this.mandatenbeheer.bestuursperiods}}
+          @selectedPeriod={{this.mandatenbeheer.selectedPeriod}}
           @onSelect={{this.selectPeriod}}/>
       </div>
     </Group>
