@@ -96,8 +96,8 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
 
   isValidEuroAmount(value) {
     const split = value.toString().split('.')[1];
-    if(split){
-      return split.length <= 2
+    if (split) {
+      return split.length <= 2;
     }
     return true;
   }
