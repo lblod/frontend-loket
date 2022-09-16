@@ -3,7 +3,6 @@ import { guidFor } from '@ember/object/internals';
 import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
-import { scheduleOnce } from '@ember/runloop';
 import { NamedNode } from 'rdflib';
 import { LBLOD_SUBSIDIE } from 'frontend-loket/rdf/namespaces';
 
@@ -20,10 +19,6 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
 
   constructor() {
     super(...arguments);
-    scheduleOnce('actions', this, this.initComponent);
-  }
-
-  initComponent() {
     const maxValue = this.args.formStore.match(
       undefined,
       LBLOD_SUBSIDIE('drawingRightEInclusion'),
@@ -82,7 +77,6 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
     } else {
       this.updateTripleObject(source, validAmountPredicate, true);
     }
-    console.log('Got Here');
     this.updateTripleObject(source, amountPredicate, num);
   }
 
