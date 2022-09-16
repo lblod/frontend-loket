@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
 import { NamedNode } from 'rdflib';
+import { scheduleOnce } from '@ember/runloop';
 import { LBLOD_SUBSIDIE } from 'frontend-loket/rdf/namespaces';
 
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
@@ -19,6 +20,10 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
 
   constructor() {
     super(...arguments);
+    scheduleOnce('actions', this, this.initComponent);
+  }
+
+  initComponent() {
     const maxValue = this.args.formStore.match(
       undefined,
       LBLOD_SUBSIDIE('drawingRightEInclusion'),
