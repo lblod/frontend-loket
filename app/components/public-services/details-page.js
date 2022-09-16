@@ -10,6 +10,7 @@ import {
 import { NamedNode } from 'rdflib';
 import { dropTask, task, dropTaskGroup } from 'ember-concurrency';
 import ConfirmDeletionModal from 'frontend-loket/components/public-services/confirm-deletion-modal';
+import ConfirmReopeningModal from 'frontend-loket/components/public-services/confirm-reopening-modal';
 import ConfirmSubmitModal from 'frontend-loket/components/public-services/confirm-submit-modal';
 import UnsavedChangesModal from 'frontend-loket/components/public-services/details/unsaved-changes-modal';
 import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
@@ -26,8 +27,10 @@ const FORM_GRAPHS = {
   sourceGraph: new NamedNode(`http://data.lblod.info/sourcegraph`),
 };
 
-const SERVICE_STATUSES = {
-  sent: 'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
+const SERVICE_STATUS = {
+  SENT: 'http://lblod.data.gift/concepts/9bd8d86d-bb10-4456-a84e-91e9507c374c',
+  CONCEPT:
+    'http://lblod.data.gift/concepts/79a52da4-f491-4e2f-9374-89a13cde8ecd',
 };
 
 export default class PublicServicesDetailsPageComponent extends Component {
@@ -97,7 +100,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
       if (response.ok) {
         yield this.setServiceStatus(
           this.args.publicService,
-          SERVICE_STATUSES.sent
+          SERVICE_STATUS.SENT
         );
         this.router.transitionTo('public-services');
       } else {
@@ -185,6 +188,19 @@ export default class PublicServicesDetailsPageComponent extends Component {
   }
 
   @action
+  requestReopeningConfirmation() {
+    this.modals.open(ConfirmReopeningModal, {
+      reopeningHandler: async () => {
+        await this.setServiceStatus(
+          this.args.publicService,
+          SERVICE_STATUS.CONCEPT
+        );
+        this.router.refresh('public-services.details');
+      },
+    });
+  }
+
+  @action
   removePublicService() {
     this.modals.open(ConfirmDeletionModal, {
       deleteHandler: async () => {
@@ -226,14 +242,14 @@ export default class PublicServicesDetailsPageComponent extends Component {
   }
 
   async setServiceStatus(service, status) {
-    const sentStatus = (
+    const statusRecord = (
       await this.store.query('concept', {
         filter: {
           ':uri:': status,
         },
       })
     ).firstObject;
-    service.status = sentStatus;
+    service.status = statusRecord;
     this.updateLastModifiedDate();
 
     await service.save();

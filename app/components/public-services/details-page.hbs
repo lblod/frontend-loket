@@ -16,7 +16,8 @@
         class="au-u-max-width-small"
       >
         <p>
-          Er ging iets fout bij het laden van het formulier, gelieve de helpdesk te contacteren.
+          Er ging iets fout bij het laden van het formulier, gelieve de helpdesk
+          te contacteren.
         </p>
       </AuAlert>
     </div>
@@ -42,7 +43,11 @@
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
     <AuButtonGroup>
-      {{#unless @readOnly}}
+      {{#if @readOnly}}
+        <AuButton {{on "click" this.requestReopeningConfirmation}}>
+          Product opnieuw bewerken
+        </AuButton>
+      {{else}}
         <AuButton
           @disabled={{this.publicServiceAction.isRunning}}
           {{on "click" this.requestSubmitConfirmation}}
@@ -62,7 +67,7 @@
         >
           Wijzigingen bewaren
         </AuButton>
-      {{/unless}}
+      {{/if}}
       <AuLink @route="public-services" @skin="button-naked">
         Terug naar het overzicht
       </AuLink>
