@@ -3,6 +3,7 @@ import { guidFor } from '@ember/object/internals';
 import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 import { action } from '@ember/object';
+import { scheduleOnce } from '@ember/runloop';
 import { NamedNode } from 'rdflib';
 import { LBLOD_SUBSIDIE } from 'frontend-loket/rdf/namespaces';
 
@@ -14,20 +15,15 @@ const validAmountPredicate = new NamedNode(
 
 export default class RdfFormFieldsEInclusionMaxValidatorComponent extends SimpleInputFieldComponent {
   inputId = 'e-inclusion-max-validator' + guidFor(this);
-  @tracked maximumvalue;
+  maximumvalue;
   @tracked errors = A();
 
   constructor() {
     super(...arguments);
-    this.loadProvidedValue();
+    scheduleOnce('actions', this, this.initComponent);
   }
 
-  loadProvidedValue() {
-    super.loadProvidedValue();
-    if (this.value == null) {
-      this.value = 0;
-    }
-
+  initComponent() {
     const maxValue = this.args.formStore.match(
       undefined,
       LBLOD_SUBSIDIE('drawingRightEInclusion'),
@@ -79,13 +75,14 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
     } else if (!this.isValidAmountLB(num)) {
       this.errors.pushObject({
         message:
-          'Het aangevraagde bedrag overschrijdt de maximale waarde voor dit bestuuur: €' +
+          'Het aangevraagde bedrag overschrijdt de maximale waarde voor dit bestuur: €' +
           Math.round(this.maximumvalue),
       });
       this.updateTripleObject(source, validAmountPredicate, null);
     } else {
       this.updateTripleObject(source, validAmountPredicate, true);
     }
+    console.log('Got Here');
     this.updateTripleObject(source, amountPredicate, num);
   }
 
