@@ -27,6 +27,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @action
   setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
+    this.setExpectedEndDate(mandaat);
   }
 
   @action
@@ -151,6 +152,22 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       contactPoint.rollbackAttributes();
 
       this.editingContact = null;
+    }
+  }
+
+  setExpectedEndDate(mandaat) {
+    if (
+      mandaat.bestuursfunctie.get('label') ===
+      'Bestuurslid (van rechtswege) van het bestuur van de eredienst'
+    ) {
+      this.model.expectedEndDate = undefined; // Bestuurslid (van rechtswege) is a lifetime mandate
+    } else {
+      let plannedEndDates = this.bestuursorganenInTijd.map(
+        (o) => o.bindingEinde
+      );
+      this.model.expectedEndDate = !plannedEndDates
+        ? undefined
+        : plannedEndDates[0];
     }
   }
 }

@@ -63,6 +63,7 @@
         />
       </div>
     </div>
+    {{#if this.model.expectedEndDate}}
     <div class="au-u-margin-bottom-small">
       <AuLabel for="mandate-expected-end-date">GeplandeEinddatumAanstelling</AuLabel>
       <AuDatePicker
@@ -71,6 +72,16 @@
         @id="mandate-expected-end-date"
       />
     </div>
+    {{else}}
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="mandate-expected-end-date">GeplandeEinddatumAanstelling</AuLabel>
+        <AuInput
+          @value="N/A"
+          @disabled={{true}}
+          @id="mandate-expected-end-date"
+        />
+    </div>
+    {{/if}}
   </div>
 
   <AuHr @size="small" />
