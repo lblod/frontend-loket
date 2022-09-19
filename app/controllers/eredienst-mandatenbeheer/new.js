@@ -31,6 +31,15 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   }
 
   @action
+  async setMandaat(mandaat) {
+    this.model.worshipMandatee.bekleedt = mandaat;
+    this.setExpectedEndDate(
+      await this.fetchBestuursorganenInTijd(mandaat),
+      mandaat
+    );
+  }
+
+  @action
   handleDateChange(type, isoDate, date) {
     this.model.worshipMandatee[type] = date;
   }
@@ -46,5 +55,19 @@ export default class EredienstMandatenbeheerNewController extends Controller {
       'eredienst-mandatenbeheer.mandataris.edit',
       worshipMandatee.id
     );
+  }
+
+  async setExpectedEndDate(bestuursorganenInTijd, mandaat) {
+    if (
+      mandaat.get('bestuursfunctie.label') ===
+      'Bestuurslid (van rechtswege) van het bestuur van de eredienst'
+    ) {
+      this.model.worshipMandatee.expectedEndDate = undefined; // Bestuurslid (van rechtswege) is a lifetime mandate
+    } else {
+      let plannedEndDates = bestuursorganenInTijd.map((o) => o.bindingEinde);
+      this.model.worshipMandatee.expectedEndDate = !plannedEndDates
+        ? undefined
+        : plannedEndDates[0];
+    }
   }
 }
