@@ -1,0 +1,32 @@
+<AuModal
+  @modalOpen={{true}}
+  @closeModal={{this.close}}
+  data-test-confirm-reopening-modal="modal"
+>
+  <:title>Product of dienst opnieuw bewerken?</:title>
+  <:body>
+  Eenmaal heropend, komt het document terug in status 'Ontwerp' te staan. <br>
+  Nadien kan u verder werken zoals gewoonlijk.
+  </:body>
+  <:footer>
+    <AuButtonGroup>
+      <AuButton
+        @icon="pencil"
+        @disabled={{this.reopen.isRunning}}
+        @loading={{this.reopen.isRunning}}
+        {{on "click" (perform this.reopen)}}
+        data-test-confirm-reopening-modal="confirm-button"
+      >
+        Product opnieuw bewerken
+      </AuButton>
+      <AuButton
+        @skin="secondary"
+        @disabled={{this.reopen.isRunning}}
+        {{on "click" this.close}}
+        data-test-confirm-reopening-modal="cancel-button"
+      >
+        Annuleer
+      </AuButton>
+    </AuButtonGroup>
+  </:footer>
+</AuModal>
