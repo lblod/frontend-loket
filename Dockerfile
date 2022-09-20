@@ -3,8 +3,9 @@ FROM madnificent/ember:3.27.0 as builder
 LABEL maintainer="info@redpencil.io"
 
 WORKDIR /app
-COPY package.json .
-RUN npm install
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable
+RUN pnpm install
 COPY . .
 RUN EMBER_TEST_SELECTORS_STRIP=false ember build -prod
 RUN git clone https://github.com/lblod/handleiding-digitaal-loket.git handleiding \

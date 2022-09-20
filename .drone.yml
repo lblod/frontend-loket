@@ -6,15 +6,16 @@ steps:
 - name: install
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
-  - npm install
+  - corepack enable
+  - pnpm install
 - name: lint:js
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
-  - npm run lint:js
+  - pnpm lint:js
 - name: lint:hbs
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
-  - npm run lint:hbs
+  - pnpm lint:hbs
 - name: lint:dependencies
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
@@ -22,7 +23,7 @@ steps:
 - name: test
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
-  - npm run test:ember
+  - pnpm test:ember
 trigger:
   event:
     - pull_request
