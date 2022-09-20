@@ -15,8 +15,6 @@ export default class MandatenbeheerFractiesController extends Controller {
   @tracked defaultFractieType;
   @tracked mandatenbeheer;
 
-  @alias('mandatenbeheer.startDate') startDate;
-  @alias('mandatenbeheer.bestuursperioden') bestuursperioden;
   @alias('mandatenbeheer.bestuurseenheid') bestuurseenheid;
   @alias('mandatenbeheer.bestuursorganen') bestuursorganen;
 
@@ -49,11 +47,12 @@ export default class MandatenbeheerFractiesController extends Controller {
   }
 
   @action
-  selectPeriod(startDate) {
+  selectPeriod(period) {
     this.router.transitionTo('mandatenbeheer.fracties', {
       queryParams: {
+        startDate: period.startDate,
+        endDate: period.endDate,
         page: 0,
-        startDate: startDate,
       },
     });
   }
