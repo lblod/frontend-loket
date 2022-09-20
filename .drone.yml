@@ -6,7 +6,7 @@ steps:
 - name: install
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
-  - npm install
+  - npm ci
 - name: lint:js
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
