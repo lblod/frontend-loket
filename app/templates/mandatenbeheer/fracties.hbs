@@ -11,11 +11,10 @@
   <Group>
     <div class="power-select">
       <Mandatenbeheer::BestuursperiodenSelector
-        @options={{this.bestuursperioden}}
-        @selectedStartDate={{this.startDate}}
+        @options={{this.mandatenbeheer.bestuursperiods}}
+        @selectedPeriod={{this.mandatenbeheer.selectedPeriod}}
         @onSelect={{this.selectPeriod}}
       />
-
     </div>
   </Group>
 </AuToolbar>
