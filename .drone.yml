@@ -11,10 +11,12 @@ steps:
 - name: lint:js
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
+  - corepack enable
   - pnpm lint:js
 - name: lint:hbs
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
+  - corepack enable
   - pnpm lint:hbs
 - name: lint:dependencies
   image: danlynn/ember-cli:4.2.0-node_16.14
@@ -23,6 +25,7 @@ steps:
 - name: test
   image: danlynn/ember-cli:4.2.0-node_16.14
   commands:
+  - corepack enable
   - pnpm test:ember
 trigger:
   event:
