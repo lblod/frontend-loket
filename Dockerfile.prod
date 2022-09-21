@@ -11,7 +11,7 @@ RUN git clone https://github.com/lblod/handleiding-digitaal-loket.git handleidin
       && rm -r handleiding/.git \
       && mv handleiding /app/dist/handleiding
 
-FROM semtech/ember-proxy-service:1.4.0
+FROM semtech/ember-proxy-service:1.5.1
 
 ENV STATIC_FOLDERS_REGEX "^/(assets|font|files|handleiding|toezicht/bestanden|@appuniversum)/"
 
