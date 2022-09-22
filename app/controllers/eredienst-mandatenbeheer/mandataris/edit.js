@@ -9,6 +9,10 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
+import {
+  fetchBestuursorganenInTijd,
+  setExpectedEndDate,
+} from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
@@ -25,9 +29,13 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   }
 
   @action
-  setMandaat(mandaat) {
+  async setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
-    this.setExpectedEndDate(mandaat);
+    setExpectedEndDate(
+      await fetchBestuursorganenInTijd(this.store, mandaat.uri),
+      this.model,
+      mandaat
+    );
   }
 
   @action
@@ -152,22 +160,6 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       contactPoint.rollbackAttributes();
 
       this.editingContact = null;
-    }
-  }
-
-  setExpectedEndDate(mandaat) {
-    if (
-      mandaat.bestuursfunctie.get('label') ===
-      'Bestuurslid (van rechtswege) van het bestuur van de eredienst'
-    ) {
-      this.model.expectedEndDate = undefined; // Bestuurslid (van rechtswege) is a lifetime mandate
-    } else {
-      let plannedEndDates = this.bestuursorganenInTijd.map(
-        (o) => o.bindingEinde
-      );
-      this.model.expectedEndDate = !plannedEndDates
-        ? undefined
-        : plannedEndDates[0];
     }
   }
 }

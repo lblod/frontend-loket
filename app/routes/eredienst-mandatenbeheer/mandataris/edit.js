@@ -4,7 +4,6 @@ import {
   CONTACT_TYPE,
   findPrimaryContactPoint,
 } from 'frontend-loket/models/contact-punt';
-
 export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service currentSession;
   @service store;
@@ -26,11 +25,6 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
       'filter[type]': CONTACT_TYPE.PRIMARY,
       include: 'adres,secondary-contact-point',
     });
-
-    this.bestuursorganenInTijd = await this.store.query('bestuursorgaan', {
-      'filter[bevat][:uri:]': mandataris.bekleedt.get('uri'),
-      sort: '-binding-start',
-    });
   }
 
   model() {
@@ -40,7 +34,6 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   setupController(controller) {
     super.setupController(...arguments);
 
-    controller.bestuursorganenInTijd = this.bestuursorganenInTijd;
     controller.bestuursorganen = this.bestuursorganen;
     controller.contactList = this.contacts;
     controller.selectedContact = this.selectedContact;

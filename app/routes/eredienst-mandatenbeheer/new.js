@@ -38,11 +38,6 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
     return {};
   }
 
-  setupController(controller) {
-    super.setupController(...arguments);
-    controller.fetchBestuursorganenInTijd = this.fetchBestuursorganenInTijd;
-  }
-
   resetController(controller, isExiting) {
     super.resetController(...arguments);
 
@@ -50,13 +45,5 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
       controller.personId = '';
       controller.model?.worshipMandatee?.rollbackAttributes();
     }
-  }
-
-  async fetchBestuursorganenInTijd(mandaat) {
-    let bestuursorganenInTijd = await this.store.query('bestuursorgaan', {
-      'filter[bevat][:uri:]': mandaat.get('uri'),
-      sort: '-binding-start',
-    });
-    return bestuursorganenInTijd;
   }
 }
