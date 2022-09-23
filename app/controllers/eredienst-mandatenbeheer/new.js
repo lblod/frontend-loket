@@ -3,10 +3,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
-import {
-  fetchBestuursorganenInTijd,
-  setExpectedEndDate,
-} from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
   @service router;
@@ -35,14 +32,10 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   }
 
   @action
-  async setMandaat(mandaat) {
+  setMandaat(mandaat) {
     const { worshipMandatee } = this.model;
     worshipMandatee.bekleedt = mandaat;
-    setExpectedEndDate(
-      await fetchBestuursorganenInTijd(this.store, mandaat.uri),
-      worshipMandatee,
-      mandaat
-    );
+    setExpectedEndDate(this.store, worshipMandatee, mandaat);
   }
 
   @action
