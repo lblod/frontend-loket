@@ -8,13 +8,13 @@ export async function setExpectedEndDate(store, mandataris, mandaat) {
     'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5972fccd87f864c4ec06bfbd20b5008b'; // Bestuurslid (van rechtswege) is a lifetime mandate
   let bestuursfunctie = await mandaat.bestuursfunctie;
 
-  let bestuursorganenInTijd = await store.query('bestuursorgaan', {
-    'filter[bevat][:uri:]': mandaat.uri,
-    sort: '-binding-start',
-  });
   if (bestuursfunctie.uri === lifetimeMandate) {
     mandataris.expectedEndDate = undefined;
   } else {
+    let bestuursorganenInTijd = await store.query('bestuursorgaan', {
+      'filter[bevat][:uri:]': mandaat.uri,
+      sort: '-binding-start',
+    });
     let plannedEndDates = bestuursorganenInTijd.map(
       (bestuursorgaan) => bestuursorgaan.bindingEinde
     );
