@@ -63,6 +63,16 @@
         />
       </div>
     </div>
+    {{#if this.model.bekleedt}}
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="mandate-expected-end-date">Geplande einddatum</AuLabel>
+      <AuInput
+        @value={{if this.model.expectedEndDate (moment-format this.model.expectedEndDate 'DD.MM.YYYY') 'N/A'}}
+        @disabled={{true}}
+        @id="mandate-expected-end-date"
+      />
+    </div>
+    {{/if}}
   </div>
 
   <AuHr @size="small" />

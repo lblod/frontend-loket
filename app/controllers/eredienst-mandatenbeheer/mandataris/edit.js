@@ -9,6 +9,7 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
+import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
@@ -27,6 +28,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @action
   setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
+    setExpectedEndDate(this.store, this.model, mandaat);
   }
 
   @action

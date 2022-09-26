@@ -62,7 +62,7 @@
         <Mandatenbeheer::MandaatBestuursorganenSelector
           @bestuursorganen={{@model.bestuursorganen}}
           @mandaat={{@model.worshipMandatee.bekleedt}}
-          @onSelect={{fn (mut @model.worshipMandatee.bekleedt)}}
+          @onSelect={{this.setMandaat}}
         />
       </div>
 
@@ -85,6 +85,17 @@
           />
         </div>
       </div>
+
+      {{#if @model.worshipMandatee.bekleedt}}
+        <div class="au-u-margin-bottom-small">
+          <AuLabel for="mandate-expected-end-date">Geplande einddatum</AuLabel>
+          <AuInput
+            @value={{if @model.worshipMandatee.expectedEndDate (moment-format @model.worshipMandatee.expectedEndDate 'DD.MM.YYYY') 'N/A'}}
+            @disabled={{true}}
+            @id="mandate-expected-end-date"
+          />
+        </div>
+        {{/if}}
 
       <AuAlert @skin="info" @icon="info-circle" @size="small">
         <p>
