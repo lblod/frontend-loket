@@ -11,6 +11,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   queryParams = ['personId'];
   @tracked personId = '';
+  @tracked shouldSelectMandaat = true;
 
   get shouldSelectPerson() {
     return !this.model?.person;
@@ -33,6 +34,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   @action
   setMandaat(mandaat) {
+    this.shouldSelectMandaat = false;
     const { worshipMandatee } = this.model;
     worshipMandatee.bekleedt = mandaat;
     setExpectedEndDate(this.store, worshipMandatee, mandaat);
@@ -48,11 +50,16 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     event.preventDefault();
 
     let { worshipMandatee } = this.model;
-    yield worshipMandatee.save();
+    if (this.shouldSelectMandaat) {
+      return {}; // Room for some error handling
+    } else {
+      yield worshipMandatee.save();
+      this.shouldSelectMandaat = true;
 
-    this.router.transitionTo(
-      'eredienst-mandatenbeheer.mandataris.edit',
-      worshipMandatee.id
-    );
+      this.router.transitionTo(
+        'eredienst-mandatenbeheer.mandataris.edit',
+        worshipMandatee.id
+      );
+    }
   }
 }
