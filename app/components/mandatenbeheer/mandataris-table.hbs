@@ -20,9 +20,10 @@
     <c.body data-test-loket="mandatarissen-body" as |row|>
       {{#unless @displaySubset}}
         <td class="au-u-visible-small-up">
-          {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}
-            {{bestuursorgaan.isTijdsspecialisatieVan.naam}}<br>
-          {{/each}}
+        {{#each (get @mandatarisBestuursorganen row.id) as |bestuursorgaan index|}}
+          {{#if (gt index 0)}}<br>{{/if}}
+          {{bestuursorgaan.naam}}
+        {{/each}}
         </td>
       {{/unless}}
       <td class="au-u-visible-small-up">
