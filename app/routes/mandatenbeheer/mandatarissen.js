@@ -2,6 +2,8 @@
 import Route from '@ember/routing/route';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { hash } from 'rsvp';
+import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class MandatenbeheerMandatarissenRoute extends Route.extend(
@@ -14,6 +16,15 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
   beforeModel() {
     const mandatenbeheer = this.modelFor('mandatenbeheer');
     this.mandatenbeheer = mandatenbeheer;
+  }
+
+  async afterModel(mandatarissen) {
+    let mandatarisBestuursorganen = mandatarissen.reduce((data, mandataris) => {
+      data[mandataris.id] = getUniqueBestuursorganen(mandataris);
+      return data;
+    }, {});
+
+    this.mandatarisBestuursorganen = await hash(mandatarisBestuursorganen);
   }
 
   mergeQueryOptions(params) {
@@ -48,6 +59,7 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
       'filter'
     ];
     controller.mandatenbeheer = this.mandatenbeheer;
+    controller.mandatarisBestuursorganen = this.mandatarisBestuursorganen;
   }
 
   @action
