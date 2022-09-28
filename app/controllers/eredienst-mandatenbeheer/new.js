@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
+import { isMandaatSelected } from 'frontend-loket/models/worship-mandatee';
 import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
@@ -11,7 +12,6 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   queryParams = ['personId'];
   @tracked personId = '';
-  @tracked shouldSelectMandaat = true;
 
   get shouldSelectPerson() {
     return !this.model?.person;
@@ -34,7 +34,6 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   @action
   setMandaat(mandaat) {
-    this.shouldSelectMandaat = false;
     const { worshipMandatee } = this.model;
     worshipMandatee.bekleedt = mandaat;
     setExpectedEndDate(this.store, worshipMandatee, mandaat);
@@ -50,16 +49,14 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     event.preventDefault();
 
     let { worshipMandatee } = this.model;
-    if (this.shouldSelectMandaat) {
-      return {}; // Room for some error handling
-    } else {
+    if (yield isMandaatSelected(worshipMandatee)) {
       yield worshipMandatee.save();
-      this.shouldSelectMandaat = true;
-
       this.router.transitionTo(
         'eredienst-mandatenbeheer.mandataris.edit',
         worshipMandatee.id
       );
+    } else {
+      worshipMandatee.errors.add('mandaat', 'Mandaat is een vereist veld.');
     }
   }
 }
