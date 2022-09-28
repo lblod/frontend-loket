@@ -2,6 +2,8 @@ import Route from '@ember/routing/route';
 // eslint-disable-next-line ember/no-mixins
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
+import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
+import { hash } from 'rsvp';
 
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
   DataTableRouteMixin
@@ -13,6 +15,15 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
   beforeModel() {
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
     this.mandatenbeheer = mandatenbeheer;
+  }
+
+  async afterModel(mandatarissen) {
+    let mandatarisBestuursorganen = mandatarissen.reduce((data, mandataris) => {
+      data[mandataris.id] = getUniqueBestuursorganen(mandataris);
+      return data;
+    }, {});
+
+    this.mandatarisBestuursorganen = await hash(mandatarisBestuursorganen);
   }
 
   mergeQueryOptions(params) {
@@ -49,5 +60,6 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
       'eredienst-mandatenbeheer.mandatarissen'
     )['filter'];
     controller.mandatenbeheer = this.mandatenbeheer;
+    controller.mandatarisBestuursorganen = this.mandatarisBestuursorganen;
   }
 }

@@ -5,6 +5,7 @@ import { registerFormFields } from '@lblod/ember-submission-form-fields';
 import ApplicationFormTableEditComponent from 'frontend-loket/components/rdf-form-fields/application-form-table/edit';
 import ApplicationFormTableShowComponent from 'frontend-loket/components/rdf-form-fields/application-form-table/show';
 import ClimateSubsidyCostsTableComponent from 'frontend-loket/components/rdf-form-fields/climate-subsidy-costs-table';
+import EInclusionMaxValidatorComponent from 'frontend-loket/components/rdf-form-fields/e-inclusion-max-validator';
 import EngagementTableEditComponent from 'frontend-loket/components/rdf-form-fields/engagement-table/edit';
 import EngagementTableShowComponent from 'frontend-loket/components/rdf-form-fields/engagement-table/show';
 import EstimatedCostEditComponent from 'frontend-loket/components/rdf-form-fields/estimated-cost-table/edit';
@@ -62,6 +63,11 @@ export default class SubsidyApplicationsEditRoute extends Route {
         displayType:
           'http://lblod.data.gift/display-types/climateSubsidyCostTable',
         edit: ClimateSubsidyCostsTableComponent,
+      },
+      {
+        displayType:
+          'http://lblod.data.gift/display-types/eInclusionMaxValidator',
+        edit: EInclusionMaxValidatorComponent,
       },
       {
         displayType: 'http://lblod.data.gift/display-types/engagementTable',

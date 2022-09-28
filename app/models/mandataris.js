@@ -33,3 +33,17 @@ export default class MandatarisModel extends AgentInPosition {
   @hasMany('contact-punt', { inverse: 'mandatarissen' }) contactPoints;
 
 }
+
+export async function getUniqueBestuursorganen(mandataris) {
+  let mandate = await mandataris.bekleedt;
+  let bestuursorganenInTijd = await mandate.bevatIn;
+
+  let bestuursorganen = new Set();
+
+  for (const bestuursorgaanInTijd of bestuursorganenInTijd.toArray()) {
+    let bestuursorgaan = await bestuursorgaanInTijd.isTijdsspecialisatieVan;
+    bestuursorganen.add(bestuursorgaan);
+  }
+
+  return Array.from(bestuursorganen);
+}

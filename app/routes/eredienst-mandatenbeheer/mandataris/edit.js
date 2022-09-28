@@ -4,7 +4,6 @@ import {
   CONTACT_TYPE,
   findPrimaryContactPoint,
 } from 'frontend-loket/models/contact-punt';
-
 export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service currentSession;
   @service store;
