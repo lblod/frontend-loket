@@ -50,8 +50,9 @@
       </c.header>
       <c.body data-test-loket="mandatarissen-body" as |row|>
         <td class="au-u-visible-small-up">
-          {{#each row.bekleedt.bevatIn as |bestuursorgaan|}}
-            {{bestuursorgaan.isTijdsspecialisatieVan.naam}}<br>
+          {{#each (get this.mandatarisBestuursorganen row.id) as |bestuursorgaan index|}}
+            {{#if (gt index 0)}}<br>{{/if}}
+            {{bestuursorgaan.naam}}
           {{/each}}
         </td>
         <td class="au-u-visible-small-up">
