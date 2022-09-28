@@ -3,6 +3,7 @@ import Route from '@ember/routing/route';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { hash } from 'rsvp';
+import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class MandatenbeheerMandatarissenRoute extends Route.extend(
@@ -65,17 +66,4 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
   reloadModel() {
     this.refresh();
   }
-}
-async function getUniqueBestuursorganen(mandataris) {
-  let mandate = await mandataris.bekleedt;
-  let bestuursorganenInTijd = await mandate.bevatIn;
-
-  let bestuursorganen = new Set();
-
-  for (const bestuursorgaanInTijd of bestuursorganenInTijd.toArray()) {
-    let bestuursorgaan = await bestuursorgaanInTijd.isTijdsspecialisatieVan;
-    bestuursorganen.add(bestuursorgaan);
-  }
-
-  return Array.from(bestuursorganen);
 }
