@@ -6,3 +6,8 @@ export default class WorshipMandateeModel extends Mandataris {
   @attr('date') expectedEndDate;
   @attr reasonStopped;
 }
+
+export async function isMandaatSelected(worshipMandatee) {
+  let mandate = await worshipMandatee.bekleedt;
+  return Boolean(mandate);
+}
