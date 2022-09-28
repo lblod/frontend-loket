@@ -59,7 +59,7 @@
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
         {{#let (if @model.worshipMandatee.errors.mandaat true false) as |showError|}}
-        <AuLabel for="mandaat" @error={{showError}}>Mandaat</AuLabel>
+        <AuLabel for="mandaat" @error={{showError}} @required={{true}}>Mandaat</AuLabel>
         <Mandatenbeheer::MandaatBestuursorganenSelector
           @bestuursorganen={{@model.bestuursorganen}}
           @mandaat={{@model.worshipMandatee.bekleedt}}
