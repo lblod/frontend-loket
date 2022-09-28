@@ -1,3 +1,4 @@
+<div class={{if @error "ember-power-select--error"}}>
 <PowerSelect
         @loadingMessage = 'Aan het laden...'
         @noMatchesMessage = 'Geen resultaten'
@@ -14,3 +15,4 @@
         as |mandaat|>
   {{mandaat.bestuursfunctie.label}}
 </PowerSelect>
+</div>
