@@ -36,6 +36,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   setMandaat(mandaat) {
     const { worshipMandatee } = this.model;
     worshipMandatee.bekleedt = mandaat;
+    worshipMandatee.errors.remove('bekleedt');
     setExpectedEndDate(this.store, worshipMandatee, mandaat);
   }
 
@@ -56,7 +57,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
         worshipMandatee.id
       );
     } else {
-      worshipMandatee.errors.add('mandaat', 'Mandaat is een vereist veld.');
+      worshipMandatee.errors.add('bekleedt', 'Mandaat is een vereist veld.');
     }
   }
 }
