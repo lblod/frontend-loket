@@ -6,7 +6,7 @@ module('Unit | Serializer | public service', function (hooks) {
   setupTest(hooks);
 
   test('it only serializes the allowed fields', function (assert) {
-    assert.expect(2);
+    assert.expect(3);
 
     let store = this.owner.lookup('service:store');
     store.push({
@@ -21,6 +21,7 @@ module('Unit | Serializer | public service', function (hooks) {
           uri: 'http://foo.bar/1234',
         },
         relationships: {
+          concept: { data: { id: '1', type: 'conceptual-public-service' } },
           status: { data: { id: '1', type: 'concept' } },
           conceptTags: {
             data: [
