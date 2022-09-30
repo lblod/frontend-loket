@@ -29,7 +29,6 @@ export default class PublicServicesAddRoute extends Route {
   *loadPublicServicesTask({ search, page, sort }) {
     let query = {
       'page[number]': page,
-      include: 'target-audiences,concept-tags,type,competent-authority-levels',
     };
 
     if (search) {
@@ -39,6 +38,24 @@ export default class PublicServicesAddRoute extends Route {
     if (sort) {
       query.sort = sort;
     }
-    return yield this.store.query('conceptual-public-service', query);
+
+    let conceptualPublicServices = yield this.store.query(
+      'conceptual-public-service',
+      query
+    );
+
+    let promises = [];
+    conceptualPublicServices.forEach((service) => {
+      promises.push(
+        service.hasMany('targetAudiences').load(),
+        service.hasMany('conceptTags').load(),
+        service.hasMany('competentAuthorityLevels').load(),
+        service.belongsTo('type').load()
+      );
+    });
+
+    yield Promise.all(promises);
+
+    return conceptualPublicServices;
   }
 }
