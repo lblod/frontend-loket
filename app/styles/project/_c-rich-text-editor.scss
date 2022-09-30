@@ -12,7 +12,7 @@ $default-editor-height: 200px;
   }
 
   .say-editor {
-    padding: 1.2rem;
+    padding: 0;
     border: 0.1rem solid var(--au-gray-300);
     border-radius: 0 0 var(--au-radius) var(--au-radius);
 
@@ -37,6 +37,7 @@ $default-editor-height: 200px;
   }
 
   .say-content {
+    padding: 1.2rem;
     min-height: $default-editor-height;
   }
 }
