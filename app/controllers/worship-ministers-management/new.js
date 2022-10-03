@@ -27,6 +27,13 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
+  handleFunctieChange(functie) {
+    const { worshipMinister } = this.model;
+    worshipMinister.ministerPosition = functie;
+    worshipMinister.errors.remove('ministerPosition');
+  }
+
+  @action
   handleDateChange(type, isoDate, date) {
     this.model.worshipMinister[type] = date;
   }
@@ -41,11 +48,33 @@ export default class WorshipMinistersManagementNewController extends Controller 
     event.preventDefault();
 
     let { worshipMinister } = this.model;
-    yield worshipMinister.save();
+    if (!worshipMinister.agentStartDate) {
+      worshipMinister.errors.add(
+        'agentStartDate',
+        'Startdatum is een vereist veld.'
+      );
+    }
 
-    this.router.transitionTo(
-      'worship-ministers-management.minister.edit',
-      worshipMinister.id
+    if (
+      yield isFunctieValid(worshipMinister) && worshipMinister.agentStartDate
+    ) {
+      yield worshipMinister.save();
+      this.router.transitionTo(
+        'worship-ministers-management.minister.edit',
+        worshipMinister.id
+      );
+    }
+  }
+}
+
+async function isFunctieValid(worshipMinister) {
+  let functie = await worshipMinister.ministerPosition;
+  if (!functie) {
+    worshipMinister.errors.add(
+      'ministerPosition',
+      'Functienaam is een vereist veld.'
     );
+  } else {
+    return functie.isValid;
   }
 }
