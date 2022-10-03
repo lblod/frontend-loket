@@ -31,7 +31,6 @@ export default class PublicServicesIndexRoute extends Route {
     let query = {
       'filter[created-by][:uri:]': this.currentSession.group.uri,
       'page[number]': page,
-      include: 'target-audiences,type,executing-authority-levels,status',
     };
 
     if (search) {
@@ -41,6 +40,21 @@ export default class PublicServicesIndexRoute extends Route {
     if (sort) {
       query.sort = sort;
     }
-    return yield this.store.query('public-service', query);
+
+    let publicServices = yield this.store.query('public-service', query);
+
+    let promises = [];
+    publicServices.forEach((service) => {
+      promises.push(
+        service.hasMany('targetAudiences').reload(),
+        service.hasMany('executingAuthorityLevels').reload(),
+        service.belongsTo('type').reload(),
+        service.belongsTo('status').reload()
+      );
+    });
+
+    yield Promise.all(promises);
+
+    return publicServices;
   }
 }
