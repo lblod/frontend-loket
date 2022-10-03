@@ -73,7 +73,7 @@
             @isAvailable={{this.currentSession.canAccessWorshipMinisterManagement}}
             @icon="user"
             @extraInformationLink="https://lokaalbestuur.vlaanderen.be/erediensten"
-            @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bedienarenbeheer"
+            {{!-- TODO: Add userManualLink link when it will be available --}}
           >
             <:title>Bedienarenbeheer</:title>
             <:description>Hou de bedienaren binnen de erediensten bij.</:description>
@@ -88,8 +88,8 @@
           <LoketModuleCard
             @isAvailable={{this.currentSession.canAccessEredienstMandatenbeheer}}
             @icon="users-four-of-four"
-            @extraInformationLink="TODO"
-            @userManualLink="TODO"
+            @extraInformationLink="https://lokaalbestuur.vlaanderen.be/erediensten"
+            {{!-- TODO: Add userManualLink link when it will be available --}}
           >
             <:title>Eredienst mandatenbeheer</:title>
             <:description>Hou de mandaten binnen de erediensten bij.</:description>
