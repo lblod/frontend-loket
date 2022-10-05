@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
+import { isFunctieValid } from 'frontend-loket/models/minister';
 
 export default class WorshipMinistersManagementNewController extends Controller {
   @service router;
@@ -64,17 +65,5 @@ export default class WorshipMinistersManagementNewController extends Controller 
         worshipMinister.id
       );
     }
-  }
-}
-
-async function isFunctieValid(worshipMinister) {
-  let functie = await worshipMinister.ministerPosition;
-  if (!functie) {
-    worshipMinister.errors.add(
-      'ministerPosition',
-      'Functienaam is een vereist veld.'
-    );
-  } else {
-    return functie.isValid;
   }
 }
