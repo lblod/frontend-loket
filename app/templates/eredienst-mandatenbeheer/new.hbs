@@ -59,7 +59,12 @@
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
         {{#let (if @model.worshipMandatee.errors.bekleedt true false) as |showError|}}
-        <AuLabel for="mandaat" @error={{showError}} @required={{true}}>Mandaat</AuLabel>
+        <AuLabel for="mandaat"
+          @error={{showError}}
+          @required={{true}}
+          >
+          Mandaat
+        </AuLabel>
         <Mandatenbeheer::MandaatBestuursorganenSelector
           @bestuursorganen={{@model.bestuursorganen}}
           @mandaat={{@model.worshipMandatee.bekleedt}}
@@ -78,12 +83,27 @@
 
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="mandate-start-date">Start</AuLabel>
+        {{#let (if @model.worshipMandatee.errors.start true false) as |showError|}}
+          <AuLabel for="mandate-start-date"
+            @error={{showError}}
+            @required={{true}}
+            >
+            Start
+          </AuLabel>
           <AuDatePicker
             @value={{@model.worshipMandatee.start}}
             @onChange={{fn this.handleDateChange "start"}}
+            @error={{showError}}
             @id="mandate-start-date"
           />
+          {{#if showError}}
+          <AuHelpText @error={{true}}>
+            {{#each @model.worshipMandatee.errors.start as |errors|}}
+              {{errors.message}}
+            {{/each}}
+          </AuHelpText>
+        {{/if}}
+        {{/let}}
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
