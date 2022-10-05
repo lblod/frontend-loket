@@ -121,8 +121,12 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     if (!minister.agentStartDate) {
       minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
     }
-    if (yield isFunctieValid(minister)) {
-      yield this.model.save();
+    if (
+      yield isFunctieValid(minister) &&
+        minister.agentStartDate &&
+        minister.ministerPosition // this is a workaround when no functies are set
+    ) {
+      yield minister.save();
 
       try {
         yield this.router.transitionTo('worship-ministers-management');

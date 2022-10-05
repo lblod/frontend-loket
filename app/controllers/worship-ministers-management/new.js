@@ -52,12 +52,14 @@ export default class WorshipMinistersManagementNewController extends Controller 
     if (!worshipMinister.agentStartDate) {
       worshipMinister.errors.add(
         'agentStartDate',
-        'Startdatum is een vereist veld.'
+        'startdatum is een vereist veld.'
       );
     }
 
     if (
-      yield isFunctieValid(worshipMinister) && worshipMinister.agentStartDate
+      yield isFunctieValid(worshipMinister) &&
+        worshipMinister.agentStartDate &&
+        worshipMinister.isValid
     ) {
       yield worshipMinister.save();
       this.router.transitionTo(
