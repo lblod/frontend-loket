@@ -71,12 +71,22 @@
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="worship-minister-end-date">Eindedatum</AuLabel>
+          {{#let (if @model.worshipMinister.errors.agentEndDate true false) as |showError|}}
+          <AuLabel for="worship-minister-end-date" @error={{showError}}>Eindedatum</AuLabel>
           <AuDatePicker
             @value={{@model.worshipMinister.agentEndDate}}
             @onChange={{fn this.handleDateChange "agentEndDate"}}
+            @error={{showError}}
             @id="worship-minister-end-date"
           />
+          {{#if showError}}
+          <AuHelpText @error={{true}}>
+            {{#each @model.worshipMinister.errors.agentEndDate as |errors|}}
+              {{errors.message}}
+            {{/each}}
+          </AuHelpText>
+          {{/if}}
+          {{/let}}
         </div>
       </div>
 

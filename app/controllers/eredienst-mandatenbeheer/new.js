@@ -42,7 +42,14 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   @action
   handleDateChange(type, isoDate, date) {
-    this.model.worshipMandatee[type] = date;
+    const { worshipMandatee } = this.model;
+    worshipMandatee[type] = date;
+    if (worshipMandatee.einde <= worshipMandatee.start) {
+      worshipMandatee.errors.add(
+        'einde',
+        'De einddatum moet groter zijn dan de begindatum'
+      );
+    }
   }
 
   @dropTask
@@ -50,6 +57,9 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     event.preventDefault();
 
     let { worshipMandatee } = this.model;
+    if (worshipMandatee.errors.has('einde')) {
+      return;
+    }
     if (yield isMandaatSelected(worshipMandatee)) {
       yield worshipMandatee.save();
       this.router.transitionTo(

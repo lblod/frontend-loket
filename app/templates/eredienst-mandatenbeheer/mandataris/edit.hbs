@@ -55,12 +55,22 @@
         />
       </div>
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel for="mandate-correction-end-date">Einde</AuLabel>
+        {{#let (if this.model.errors.einde true false) as |showError|}}
+        <AuLabel for="mandate-correction-end-date" @error={{showError}}>Einde</AuLabel>
         <AuDatePicker
           @value={{this.model.einde}}
           @onChange={{fn this.handleDateChange "einde"}}
+          @error={{showError}}
           @id="mandate-correction-end-date"
         />
+        {{#if showError}}
+          <AuHelpText @error={{true}}>
+            {{#each this.model.errors.einde as |errors|}}
+              {{errors.message}}
+            {{/each}}
+          </AuHelpText>
+        {{/if}}
+        {{/let}}
       </div>
     </div>
     {{#if this.model.bekleedt}}

@@ -27,8 +27,15 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
-  handleDateChange(type, isoDate, date) {
-    this.model.worshipMinister[type] = date;
+  async handleDateChange(type, isoDate, date) {
+    const { worshipMinister } = this.model;
+    worshipMinister[type] = date;
+    if (worshipMinister.agentEndDate <= worshipMinister.agentStartDate) {
+      worshipMinister.errors.add(
+        'agentEndDate',
+        'De einddatum moet groter zijn dan de begindatum'
+      );
+    }
   }
 
   @action
@@ -41,6 +48,9 @@ export default class WorshipMinistersManagementNewController extends Controller 
     event.preventDefault();
 
     let { worshipMinister } = this.model;
+    if (worshipMinister.errors.has('agentEndDate')) {
+      return;
+    }
     yield worshipMinister.save();
 
     this.router.transitionTo(

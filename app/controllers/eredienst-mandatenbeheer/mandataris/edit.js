@@ -34,6 +34,12 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @action
   handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
+    if (this.model.einde <= this.model.start) {
+      this.model.errors.add(
+        'einde',
+        'De einddatum moet groter zijn dan de begindatum'
+      );
+    }
   }
 
   @action
@@ -118,7 +124,9 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     } else {
       this.model.contacts = [];
     }
-
+    if (this.model.errors.has('einde')) {
+      return;
+    }
     yield this.model.save();
 
     try {
