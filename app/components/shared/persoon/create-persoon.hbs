@@ -115,7 +115,7 @@
       <div>
         {{#let (if this.errors.geboorte true false) as |showError|}}
         <AuLabel for="mandataris-geboorte"
-          @required={{true}}
+          @required={{this.isGeboorteFieldRequired}}
           @error={{showError}}
           >
           Geboortedatum

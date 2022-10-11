@@ -75,6 +75,10 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     return !!this.args.nationalityRequired;
   }
 
+  get isGeboorteFieldRequired() {
+    return !!this.args.geboorteRequired;
+  }
+
   @task
   *loadOrCreateRijksregister() {
     let identificator;
@@ -125,7 +129,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
       }
     });
 
-    if (!this.birthDate) {
+    if (!this.birthDate && this.isGeboorteFieldRequired) {
       errors.geboorte = 'geboortedatum is een vereist veld.';
     }
 
