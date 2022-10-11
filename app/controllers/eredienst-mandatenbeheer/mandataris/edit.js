@@ -10,7 +10,7 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
-import { isMandaatValid } from 'frontend-loket/models/worship-mandatee';
+import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
@@ -123,7 +123,9 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       this.model.errors.add('start', 'start is een vereist veld.');
     }
     if (
-      yield isMandaatValid(this.model) && this.model.start && this.model.isValid
+      (yield validateMandaat(this.model)) &&
+      this.model.start &&
+      this.model.isValid
     ) {
       yield this.model.save();
 

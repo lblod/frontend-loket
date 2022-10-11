@@ -9,7 +9,7 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
-import { isFunctieValid } from 'frontend-loket/models/minister';
+import { validateFunctie } from 'frontend-loket/models/minister';
 
 export default class WorshipMinistersManagementMinisterEditController extends Controller {
   @service store;
@@ -122,9 +122,9 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
     }
     if (
-      yield isFunctieValid(minister) &&
-        minister.agentStartDate &&
-        minister.ministerPosition // this is a workaround when no functies are set
+      (yield validateFunctie(minister)) &&
+      minister.agentStartDate &&
+      minister.ministerPosition
     ) {
       yield minister.save();
 

@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
-import { isFunctieValid } from 'frontend-loket/models/minister';
+import { validateFunctie } from 'frontend-loket/models/minister';
 
 export default class WorshipMinistersManagementNewController extends Controller {
   @service router;
@@ -55,11 +55,10 @@ export default class WorshipMinistersManagementNewController extends Controller 
         'startdatum is een vereist veld.'
       );
     }
-
     if (
-      yield isFunctieValid(worshipMinister) &&
-        worshipMinister.agentStartDate &&
-        worshipMinister.isValid
+      (yield validateFunctie(worshipMinister)) &&
+      worshipMinister.agentStartDate &&
+      worshipMinister.isValid
     ) {
       yield worshipMinister.save();
       this.router.transitionTo(

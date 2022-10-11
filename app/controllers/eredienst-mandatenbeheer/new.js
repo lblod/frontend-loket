@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
-import { isMandaatValid } from 'frontend-loket/models/worship-mandatee';
+import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
@@ -54,9 +54,9 @@ export default class EredienstMandatenbeheerNewController extends Controller {
       worshipMandatee.errors.add('start', 'start is een vereist veld.');
     }
     if (
-      yield isMandaatValid(worshipMandatee) &&
-        worshipMandatee.start &&
-        worshipMandatee.isValid
+      (yield validateMandaat(worshipMandatee)) &&
+      worshipMandatee.start &&
+      worshipMandatee.isValid
     ) {
       yield worshipMandatee.save();
       this.router.transitionTo(
