@@ -9,10 +9,10 @@ export default class MinisterModel extends AgentInPosition {
   @hasMany('minister-condition', { inverse: null }) conditions;
 }
 
-export async function isFunctieValid(worshipMinister) {
+export async function validateFunctie(worshipMinister) {
   let functie = await worshipMinister.ministerPosition;
-
-  if (!functie) {
+  let isFunctie = Boolean(functie);
+  if (!isFunctie) {
     // TODO: This works around a problem in Ember Data where adding an error without the record being in a dirty state triggers an exception.
     // Ember Data doesn't consider relationship changes a "dirty" change, so this causes issues if the adres is cleared.
     // This workaround uses `.send` but that is a private API which is no longer present in Ember Data 4.x
@@ -24,7 +24,6 @@ export async function isFunctieValid(worshipMinister) {
       'ministerPosition',
       'functienaam is een vereist veld.'
     );
-  } else {
-    return functie.isValid;
   }
+  return isFunctie;
 }

@@ -7,11 +7,11 @@ export default class WorshipMandateeModel extends Mandataris {
   @attr reasonStopped;
 }
 
-export async function isMandaatValid(worshipMandatee) {
+export async function validateMandaat(worshipMandatee) {
   let mandate = await worshipMandatee.bekleedt;
-  if (!mandate) {
+  let isMandate = Boolean(mandate);
+  if (!isMandate) {
     worshipMandatee.errors.add('bekleedt', 'mandaat is een vereist veld.');
-  } else {
-    return mandate.isValid;
   }
+  return isMandate;
 }
