@@ -37,7 +37,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     if (this.model.einde <= this.model.start) {
       this.model.errors.add(
         'einde',
-        'De einddatum moet groter zijn dan de begindatum'
+        'De einddatum moet na de startdatum liggen'
       );
     }
   }

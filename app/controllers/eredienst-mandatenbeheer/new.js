@@ -47,7 +47,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     if (worshipMandatee.einde <= worshipMandatee.start) {
       worshipMandatee.errors.add(
         'einde',
-        'De einddatum moet groter zijn dan de begindatum'
+        'De einddatum moet na de startdatum liggen'
       );
     }
   }

@@ -33,7 +33,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
     if (worshipMinister.agentEndDate <= worshipMinister.agentStartDate) {
       worshipMinister.errors.add(
         'agentEndDate',
-        'De einddatum moet groter zijn dan de begindatum'
+        'De einddatum moet na de startdatum liggen'
       );
     }
   }

@@ -67,7 +67,7 @@
       </div>
       <div class="au-o-grid__item au-u-1-2">
         {{#let (if @model.minister.errors.agentEndDate true false) as |showError|}}
-        <AuLabel for="worship-minister-correction-end-date" @error={{showError}}>Eindedatum</AuLabel>
+        <AuLabel for="worship-minister-correction-end-date" @error={{showError}}>Einddatum</AuLabel>
         <AuDatePicker
           @value={{@model.minister.agentEndDate}}
           @onChange={{fn this.handleDateChange "agentEndDate"}}
