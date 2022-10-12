@@ -53,11 +53,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     if (!worshipMandatee.start) {
       worshipMandatee.errors.add('start', 'start is een vereist veld.');
     }
-    if (
-      (yield validateMandaat(worshipMandatee)) &&
-      worshipMandatee.start &&
-      worshipMandatee.isValid
-    ) {
+    if ((yield validateMandaat(worshipMandatee)) && worshipMandatee.isValid) {
       yield worshipMandatee.save();
       this.router.transitionTo(
         'eredienst-mandatenbeheer.mandataris.edit',

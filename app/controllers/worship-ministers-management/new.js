@@ -55,11 +55,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
         'startdatum is een vereist veld.'
       );
     }
-    if (
-      (yield validateFunctie(worshipMinister)) &&
-      worshipMinister.agentStartDate &&
-      worshipMinister.isValid
-    ) {
+    if ((yield validateFunctie(worshipMinister)) && worshipMinister.isValid) {
       yield worshipMinister.save();
       this.router.transitionTo(
         'worship-ministers-management.minister.edit',

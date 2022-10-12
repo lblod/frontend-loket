@@ -122,11 +122,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     if (!this.model.start) {
       this.model.errors.add('start', 'start is een vereist veld.');
     }
-    if (
-      (yield validateMandaat(this.model)) &&
-      this.model.start &&
-      this.model.isValid
-    ) {
+    if ((yield validateMandaat(this.model)) && this.model.isValid) {
       yield this.model.save();
 
       try {
