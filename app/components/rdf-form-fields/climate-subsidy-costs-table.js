@@ -133,7 +133,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       LBLOD_SUBSIDIE('lekp'),
       undefined,
       metaGraph
-    )[0].object.value;
+    )[0]?.object?.value || '1.0';
 
     this.drawingRight = drawingRight;
     this.restitutionToDestribute = drawingRight;
