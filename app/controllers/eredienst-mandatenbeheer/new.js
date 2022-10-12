@@ -44,11 +44,14 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   handleDateChange(type, isoDate, date) {
     const { worshipMandatee } = this.model;
     worshipMandatee[type] = date;
-    if (worshipMandatee.einde <= worshipMandatee.start) {
-      worshipMandatee.errors.add(
-        'einde',
-        'De einddatum moet na de startdatum liggen'
-      );
+    let { einde, start } = worshipMandatee;
+    if (einde instanceof Date && start instanceof Date) {
+      if (einde <= start) {
+        worshipMandatee.errors.add(
+          'einde',
+          'De einddatum moet na de startdatum liggen'
+        );
+      }
     }
   }
 

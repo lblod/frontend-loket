@@ -30,11 +30,14 @@ export default class WorshipMinistersManagementNewController extends Controller 
   async handleDateChange(type, isoDate, date) {
     const { worshipMinister } = this.model;
     worshipMinister[type] = date;
-    if (worshipMinister.agentEndDate <= worshipMinister.agentStartDate) {
-      worshipMinister.errors.add(
-        'agentEndDate',
-        'De einddatum moet na de startdatum liggen'
-      );
+    let { agentStartDate, agentEndDate } = worshipMinister;
+    if (agentEndDate instanceof Date && agentStartDate instanceof Date) {
+      if (agentEndDate <= agentStartDate) {
+        worshipMinister.errors.add(
+          'agentEndDate',
+          'De einddatum moet na de startdatum liggen'
+        );
+      }
     }
   }
 

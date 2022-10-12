@@ -34,11 +34,14 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @action
   handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
-    if (this.model.einde <= this.model.start) {
-      this.model.errors.add(
-        'einde',
-        'De einddatum moet na de startdatum liggen'
-      );
+    let { start, einde } = this.model;
+    if (einde instanceof Date && start instanceof Date) {
+      if (einde <= start) {
+        this.model.errors.add(
+          'einde',
+          'De einddatum moet na de startdatum liggen'
+        );
+      }
     }
   }
 

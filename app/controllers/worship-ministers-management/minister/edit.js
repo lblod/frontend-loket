@@ -27,11 +27,14 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   handleDateChange(attributeName, isoDate, date) {
     const { minister } = this.model;
     minister[attributeName] = date;
-    if (minister.agentEndDate <= minister.agentStartDate) {
-      minister.errors.add(
-        'agentEndDate',
-        'De einddatum moet na de startdatum liggen'
-      );
+    let { agentStartDate, agentEndDate } = minister;
+    if (agentEndDate instanceof Date && agentStartDate instanceof Date) {
+      if (agentEndDate <= agentStartDate) {
+        minister.errors.add(
+          'agentEndDate',
+          'De einddatum moet na de startdatum liggen'
+        );
+      }
     }
   }
 
