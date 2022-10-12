@@ -116,7 +116,7 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     } else {
       minister.contacts = [];
     }
-    if (minister.errors.has('agentEndDate')) {
+    if (!minister.isValid) {
       return;
     }
 

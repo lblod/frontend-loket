@@ -48,7 +48,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
     event.preventDefault();
 
     let { worshipMinister } = this.model;
-    if (worshipMinister.errors.has('agentEndDate')) {
+    if (!worshipMinister.isValid) {
       return;
     }
     yield worshipMinister.save();

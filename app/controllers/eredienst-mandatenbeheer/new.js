@@ -57,7 +57,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     event.preventDefault();
 
     let { worshipMandatee } = this.model;
-    if (worshipMandatee.errors.has('einde')) {
+    if (!worshipMandatee.isValid) {
       return;
     }
     if (yield isMandaatSelected(worshipMandatee)) {

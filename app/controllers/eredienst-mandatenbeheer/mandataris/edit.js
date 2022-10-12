@@ -124,7 +124,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     } else {
       this.model.contacts = [];
     }
-    if (this.model.errors.has('einde')) {
+    if (!this.model.isValid) {
       return;
     }
     yield this.model.save();
