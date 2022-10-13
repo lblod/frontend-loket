@@ -42,7 +42,19 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   @action
   handleDateChange(type, isoDate, date) {
-    this.model.worshipMandatee[type] = date;
+    const { worshipMandatee } = this.model;
+    worshipMandatee[type] = date;
+    let { einde, start } = worshipMandatee;
+    if (einde instanceof Date && start instanceof Date) {
+      if (einde <= start) {
+        worshipMandatee.errors.add(
+          'einde',
+          'De einddatum moet na de startdatum liggen'
+        );
+      } else {
+        worshipMandatee.errors.remove('einde');
+      }
+    }
   }
 
   @dropTask
@@ -59,6 +71,8 @@ export default class EredienstMandatenbeheerNewController extends Controller {
         'eredienst-mandatenbeheer.mandataris.edit',
         worshipMandatee.id
       );
+    } else {
+      return;
     }
   }
 }

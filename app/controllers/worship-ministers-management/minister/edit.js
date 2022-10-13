@@ -33,7 +33,19 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
   @action
   handleDateChange(attributeName, isoDate, date) {
-    this.model.minister[attributeName] = date;
+    const { minister } = this.model;
+    minister[attributeName] = date;
+    let { agentStartDate, agentEndDate } = minister;
+    if (agentEndDate instanceof Date && agentStartDate instanceof Date) {
+      if (agentEndDate <= agentStartDate) {
+        minister.errors.add(
+          'agentEndDate',
+          'De einddatum moet na de startdatum liggen'
+        );
+      } else {
+        minister.errors.remove('agentEndDate');
+      }
+    }
   }
 
   @action
@@ -116,6 +128,9 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       }
     } else {
       minister.contacts = [];
+    }
+    if (!minister.isValid) {
+      return;
     }
 
     if (!minister.agentStartDate) {

@@ -28,15 +28,27 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
+  async handleDateChange(type, isoDate, date) {
+    const { worshipMinister } = this.model;
+    worshipMinister[type] = date;
+    let { agentStartDate, agentEndDate } = worshipMinister;
+    if (agentEndDate instanceof Date && agentStartDate instanceof Date) {
+      if (agentEndDate <= agentStartDate) {
+        worshipMinister.errors.add(
+          'agentEndDate',
+          'De einddatum moet na de startdatum liggen'
+        );
+      } else {
+        worshipMinister.errors.remove('agentEndDate');
+      }
+    }
+  }
+
+  @action
   handleFunctieChange(functie) {
     const { worshipMinister } = this.model;
     worshipMinister.ministerPosition = functie;
     worshipMinister.errors.remove('ministerPosition');
-  }
-
-  @action
-  handleDateChange(type, isoDate, date) {
-    this.model.worshipMinister[type] = date;
   }
 
   @action
@@ -61,6 +73,8 @@ export default class WorshipMinistersManagementNewController extends Controller 
         'worship-ministers-management.minister.edit',
         worshipMinister.id
       );
+    } else {
+      return;
     }
   }
 }

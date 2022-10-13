@@ -35,6 +35,17 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @action
   handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
+    let { start, einde } = this.model;
+    if (einde instanceof Date && start instanceof Date) {
+      if (einde <= start) {
+        this.model.errors.add(
+          'einde',
+          'De einddatum moet na de startdatum liggen'
+        );
+      } else {
+        this.model.errors.remove('einde');
+      }
+    }
   }
 
   @action
@@ -133,6 +144,8 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
         // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
         // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
       }
+    } else {
+      return;
     }
   }
 
