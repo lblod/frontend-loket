@@ -47,7 +47,7 @@
     </div>
     <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel for="mandate-correction-start-date">Start</AuLabel>
+        <AuLabel for="mandate-correction-start-date">Startdatum</AuLabel>
         <AuDatePicker
           @value={{this.model.start}}
           @onChange={{fn this.handleDateChange "start"}}
@@ -56,7 +56,7 @@
       </div>
       <div class="au-o-grid__item au-u-1-2">
         {{#let (if this.model.errors.einde true false) as |showError|}}
-        <AuLabel for="mandate-correction-end-date" @error={{showError}}>Einde</AuLabel>
+        <AuLabel for="mandate-correction-end-date" @error={{showError}}>Einddatum</AuLabel>
         <AuDatePicker
           @value={{this.model.einde}}
           @onChange={{fn this.handleDateChange "einde"}}
