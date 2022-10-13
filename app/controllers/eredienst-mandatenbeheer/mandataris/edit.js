@@ -10,6 +10,7 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
@@ -118,14 +119,20 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     } else {
       this.model.contacts = [];
     }
+    if (!this.model.start) {
+      this.model.errors.add('start', 'startdatum is een vereist veld.');
+    }
+    if ((yield validateMandaat(this.model)) && this.model.isValid) {
+      yield this.model.save();
 
-    yield this.model.save();
-
-    try {
-      yield this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen');
-    } catch (error) {
-      // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
-      // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
+      try {
+        yield this.router.transitionTo(
+          'eredienst-mandatenbeheer.mandatarissen'
+        );
+      } catch (error) {
+        // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
+        // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
+      }
     }
   }
 

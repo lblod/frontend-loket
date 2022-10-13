@@ -9,6 +9,7 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
+import { validateFunctie } from 'frontend-loket/models/minister';
 
 export default class WorshipMinistersManagementMinisterEditController extends Controller {
   @service store;
@@ -21,6 +22,13 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
   get isEditingContactPoint() {
     return Boolean(this.editingContact);
+  }
+
+  @action
+  handleFunctieChange(functie) {
+    const { minister } = this.model;
+    minister.ministerPosition = functie;
+    minister.errors.remove('ministerPosition');
   }
 
   @action
@@ -110,13 +118,18 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       minister.contacts = [];
     }
 
-    yield minister.save();
+    if (!minister.agentStartDate) {
+      minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
+    }
+    if ((yield validateFunctie(minister)) && minister.isValid) {
+      yield minister.save();
 
-    try {
-      yield this.router.transitionTo('worship-ministers-management');
-    } catch (error) {
-      // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
-      // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
+      try {
+        yield this.router.transitionTo('worship-ministers-management');
+      } catch (error) {
+        // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
+        // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
+      }
     }
   }
 

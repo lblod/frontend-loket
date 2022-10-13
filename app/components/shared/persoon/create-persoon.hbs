@@ -113,14 +113,27 @@
       {{/let}}
       {{/if}}
       <div>
-        <AuLabel for="mandataris-geboorte">Geboortedatum</AuLabel>
+        {{#let (if this.errors.geboorte true false) as |showError|}}
+        <AuLabel for="mandataris-geboorte"
+          @required={{this.isGeboorteFieldRequired}}
+          @error={{showError}}
+          >
+          Geboortedatum
+        </AuLabel>
         <AuDatePicker
           @value={{this.birthDate}}
           @min={{this.minDate}}
           @max={{this.maxDate}}
           @id="mandataris-geboorte"
           @onChange={{this.setDateOfBirth}}
+          @error={{showError}}
         />
+        {{#if showError}}
+          <AuHelpText @error="true">
+            {{this.errors.geboorte}}
+          </AuHelpText>
+        {{/if}}
+      {{/let}}
       </div>
       <div>
         <AuLabel @error={{if this.errors.geslacht true}} @required={{true}}>
