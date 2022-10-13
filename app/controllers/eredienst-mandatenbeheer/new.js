@@ -51,6 +51,8 @@ export default class EredienstMandatenbeheerNewController extends Controller {
           'einde',
           'De einddatum moet na de startdatum liggen'
         );
+      } else {
+        worshipMandatee.errors.remove('einde');
       }
     }
   }

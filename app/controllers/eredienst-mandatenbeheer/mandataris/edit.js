@@ -41,6 +41,8 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
           'einde',
           'De einddatum moet na de startdatum liggen'
         );
+      } else {
+        this.model.errors.remove('einde');
       }
     }
   }

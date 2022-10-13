@@ -34,6 +34,8 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
           'agentEndDate',
           'De einddatum moet na de startdatum liggen'
         );
+      } else {
+        minister.errors.remove('agentEndDate');
       }
     }
   }
