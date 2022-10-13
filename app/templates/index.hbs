@@ -14,7 +14,6 @@
       {{#if this.currentSession.canAccessToezicht}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessToezicht}}
           @icon="search-folder"
           @extraInformationLink="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-toezicht"
           @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#toezicht"
@@ -30,7 +29,6 @@
       {{#if this.currentSession.canAccessBerichten}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessBerichten}}
           @icon="message"
           @extraInformationLink="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-berichtencentrum"
           @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#berichtencentrum"
@@ -46,7 +44,6 @@
       {{#if this.currentSession.canAccessBbcdr}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessBbcdr}}
           @icon="document"
           @extraInformationLink="https://lokaalbestuur.vlaanderen.be/bbc-strategisch-en-financieel-beleid/digitale-rapportering"
           @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bbcdr"
@@ -62,7 +59,6 @@
       {{#if this.currentSession.canAccessMandaat}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessMandaat}}
           @icon="user-fill"
           @extraInformationLink="https://lokaalbestuur.vlaanderen.be/mandatarissen/mandatendatabank"
           @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#mandatenbeheer"
@@ -75,10 +71,9 @@
         </LoketModuleCard>
       </li>
       {{/if}}
-      {{#if (or is-feature-enabled "worship-minister-management" this.currentSession.canAccessWorshipMinisterManagement)}}
+      {{#if (and (is-feature-enabled "worship-minister-management") this.currentSession.canAccessWorshipMinisterManagement)}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
           <LoketModuleCard
-            @isAvailable={{this.currentSession.canAccessWorshipMinisterManagement}}
             @icon="user"
             @extraInformationLink="https://lokaalbestuur.vlaanderen.be/erediensten"
             {{!-- TODO: Add userManualLink link when it will be available --}}
@@ -91,10 +86,9 @@
           </LoketModuleCard>
         </li>
       {{/if}}
-      {{#if (or is-feature-enabled "eredienst-mandatenbeheer" this.currentSession.canAccessEredienstMandatenbeheer)}}
+      {{#if (and (is-feature-enabled "eredienst-mandatenbeheer") this.currentSession.canAccessEredienstMandatenbeheer)}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
           <LoketModuleCard
-            @isAvailable={{this.currentSession.canAccessEredienstMandatenbeheer}}
             @icon="users-four-of-four"
             @extraInformationLink="https://lokaalbestuur.vlaanderen.be/erediensten"
             {{!-- TODO: Add userManualLink link when it will be available --}}
@@ -110,7 +104,6 @@
       {{#if this.currentSession.canAccessLeidinggevenden}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessLeidinggevenden}}
           @icon="user-popup"
           @extraInformationLink="https://lokaalbestuur.vlaanderen.be/personeel/databank-leidinggevenden"
           @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#leidinggevendenbeheer"
@@ -126,7 +119,6 @@
       {{#if this.currentSession.canAccessPersoneelsbeheer}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessPersoneelsbeheer}}
           @icon="users"
           @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#personeelsbeheer"
         >
@@ -141,7 +133,6 @@
       {{#if this.currentSession.canAccessSubsidies}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessSubsidies}}
           @icon="documents"
           @extraInformationLink="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies"
           @userManualLink="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#subsidiebeheer"
@@ -154,10 +145,9 @@
         </LoketModuleCard>
       </li>
       {{/if}}
-      {{#if (or is-feature-enabled "public-services" this.currentSession.canAccessPublicServices)}}
+      {{#if (and (is-feature-enabled "public-services") this.currentSession.canAccessPublicServices)}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
-          @isAvailable={{this.currentSession.canAccessPublicServices}}
           @icon="unordered-list"
           {{! TODO: Add the needed documentation links }}
         >

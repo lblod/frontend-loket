@@ -1,4 +1,3 @@
-{{#if @isAvailable}}
 <AuCard @flex="true" ...attributes as |c|>
   {{#if (has-block "title")}}
     <c.header @badgeSkin="brand" @badgeIcon={{@icon}}>
@@ -43,4 +42,3 @@
     </c.footer>
   {{/if}}
 </AuCard>
-{{/if}}
