@@ -1,3 +1,4 @@
+{{#if @isAvailable}}
 <AuCard @flex="true" ...attributes as |c|>
   {{#if (has-block "title")}}
     <c.header @badgeSkin="brand" @badgeIcon={{@icon}}>
@@ -12,21 +13,9 @@
         {{yield to="description"}}
       </p>
     {{/if}}
-
-    {{#if @isAvailable}}
       <p data-test-loket-module-card="link">
         {{yield to="link"}}
       </p>
-    {{else}}
-      <AuAlert
-        @title="Geen toegang."
-        @skin="info"
-        @size="tiny"
-        data-test-loket-module-card="not-available"
-      >
-        Neem contact op met uw interne beheerder om toegang te verkrijgen.
-      </AuAlert>
-    {{/if}}
   </c.content>
   {{#if (or @extraInformationLink @userManualLink)}}
     <c.footer>
@@ -54,3 +43,4 @@
     </c.footer>
   {{/if}}
 </AuCard>
+{{/if}}

@@ -11,6 +11,7 @@
     <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">Beschikbare modules</AuHeading>
 
     <ul class="au-o-grid au-o-grid--small">
+      {{#if this.currentSession.canAccessToezicht}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessToezicht}}
@@ -25,6 +26,8 @@
           </:link>
         </LoketModuleCard>
       </li>
+      {{/if}}
+      {{#if this.currentSession.canAccessBerichten}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessBerichten}}
@@ -39,6 +42,8 @@
           </:link>
         </LoketModuleCard>
       </li>
+      {{/if}}
+      {{#if this.currentSession.canAccessBbcdr}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessBbcdr}}
@@ -53,6 +58,8 @@
           </:link>
         </LoketModuleCard>
       </li>
+      {{/if}}
+      {{#if this.currentSession.canAccessMandaat}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessMandaat}}
@@ -67,7 +74,8 @@
           </:link>
         </LoketModuleCard>
       </li>
-      {{#if (is-feature-enabled "worship-minister-management")}}
+      {{/if}}
+      {{#if (or is-feature-enabled "worship-minister-management" this.currentSession.canAccessWorshipMinisterManagement)}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
           <LoketModuleCard
             @isAvailable={{this.currentSession.canAccessWorshipMinisterManagement}}
@@ -83,7 +91,7 @@
           </LoketModuleCard>
         </li>
       {{/if}}
-      {{#if (is-feature-enabled "eredienst-mandatenbeheer")}}
+      {{#if (or is-feature-enabled "eredienst-mandatenbeheer" this.currentSession.canAccessEredienstMandatenbeheer)}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
           <LoketModuleCard
             @isAvailable={{this.currentSession.canAccessEredienstMandatenbeheer}}
@@ -99,6 +107,7 @@
           </LoketModuleCard>
         </li>
       {{/if}}
+      {{#if this.currentSession.canAccessLeidinggevenden}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessLeidinggevenden}}
@@ -113,6 +122,8 @@
           </:link>
         </LoketModuleCard>
       </li>
+      {{/if}}
+      {{#if this.currentSession.canAccessPersoneelsbeheer}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessPersoneelsbeheer}}
@@ -126,6 +137,8 @@
           </:link>
         </LoketModuleCard>
       </li>
+      {{/if}}
+      {{#if this.currentSession.canAccessSubsidies}}
       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessSubsidies}}
@@ -140,7 +153,8 @@
           </:link>
         </LoketModuleCard>
       </li>
-      {{#if (is-feature-enabled "public-services")}}
+      {{/if}}
+      {{#if (or is-feature-enabled "public-services" this.currentSession.canAccessPublicServices)}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
         <LoketModuleCard
           @isAvailable={{this.currentSession.canAccessPublicServices}}
