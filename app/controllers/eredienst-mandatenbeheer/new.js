@@ -51,7 +51,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
     let { worshipMandatee } = this.model;
     if (!worshipMandatee.start) {
-      worshipMandatee.errors.add('start', 'start is een vereist veld.');
+      worshipMandatee.errors.add('start', 'startdatum is een vereist veld.');
     }
     if ((yield validateMandaat(worshipMandatee)) && worshipMandatee.isValid) {
       yield worshipMandatee.save();
