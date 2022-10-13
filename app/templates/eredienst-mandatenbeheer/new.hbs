@@ -88,7 +88,7 @@
             @error={{showError}}
             @required={{true}}
             >
-            Start
+            Startdatum
           </AuLabel>
           <AuDatePicker
             @value={{@model.worshipMandatee.start}}
@@ -107,7 +107,7 @@
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="mandate-end-date">Einde</AuLabel>
+          <AuLabel for="mandate-end-date">Einddatum</AuLabel>
           <AuDatePicker
             @value={{@model.worshipMandatee.einde}}
             @onChange={{fn this.handleDateChange "einde"}}

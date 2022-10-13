@@ -7,7 +7,6 @@ const LOKET_MODULE_CARD = {
   TITLE: '[data-test-loket-module-card="title"]',
   DESCRIPTION: '[data-test-loket-module-card="description"]',
   LINK: '[data-test-loket-module-card="link"]',
-  NOT_AVAILABLE: '[data-test-loket-module-card="not-available"]',
   EXTRA_INFORMATION_LINK:
     '[data-test-loket-module-card="extra-information-link"]',
   USER_MANUAL_LINK: '[data-test-loket-module-card="user-manual-link"]',
@@ -58,26 +57,9 @@ module('Integration | Component | loket-module-card', function (hooks) {
     assert.dom(LOKET_MODULE_CARD.DESCRIPTION).doesNotExist();
   });
 
-  test("it shows a message if the module isn't available", async function (assert) {
-    this.isAvailable = false;
-
-    await render(hbs`
-      <LoketModuleCard
-        @isAvailable={{this.isAvailable}}
-      />
-    `);
-
-    assert.dom(LOKET_MODULE_CARD.NOT_AVAILABLE).exists();
-
-    this.set('isAvailable', true);
-    assert.dom(LOKET_MODULE_CARD.NOT_AVAILABLE).doesNotExist();
-  });
-
   test('it has a block to render the module link', async function (assert) {
     await render(hbs`
-      <LoketModuleCard
-        @isAvailable={{true}}
-      >
+      <LoketModuleCard>
         <:link>
           Foo
         </:link>
@@ -121,53 +103,5 @@ module('Integration | Component | loket-module-card', function (hooks) {
     assert
       .dom(LOKET_MODULE_CARD.USER_MANUAL_LINK)
       .hasAttribute('href', 'https://user-manual.test');
-  });
-
-  test("it doesn't show the link content if the module isn't available", async function (assert) {
-    this.isAvailable = true;
-
-    await render(hbs`
-      <LoketModuleCard
-        @isAvailable={{this.isAvailable}}
-        @extraInformationLink="https://extra-information.test"
-        @userManualLink="https://user-manual.test"
-      >
-        <:title>Foo</:title>
-        <:description>Bar</:description>
-        <:link>
-          Baz
-        </:link>
-      </LoketModuleCard>
-    `);
-
-    assert.dom(LOKET_MODULE_CARD.LINK).hasText('Baz');
-    assert.dom(LOKET_MODULE_CARD.TITLE).hasText('Foo');
-    assert.dom(LOKET_MODULE_CARD.DESCRIPTION).hasText('Bar');
-
-    this.set('isAvailable', false);
-    assert.dom(LOKET_MODULE_CARD.LINK).doesNotExist();
-
-    assert
-      .dom(LOKET_MODULE_CARD.TITLE)
-      .hasText('Foo', "it also shows the title if the module isn't available");
-
-    assert
-      .dom(LOKET_MODULE_CARD.DESCRIPTION)
-      .hasText(
-        'Bar',
-        "it also shows the description if the module isn't available"
-      );
-
-    assert
-      .dom(LOKET_MODULE_CARD.EXTRA_INFORMATION_LINK)
-      .exists(
-        "it also shows the extra information link if the module isn't available"
-      );
-
-    assert
-      .dom(LOKET_MODULE_CARD.USER_MANUAL_LINK)
-      .exists(
-        "it also shows the user manual link if the module isn't available"
-      );
   });
 });

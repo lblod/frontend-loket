@@ -128,12 +128,13 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       metaGraph
     )[0].object.value;
 
-    const lekpValidation = this.args.formStore.match(
-      undefined,
-      LBLOD_SUBSIDIE('lekp'),
-      undefined,
-      metaGraph
-    )[0].object.value;
+    const lekpValidation =
+      this.args.formStore.match(
+        undefined,
+        LBLOD_SUBSIDIE('lekp'),
+        undefined,
+        metaGraph
+      )[0]?.object?.value || '1.0';
 
     this.drawingRight = drawingRight;
     this.restitutionToDestribute = drawingRight;
