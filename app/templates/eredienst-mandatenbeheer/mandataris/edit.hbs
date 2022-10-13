@@ -5,12 +5,12 @@
     <div>
       <AuHeading @skin="2">Bewerk mandataris</AuHeading>
       <p class="au-u-h3">
-        {{this.model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
-        {{this.model.isBestuurlijkeAliasVan.achternaam~}}
+        {{@model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+        {{@model.isBestuurlijkeAliasVan.achternaam~}}
 
-        {{~#if this.model.bekleedt~}}
+        {{~#if @model.bekleedt~}}
           ,
-          {{this.model.bekleedt.bestuursfunctie.label}}
+          {{@model.bekleedt.bestuursfunctie.label}}
         {{/if}}
       </p>
     </div>
@@ -38,27 +38,57 @@
 <AuBodyContainer @scroll={{true}}>
   <div class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
-      <AuLabel for="mandaat">Mandaat</AuLabel>
+      {{#let (if @model.errors.bekleedt true false) as |showError|}}
+      <AuLabel for="mandaat"
+        @required={{true}}
+        @error={{showError}}
+        >
+        Mandaat
+      </AuLabel>
       <Mandatenbeheer::MandaatBestuursorganenSelector
         @bestuursorganen={{this.bestuursorganen}}
-        @mandaat={{this.model.bekleedt}}
+        @mandaat={{@model.bekleedt}}
         @onSelect={{this.setMandaat}}
+        @error={{showError}}
       />
+      {{#if showError}}
+        <AuHelpText @error="true">
+          {{#each @model.errors.bekleedt as |errors|}}
+            {{errors.message}}
+          {{/each}}
+        </AuHelpText>
+      {{/if}}
+      {{/let}}
     </div>
     <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel for="mandate-correction-start-date">Startdatum</AuLabel>
+      {{#let (if @model.errors.start true false) as |showError|}}
+        <AuLabel for="mandate-correction-start-date"
+        @required={{true}}
+        @error={{showError}}
+        >
+        Startdatum
+        </AuLabel>
         <AuDatePicker
-          @value={{this.model.start}}
+          @value={{@model.start}}
           @onChange={{fn this.handleDateChange "start"}}
+          @error={{showError}}
           @id="mandate-correction-start-date"
         />
+        {{#if showError}}
+        <AuHelpText @error="true">
+          {{#each @model.errors.start as |errors|}}
+            {{errors.message}}
+          {{/each}}
+        </AuHelpText>
+      {{/if}}
+      {{/let}}
       </div>
       <div class="au-o-grid__item au-u-1-2">
         {{#let (if this.model.errors.einde true false) as |showError|}}
         <AuLabel for="mandate-correction-end-date" @error={{showError}}>Einddatum</AuLabel>
         <AuDatePicker
-          @value={{this.model.einde}}
+          @value={{@model.einde}}
           @onChange={{fn this.handleDateChange "einde"}}
           @error={{showError}}
           @id="mandate-correction-end-date"
@@ -73,11 +103,11 @@
         {{/let}}
       </div>
     </div>
-    {{#if this.model.bekleedt}}
+    {{#if @model.bekleedt}}
     <div class="au-u-margin-bottom-small">
       <AuLabel for="mandate-expected-end-date">Geplande einddatum</AuLabel>
       <AuInput
-        @value={{if this.model.expectedEndDate (moment-format this.model.expectedEndDate 'DD.MM.YYYY') 'N/A'}}
+        @value={{if @model.expectedEndDate (moment-format @model.expectedEndDate 'DD.MM.YYYY') 'N/A'}}
         @disabled={{true}}
         @id="mandate-expected-end-date"
       />

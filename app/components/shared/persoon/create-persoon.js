@@ -75,6 +75,10 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     return !!this.args.nationalityRequired;
   }
 
+  get isGeboorteFieldRequired() {
+    return !!this.args.geboorteRequired;
+  }
+
   @task
   *loadOrCreateRijksregister() {
     let identificator;
@@ -113,7 +117,8 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
   @task
   *save() {
-    // todo geboorte en identificator
+    // todo identificator
+
     let errors = {};
 
     if (this.isNationalityFieldRequired) requiredFields.push('nationaliteit');
@@ -123,6 +128,10 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
         errors[field] = `${field} is een vereist veld.`;
       }
     });
+
+    if (!this.birthDate && this.isGeboorteFieldRequired) {
+      errors.geboorte = 'geboortedatum is een vereist veld.';
+    }
 
     if (!this.isValidRijksregisternummer) {
       errors.rijksregisternummer = 'rijksregisternummer is niet geldig.';

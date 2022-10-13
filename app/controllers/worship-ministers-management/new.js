@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
+import { validateFunctie } from 'frontend-loket/models/minister';
 
 export default class WorshipMinistersManagementNewController extends Controller {
   @service router;
@@ -44,6 +45,13 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
+  handleFunctieChange(functie) {
+    const { worshipMinister } = this.model;
+    worshipMinister.ministerPosition = functie;
+    worshipMinister.errors.remove('ministerPosition');
+  }
+
+  @action
   cancel() {
     this.router.transitionTo('worship-ministers-management');
   }
@@ -53,14 +61,20 @@ export default class WorshipMinistersManagementNewController extends Controller 
     event.preventDefault();
 
     let { worshipMinister } = this.model;
-    if (!worshipMinister.isValid) {
+    if (!worshipMinister.agentStartDate) {
+      worshipMinister.errors.add(
+        'agentStartDate',
+        'startdatum is een vereist veld.'
+      );
+    }
+    if ((yield validateFunctie(worshipMinister)) && worshipMinister.isValid) {
+      yield worshipMinister.save();
+      this.router.transitionTo(
+        'worship-ministers-management.minister.edit',
+        worshipMinister.id
+      );
+    } else {
       return;
     }
-    yield worshipMinister.save();
-
-    this.router.transitionTo(
-      'worship-ministers-management.minister.edit',
-      worshipMinister.id
-    );
   }
 }
