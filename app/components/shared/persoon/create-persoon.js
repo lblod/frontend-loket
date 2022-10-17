@@ -26,7 +26,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   @tracked voornaam;
   @tracked familienaam;
   @tracked roepnaam;
-  @tracked rijksregisternummer;
+  @tracked rijksregisternummer = '';
   @tracked nationaliteit;
   @tracked birthDate;
   @tracked errors;
@@ -142,8 +142,10 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
       errors.rijksregisternummer = 'rijksregisternummer is niet geldig.';
     }
     if (
-      this.isFemale !== isBiologicalFemale(this.rijksregisternummer) ||
-      this.isMale !== isBiologicalMale(this.rijksregisternummer)
+      (this.isFemale !== isBiologicalFemale(this.rijksregisternummer) ||
+        this.isMale !== isBiologicalMale(this.rijksregisternummer)) &&
+      this.geslacht &&
+      this.rijksregisternummer
     ) {
       errors.geslacht =
         'het geslacht komt niet overeen met uw rijksregisternummer.';
@@ -201,6 +203,8 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
       if (isBiologicalMale(this.rijksregisternummer)) {
         this.setGender(maleId);
       }
+    } else {
+      this.rijksregisternummer = '';
     }
   }
 }
