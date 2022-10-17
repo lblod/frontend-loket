@@ -4,7 +4,11 @@ import { isBlank } from '@ember/utils';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
-import { getBirthDate } from 'frontend-loket/utils/rijksregisternummer';
+import {
+  getBirthDate,
+  isBiologicalFemale,
+  isBiologicalMale,
+} from 'frontend-loket/utils/rijksregisternummer';
 
 const maleId = '5ab0e9b8a3b2ca7c5e000028';
 const femaleId = '5ab0e9b8a3b2ca7c5e000029';
@@ -137,6 +141,13 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     if (!this.isValidRijksregisternummer) {
       errors.rijksregisternummer = 'rijksregisternummer is niet geldig.';
     }
+    if (
+      this.isFemale !== isBiologicalFemale(this.rijksregisternummer) ||
+      this.isMale !== isBiologicalMale(this.rijksregisternummer)
+    ) {
+      errors.geslacht =
+        'het geslacht komt niet overeen met uw rijksregisternummer.';
+    }
 
     this.errors = errors;
 
@@ -184,6 +195,12 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     if (rijksregisternummer) {
       this.rijksregisternummer = rijksregisternummer;
       this.birthDate = getBirthDate(this.rijksregisternummer);
+      if (isBiologicalFemale(this.rijksregisternummer)) {
+        this.setGender(femaleId);
+      }
+      if (isBiologicalMale(this.rijksregisternummer)) {
+        this.setGender(maleId);
+      }
     }
   }
 }
