@@ -4,6 +4,7 @@ import { isBlank } from '@ember/utils';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
+import { getBirthDate } from 'frontend-loket/utils/rijksregisternummer';
 
 const maleId = '5ab0e9b8a3b2ca7c5e000028';
 const femaleId = '5ab0e9b8a3b2ca7c5e000029';
@@ -176,5 +177,13 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   @action
   setDateOfBirth(isoDate, date) {
     this.birthDate = date;
+  }
+
+  @action
+  setRijksregisternummer(rijksregisternummer) {
+    if (rijksregisternummer) {
+      this.rijksregisternummer = rijksregisternummer;
+      this.birthDate = getBirthDate(this.rijksregisternummer);
+    }
   }
 }

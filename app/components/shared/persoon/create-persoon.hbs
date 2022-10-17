@@ -75,7 +75,7 @@
             @mask="99.99.99-999.99"
             @maskPlaceholder="_"
             @width="block"
-            @onChange={{fn (mut this.rijksregisternummer)}}
+            @onChange={{this.setRijksregisternummer}}
             value={{this.rijksregisternummer}}
             id="mandataris-rijksregister"
             placeholder="00.00.00-000.00"
