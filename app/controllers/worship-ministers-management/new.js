@@ -30,7 +30,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
         'gebruikte-voornaam': gebruikteVoornaam,
         identificator,
       } = queryParams.filter;
-      this.router.transitionTo('eredienst-mandatenbeheer.new-person', {
+      this.router.transitionTo('worship-ministers-management.new-person', {
         queryParams: {
           firstName: gebruikteVoornaam,
           lastName: achternaam,
@@ -38,7 +38,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
         },
       });
     } else {
-      this.router.transitionTo('eredienst-mandatenbeheer.new-person');
+      this.router.transitionTo('worship-ministers-management.new-person');
     }
   }
 
