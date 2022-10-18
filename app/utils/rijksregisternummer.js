@@ -17,6 +17,7 @@ export function isValidRijksregisternummer(nrn) {
   if (nrn.length !== 11) {
     return false;
   }
+  if (isBisNumber(nrn)) return false;
   const preNillies =
     parseInt(nrn.slice(9, 11)) ===
     parseInt(mod97(`${birthDate.join('')}${serial}`));
@@ -44,7 +45,7 @@ export function getBirthDate(nrn) {
   const year = getBirthYear(parsedNrn); // Eg. '86' from '860814'
   const month = getBirthMonth(parsedNrn.birthDate); // Eg. 8 from '860814'
   const day = getBirthDay(parsedNrn.birthDate); // Eg. 14 from '860814'
-  if (month === 0 || day === 0) {
+  if (month === '00' || day === '00') {
     throw new Error('Birth date is unknown');
   }
   return `${year}-${month}-${day}`;
@@ -82,7 +83,18 @@ export function isBirthDateKnown(nrn) {
   const { birthDate } = parse(nrn);
   const month = getBirthMonth(birthDate);
   const day = getBirthDay(birthDate);
-  return month !== 0 && day !== 0;
+  return (
+    month !== '00' &&
+    parseInt(month) <= 12 &&
+    day !== '00' &&
+    parseInt(day) <= 31
+  );
+}
+
+function isBisNumber(nrn) {
+  const { birthDate } = parse(nrn);
+  const month = parseInt(birthDate[1]);
+  return month >= BIS_MONTH_INCREMENT_GENDER_UNKNOWN;
 }
 
 export function isGenderKnown(nrn) {

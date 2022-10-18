@@ -8,6 +8,8 @@ import {
   getBirthDate,
   isBiologicalFemale,
   isBiologicalMale,
+  isBirthDateKnown,
+  isGenderKnown,
   isValidRijksregisternummer,
 } from 'frontend-loket/utils/rijksregisternummer';
 
@@ -173,12 +175,16 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   setRijksregisternummer(rijksregisternummer) {
     if (rijksregisternummer) {
       this.rijksregisternummer = rijksregisternummer;
-      this.birthDate = getBirthDate(this.rijksregisternummer);
-      if (isBiologicalFemale(this.rijksregisternummer)) {
-        this.setGender(femaleId);
-      }
-      if (isBiologicalMale(this.rijksregisternummer)) {
-        this.setGender(maleId);
+      if (isValidRijksregisternummer(this.rijksregisternummer)) {
+        this.birthDate = isBirthDateKnown(this.rijksregisternummer)
+          ? getBirthDate(this.rijksregisternummer)
+          : this.birthDate;
+        if (isGenderKnown(this.rijksregisternummer)) {
+          isBiologicalFemale(this.rijksregisternummer) &&
+          !isBiologicalMale(this.rijksregisternummer)
+            ? this.setGender(femaleId)
+            : this.setGender(maleId);
+        }
       }
     } else {
       this.rijksregisternummer = '';
