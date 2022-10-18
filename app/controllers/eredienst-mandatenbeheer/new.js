@@ -23,23 +23,12 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   }
 
   @action
-  createNewPerson(queryParams) {
-    if (queryParams.filter) {
-      const {
-        achternaam,
-        'gebruikte-voornaam': gebruikteVoornaam,
-        identificator,
-      } = queryParams.filter;
-      this.router.transitionTo('eredienst-mandatenbeheer.new-person', {
-        queryParams: {
-          firstName: gebruikteVoornaam,
-          lastName: achternaam,
-          rijksregisternummer: identificator,
-        },
-      });
-    } else {
-      this.router.transitionTo('eredienst-mandatenbeheer.new-person');
-    }
+  createNewPerson(hasData) {
+    hasData
+      ? this.router.transitionTo('eredienst-mandatenbeheer.new-person', {
+          queryParams: hasData,
+        })
+      : this.router.transitionTo('eredienst-mandatenbeheer.new-person');
   }
 
   @action

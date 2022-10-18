@@ -82,7 +82,7 @@
           <AuAlert @title="Komt het zoekresultaat niet overeen met wat u zocht?" @skin="info" @size="tiny" class="au-u-margin-top-small">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="tertiary" {{on 'click' (fn @onCreateNewPerson this.queryParams)}} class="au-c-link">
+              <AuButton @skin="tertiary" {{on 'click' (fn @onCreateNewPerson this.hasFieldData)}} class="au-c-link">
                 <AuIcon @icon="add" @alignment="left" />
                 voeg een nieuwe persoon toe
               </AuButton>.
@@ -92,7 +92,7 @@
           <AuAlert @title='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @skin="info" @size="tiny">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="tertiary" {{on 'click' (fn @onCreateNewPerson this.queryParams)}} class="au-c-link">
+              <AuButton @skin="tertiary" {{on 'click' (fn @onCreateNewPerson this.hasFieldData)}} class="au-c-link">
                 <AuIcon @icon="add" @alignment="left" />
                 voeg een nieuwe persoon toe
               </AuButton>.
@@ -103,7 +103,7 @@
         <AuContent>
           <p class="au-c-text-info">
             Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of
-            <AuButton @skin="tertiary" {{on 'click' (fn @onCreateNewPerson this.queryParams)}}>
+            <AuButton @skin="tertiary" {{on 'click' (fn @onCreateNewPerson this.hasFieldData)}}>
               <AuIcon @icon="add" @alignment="left" />
               voeg een nieuwe persoon toe
             </AuButton>.

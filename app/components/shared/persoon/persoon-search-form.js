@@ -36,6 +36,19 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
     return this.args.showDefaultHead ?? true;
   }
 
+  get hasFieldData() {
+    if (this.queryParams) {
+      const {
+        achternaam,
+        'gebruikte-voornaam': gebruikteVoornaam,
+        identificator,
+      } = this.queryParams.filter;
+      return { gebruikteVoornaam, achternaam, identificator };
+    } else {
+      return false;
+    }
+  }
+
   constructor() {
     super(...arguments);
     this.personen = A();
