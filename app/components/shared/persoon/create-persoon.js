@@ -18,10 +18,10 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   @service store;
 
   @tracked geslacht;
-  @tracked voornaam = this.args.prefilledValues.voornaam;
-  @tracked familienaam = this.args.prefilledValues.familienaam;
+  @tracked voornaam = this.args.prefilledValues?.voornaam;
+  @tracked familienaam = this.args.prefilledValues?.familienaam;
   @tracked roepnaam;
-  @tracked rijksregisternummer = this.args.prefilledValues.rijksregisternummer;
+  @tracked rijksregisternummer = this.args.prefilledValues?.rijksregisternummer;
   @tracked nationaliteit;
   @tracked birthDate;
   @tracked errors;
