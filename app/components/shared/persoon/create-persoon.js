@@ -8,6 +8,7 @@ import {
   getBirthDate,
   isBiologicalFemale,
   isBiologicalMale,
+  isValidRijksregisternummer,
 } from 'frontend-loket/utils/rijksregisternummer';
 
 const maleId = '5ab0e9b8a3b2ca7c5e000028';
@@ -59,21 +60,6 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
   get isFemale() {
     return this.geslacht === femaleId;
-  }
-
-  get isValidRijksregisternummer() {
-    let rr = this.rijksregisternummer;
-    if (isBlank(rr)) return false;
-    if (rr.length != 11) {
-      return false;
-    }
-    const preNillies =
-      parseInt(rr.slice(9, 11)) === 97 - (parseInt(rr.slice(0, 9)) % 97);
-    const postNillies =
-      parseInt(rr.slice(9, 11)) ===
-      97 - ((2000000000 + parseInt(rr.slice(0, 9))) % 97);
-
-    return preNillies || postNillies;
   }
 
   get isNationalityFieldRequired() {
@@ -138,7 +124,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
       errors.geboorte = 'geboortedatum is een vereist veld.';
     }
 
-    if (!this.isValidRijksregisternummer) {
+    if (!isValidRijksregisternummer(this.rijksregisternummer)) {
       errors.rijksregisternummer = 'rijksregisternummer is niet geldig.';
     }
     if (
