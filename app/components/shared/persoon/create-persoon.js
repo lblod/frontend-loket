@@ -127,15 +127,6 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     if (!isValidRijksregisternummer(this.rijksregisternummer)) {
       errors.rijksregisternummer = 'rijksregisternummer is niet geldig.';
     }
-    if (
-      (this.isFemale !== isBiologicalFemale(this.rijksregisternummer) ||
-        this.isMale !== isBiologicalMale(this.rijksregisternummer)) &&
-      this.geslacht &&
-      this.rijksregisternummer
-    ) {
-      errors.geslacht =
-        'het geslacht komt niet overeen met uw rijksregisternummer.';
-    }
 
     this.errors = errors;
 
