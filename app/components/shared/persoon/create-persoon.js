@@ -7,7 +7,6 @@ import { task } from 'ember-concurrency';
 import {
   getBirthDate,
   isBiologicalFemale,
-  isBiologicalMale,
   isBirthDateKnown,
   isGenderKnown,
   isValidRijksregisternummer,
@@ -172,22 +171,17 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   }
 
   @action
-  setRijksregisternummer(rijksregisternummer) {
-    if (rijksregisternummer) {
-      this.rijksregisternummer = rijksregisternummer;
-      if (isValidRijksregisternummer(this.rijksregisternummer)) {
-        this.birthDate = isBirthDateKnown(this.rijksregisternummer)
-          ? getBirthDate(this.rijksregisternummer)
-          : this.birthDate;
-        if (isGenderKnown(this.rijksregisternummer)) {
-          isBiologicalFemale(this.rijksregisternummer) &&
-          !isBiologicalMale(this.rijksregisternummer)
-            ? this.setGender(femaleId)
-            : this.setGender(maleId);
-        }
+  setRijksregisternummer(rijksregisternummer = '') {
+    this.rijksregisternummer = rijksregisternummer;
+    if (isValidRijksregisternummer(this.rijksregisternummer)) {
+      this.birthDate = isBirthDateKnown(this.rijksregisternummer)
+        ? new Date(getBirthDate(this.rijksregisternummer))
+        : this.birthDate;
+      if (isGenderKnown(this.rijksregisternummer)) {
+        isBiologicalFemale(this.rijksregisternummer)
+          ? this.setGender(femaleId)
+          : this.setGender(maleId);
       }
-    } else {
-      this.rijksregisternummer = '';
     }
   }
 }

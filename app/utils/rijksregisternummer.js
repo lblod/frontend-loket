@@ -12,18 +12,15 @@ const BIS_MONTH_INCREMENT_GENDER_KNOWN = 40;
 const mod97 = (input) => String(97 - (Number(input) % 97)).padStart(2, '0');
 
 export function isValidRijksregisternummer(nrn) {
-  const { birthDate, serial } = parse(nrn);
   if (!(typeof nrn === 'string' && nrn.trim().length > 0)) return false;
   if (nrn.length !== 11) {
     return false;
   }
-  if (isBisNumber(nrn)) return false;
+  const { birthDate, serial, checksum } = parse(nrn);
   const preNillies =
-    parseInt(nrn.slice(9, 11)) ===
-    parseInt(mod97(`${birthDate.join('')}${serial}`));
+    parseInt(checksum) === parseInt(mod97(`${birthDate.join('')}${serial}`));
   const postNillies =
-    parseInt(nrn.slice(9, 11)) ===
-    parseInt(mod97(`2${birthDate.join('')}${serial}`));
+    parseInt(checksum) === parseInt(mod97(`2${birthDate.join('')}${serial}`));
 
   return preNillies || postNillies;
 }
@@ -89,12 +86,6 @@ export function isBirthDateKnown(nrn) {
     day !== '00' &&
     parseInt(day) <= 31
   );
-}
-
-function isBisNumber(nrn) {
-  const { birthDate } = parse(nrn);
-  const month = parseInt(birthDate[1]);
-  return month >= BIS_MONTH_INCREMENT_GENDER_UNKNOWN;
 }
 
 export function isGenderKnown(nrn) {
