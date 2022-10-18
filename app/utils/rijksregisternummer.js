@@ -50,7 +50,7 @@ export function getBirthDate(nrn) {
   return `${year}-${month}-${day}`;
 }
 
-export function getBirthYear(nrn) {
+function getBirthYear(nrn) {
   const { birthDate, serial, checksum } = parse(nrn);
   const partialYear = birthDate[0]; // Eg. '86' from '860814'
   let year;
@@ -85,12 +85,6 @@ export function isBirthDateKnown(nrn) {
   return month !== 0 && day !== 0;
 }
 
-export function isBisNumber(nrn) {
-  const { birthDate } = parse(nrn);
-  const month = parseInt(birthDate[1]);
-  return month >= BIS_MONTH_INCREMENT_GENDER_UNKNOWN;
-}
-
 export function isGenderKnown(nrn) {
   const { birthDate } = parse(nrn);
   const nrnMonth = parseInt(birthDate[1]);
@@ -100,7 +94,7 @@ export function isGenderKnown(nrn) {
   );
 }
 
-export function normalize(nrn) {
+function normalize(nrn) {
   if (typeof nrn === 'string') {
     return nrn.replace(/[^\d]+/g, '');
   }
@@ -110,7 +104,7 @@ export function normalize(nrn) {
   throw new Error('Could not normalize nrn of invalid type');
 }
 
-export function parse(nrn) {
+function parse(nrn) {
   if (typeof nrn === 'string') {
     const normalizedNrn = normalize(nrn);
     const birthDateString = normalizedNrn.slice(0, 6); // Eg. '860814' from '86081441359'
