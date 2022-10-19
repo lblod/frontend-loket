@@ -175,7 +175,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     this.rijksregisternummer = rijksregisternummer;
     if (isValidRijksregisternummer(this.rijksregisternummer)) {
       this.birthDate = isBirthDateKnown(this.rijksregisternummer)
-        ? new Date(getBirthDate(this.rijksregisternummer))
+        ? new Date(`${getBirthDate(this.rijksregisternummer)} 00:00:00`)
         : this.birthDate;
       if (isGenderKnown(this.rijksregisternummer)) {
         isBiologicalFemale(this.rijksregisternummer)
