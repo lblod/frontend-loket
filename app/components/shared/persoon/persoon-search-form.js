@@ -15,11 +15,11 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
 
   @tracked personen;
   @tracked achternaam;
-  @tracked gebruikteVoornaam;
-  @tracked identificator;
+  @tracked voornaam;
+  @tracked rijksregisternummer;
 
   get searchTerms() {
-    return [this.gebruikteVoornaam, this.achternaam, this.identificator]
+    return [this.voornaam, this.achternaam, this.rijksregisternummer]
       .filter((t) => t)
       .join(', ');
   }
@@ -40,10 +40,10 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
     if (this.queryParams) {
       const {
         achternaam,
-        'gebruikte-voornaam': gebruikteVoornaam,
-        identificator,
+        'gebruikte-voornaam': voornaam,
+        identificator: rijksregisternummer,
       } = this.queryParams.filter;
-      return { gebruikteVoornaam, achternaam, identificator };
+      return { voornaam, achternaam, rijksregisternummer };
     } else {
       return false;
     }
@@ -58,7 +58,7 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   *search() {
     yield timeout(300);
 
-    if (!(this.achternaam || this.gebruikteVoornaam || this.identificator)) {
+    if (!(this.achternaam || this.voornaam || this.rijksregisternummer)) {
       this.queryParams = {};
       this.personen = [];
       return;
@@ -69,9 +69,10 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
       include: ['geboorte', 'identificator'].join(','),
       filter: {
         achternaam: this.achternaam || undefined,
-        'gebruikte-voornaam': this.gebruikteVoornaam || undefined,
+        'gebruikte-voornaam': this.voornaam || undefined,
         identificator:
-          (this.identificator && this.identificator.replace(/\D+/g, '')) ||
+          (this.rijksregisternummer &&
+            this.rijksregisternummer.replace(/\D+/g, '')) ||
           undefined,
       },
       page: {

@@ -19,7 +19,7 @@
         <AuInput
           @icon="search"
           @iconAlignment="left"
-          @value={{this.gebruikteVoornaam}}
+          @value={{this.voornaam}}
           id="mandataris-voornaam"
           placeholder="Voornaam"
           {{on "input" (perform this.search)}}
@@ -41,10 +41,10 @@
         <AuInput
           @icon="search"
           @iconAlignment="left"
-          @value={{this.identificator}}
+          @value={{this.rijksregisternummer}}
           @mask="99.99.99-999.99"
           @maskPlaceholder="_"
-          @onChange={{(fn (mut this.identificator))}}
+          @onChange={{(fn (mut this.rijksregisternummer))}}
           id="mandataris-rijksregisternummer"
           placeholder="00.00.00-000.00"
           {{on "input" (perform this.search)}}

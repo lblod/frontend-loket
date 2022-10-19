@@ -6,14 +6,14 @@ import { inject as service } from '@ember/service';
 export default class EredienstMandatenbeheerNewPersonController extends Controller {
   @service() router;
 
-  queryParams = ['gebruikteVoornaam', 'achternaam', 'rijksregisternummer'];
-  @tracked gebruikteVoornaam = '';
+  queryParams = ['voornaam', 'achternaam', 'rijksregisternummer'];
+  @tracked voornaam = '';
   @tracked achternaam = '';
   @tracked rijksregisternummer = '';
 
   get personPrefilledValues() {
     return {
-      voornaam: this.gebruikteVoornaam,
+      voornaam: this.voornaam,
       familienaam: this.achternaam,
       rijksregisternummer: this.rijksregisternummer,
     };
