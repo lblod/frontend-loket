@@ -36,19 +36,6 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
     return this.args.showDefaultHead ?? true;
   }
 
-  get hasFieldData() {
-    if (this.queryParams) {
-      const {
-        achternaam,
-        'gebruikte-voornaam': voornaam,
-        identificator: rijksregisternummer,
-      } = this.queryParams.filter;
-      return { voornaam, achternaam, rijksregisternummer };
-    } else {
-      return false;
-    }
-  }
-
   constructor() {
     super(...arguments);
     this.personen = A();
@@ -120,5 +107,18 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   @action
   toggleError() {
     this.resetAfterError();
+  }
+
+  @action
+  handleCreatePersonClick() {
+    if (!(this.achternaam || this.voornaam || this.rijksregisternummer)) {
+      this.args.onCreateNewPerson();
+    } else {
+      this.args.onCreateNewPerson({
+        voornaam: this.voornaam,
+        achternaam: this.achternaam,
+        rijksregisternummer: this.rijksregisternummer,
+      });
+    }
   }
 }
