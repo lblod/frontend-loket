@@ -6,9 +6,9 @@ export default class WorshipMinistersManagementNewPersonController extends Contr
   @service() router;
 
   queryParams = ['voornaam', 'achternaam', 'rijksregisternummer'];
-  @tracked voornaam = '';
-  @tracked achternaam = '';
-  @tracked rijksregisternummer = '';
+  @tracked voornaam;
+  @tracked achternaam;
+  @tracked rijksregisternummer;
 
   get personPrefilledValues() {
     return {

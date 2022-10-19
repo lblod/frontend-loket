@@ -7,9 +7,9 @@ export default class EredienstMandatenbeheerNewPersonController extends Controll
   @service() router;
 
   queryParams = ['voornaam', 'achternaam', 'rijksregisternummer'];
-  @tracked voornaam = '';
-  @tracked achternaam = '';
-  @tracked rijksregisternummer = '';
+  @tracked voornaam;
+  @tracked achternaam;
+  @tracked rijksregisternummer;
 
   get personPrefilledValues() {
     return {
