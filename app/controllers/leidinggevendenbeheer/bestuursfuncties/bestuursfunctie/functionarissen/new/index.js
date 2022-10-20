@@ -14,10 +14,15 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   }
 
   @action
-  createNewPerson() {
-    this.router.transitionTo(
-      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person'
-    );
+  createNewPerson(hasData) {
+    hasData
+      ? this.router.transitionTo(
+          'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person',
+          { queryParams: hasData }
+        )
+      : this.router.transitionTo(
+          'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person'
+        );
   }
 
   @action

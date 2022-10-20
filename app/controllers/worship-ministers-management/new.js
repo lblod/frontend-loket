@@ -23,8 +23,12 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
-  createNewPerson() {
-    this.router.transitionTo('worship-ministers-management.new-person');
+  createNewPerson(hasData) {
+    hasData
+      ? this.router.transitionTo('worship-ministers-management.new-person', {
+          queryParams: hasData,
+        })
+      : this.router.transitionTo('worship-ministers-management.new-person');
   }
 
   @action

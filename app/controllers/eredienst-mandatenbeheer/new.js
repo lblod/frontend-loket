@@ -23,8 +23,12 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   }
 
   @action
-  createNewPerson() {
-    this.router.transitionTo('eredienst-mandatenbeheer.new-person');
+  createNewPerson(hasData) {
+    hasData
+      ? this.router.transitionTo('eredienst-mandatenbeheer.new-person', {
+          queryParams: hasData,
+        })
+      : this.router.transitionTo('eredienst-mandatenbeheer.new-person');
   }
 
   @action
