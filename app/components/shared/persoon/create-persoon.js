@@ -4,6 +4,13 @@ import { isBlank } from '@ember/utils';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
+import {
+  getBirthDate,
+  isBiologicalFemale,
+  isBirthDateKnown,
+  isGenderKnown,
+  isValidRijksregisternummer,
+} from 'frontend-loket/utils/rijksregisternummer';
 
 const maleId = '5ab0e9b8a3b2ca7c5e000028';
 const femaleId = '5ab0e9b8a3b2ca7c5e000029';
@@ -21,7 +28,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   @tracked voornaam;
   @tracked familienaam;
   @tracked roepnaam;
-  @tracked rijksregisternummer;
+  @tracked rijksregisternummer = '';
   @tracked nationaliteit;
   @tracked birthDate;
   @tracked errors;
@@ -54,21 +61,6 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
   get isFemale() {
     return this.geslacht === femaleId;
-  }
-
-  get isValidRijksregisternummer() {
-    let rr = this.rijksregisternummer;
-    if (isBlank(rr)) return false;
-    if (rr.length != 11) {
-      return false;
-    }
-    const preNillies =
-      parseInt(rr.slice(9, 11)) === 97 - (parseInt(rr.slice(0, 9)) % 97);
-    const postNillies =
-      parseInt(rr.slice(9, 11)) ===
-      97 - ((2000000000 + parseInt(rr.slice(0, 9))) % 97);
-
-    return preNillies || postNillies;
   }
 
   get isNationalityFieldRequired() {
@@ -133,7 +125,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
       errors.geboorte = 'geboortedatum is een vereist veld.';
     }
 
-    if (!this.isValidRijksregisternummer) {
+    if (!isValidRijksregisternummer(this.rijksregisternummer)) {
       errors.rijksregisternummer = 'rijksregisternummer is niet geldig.';
     }
 
@@ -176,5 +168,20 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   @action
   setDateOfBirth(isoDate, date) {
     this.birthDate = date;
+  }
+
+  @action
+  setRijksregisternummer(rijksregisternummer = '') {
+    this.rijksregisternummer = rijksregisternummer;
+    if (isValidRijksregisternummer(this.rijksregisternummer)) {
+      this.birthDate = isBirthDateKnown(this.rijksregisternummer)
+        ? new Date(getBirthDate(this.rijksregisternummer))
+        : this.birthDate;
+      if (isGenderKnown(this.rijksregisternummer)) {
+        isBiologicalFemale(this.rijksregisternummer)
+          ? this.setGender(femaleId)
+          : this.setGender(maleId);
+      }
+    }
   }
 }
