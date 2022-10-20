@@ -4,7 +4,7 @@
       {{yield}}
     </Group>
     <Group>
-      <AuButton @skin="primary" {{on 'click' @onCreateNewPerson}}>
+      <AuButton @skin="primary" {{on 'click' this.handleCreatePersonClick}}>
         Voeg iemand buiten de lijst toe
       </AuButton>.
     </Group>
