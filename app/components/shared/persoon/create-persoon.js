@@ -47,6 +47,12 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
     this.minDate = hundredYearsAgo;
     this.maxDate = eighteenYearsAgo;
+
+    if (this.args.prefilledValues?.rijksregisternummer) {
+      this.setRijksregisternummer(
+        this.args.prefilledValues?.rijksregisternummer
+      );
+    }
   }
 
   get isMale() {
