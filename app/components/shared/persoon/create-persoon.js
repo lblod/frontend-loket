@@ -52,12 +52,6 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
       this.setRijksregisternummer(
         this.args.prefilledValues?.rijksregisternummer
       );
-    } else {
-      this.birthDate = new Date(
-        now.getFullYear() - 21,
-        now.getMonth(),
-        now.getDay()
-      );
     }
   }
 
