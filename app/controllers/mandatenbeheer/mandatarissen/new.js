@@ -14,8 +14,12 @@ export default class MandatenbeheerMandatarissenNewController extends Controller
   }
 
   @action
-  createNewPerson() {
-    this.router.transitionTo('mandatenbeheer.mandatarissen.new-person');
+  createNewPerson(hasData) {
+    hasData
+      ? this.router.transitionTo('mandatenbeheer.mandatarissen.new-person', {
+          queryParams: hasData,
+        })
+      : this.router.transitionTo('mandatenbeheer.mandatarissen.new-person');
   }
 
   @action

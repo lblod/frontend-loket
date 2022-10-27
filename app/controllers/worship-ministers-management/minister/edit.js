@@ -9,6 +9,7 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
+import { validateFunctie } from 'frontend-loket/models/minister';
 
 export default class WorshipMinistersManagementMinisterEditController extends Controller {
   @service store;
@@ -24,8 +25,27 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   }
 
   @action
+  handleFunctieChange(functie) {
+    const { minister } = this.model;
+    minister.ministerPosition = functie;
+    minister.errors.remove('ministerPosition');
+  }
+
+  @action
   handleDateChange(attributeName, isoDate, date) {
-    this.model.minister[attributeName] = date;
+    const { minister } = this.model;
+    minister[attributeName] = date;
+    let { agentStartDate, agentEndDate } = minister;
+    if (agentEndDate instanceof Date && agentStartDate instanceof Date) {
+      if (agentEndDate <= agentStartDate) {
+        minister.errors.add(
+          'agentEndDate',
+          'De einddatum moet na de startdatum liggen'
+        );
+      } else {
+        minister.errors.remove('agentEndDate');
+      }
+    }
   }
 
   @action
@@ -109,14 +129,22 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     } else {
       minister.contacts = [];
     }
+    if (!minister.isValid) {
+      return;
+    }
 
-    yield minister.save();
+    if (!minister.agentStartDate) {
+      minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
+    }
+    if ((yield validateFunctie(minister)) && minister.isValid) {
+      yield minister.save();
 
-    try {
-      yield this.router.transitionTo('worship-ministers-management');
-    } catch (error) {
-      // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
-      // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
+      try {
+        yield this.router.transitionTo('worship-ministers-management');
+      } catch (error) {
+        // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
+        // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
+      }
     }
   }
 

@@ -202,13 +202,13 @@ export default class SharedBreadCrumbComponent extends Component {
     },
     {
       route: 'eredienst-mandatenbeheer.mandatarissen',
-      crumbs: [{ label: 'Eredienst mandatenbeheer' }],
+      crumbs: [{ label: 'Mandatenbeheer' }],
     },
     {
       route: 'eredienst-mandatenbeheer.mandataris.edit',
       crumbs: [
         {
-          label: 'Eredienst mandatenbeheer',
+          label: 'Mandatenbeheer',
           link: 'eredienst-mandatenbeheer.mandatarissen',
         },
         { label: 'Bewerk mandataris' },
@@ -218,7 +218,7 @@ export default class SharedBreadCrumbComponent extends Component {
       route: 'eredienst-mandatenbeheer.new',
       crumbs: [
         {
-          label: 'Eredienst mandatenbeheer',
+          label: 'Mandatenbeheer',
           link: 'eredienst-mandatenbeheer.mandatarissen',
         },
         { label: 'Voeg mandaat toe' },
@@ -228,7 +228,7 @@ export default class SharedBreadCrumbComponent extends Component {
       route: 'eredienst-mandatenbeheer.new-person',
       crumbs: [
         {
-          label: 'Eredienst mandatenbeheer',
+          label: 'Mandatenbeheer',
           link: 'eredienst-mandatenbeheer.mandatarissen',
         },
         { label: 'Voeg nieuwe persoon toe' },
@@ -238,7 +238,7 @@ export default class SharedBreadCrumbComponent extends Component {
       route: 'eredienst-mandatenbeheer.mandataris.contact-points.new',
       crumbs: [
         {
-          label: 'Eredienst mandatenbeheer',
+          label: 'Mandatenbeheer',
           link: 'eredienst-mandatenbeheer.mandatarissen',
         },
         {
@@ -252,7 +252,7 @@ export default class SharedBreadCrumbComponent extends Component {
       route: 'eredienst-mandatenbeheer.mandataris.contact-points.edit',
       crumbs: [
         {
-          label: 'Eredienst mandatenbeheer',
+          label: 'Mandatenbeheer',
           link: 'eredienst-mandatenbeheer.mandatarissen',
         },
         {

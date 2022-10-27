@@ -112,7 +112,7 @@
                   <c.footer>
                     <p>
                       <a class="au-c-button" href="https://lokaalbestuur.vlaanderen.be/erediensten" target="_blank" rel="noopener noreferrer">Meer informatie</a>
-                      <a class="au-c-button au-c-button--secondary" href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/#bedienarenbeheer" target="_blank" rel="noopener noreferrer">Handleiding</a>
+                      {{!-- TODO: Add userManualLink link when it will be available --}}
                     </p>
                   </c.footer>
                 </AuCard>
@@ -123,12 +123,18 @@
                 <AuCard @textCenter="true" as |c|>
                   <c.header @badgeSkin="brand" @badgeIcon="user-fill">
                     <AuHeading @level="3" @skin="4">
-                      Eredienst mandatenbeheer
+                      Mandatenbeheer
                     </AuHeading>
                   </c.header>
                   <c.content>
                     <p class="au-u-margin-top-tiny">Hou de mandaten binnen de erediensten bij.</p>
                   </c.content>
+                  <c.footer>
+                    <p>
+                      <a class="au-c-button" href="https://lokaalbestuur.vlaanderen.be/erediensten" target="_blank" rel="noopener noreferrer">Meer informatie</a>
+                      {{!-- TODO: Add userManualLink link when it will be available --}}
+                    </p>
+                  </c.footer>
                 </AuCard>
               </div>
             {{/if}}

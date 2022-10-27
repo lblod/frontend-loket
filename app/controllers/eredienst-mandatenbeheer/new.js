@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
-import { isMandaatSelected } from 'frontend-loket/models/worship-mandatee';
+import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
@@ -23,8 +23,12 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   }
 
   @action
-  createNewPerson() {
-    this.router.transitionTo('eredienst-mandatenbeheer.new-person');
+  createNewPerson(hasData) {
+    hasData
+      ? this.router.transitionTo('eredienst-mandatenbeheer.new-person', {
+          queryParams: hasData,
+        })
+      : this.router.transitionTo('eredienst-mandatenbeheer.new-person');
   }
 
   @action
@@ -42,7 +46,19 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   @action
   handleDateChange(type, isoDate, date) {
-    this.model.worshipMandatee[type] = date;
+    const { worshipMandatee } = this.model;
+    worshipMandatee[type] = date;
+    let { einde, start } = worshipMandatee;
+    if (einde instanceof Date && start instanceof Date) {
+      if (einde <= start) {
+        worshipMandatee.errors.add(
+          'einde',
+          'De einddatum moet na de startdatum liggen'
+        );
+      } else {
+        worshipMandatee.errors.remove('einde');
+      }
+    }
   }
 
   @dropTask
@@ -50,14 +66,17 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     event.preventDefault();
 
     let { worshipMandatee } = this.model;
-    if (yield isMandaatSelected(worshipMandatee)) {
+    if (!worshipMandatee.start) {
+      worshipMandatee.errors.add('start', 'startdatum is een vereist veld.');
+    }
+    if ((yield validateMandaat(worshipMandatee)) && worshipMandatee.isValid) {
       yield worshipMandatee.save();
       this.router.transitionTo(
         'eredienst-mandatenbeheer.mandataris.edit',
         worshipMandatee.id
       );
     } else {
-      worshipMandatee.errors.add('bekleedt', 'Mandaat is een vereist veld.');
+      return;
     }
   }
 }

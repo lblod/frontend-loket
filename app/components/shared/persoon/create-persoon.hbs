@@ -75,7 +75,7 @@
             @mask="99.99.99-999.99"
             @maskPlaceholder="_"
             @width="block"
-            @onChange={{fn (mut this.rijksregisternummer)}}
+            @onChange={{this.setRijksregisternummer}}
             value={{this.rijksregisternummer}}
             id="mandataris-rijksregister"
             placeholder="00.00.00-000.00"
@@ -113,14 +113,27 @@
       {{/let}}
       {{/if}}
       <div>
-        <AuLabel for="mandataris-geboorte">Geboortedatum</AuLabel>
+        {{#let (if this.errors.geboorte true false) as |showError|}}
+        <AuLabel for="mandataris-geboorte"
+          @required={{this.isGeboorteFieldRequired}}
+          @error={{showError}}
+          >
+          Geboortedatum
+        </AuLabel>
         <AuDatePicker
           @value={{this.birthDate}}
           @min={{this.minDate}}
           @max={{this.maxDate}}
           @id="mandataris-geboorte"
           @onChange={{this.setDateOfBirth}}
+          @error={{showError}}
         />
+        {{#if showError}}
+          <AuHelpText @error="true">
+            {{this.errors.geboorte}}
+          </AuHelpText>
+        {{/if}}
+      {{/let}}
       </div>
       <div>
         <AuLabel @error={{if this.errors.geslacht true}} @required={{true}}>
@@ -130,7 +143,7 @@
           <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
             <AuControlRadio
               @label="Vrouw"
-              @checked={{this.isFemale}}
+              checked={{this.isFemale}}
               @value={{this.female}}
               @onChange={{this.setGender}}
               @name="gender"
@@ -139,7 +152,7 @@
           <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
             <AuControlRadio
               @label="Man"
-              @checked={{this.isMale}}
+              checked={{this.isMale}}
               @value={{this.male}}
               @name="gender"
               @onChange={{this.setGender}}

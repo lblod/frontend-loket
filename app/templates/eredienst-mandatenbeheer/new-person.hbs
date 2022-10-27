@@ -5,7 +5,9 @@
 </AuToolbar>
 
 <Shared::Persoon::CreatePersoon
+  @prefilledValues={{this.personPrefilledValues}}
   @nationalityRequired={{true}}
+  @geboorteRequired={{true}}
   @onCreate={{this.onCreate}}
   @onCancel={{this.onCancel}}
 />

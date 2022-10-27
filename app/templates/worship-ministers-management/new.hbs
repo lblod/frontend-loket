@@ -51,32 +51,72 @@
   >
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
-        <AuLabel for="worship-minister-position-select">Functienaam</AuLabel>
+        {{#let (if @model.worshipMinister.errors.ministerPosition true false) as |showError|}}
+        <AuLabel for="worship-minister-position-select"
+          @required={{true}}
+          @error={{showError}}
+          >
+          Functienaam
+        </AuLabel>
         <WorshipMinistersManagement::PositionSelect
           @worshipService={{@model.currentWorshipService}}
           @selected={{@model.worshipMinister.ministerPosition}}
-          @onChange={{fn (mut @model.worshipMinister.ministerPosition)}}
+          @onChange={{this.handleFunctieChange}}
+          @error={{showError}}
           id="worship-minister-position-select"
         />
+        {{#if showError}}
+          <AuHelpText @error="true">
+            {{#each @model.worshipMinister.errors.ministerPosition as |errors|}}
+              {{errors.message}}
+            {{/each}}
+          </AuHelpText>
+        {{/if}}
+        {{/let}}
       </div>
 
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="worship-minister-start-date">Startdatum</AuLabel>
+          {{#let (if @model.worshipMinister.errors.agentStartDate true false) as |showError|}}
+          <AuLabel for="worship-minister-start-date"
+            @required={{true}}
+            @error={{showError}}
+            >
+            Startdatum
+          </AuLabel>
           <AuDatePicker
             @value={{@model.worshipMinister.agentStartDate}}
             @onChange={{fn this.handleDateChange "agentStartDate"}}
+            @error={{showError}}
             @id="worship-minister-start-date"
           />
+        {{#if showError}}
+          <AuHelpText @error="true">
+            {{#each @model.worshipMinister.errors.agentStartDate as |errors|}}
+              {{errors.message}}
+            {{/each}}
+          </AuHelpText>
+        {{/if}}
+        {{/let}}
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
-          <AuLabel for="worship-minister-end-date">Eindedatum</AuLabel>
+          {{#let (if @model.worshipMinister.errors.agentEndDate true false) as |showError|}}
+          <AuLabel for="worship-minister-end-date" @error={{showError}}>Einddatum</AuLabel>
           <AuDatePicker
             @value={{@model.worshipMinister.agentEndDate}}
             @onChange={{fn this.handleDateChange "agentEndDate"}}
+            @error={{showError}}
             @id="worship-minister-end-date"
           />
+          {{#if showError}}
+          <AuHelpText @error={{true}}>
+            {{#each @model.worshipMinister.errors.agentEndDate as |errors|}}
+              {{errors.message}}
+            {{/each}}
+          </AuHelpText>
+          {{/if}}
+          {{/let}}
         </div>
       </div>
 
