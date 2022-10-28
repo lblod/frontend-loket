@@ -24,10 +24,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
   originalContactAdres;
 
   get hasContact() {
-    // console.log('model', this.model.contacts);
-    console.log('length', this.model?.contacts?.length);
-    console.log('hasContact', this.model?.contacts?.length !== 0);
-    return this.model?.contacts?.length !== 0;
+    return this.model?.contacts?.length > 0;
   }
 
   get isEditingContactPoint() {
@@ -123,30 +120,21 @@ export default class WorshipMinistersManagementNewController extends Controller 
     event.preventDefault();
 
     let { worshipMinister, contacts } = this.model;
-    console.log('editing contact', this.isEditingContactPoint);
+    if (!worshipMinister.agentStartDate) {
+      worshipMinister.errors.add(
+        'agentStartDate',
+        'startdatum is een vereist veld.'
+      );
+    }
+
+    yield validateFunctie(worshipMinister);
+
     if (this.isEditingContactPoint) {
-      // This part might need some refactoring
-      if (!worshipMinister.agentStartDate) {
-        worshipMinister.errors.add(
-          'agentStartDate',
-          'startdatum is een vereist veld.'
-        );
-      }
-      yield validateFunctie(worshipMinister);
-      // refactoring part end
       let contactPoint = this.editingContact;
-      console.log('contact point is new', contactPoint.isNew);
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
       if (yield isValidPrimaryContact(contactPoint)) {
-        console.log('valid primary');
-        if (secondaryContactPoint.telefoon) {
-          yield secondaryContactPoint.save();
-        } else {
-          // The secondary contact point is empty so we can remove it if it was ever persisted before
-          yield secondaryContactPoint.destroyRecord();
-        }
         if (adres?.isNew) {
           yield adres.save();
         }
@@ -156,45 +144,43 @@ export default class WorshipMinistersManagementNewController extends Controller 
           this.selectedContact = contactPoint;
         }
 
-        // yield contactPoint.save();
+        if (this.selectedContact) {
+          let primaryContactPoint = findPrimaryContactPoint(yield contacts);
+
+          if (this.selectedContact.id !== primaryContactPoint?.id) {
+            let secondaryContact = yield this.selectedContact
+              .secondaryContactPoint;
+            worshipMinister.contacts = [
+              this.selectedContact,
+              secondaryContact,
+            ].filter(Boolean);
+          }
+        } else {
+          worshipMinister.contacts = [];
+        }
+
+        if (secondaryContactPoint.telefoon) {
+          yield secondaryContactPoint.save();
+        }
       } else {
         return;
       }
     }
 
-    if (this.selectedContact) {
-      let primaryContactPoint = findPrimaryContactPoint(yield contacts);
-      console.log('selected contact', this.selectedContact.id);
-      // this pass the check but does not have any id
-      // So the filter is just returning false false
-      if (this.selectedContact.id !== primaryContactPoint?.id) {
-        console.log('test passed');
-        let secondaryContact = yield this.selectedContact.secondaryContactPoint;
-        console.log('secondaryContact', secondaryContact);
-        console.log('primary contact', this.selectedContact);
-
-        console.log(worshipMinister.contacts);
-        worshipMinister.contacts = [
-          this.selectedContact,
-          secondaryContact,
-        ].filter(Boolean);
-      }
-    } else {
-      console.log('no contacts');
-      worshipMinister.contacts = [];
-    }
-    if (!worshipMinister.agentStartDate) {
-      worshipMinister.errors.add(
-        'agentStartDate',
-        'startdatum is een vereist veld.'
-      );
-    }
     if (
       (yield validateFunctie(worshipMinister)) &&
       worshipMinister.isValid &&
       worshipMinister.contacts.length > 0
     ) {
-      yield this.editingContact.save();
+      let secondaryContactPoint = yield this.selectedContact
+        .secondaryContactPoint;
+
+      if (!secondaryContactPoint.telefoon) {
+        // The secondary contact point is empty so we can remove it if it was ever persisted before
+        yield secondaryContactPoint.destroyRecord();
+      }
+
+      yield this.selectedContact.save();
       yield worshipMinister.save();
       this.router.transitionTo(
         'worship-ministers-management.minister.edit',
