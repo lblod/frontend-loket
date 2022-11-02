@@ -50,17 +50,19 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
   setupController(controller) {
     super.setupController(...arguments);
-
+    if (!controller.hasContact) {
+      controller.addNewContact();
+    }
     controller.selectedContact = this.selectedContact;
   }
 
   resetController(controller, isExiting) {
     super.resetController(...arguments);
-    controller.rollbackUnsavedChanges();
 
     if (isExiting) {
       controller.personId = '';
       controller.model?.worshipMinister?.rollbackAttributes();
+      controller.rollbackUnsavedChanges();
     }
   }
 }
