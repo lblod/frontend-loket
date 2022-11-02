@@ -120,20 +120,24 @@ export default class WorshipMinistersManagementNewController extends Controller 
     event.preventDefault();
 
     let { worshipMinister, contacts } = this.model;
+
+    // validate the minister record
     if (!worshipMinister.agentStartDate) {
       worshipMinister.errors.add(
         'agentStartDate',
         'startdatum is een vereist veld.'
       );
     }
-
     yield validateFunctie(worshipMinister);
 
+    // validate the worship minister contacts which has 2 valid branches:
+    // the user is editing a new contact:
     if (this.isEditingContactPoint) {
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
+      // in this case the contact point information and address should be valid
       if (yield isValidPrimaryContact(contactPoint)) {
         if (adres?.isNew) {
           yield adres.save();
@@ -144,21 +148,6 @@ export default class WorshipMinistersManagementNewController extends Controller 
           this.selectedContact = contactPoint;
         }
 
-        if (this.selectedContact) {
-          let primaryContactPoint = findPrimaryContactPoint(yield contacts);
-
-          if (this.selectedContact.id !== primaryContactPoint?.id) {
-            let secondaryContact = yield this.selectedContact
-              .secondaryContactPoint;
-            worshipMinister.contacts = [
-              this.selectedContact,
-              secondaryContact,
-            ].filter(Boolean);
-          }
-        } else {
-          worshipMinister.contacts = [];
-        }
-
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         }
@@ -167,10 +156,26 @@ export default class WorshipMinistersManagementNewController extends Controller 
       }
     }
 
+    // the user has selected an already existing contact pair
+    if (this.selectedContact) {
+      let primaryContactPoint = findPrimaryContactPoint(yield contacts);
+
+      if (this.selectedContact.id !== primaryContactPoint?.id) {
+        let secondaryContact = yield this.selectedContact.secondaryContactPoint;
+        worshipMinister.contacts = [
+          this.selectedContact,
+          secondaryContact,
+        ].filter(Boolean);
+      }
+    } else {
+      worshipMinister.contacts = [];
+    }
+
+    // if both the minister record and contacts are valid we can start saving everything
     if (
-      (yield validateFunctie(worshipMinister)) &&
       worshipMinister.isValid &&
-      worshipMinister.contacts.length > 0
+      worshipMinister.contacts.length > 0 &&
+      this.selectedContact.isValid
     ) {
       let secondaryContactPoint = yield this.selectedContact
         .secondaryContactPoint;
@@ -179,7 +184,6 @@ export default class WorshipMinistersManagementNewController extends Controller 
         // The secondary contact point is empty so we can remove it if it was ever persisted before
         yield secondaryContactPoint.destroyRecord();
       }
-
       yield this.selectedContact.save();
       yield worshipMinister.save();
       this.router.transitionTo(
