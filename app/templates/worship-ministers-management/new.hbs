@@ -121,33 +121,34 @@
       </div>
 
     </div>
+
     <AuHr @size="small" />
-      <div class="au-o-box">
-        <ContactInformationTable
-          @contacts={{@model.contacts}}
-          @selectedContact={{this.selectedContact}}
-          @editingContact={{this.editingContact}}
-          @onAddNewContact={{this.addNewContact}}
-          @onEditContact={{this.setEditingContact}}
-          @onEditContactCancel={{this.handleEditContactCancel}}
-          @onContactSelectionChange={{this.handleContactSelectionChange}}
-          @hasContact={{this.hasContact}}
-          @isRequired={{true}}
-        />
-        {{#if (and this.isEditingContactPoint (not this.editingContact.isValid))}}
-          <AuAlert
-            @title={{this.title}}
-            @skin="error"
-            @icon="cross"
-            @size="small"
-            class="au-u-margin-top-small"
-          >
-            <p>
-              Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te
-              vullen.
-            </p>
-          </AuAlert>
-        {{/if}}
-      </div>
+    <div class="au-o-box">
+      <ContactInformationTable
+        @contacts={{@model.contacts}}
+        @selectedContact={{this.selectedContact}}
+        @editingContact={{this.editingContact}}
+        @onAddNewContact={{this.addNewContact}}
+        @onEditContact={{this.setEditingContact}}
+        @onEditContactCancel={{this.handleEditContactCancel}}
+        @onContactSelectionChange={{this.handleContactSelectionChange}}
+        @hasContact={{this.hasContact}}
+        @isRequired={{true}}
+      />
+      {{#if (and this.isEditingContactPoint (not this.editingContact.isValid))}}
+        <AuAlert
+          @title={{this.title}}
+          @skin="error"
+          @icon="cross"
+          @size="small"
+          class="au-u-margin-top-small"
+        >
+          <p>
+            Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te
+            vullen.
+          </p>
+        </AuAlert>
+      {{/if}}
+    </div>
   </form>
 {{/if}}
