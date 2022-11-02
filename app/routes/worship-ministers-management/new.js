@@ -30,10 +30,9 @@ export default class WorshipMinisterManagementNewRoute extends Route {
         include: 'adres,secondary-contact-point',
       });
 
-      // Is there an other way to check without accessing private '.content' ?
-      if (contacts.content.length > 0) {
+      if (contacts.length > 0) {
         // Pre-select existing contact for this person;
-        worshipMinister.contacts = contacts;
+        worshipMinister.contacts = contacts > 1 ? contacts[0] : contacts;
         let positionContacts = await worshipMinister.contacts;
         this.selectedContact = findPrimaryContactPoint(positionContacts);
       }
