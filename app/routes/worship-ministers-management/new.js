@@ -49,7 +49,7 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
   setupController(controller) {
     super.setupController(...arguments);
-    if (!controller.hasContact) {
+    if (!controller.hasContact && !controller.shouldSelectPerson) {
       controller.addNewContact();
     }
     controller.selectedContact = this.selectedContact;
