@@ -32,7 +32,7 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
       if (contacts.length > 0) {
         // Pre-select existing contact for this person;
-        worshipMinister.contacts = contacts > 1 ? contacts[0] : contacts;
+        worshipMinister.contacts = contacts.length > 1 ? contacts[0] : contacts;
         let positionContacts = await worshipMinister.contacts;
         this.selectedContact = findPrimaryContactPoint(positionContacts);
       }
