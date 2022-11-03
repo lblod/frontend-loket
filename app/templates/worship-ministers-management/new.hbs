@@ -132,7 +132,6 @@
         @onEditContact={{this.setEditingContact}}
         @onEditContactCancel={{this.handleEditContactCancel}}
         @onContactSelectionChange={{this.handleContactSelectionChange}}
-        @hasContact={{this.hasContact}}
         @isRequired={{true}}
       />
       {{#if (and this.isEditingContactPoint (not this.editingContact.isValid))}}
