@@ -13,7 +13,6 @@ Router.map(function () {
   this.route('mock-login');
 
   this.route('contact');
-  this.route('help');
 
   this.route('legaal', function () {
     this.route('disclaimer');
