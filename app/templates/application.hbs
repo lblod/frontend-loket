@@ -10,15 +10,15 @@
     @appTitle={{this.appTitle}}
   >
     <li class="au-c-list-horizontal__item">
-      <a
-        href="https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/-MUxLEJUEskn-COptDln/veelgestelde-vragen"
+      <AuLinkExternal
+        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/veelgestelde-vragen"
         target="_blank"
         rel="noopener noreferrer"
-        class="au-c-link au-c-link--secondary"
+        @skin="secondary"
       >
         <AuIcon @icon="question-circle" @alignment="left" />
         Help
-      </a>
+      </AuLinkExternal>
     </li>
     <li class="au-c-list-horizontal__item">
       {{#if this.session.isAuthenticated}}
@@ -67,15 +67,15 @@
               <Shared::MainMenu />
             </div>
             <div class="au-c-sidebar__footer">
-              <a
-                href="https://app.gitbook.com/o/-MP9Yduzf5xu7wIebqPG/s/-MUxLEJUEskn-COptDln/"
+              <AuLinkExternal
+                href="https://abb-vlaanderen.gitbook.io/handleiding-loket/"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="au-c-link au-c-link--secondary"
+                @skin="secondary"
               >
                 <AuIcon @icon="documents" @alignment="left" />
                 Bekijk handleiding
-              </a>
+              </AuLinkExternal>
             </div>
           </div>
         </main.sidebar>
