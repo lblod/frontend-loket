@@ -158,7 +158,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
     // the user has selected an already existing contact pair
     if (this.selectedContact) {
-      let primaryContactPoint = findPrimaryContactPoint(yield contacts);
+      let primaryContactPoint = findPrimaryContactPoint(contacts);
 
       if (this.selectedContact.id !== primaryContactPoint?.id) {
         let secondaryContact = yield this.selectedContact.secondaryContactPoint;
@@ -167,8 +167,6 @@ export default class WorshipMinistersManagementNewController extends Controller 
           secondaryContact,
         ].filter(Boolean);
       }
-    } else {
-      worshipMinister.contacts = [];
     }
 
     // if both the minister record and contacts are valid we can start saving everything
