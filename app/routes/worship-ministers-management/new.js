@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import {
   CONTACT_TYPE,
   findPrimaryContactPoint,
+  findSecondaryContactPoint,
 } from 'frontend-loket/models/contact-punt';
 
 export default class WorshipMinisterManagementNewRoute extends Route {
@@ -30,11 +31,17 @@ export default class WorshipMinisterManagementNewRoute extends Route {
         include: 'adres,secondary-contact-point',
       });
 
-      if (contacts.length > 0) {
-        // Pre-select existing contact for this person;
-        worshipMinister.contacts = contacts.length > 1 ? contacts[0] : contacts;
-        let positionContacts = await worshipMinister.contacts;
-        this.selectedContact = findPrimaryContactPoint(positionContacts);
+      // Pre select only where there is one primary contact point
+      if (contacts.length === 1) {
+        this.selectedContact = findPrimaryContactPoint(contacts);
+        let secondaryContact = await this.store.query('contact-punt', {
+          'filter[agents-in-position][person][:id:]': person.id,
+          'filter[type]': CONTACT_TYPE.SECONDARY,
+        });
+        worshipMinister.contacts = [
+          this.selectedContact,
+          findSecondaryContactPoint(secondaryContact),
+        ].filter(Boolean);
       }
 
       return {
