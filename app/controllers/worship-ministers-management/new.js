@@ -184,10 +184,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
       }
       yield this.selectedContact.save();
       yield worshipMinister.save();
-      this.router.transitionTo(
-        'worship-ministers-management.minister.edit',
-        worshipMinister.id
-      );
+      this.router.transitionTo('worship-ministers-management');
     } else {
       return;
     }
