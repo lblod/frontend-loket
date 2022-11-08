@@ -177,10 +177,11 @@ export default class WorshipMinistersManagementNewController extends Controller 
     ) {
       let secondaryContactPoint = yield this.selectedContact
         .secondaryContactPoint;
-
-      if (!secondaryContactPoint.telefoon) {
-        // The secondary contact point is empty so we can remove it if it was ever persisted before
-        yield secondaryContactPoint.destroyRecord();
+      if (secondaryContactPoint !== null) {
+        if (!secondaryContactPoint.telefoon) {
+          // The secondary contact point is empty so we can remove it if it was ever persisted before
+          yield secondaryContactPoint.destroyRecord();
+        }
       }
       yield this.selectedContact.save();
       yield worshipMinister.save();
