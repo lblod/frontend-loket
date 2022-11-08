@@ -1,10 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import {
-  CONTACT_TYPE,
-  findPrimaryContactPoint,
-  findSecondaryContactPoint,
-} from 'frontend-loket/models/contact-punt';
+import { CONTACT_TYPE } from 'frontend-loket/models/contact-punt';
 
 export default class WorshipMinisterManagementNewRoute extends Route {
   @service currentSession;
@@ -33,14 +29,12 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
       // Pre select only where there is one primary contact point
       if (contacts.length === 1) {
-        this.selectedContact = findPrimaryContactPoint(contacts);
-        let secondaryContact = await this.store.query('contact-punt', {
-          'filter[agents-in-position][person][:id:]': person.id,
-          'filter[type]': CONTACT_TYPE.SECONDARY,
-        });
+        this.selectedContact = contacts.firstObject;
+        let secondaryContact = await this.selectedContact.secondaryContactPoint;
+
         worshipMinister.contacts = [
           this.selectedContact,
-          findSecondaryContactPoint(secondaryContact),
+          secondaryContact,
         ].filter(Boolean);
       }
 
