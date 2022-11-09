@@ -6,7 +6,6 @@ import { dropTask } from 'ember-concurrency';
 import {
   createPrimaryContactPoint,
   createSecondaryContactPoint,
-  findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { validateFunctie } from 'frontend-loket/models/minister';
@@ -119,7 +118,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
   *createWorshipMinister(event) {
     event.preventDefault();
 
-    let { worshipMinister, contacts } = this.model;
+    let { worshipMinister } = this.model;
 
     // validate the minister record
     if (!worshipMinister.agentStartDate) {
@@ -161,15 +160,13 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
     // the user has selected an already existing contact pair
     if (this.selectedContact) {
-      let primaryContactPoint = findPrimaryContactPoint(contacts);
-
-      if (this.selectedContact.id !== primaryContactPoint?.id) {
-        let secondaryContact = yield this.selectedContact.secondaryContactPoint;
-        worshipMinister.contacts = [
-          this.selectedContact,
-          secondaryContact,
-        ].filter(Boolean);
-      }
+      let secondaryContact = yield this.selectedContact.secondaryContactPoint;
+      worshipMinister.contacts = [
+        this.selectedContact,
+        secondaryContact,
+      ].filter(Boolean);
+    } else {
+      return;
     }
 
     // if both the minister record and contacts are valid we can start saving everything
