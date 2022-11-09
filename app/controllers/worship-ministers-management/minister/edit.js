@@ -87,14 +87,20 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
   @dropTask
   *save() {
-    let { minister, contacts } = this.model;
+    let { minister } = this.model;
+
+    if (!minister.agentStartDate) {
+      minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
+    }
+
+    yield validateFunctie(minister);
 
     if (this.isEditingContactPoint) {
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
-      if (yield isValidPrimaryContact(contactPoint)) {
+      if ((yield isValidPrimaryContact(contactPoint)) && minister.isValid) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
@@ -117,7 +123,9 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     }
 
     if (this.selectedContact) {
-      let primaryContactPoint = findPrimaryContactPoint(yield contacts);
+      let primaryContactPoint = findPrimaryContactPoint(
+        yield minister.contacts
+      );
 
       if (this.selectedContact.id !== primaryContactPoint?.id) {
         let secondaryContact = yield this.selectedContact.secondaryContactPoint;
@@ -127,16 +135,14 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
         );
       }
     } else {
-      minister.contacts = [];
-    }
-    if (!minister.isValid) {
       return;
     }
 
-    if (!minister.agentStartDate) {
-      minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
-    }
-    if ((yield validateFunctie(minister)) && minister.isValid) {
+    if (
+      this.selectedContact.isValid &&
+      minister.isValid &&
+      minister.contacts.length > 0
+    ) {
       yield minister.save();
 
       try {
