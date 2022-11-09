@@ -117,9 +117,7 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     }
 
     if (this.selectedContact) {
-      let primaryContactPoint = findPrimaryContactPoint(
-        yield minister.contacts
-      );
+      let primaryContactPoint = findPrimaryContactPoint(minister.contacts);
 
       if (this.selectedContact.id !== primaryContactPoint?.id) {
         let secondaryContact = yield this.selectedContact.secondaryContactPoint;
