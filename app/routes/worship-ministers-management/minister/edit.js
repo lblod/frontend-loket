@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { CONTACT_TYPE } from 'frontend-loket/models/contact-punt';
+import {
+  CONTACT_TYPE,
+  findPrimaryContactPoint,
+} from 'frontend-loket/models/contact-punt';
 
 export default class WorshipMinistersManagementMinisterEditRoute extends Route {
   @service store;
@@ -21,7 +24,7 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
 
     let person = await minister.person;
     let positionContacts = await minister.contacts;
-    this.selectedContact = positionContacts.firstObject;
+    this.selectedContact = findPrimaryContactPoint(positionContacts);
 
     let contacts = await this.store.query('contact-punt', {
       'filter[agents-in-position][person][:id:]': person.id,
