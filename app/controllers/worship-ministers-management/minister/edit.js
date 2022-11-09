@@ -89,6 +89,12 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
   *save() {
     let { minister } = this.model;
 
+    if (!minister.agentStartDate) {
+      minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
+    }
+
+    yield validateFunctie(minister);
+
     if (this.isEditingContactPoint) {
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
@@ -132,11 +138,8 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       return;
     }
 
-    if (!minister.agentStartDate) {
-      minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
-    }
     if (
-      (yield validateFunctie(minister)) &&
+      this.selectedContact.isValid &&
       minister.isValid &&
       minister.contacts.length > 0
     ) {
