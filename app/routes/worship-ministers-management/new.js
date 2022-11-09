@@ -30,12 +30,6 @@ export default class WorshipMinisterManagementNewRoute extends Route {
       // Pre select only where there is one primary contact point
       if (contacts.length === 1) {
         this.selectedContact = contacts.firstObject;
-        let secondaryContact = await this.selectedContact.secondaryContactPoint;
-
-        worshipMinister.contacts = [
-          this.selectedContact,
-          secondaryContact,
-        ].filter(Boolean);
       }
 
       return {
