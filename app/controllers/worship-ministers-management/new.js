@@ -139,7 +139,8 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
       // in this case the contact point information and address should be valid
       if (
-        yield isValidPrimaryContact(contactPoint) && worshipMinister.isValid
+        (yield isValidPrimaryContact(contactPoint)) &&
+        worshipMinister.isValid
       ) {
         if (adres?.isNew) {
           yield adres.save();
