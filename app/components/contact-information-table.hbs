@@ -13,7 +13,10 @@
   </AuToolbar>
 
   <AuTable>
-    <:title>Contactgegevens</:title>
+    <:title>Contactgegevens {{#if @isRequired}}
+      <AuPill>Verplicht</AuPill>
+      {{/if}}
+    </:title>
     <:header>
       <tr>
         <th id="contact-point-address" width="20%">Adres</th>
