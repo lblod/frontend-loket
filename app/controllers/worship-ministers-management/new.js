@@ -118,7 +118,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
   *createWorshipMinister(event) {
     event.preventDefault();
 
-    let { worshipMinister } = this.model;
+    let { worshipMinister, contacts } = this.model;
 
     // validate the minister record
     if (!worshipMinister.agentStartDate) {
@@ -132,6 +132,8 @@ export default class WorshipMinistersManagementNewController extends Controller 
     // validate the worship minister contacts which has 2 valid branches:
     // the user is editing a new contact:
     if (this.isEditingContactPoint) {
+      worshipMinister.errors.remove('contacts');
+
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
@@ -156,15 +158,26 @@ export default class WorshipMinistersManagementNewController extends Controller 
       } else {
         return;
       }
+    } else if (contacts.length === 0) {
+      worshipMinister.errors.add(
+        'contacts',
+        'Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen'
+      );
     }
 
     // the user has selected an already existing contact pair
     if (this.selectedContact) {
+      worshipMinister.errors.remove('contacts');
       let secondaryContact = yield this.selectedContact.secondaryContactPoint;
       worshipMinister.contacts = [
         this.selectedContact,
         secondaryContact,
       ].filter(Boolean);
+    } else if (contacts.length > 0) {
+      worshipMinister.errors.add(
+        'contacts',
+        'Selecteer een van de bestaande contactgegevens.'
+      );
     } else {
       return;
     }
