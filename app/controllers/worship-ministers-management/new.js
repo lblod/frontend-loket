@@ -80,6 +80,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
   @action
   handleContactSelectionChange(contact, isSelected) {
     if (isSelected) {
+      this.model.worshipMinister.errors.remove('contacts');
       this.selectedContact = contact;
     } else {
       this.selectedContact = null;
@@ -88,6 +89,8 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
   @action
   addNewContact() {
+    this.model.worshipMinister.errors.remove('contacts');
+
     let primaryContactPoint = createPrimaryContactPoint(this.store);
     let secondaryContactPoint = createSecondaryContactPoint(this.store);
 
@@ -119,6 +122,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
     event.preventDefault();
 
     let { worshipMinister, contacts } = this.model;
+    worshipMinister.errors.remove('contacts');
 
     // validate the minister record
     if (!worshipMinister.agentStartDate) {
@@ -132,8 +136,6 @@ export default class WorshipMinistersManagementNewController extends Controller 
     // validate the worship minister contacts which has 2 valid branches:
     // the user is editing a new contact:
     if (this.isEditingContactPoint) {
-      worshipMinister.errors.remove('contacts');
-
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
@@ -158,27 +160,24 @@ export default class WorshipMinistersManagementNewController extends Controller 
       } else {
         return;
       }
-    } else if (contacts.length === 0) {
-      worshipMinister.errors.add(
-        'contacts',
-        'Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen'
-      );
     }
 
     // the user has selected an already existing contact pair
     if (this.selectedContact) {
-      worshipMinister.errors.remove('contacts');
       let secondaryContact = yield this.selectedContact.secondaryContactPoint;
       worshipMinister.contacts = [
         this.selectedContact,
         secondaryContact,
       ].filter(Boolean);
-    } else if (contacts.length > 0) {
+    } else {
       worshipMinister.errors.add(
         'contacts',
-        'Selecteer een van de bestaande contactgegevens.'
+        `Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen${
+          contacts.length > 0
+            ? ' of selecteer een van de bestaande contactgegevens.'
+            : '.'
+        }`
       );
-    } else {
       return;
     }
 
