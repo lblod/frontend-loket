@@ -147,6 +147,20 @@
           </p>
         </AuAlert>
       {{/if}}
+      {{#let (if this.selectedContact true false) as |isSelected|}}
+      {{#unless (or this.isEditingContactPoint isSelected)}}
+        <AuAlert
+          @skin="error"
+          @icon="cross"
+          @size="small"
+          class="au-u-margin-top-small"
+        >
+          <p>
+            Contactgegevens zijn verplicht. Klik op "Contactgegevens" om contactgegevens in te vullen of selecteer een bestaande contactgegevens.
+          </p>
+        </AuAlert>
+      {{/unless}}
+      {{/let}}
     </div>
   </form>
 {{/if}}
