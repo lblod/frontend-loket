@@ -87,7 +87,7 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
   @dropTask
   *save() {
-    let { minister } = this.model;
+    let { minister, contacts } = this.model;
 
     if (!minister.agentStartDate) {
       minister.errors.add('agentStartDate', 'startdatum is een vereist veld.');
@@ -96,6 +96,8 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
     yield validateFunctie(minister);
 
     if (this.isEditingContactPoint) {
+      minister.errors.remove('contacts');
+
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
@@ -120,9 +122,23 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       } else {
         return;
       }
+    } else if (contacts.length === 0) {
+      // TODO: This works around a problem in Ember Data where adding an error without the record being in a dirty state triggers an exception.
+      // Ember Data doesn't consider relationship changes a "dirty" change, so this causes issues if the adres is cleared.
+      // This workaround uses `.send` but that is a private API which is no longer present in Ember Data 4.x
+      // The bug is fixed in Ember Data 4.6 so we need to update to that version instead of 4.4 LTS
+      // More information in the Discord: https://discord.com/channels/480462759797063690/1016327513900847134
+      // Same old issue where they use this workaround: https://stackoverflow.com/questions/27698496/attempted-to-handle-event-becameinvalid-while-in-state-root-loaded-saved
+      minister.send?.('becomeDirty');
+      minister.errors.add(
+        'contacts',
+        'Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen'
+      );
     }
 
     if (this.selectedContact) {
+      minister.errors.remove('contacts');
+
       let primaryContactPoint = findPrimaryContactPoint(
         yield minister.contacts
       );
@@ -134,6 +150,19 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
           Boolean
         );
       }
+    } else if (contacts.length > 0) {
+      // TODO: This works around a problem in Ember Data where adding an error without the record being in a dirty state triggers an exception.
+      // Ember Data doesn't consider relationship changes a "dirty" change, so this causes issues if the adres is cleared.
+      // This workaround uses `.send` but that is a private API which is no longer present in Ember Data 4.x
+      // The bug is fixed in Ember Data 4.6 so we need to update to that version instead of 4.4 LTS
+      // More information in the Discord: https://discord.com/channels/480462759797063690/1016327513900847134
+      // Same old issue where they use this workaround: https://stackoverflow.com/questions/27698496/attempted-to-handle-event-becameinvalid-while-in-state-root-loaded-saved
+      minister.send?.('becomeDirty');
+      minister.errors.add(
+        'contacts',
+        'Selecteer een van de bestaande contactgegevens.'
+      );
+      return;
     } else {
       return;
     }
