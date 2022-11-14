@@ -81,6 +81,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   @action
   handleContactSelectionChange(contact, isSelected) {
     if (isSelected) {
+      this.model.worshipMandatee.errors.remove('contacts');
       this.selectedContact = contact;
     } else {
       this.selectedContact = null;
@@ -89,6 +90,8 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   @action
   addNewContact() {
+    this.model.worshipMandatee.errors.remove('contacts');
+
     let primaryContactPoint = createPrimaryContactPoint(this.store);
     let secondaryContactPoint = createSecondaryContactPoint(this.store);
 
@@ -119,7 +122,8 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   *createMandatee(event) {
     event.preventDefault();
 
-    let { worshipMandatee } = this.model;
+    let { worshipMandatee, contacts } = this.model;
+    this.model.worshipMandatee.errors.remove('contacts');
 
     if (!worshipMandatee.start) {
       worshipMandatee.errors.add('start', 'startdatum is een vereist veld.');
@@ -160,6 +164,14 @@ export default class EredienstMandatenbeheerNewController extends Controller {
         secondaryContact,
       ].filter(Boolean);
     } else {
+      worshipMandatee.errors.add(
+        'contacts',
+        `Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen${
+          contacts.length > 0
+            ? ' of selecteer een van de bestaande contactgegevens.'
+            : '.'
+        }`
+      );
       return;
     }
 

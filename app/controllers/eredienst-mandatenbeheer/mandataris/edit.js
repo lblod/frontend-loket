@@ -51,6 +51,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @action
   handleContactSelectionChange(contact, isSelected) {
     if (isSelected) {
+      this.model.errors.remove('contacts');
       this.selectedContact = contact;
     } else {
       this.selectedContact = null;
@@ -59,6 +60,8 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @action
   addNewContact() {
+    this.model.errors.remove('contacts');
+
     let primaryContactPoint = createPrimaryContactPoint(this.store);
     let secondaryContactPoint = createSecondaryContactPoint(this.store);
 
@@ -87,6 +90,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @dropTask
   *save() {
+    this.model.errors.remove('contacts');
     if (!this.model.start) {
       this.model.errors.add('start', 'startdatum is een vereist veld.');
     }
@@ -134,6 +138,21 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
         );
       }
     } else {
+      // TODO: This works around a problem in Ember Data where adding an error without the record being in a dirty state triggers an exception.
+      // Ember Data doesn't consider relationship changes a "dirty" change, so this causes issues if the adres is cleared.
+      // This workaround uses `.send` but that is a private API which is no longer present in Ember Data 4.x
+      // The bug is fixed in Ember Data 4.6 so we need to update to that version instead of 4.4 LTS
+      // More information in the Discord: https://discord.com/channels/480462759797063690/1016327513900847134
+      // Same old issue where they use this workaround: https://stackoverflow.com/questions/27698496/attempted-to-handle-event-becameinvalid-while-in-state-root-loaded-saved
+      this.model.send?.('becomeDirty');
+      this.model.errors.add(
+        'contacts',
+        `Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen${
+          this.contactList.length > 0
+            ? ' of selecteer een van de bestaande contactgegevens.'
+            : '.'
+        }`
+      );
       return;
     }
 
