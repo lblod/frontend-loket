@@ -87,12 +87,18 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @dropTask
   *save() {
+    if (!this.model.start) {
+      this.model.errors.add('start', 'startdatum is een vereist veld.');
+    }
+
+    yield validateMandaat(this.model);
+
     if (this.isEditingContactPoint) {
       let contactPoint = this.editingContact;
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
-      if (yield isValidPrimaryContact(contactPoint)) {
+      if ((yield isValidPrimaryContact(contactPoint)) && this.model.isValid) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
@@ -128,12 +134,14 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
         );
       }
     } else {
-      this.model.contacts = [];
+      return;
     }
-    if (!this.model.start) {
-      this.model.errors.add('start', 'startdatum is een vereist veld.');
-    }
-    if ((yield validateMandaat(this.model)) && this.model.isValid) {
+
+    if (
+      this.selectedContact.isValid &&
+      this.model.contacts.length > 0 &&
+      this.model.isValid
+    ) {
       yield this.model.save();
 
       try {
