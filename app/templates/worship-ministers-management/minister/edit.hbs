@@ -141,5 +141,22 @@
         </p>
       </AuAlert>
     {{/if}}
+    {{#let (if @model.minister.errors.contacts true false) as |hasErrors|}}
+    {{#if hasErrors}}
+      <AuAlert
+        @skin="error"
+        @icon="cross"
+        @size="small"
+        class="au-u-margin-top-small"
+      >
+        <p>
+          Contactgegevens zijn verplicht.
+          {{#each @model.minister.errors.contacts as |error|}}
+            {{error.message}}
+          {{/each}}
+        </p>
+      </AuAlert>
+    {{/if}}
+    {{/let}}
   </div>
 </AuBodyContainer>

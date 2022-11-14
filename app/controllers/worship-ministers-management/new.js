@@ -80,6 +80,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
   @action
   handleContactSelectionChange(contact, isSelected) {
     if (isSelected) {
+      this.model.worshipMinister.errors.remove('contacts');
       this.selectedContact = contact;
     } else {
       this.selectedContact = null;
@@ -88,6 +89,8 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
   @action
   addNewContact() {
+    this.model.worshipMinister.errors.remove('contacts');
+
     let primaryContactPoint = createPrimaryContactPoint(this.store);
     let secondaryContactPoint = createSecondaryContactPoint(this.store);
 
@@ -118,7 +121,8 @@ export default class WorshipMinistersManagementNewController extends Controller 
   *createWorshipMinister(event) {
     event.preventDefault();
 
-    let { worshipMinister } = this.model;
+    let { worshipMinister, contacts } = this.model;
+    worshipMinister.errors.remove('contacts');
 
     // validate the minister record
     if (!worshipMinister.agentStartDate) {
@@ -166,6 +170,14 @@ export default class WorshipMinistersManagementNewController extends Controller 
         secondaryContact,
       ].filter(Boolean);
     } else {
+      worshipMinister.errors.add(
+        'contacts',
+        `Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen${
+          contacts.length > 0
+            ? ' of selecteer een van de bestaande contactgegevens.'
+            : '.'
+        }`
+      );
       return;
     }
 
