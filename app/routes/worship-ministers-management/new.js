@@ -12,7 +12,7 @@ export default class WorshipMinisterManagementNewRoute extends Route {
     },
   };
 
-  async model({ personId }) {
+  async model({ personId }, transition) {
     if (personId) {
       let person = await this.store.findRecord('persoon', personId, {
         backgroundReload: false,
@@ -26,10 +26,9 @@ export default class WorshipMinisterManagementNewRoute extends Route {
         'filter[type]': CONTACT_TYPE.PRIMARY,
         include: 'adres,secondary-contact-point',
       });
-
       // Pre select only where there is one primary contact point
       if (contacts.length === 1) {
-        this.selectedContact = contacts.firstObject;
+        transition.data.selectedContact = contacts.firstObject;
       }
 
       return {
@@ -42,12 +41,12 @@ export default class WorshipMinisterManagementNewRoute extends Route {
     return {};
   }
 
-  setupController(controller) {
+  setupController(controller, model, transition) {
     super.setupController(...arguments);
     if (!controller.hasContact && !controller.shouldSelectPerson) {
       controller.addNewContact();
     }
-    controller.selectedContact = this.selectedContact;
+    controller.selectedContact = transition.data.selectedContact;
   }
 
   resetController(controller, isExiting) {
