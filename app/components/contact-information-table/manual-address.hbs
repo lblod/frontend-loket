@@ -1,0 +1,103 @@
+{{!-- Takes attributes : Adres, Error, Manual --}}
+{{!-- TODO: Error messages address is verplicht --}}
+{{!-- TODO: Individual error messages when fields are empty --}}
+<td>
+  <tr>
+    <AuLabel
+      @error={{@errors}}
+    >
+      Straat
+    </AuLabel>
+    <AuInput
+      id="manual-address-street"
+      @error={{@errors}}
+      @value={{@address.straatnaam}}
+      @width="block"
+      {{on "input" (fn this.handleFieldErrors @address.errors)}}
+    />
+  </tr>
+    {{#if @errors}}
+    <AuHelpText @error={{@errors}}>
+      Straat is verplicht.
+    </AuHelpText>
+    {{/if}}
+    {{!-- If missing: show error message --}}
+  <tr>
+    <AuLabel
+      @error={{@errors}}
+      class="au-u-margin-top"
+    >
+    Huisnummer
+    </AuLabel>
+    <AuInput
+      id="manual-address-house-number"
+      @error={{@errors}}
+      @value={{@address.huisnummer}}
+      @width="block"
+      {{on "input" (fn this.handleFieldErrors @address.errors)}}
+    />
+  </tr>
+    {{#if @errors}}
+    <AuHelpText @error={{@errors}}>
+      Huisnummer is verplicht.
+    </AuHelpText>
+    {{/if}}
+    {{!-- If missing: show error message --}}
+  <tr>
+    <AuLabel
+      @error={{@errors}}
+      class="au-u-margin-top"
+    >
+      Postcode
+    </AuLabel>
+    <AuInput
+      id="manual-address-postcode"
+      @error={{@errors}}
+      @value={{@address.postcode}}
+      @width="block"
+      {{on "input" (fn this.handleFieldErrors @address.errors)}}
+    />
+  </tr>
+    {{#if @errors}}
+    <AuHelpText @error={{@errors}}>
+      Postcode is verplicht.
+    </AuHelpText>
+    {{/if}}
+    {{!-- If missing: show error message --}}
+  <tr>
+    <AuLabel
+      @error={{@errors}}
+      class="au-u-margin-top"
+    >
+      Gemeente
+    </AuLabel>
+    <AuInput
+      id="manual-address-municipality"
+      @error={{@errors}}
+      @value={{@address.gemeentenaam}}
+      @width="block"
+      {{on "input" (fn this.handleFieldErrors @address.errors)}}
+    />
+  </tr>
+    {{#if @errors}}
+    <AuHelpText @error={{@errors}}>
+      Gemeente is verplicht.
+    </AuHelpText>
+    {{/if}}
+    {{!-- If missing: show error message --}}
+  <p class="au-u-margin-top">
+    <AuButton @skin="link" {{on "click" @toggleAddressSelector}}>
+      Vind adres in lijst
+    </AuButton>
+  </p>
+</td>
+<td>
+  <AuLabel
+    {{!-- class="au-u-hidden-visually"
+    aria-hidden="true"
+    aria-label="Bus" --}}
+  >
+    Busnummer
+  </AuLabel>
+  <AuInput @disabled={{true}}/>
+</td>

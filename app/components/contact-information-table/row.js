@@ -1,9 +1,12 @@
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 
 export default class ContactInformationTableRowComponent extends Component {
   @service store;
+
+  @tracked manualInputMode = false;
 
   @action
   async handleAdresChange(adres) {
@@ -27,5 +30,10 @@ export default class ContactInformationTableRowComponent extends Component {
 
     // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
     this.args.contact.errors.remove('adres');
+  }
+
+  @action
+  toggleInputMode() {
+    this.manualInputMode = !this.manualInputMode;
   }
 }
