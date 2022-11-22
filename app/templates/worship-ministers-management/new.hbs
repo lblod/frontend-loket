@@ -46,7 +46,7 @@
 {{else}}
   <form
     id="create-worship-minister"
-    class="au-c-body-container"
+    class="au-c-body-container--scroll"
     {{on "submit" (perform this.createWorshipMinister)}}
   >
     <div class="au-u-2-3@medium au-o-box">
@@ -120,11 +120,50 @@
         </div>
       </div>
 
-      <AuAlert @skin="info" @icon="info-circle" @size="small">
-        <p>
-          Klik op "Bedienaar toevoegen" om contactgegevens verder aan te vullen.
-        </p>
-      </AuAlert>
+    </div>
+
+    <AuHr @size="small" />
+    <div class="au-o-box">
+      <ContactInformationTable
+        @contacts={{@model.contacts}}
+        @selectedContact={{this.selectedContact}}
+        @editingContact={{this.editingContact}}
+        @onAddNewContact={{this.addNewContact}}
+        @onEditContact={{this.setEditingContact}}
+        @onEditContactCancel={{this.handleEditContactCancel}}
+        @onContactSelectionChange={{this.handleContactSelectionChange}}
+        @isRequired={{true}}
+      />
+      {{#if (and this.isEditingContactPoint (not this.editingContact.isValid))}}
+        <AuAlert
+          @skin="error"
+          @icon="cross"
+          @size="small"
+          class="au-u-margin-top-small"
+        >
+          <p>
+            Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te
+            vullen.
+          </p>
+        </AuAlert>
+      {{/if}}
+      {{#let (if @model.worshipMinister.errors.contacts true false) as |hasErrors|}}
+      {{#if hasErrors}}
+        <AuAlert
+          @skin="error"
+          @icon="cross"
+          @size="small"
+          class="au-u-margin-top-small"
+        >
+          <p>
+            Contactgegevens zijn verplicht.
+            {{#each @model.worshipMinister.errors.contacts as |error|}}
+              {{error.message}}
+            {{/each}}
+          </p>
+        </AuAlert>
+        {{/if}}
+        {{/let}}
     </div>
   </form>
 {{/if}}

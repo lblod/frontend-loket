@@ -8,6 +8,9 @@ module.exports = function (defaults) {
     'ember-simple-auth': {
       useSessionSetupMethod: true,
     },
+    '@appuniversum/ember-appuniversum': {
+      dutchDatePickerLocalization: true,
+    },
   };
 
   if (process.env.EMBER_TEST_SELECTORS_STRIP == 'false') {

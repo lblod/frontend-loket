@@ -3,6 +3,11 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
+import {
+  createPrimaryContactPoint,
+  createSecondaryContactPoint,
+  isValidPrimaryContact,
+} from 'frontend-loket/models/contact-punt';
 import { validateFunctie } from 'frontend-loket/models/minister';
 
 export default class WorshipMinistersManagementNewController extends Controller {
@@ -12,6 +17,18 @@ export default class WorshipMinistersManagementNewController extends Controller 
   queryParams = ['personId'];
 
   @tracked personId = '';
+  @tracked selectedContact;
+  @tracked editingContact;
+
+  originalContactAdres;
+
+  get hasContact() {
+    return this.model?.contacts?.length > 0;
+  }
+
+  get isEditingContactPoint() {
+    return Boolean(this.editingContact);
+  }
 
   get shouldSelectPerson() {
     return !this.model?.person;
@@ -60,25 +77,156 @@ export default class WorshipMinistersManagementNewController extends Controller 
     this.router.transitionTo('worship-ministers-management');
   }
 
+  @action
+  handleContactSelectionChange(contact, isSelected) {
+    if (isSelected) {
+      this.model.worshipMinister.errors.remove('contacts');
+      this.selectedContact = contact;
+    } else {
+      this.selectedContact = null;
+    }
+  }
+
+  @action
+  addNewContact() {
+    this.model.worshipMinister.errors.remove('contacts');
+
+    let primaryContactPoint = createPrimaryContactPoint(this.store);
+    let secondaryContactPoint = createSecondaryContactPoint(this.store);
+
+    primaryContactPoint.secondaryContactPoint = secondaryContactPoint;
+    this.editingContact = primaryContactPoint;
+  }
+
+  @action
+  async setEditingContact(contactPoint) {
+    let secondaryContactPoint = await contactPoint.secondaryContactPoint;
+
+    if (!secondaryContactPoint) {
+      secondaryContactPoint = createSecondaryContactPoint(this.store);
+
+      contactPoint.secondaryContactPoint = secondaryContactPoint;
+    }
+
+    this.originalContactAdres = await contactPoint.adres;
+    this.editingContact = contactPoint;
+  }
+
+  @action
+  async handleEditContactCancel() {
+    this.rollbackUnsavedContactChanges();
+  }
+
   @dropTask
   *createWorshipMinister(event) {
     event.preventDefault();
 
-    let { worshipMinister } = this.model;
+    let { worshipMinister, contacts } = this.model;
+    worshipMinister.errors.remove('contacts');
+
+    // validate the minister record
     if (!worshipMinister.agentStartDate) {
       worshipMinister.errors.add(
         'agentStartDate',
         'startdatum is een vereist veld.'
       );
     }
-    if ((yield validateFunctie(worshipMinister)) && worshipMinister.isValid) {
-      yield worshipMinister.save();
-      this.router.transitionTo(
-        'worship-ministers-management.minister.edit',
-        worshipMinister.id
+    yield validateFunctie(worshipMinister);
+
+    // validate the worship minister contacts which has 2 valid branches:
+    // the user is editing a new contact:
+    if (this.isEditingContactPoint) {
+      let contactPoint = this.editingContact;
+      let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
+      let adres = yield contactPoint.adres;
+
+      // in this case the contact point information and address should be valid
+      if (
+        (yield isValidPrimaryContact(contactPoint)) &&
+        worshipMinister.isValid
+      ) {
+        if (adres?.isNew) {
+          yield adres.save();
+        }
+
+        if (contactPoint.isNew) {
+          // If we are adding a new contact point, it will always be the "selected" contact after it is saved
+          this.selectedContact = contactPoint;
+        }
+
+        if (secondaryContactPoint.telefoon) {
+          yield secondaryContactPoint.save();
+        }
+      } else {
+        return;
+      }
+    }
+
+    // the user has selected an already existing contact pair
+    if (this.selectedContact) {
+      let secondaryContact = yield this.selectedContact.secondaryContactPoint;
+      worshipMinister.contacts = [
+        this.selectedContact,
+        secondaryContact,
+      ].filter(Boolean);
+    } else {
+      worshipMinister.errors.add(
+        'contacts',
+        `Klik op "Contactgegevens toevoegen" om contactgegevens in te vullen${
+          contacts.length > 0
+            ? ' of selecteer een van de bestaande contactgegevens.'
+            : '.'
+        }`
       );
+      return;
+    }
+
+    // if both the minister record and contacts are valid we can start saving everything
+    if (
+      worshipMinister.isValid &&
+      worshipMinister.contacts.length > 0 &&
+      this.selectedContact.isValid
+    ) {
+      let secondaryContactPoint = yield this.selectedContact
+        .secondaryContactPoint;
+      if (secondaryContactPoint !== null) {
+        if (!secondaryContactPoint.telefoon) {
+          // The secondary contact point is empty so we can remove it if it was ever persisted before
+          yield secondaryContactPoint.destroyRecord();
+        }
+      }
+      yield this.selectedContact.save();
+      yield worshipMinister.save();
+      this.router.transitionTo('worship-ministers-management');
     } else {
       return;
+    }
+  }
+
+  rollbackUnsavedChanges() {
+    this.model?.worshipMinister?.rollbackAttributes();
+    this.rollbackUnsavedContactChanges();
+  }
+
+  async rollbackUnsavedContactChanges() {
+    if (this.isEditingContactPoint) {
+      let contactPoint = this.editingContact;
+      let secondaryContactPoint = await contactPoint.secondaryContactPoint;
+
+      let currentAdres = await contactPoint.adres;
+      if (currentAdres?.isNew) {
+        currentAdres.rollbackAttributes();
+      }
+
+      if (this.originalContactAdres) {
+        contactPoint.adres = this.originalContactAdres;
+        this.originalContactAdres = null;
+      }
+
+      secondaryContactPoint?.rollbackAttributes?.();
+      contactPoint.rollbackAttributes();
+
+      this.editingContact = null;
     }
   }
 }

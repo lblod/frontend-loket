@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.69.1",
+  "version": "0.70.0",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -27,13 +27,17 @@
     "test:ember": "ember test"
   },
   "overrides": {
+    "@appuniversum/ember-appuniversum": "^2.0.0",
     "@embroider/macros": "^1.0.0",
     "@embroider/util": "^1.0.0",
     "ember-cli-babel": "$ember-cli-babel",
     "moment": "^2.29.1"
   },
+  "overridesNotes": {
+    "appuniversum": "ember-rdfa-editor and ember-acmidm-login bring in a v1 version. We can remove the override once that is resolved."
+  },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^1.5.0",
+    "@appuniversum/ember-appuniversum": "^2.0.0",
     "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/lang-html": "^6.0.0",
     "@codemirror/lang-xml": "^6.0.0",
@@ -44,7 +48,7 @@
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^0.63.4",
-    "@lblod/ember-submission-form-fields": "^2.2.0",
+    "@lblod/ember-submission-form-fields": "^2.3.0",
     "@lblod/submission-form-helpers": "^2.1.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",

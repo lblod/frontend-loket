@@ -10,10 +10,13 @@
     @appTitle={{this.appTitle}}
   >
     <li class="au-c-list-horizontal__item">
-      <AuLink @route="help" @skin="secondary">
+      <AuLinkExternal
+        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/veelgestelde-vragen"
+        @skin="secondary"
+      >
         <AuIcon @icon="question-circle" @alignment="left" />
         Help
-      </AuLink>
+      </AuLinkExternal>
     </li>
     <li class="au-c-list-horizontal__item">
       {{#if this.session.isAuthenticated}}
@@ -62,15 +65,13 @@
               <Shared::MainMenu />
             </div>
             <div class="au-c-sidebar__footer">
-              <a
-                href="https://loket.lokaalbestuur.vlaanderen.be/handleiding/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="au-c-link au-c-link--secondary au-c-link--icon"
+              <AuLinkExternal
+                href="https://abb-vlaanderen.gitbook.io/handleiding-loket/"
+                @skin="secondary"
               >
                 <AuIcon @icon="documents" @alignment="left" />
                 Bekijk handleiding
-              </a>
+              </AuLinkExternal>
             </div>
           </div>
         </main.sidebar>
