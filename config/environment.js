@@ -46,6 +46,15 @@ module.exports = function (environment) {
       domain: '{{ANALYTICS_APP_DOMAIN}}',
       apiHost: '{{ANALYTICS_API_HOST}}',
     },
+    sentry: {
+      dsn: '{{SENTRY_DSN}}',
+      environment: '{{SENTRY_ENVIRONMENT}}',
+    },
+    '@sentry/ember': {
+      // Performance tracking isn't super useful for us yet and it sends a lot of data to the backend (which counts against the free tier limit).
+      // It also prevents the performance instrumentation code from running when Sentry isn't enabled (which is something that ideally is fixed in the addon itself).
+      disablePerformance: true,
+    },
   };
 
   if (environment === 'development') {
