@@ -43,6 +43,8 @@
               (eq @selectedContact contact)
               (not @editingContact.isNew)
             }}
+            @isManualInputMode={{@isManualInputMode}}
+            @toggleInputMode={{@toggleInputMode}}
             @onContactSelectionChange={{@onContactSelectionChange}}
             @onEditContact={{@onEditContact}}
             @onEditContactCancel={{@onEditContactCancel}}
@@ -55,6 +57,8 @@
             @secondaryContact={{@editingContact.secondaryContactPoint}}
             @isEditing={{true}}
             @isSelected={{true}}
+            @isManualInputMode={{@isManualInputMode}}
+            @toggleInputMode={{@toggleInputMode}}
             @onContactSelectionChange={{@onContactSelectionChange}}
             @onEditContactCancel={{@onEditContactCancel}}
           />
