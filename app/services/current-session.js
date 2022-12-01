@@ -2,6 +2,7 @@ import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
+import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
 
 const MODULE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
@@ -50,14 +51,16 @@ export default class CurrentSessionService extends Service {
   }
 
   setupSentrySession() {
-    setUser({ id: this.user.id, ip_address: null });
-    setContext('session', {
-      account: this.account.id,
-      user: this.user.id,
-      group: this.group.uri,
-      groupClassification: this.groupClassification.uri,
-      roles: this.roles,
-    });
+    if (SHOULD_ENABLE_SENTRY) {
+      setUser({ id: this.user.id, ip_address: null });
+      setContext('session', {
+        account: this.account.id,
+        user: this.user.id,
+        group: this.group.uri,
+        groupClassification: this.groupClassification.uri,
+        roles: this.roles,
+      });
+    }
   }
 
   canAccess(role) {

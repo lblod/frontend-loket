@@ -1,8 +1,10 @@
 import { init as initSentry } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
 
+export const SHOULD_ENABLE_SENTRY = config.sentry.dsn !== '{{SENTRY_DSN}}';
+
 export function setupSentry() {
-  if (config.sentry.dsn !== '{{SENTRY_DSN}}') {
+  if (SHOULD_ENABLE_SENTRY) {
     let sentryEnvironment =
       config.sentry.environment !== '{{SENTRY_ENVIRONMENT}}'
         ? config.sentry.environment
