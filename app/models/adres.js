@@ -66,7 +66,7 @@ export function resetAddressAttributes(address) {
 }
 
 export function updateAddressAttributes(address) {
-  address.setProperties({
+  return address.setProperties({
     busnummer: null,
     huisnummer: address.huisnummer,
     straatnaam: address.straatnaam,

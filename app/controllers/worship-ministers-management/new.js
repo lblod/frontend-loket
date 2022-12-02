@@ -12,7 +12,7 @@ import { validateFunctie } from 'frontend-loket/models/minister';
 import {
   combineFullAddress,
   isValidAdres,
-  // updateAddressAttributes,
+  updateAddressAttributes,
 } from 'frontend-loket/models/adres';
 import { setEmptyStringsToNull } from 'frontend-loket/utils/empty-string-to-null';
 
@@ -295,7 +295,9 @@ export default class WorshipMinistersManagementNewController extends Controller 
         // We edit a preselected existing address with manual input mode
         if (await currentAddress.id) {
           console.log('has address');
-          newAddress = fetchAddresses.firstObject;
+          newAddress = this.store.peekRecord('adres', await currentAddress.id); // filter for the good record
+          newAddress.adresRegisterId = null;
+          newAddress.adresRegisterUri = null;
         } else {
           console.log('filter address');
           let filteredAddress = fetchAddresses.filter(
@@ -303,29 +305,28 @@ export default class WorshipMinistersManagementNewController extends Controller 
           );
           // this.editingContact.adres
           console.log('dirty address', filteredAddress[0]);
-          newAddress = filteredAddress[0]; // This is not ideal because we don't change adresRegisterUri & adresRegisterId
-          // BUG: Case where we preselect an address from the selector component it breaks the relationship on update when we set new attributes
-          // newAddress = updateAddressAttributes(
-          //   filteredAddress[0] // fetchAddresses.firstObject
-          // );
-          // after updating the attributes it broke the relationship
+          // Creating a new record from the selected data but without register uri and id
+          newAddress = this.store.createRecord(
+            'adres',
+            updateAddressAttributes(filteredAddress[0])
+          );
+          filteredAddress[0].rollbackAttributes(); // Cleaning the filtered adres model if we have one that persisted
           console.log('filtered address', newAddress);
         }
       }
       console.log('if manual address', newAddress);
       // here we link the address to the contact-punt
-      this.editingContact.adres = newAddress; // undefined, should be updateAddressAttributes(filteredAddress[0]);
+      this.editingContact.adres = newAddress;
       // case : address selector
     } else {
       // Case if we have an address we remove it.
       // unless it's already linked to the contact-punt
-      // let dataAddresses = this.store.peekAll('adres'); // we find addresses
       let filteredAddress = fetchAddresses.filter(
         (adres) => adres.hasDirtyAttributes
       ); // Case we have more than one adres we must pick the one with no data
       if (await currentAddress.id) {
         console.log('current address manual update');
-        newAddress = fetchAddresses.firstObject;
+        newAddress = fetchAddresses[0];
       } else {
         console.log('Selected Address case', filteredAddress);
         filteredAddress[0].rollbackAttributes(); // Cleaning the data
