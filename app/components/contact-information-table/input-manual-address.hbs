@@ -1,107 +1,96 @@
 <td>
   {{#let (if @errors.straatnaam true false) as |showError|}}
-  <div class="au-o-block au-u-margin-bottom">
-    <AuLabel
-      @error={{showError}}
-    >
-      Straat
-    </AuLabel>
-    <AuInput
-      id="manual-address-street"
-      @error={{showError}}
-      @value={{@address.straatnaam}}
-      @width="block"
-    />
-    {{#if showError}}
-    <AuHelpText @error={{showError}}>
-      {{#each @address.errors.straatnaam as |error|}}
-        {{error.message}}
-      {{/each}}
-    </AuHelpText>
-    {{/if}}
-  </div>
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="manual-address-street" @error={{showError}}>
+        Straat
+      </AuLabel>
+      <AuInput
+        id="manual-address-street"
+        @error={{showError}}
+        @value={{@address.straatnaam}}
+        @width="block"
+      />
+      {{#if showError}}
+        <AuHelpText @error={{showError}}>
+          {{#each @address.errors.straatnaam as |error|}}
+            {{error.message}}
+          {{/each}}
+        </AuHelpText>
+      {{/if}}
+    </div>
   {{/let}}
   {{#let (if @errors.huisnummer true false) as |showError|}}
-  <div class="au-o-block au-u-margin-bottom">
-    <AuLabel
-      @error={{showError}}
-      class="au-u-margin-top"
-    >
-    Huisnummer
-    </AuLabel>
-    <AuInput
-      id="manual-address-house-number"
-      @error={{showError}}
-      @value={{@address.huisnummer}}
-      @width="block"
-    />
-    {{#if showError}}
-    <AuHelpText @error={{showError}}>
-      {{#each @address.errors.huisnummer as |error|}}
-        {{error.message}}
-      {{/each}}
-    </AuHelpText>
-    {{/if}}
-  </div>
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="manual-address-house-number" @error={{showError}}>
+        Huisnummer
+      </AuLabel>
+      <AuInput
+        id="manual-address-house-number"
+        @error={{showError}}
+        @value={{@address.huisnummer}}
+        @width="block"
+      />
+      {{#if showError}}
+        <AuHelpText @error={{showError}}>
+          {{#each @address.errors.huisnummer as |error|}}
+            {{error.message}}
+          {{/each}}
+        </AuHelpText>
+      {{/if}}
+    </div>
   {{/let}}
   {{#let (if @errors.postcode true false) as |showError|}}
-  <div class="au-o-block au-u-margin-bottom">
-    <AuLabel
-      @error={{showError}}
-      class="au-u-margin-top"
-    >
-      Postcode
-    </AuLabel>
-    <AuInput
-      id="manual-address-postcode"
-      @error={{showError}}
-      @value={{@address.postcode}}
-      @width="block"
-    />
-    {{#if showError}}
-    <AuHelpText @error={{showError}}>
-      {{#each @address.errors.postcode as |error|}}
-        {{error.message}}
-      {{/each}}
-    </AuHelpText>
-    {{/if}}
-  </div>
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="manual-address-postcode" @error={{showError}}>
+        Postcode
+      </AuLabel>
+      <AuInput
+        id="manual-address-postcode"
+        @error={{showError}}
+        @value={{@address.postcode}}
+        @width="block"
+      />
+      {{#if showError}}
+        <AuHelpText @error={{showError}}>
+          {{#each @address.errors.postcode as |error|}}
+            {{error.message}}
+          {{/each}}
+        </AuHelpText>
+      {{/if}}
+    </div>
   {{/let}}
   {{#let (if @errors.gemeentenaam true false) as |showError|}}
-  <div class="au-o-block au-u-margin-bottom">
-    <AuLabel
-      @error={{showError}}
-      class="au-u-margin-top"
-    >
-      Gemeente
-    </AuLabel>
-    <AuInput
-      id="manual-address-municipality"
-      @error={{showError}}
-      @value={{@address.gemeentenaam}}
-      @width="block"
-    />
-    {{#if showError}}
-    <AuHelpText @error={{showError}}>
-      {{#each @address.errors.gemeentenaam as |error|}}
-        {{error.message}}
-      {{/each}}
-    </AuHelpText>
-    {{/if}}
-  </div>
-  {{/let}}
-    <div class="au-o-block">
-      <AuButton @skin="link" {{on "click" @toggleAddressSelector}}>
-        Vind adres in lijst
-      </AuButton>
+    <div class="au-u-margin-bottom-small">
+      <AuLabel for="manual-address-municipality" @error={{showError}}>
+        Gemeente
+      </AuLabel>
+      <AuInput
+        id="manual-address-municipality"
+        @error={{showError}}
+        @value={{@address.gemeentenaam}}
+        @width="block"
+      />
+      {{#if showError}}
+        <AuHelpText @error={{showError}}>
+          {{#each @address.errors.gemeentenaam as |error|}}
+            {{error.message}}
+          {{/each}}
+        </AuHelpText>
+      {{/if}}
     </div>
+  {{/let}}
+  <div>
+    <AuButton @skin="link" {{on "click" @toggleAddressSelector}}>
+      Vind adres in lijst
+    </AuButton>
+  </div>
 </td>
 <td>
-  <div class="au-o-block au-u-margin-bottom">
+  <div class="au-u-margin-bottom-small">
   <AuLabel
   >
     Busnummer
   </AuLabel>
   <AuInput @disabled={{true}}/>
-  </div>
+    </div>
 </td>
