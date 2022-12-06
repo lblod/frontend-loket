@@ -44,7 +44,7 @@ export async function isValidAdres(address) {
     let value = address[field];
 
     if (!(typeof value === 'string' && value.trim().length > 0)) {
-      address.errors.add(field, `${field} is een vereist veld.`);
+      address.errors.add(field, 'Dit veld is verplicht.');
     }
   });
 
