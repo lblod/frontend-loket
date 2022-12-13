@@ -50,31 +50,3 @@ export async function isValidAdres(address) {
 
   return address.isValid;
 }
-
-export function resetAddressAttributes(address) {
-  address.setProperties({
-    busnummer: null,
-    huisnummer: null,
-    straatnaam: null,
-    postcode: null,
-    gemeentenaam: null,
-    land: null,
-    adresRegisterId: null,
-    adresRegisterUri: null,
-    volledigAdres: null,
-  });
-}
-
-export function updateAddressAttributes(address) {
-  return address.setProperties({
-    busnummer: null,
-    huisnummer: address.huisnummer,
-    straatnaam: address.straatnaam,
-    postcode: address.postcode,
-    gemeentenaam: address.gemeentenaam,
-    land: null,
-    adresRegisterId: null,
-    adresRegisterUri: null,
-    volledigAdres: address.volledigAdres,
-  });
-}
