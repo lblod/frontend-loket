@@ -9,13 +9,7 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { validateFunctie } from 'frontend-loket/models/minister';
-import {
-  combineFullAddress,
-  isValidAdres,
-  updateAddressAttributes,
-} from 'frontend-loket/models/adres';
-import { setEmptyStringsToNull } from 'frontend-loket/utils/empty-string-to-null';
-
+import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class WorshipMinistersManagementNewController extends Controller {
   @service router;
   @service store;
@@ -25,11 +19,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
   @tracked personId = '';
   @tracked selectedContact;
   @tracked editingContact;
-  /* is it better to store isManualAddress from the transition.data.isManualAddress
-   in the route ? right now it keeps the current value when we leave the page
-   don't know if we want this behavior.
-  */
-  @tracked isManualAddress = false;
+  @tracked isManualAddress;
 
   originalContactAdres;
 
@@ -105,11 +95,37 @@ export default class WorshipMinistersManagementNewController extends Controller 
       // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
       this.editingContact.errors.remove('adres');
     }
-    await this.handleInputToggle();
+
+    let newAddress;
+    let currentAddress = await this.editingContact.adres;
+    // manual mode
+    if (this.isManualAddress) {
+      if (!currentAddress) {
+        newAddress = this.store.createRecord('adres');
+      } else {
+        // current address but no id
+
+        // This means we have an address in the DB so we have to check for uri
+        if (currentAddress.id && !currentAddress.adresRegisterUri) {
+          newAddress = currentAddress;
+        } else {
+          // Uri is found, we create a new record.
+          newAddress = this.store.createRecord('adres');
+          currentAddress.rollbackAttributes(); // Clearing adres model if we have one that persisted
+        }
+      }
+      // Linking the contact-point address
+      this.editingContact.adres = newAddress;
+      // case : address selector
+    } else {
+      // prevent unsaved changes
+      currentAddress.rollbackAttributes();
+    }
   }
 
   @action
   addNewContact() {
+    this.isManualAddress = false;
     this.model.worshipMinister.errors.remove('contacts');
 
     let primaryContactPoint = createPrimaryContactPoint(this.store);
@@ -134,6 +150,12 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
     this.originalContactAdres = await contactPoint.adres;
     this.editingContact = contactPoint;
+
+    if (!(await this.originalContactAdres.adresRegisterUri)) {
+      this.isManualAddress = true;
+    } else {
+      this.isManualAddress = false;
+    }
   }
 
   @action
@@ -174,13 +196,9 @@ export default class WorshipMinistersManagementNewController extends Controller 
         (yield isValidPrimaryContact(contactPoint)) &&
         worshipMinister.isValid
       ) {
-        if (adres?.isNew) {
+        if (adres?.isNew || adres?.hasDirtyAttributes) {
           if (adres.isValid) {
-            adres.volledigAdres =
-              typeof adres.volledigAdres === 'string'
-                ? adres.volledigAdres
-                : combineFullAddress(adres);
-            adres = setEmptyStringsToNull(adres); // Creating clean data
+            adres.volledigAdres = combineFullAddress(adres);
             yield adres.save();
           } else {
             return;
@@ -233,9 +251,9 @@ export default class WorshipMinistersManagementNewController extends Controller 
           yield secondaryContactPoint.destroyRecord();
         }
       }
-      yield this.selectedContact.save();
-      yield worshipMinister.save();
-      this.router.transitionTo('worship-ministers-management');
+      // yield this.selectedContact.save();
+      // yield worshipMinister.save();
+      // this.router.transitionTo('worship-ministers-management');
     } else {
       return;
     }
@@ -265,72 +283,6 @@ export default class WorshipMinistersManagementNewController extends Controller 
       contactPoint.rollbackAttributes();
 
       this.editingContact = null;
-    }
-  }
-
-  async handleInputToggle() {
-    const { worshipMinister } = this.model;
-
-    let newAddress;
-    let currentAddress = await this.editingContact.adres;
-    let fetchAddresses = this.store.peekAll('adres');
-    // manual mode
-    if (this.isManualAddress) {
-      // Here we check if there is no adres model linked to the worshipMinister
-      if (
-        !worshipMinister.contacts.adres &&
-        !(await this.editingContact.adres)
-      ) {
-        console.log('record created');
-        newAddress = this.store.createRecord('adres', {
-          busnummer: null,
-          land: null,
-          adresRegisterId: null,
-          adresRegisterUri: null,
-        });
-      } else {
-        // here we fetch muliple addresses
-        console.log('fetch address');
-
-        // We edit a preselected existing address with manual input mode
-        if (await currentAddress.id) {
-          console.log('has address');
-          newAddress = this.store.peekRecord('adres', await currentAddress.id); // filter for the good record
-          newAddress.adresRegisterId = null;
-          newAddress.adresRegisterUri = null;
-        } else {
-          console.log('filter address');
-          let filteredAddress = fetchAddresses.filter(
-            (adres) => adres.hasDirtyAttributes
-          );
-          // this.editingContact.adres
-          console.log('dirty address', filteredAddress[0]);
-          // Creating a new record from the selected data but without register uri and id
-          newAddress = this.store.createRecord(
-            'adres',
-            updateAddressAttributes(filteredAddress[0])
-          );
-          filteredAddress[0].rollbackAttributes(); // Cleaning the filtered adres model if we have one that persisted
-          console.log('filtered address', newAddress);
-        }
-      }
-      console.log('if manual address', newAddress);
-      // here we link the address to the contact-punt
-      this.editingContact.adres = newAddress;
-      // case : address selector
-    } else {
-      // Case if we have an address we remove it.
-      // unless it's already linked to the contact-punt
-      let filteredAddress = fetchAddresses.filter(
-        (adres) => adres.hasDirtyAttributes
-      ); // Case we have more than one adres we must pick the one with no data
-      if (await currentAddress.id) {
-        console.log('current address manual update');
-        newAddress = fetchAddresses[0];
-      } else {
-        console.log('Selected Address case', filteredAddress);
-        filteredAddress[0].rollbackAttributes(); // Cleaning the data
-      }
     }
   }
 }
