@@ -1,9 +1,12 @@
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
 export default class ContactInformationTableRowComponent extends Component {
   @service store;
+
+  @tracked newAdres;
 
   @action
   async handleAdresChange(adres) {
@@ -14,13 +17,17 @@ export default class ContactInformationTableRowComponent extends Component {
         },
       });
 
-      let newAdres;
-      if (addresses.length == 0) {
-        newAdres = this.store.createRecord('adres', adres);
+      if (typeof this.newAdres === 'object') {
+        this.newAdres.rollbackAttributes();
       }
-      this.args.contact.adres = newAdres || addresses.firstObject;
+      if (addresses.length == 0) {
+        this.newAdres = this.store.createRecord('adres', adres);
+      }
+
+      this.args.contact.adres = this.newAdres || addresses.firstObject;
     } else {
       this.args.contact.adres = null;
+      this.newAdres = null;
     }
 
     // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
