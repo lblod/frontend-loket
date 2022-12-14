@@ -251,9 +251,9 @@ export default class WorshipMinistersManagementNewController extends Controller 
           yield secondaryContactPoint.destroyRecord();
         }
       }
-      // yield this.selectedContact.save();
-      // yield worshipMinister.save();
-      // this.router.transitionTo('worship-ministers-management');
+      yield this.selectedContact.save();
+      yield worshipMinister.save();
+      this.router.transitionTo('worship-ministers-management');
     } else {
       return;
     }
