@@ -87,10 +87,13 @@
 </td>
 <td>
   <div class="au-u-margin-bottom-small">
-  <AuLabel
-  >
-    Busnummer
-  </AuLabel>
-  <AuInput @disabled={{true}}/>
-    </div>
+    <AuLabel for="manual-address-busnumber">
+      Busnummer
+    </AuLabel>
+    <AuInput
+      id="manual-address-busnumber"
+      @value={{@address.busnummer}}
+      @width="block"
+    />
+  </div>
 </td>
