@@ -35,6 +35,7 @@
     </Group>
   </AuToolbar>
 
+  <AuAlert @skin="warning" @icon="alert-triangle" @size="small">Gelieve Bestuursleden met mandaten Penningmeester, Secretaris of Voorzitter ook afzonderlijk als bestuurslid toe te voegen. Meer informatie over waarom deze als twee aparte posities gezien worden vindt u in de <AuLinkExternal href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#de-bestuursmandaten">handleiding</AuLinkExternal>.</AuAlert>
 
   <AuDataTable @content={{this.model}} @isLoading={{this.isLoading}} @noDataMessage="Geen mandatarissen gevonden"
    @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |t|>
