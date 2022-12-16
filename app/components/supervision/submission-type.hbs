@@ -1,0 +1,9 @@
+<span {{did-insert (perform this.loadData)}}></span>
+{{#if this.loadData.lastSuccessful}}
+  {{#if this.decisionType}}
+    <p>{{this.decisionType.label}}</p>
+  {{else}}
+    <p class="au-u-muted">{{t "submission.no-type"}}</p>
+  {{/if}}
+    <p class="au-u-muted">{{this.regulationType.label}}</p>
+{{/if}}
