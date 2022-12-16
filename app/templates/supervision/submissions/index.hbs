@@ -30,17 +30,12 @@
     <c.body as |row|>
       <td>{{row.formData.passedBy.isTijdsspecialisatieVan.naam}}</td>
       <td>
-        {{#if row.formData.decisionType}}
-          <p>{{row.formData.decisionType.label}}</p>
-        {{else}}
-          <p class="au-c-info-text">Geen type</p>
-        {{/if}}
-        <p class="au-c-info-text">{{row.formData.regulationType.label}}</p>
+        <p class="au-c-info-text"> <Supervision::SubmissionType @formData={{row.formData}} /></p>
       </td>
       <td class="au-u-visible-small-up">{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
       <td class="au-u-visible-large-up">{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
       <td class="au-u-visible-medium-up">
-        {{#if row.task.created }}
+        {{#if row.job.created }}
           Automatisch aangemaakt bij publicatie
         {{else}}
           {{row.creator.fullName}}
@@ -49,7 +44,7 @@
       <td class="au-u-visible-small-up">
         {{#if row.lastModifier.fullName}}
           {{row.lastModifier.fullName}}
-        {{else if row.task.created}}
+        {{else if row.job.created}}
           Automatisch bij publicatie
         {{/if}}
       </td>
