@@ -27,7 +27,6 @@ export default class ContactInformationTableRowComponent extends Component {
       this.args.contact.adres = this.newAdres || addresses.firstObject;
     } else {
       this.args.contact.adres = null;
-      this.newAdres = null;
     }
 
     // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
