@@ -135,9 +135,6 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
     primaryContactPoint.secondaryContactPoint = secondaryContactPoint;
     this.editingContact = primaryContactPoint;
-    if (this.isManualAddress) {
-      this.editingContact.adres = this.store.createRecord('adres');
-    }
   }
 
   @action

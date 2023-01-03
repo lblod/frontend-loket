@@ -103,9 +103,6 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
     primaryContactPoint.secondaryContactPoint = secondaryContactPoint;
     this.editingContact = primaryContactPoint;
-    if (this.isManualAddress) {
-      this.editingContact.adres = this.store.createRecord('adres');
-    }
   }
 
   @action

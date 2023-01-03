@@ -105,9 +105,6 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
     primaryContactPoint.secondaryContactPoint = secondaryContactPoint;
     this.editingContact = primaryContactPoint;
-    if (this.isManualAddress) {
-      this.editingContact.adres = this.store.createRecord('adres');
-    }
   }
 
   @action
