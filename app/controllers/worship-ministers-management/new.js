@@ -91,35 +91,18 @@ export default class WorshipMinistersManagementNewController extends Controller 
   @action
   async toggleInputMode() {
     this.isManualAddress = !this.isManualAddress;
+
+    let currentAddress = await this.editingContact.adres;
+    if (currentAddress) {
+      currentAddress.rollbackAttributes();
+      this.editingContact.adres = null;
+    }
+
     if (this.isManualAddress) {
       // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
       this.editingContact.errors.remove('adres');
-    }
 
-    let newAddress;
-    let currentAddress = await this.editingContact.adres;
-    // manual mode
-    if (this.isManualAddress) {
-      if (!currentAddress) {
-        newAddress = this.store.createRecord('adres');
-      } else {
-        // current address but no id
-
-        // This means we have an address in the DB so we have to check for uri
-        if (currentAddress.id && !currentAddress.adresRegisterUri) {
-          newAddress = currentAddress;
-        } else {
-          // Uri is found, we create a new record.
-          newAddress = this.store.createRecord('adres');
-          currentAddress.rollbackAttributes(); // Clearing adres model if we have one that persisted
-        }
-      }
-      // Linking the contact-point address
-      this.editingContact.adres = newAddress;
-      // case : address selector
-    } else {
-      // prevent unsaved changes
-      currentAddress.rollbackAttributes();
+      this.editingContact.adres = this.store.createRecord('adres');
     }
   }
 
