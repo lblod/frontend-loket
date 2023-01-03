@@ -149,7 +149,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
     this.originalContactAdres = await contactPoint.adres;
     this.editingContact = contactPoint;
-    if (!(await this.originalContactAdres.adresRegisterUri)) {
+    if (!this.originalContactAdres.adresRegisterUri) {
       this.isManualAddress = true;
     } else {
       this.isManualAddress = false;

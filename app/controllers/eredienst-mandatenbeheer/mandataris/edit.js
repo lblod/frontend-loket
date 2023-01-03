@@ -117,7 +117,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
     this.originalContactAdres = await contactPoint.adres;
     this.editingContact = contactPoint;
-    if (!(await this.originalContactAdres.adresRegisterUri)) {
+    if (!this.originalContactAdres.adresRegisterUri) {
       this.isManualAddress = true;
     } else {
       this.isManualAddress = false;
