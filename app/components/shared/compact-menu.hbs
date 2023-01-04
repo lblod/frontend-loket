@@ -60,4 +60,14 @@
       Producten- en dienstencatalogus
     </AuLink>
   {{/if}}
+  {{#if this.currentSession.canAccessToezicht}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{this.currentSession.databankEredienstenUrl}}
+      role="menuitem"
+    >
+      Databank Erediensten
+    </AuLinkExternal>
+  {{/if}}
 </AuDropdown>

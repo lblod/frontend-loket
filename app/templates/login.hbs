@@ -214,6 +214,28 @@
               </div>
             {{/if}}
 
+            {{#if this.currentSession.canAccessToezicht}}
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="link-external">
+                    <AuHeading @level="3" @skin="4">
+                      Databank Erediensten
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Consulteer hier inzendingen
+                      van (centrale) besturen van de eredienst, gemeente- en
+                      provincieoverheid en representatief orgaan.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <a class="au-c-button au-c-button--secondary" href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/databank-erediensten" target="_blank" rel="noopener noreferrer">Handleiding</a>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+            {{/if}}
+
           </div>
         </div>
       </section>
