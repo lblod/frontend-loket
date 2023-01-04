@@ -19,7 +19,7 @@
     </:title>
     <:header>
       <tr>
-        <th id="contact-point-address" width="20%">Adres</th>
+        <th id="contact-point-address">Adres</th>
         <th id="contact-point-address-bus-number">Bus</th>
         {{! <th id="contact-point-address-province">Provincie</th> }}
         <th id="contact-point-email">E-mail</th>
@@ -43,6 +43,8 @@
               (eq @selectedContact contact)
               (not @editingContact.isNew)
             }}
+            @isManualInputMode={{@isManualInputMode}}
+            @toggleInputMode={{@toggleInputMode}}
             @onContactSelectionChange={{@onContactSelectionChange}}
             @onEditContact={{@onEditContact}}
             @onEditContactCancel={{@onEditContactCancel}}
@@ -55,6 +57,8 @@
             @secondaryContact={{@editingContact.secondaryContactPoint}}
             @isEditing={{true}}
             @isSelected={{true}}
+            @isManualInputMode={{@isManualInputMode}}
+            @toggleInputMode={{@toggleInputMode}}
             @onContactSelectionChange={{@onContactSelectionChange}}
             @onEditContactCancel={{@onEditContactCancel}}
           />

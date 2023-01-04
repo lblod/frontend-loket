@@ -11,7 +11,7 @@ import {
 } from 'frontend-loket/models/contact-punt';
 import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
-
+import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
   @service store;
@@ -19,6 +19,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @tracked selectedContact;
   @tracked editingContact;
+  @tracked isManualAddress;
 
   originalContactAdres;
 
@@ -59,7 +60,26 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   }
 
   @action
+  async toggleInputMode() {
+    this.isManualAddress = !this.isManualAddress;
+
+    let currentAddress = await this.editingContact.adres;
+    if (currentAddress) {
+      currentAddress.rollbackAttributes();
+      this.editingContact.adres = null;
+    }
+
+    if (this.isManualAddress) {
+      // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
+      this.editingContact.errors.remove('adres');
+
+      this.editingContact.adres = this.store.createRecord('adres');
+    }
+  }
+
+  @action
   addNewContact() {
+    this.isManualAddress = false;
     this.model.errors.remove('contacts');
 
     let primaryContactPoint = createPrimaryContactPoint(this.store);
@@ -81,6 +101,11 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
     this.originalContactAdres = await contactPoint.adres;
     this.editingContact = contactPoint;
+    if (!this.originalContactAdres.adresRegisterUri) {
+      this.isManualAddress = true;
+    } else {
+      this.isManualAddress = false;
+    }
   }
 
   @action
@@ -102,6 +127,11 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
+      // the user is using input mode manual, we trigger error messages here.
+      if (this.isManualAddress) {
+        yield isValidAdres(adres);
+      }
+
       if ((yield isValidPrimaryContact(contactPoint)) && this.model.isValid) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
@@ -110,8 +140,13 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
           yield secondaryContactPoint.destroyRecord();
         }
 
-        if (adres?.isNew) {
-          yield adres.save();
+        if (adres?.isNew || adres?.hasDirtyAttributes) {
+          if (adres.isValid) {
+            adres.volledigAdres = combineFullAddress(adres);
+            yield adres.save();
+          } else {
+            return;
+          }
         }
 
         if (contactPoint.isNew) {

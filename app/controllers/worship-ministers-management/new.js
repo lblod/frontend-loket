@@ -9,7 +9,7 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { validateFunctie } from 'frontend-loket/models/minister';
-
+import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class WorshipMinistersManagementNewController extends Controller {
   @service router;
   @service store;
@@ -19,6 +19,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
   @tracked personId = '';
   @tracked selectedContact;
   @tracked editingContact;
+  @tracked isManualAddress;
 
   originalContactAdres;
 
@@ -88,7 +89,26 @@ export default class WorshipMinistersManagementNewController extends Controller 
   }
 
   @action
+  async toggleInputMode() {
+    this.isManualAddress = !this.isManualAddress;
+
+    let currentAddress = await this.editingContact.adres;
+    if (currentAddress) {
+      currentAddress.rollbackAttributes();
+      this.editingContact.adres = null;
+    }
+
+    if (this.isManualAddress) {
+      // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
+      this.editingContact.errors.remove('adres');
+
+      this.editingContact.adres = this.store.createRecord('adres');
+    }
+  }
+
+  @action
   addNewContact() {
+    this.isManualAddress = false;
     this.model.worshipMinister.errors.remove('contacts');
 
     let primaryContactPoint = createPrimaryContactPoint(this.store);
@@ -110,6 +130,12 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
     this.originalContactAdres = await contactPoint.adres;
     this.editingContact = contactPoint;
+
+    if (!this.originalContactAdres.adresRegisterUri) {
+      this.isManualAddress = true;
+    } else {
+      this.isManualAddress = false;
+    }
   }
 
   @action
@@ -140,13 +166,23 @@ export default class WorshipMinistersManagementNewController extends Controller 
       let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
       let adres = yield contactPoint.adres;
 
+      // the user is using input mode manual, we trigger error messages here.
+      if (this.isManualAddress) {
+        yield isValidAdres(adres);
+      }
+
       // in this case the contact point information and address should be valid
       if (
         (yield isValidPrimaryContact(contactPoint)) &&
         worshipMinister.isValid
       ) {
-        if (adres?.isNew) {
-          yield adres.save();
+        if (adres?.isNew || adres?.hasDirtyAttributes) {
+          if (adres.isValid) {
+            adres.volledigAdres = combineFullAddress(adres);
+            yield adres.save();
+          } else {
+            return;
+          }
         }
 
         if (contactPoint.isNew) {

@@ -1,5 +1,12 @@
 {{#if @isEditing}}
   <tr>
+  {{#if @isManualInputMode}}
+    <ContactInformationTable::InputManualAddress
+      @address={{@contact.adres}}
+      @errors={{@contact.adres.errors}}
+      @toggleAddressSelector={{@toggleInputMode}}
+    />
+  {{else}}
     <AdressenregisterSelector
       @address={{@adres}}
       @onChange={{this.handleAdresChange}}
@@ -9,16 +16,30 @@
       <Adres.Selector as |suggestion|>
         {{suggestion.fullAddress}}
       </Adres.Selector>
+      <p class="au-u-margin-top-tiny">
+        <AuButton @skin="link" {{on "click" @toggleInputMode}}>
+            Vul adres manueel in
+        </AuButton>
+      </p>
     </td>
     <td>
       <Adres.BusSelector />
     </td>
     </AdressenregisterSelector>
+    {{/if}}
     {{! TODO: Implement province selection }}
     {{!-- <td>
       {{@adres.provincie}}
     </td> --}}
     <td>
+      {{#if @isManualInputMode}}
+      <AuLabel
+        for="email"
+        @error={{@contact.errors.email}}
+      >
+        E-Mail
+      </AuLabel>
+      {{/if}}
       <AuInput
         @width="block"
         @value={{@contact.email}}
@@ -28,6 +49,14 @@
       />
     </td>
     <td>
+      {{#if @isManualInputMode}}
+      <AuLabel
+        for="telephone"
+        @error={{@contact.errors.telefoon}}
+      >
+        Primair telefoonnummer
+      </AuLabel>
+      {{/if}}
       <AuInput
         @width="block"
         @value={{@contact.telefoon}}
@@ -37,6 +66,13 @@
       />
     </td>
     <td>
+      {{#if @isManualInputMode}}
+      <AuLabel
+        for="secondary-telephone"
+      >
+        Secundair telefoonnummer
+      </AuLabel>
+      {{/if}}
       <AuInput
         @width="block"
         @value={{@secondaryContact.telefoon}}

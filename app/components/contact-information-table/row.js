@@ -1,9 +1,12 @@
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
 export default class ContactInformationTableRowComponent extends Component {
   @service store;
+
+  @tracked newAdres;
 
   @action
   async handleAdresChange(adres) {
@@ -14,13 +17,14 @@ export default class ContactInformationTableRowComponent extends Component {
         },
       });
 
-      let newAdres;
-
+      if (typeof this.newAdres === 'object') {
+        this.newAdres.rollbackAttributes();
+      }
       if (addresses.length == 0) {
-        newAdres = this.store.createRecord('adres', adres);
+        this.newAdres = this.store.createRecord('adres', adres);
       }
 
-      this.args.contact.adres = newAdres || addresses.firstObject;
+      this.args.contact.adres = this.newAdres || addresses.firstObject;
     } else {
       this.args.contact.adres = null;
     }
