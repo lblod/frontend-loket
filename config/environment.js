@@ -65,6 +65,9 @@ module.exports = function (environment) {
     ENV.features['eredienst-mandatenbeheer'] = true;
     ENV.features['public-services'] = true;
     ENV.features['worship-minister-management'] = true;
+
+    ENV.databankEredienstenUrl =
+      'https://dev.app-worship-decisions-database.abb-bfg.s.redpencil.io/login';
   }
 
   if (environment === 'test') {
@@ -82,6 +85,8 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.databankEredienstenUrl =
+      'https://databankerediensten.lokaalbestuur.vlaanderen.be/login';
   }
 
   if (process.env.DEPLOY_ENV === 'production') {

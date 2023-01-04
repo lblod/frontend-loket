@@ -2,6 +2,7 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
+import ENV from 'frontend-loket/config/environment';
 
 const MODULE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
@@ -47,6 +48,10 @@ export default class CurrentSessionService extends Service {
 
   canAccess(role) {
     return this.roles.includes(role);
+  }
+
+  get databankEredienstenUrl() {
+    return ENV.databankEredienstenUrl;
   }
 
   get canAccessToezicht() {
