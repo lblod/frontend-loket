@@ -53,6 +53,7 @@ module.exports = function (environment) {
       'worship-minister-management':
         '{{FEATURE_WORSHIP_MINISTER_MANAGEMENT_ENABLED}}',
     },
+    worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
   };
 
   if (environment === 'development') {
@@ -65,8 +66,6 @@ module.exports = function (environment) {
     ENV.features['eredienst-mandatenbeheer'] = true;
     ENV.features['public-services'] = true;
     ENV.features['worship-minister-management'] = true;
-
-    ENV.worshipDecisionsDatabaseUrl = '{{WORSHIP_DECISIONS_DATABASE_URL}}';
   }
 
   if (environment === 'test') {
@@ -84,7 +83,6 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-    ENV.worshipDecisionsDatabaseUrl = '{{WORSHIP_DECISIONS_DATABASE_URL}}';
   }
 
   if (process.env.DEPLOY_ENV === 'production') {
