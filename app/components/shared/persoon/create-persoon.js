@@ -41,7 +41,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
     const now = new Date();
     const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
     const eighteenYearsAgo = `${now.getFullYear() - 18}-${month}-${day}`;
     const hundredYearsAgo = `${now.getFullYear() - 100}-${month}-${day}`;
 
