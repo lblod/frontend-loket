@@ -11,7 +11,7 @@
         @searchEnabled={{true}}
         @noMatchesMessage="Geen resultaten"
         @searchMessage="Typ om te zoeken"
-        @onChange={{this.updateAddress}} 
+        @onChange={{this.updateAddress}}
         @disabled={{@disabled}}
           as |suggestion|>
           {{#if suggestion.fullAddress}}
@@ -69,7 +69,7 @@
       @triggerId="sharedInvoice"
       @allowClear={{true}}
       @selected={{this.sharedInvoice}}
-      @onChange={{this.updateSharedInvoice}} 
+      @onChange={{this.updateSharedInvoice}}
       @options={{this.sharedInvoiceOptions}}
       @disabled={{@disabled}}
         as |option|>
@@ -92,7 +92,7 @@
       {{#if fileField.record}}
         {{#let fileField.record as |file|}}
           <li>
-            <FileCard
+            <AuFileCard
               @filename={{file.filename}}
               @fileSize={{file.humanReadableSize}}
               @downloadLink={{file.downloadLink}}

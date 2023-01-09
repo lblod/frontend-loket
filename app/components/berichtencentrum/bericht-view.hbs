@@ -16,7 +16,7 @@
     <ul class="au-o-flow au-o-flow--tiny">
       {{#each @bericht.bijlagen as |attachment|}}
         <li>
-          <FileCard
+          <AuFileCard
             @filename={{attachment.filename}}
             @fileSize={{attachment.humanReadableSize}}
             @downloadLink={{attachment.downloadLink}}
