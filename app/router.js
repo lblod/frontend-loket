@@ -145,6 +145,7 @@ Router.map(function () {
           'minister',
           { path: '/bedienaar/:worshipMinisterId' },
           function () {
+            this.route('details', { path: '/bekjik' });
             this.route('edit', { path: '/bewerk' });
           }
         );

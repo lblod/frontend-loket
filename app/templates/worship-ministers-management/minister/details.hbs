@@ -1,0 +1,107 @@
+{{#let @model.minister.ministerPosition as |hasMinisterPosition|}}
+  {{page-title
+    "Bekijk bedienaar "
+    @model.person.gebruikteVoornaam
+    " "
+    @model.person.achternaam
+    (if
+      hasMinisterPosition
+      (concat ", " @model.minister.ministerPosition.function.label)
+    )
+  }}
+
+  <AuToolbar @border="bottom" @size="large" as |Group|>
+    <Group>
+      <div>
+        <AuHeading @skin="2">Bekijk bedienaar</AuHeading>
+        <p class="au-u-h3">
+          {{@model.person.gebruikteVoornaam}}
+          {{@model.person.achternaam~}}
+          {{#if hasMinisterPosition~}}
+            ,
+            {{@model.minister.ministerPosition.function.label}}
+          {{/if}}
+        </p>
+      </div>
+    </Group>
+  </AuToolbar>
+{{/let}}
+
+<AuBodyContainer @scroll={{true}}>
+  {{#if this.bestuurseenheid.hasEditRight}}
+    <AuAlert @icon="info-circle" @skin="info" @size="small">Deze
+      bedienaargegevens zijn alleen leesbaar. Om ze te bewerken klikt u op
+      <AuLink
+        @route="worship-ministers-management.minister.edit"
+      >bewerken</AuLink>.</AuAlert>
+  {{else}}
+    <AuAlert @icon="alert-triangle" @skin="warning" @size="small">Deze
+      bedienaargegevens zijn alleen leesbaar. Je kunt ze niet bewerken.</AuAlert>
+  {{/if}}
+  <div class="au-u-2-3@medium au-o-box">
+    <div class="au-u-margin-bottom-small">
+      <AuLabel>
+        Functienaam
+      </AuLabel>
+      <p>{{@model.minister.ministerPosition.function.label}}</p>
+    </div>
+    <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel>
+          Startdatum
+        </AuLabel>
+        <p>
+          {{moment-format @model.minister.agentStartDate "DD/MM/YYYY"}}
+        </p>
+      </div>
+      <div class="au-o-grid__item au-u-1-2">
+        <AuLabel>Einddatum</AuLabel>
+        <p>
+          {{(if
+            @model.minister.agentEndDate
+            (moment-format @model.minister.agentEndDate "DD/MM/YYYY")
+            "N/A"
+          )}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <AuHr @size="small" />
+
+  {{#if @model.contacts}}
+    <div class="au-o-box">
+      <h3 class="au-u-h3 au-u-padding-bottom">
+        Contactgegevens
+      </h3>
+      {{#each @model.contacts as |contact|}}
+        <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+          <div class="au-o-grid__item au-u-1-2">
+            <AuLabel>Adres</AuLabel>
+            <p>{{contact.adres.volledigAdres}}</p>
+          </div>
+          <div class="au-o-grid__item au-u-1-2">
+            <AuLabel>E-mail</AuLabel>
+            <p>{{contact.email}}</p>
+          </div>
+          <div class="au-o-grid__item au-u-1-2">
+            <AuLabel>Primair telefoonnummer</AuLabel>
+            <p>{{contact.telefoon}}</p>
+          </div>
+          <div class="au-o-grid__item au-u-1-2">
+            <AuLabel>Secondair telefoonnummer</AuLabel>
+            <p>{{(if
+                contact.secondaryContactPoint.telefoon
+                contact.secondaryContactPoint.telefoon
+                "N/A"
+              )}}</p>
+          </div>
+
+        </div>
+        <AuHr @size="small" />
+      {{/each}}
+    </div>
+  {{/if}}
+</AuBodyContainer>
+
+{{outlet}}
