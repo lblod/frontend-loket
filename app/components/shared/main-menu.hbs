@@ -84,13 +84,25 @@
     {{#if this.currentSession.canAccessWorshipDecisionsDb}}
       <li class="au-c-list-navigation__item">
         <AuLinkExternal
-            @icon="link-external"
-            @iconAlignment="left"
-            class="au-c-list-navigation__link"
-            href={{(worship-decisions-database-url)}}
-          >
-            Databank Erediensten
-          </AuLinkExternal>
+          @icon="link-external"
+          @iconAlignment="left"
+          class="au-c-list-navigation__link"
+          href={{(worship-decisions-database-url)}}
+        >
+          Databank Erediensten
+        </AuLinkExternal>
+      </li>
+    {{/if}}
+    {{#if this.currentSession.canAccessWorshipOrganisationsDb}}
+      <li class="au-c-list-navigation__item">
+        <AuLinkExternal
+          @icon="link-external"
+          @iconAlignment="left"
+          class="au-c-list-navigation__link"
+          href={{(worship-organisations-database-url)}}
+        >
+          Eredienst Organisaties
+        </AuLinkExternal>
       </li>
     {{/if}}
   </ul>
