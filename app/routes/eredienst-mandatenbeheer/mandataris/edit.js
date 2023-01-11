@@ -7,9 +7,15 @@ import {
 export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service currentSession;
   @service store;
+  @service router;
 
   async beforeModel() {
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
+    let bestuurseenheid = mandatenbeheer.bestuurseenheid;
+
+    if (!bestuurseenheid.hasEditRight) {
+      this.router.transitionTo('eredienst-mandatenbeheer.mandataris.details');
+    }
     this.bestuursorganen = mandatenbeheer.bestuursorganen;
 
     const mandataris = await this.modelFor(
