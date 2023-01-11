@@ -5,12 +5,13 @@
         <AuHeading @skin="2">Mandatenbeheer</AuHeading>
       </div>
     </Group>
-
+    {{#if this.bestuurseenheid.hasEditRight}}
     <Group>
       <AuButtonGroup>
         <AuLink @route="eredienst-mandatenbeheer.new" @skin="button">Voeg mandataris toe</AuLink>
       </AuButtonGroup>
     </Group>
+    {{/if}}
   </AuToolbar>
 
 
@@ -68,7 +69,11 @@
         <td class="au-u-visible-medium-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
         <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
         <td>
+          {{#if this.bestuurseenheid.hasEditRight}}
           <AuLink @route="eredienst-mandatenbeheer.mandataris.edit" @model={{row.id}}>Bewerk</AuLink>
+          {{else}}
+          <AuLink @route="eredienst-mandatenbeheer.mandataris.details" @model={{row.id}}>Bekijk</AuLink>
+          {{/if}}
         </td>
       </c.body>
     </t.content>
