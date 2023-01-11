@@ -7,6 +7,7 @@ export default class Bestuurseenheid extends Model {
   @attr mailAdres;
   @attr wilMailOntvangen;
   @attr isTrialUser;
+  @attr({ defaultValue: true }) hasEditRight;
 
   @belongsTo('werkingsgebied', { inverse: 'bestuurseenheid' }) werkingsgebied;
   @belongsTo('bestuurseenheid-classificatie-code', { inverse: null })
