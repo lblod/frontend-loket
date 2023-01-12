@@ -11,10 +11,8 @@ export default class WorshipMinistersManagementMinisterEditRoute extends Route {
   @service router;
 
   async beforeModel() {
-    const bestuurseenheid = await this.modelFor('worship-ministers-management');
-
-    if (!bestuurseenheid.hasEditRight) {
-      this.router.transitionTo('worship-ministers-management.minister.details');
+    if (!this.currentSession.group.hasEditRight) {
+      this.router.transitionTo('worship-ministers-management');
     }
   }
 
