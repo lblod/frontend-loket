@@ -291,7 +291,7 @@ export default class SharedBreadCrumbComponent extends Component {
       route: 'worship-ministers-management.minister.details',
       crumbs: [
         { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
-        { label: 'Bekjik bedienaar' },
+        { label: 'Bekijk bedienaar' },
       ],
     },
     {
