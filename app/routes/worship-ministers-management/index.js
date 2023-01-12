@@ -10,20 +10,11 @@ export default class WorshipMinistersManagementIndexRoute extends Route.extend(
 
   modelName = 'minister';
 
-  async beforeModel() {
-    this.bestuurseenheid = await this.modelFor('worship-ministers-management');
-  }
-
   mergeQueryOptions() {
     const queryParams = {
       include: ['person', 'minister-position.function'].join(','),
     };
 
     return queryParams;
-  }
-
-  setupController(controller) {
-    super.setupController(...arguments);
-    controller.bestuurseenheid = this.bestuurseenheid;
   }
 }
