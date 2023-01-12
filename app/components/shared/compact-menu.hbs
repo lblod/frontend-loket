@@ -70,4 +70,14 @@
       Databank Erediensten
     </AuLinkExternal>
   {{/if}}
+  {{#if this.currentSession.canAccessWorshipOrganisationsDb}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{(worship-organisations-database-url)}}
+      role="menuitem"
+    >
+      Eredienst Organisaties
+    </AuLinkExternal>
+  {{/if}}
 </AuDropdown>
