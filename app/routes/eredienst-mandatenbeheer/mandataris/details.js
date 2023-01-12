@@ -9,8 +9,6 @@ export default class EredienstMandatenbeheerMandatarisDetailsRoute extends Route
   @service store;
 
   async beforeModel() {
-    const mandatenbeheer = await this.modelFor('eredienst-mandatenbeheer');
-    this.bestuurseenheid = mandatenbeheer.bestuurseenheid;
     const mandataris = await this.modelFor(
       'eredienst-mandatenbeheer.mandataris'
     );
@@ -34,6 +32,5 @@ export default class EredienstMandatenbeheerMandatarisDetailsRoute extends Route
     super.setupController(...arguments);
 
     controller.contactList = this.contacts;
-    controller.bestuurseenheid = this.bestuurseenheid;
   }
 }
