@@ -20,84 +20,85 @@
 
 <AuBodyContainer @scroll={{true}}>
   {{#if this.bestuurseenheid.hasEditRight}}
-  <AuAlert @icon="info-circle" @skin="info" @size="small">Deze mandatarisgegevens zijn alleen leesbaar. Om ze te bewerken klikt u op <AuLink @route="eredienst-mandatenbeheer.mandataris.edit">bewerken</AuLink>.</AuAlert>
+    <AuAlert @icon="info-circle" @skin="info" @size="small">Deze mandatarisgegevens zijn alleen leesbaar. Om ze te bewerken klikt u op <AuLink @route="eredienst-mandatenbeheer.mandataris.edit">bewerken</AuLink>.</AuAlert>
   {{else}}
-  <AuAlert @icon="alert-triangle" @skin="warning" @size="small">Deze mandatarisgegevens zijn alleen leesbaar. Je kunt ze niet bewerken.</AuAlert>
+    <AuAlert @icon="alert-triangle" @skin="warning" @size="small">Deze mandatarisgegevens zijn alleen leesbaar. Je kunt ze niet bewerken.</AuAlert>
   {{/if}}
-  <div class="au-u-2-3@medium au-o-box">
+  <dl class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
-      <AuLabel>
+      <dt class="au-c-label">
         Mandaat
-      </AuLabel>
-      <p>
+      </dt>
+      <dd>
         {{@model.bekleedt.bestuursfunctie.label}}
-      </p>
+      </dd>
     </div>
     <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel>
+        <dt class="au-c-label">
           Startdatum
-        </AuLabel>
-        <p>
+        </dt>
+        <dd>
           {{moment-format @model.start "DD/MM/YYYY"}}
-        </p>
+        </dd>
       </div>
       <div class="au-o-grid__item au-u-1-2">
-        <AuLabel>Einddatum</AuLabel>
-        <p>
-          {{(if @model.einde (moment-format @model.einde "DD/MM/YYYY") "N/A")}}
-        </p>
+        <dt class="au-c-label">Einddatum</dt>
+        <dd>
+          <ValueWithPlaceholder @value={{@model.einde}}>
+            <:value as |value|>
+              {{moment-format value "DD/MM/YYYY"}}
+            </:value>
+          </ValueWithPlaceholder>
+        </dd>
       </div>
     </div>
     {{#if @model.bekleedt}}
       <div class="au-u-margin-bottom-small">
-        <AuLabel>Geplande einddatum</AuLabel>
-        <p>
-          {{(if
-            @model.expectedEndDate
-            (moment-format @model.expectedEndDate "DD/MM/YYYY")
-            "N/A")
-          }}
-        </p>
+        <dt class="au-c-label">Geplande einddatum</dt>
+        <dd>
+          <ValueWithPlaceholder @value={{@model.expectedEndDate}}>
+            <:value as |value|>
+              {{moment-format value "DD/MM/YYYY"}}
+            </:value>
+          </ValueWithPlaceholder>
+        </dd>
       </div>
     {{/if}}
-  </div>
+  </dl>
 
   <AuHr @size="small" />
 
   {{#if this.contactList}}
     <div class="au-o-box">
-      <h3 class="au-u-h3 au-u-padding-bottom">
+      <AuHeading @skin="2" class="au-u-h3 au-u-padding-bottom">
         Contactgegevens
-      </h3>
+      </AuHeading>
       {{#each this.contactList as |contact|}}
-        <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+        <dl class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
           <div class="au-o-grid__item au-u-1-2">
-            <AuLabel>Adres</AuLabel>
-            <p>{{contact.adres.volledigAdres}}</p>
+            <dt class="au-c-label">Adres</dt>
+            <dd>{{contact.adres.volledigAdres}}</dd>
           </div>
           <div class="au-o-grid__item au-u-1-2">
-            <AuLabel>E-mail</AuLabel>
-            <p>{{contact.email}}</p>
+            <dt class="au-c-label">E-mail</dt>
+            <dd>{{contact.email}}</dd>
           </div>
           <div class="au-o-grid__item au-u-1-2">
-            <AuLabel>Primair telefoonnummer</AuLabel>
-            <p>{{contact.telefoon}}</p>
+            <dt class="au-c-label">Primair telefoonnummer</dt>
+            <dd>{{contact.telefoon}}</dd>
           </div>
           <div class="au-o-grid__item au-u-1-2">
-            <AuLabel>Secondair telefoonnummer</AuLabel>
-            <p>{{(if
-                contact.secondaryContactPoint.telefoon
-                contact.secondaryContactPoint.telefoon
-                "N/A"
-              )}}</p>
+            <dt class="au-c-label">Secondair telefoonnummer</dt>
+            <dd>
+              <ValueWithPlaceholder
+                @value={{contact.secondaryContactPoint.telefoon}}
+              />
+            </dd>
           </div>
-
-        </div>
+        </dl>
         <AuHr @size="small" />
       {{/each}}
     </div>
   {{/if}}
 </AuBodyContainer>
-
-{{outlet}}
