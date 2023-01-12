@@ -221,7 +221,7 @@ export default class SharedBreadCrumbComponent extends Component {
           label: 'Mandatenbeheer',
           link: 'eredienst-mandatenbeheer.mandatarissen',
         },
-        { label: 'Bekjik mandataris' },
+        { label: 'Bekijk mandataris' },
       ],
     },
     {
