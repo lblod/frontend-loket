@@ -11,10 +11,9 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
 
   async beforeModel() {
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
-    let bestuurseenheid = mandatenbeheer.bestuurseenheid;
 
-    if (!bestuurseenheid.hasEditRight) {
-      this.router.transitionTo('eredienst-mandatenbeheer.mandataris.details');
+    if (!this.currentSession.group.hasEditRight) {
+      this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen');
     }
     this.bestuursorganen = mandatenbeheer.bestuursorganen;
 
