@@ -69,12 +69,12 @@
 
   <AuHr @size="small" />
 
-  {{#if this.contactList}}
+  {{#if @model.contacts}}
     <div class="au-o-box">
       <AuHeading @skin="2" class="au-u-h3 au-u-padding-bottom">
         Contactgegevens
       </AuHeading>
-      {{#each this.contactList as |contact|}}
+      {{#each @model.contacts as |contact|}}
         <dl class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
           <div class="au-o-grid__item au-u-1-2">
             <dt class="au-c-label">Adres</dt>
