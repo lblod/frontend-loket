@@ -5,12 +5,19 @@ import { CONTACT_TYPE } from 'frontend-loket/models/contact-punt';
 export default class WorshipMinisterManagementNewRoute extends Route {
   @service currentSession;
   @service store;
+  @service router;
 
   queryParams = {
     personId: {
       refreshModel: true,
     },
   };
+
+  beforeModel() {
+    if (!this.currentSession.group.hasEditRight) {
+      this.router.transitionTo('worship-ministers-management');
+    }
+  }
 
   async model({ personId }, transition) {
     if (personId) {
