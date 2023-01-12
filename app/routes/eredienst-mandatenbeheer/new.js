@@ -5,6 +5,7 @@ import { CONTACT_TYPE } from 'frontend-loket/models/contact-punt';
 export default class EredienstMandatenbeheerNewRoute extends Route {
   @service currentSession;
   @service store;
+  @service router;
 
   queryParams = {
     personId: {
@@ -13,6 +14,9 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
   };
 
   beforeModel() {
+    if (!this.currentSession.group.hasEditRight) {
+      this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen');
+    }
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
     this.bestuursorganen = mandatenbeheer.bestuursorganen;
   }
