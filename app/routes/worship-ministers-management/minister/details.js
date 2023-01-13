@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import { findPrimaryContactPoint } from 'frontend-loket/models/contact-punt';
 
 export default class WorshipMinistersManagementMinisterDetailsRoute extends Route {
   @service store;
@@ -17,6 +18,15 @@ export default class WorshipMinistersManagementMinisterDetailsRoute extends Rout
       }
     );
 
+    let positionContacts = await minister.contacts;
+    this.selectedContact = findPrimaryContactPoint(positionContacts);
+
     return minister;
+  }
+
+  setupController(controller) {
+    super.setupController(...arguments);
+
+    controller.contact = this.selectedContact;
   }
 }

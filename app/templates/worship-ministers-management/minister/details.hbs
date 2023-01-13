@@ -58,35 +58,33 @@
 
   <AuHr @size="small" />
 
-  {{#if @model.contacts}}
+  {{#if this.contact}}
     <div class="au-o-box">
       <AuHeading @skin="2" class="au-u-padding-bottom">
         Contactgegevens
       </AuHeading>
-      {{#each @model.contacts as |contact|}}
         <dl class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
           <div class="au-o-grid__item au-u-1-2">
             <dt class="au-c-label">Adres</dt>
-            <dd>{{contact.adres.volledigAdres}}</dd>
+            <dd>{{this.contact.adres.volledigAdres}}</dd>
           </div>
           <div class="au-o-grid__item au-u-1-2">
             <dt class="au-c-label">E-mail</dt>
-            <dd>{{contact.email}}</dd>
+            <dd>{{this.contact.email}}</dd>
           </div>
           <div class="au-o-grid__item au-u-1-2">
             <dt class="au-c-label">Primair telefoonnummer</dt>
-            <dd>{{contact.telefoon}}</dd>
+            <dd>{{this.contact.telefoon}}</dd>
           </div>
           <div class="au-o-grid__item au-u-1-2">
             <dt class="au-c-label">Secondair telefoonnummer</dt>
             <dd>
-              <ValueWithPlaceholder @value={{contact.secondoryContactPoint.telefoon}} />
+              <ValueWithPlaceholder @value={{this.contact.secondoryContactPoint.telefoon}} />
             </dd>
           </div>
 
         </dl>
         <AuHr @size="small" />
-      {{/each}}
     </div>
   {{/if}}
 </AuBodyContainer>
