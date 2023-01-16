@@ -54,6 +54,7 @@ module.exports = function (environment) {
         '{{FEATURE_WORSHIP_MINISTER_MANAGEMENT_ENABLED}}',
     },
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
+    worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
   };
 
   if (environment === 'development') {

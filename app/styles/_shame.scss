@@ -323,3 +323,52 @@
 .say-content ul {
   margin-left: $au-unit-small + $au-unit-tiny;
 }
+
+/*
+  These are all .data-table related styles that could be found in the `vlaanderen-ui-blessed.css` file
+  and were cleaned with purgecss afterwards, so only the classes we actually use here remain.
+  Once all tables have been converted to the Appuniversum table classes we can simply remove this file.
+*/
+
+.data-table {
+  width: 100%;
+  max-width: 100%;
+}
+
+.data-table thead tr {
+  border-bottom: 3px #ccc solid;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px #ccc solid;
+}
+
+.data-table td,
+.data-table th {
+  text-align: left;
+  font-size: 1.6rem;
+  line-height: 1.3;
+  vertical-align: top;
+  padding: 1.2rem 1rem;
+}
+
+@media screen and (max-width: 767px) {
+  .data-table td,
+  .data-table th {
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+}
+
+.data-table td:first-child,
+.data-table th:first-child {
+  border-left: 0;
+}
+
+.data-table th {
+  font-weight: 500;
+}
+
+.data-table.data-table--zebra tbody tr:nth-child(odd) {
+  background-color: #f3f5f6;
+}

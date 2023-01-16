@@ -15,6 +15,8 @@ const MODULE = {
   WORSHIP_MINISTER_MANAGEMENT: 'LoketLB-eredienstBedienaarGebruiker',
   EREDIENSTMANDATENBEHEER: 'LoketLB-eredienstMandaatGebruiker',
   PUBLIC_SERVICES: 'LoketLB-LPDCGebruiker',
+  WORSHIP_DECISIONS_DB: 'LoketLB-databankEredienstenGebruiker',
+  WORSHIP_ORGANISATIONS_DB: 'LoketLB-eredienstOrganisatiesGebruiker',
 };
 
 export default class CurrentSessionService extends Service {
@@ -52,8 +54,15 @@ export default class CurrentSessionService extends Service {
 
   get canAccessWorshipDecisionsDb() {
     return (
-      this.canAccessToezicht &&
+      this.canAccess(MODULE.WORSHIP_DECISIONS_DB) &&
       !config.worshipDecisionsDatabaseUrl.startsWith('{{')
+    );
+  }
+
+  get canAccessWorshipOrganisationsDb() {
+    return (
+      this.canAccess(MODULE.WORSHIP_ORGANISATIONS_DB) &&
+      !config.worshipOrganisationsDatabaseUrl.startsWith('{{')
     );
   }
 

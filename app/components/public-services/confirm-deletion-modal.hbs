@@ -3,7 +3,11 @@
   @closeModal={{this.close}}
   data-test-confirm-deletion-modal="modal"
 >
-  <:title>Product of dienst permanent verwijderen?</:title>
+  <:title>Product of dienst verwijderen?</:title>
+  <:body>
+    Ben je zeker dat je dit product of deze dienst wilt verwijderen voor jouw
+    lokaal bestuur?
+  </:body>
   <:footer>
     <AuButtonGroup>
       <AuButton
@@ -12,6 +16,7 @@
         @alert={{true}}
         @disabled={{this.delete.isRunning}}
         @loading={{this.delete.isRunning}}
+        @loadingMessage="Aan het verwijderen"
         {{on "click" (perform this.delete)}}
         data-test-confirm-deletion-modal="delete-button"
       >
