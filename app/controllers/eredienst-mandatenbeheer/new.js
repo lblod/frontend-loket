@@ -168,15 +168,12 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
       if (
         (yield isValidPrimaryContact(contactPoint)) &&
-        worshipMandatee.isValid
+        worshipMandatee.isValid &&
+        adres.isValid
       ) {
         if (adres?.isNew || adres?.hasDirtyAttributes) {
-          if (adres.isValid) {
-            adres.volledigAdres = combineFullAddress(adres);
-            yield adres.save();
-          } else {
-            return;
-          }
+          adres.volledigAdres = combineFullAddress(adres);
+          yield adres.save();
         }
 
         if (contactPoint.isNew) {

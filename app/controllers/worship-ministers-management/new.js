@@ -174,15 +174,12 @@ export default class WorshipMinistersManagementNewController extends Controller 
       // in this case the contact point information and address should be valid
       if (
         (yield isValidPrimaryContact(contactPoint)) &&
-        worshipMinister.isValid
+        worshipMinister.isValid &&
+        adres.isValid
       ) {
         if (adres?.isNew || adres?.hasDirtyAttributes) {
-          if (adres.isValid) {
-            adres.volledigAdres = combineFullAddress(adres);
-            yield adres.save();
-          } else {
-            return;
-          }
+          adres.volledigAdres = combineFullAddress(adres);
+          yield adres.save();
         }
 
         if (contactPoint.isNew) {
