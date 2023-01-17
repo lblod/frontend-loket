@@ -183,6 +183,9 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
+        } else {
+          // The secondary contact point is empty so we can remove it if it was ever persisted before
+          yield secondaryContactPoint.destroyRecord();
         }
       } else {
         return;
@@ -213,15 +216,6 @@ export default class EredienstMandatenbeheerNewController extends Controller {
       worshipMandatee.contacts.length > 0 &&
       this.selectedContact.isValid
     ) {
-      let secondaryContactPoint = yield this.selectedContact
-        .secondaryContactPoint;
-      if (secondaryContactPoint !== null) {
-        if (!secondaryContactPoint.telefoon) {
-          // The secondary contact point is empty so we can remove it if it was ever persisted before
-          yield secondaryContactPoint.destroyRecord();
-        }
-      }
-
       yield this.selectedContact.save();
       yield worshipMandatee.save();
 

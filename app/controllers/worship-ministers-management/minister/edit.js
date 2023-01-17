@@ -142,6 +142,9 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       ) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
+        } else {
+          // The secondary contact point is empty so we can remove it if it was ever persisted before
+          yield secondaryContactPoint.destroyRecord();
         }
 
         if (adres?.isNew || adres?.hasDirtyAttributes) {
@@ -196,14 +199,6 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       minister.isValid &&
       minister.contacts.length > 0
     ) {
-      let secondaryContactPoint = yield this.selectedContact
-        .secondaryContactPoint;
-      if (secondaryContactPoint !== null) {
-        if (!secondaryContactPoint.telefoon) {
-          // The secondary contact point is empty so we can remove it if it was ever persisted before
-          yield secondaryContactPoint.destroyRecord();
-        }
-      }
       yield minister.save();
 
       try {

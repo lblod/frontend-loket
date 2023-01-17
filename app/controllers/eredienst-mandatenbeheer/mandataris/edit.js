@@ -139,6 +139,9 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       ) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
+        } else {
+          // The secondary contact point is empty so we can remove it if it was ever persisted before
+          yield secondaryContactPoint.destroyRecord();
         }
 
         if (adres?.isNew || adres?.hasDirtyAttributes) {
@@ -193,14 +196,6 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       this.model.contacts.length > 0 &&
       this.model.isValid
     ) {
-      let secondaryContactPoint = yield this.selectedContact
-        .secondaryContactPoint;
-      if (secondaryContactPoint !== null) {
-        if (!secondaryContactPoint.telefoon) {
-          // The secondary contact point is empty so we can remove it if it was ever persisted before
-          yield secondaryContactPoint.destroyRecord();
-        }
-      }
       yield this.model.save();
 
       try {
