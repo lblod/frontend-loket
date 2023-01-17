@@ -174,15 +174,12 @@ export default class WorshipMinistersManagementNewController extends Controller 
       // in this case the contact point information and address should be valid
       if (
         (yield isValidPrimaryContact(contactPoint)) &&
-        worshipMinister.isValid
+        worshipMinister.isValid &&
+        adres.isValid
       ) {
         if (adres?.isNew || adres?.hasDirtyAttributes) {
-          if (adres.isValid) {
-            adres.volledigAdres = combineFullAddress(adres);
-            yield adres.save();
-          } else {
-            return;
-          }
+          adres.volledigAdres = combineFullAddress(adres);
+          yield adres.save();
         }
 
         if (contactPoint.isNew) {
@@ -192,6 +189,9 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
+        } else {
+          // The secondary contact point is empty so we can remove it if it was ever persisted before
+          yield secondaryContactPoint.destroyRecord();
         }
       } else {
         return;
@@ -223,14 +223,6 @@ export default class WorshipMinistersManagementNewController extends Controller 
       worshipMinister.contacts.length > 0 &&
       this.selectedContact.isValid
     ) {
-      let secondaryContactPoint = yield this.selectedContact
-        .secondaryContactPoint;
-      if (secondaryContactPoint !== null) {
-        if (!secondaryContactPoint.telefoon) {
-          // The secondary contact point is empty so we can remove it if it was ever persisted before
-          yield secondaryContactPoint.destroyRecord();
-        }
-      }
       yield this.selectedContact.save();
       yield worshipMinister.save();
       this.router.transitionTo('worship-ministers-management');
