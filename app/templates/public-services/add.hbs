@@ -89,6 +89,7 @@
           <AuLink
             @route="public-services.concept-details"
             @model={{publicService.id}}
+            @query={{hash preview=true}}
           >
             {{! template-lint-disable no-triple-curlies~}}
             {{{publicService.nameNl}}}
