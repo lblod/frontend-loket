@@ -51,7 +51,7 @@ export default class CurrentSessionService extends Service {
   }
 
   get hasReadOnlyWorshipMinistersManagementData() {
-    return this.group.viewOnlyModules.includes(
+    return !!this.group.viewOnlyModules?.includes(
       MODULE.WORSHIP_MINISTER_MANAGEMENT
     );
   }
