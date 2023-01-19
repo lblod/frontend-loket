@@ -2,13 +2,13 @@
   <Group>
     <AuHeading @skin="2">Bedienarenbeheer</AuHeading>
   </Group>
-  {{#if this.bestuurseenheid.hasEditRight}}
+  {{#unless this.currentSession.hasReadOnlyWorshipMinistersManagementData}}
     <Group>
       <AuLink @route="worship-ministers-management.new" @skin="button">
         Voeg bedienaar toe
       </AuLink>
     </Group>
-  {{/if}}
+  {{/unless}}
 </AuToolbar>
 
 <AuDataTable
@@ -58,7 +58,17 @@
       <td>{{moment-format minister.agentStartDate "DD/MM/YYYY"}}</td>
       <td>{{moment-format minister.agentEndDate "DD/MM/YYYY"}}</td>
       <td class="u-table-cell-fit-content">
-        {{#if this.bestuurseenheid.hasEditRight}}
+        {{#if this.currentSession.hasReadOnlyWorshipMinistersManagementData}}
+          <AuLink
+            @icon="eye"
+            @iconAlignment="left"
+            @skin="primary"
+            @route="worship-ministers-management.minister.details"
+            @model={{minister.id}}
+          >
+            Bekijk
+          </AuLink>
+        {{else}}
           <AuLink
             @icon="pencil"
             @iconAlignment="left"
@@ -67,13 +77,6 @@
             @model={{minister.id}}
           >
             Bewerk
-          </AuLink>
-        {{else}}
-          <AuLink
-            @route="worship-ministers-management.minister.details"
-            @model={{minister.id}}
-          >
-            Bekijk
           </AuLink>
         {{/if}}
       </td>

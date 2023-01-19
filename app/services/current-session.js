@@ -50,6 +50,12 @@ export default class CurrentSessionService extends Service {
     return this.roles.includes(role);
   }
 
+  get hasReadOnlyWorshipMinistersManagementData() {
+    return this.group.viewOnlyModules.includes(
+      MODULE.WORSHIP_MINISTER_MANAGEMENT
+    );
+  }
+
   get canAccessWorshipDecisionsDb() {
     return (
       this.canAccessToezicht &&

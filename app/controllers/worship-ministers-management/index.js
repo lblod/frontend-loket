@@ -7,8 +7,4 @@ export default class WorshipMinistersManagementIndexController extends Controlle
   @tracked sort = 'person.gebruikte-voornaam';
   @tracked page = 0;
   @tracked size = 20;
-
-  get bestuurseenheid() {
-    return this.currentSession.group;
-  }
 }
