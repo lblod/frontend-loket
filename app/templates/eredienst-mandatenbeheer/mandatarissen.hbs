@@ -1,19 +1,24 @@
 <div class="au-c-body-container">
-  <AuToolbar @size="large" @nowrap="true" class="au-u-padding-bottom-none" as |Group|>
+  <AuToolbar
+    @size="large"
+    @nowrap="true"
+    class="au-u-padding-bottom-none"
+    as |Group|
+  >
     <Group>
       <div class="au-o-flow">
         <AuHeading @skin="2">Mandatenbeheer</AuHeading>
       </div>
     </Group>
-    {{#if this.bestuurseenheid.hasEditRight}}
-    <Group>
-      <AuButtonGroup>
-        <AuLink @route="eredienst-mandatenbeheer.new" @skin="button">Voeg mandataris toe</AuLink>
-      </AuButtonGroup>
-    </Group>
-    {{/if}}
+    {{#unless this.currentSession.hasViewOnlyWorshipMandateesManagementData}}
+      <Group>
+        <AuButtonGroup>
+          <AuLink @route="eredienst-mandatenbeheer.new" @skin="button">Voeg
+            mandataris toe</AuLink>
+        </AuButtonGroup>
+      </Group>
+    {{/unless}}
   </AuToolbar>
-
 
   <AuToolbar @size="large" as |Group|>
     <Group>
@@ -21,7 +26,8 @@
         <Mandatenbeheer::BestuursperiodenSelector
           @options={{this.mandatenbeheer.bestuursperiods}}
           @selectedPeriod={{this.mandatenbeheer.selectedPeriod}}
-          @onSelect={{this.selectPeriod}}/>
+          @onSelect={{this.selectPeriod}}
+        />
       </div>
     </Group>
     <Group class="au-u-1-3@medium">
@@ -36,24 +42,63 @@
     </Group>
   </AuToolbar>
 
-  <AuAlert @skin="warning" @icon="alert-triangle" @size="small">Gelieve Bestuursleden met mandaten Penningmeester, Secretaris of Voorzitter ook afzonderlijk als bestuurslid toe te voegen. Meer informatie over waarom deze als twee aparte posities gezien worden vindt u in de <AuLinkExternal href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#de-bestuursmandaten">handleiding</AuLinkExternal>.</AuAlert>
+  <AuAlert @skin="warning" @icon="alert-triangle" @size="small">Gelieve
+    Bestuursleden met mandaten Penningmeester, Secretaris of Voorzitter ook
+    afzonderlijk als bestuurslid toe te voegen. Meer informatie over waarom deze
+    als twee aparte posities gezien worden vindt u in de
+    <AuLinkExternal
+      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#de-bestuursmandaten"
+    >handleiding</AuLinkExternal>.</AuAlert>
 
-  <AuDataTable @content={{this.model}} @isLoading={{this.isLoading}} @noDataMessage="Geen mandatarissen gevonden"
-   @sort={{this.sort}} @page={{this.page}} @size={{this.size}} as |t|>
+  <AuDataTable
+    @content={{this.model}}
+    @isLoading={{this.isLoading}}
+    @noDataMessage="Geen mandatarissen gevonden"
+    @sort={{this.sort}}
+    @page={{this.page}}
+    @size={{this.size}}
+    as |t|
+  >
     <t.content as |c|>
       <c.header>
         <th class="au-u-visible-small-up">Orgaan</th>
-        <AuDataTableThSortable @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{this.sort}} @label='Naam' class="au-u-visible-small-up" />
-        <AuDataTableThSortable @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{this.sort}} @label='Familienaam'/>
-        <AuDataTableThSortable @field='bekleedt.bestuursfunctie.label' @currentSorting={{this.sort}} @label='Mandaat' />
-        <AuDataTableThSortable @field='start' @currentSorting={{this.sort}} @label='Startdatum' class="au-u-visible-medium-up" />
-        <AuDataTableThSortable @field='einde' @currentSorting={{this.sort}} @label='Einddatum' class="au-u-visible-medium-up" />
+        <AuDataTableThSortable
+          @field="isBestuurlijkeAliasVan.gebruikteVoornaam"
+          @currentSorting={{this.sort}}
+          @label="Naam"
+          class="au-u-visible-small-up"
+        />
+        <AuDataTableThSortable
+          @field="isBestuurlijkeAliasVan.achternaam"
+          @currentSorting={{this.sort}}
+          @label="Familienaam"
+        />
+        <AuDataTableThSortable
+          @field="bekleedt.bestuursfunctie.label"
+          @currentSorting={{this.sort}}
+          @label="Mandaat"
+        />
+        <AuDataTableThSortable
+          @field="start"
+          @currentSorting={{this.sort}}
+          @label="Startdatum"
+          class="au-u-visible-medium-up"
+        />
+        <AuDataTableThSortable
+          @field="einde"
+          @currentSorting={{this.sort}}
+          @label="Einddatum"
+          class="au-u-visible-medium-up"
+        />
         <th></th>
       </c.header>
       <c.body data-test-loket="mandatarissen-body" as |row|>
         <td class="au-u-visible-small-up">
-          {{#each (get this.mandatarisBestuursorganen row.id) as |bestuursorgaan index|}}
-            {{#if (gt index 0)}}<br>{{/if}}
+          {{#each
+            (get this.mandatarisBestuursorganen row.id)
+            as |bestuursorgaan index|
+          }}
+            {{#if (gt index 0)}}<br />{{/if}}
             {{bestuursorgaan.naam}}
           {{/each}}
         </td>
@@ -66,13 +111,25 @@
         <td>
           {{row.bekleedt.bestuursfunctie.label}}
         </td>
-        <td class="au-u-visible-medium-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
-        <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
+        <td class="au-u-visible-medium-up">{{moment-format
+            row.start
+            "DD/MM/YYYY"
+          }}</td>
+        <td class="au-u-visible-medium-up">{{moment-format
+            row.einde
+            "DD/MM/YYYY"
+          }}</td>
         <td>
-          {{#if this.bestuurseenheid.hasEditRight}}
-          <AuLink @route="eredienst-mandatenbeheer.mandataris.edit" @model={{row.id}}>Bewerk</AuLink>
+          {{#if this.currentSession.hasViewOnlyWorshipMandateesManagementData}}
+            <AuLink
+              @route="eredienst-mandatenbeheer.mandataris.details"
+              @model={{row.id}}
+            >Bekijk</AuLink>
           {{else}}
-          <AuLink @route="eredienst-mandatenbeheer.mandataris.details" @model={{row.id}}>Bekijk</AuLink>
+            <AuLink
+              @route="eredienst-mandatenbeheer.mandataris.edit"
+              @model={{row.id}}
+            >Bewerk</AuLink>
           {{/if}}
         </td>
       </c.body>

@@ -5,7 +5,7 @@ export default class EredienstMandatenbeheerNewPersonRoute extends Route {
   @service router;
 
   beforeModel() {
-    if (!this.currentSession.group.hasEditRight) {
+    if (this.currentSession.hasViewOnlyWorshipMandateesManagementData) {
       this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen');
     }
   }

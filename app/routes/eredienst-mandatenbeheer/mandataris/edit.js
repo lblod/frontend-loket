@@ -10,7 +10,7 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service router;
 
   async beforeModel() {
-    if (!this.currentSession.group.hasEditRight) {
+    if (this.currentSession.hasViewOnlyWorshipMandateesManagementData) {
       this.router.transitionTo('eredienst-mandatenbeheer.mandataris.details');
     }
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');

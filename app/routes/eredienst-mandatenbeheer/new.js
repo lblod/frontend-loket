@@ -14,7 +14,7 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
   };
 
   beforeModel() {
-    if (!this.currentSession.group.hasEditRight) {
+    if (this.currentSession.hasViewOnlyWorshipMandateesManagementData) {
       this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen');
     }
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
