@@ -51,7 +51,9 @@ export default class CurrentSessionService extends Service {
   }
 
   get hasViewOnlyWorshipMandateesManagementData() {
-    return this.group.viewOnlyModules.includes(MODULE.EREDIENSTMANDATENBEHEER);
+    return !!this.group.viewOnlyModules?.includes(
+      MODULE.EREDIENSTMANDATENBEHEER
+    );
   }
 
   get canAccessWorshipDecisionsDb() {
