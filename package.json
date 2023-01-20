@@ -38,6 +38,8 @@
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^2.0.0",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/plugin-proposal-decorators": "^7.20.7",
     "@codemirror/basic-setup": "^0.20.0",
     "@codemirror/lang-html": "^6.0.0",
     "@codemirror/lang-xml": "^6.0.0",
@@ -93,7 +95,7 @@
     "ember-test-selectors": "^6.0.0",
     "ember-truth-helpers": "^3.0.0",
     "ember-unique-id-helper-polyfill": "^1.2.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-ember": "^11.4.3",
     "eslint-plugin-node": "^11.1.0",
