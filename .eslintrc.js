@@ -14,11 +14,7 @@ module.exports = {
     },
   },
   plugins: ['ember'],
-  extends: [
-    'eslint:recommended',
-    'plugin:ember/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:ember/recommended', 'prettier'],
   rules: {
     'ember/routes-segments-snake-case': 'off', // https://github.com/ember-cli/eslint-plugin-ember/issues/374
   },
