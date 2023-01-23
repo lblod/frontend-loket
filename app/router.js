@@ -109,6 +109,14 @@ Router.map(function () {
           this.route('content', { path: '/inhoud' });
           this.route('properties', { path: '/eigenschappen' });
         });
+        this.route(
+          'concept-details',
+          { path: '/concept/:conceptId' },
+          function () {
+            this.route('content', { path: '/inhoud' });
+            this.route('properties', { path: '/eigenschappen' });
+          }
+        );
       }
     );
   }
@@ -125,6 +133,7 @@ Router.map(function () {
         'mandataris',
         { path: '/mandataris/:mandateeId' },
         function () {
+          this.route('details');
           this.route('edit');
         }
       );

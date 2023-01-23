@@ -23,6 +23,8 @@
                   <p>
                   {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
                   </p>
+                  {{! TODO: The solution in the lint rule docs doesn't work here. We need to find a different solution.}}
+                  {{! template-lint-disable no-array-prototype-extensions}}
                   {{#if (await account.gebruiker.bestuurseenheden.firstObject.alternatieveNaam)}}
                   <AuHr/>
                   <p>

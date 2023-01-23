@@ -135,20 +135,21 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
         yield isValidAdres(adres);
       }
 
-      if ((yield isValidPrimaryContact(contactPoint)) && minister.isValid) {
+      if (
+        (yield isValidPrimaryContact(contactPoint)) &&
+        minister.isValid &&
+        adres.isValid
+      ) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
           // The secondary contact point is empty so we can remove it if it was ever persisted before
           yield secondaryContactPoint.destroyRecord();
         }
+
         if (adres?.isNew || adres?.hasDirtyAttributes) {
-          if (adres.isValid) {
-            adres.volledigAdres = combineFullAddress(adres);
-            yield adres.save();
-          } else {
-            return;
-          }
+          adres.volledigAdres = combineFullAddress(adres);
+          yield adres.save();
         }
 
         if (contactPoint.isNew) {

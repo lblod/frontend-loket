@@ -31,7 +31,6 @@ export default class MandatenbeheerMandatarissenController extends Controller {
     );
   }
 
-  @alias('mandatenbeheer.startDate') startDate;
   @alias('mandatenbeheer.bestuursperioden') bestuursperioden;
   @alias('mandatenbeheer.bestuurseenheid') bestuurseenheid;
   @alias('mandatenbeheer.bestuursorganen') bestuursorganen;

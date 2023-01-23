@@ -14,7 +14,7 @@ export default class WorshipMinisterManagementNewRoute extends Route {
   };
 
   beforeModel() {
-    if (this.currentSession.hasReadOnlyWorshipMinistersManagementData) {
+    if (this.currentSession.hasViewOnlyWorshipMinistersManagementData) {
       this.router.transitionTo('worship-ministers-management');
     }
   }

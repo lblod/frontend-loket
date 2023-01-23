@@ -1,4 +1,101 @@
-{{#unless this.createMode}}
+{{!-- ***********************************CREATE MANDATARIS*********************************** --}}
+{{#if this.createMode}}
+  <div class="js-accordion js-accordion--open">
+    <div class="au-c-collapsible">
+      <div class="au-c-form">
+        <div>
+          <AuLabel for="mandaat">Mandaat</AuLabel>
+          {{mandatenbeheer/mandaat-bestuursorganen-selector
+            onSelect=(action 'setMandaat')
+            bestuursorganen=this.bestuursorganen
+            mandaat=this.mandaat
+            allowClear=true
+          }}
+        </div>
+        <div>
+          <AuLabel for="mandataris-status">Status</AuLabel>
+          {{mandatenbeheer/mandataris-status-code-selector
+            onSelect=(action "setStatusCode")
+            statusCode=this.status
+            allowClear=true
+          }}
+          <AuHelpText>Titelvoerdend is enkel voor burgemeester</AuHelpText>
+        </div>
+        <div>
+          <AuLabel for="mandataris-beleidsdomein">Beleidsdomeinen</AuLabel>
+          {{mandatenbeheer/beleidsdomein-selector-with-create
+            onSelect=(action 'setBeleidsdomein')
+            beleidsdomeinen=this.beleidsdomeinen
+          }}
+        </div>
+        <div>
+          <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
+          <AuInput
+            @value={{this.rangorde}}
+            @width="block"
+            id="mandataris-rangorde"
+            placeholder="Eerste schepen"
+          />
+          <AuHelpText>Enkel voor schepenen</AuHelpText>
+        </div>
+        <div>
+          <div class="au-o-grid au-o-grid--tiny">
+            <div class="au-o-grid__item au-u-1-2">
+              <AuLabel @error={{this.startDateError}} for="mandate-creation-start-date">Start</AuLabel>
+              <AuDatePicker
+                @value={{this.startDate}}
+                @error={{this.startDateError}}
+                @onChange={{action "handleDateChange" "startDate"}}
+                @id="mandate-creation-start-date"
+              />
+              {{#if this.startDateError}}
+                <AuHelpText @error="true">{{this.startDateError}}</AuHelpText>
+              {{/if}}
+            </div>
+            <div class="au-o-grid__item au-u-1-2">
+              <AuLabel @error={{this.endDateError}} for="mandate-creation-end-date">Einde</AuLabel>
+              <AuDatePicker
+                @value={{this.endDate}}
+                @error={{this.endDateError}}
+                @onChange={{action "handleDateChange" "endDate"}}
+                @id="mandate-creation-end-date"
+              />
+              {{#if this.endDateError}}
+                <AuHelpText @error="true">{{this.endDateError}}</AuHelpText>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+        <div>
+          <AuLabel for="fractie">Fractie</AuLabel>
+          {{mandatenbeheer/fractie-selector
+            onSelect=(action 'setFractie')
+            fractie=this.fractie
+            allowClear=true
+            bestuursorganen=this.bestuursorganen
+          }}
+        </div>
+      </div>
+
+      <div class="au-u-margin-top">
+        {{#if this.requiredFieldError}}
+          <AuAlert @icon="alert-triangle" @title={{this.requiredFieldError}} @skin="error" @size="small" />
+        {{/if}}
+        {{#if this.saveError}}
+          <AuAlert @icon="alert-triangle" @title="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @skin="error" @size="small" />
+        {{/if}}
+        {{#if this.save.isRunning}}
+          <AuLoader @padding="small" />
+        {{else}}
+          <AuButtonGroup>
+            <AuButton {{action "save"}}>Voeg toe</AuButton>
+            <AuButton {{action "cancel"}} @skin="secondary">Annuleer</AuButton>
+          </AuButtonGroup>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{else}}
 <div class="js-accordion {{if this.editMode 'js-accordion--open'}}  {{if this.promptMode 'js-accordion--open'}}">
   {{mandatenbeheer/mandataris-summary
     mandataris=this.mandataris
@@ -182,102 +279,4 @@
     </div>
   {{/if}}
 </div>
-
-{{!-- ***********************************CREATE MANDATARIS*********************************** --}}
-{{else}}
-  <div class="js-accordion js-accordion--open">
-    <div class="au-c-collapsible">
-      <div class="au-c-form">
-        <div>
-          <AuLabel for="mandaat">Mandaat</AuLabel>
-          {{mandatenbeheer/mandaat-bestuursorganen-selector
-            onSelect=(action 'setMandaat')
-            bestuursorganen=this.bestuursorganen
-            mandaat=this.mandaat
-            allowClear=true
-          }}
-        </div>
-        <div>
-          <AuLabel for="mandataris-status">Status</AuLabel>
-          {{mandatenbeheer/mandataris-status-code-selector
-            onSelect=(action "setStatusCode")
-            statusCode=this.status
-            allowClear=true
-          }}
-          <AuHelpText>Titelvoerdend is enkel voor burgemeester</AuHelpText>
-        </div>
-        <div>
-          <AuLabel for="mandataris-beleidsdomein">Beleidsdomeinen</AuLabel>
-          {{mandatenbeheer/beleidsdomein-selector-with-create
-            onSelect=(action 'setBeleidsdomein')
-            beleidsdomeinen=this.beleidsdomeinen
-          }}
-        </div>
-        <div>
-          <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
-          <AuInput
-            @value={{this.rangorde}}
-            @width="block"
-            id="mandataris-rangorde"
-            placeholder="Eerste schepen"
-          />
-          <AuHelpText>Enkel voor schepenen</AuHelpText>
-        </div>
-        <div>
-          <div class="au-o-grid au-o-grid--tiny">
-            <div class="au-o-grid__item au-u-1-2">
-              <AuLabel @error={{this.startDateError}} for="mandate-creation-start-date">Start</AuLabel>
-              <AuDatePicker
-                @value={{this.startDate}}
-                @error={{this.startDateError}}
-                @onChange={{action "handleDateChange" "startDate"}}
-                @id="mandate-creation-start-date"
-              />
-              {{#if this.startDateError}}
-                <AuHelpText @error="true">{{this.startDateError}}</AuHelpText>
-              {{/if}}
-            </div>
-            <div class="au-o-grid__item au-u-1-2">
-              <AuLabel @error={{this.endDateError}} for="mandate-creation-end-date">Einde</AuLabel>
-              <AuDatePicker
-                @value={{this.endDate}}
-                @error={{this.endDateError}}
-                @onChange={{action "handleDateChange" "endDate"}}
-                @id="mandate-creation-end-date"
-              />
-              {{#if this.endDateError}}
-                <AuHelpText @error="true">{{this.endDateError}}</AuHelpText>
-              {{/if}}
-            </div>
-          </div>
-        </div>
-        <div>
-          <AuLabel for="fractie">Fractie</AuLabel>
-          {{mandatenbeheer/fractie-selector
-            onSelect=(action 'setFractie')
-            fractie=this.fractie
-            allowClear=true
-            bestuursorganen=this.bestuursorganen
-          }}
-        </div>
-      </div>
-
-      <div class="au-u-margin-top">
-        {{#if this.requiredFieldError}}
-          <AuAlert @icon="alert-triangle" @title={{this.requiredFieldError}} @skin="error" @size="small" />
-        {{/if}}
-        {{#if this.saveError}}
-          <AuAlert @icon="alert-triangle" @title="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @skin="error" @size="small" />
-        {{/if}}
-        {{#if this.save.isRunning}}
-          <AuLoader @padding="small" />
-        {{else}}
-          <AuButtonGroup>
-            <AuButton {{action "save"}}>Voeg toe</AuButton>
-            <AuButton {{action "cancel"}} @skin="secondary">Annuleer</AuButton>
-          </AuButtonGroup>
-        {{/if}}
-      </div>
-    </div>
-  </div>
-{{/unless}}
+{{/if}}

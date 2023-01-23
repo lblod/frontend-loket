@@ -34,7 +34,7 @@ module(
     });
 
     test('it does not display a label if no status is passed', async function (assert) {
-      await render(hbs`{{shared/document-status-pill}}`);
+      await render(hbs`<Shared::DocumentStatusPill />`);
 
       assert.dom('[data-test-loket=document-status-pill]').doesNotIncludeText();
     });

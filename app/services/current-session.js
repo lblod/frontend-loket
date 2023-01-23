@@ -1,5 +1,4 @@
-import Service from '@ember/service';
-import { inject as service } from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 import config from 'frontend-loket/config/environment';
@@ -15,6 +14,8 @@ const MODULE = {
   WORSHIP_MINISTER_MANAGEMENT: 'LoketLB-eredienstBedienaarGebruiker',
   EREDIENSTMANDATENBEHEER: 'LoketLB-eredienstMandaatGebruiker',
   PUBLIC_SERVICES: 'LoketLB-LPDCGebruiker',
+  WORSHIP_DECISIONS_DB: 'LoketLB-databankEredienstenGebruiker',
+  WORSHIP_ORGANISATIONS_DB: 'LoketLB-eredienstOrganisatiesGebruiker',
 };
 
 export default class CurrentSessionService extends Service {
@@ -50,16 +51,28 @@ export default class CurrentSessionService extends Service {
     return this.roles.includes(role);
   }
 
-  get hasReadOnlyWorshipMinistersManagementData() {
+  get hasViewOnlyWorshipMinistersManagementData() {
     return !!this.group.viewOnlyModules?.includes(
-      MODULE.WORSHIP_MINISTER_MANAGEMENT
+      MODULE.WORSHIP_MINISTER_MANAGEMENT);
+    }
+
+  get hasViewOnlyWorshipMandateesManagementData() {
+    return !!this.group.viewOnlyModules?.includes(
+      MODULE.EREDIENSTMANDATENBEHEER
     );
   }
 
   get canAccessWorshipDecisionsDb() {
     return (
-      this.canAccessToezicht &&
+      this.canAccess(MODULE.WORSHIP_DECISIONS_DB) &&
       !config.worshipDecisionsDatabaseUrl.startsWith('{{')
+    );
+  }
+
+  get canAccessWorshipOrganisationsDb() {
+    return (
+      this.canAccess(MODULE.WORSHIP_ORGANISATIONS_DB) &&
+      !config.worshipOrganisationsDatabaseUrl.startsWith('{{')
     );
   }
 

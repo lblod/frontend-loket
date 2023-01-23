@@ -1,0 +1,23 @@
+{{page-title "Concept: " @model.concept.nameNl}}
+
+<AuToolbar @size="large" as |Group|>
+  <Group>
+    <AuHeading @skin="2">
+      {{! template-lint-disable no-triple-curlies}}
+      Concept: {{{@model.concept.nameNl}}}
+    </AuHeading>
+  </Group>
+</AuToolbar>
+
+<AuTabs as |Tab|>
+  <Tab>
+    <AuLink @route="public-services.concept-details.content">Inhoud</AuLink>
+  </Tab>
+  <Tab>
+    <AuLink @route="public-services.concept-details.properties">Eigenschappen</AuLink>
+  </Tab>
+</AuTabs>
+
+<AuBodyContainer>
+  {{outlet}}
+</AuBodyContainer>

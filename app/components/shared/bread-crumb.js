@@ -215,6 +215,16 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
+      route: 'eredienst-mandatenbeheer.mandataris.details',
+      crumbs: [
+        {
+          label: 'Mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        { label: 'Bekijk mandataris' },
+      ],
+    },
+    {
       route: 'eredienst-mandatenbeheer.new',
       crumbs: [
         {
@@ -332,12 +342,29 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
-      route: 'public-services.details.translations',
+      route: 'public-services.concept-details',
       crumbs: [
         { label: 'Producten- en dienstencatalogus', link: 'public-services' },
         // TODO: this should be the name of the service, but the breadcrumbs system doesn't support that
-        { label: 'Details' },
-        { label: 'Engelse vertalingen' },
+        { label: 'Concept details' },
+      ],
+    },
+    {
+      route: 'public-services.concept-details.content',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        // TODO: this should be the name of the service, but the breadcrumbs system doesn't support that
+        { label: 'Concept details' },
+        { label: 'Inhoud' },
+      ],
+    },
+    {
+      route: 'public-services.concept-details.properties',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        // TODO: this should be the name of the service, but the breadcrumbs system doesn't support that
+        { label: 'Concept details' },
+        { label: 'Eigenschappen' },
       ],
     },
   ];

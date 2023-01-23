@@ -171,15 +171,35 @@
               van de eredienst, gemeente- en provincieoverheid en representatief
               orgaan.</:description>
             <:link>
-              <AuLinkExternal
-                @skin="button"
-                href={{(worship-decisions-database-url)}}
-              >
-                Ga naar de databank erediensten (externe link)
-              </AuLinkExternal>
+            <AuLinkExternal
+              @skin="button"
+              href={{(worship-decisions-database-url)}}
+            >
+              Ga naar de databank erediensten (externe link)
+            </AuLinkExternal>
             </:link>
           </LoketModuleCard>
         </li>
+      {{/if}}
+      {{#if this.currentSession.canAccessWorshipOrganisationsDb}}
+       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+           <LoketModuleCard
+             @icon="link-external"
+             @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/eredienst-organisaties"
+           >
+             <:title>Organisaties Erediensten</:title>
+             <:description>Consulteer hier de mandaten en bedienaren
+             van de besturen van eredienst. </:description>
+             <:link>
+             <AuLinkExternal
+               @skin="button"
+               href={{(worship-organisations-database-url)}}
+             >
+               Ga naar de eredienst organisaties (externe link)
+             </AuLinkExternal>
+             </:link>
+           </LoketModuleCard>
+         </li>
       {{/if}}
     </ul>
   </div>

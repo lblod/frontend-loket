@@ -6,7 +6,7 @@ export default class WorshipMinistersManagementNewPersonRoute extends Route {
   @service currentSession;
 
   beforeModel() {
-    if (this.currentSession.hasReadOnlyWorshipMinistersManagementData) {
+    if (this.currentSession.hasViewOnlyWorshipMinistersManagementData) {
       this.router.transitionTo('worship-ministers-management');
     }
   }
