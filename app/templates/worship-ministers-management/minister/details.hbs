@@ -3,11 +3,8 @@
     "Bekijk bedienaar "
     @model.person.gebruikteVoornaam
     " "
-    @model.person.achternaam
-    (if
-      hasMinisterPosition
-      (concat ", " @model.ministerPosition.function.label)
-    )
+    @model.person.achternaam ", "
+    @model.ministerPosition.function.label
   }}
 
   <AuToolbar @border="bottom" @size="large" as |Group|>
@@ -17,10 +14,8 @@
         <p class="au-u-h3">
           {{@model.person.gebruikteVoornaam}}
           {{@model.person.achternaam~}}
-          {{#if hasMinisterPosition~}}
             ,
             {{@model.ministerPosition.function.label}}
-          {{/if}}
         </p>
       </div>
     </Group>
