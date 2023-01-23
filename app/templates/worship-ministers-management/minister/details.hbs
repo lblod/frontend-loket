@@ -33,7 +33,7 @@
       <div class="au-o-grid__item au-u-1-2">
         <dt class="au-c-label">Startdatum</dt>
         <dd>
-          {{moment-format @model.agentStartDate "DD/MM/YYYY"}}
+          {{moment-format @model.agentStartDate "DD-MM-YYYY"}}
         </dd>
       </div>
       <div class="au-o-grid__item au-u-1-2">
@@ -41,7 +41,7 @@
         <dd>
           <ValueWithPlaceholder @value={{@model.agentEndDate}}>
             <:value as |value|>
-              {{moment-format value "DD/MM/YYYY"}}
+              {{moment-format value "DD-MM-YYYY"}}
             </:value>
           </ValueWithPlaceholder>
         </dd>

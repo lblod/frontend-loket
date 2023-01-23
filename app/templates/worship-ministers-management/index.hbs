@@ -55,8 +55,8 @@
       <td>{{minister.ministerPosition.function.label}}</td>
       <td>{{minister.person.gebruikteVoornaam}}</td>
       <td>{{minister.person.achternaam}}</td>
-      <td>{{moment-format minister.agentStartDate "DD/MM/YYYY"}}</td>
-      <td>{{moment-format minister.agentEndDate "DD/MM/YYYY"}}</td>
+      <td>{{moment-format minister.agentStartDate "DD-MM-YYYY"}}</td>
+      <td>{{moment-format minister.agentEndDate "DD-MM-YYYY"}}</td>
       <td class="u-table-cell-fit-content">
         {{#if this.currentSession.hasViewOnlyWorshipMinistersManagementData}}
           <AuLink

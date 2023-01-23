@@ -23,7 +23,7 @@
         <:content>
           <ValueWithPlaceholder @value={{@model.publicService.created}}>
             <:value as |value|>
-              {{moment-format value "DD.MM.YYYY - HH:mm"}}
+              {{moment-format value "DD-MM-YYYY - HH:mm"}}
             </:value>
           </ValueWithPlaceholder>
         </:content>
@@ -33,7 +33,7 @@
         <:content>
           <ValueWithPlaceholder @value={{@model.publicService.modified}}>
             <:value as |value|>
-              {{moment-format value "DD.MM.YYYY - HH:mm"}}
+              {{moment-format value "DD-MM-YYYY - HH:mm"}}
             </:value>
           </ValueWithPlaceholder>
         </:content>
@@ -43,7 +43,7 @@
         <:content>
           <ValueWithPlaceholder @value={{@model.publicService.startDate}}>
             <:value as |value|>
-              {{moment-format value "DD.MM.YYYY"}}
+              {{moment-format value "DD-MM-YYYY"}}
             </:value>
           </ValueWithPlaceholder>
         </:content>
@@ -53,7 +53,7 @@
         <:content>
           <ValueWithPlaceholder @value={{@model.publicService.endDate}}>
             <:value as |value|>
-              {{moment-format value "DD.MM.YYYY"}}
+              {{moment-format value "DD-MM-YYYY"}}
             </:value>
           </ValueWithPlaceholder>
         </:content>

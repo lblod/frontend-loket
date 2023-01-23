@@ -41,8 +41,8 @@
         {{row.bekleedt.bestuursfunctie.label}}
       </td>
       {{#unless @displaySubset}}
-        <td class="au-u-visible-medium-up">{{moment-format row.start 'DD/MM/YYYY'}}</td>
-        <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD/MM/YYYY'}}</td>
+        <td class="au-u-visible-medium-up">{{moment-format row.start 'DD-MM-YYYY'}}</td>
+        <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD-MM-YYYY'}}</td>
       {{/unless}}
       <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
     </c.body>
