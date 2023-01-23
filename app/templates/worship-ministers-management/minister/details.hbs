@@ -1,4 +1,3 @@
-{{#let @model.ministerPosition as |hasMinisterPosition|}}
   {{page-title
     "Bekijk bedienaar "
     @model.person.gebruikteVoornaam
@@ -20,7 +19,6 @@
       </div>
     </Group>
   </AuToolbar>
-{{/let}}
 
 <AuBodyContainer @scroll={{true}}>
   <AuAlert @icon="alert-triangle" @skin="warning" @size="small">Deze mandatarisgegevens zijn alleen leesbaar. Je kunt ze niet bewerken want ze worden beheerd door uw softwareleverancier.</AuAlert>
