@@ -35,7 +35,7 @@
           Startdatum
         </dt>
         <dd>
-          {{moment-format @model.start "DD/MM/YYYY"}}
+          {{moment-format @model.start "DD-MM-YYYY"}}
         </dd>
       </div>
       <div class="au-o-grid__item au-u-1-2">
@@ -43,7 +43,7 @@
         <dd>
           <ValueWithPlaceholder @value={{@model.einde}}>
             <:value as |value|>
-              {{moment-format value "DD/MM/YYYY"}}
+              {{moment-format value "DD-MM-YYYY"}}
             </:value>
           </ValueWithPlaceholder>
         </dd>
@@ -55,7 +55,7 @@
         <dd>
           <ValueWithPlaceholder @value={{@model.expectedEndDate}}>
             <:value as |value|>
-              {{moment-format value "DD/MM/YYYY"}}
+              {{moment-format value "DD-MM-YYYY"}}
             </:value>
           </ValueWithPlaceholder>
         </dd>
