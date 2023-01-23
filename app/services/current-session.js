@@ -1,5 +1,4 @@
-import Service from '@ember/service';
-import { inject as service } from '@ember/service';
+import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 import config from 'frontend-loket/config/environment';
@@ -50,6 +49,12 @@ export default class CurrentSessionService extends Service {
 
   canAccess(role) {
     return this.roles.includes(role);
+  }
+
+  get hasViewOnlyWorshipMinistersManagementData() {
+    return !!this.group.viewOnlyModules?.includes(
+      MODULE.WORSHIP_MINISTER_MANAGEMENT
+    );
   }
 
   get hasViewOnlyWorshipMandateesManagementData() {
