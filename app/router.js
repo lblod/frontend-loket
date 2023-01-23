@@ -133,6 +133,7 @@ Router.map(function () {
         'mandataris',
         { path: '/mandataris/:mandateeId' },
         function () {
+          this.route('details');
           this.route('edit');
         }
       );

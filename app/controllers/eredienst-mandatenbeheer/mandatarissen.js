@@ -6,6 +6,7 @@ import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class EredienstMandatenbeheerMandatarissenController extends Controller {
   @service() router;
+  @service() currentSession;
 
   sort = 'is-bestuurlijke-alias-van.gebruikte-voornaam';
 

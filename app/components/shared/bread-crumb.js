@@ -215,6 +215,16 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
+      route: 'eredienst-mandatenbeheer.mandataris.details',
+      crumbs: [
+        {
+          label: 'Mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        { label: 'Bekijk mandataris' },
+      ],
+    },
+    {
       route: 'eredienst-mandatenbeheer.new',
       crumbs: [
         {
