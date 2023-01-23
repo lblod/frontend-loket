@@ -51,6 +51,7 @@ export default class CurrentSessionService extends Service {
     return this.roles.includes(role);
   }
 
+
   get hasViewOnlyWorshipMinistersManagementData() {
     return !!this.group.viewOnlyModules?.includes(
       MODULE.WORSHIP_MINISTER_MANAGEMENT);
