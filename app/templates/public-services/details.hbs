@@ -9,8 +9,13 @@
   </Group>
 </AuToolbar>
 
-<AuToolbar @border="bottom" @size="large" as |Group|>
-  <Group>
+<AuToolbar
+  @border="bottom"
+  @size="medium"
+  class="au-u-flex au-u-flex--vertical-start"
+  as |Group|
+>
+  <Group class="au-u-margin-bottom-small">
     <DataList as |Data|>
       <Data>
         <:title>Product type</:title>
@@ -62,16 +67,61 @@
         <:title>Status document</:title>
         <:content>
           {{#if @model.publicService.status.label}}
-          <PublicServices::Status @uri={{@model.publicService.status.uri}}>
-            {{@model.publicService.status.label}}
-          </PublicServices::Status>
+            <PublicServices::Status @uri={{@model.publicService.status.uri}}>
+              {{@model.publicService.status.label}}
+            </PublicServices::Status>
           {{else}}
-          –
+            –
           {{/if}}
         </:content>
       </Data>
     </DataList>
   </Group>
+
+  {{#if (or this.showReviewRequiredMessage this.markAsReviewed.isRunning)}}
+    <Group>
+      <AuAlert
+        @title="Herziening nodig"
+        @skin="warning"
+        @icon="alert-triangle"
+        @size="small"
+        class="au-u-margin-bottom-none"
+      >
+        <p>
+          {{#if (this.isConceptUpdated @model.publicService.reviewStatus)}}
+            Het concept waarop dit product is gebaseerd, werd aangepast. Gelieve
+            na te kijken of je deze versie ook wil aanpassen.
+          {{else}}
+            Het concept waarop dit product is gebaseerd, werd verwijderd.
+            Gelieve na te kijken of je deze versie ook wil verwijderen.
+          {{/if}}
+        </p>
+        <div class="au-u-margin-top-small">
+          <AuButtonGroup>
+            <AuLink
+              @route="public-services.concept-details"
+              @model={{@model.publicService.concept.id}}
+              @skin="button"
+              @icon="eye"
+              target="blank"
+            >
+              Concept bekijken
+            </AuLink>
+            <AuButton
+              @skin="secondary"
+              @icon="check"
+              @disabled={{this.markAsReviewed.isRunning}}
+              @loading={{this.markAsReviewed.isRunning}}
+              @loadingMessage="Aan het verwerken"
+              {{on "click" (perform this.markAsReviewed)}}
+            >
+              Geen aanpassingen nodig
+            </AuButton>
+          </AuButtonGroup>
+        </div>
+      </AuAlert>
+    </Group>
+  {{/if}}
 </AuToolbar>
 
 <AuTabs as |Tab|>

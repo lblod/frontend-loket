@@ -90,18 +90,20 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @task({ group: 'publicServiceAction' })
   *publishPublicService() {
+    const { publicService } = this.args;
     try {
       if (this.hasUnsavedChanges) {
         yield this.saveSemanticForm.unlinked().perform();
       }
 
-      const response = yield submitFormData(this.args.publicService.id);
+      const response = yield submitFormData(publicService.id);
 
       if (response.ok) {
-        yield this.setServiceStatus(
-          this.args.publicService,
-          SERVICE_STATUS.SENT
-        );
+        yield this.setServiceStatus(publicService, SERVICE_STATUS.SENT);
+        this.resetReviewStatus();
+        this.updateLastModifiedDate();
+        yield publicService.save();
+
         this.router.transitionTo('public-services');
       } else {
         const jsonResponse = yield response.json();
@@ -149,22 +151,19 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @dropTask
   *saveSemanticForm() {
+    let { publicService, formId } = this.args;
     let serializedData = this.formStore.serializeDataWithAddAndDelGraph(
       this.graphs.sourceGraph,
       'application/n-triples'
     );
 
-    yield saveFormData(
-      this.args.publicService.id,
-      this.args.formId,
-      serializedData
-    );
+    yield saveFormData(publicService.id, formId, serializedData);
 
     this.hasUnsavedChanges = false;
     this.updateLastModifiedDate();
-    yield this.args.publicService.save();
+    yield publicService.save();
 
-    yield loadPublicServiceDetails(this.store, this.args.publicService.id);
+    yield loadPublicServiceDetails(this.store, publicService.id);
   }
 
   @action
@@ -191,10 +190,11 @@ export default class PublicServicesDetailsPageComponent extends Component {
   requestReopeningConfirmation() {
     this.modals.open(ConfirmReopeningModal, {
       reopeningHandler: async () => {
-        await this.setServiceStatus(
-          this.args.publicService,
-          SERVICE_STATUS.CONCEPT
-        );
+        let { publicService } = this.args;
+        await this.setServiceStatus(publicService, SERVICE_STATUS.CONCEPT);
+        this.updateLastModifiedDate();
+        await publicService.save();
+
         this.router.refresh('public-services.details');
       },
     });
@@ -250,13 +250,14 @@ export default class PublicServicesDetailsPageComponent extends Component {
       })
     ).firstObject;
     service.status = statusRecord;
-    this.updateLastModifiedDate();
-
-    await service.save();
   }
 
   updateLastModifiedDate() {
     this.args.publicService.modified = new Date();
+  }
+
+  resetReviewStatus() {
+    this.args.publicService.reviewStatus = null;
   }
 
   willDestroy() {
