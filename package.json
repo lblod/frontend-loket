@@ -1,6 +1,6 @@
 {
   "name": "frontend-loket",
-  "version": "0.73.0",
+  "version": "0.73.1",
   "private": true,
   "description": "Frontend of loket",
   "repository": {
@@ -50,7 +50,7 @@
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^0.63.4",
-    "@lblod/ember-submission-form-fields": "^2.4.1",
+    "@lblod/ember-submission-form-fields": "^2.4.2",
     "@lblod/submission-form-helpers": "^2.1.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
