@@ -98,15 +98,17 @@
         </p>
         <div class="au-u-margin-top-small">
           <AuButtonGroup>
-            <AuLink
-              @route="public-services.concept-details"
-              @model={{@model.publicService.concept.id}}
-              @skin="button"
-              @icon="eye"
-              target="blank"
-            >
-              Concept bekijken
-            </AuLink>
+            {{#if (this.isConceptUpdated @model.publicService.reviewStatus)}}
+              <AuLink
+                @route="public-services.concept-details"
+                @model={{@model.publicService.concept.id}}
+                @skin="button"
+                @icon="eye"
+                target="blank"
+              >
+                Concept bekijken
+              </AuLink>
+            {{/if}}
             <AuButton
               @skin="secondary"
               @icon="check"
