@@ -17,6 +17,9 @@ export default class PublicServicesIndexRoute extends Route {
     sort: {
       refreshModel: true,
     },
+    isReviewRequiredFilterEnabled: {
+      refreshModel: true,
+    },
   };
 
   async model(params) {
@@ -27,7 +30,12 @@ export default class PublicServicesIndexRoute extends Route {
   }
 
   @restartableTask
-  *loadPublicServicesTask({ search, page, sort }) {
+  *loadPublicServicesTask({
+    search,
+    page,
+    sort,
+    isReviewRequiredFilterEnabled,
+  }) {
     let query = {
       'filter[created-by][:uri:]': this.currentSession.group.uri,
       'page[number]': page,
@@ -41,6 +49,10 @@ export default class PublicServicesIndexRoute extends Route {
       query.sort = sort;
     }
 
+    if (isReviewRequiredFilterEnabled) {
+      query['filter[:has:review-status]'] = true;
+    }
+
     let publicServices = yield this.store.query('public-service', query);
 
     let promises = [];
@@ -49,7 +61,8 @@ export default class PublicServicesIndexRoute extends Route {
         service.hasMany('targetAudiences').reload(),
         service.hasMany('executingAuthorityLevels').reload(),
         service.belongsTo('type').reload(),
-        service.belongsTo('status').reload()
+        service.belongsTo('status').reload(),
+        service.belongsTo('reviewStatus').reload()
       );
     });
 

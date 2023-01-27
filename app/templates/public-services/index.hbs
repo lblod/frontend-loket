@@ -1,23 +1,25 @@
-<AuToolbar @border="bottom" @size="large" @nowrap={{true}} as |Group|>
+<AuToolbar @size="large" as |Group|>
   <Group>
     <AuHeading @skin="2" data-test-loket="public-services-page-title">
       Producten- en dienstencatalogus
     </AuHeading>
   </Group>
   <Group class="au-u-flex au-u-flex--vertical-center">
-    <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
+    <div>
+      <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
 
-    {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
-    <span class="au-c-input-wrapper au-c-input-wrapper--left">
-      <AuIcon @icon="search" />
-      <input
-        value={{this.search}}
-        id="search"
-        class="au-c-input"
-        placeholder="Vul uw zoekterm in"
-        {{on "input" (perform this.searchTask value="target.value")}}
-      />
-    </span>
+      {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
+      <span class="au-c-input-wrapper au-c-input-wrapper--left">
+        <AuIcon @icon="search" />
+        <input
+          value={{this.search}}
+          id="search"
+          class="au-c-input"
+          placeholder="Vul uw zoekterm in"
+          {{on "input" (perform this.searchTask value="target.value")}}
+        />
+      </span>
+    </div>
     <AuLink
       @route="public-services.add"
       @icon="add"
@@ -26,6 +28,19 @@
     >
       Product of dienst toevoegen
     </AuLink>
+  </Group>
+</AuToolbar>
+
+<AuToolbar @border="bottom" @size="medium" as |Group|>
+  <Group class="au-u-flex au-u-flex--vertical-center">
+    <AuToggleSwitch
+      @label="Herziening nodig"
+      @checked={{this.isReviewRequiredFilterEnabled}}
+      @onChange={{this.toggleReviewRequiredFilter}}
+    />
+    <AuHelpText @skin="tertiary" class="au-u-margin-top-none">
+      Toon enkel producten waarvan het concept aangepast of verwijderd werd.
+    </AuHelpText>
   </Group>
 </AuToolbar>
 
@@ -94,7 +109,15 @@
       </tr>
     {{else if this.hasResults}}
       <Content.body as |publicService|>
-        <td>{{! template-lint-disable no-triple-curlies~}} {{{publicService.nameNl}}}</td>
+        <td>
+          {{! template-lint-disable no-triple-curlies~}}
+          {{{publicService.nameNl}}}
+          {{#if (this.serviceNeedsReview publicService)}}
+            <AuPill @skin="warning" @size="small" @icon="alert-triangle">
+              Herziening nodig
+            </AuPill>
+          {{/if}}
+        </td>
         <td>{{publicService.type.label}}</td>
         <td>
           {{#each publicService.targetAudiences as |tag|}}
@@ -122,9 +145,7 @@
              </td> --}}
         <td>
           {{#if publicService.status.uri}}
-            <PublicServices::Status
-              @uri={{publicService.status.uri}}
-            >
+            <PublicServices::Status @uri={{publicService.status.uri}}>
               {{publicService.status.label}}
             </PublicServices::Status>
           {{else}}
@@ -132,15 +153,15 @@
           {{/if}}
         </td>
         <td class="u-table-cell-fit-content">
-              <AuLink
-                @icon={{if publicService.isSent "eye" "pencil"}}
-                @iconAlignment="left"
-                @skin="primary"
-                @route="public-services.details"
-                @model={{publicService.id}}
-              >
-                {{if publicService.isSent "Bekijk" "Bewerk"}}
-              </AuLink>
+          <AuLink
+            @icon={{if publicService.isSent "eye" "pencil"}}
+            @iconAlignment="left"
+            @skin="primary"
+            @route="public-services.details"
+            @model={{publicService.id}}
+          >
+            {{if publicService.isSent "Bekijk" "Bewerk"}}
+          </AuLink>
         </td>
       </Content.body>
     {{else}}
