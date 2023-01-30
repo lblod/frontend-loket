@@ -55,6 +55,13 @@ module.exports = function (environment) {
     },
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
+    'ember-plausible': {
+      enabled: false,
+    },
+    plausible: {
+      domain: '{{ANALYTICS_APP_DOMAIN}}',
+      apiHost: '{{ANALYTICS_API_HOST}}',
+    },
   };
 
   if (environment === 'development') {
