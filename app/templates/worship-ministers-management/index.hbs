@@ -11,6 +11,8 @@
   {{/unless}}
 </AuToolbar>
 
+<AuAlert @skin="warning" @icon="alert-triangle" @size="small">Behoort u tot een rooms-katholiek bestuur van de eredienst? Het (aarts)bisdom zal de gegevens van de bedienaren beheren. U dient dus géén bedienaren te registreren.</AuAlert>
+
 <AuDataTable
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}
