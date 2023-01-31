@@ -11,7 +11,9 @@
   {{/unless}}
 </AuToolbar>
 
-<AuAlert @skin="warning" @icon="alert-triangle" @size="small">Behoort u tot een rooms-katholiek bestuur van de eredienst? Het (aarts)bisdom zal de gegevens van de bedienaren beheren. U dient dus géén bedienaren te registreren.</AuAlert>
+<AuAlert @skin="warning" @icon="alert-triangle" @size="small">Behoort u tot een rooms-katholiek bestuur van de eredienst? Het (aarts)bisdom zal de gegevens van de bedienaren beheren. U dient dus géén bedienaren te registreren. Meer informatie hierover vindt u in de <AuLinkExternal
+      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/bedienarenbeheer#registratievrijstelling-voor-rooms-katholieke-besturen-van-de-eredienst"
+    >handleiding</AuLinkExternal>.</AuAlert>
 
 <AuDataTable
   @content={{this.model}}
