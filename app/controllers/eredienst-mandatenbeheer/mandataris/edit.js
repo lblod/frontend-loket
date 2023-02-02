@@ -132,7 +132,11 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
         yield isValidAdres(adres);
       }
 
-      if ((yield isValidPrimaryContact(contactPoint)) && this.model.isValid) {
+      if (
+        (yield isValidPrimaryContact(contactPoint)) &&
+        this.model.isValid &&
+        adres.isValid
+      ) {
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
@@ -141,12 +145,8 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
         }
 
         if (adres?.isNew || adres?.hasDirtyAttributes) {
-          if (adres.isValid) {
-            adres.volledigAdres = combineFullAddress(adres);
-            yield adres.save();
-          } else {
-            return;
-          }
+          adres.volledigAdres = combineFullAddress(adres);
+          yield adres.save();
         }
 
         if (contactPoint.isNew) {

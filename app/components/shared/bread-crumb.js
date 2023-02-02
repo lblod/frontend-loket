@@ -215,6 +215,16 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
+      route: 'eredienst-mandatenbeheer.mandataris.details',
+      crumbs: [
+        {
+          label: 'Mandatenbeheer',
+          link: 'eredienst-mandatenbeheer.mandatarissen',
+        },
+        { label: 'Bekijk mandataris' },
+      ],
+    },
+    {
       route: 'eredienst-mandatenbeheer.new',
       crumbs: [
         {
@@ -288,11 +298,25 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
+      route: 'worship-ministers-management.minister.details',
+      crumbs: [
+        { label: 'Bedienarenbeheer', link: 'worship-ministers-management' },
+        { label: 'Bekijk bedienaar' },
+      ],
+    },
+    {
       route: 'public-services.index',
       crumbs: [{ label: 'Producten- en dienstencatalogus' }],
     },
     {
       route: 'public-services.add',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        { label: 'Product of dienst toevoegen' },
+      ],
+    },
+    {
+      route: 'public-services.new',
       crumbs: [
         { label: 'Producten- en dienstencatalogus', link: 'public-services' },
         { label: 'Product of dienst toevoegen' },

@@ -7,9 +7,14 @@ import {
 export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service currentSession;
   @service store;
+  @service router;
 
   async beforeModel() {
+    if (this.currentSession.hasViewOnlyWorshipMandateesManagementData) {
+      this.router.transitionTo('eredienst-mandatenbeheer.mandataris.details');
+    }
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
+
     this.bestuursorganen = mandatenbeheer.bestuursorganen;
 
     const mandataris = await this.modelFor(

@@ -35,8 +35,8 @@
       <td>
         <p class="au-c-info-text"> <Supervision::SubmissionType @formData={{row.formData}} /></p>
       </td>
-      <td class="au-u-visible-small-up">{{moment-format row.formData.sessionStartedAtTime "DD/MM/YYYY"}}</td>
-      <td class="au-u-visible-large-up">{{moment-format row.sentDate "DD/MM/YYYY"}}</td>
+      <td class="au-u-visible-small-up">{{moment-format row.formData.sessionStartedAtTime "DD-MM-YYYY"}}</td>
+      <td class="au-u-visible-large-up">{{moment-format row.sentDate "DD-MM-YYYY"}}</td>
       <td class="au-u-visible-medium-up">
         {{#if row.job.created }}
           Automatisch aangemaakt bij publicatie

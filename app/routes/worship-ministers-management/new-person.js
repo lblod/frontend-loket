@@ -1,6 +1,15 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default class WorshipMinistersManagementNewPersonRoute extends Route {
+  @service router;
+  @service currentSession;
+
+  beforeModel() {
+    if (this.currentSession.hasViewOnlyWorshipMinistersManagementData) {
+      this.router.transitionTo('worship-ministers-management');
+    }
+  }
   resetController(controller, isExiting) {
     if (isExiting) {
       controller.voornaam = undefined;

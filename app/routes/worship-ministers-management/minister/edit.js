@@ -8,6 +8,13 @@ import {
 export default class WorshipMinistersManagementMinisterEditRoute extends Route {
   @service store;
   @service currentSession;
+  @service router;
+
+  async beforeModel() {
+    if (this.currentSession.hasViewOnlyWorshipMinistersManagementData) {
+      this.router.transitionTo('worship-ministers-management.minister.details');
+    }
+  }
 
   async model() {
     let { worshipMinisterId } = this.paramsFor(

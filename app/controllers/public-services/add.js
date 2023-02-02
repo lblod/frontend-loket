@@ -1,12 +1,8 @@
 import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { dropTask, restartableTask, timeout } from 'ember-concurrency';
+import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class PublicServicesAddController extends Controller {
-  @service router;
-  @service store;
-
   queryParams = ['search', 'sort', 'page'];
   @tracked search = '';
   @tracked sort = 'name';
@@ -51,22 +47,5 @@ export default class PublicServicesAddController extends Controller {
 
     this.search = searchValue;
     this.page = 0;
-  }
-
-  @dropTask
-  *addPublicService(concept) {
-    let publicService = this.store.createRecord('public-service');
-    publicService.concept = concept;
-
-    yield publicService.save();
-
-    this.router.transitionTo('public-services.details', publicService.id);
-  }
-
-  @dropTask
-  *addNewProduct() {
-    let publicService = this.store.createRecord('public-service');
-    yield publicService.save();
-    this.router.transitionTo('public-services.details', publicService.id);
   }
 }

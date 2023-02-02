@@ -1,6 +1,6 @@
 import ApplicationSerializer from './application';
 
-export const ALLOWED_FIELDS = ['concept', 'modified', 'status'];
+export const ALLOWED_FIELDS = ['concept', 'modified', 'status', 'reviewStatus'];
 
 export default class PublicServiceSerializer extends ApplicationSerializer {
   serializeAttribute(snapshot, json, attributeName) {

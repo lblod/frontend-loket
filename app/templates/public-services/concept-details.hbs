@@ -1,10 +1,32 @@
 {{page-title "Concept: " @model.concept.nameNl}}
 
+{{#if this.isPreview}}
+  <AuToolbar @size="medium" as |Group|>
+    <Group>
+      <AuLink @route="public-services.add" @icon="arrow-left">
+        Bekijk andere concepten
+      </AuLink>
+    </Group>
+
+    <Group>
+      <AuLink
+        @route="public-services.new"
+        @query={{hash concept=@model.concept.id}}
+        @skin="button-secondary"
+        @icon="add"
+      >
+        Voeg toe
+      </AuLink>
+    </Group>
+  </AuToolbar>
+{{/if}}
+
 <AuToolbar @size="large" as |Group|>
   <Group>
     <AuHeading @skin="2">
       {{! template-lint-disable no-triple-curlies}}
-      Concept: {{{@model.concept.nameNl}}}
+      Concept:
+      {{{@model.concept.nameNl}}}
     </AuHeading>
   </Group>
 </AuToolbar>
@@ -14,7 +36,9 @@
     <AuLink @route="public-services.concept-details.content">Inhoud</AuLink>
   </Tab>
   <Tab>
-    <AuLink @route="public-services.concept-details.properties">Eigenschappen</AuLink>
+    <AuLink @route="public-services.concept-details.properties">
+      Eigenschappen
+    </AuLink>
   </Tab>
 </AuTabs>
 

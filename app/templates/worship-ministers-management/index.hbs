@@ -2,13 +2,18 @@
   <Group>
     <AuHeading @skin="2">Bedienarenbeheer</AuHeading>
   </Group>
-
-  <Group>
-    <AuLink @route="worship-ministers-management.new" @skin="button">
-      Voeg bedienaar toe
-    </AuLink>
-  </Group>
+  {{#unless this.currentSession.hasViewOnlyWorshipMinistersManagementData}}
+    <Group>
+      <AuLink @route="worship-ministers-management.new" @skin="button">
+        Voeg bedienaar toe
+      </AuLink>
+    </Group>
+  {{/unless}}
 </AuToolbar>
+
+<AuAlert @skin="warning" @icon="alert-triangle" @size="small">Behoort u tot een rooms-katholiek bestuur van de eredienst? Het (aarts)bisdom zal de gegevens van de bedienaren beheren. U dient dus géén bedienaren te registreren. Meer informatie hierover vindt u in de <AuLinkExternal
+      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/bedienarenbeheer#registratievrijstelling-voor-rooms-katholieke-besturen-van-de-eredienst"
+    >handleiding</AuLinkExternal>.</AuAlert>
 
 <AuDataTable
   @content={{this.model}}
@@ -54,18 +59,30 @@
       <td>{{minister.ministerPosition.function.label}}</td>
       <td>{{minister.person.gebruikteVoornaam}}</td>
       <td>{{minister.person.achternaam}}</td>
-      <td>{{moment-format minister.agentStartDate "DD/MM/YYYY"}}</td>
-      <td>{{moment-format minister.agentEndDate "DD/MM/YYYY"}}</td>
+      <td>{{moment-format minister.agentStartDate "DD-MM-YYYY"}}</td>
+      <td>{{moment-format minister.agentEndDate "DD-MM-YYYY"}}</td>
       <td class="u-table-cell-fit-content">
-        <AuLink
-          @icon="pencil"
-          @iconAlignment="left"
-          @skin="primary"
-          @route="worship-ministers-management.minister.edit"
-          @model={{minister.id}}
-        >
-          Bewerk
-        </AuLink>
+        {{#if this.currentSession.hasViewOnlyWorshipMinistersManagementData}}
+          <AuLink
+            @icon="eye"
+            @iconAlignment="left"
+            @skin="primary"
+            @route="worship-ministers-management.minister.details"
+            @model={{minister.id}}
+          >
+            Bekijk
+          </AuLink>
+        {{else}}
+          <AuLink
+            @icon="pencil"
+            @iconAlignment="left"
+            @skin="primary"
+            @route="worship-ministers-management.minister.edit"
+            @model={{minister.id}}
+          >
+            Bewerk
+          </AuLink>
+        {{/if}}
       </td>
     </c.body>
   </t.content>

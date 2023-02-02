@@ -105,6 +105,7 @@ Router.map(function () {
       { path: '/producten-en-dienstencatalogus' },
       function () {
         this.route('add', { path: '/toevoegen' });
+        this.route('new', { path: '/nieuw' });
         this.route('details', { path: '/:serviceId' }, function () {
           this.route('content', { path: '/inhoud' });
           this.route('properties', { path: '/eigenschappen' });
@@ -133,6 +134,7 @@ Router.map(function () {
         'mandataris',
         { path: '/mandataris/:mandateeId' },
         function () {
+          this.route('details');
           this.route('edit');
         }
       );
@@ -153,6 +155,7 @@ Router.map(function () {
           'minister',
           { path: '/bedienaar/:worshipMinisterId' },
           function () {
+            this.route('details', { path: '/bekijk' });
             this.route('edit', { path: '/bewerk' });
           }
         );
