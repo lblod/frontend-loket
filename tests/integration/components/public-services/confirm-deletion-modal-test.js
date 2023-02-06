@@ -19,7 +19,7 @@ module(
     test('it renders', async function (assert) {
       let modalsService = this.owner.lookup('service:modals');
 
-      await render(hbs`<EpmModalContainer />`);
+      await render(hbs`<AuModalContainer /><EpmModalContainer />`);
 
       modalsService.open(ConfirmDeletionModal, {
         deleteHandler: () => {},
@@ -27,13 +27,13 @@ module(
 
       await settled();
 
-      assert.dom(MODAL.ELEMENT, getWormholeElement()).exists();
+      assert.dom(MODAL.ELEMENT).exists();
     });
 
     test('it calls the deleteHandler when the delete button is clicked', async function (assert) {
       let modalsService = this.owner.lookup('service:modals');
 
-      await render(hbs`<EpmModalContainer />`);
+      await render(hbs`<AuModalContainer /><EpmModalContainer />`);
       modalsService.open(ConfirmDeletionModal, {
         deleteHandler: () => {
           assert.step('deleted');
@@ -41,14 +41,11 @@ module(
       });
 
       await settled();
-      let deleteButton = getWormholeElement().querySelector(
-        MODAL.DELETE_BUTTON
-      );
-
+      let deleteButton = document.querySelector(MODAL.DELETE_BUTTON);
       await click(deleteButton);
 
       assert
-        .dom(MODAL.ELEMENT, getWormholeElement())
+        .dom(MODAL.ELEMENT)
         .doesNotExist('it closes the modal after the deletion succeeded');
 
       assert.verifySteps(['deleted']);
@@ -57,7 +54,7 @@ module(
     test("it doesn't call the deleteHandler if the modal is closed without clicking the delete button", async function (assert) {
       let modalsService = this.owner.lookup('service:modals');
 
-      await render(hbs`<EpmModalContainer />`);
+      await render(hbs`<AuModalContainer /><EpmModalContainer />`);
       modalsService.open(ConfirmDeletionModal, {
         deleteHandler: () => {
           assert.step('deleted');
@@ -65,14 +62,9 @@ module(
       });
 
       await settled();
-      let cancelButton = getWormholeElement().querySelector(
-        MODAL.CANCEL_BUTTON
-      );
-
+      let cancelButton = document.querySelector(MODAL.CANCEL_BUTTON);
       await click(cancelButton);
-
-      assert.dom(MODAL.ELEMENT, getWormholeElement()).doesNotExist();
-
+      assert.dom(MODAL.ELEMENT).doesNotExist();
       assert.verifySteps([]);
     });
 
@@ -92,18 +84,14 @@ module(
       };
 
       await render(hbs`
+        <AuModalContainer /><EpmModalContainer />
         {{#if this.isOpen}}
           <PublicServices::ConfirmDeletionModal @close={{this.close}} @data={{this.data}} />
         {{/if}}
       `);
 
-      let deleteButton = getWormholeElement().querySelector(
-        MODAL.DELETE_BUTTON
-      );
-
-      let cancelButton = getWormholeElement().querySelector(
-        MODAL.CANCEL_BUTTON
-      );
+      let deleteButton = document.querySelector(MODAL.DELETE_BUTTON);
+      let cancelButton = document.querySelector(MODAL.CANCEL_BUTTON);
 
       click(deleteButton);
       click(cancelButton);
@@ -111,14 +99,10 @@ module(
       await settled();
 
       assert
-        .dom(MODAL.ELEMENT, getWormholeElement())
+        .dom(MODAL.ELEMENT)
         .doesNotExist('it closes the modal after the deletion succeeded');
 
       assert.verifySteps(['deleted', 'closed']);
     });
   }
 );
-
-function getWormholeElement() {
-  return document.querySelector('#ember-appuniversum-wormhole');
-}
