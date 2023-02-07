@@ -11,6 +11,7 @@ import {
   isGenderKnown,
   isValidRijksregisternummer,
 } from 'frontend-loket/utils/rijksregisternummer';
+import moment from 'moment';
 
 const maleId = '5ab0e9b8a3b2ca7c5e000028';
 const femaleId = '5ab0e9b8a3b2ca7c5e000029';
@@ -40,10 +41,16 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     super(...arguments);
 
     const now = new Date();
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const eighteenYearsAgo = `${now.getFullYear() - 18}-${month}-${day}`;
-    const hundredYearsAgo = `${now.getFullYear() - 100}-${month}-${day}`;
+    const hundredYearsAgo = new Date(
+      now.getFullYear() - 100,
+      now.getMonth(),
+      now.getDate()
+    );
+    const eighteenYearsAgo = new Date(
+      now.getFullYear() - 18,
+      now.getMonth(),
+      now.getDate()
+    );
 
     this.minDate = hundredYearsAgo;
     this.maxDate = eighteenYearsAgo;
@@ -123,6 +130,16 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
     if (!this.birthDate && this.isGeboorteFieldRequired) {
       errors.geboorte = 'geboortedatum is een vereist veld.';
+    }
+
+    if (this.birthDate) {
+      if (this.birthDate < this.minDate) {
+        let minDate = moment(this.minDate).format('DD-MM-YYYY');
+        errors.geboorte = `geboortedatum moet na ${minDate} liggen`;
+      } else if (this.birthDate > this.maxDate) {
+        let maxDate = moment(this.maxDate).format('DD-MM-YYYY');
+        errors.geboorte = `geboortedatum moet voor ${maxDate} liggen`;
+      }
     }
 
     if (!isValidRijksregisternummer(this.rijksregisternummer)) {

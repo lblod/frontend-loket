@@ -90,11 +90,12 @@
             >
             Startdatum
           </AuLabel>
-          <AuDatePicker
+          <AuDateInput
             @value={{@model.worshipMandatee.start}}
             @onChange={{fn this.handleDateChange "start"}}
             @error={{showError}}
-            @id="mandate-start-date"
+            @width="block"
+            id="mandate-start-date"
           />
           {{#if showError}}
           <AuHelpText @error={{true}}>
@@ -109,11 +110,12 @@
         <div class="au-o-grid__item au-u-1-2">
           {{#let (if @model.worshipMandatee.errors.einde true false) as |showError|}}
           <AuLabel for="mandate-end-date" @error={{showError}}>Einddatum</AuLabel>
-          <AuDatePicker
+          <AuDateInput
             @value={{@model.worshipMandatee.einde}}
             @onChange={{fn this.handleDateChange "einde"}}
             @error={{showError}}
-            @id="mandate-end-date"
+            @width="block"
+            id="mandate-end-date"
           />
           {{#if showError}}
           <AuHelpText @error={{true}}>

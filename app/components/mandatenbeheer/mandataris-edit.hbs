@@ -42,11 +42,12 @@
           <div class="au-o-grid au-o-grid--tiny">
             <div class="au-o-grid__item au-u-1-2">
               <AuLabel @error={{this.startDateError}} for="mandate-creation-start-date">Start</AuLabel>
-              <AuDatePicker
+              <AuDateInput
                 @value={{this.startDate}}
                 @error={{this.startDateError}}
+                @width="block"
                 @onChange={{action "handleDateChange" "startDate"}}
-                @id="mandate-creation-start-date"
+                id="mandate-creation-start-date"
               />
               {{#if this.startDateError}}
                 <AuHelpText @error="true">{{this.startDateError}}</AuHelpText>
@@ -54,11 +55,12 @@
             </div>
             <div class="au-o-grid__item au-u-1-2">
               <AuLabel @error={{this.endDateError}} for="mandate-creation-end-date">Einde</AuLabel>
-              <AuDatePicker
+              <AuDateInput
                 @value={{this.endDate}}
                 @error={{this.endDateError}}
+                @width="block"
                 @onChange={{action "handleDateChange" "endDate"}}
-                @id="mandate-creation-end-date"
+                id="mandate-creation-end-date"
               />
               {{#if this.endDateError}}
                 <AuHelpText @error="true">{{this.endDateError}}</AuHelpText>
@@ -157,11 +159,12 @@
           <div class="au-o-grid au-o-grid--tiny">
             <div class="au-o-grid__item au-u-1-2">
               <AuLabel @error="{{if this.startDateError 'true'}}" for="mandate-correction-start-date">Start</AuLabel>
-              <AuDatePicker
+              <AuDateInput
                 @value={{this.startDate}}
                 @error={{this.startDateError}}
+                @width="block"
                 @onChange={{action "handleDateChange" "startDate"}}
-                @id="mandate-correction-start-date"
+                id="mandate-correction-start-date"
               />
               {{#if this.startDateError}}
                 <AuHelpText @error="true">{{this.startDateError}}</AuHelpText>
@@ -169,11 +172,12 @@
             </div>
             <div class="au-o-grid__item au-u-1-2">
               <AuLabel @error="{{if this.endDateError 'true'}}" for="mandate-correction-end-date">Einde</AuLabel>
-              <AuDatePicker
+              <AuDateInput
                 @value={{this.endDate}}
                 @error={{this.endDateError}}
+                @width="block"
                 @onChange={{action "handleDateChange" "endDate"}}
-                @id="mandate-correction-end-date"
+                id="mandate-correction-end-date"
               />
               {{#if this.endDateError}}
                 <AuHelpText @error="true">{{this.endDateError}}</AuHelpText>
@@ -235,20 +239,22 @@
       <div class="au-o-grid au-o-grid--tiny">
         <div class="au-o-grid__item au-u-1-2">
           <AuLabel for="mandate-termination-start-date">Start</AuLabel>
-          <AuDatePicker
+          <AuDateInput
             @value={{this.startDate}}
             @error={{this.startDateError}}
+            @width="block"
             @onChange={{action "handleDateChange" "startDate"}}
-            @id="mandate-termination-start-date"
+            id="mandate-termination-start-date"
           />
         </div>
         <div class="au-o-grid__item au-u-1-2">
           <AuLabel for="mandate-termination-end-date">Einde</AuLabel>
-          <AuDatePicker
+          <AuDateInput
             @value={{this.endDate}}
             @error={{this.endDateError}}
+            @width="block"
             @onChange={{action "handleDateChange" "endDate"}}
-            @id="mandate-termination-end-date"
+            id="mandate-termination-end-date"
           />
           {{#if this.endDateError}}
             <div class="form__error">{{this.endDateError}}</div>

@@ -120,13 +120,12 @@
           >
           Geboortedatum
         </AuLabel>
-        <AuDatePicker
+        <AuDateInput
           @value={{this.birthDate}}
-          @min={{this.minDate}}
-          @max={{this.maxDate}}
-          @id="mandataris-geboorte"
           @onChange={{this.setDateOfBirth}}
           @error={{showError}}
+          @width="block"
+          id="mandataris-geboorte"
         />
         {{#if showError}}
           <AuHelpText @error="true">
