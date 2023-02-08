@@ -50,8 +50,8 @@
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
     "@lblod/ember-rdfa-editor": "^0.63.4",
-    "@lblod/ember-submission-form-fields": "^2.4.2",
-    "@lblod/submission-form-helpers": "^2.1.0",
+    "@lblod/ember-submission-form-fields": "^2.6.0",
+    "@lblod/submission-form-helpers": "^2.2.0",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",
@@ -113,6 +113,7 @@
     "release-it": "^15.4.1",
     "sass": "^1.49.7",
     "tracked-toolbox": "^1.2.3",
+    "uuid": "^9.0.0",
     "webpack": "^5.68.0",
     "xml-formatter": "^2.6.1"
   },
