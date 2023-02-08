@@ -113,6 +113,7 @@
     "release-it": "^15.4.1",
     "sass": "^1.49.7",
     "tracked-toolbox": "^1.2.3",
+    "uuid": "^9.0.0",
     "webpack": "^5.68.0",
     "xml-formatter": "^2.6.1"
   },
