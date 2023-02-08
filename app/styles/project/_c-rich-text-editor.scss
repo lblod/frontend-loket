@@ -7,6 +7,10 @@ $default-editor-height: 200px;
     border-bottom: 0;
   }
 
+  .say-container {
+    overflow: visible; // TODO: remove this once the heading menu overflow issue is fixed
+  }
+
   .say-container__main {
     overflow: initial;
   }

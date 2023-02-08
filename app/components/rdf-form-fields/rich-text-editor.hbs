@@ -18,6 +18,9 @@
 {{else}}
   <div class="rich-text-editor" {{on "focusout" this.updateValue}}>
     <Rdfa::RdfaEditor
+      @schema={{this.schema}}
+      @widgets={{this.widgets}}
+      @plugins={{this.plugins}}
       @rdfaEditorInit={{this.handleRdfaEditorInit}}
       @editorOptions={{this.editorOptions}}
       @toolbarOptions={{this.toolbarOptions}}
