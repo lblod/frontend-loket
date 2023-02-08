@@ -29,14 +29,8 @@ import {
   tablePlugin,
 } from '@lblod/ember-rdfa-editor/plugins/table';
 import { headingsMenu } from '@lblod/ember-rdfa-editor/plugins/headings';
-import {
-  subscript,
-  subscriptWidget,
-} from '@lblod/ember-rdfa-editor/plugins/subscript';
-import {
-  superscript,
-  superscriptWidget,
-} from '@lblod/ember-rdfa-editor/plugins/superscript';
+import { subscript } from '@lblod/ember-rdfa-editor/plugins/subscript';
+import { superscript } from '@lblod/ember-rdfa-editor/plugins/superscript';
 import SimpleInputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/simple-value-input-field';
 
 export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFieldComponent {
@@ -93,7 +87,7 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
   }
 
   get widgets() {
-    return [headingsMenu, subscriptWidget, superscriptWidget, tableMenu];
+    return [headingsMenu, tableMenu];
   }
 
   get plugins() {
