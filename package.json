@@ -34,22 +34,19 @@
     "moment": "^2.29.1"
   },
   "overridesNotes": {
-    "appuniversum": "ember-rdfa-editor and ember-acmidm-login bring in a v1 version. We can remove the override once that is resolved."
+    "appuniversum": "ember-acmidm-login brings in a v1 version. We can remove the override once that is resolved."
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^2.3.0",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-proposal-decorators": "^7.20.7",
-    "@codemirror/basic-setup": "^0.20.0",
-    "@codemirror/lang-html": "^6.0.0",
-    "@codemirror/lang-xml": "^6.0.0",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "^1.4.0",
     "@lblod/ember-mock-login": "^0.7.0",
-    "@lblod/ember-rdfa-editor": "^0.63.4",
+    "@lblod/ember-rdfa-editor": "^2.1.0",
     "@lblod/ember-submission-form-fields": "^2.6.0",
     "@lblod/submission-form-helpers": "^2.2.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -113,8 +110,7 @@
     "sass": "^1.49.7",
     "tracked-toolbox": "^1.2.3",
     "uuid": "^9.0.0",
-    "webpack": "^5.68.0",
-    "xml-formatter": "^2.6.1"
+    "webpack": "^5.68.0"
   },
   "engines": {
     "node": "12.* || 14.* || >= 16"
