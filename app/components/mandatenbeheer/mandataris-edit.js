@@ -246,11 +246,6 @@ export default Component.extend({
   },
 
   actions: {
-    /**  Temporary fix until we start using new datepicker. */
-    preventPageRefresh(e) {
-      e.preventDefault();
-    },
-
     setFractie(fractie) {
       this.set('fractie', fractie);
     },

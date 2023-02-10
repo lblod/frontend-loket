@@ -10,6 +10,7 @@ module.exports = function (defaults) {
     },
     '@appuniversum/ember-appuniversum': {
       dutchDatePickerLocalization: true,
+      disableWormholeElement: true,
     },
   };
 

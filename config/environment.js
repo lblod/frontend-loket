@@ -17,13 +17,6 @@ module.exports = function (environment) {
       },
     },
 
-    // Feature flags for ember-rdfa-editor
-    featureFlags: {
-      'editor-html-paste': true,
-      'editor-cut': true,
-      'editor-copy': true,
-    },
-
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created

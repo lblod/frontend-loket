@@ -1,10 +1,34 @@
 $default-editor-height: 200px;
+$toolbar-height: 3.2rem; // TODO: we decrease the toolbar size so more icons fit on smaller screens.
 
 .rich-text-editor {
   .say-toolbar {
     border-radius: var(--au-radius) var(--au-radius) 0 0;
     border: 0.1rem solid var(--au-gray-300);
     border-bottom: 0;
+    min-height: $toolbar-height;
+    height: $toolbar-height;
+
+    .au-c-icon--large {
+      width: var(--au-icon-size);
+      height: var(--au-icon-size);
+    }
+  }
+
+  .say-toolbar__button {
+    font-size: 1.2rem;
+    height: $toolbar-height;
+    width: $toolbar-height;
+  }
+
+  .say-dropdown__button {
+    font-size: 1.2rem;
+    height: $toolbar-height;
+    min-width: $toolbar-height;
+  }
+
+  .say-container {
+    overflow: visible; // TODO: this is temporarily increased so that the "header" menu doesn't overflow. Once the menu uses floating-ui we can revert this.
   }
 
   .say-container__main {
