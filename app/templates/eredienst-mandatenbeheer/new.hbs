@@ -84,8 +84,10 @@
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
         {{#let (if @model.worshipMandatee.errors.start true false) as |showError|}}
+        {{#let (if this.warningMessages.startDateMessage true false) as |showWarning|}}
           <AuLabel for="mandate-start-date"
             @error={{showError}}
+            @warning={{showWarning}}
             @required={{true}}
             >
             Startdatum
@@ -94,8 +96,9 @@
             @value={{@model.worshipMandatee.start}}
             @onChange={{fn this.handleDateChange "start"}}
             @error={{showError}}
+            @warning={{showWarning}}
             @width="block"
-            id="mandate-start-date"
+            @id="mandate-start-date"
           />
           {{#if showError}}
           <AuHelpText @error={{true}}>
@@ -104,18 +107,26 @@
             {{/each}}
           </AuHelpText>
         {{/if}}
+        {{#if showWarning}}
+          <AuHelpText @warning={{true}}>
+              {{this.warningMessages.startDateMessage}}
+          </AuHelpText>
+        {{/if}}
+        {{/let}}
         {{/let}}
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
           {{#let (if @model.worshipMandatee.errors.einde true false) as |showError|}}
-          <AuLabel for="mandate-end-date" @error={{showError}}>Einddatum</AuLabel>
+          {{#let (if this.warningMessages.endDateMessage true false) as |showWarning|}}
+          <AuLabel for="mandate-end-date" @error={{showError}} @warning={{showWarning}}>Einddatum</AuLabel>
           <AuDateInput
             @value={{@model.worshipMandatee.einde}}
             @onChange={{fn this.handleDateChange "einde"}}
             @error={{showError}}
+            @warning={{showWarning}}
             @width="block"
-            id="mandate-end-date"
+            @id="mandate-end-date"
           />
           {{#if showError}}
           <AuHelpText @error={{true}}>
@@ -124,6 +135,12 @@
             {{/each}}
           </AuHelpText>
           {{/if}}
+          {{#if showWarning}}
+          <AuHelpText @warning={{true}}>
+              {{this.warningMessages.endDateMessage}}
+          </AuHelpText>
+          {{/if}}
+          {{/let}}
           {{/let}}
         </div>
       </div>

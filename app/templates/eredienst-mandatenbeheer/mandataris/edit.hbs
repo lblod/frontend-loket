@@ -63,9 +63,11 @@
     <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
       <div class="au-o-grid__item au-u-1-2">
       {{#let (if @model.errors.start true false) as |showError|}}
+      {{#let (if this.warningMessages.startDateMessage true false) as |showWarning|}}
         <AuLabel for="mandate-correction-start-date"
         @required={{true}}
         @error={{showError}}
+        @warning={{showWarning}}
         >
         Startdatum
         </AuLabel>
@@ -73,8 +75,9 @@
           @value={{@model.start}}
           @onChange={{fn this.handleDateChange "start"}}
           @error={{showError}}
+          @warning={{showWarning}}
           @width="block"
-          id="mandate-correction-start-date"
+          @id="mandate-correction-start-date"
         />
         {{#if showError}}
         <AuHelpText @error="true">
@@ -83,17 +86,25 @@
           {{/each}}
         </AuHelpText>
       {{/if}}
+      {{#if showWarning}}
+        <AuHelpText @warning={{true}}>
+            {{this.warningMessages.startDateMessage}}
+        </AuHelpText>
+      {{/if}}
+      {{/let}}
       {{/let}}
       </div>
       <div class="au-o-grid__item au-u-1-2">
         {{#let (if this.model.errors.einde true false) as |showError|}}
-        <AuLabel for="mandate-correction-end-date" @error={{showError}}>Einddatum</AuLabel>
+        {{#let (if this.warningMessages.endDateMessage true false) as |showWarning|}}
+        <AuLabel for="mandate-correction-end-date" @error={{showError}} @warning={{showWarning}}>Einddatum</AuLabel>
         <AuDateInput
           @value={{@model.einde}}
           @onChange={{fn this.handleDateChange "einde"}}
           @error={{showError}}
+          @warning={{showWarning}}
           @width="block"
-          id="mandate-correction-end-date"
+          @id="mandate-correction-end-date"
         />
         {{#if showError}}
           <AuHelpText @error={{true}}>
@@ -102,6 +113,12 @@
             {{/each}}
           </AuHelpText>
         {{/if}}
+        {{#if showWarning}}
+          <AuHelpText @warning={{true}}>
+              {{this.warningMessages.endDateMessage}}
+          </AuHelpText>
+        {{/if}}
+        {{/let}}
         {{/let}}
       </div>
     </div>
