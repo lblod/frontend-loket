@@ -9,7 +9,10 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
-import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import {
+  checkMandateTimePeriodeLimit,
+  setExpectedEndDate,
+} from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
@@ -21,6 +24,8 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @tracked editingContact;
   @tracked isManualAddress;
 
+  @tracked warningMessages;
+
   originalContactAdres;
 
   get isEditingContactPoint() {
@@ -28,16 +33,28 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   }
 
   @action
-  setMandaat(mandaat) {
+  async setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
     setExpectedEndDate(this.store, this.model, mandaat);
+    this.warningMessages = await checkMandateTimePeriodeLimit(
+      mandaat,
+      this.store,
+      this.model.start,
+      this.model.einde
+    );
   }
 
   @action
-  handleDateChange(attributeName, isoDate, date) {
+  async handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
     if (einde instanceof Date && start instanceof Date) {
+      this.warningMessages = await checkMandateTimePeriodeLimit(
+        await this.model.bekleedt,
+        this.store,
+        start,
+        einde
+      );
       if (einde <= start) {
         this.model.errors.add(
           'einde',
@@ -238,3 +255,4 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     }
   }
 }
+

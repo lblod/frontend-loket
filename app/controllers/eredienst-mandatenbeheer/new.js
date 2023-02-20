@@ -10,7 +10,10 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
-import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import {
+  setExpectedEndDate,
+  checkMandateTimePeriodeLimit,
+} from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
   @service router;
@@ -18,6 +21,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   queryParams = ['personId'];
   @tracked personId = '';
+  @tracked warningMessages;
   @tracked selectedContact;
   @tracked editingContact;
   @tracked isManualAddress;
@@ -56,19 +60,31 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   }
 
   @action
-  setMandaat(mandaat) {
+  async setMandaat(mandaat) {
     const { worshipMandatee } = this.model;
     worshipMandatee.bekleedt = mandaat;
     worshipMandatee.errors.remove('bekleedt');
     setExpectedEndDate(this.store, worshipMandatee, mandaat);
+    this.warningMessages = await checkMandateTimePeriodeLimit(
+      mandaat,
+      this.store,
+      worshipMandatee.start,
+      worshipMandatee.einde
+    );
   }
 
   @action
-  handleDateChange(type, isoDate, date) {
+  async handleDateChange(type, isoDate, date) {
     const { worshipMandatee } = this.model;
     worshipMandatee[type] = date;
     let { einde, start } = worshipMandatee;
     if (einde instanceof Date && start instanceof Date) {
+      this.warningMessages = await checkMandateTimePeriodeLimit(
+        await worshipMandatee?.bekleedt,
+        this.store,
+        start,
+        einde
+      );
       if (einde <= start) {
         worshipMandatee.errors.add(
           'einde',
