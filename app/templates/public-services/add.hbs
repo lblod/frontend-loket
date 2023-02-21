@@ -44,6 +44,7 @@
         @currentSorting={{this.sort}}
         @label="Productnaam"
       />
+      <th>ProductID</th>
       <AuDataTableThSortable
         @field="type"
         @currentSorting={{this.sort}}
@@ -95,6 +96,7 @@
             {{{publicService.nameNl}}}
           </AuLink>
         </td>
+        <td>{{publicService.productId}}</td>
         <td>{{publicService.type.label}}</td>
         <td>
           {{#each publicService.targetAudiences as |targetAudience|}}
