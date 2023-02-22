@@ -1,3 +1,4 @@
+import moment from 'moment';
 /*
  * Assuming bestuursorganen in tijd are passed linked to mandates.
  * This function sets the expectedEndDate from the array of bestuursorganenInTijd where records are ordered by DESC,
@@ -20,4 +21,40 @@ export async function setExpectedEndDate(store, mandataris, mandaat) {
     );
     mandataris.expectedEndDate = plannedEndDates[0];
   }
+}
+
+/**
+ * Handling the Mandatee einddatum prefill.
+ * @param {Date} userInputEndDate `null` or `Date`
+ * @param {Object} worshipMandatee `worship-mandatee` Record
+ * @param {Date} endDate Mandate `expectedEndDate` or `this.userInputEndDate`
+ * @returns Object containing `worshipMandatee` `userInputEndDate` `warningMessages`
+ */
+export function handlePrefillEndDate(
+  userInputEndDate,
+  worshipMandatee,
+  endDate
+) {
+  if (
+    worshipMandatee.expectedEndDate &&
+    moment(worshipMandatee.expectedEndDate).isSame(moment(endDate))
+  ) {
+    userInputEndDate = null;
+    worshipMandatee.einde = endDate;
+  } else if (!worshipMandatee.expectedEndDate) {
+    // Handling the case where the mandate is Bestuurslid (van rechtswege)
+    worshipMandatee.einde = userInputEndDate || endDate;
+  } else {
+    userInputEndDate = endDate;
+    worshipMandatee.einde = userInputEndDate;
+  }
+
+  const warningMessages = userInputEndDate
+    ? {
+        userInputEndDateMessage:
+          'Deze einddatum wordt handmatig ingevoerd, het verdient aanbeveling te controleren of deze geldig is.',
+      }
+    : {};
+
+  return { worshipMandatee, userInputEndDate, warningMessages };
 }

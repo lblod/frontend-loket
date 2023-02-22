@@ -9,10 +9,12 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
-import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import {
+  handlePrefillEndDate,
+  setExpectedEndDate,
+} from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
-import moment from 'moment';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
   @service store;
@@ -35,32 +37,13 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     this.model.bekleedt = mandaat;
     await setExpectedEndDate(this.store, this.model, mandaat);
     const endDate = this.userInputEndDate || this.model.expectedEndDate;
-    this.handlePrefillEndDate(endDate);
-  }
-
-  @action
-  async handlePrefillEndDate(endDate) {
-    let worshipMandatee = this.model;
-    if (
-      worshipMandatee.expectedEndDate &&
-      moment(worshipMandatee.expectedEndDate).format('DD-MM-YYY') ===
-        moment(endDate).format('DD-MM-YYY')
-    ) {
-      this.userInputEndDate = null;
-      worshipMandatee.einde = endDate;
-    } else if (!worshipMandatee.expectedEndDate) {
-      worshipMandatee.einde = this.userInputEndDate;
-    } else {
-      this.userInputEndDate = endDate;
-      worshipMandatee.einde = this.userInputEndDate;
-    }
-
-    this.warningMessages = this.userInputEndDate
-      ? {
-          userInputEndDateMessage:
-            'Deze einddatum wordt handmatig ingevoerd, het verdient aanbeveling te controleren of deze geldig is.',
-        }
-      : {};
+    const { userInputEndDate, warningMessages } = handlePrefillEndDate(
+      this.userInputEndDate,
+      this.model,
+      endDate
+    );
+    this.userInputEndDate = userInputEndDate;
+    this.warningMessages = warningMessages;
   }
 
   @action
@@ -68,7 +51,13 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     this.model[attributeName] = date;
     let { start, einde } = this.model;
     if (attributeName === 'einde') {
-      this.handlePrefillEndDate(date);
+      const { userInputEndDate, warningMessages } = handlePrefillEndDate(
+        this.userInputEndDate,
+        this.model,
+        date
+      );
+      this.userInputEndDate = userInputEndDate;
+      this.warningMessages = warningMessages;
     }
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
