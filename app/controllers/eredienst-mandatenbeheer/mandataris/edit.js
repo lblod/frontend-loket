@@ -12,6 +12,7 @@ import {
 import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
+import moment from 'moment';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
   @service store;
@@ -20,6 +21,8 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @tracked selectedContact;
   @tracked editingContact;
   @tracked isManualAddress;
+  @tracked warningMessages;
+  @tracked userInputEndDate;
 
   originalContactAdres;
 
@@ -28,15 +31,45 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   }
 
   @action
-  setMandaat(mandaat) {
+  async setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
-    setExpectedEndDate(this.store, this.model, mandaat);
+    await setExpectedEndDate(this.store, this.model, mandaat);
+    const endDate = this.userInputEndDate || this.model.expectedEndDate;
+    this.handlePrefillEndDate(endDate);
+  }
+
+  @action
+  async handlePrefillEndDate(endDate) {
+    let worshipMandatee = this.model;
+    if (
+      worshipMandatee.expectedEndDate &&
+      moment(worshipMandatee.expectedEndDate).format('DD-MM-YYY') ===
+        moment(endDate).format('DD-MM-YYY')
+    ) {
+      this.userInputEndDate = null;
+      worshipMandatee.einde = endDate;
+    } else if (!worshipMandatee.expectedEndDate) {
+      worshipMandatee.einde = this.userInputEndDate;
+    } else {
+      this.userInputEndDate = endDate;
+      worshipMandatee.einde = this.userInputEndDate;
+    }
+
+    this.warningMessages = this.userInputEndDate
+      ? {
+          userInputEndDateMessage:
+            'Deze einddatum wordt handmatig ingevoerd, het verdient aanbeveling te controleren of deze geldig is.',
+        }
+      : {};
   }
 
   @action
   handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
+    if (attributeName === 'einde') {
+      this.handlePrefillEndDate(date);
+    }
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
         this.model.errors.add(

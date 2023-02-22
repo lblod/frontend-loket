@@ -87,11 +87,13 @@
       </div>
       <div class="au-o-grid__item au-u-1-2">
         {{#let (if this.model.errors.einde true false) as |showError|}}
-        <AuLabel for="mandate-correction-end-date" @error={{showError}}>Einddatum</AuLabel>
+        {{#let (if this.warningMessages.userInputEndDateMessage true false) as |showWarning|}}
+        <AuLabel for="mandate-correction-end-date" @error={{showError}} @warning={{showWarning}}>Einddatum</AuLabel>
         <AuDateInput
           @value={{@model.einde}}
           @onChange={{fn this.handleDateChange "einde"}}
           @error={{showError}}
+          @warning={{showWarning}}
           @width="block"
           id="mandate-correction-end-date"
         />
@@ -102,6 +104,12 @@
             {{/each}}
           </AuHelpText>
         {{/if}}
+        {{#if showWarning}}
+          <AuHelpText @warning={{true}}>
+            {{this.warningMessages.userInputEndDateMessage}}
+          </AuHelpText>
+        {{/if}}
+        {{/let}}
         {{/let}}
       </div>
     </div>
