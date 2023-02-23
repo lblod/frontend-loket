@@ -20,13 +20,17 @@
         <Data>
           <:title>IPDC Concept ID</:title>
           <:content>
-            <AuLink
-              @route="public-services.concept-details"
-              @model={{@model.publicService.concept.id}}
-              @query={{hash preview=true}}
-            >
-              <ValueWithPlaceholder @value={{@model.publicService.concept.productId}} />
-            </AuLink>
+            <ValueWithPlaceholder @value={{@model.publicService.concept.productId}}>
+                <:value as |productId|>
+                  <AuLink
+                    @route="public-services.concept-details"
+                    @model={{@model.publicService.concept.id}}
+                    @query={{hash preview=true}}
+                  >
+                    {{productId}}
+                  </AuLink>
+                </:value>
+            </ValueWithPlaceholder>
           </:content>
         </Data>
       <Data>
