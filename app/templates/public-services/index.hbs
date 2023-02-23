@@ -56,9 +56,6 @@
       <th>
         Productnaam
       </th>
-      <th>
-        ProductID
-      </th>
       <AuDataTableThSortable
         @field="type"
         @currentSorting={{this.sort}}
@@ -121,7 +118,6 @@
             </AuPill>
           {{/if}}
         </td>
-        <td>{{publicService.productId}}</td>
         <td>{{publicService.type.label}}</td>
         <td>
           {{#each publicService.targetAudiences as |tag|}}
