@@ -12,7 +12,7 @@ import {
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import {
   setExpectedEndDate,
-  checkMandateTimePeriodeLimit,
+  warnOnMandateExceededTimePeriode,
 } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
@@ -65,7 +65,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     worshipMandatee.bekleedt = mandaat;
     worshipMandatee.errors.remove('bekleedt');
     setExpectedEndDate(this.store, worshipMandatee, mandaat);
-    this.warningMessages = await checkMandateTimePeriodeLimit(
+    this.warningMessages = await warnOnMandateExceededTimePeriode(
       mandaat,
       this.store,
       worshipMandatee.start,
@@ -79,7 +79,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     worshipMandatee[type] = date;
     let { einde, start } = worshipMandatee;
     if (einde instanceof Date && start instanceof Date) {
-      this.warningMessages = await checkMandateTimePeriodeLimit(
+      this.warningMessages = await warnOnMandateExceededTimePeriode(
         await worshipMandatee?.bekleedt,
         this.store,
         start,

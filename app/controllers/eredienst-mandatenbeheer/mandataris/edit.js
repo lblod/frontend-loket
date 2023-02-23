@@ -10,7 +10,7 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import {
-  checkMandateTimePeriodeLimit,
+  warnOnMandateExceededTimePeriode,
   setExpectedEndDate,
 } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
@@ -36,7 +36,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   async setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
     setExpectedEndDate(this.store, this.model, mandaat);
-    this.warningMessages = await checkMandateTimePeriodeLimit(
+    this.warningMessages = await warnOnMandateExceededTimePeriode(
       mandaat,
       this.store,
       this.model.start,
@@ -49,7 +49,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     this.model[attributeName] = date;
     let { start, einde } = this.model;
     if (einde instanceof Date && start instanceof Date) {
-      this.warningMessages = await checkMandateTimePeriodeLimit(
+      this.warningMessages = await warnOnMandateExceededTimePeriode(
         await this.model.bekleedt,
         this.store,
         start,

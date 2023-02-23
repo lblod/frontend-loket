@@ -47,15 +47,16 @@ export async function getActiveTimePeriodes(mandate, store) {
 }
 
 /**
- * Checks the mandate time periode limit, if it falls outside, we send a warning message to the user.
- * Lifetime mandates does not trigger warning messages.
+ * Checks the mandate time periode limit, if it falls outside, we show a warning message to the user.
+ *
+ * NB : Lifetime mandates does not trigger warning messages.
  * @param {Object} mandate Mandate record
  * @param {Object} store Ember store
- * @param {Object} startDate Mandate starting date
- * @param {Object} endDate Mandate ending date
+ * @param {Date} startDate Mandate starting date
+ * @param {Date} endDate Mandate ending date
  * @returns {Object} Corresponding warning message with the {startDate} and {endDate} cases.
  */
-export async function checkMandateTimePeriodeLimit(
+export async function warnOnMandateExceededTimePeriode(
   mandate,
   store,
   startDate,
