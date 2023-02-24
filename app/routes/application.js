@@ -10,6 +10,7 @@ export default class ApplicationRoute extends Route {
   @service moment;
   @service session;
   @service plausible;
+  @service router;
 
   async beforeModel() {
     await this.session.setup();
@@ -38,10 +39,12 @@ export default class ApplicationRoute extends Route {
     }
   }
 
-  _loadCurrentSession() {
-    return this.currentSession.load().catch((e) => {
-      warn(e, { id: 'session-load-failure' });
-      this.session.invalidate();
-    });
+  async _loadCurrentSession() {
+    try {
+      await this.currentSession.load();
+    } catch (error) {
+      warn(error, { id: 'current-session-load-failure' });
+      this.router.transitionTo('auth.logout');
+    }
   }
 }

@@ -12,6 +12,13 @@ Router.map(function () {
   this.route('switch-login');
   this.route('mock-login');
 
+  this.route('auth', { path: '/authorization' }, function () {
+    this.route('callback');
+    this.route('login');
+    this.route('logout');
+    this.route('switch');
+  });
+
   this.route('contact');
 
   this.route('legaal', function () {

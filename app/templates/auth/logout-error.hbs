@@ -1,0 +1,15 @@
+{{page-title "Fout bij het afmelden"}}
+
+{{! TODO: implement a better error page once Appuniversum provides a template example for it: https://github.com/appuniversum/ember-appuniversum/issues/384 }}
+<AuAlert @icon="circle-x" @skin="error" @title="Fout bij het afmelden">
+  <p>
+    Er ging iets fout bij het afmelden.
+    <AuLink @route="auth.logout">Probeer het opnieuw</AuLink>.
+
+    <AuHelpText>
+      <AuLinkExternal
+        href="mailto:LoketLokaalBestuur@vlaanderen.be?subject=Fout bij het afmelden"
+      >Neem contact met ons op</AuLinkExternal> indien dit probleem zich blijft voordoen.
+    </AuHelpText>
+  </p>
+</AuAlert>
