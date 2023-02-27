@@ -48,13 +48,13 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   async handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
+    this.warningMessages = await warnOnMandateExceededTimePeriode(
+      await this.model.bekleedt,
+      this.store,
+      start,
+      einde
+    );
     if (einde instanceof Date && start instanceof Date) {
-      this.warningMessages = await warnOnMandateExceededTimePeriode(
-        await this.model.bekleedt,
-        this.store,
-        start,
-        einde
-      );
       if (einde <= start) {
         this.model.errors.add(
           'einde',

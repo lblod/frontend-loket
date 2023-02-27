@@ -78,13 +78,13 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     const { worshipMandatee } = this.model;
     worshipMandatee[type] = date;
     let { einde, start } = worshipMandatee;
+    this.warningMessages = await warnOnMandateExceededTimePeriode(
+      await worshipMandatee?.bekleedt,
+      this.store,
+      start,
+      einde
+    );
     if (einde instanceof Date && start instanceof Date) {
-      this.warningMessages = await warnOnMandateExceededTimePeriode(
-        await worshipMandatee?.bekleedt,
-        this.store,
-        start,
-        einde
-      );
       if (einde <= start) {
         worshipMandatee.errors.add(
           'einde',
