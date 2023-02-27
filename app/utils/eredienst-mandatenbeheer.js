@@ -90,18 +90,18 @@ export async function warnOnMandateExceededTimePeriode(
   }
 
   if (moment(startDate).isBefore(activeTimePeriodeLimitStart)) {
-    warningMessages.startDateMessage = `Deze startdatum ${moment(
+    warningMessages.startDateMessage = `De startdatum ${moment(
       startDate
     ).format(
       'DD-MM-YYYY'
-    )} valt buiten het start van deze actieve tijdsperiode ${moment(
+    )} valt voor de voorgestelde startdatum van de bestuursperiode ${moment(
       activeTimePeriodeLimitStart
     ).format('DD-MM-YYYY')}.`;
   }
   if (moment(endDate).isAfter(activeTimePeriodeLimitEnd)) {
-    warningMessages.endDateMessage = `Deze einddatum ${moment(endDate).format(
+    warningMessages.endDateMessage = `De einddatum ${moment(endDate).format(
       'DD-MM-YYYY'
-    )} valt buiten het einde van deze actieve tijdsperiode ${moment(
+    )} valt voor de voorgestelde einddatum van de bestuursperiode ${moment(
       activeTimePeriodeLimitEnd
     ).format('DD-MM-YYYY')}.`;
   }
