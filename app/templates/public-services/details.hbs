@@ -17,6 +17,21 @@
 >
   <Group class="au-u-margin-bottom-small">
     <DataList as |Data|>
+        <Data>
+          <:title>IPDC Concept ID</:title>
+          <:content>
+            <ValueWithPlaceholder @value={{@model.publicService.concept.productId}}>
+                <:value as |productId|>
+                  <AuLink
+                    @route="public-services.concept-details"
+                    @model={{@model.publicService.concept.id}}
+                  >
+                    {{productId}}
+                  </AuLink>
+                </:value>
+            </ValueWithPlaceholder>
+          </:content>
+        </Data>
       <Data>
         <:title>Product type</:title>
         <:content>
