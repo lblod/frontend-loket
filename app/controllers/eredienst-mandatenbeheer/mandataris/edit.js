@@ -9,10 +9,7 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
-import {
-  handlePrefillEndDate,
-  setExpectedEndDate,
-} from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import { setEndDates } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
@@ -24,7 +21,6 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @tracked editingContact;
   @tracked isManualAddress;
   @tracked warningMessages;
-  @tracked userInputEndDate;
 
   originalContactAdres;
 
@@ -35,30 +31,19 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @action
   async setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
-    await setExpectedEndDate(this.store, this.model, mandaat);
-    const endDate = this.userInputEndDate || this.model.expectedEndDate;
-    const { userInputEndDate, warningMessages } = handlePrefillEndDate(
-      this.userInputEndDate,
-      this.model,
-      endDate
-    );
-    this.userInputEndDate = userInputEndDate;
-    this.warningMessages = warningMessages;
+    const maybeWarning = await setEndDates(this.store, this.model, mandaat);
+
+    if (maybeWarning) {
+      this.warningMessages = maybeWarning;
+    }
   }
 
   @action
   handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
-    if (attributeName === 'einde') {
-      const { userInputEndDate, warningMessages } = handlePrefillEndDate(
-        this.userInputEndDate,
-        this.model,
-        date
-      );
-      this.userInputEndDate = userInputEndDate;
-      this.warningMessages = warningMessages;
-    }
+    this.warningMessages = {};
+
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
         this.model.errors.add(
