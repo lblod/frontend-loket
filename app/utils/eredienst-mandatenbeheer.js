@@ -32,7 +32,7 @@ export async function setEndDates(store, mandataris, mandaat) {
   if (!isSameIsoDate(mandataris.einde, currentEndDate)) {
     warnings = {
       einde:
-        'De einddatum werd automatisch aangepast naar de nieuwe geplande einddatum. Gelieve na te kijken of deze nieuwe einddatum klopt.',
+        'De einddatum werd automatisch aangepast naar de nieuwe geplande einddatum. Gelieve de einddatum te controleren',
     };
   }
 
