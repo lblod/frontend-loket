@@ -1,3 +1,13 @@
+## v0.77.0 (2023-03-07)
+
+### General 
+#### :rocket: Enhancement
+* [#282](https://github.com/lblod/frontend-loket/pull/282) Update to @lblod/ember-acmidm-login v2 ([@Windvis](https://github.com/Windvis))
+
+### Worshipservices 
+#### :rocket: Enhancement
+* [#283](https://github.com/lblod/frontend-loket/pull/283) Prefill the endDate based on the expectedEndDate ([@Poltergeistz](https://github.com/Poltergeistz))
+
 ## v0.76.0 (2023-02-28)
 
 ### General 
