@@ -1,22 +1,7 @@
-<Acmidm::Login as |acmidm|>
-  <AuButton
-    @loading={{acmidm.isAuthenticating}}
-    @disabled={{acmidm.isAuthenticating}}
-    @skin={{if @isCompact "link" "primary"}}
-    @icon="login"
-    @iconAlignment="left"
-    {{on "click" acmidm.login}}
-  >
-    Aanmelden
-  </AuButton>
-
-  {{#if acmidm.errorMessage}}
-    <AuAlert
-      @icon="alert-triangle"
-      @size="small"
-      @title={{acmidm.errorMessage}}
-      @skin="error"
-      class={{unless @isCompact "au-u-margin-top-small"}}
-    />
-  {{/if}}
-</Acmidm::Login>
+<AuLink
+  @route="auth.login" {{! TODO: it might be nice if this would link to the mock-login route based on some environment variable}}
+  @skin={{if @isCompact "primary" "button"}}
+  @icon="login"
+>
+  Aanmelden
+</AuLink>

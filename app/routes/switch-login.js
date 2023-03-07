@@ -1,21 +1,15 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
+// This route is only needed because ACM/IDM is configured to redirect to it when switching users.
+// We would need to change the configuration before we can remove it, otherwise we see a "bad request" error message.
 export default class SwitchLoginRoute extends Route {
-  @service() session;
+  @service session;
+  @service router;
 
   beforeModel() {
-    this.session.prohibitAuthentication('index');
-  }
-
-  async model() {
-    try {
-      return await this.session.authenticate(
-        'authenticator:torii',
-        'acmidm-oauth2'
-      );
-    } catch (e) {
-      return 'Fout bij het aanmelden. Gelieve opnieuw te proberen.';
+    if (this.session.prohibitAuthentication('index')) {
+      this.router.replaceWith('auth.login');
     }
   }
 }

@@ -38,29 +38,6 @@
 //   }
 // }
 
-/* ==================================
-  @TODO: update in appuniversum: https://github.com/appuniversum/ember-appuniversum/issues/142
-  ================================== */
-
-// Fix ACMIDM login alerts/loading in header
-// @TODO: rework ACMIDM components to work with appuniversum classes
-.au-c-main-header__actions .au-c-alert {
-  position: absolute;
-  right: $au-unit-small + $au-unit-tiny;
-  max-width: 480px;
-  top: $au-unit-large + $au-unit-tiny;
-}
-
-// Position ACMIDM login loader
-.au-c-main-header__actions .au-c-loader {
-  position: absolute;
-  right: 0;
-  max-width: 480px;
-  top: $au-unit-large - $au-unit-tiny;
-  padding: 0;
-  background-color: $au-white;
-}
-
 // Toolbar group rows
 .au-c-toolbar__group--row {
   display: block;
