@@ -9,7 +9,7 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
-import { setExpectedEndDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import { setEndDates } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
@@ -20,6 +20,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @tracked selectedContact;
   @tracked editingContact;
   @tracked isManualAddress;
+  @tracked warningMessages;
 
   originalContactAdres;
 
@@ -28,15 +29,21 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   }
 
   @action
-  setMandaat(mandaat) {
+  async setMandaat(mandaat) {
     this.model.bekleedt = mandaat;
-    setExpectedEndDate(this.store, this.model, mandaat);
+    const maybeWarning = await setEndDates(this.store, this.model, mandaat);
+
+    if (maybeWarning) {
+      this.warningMessages = maybeWarning;
+    }
   }
 
   @action
   handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
+    this.warningMessages = {};
+
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
         this.model.errors.add(
