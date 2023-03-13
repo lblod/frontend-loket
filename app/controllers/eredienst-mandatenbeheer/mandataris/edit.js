@@ -9,7 +9,7 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
-import { setEndDates } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import { setMandate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
@@ -30,8 +30,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @action
   async setMandaat(mandaat) {
-    this.model.bekleedt = mandaat;
-    const maybeWarning = await setEndDates(this.store, this.model, mandaat);
+    const maybeWarning = await setMandate(this.store, this.model, mandaat);
 
     if (maybeWarning) {
       this.warningMessages = maybeWarning;
