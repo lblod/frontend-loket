@@ -79,16 +79,16 @@
         </div>
         <div>
           <label class="checkbox checkbox--block">
-            {{input class="checkbox__toggle" type="checkbox" checked=isDuplicated click=(action "toggleIsDuplicated") }}
+            {{input class="checkbox__toggle" type="checkbox" checked=this.isDuplicated click=(action "toggleIsDuplicated") }}
             <span></span>
             Is het een duplicaat?
           </label>
-          {{#if isDuplicated}}
+          {{#if this.isDuplicated}}
             {{mandatenbeheer/mandataris-duplicate-selector
               onSelect=(action 'setduplicatedMandataris')
-              mandatarissen=mandatarissen
-              currentMandataris=mandataris
-              duplicatedMandataris=duplicatedMandataris
+              mandatarissen=this.mandatarissen
+              currentMandataris=this.mandataris
+              duplicatedMandataris=this.duplicatedMandataris
               allowClear=true
             }}
             <div>
@@ -97,7 +97,7 @@
                 id="duplication-reason"
                 class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
                 placeholder="Reden voor duplicatie"
-                @value={{mut duplicationReason}}
+                @value={{mut this.duplicationReason}}
               />
             </div>
           {{/if}}
@@ -221,7 +221,7 @@
         </div>
         <div>
           <label class="checkbox checkbox--block au-u-margin-bottom-tiny">
-            <Input @class="checkbox__toggle" @type="checkbox" @checked={{this.isDuplicated}} @click={{action "toggleIsDuplicated"}} />
+            <Input class="checkbox__toggle" @type="checkbox" @checked={{this.isDuplicated}} {{on "click" (action "toggleIsDuplicated")}} />
             <span></span>
             Is het een duplicaat?
           </label>
@@ -229,9 +229,9 @@
           {{#if this.isDuplicated}}
             {{mandatenbeheer/mandataris-duplicate-selector
               onSelect=(action 'setduplicatedMandataris')
-              mandatarissen=mandatarissen
-              currentMandataris=mandataris
-              duplicatedMandataris=duplicatedMandataris
+              mandatarissen=this.mandatarissen
+              currentMandataris=this.mandataris
+              duplicatedMandataris=this.duplicatedMandataris
               allowClear=true
             }}
             <div class="au-u-margin-top-small">
@@ -240,7 +240,7 @@
                 id="duplicationReason"
                 class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
                 placeholder="Reden voor duplicatie"
-                @value={{mut duplicationReason}}
+                @value={{mut this.duplicationReason}}
               />
             </div>
           {{/if}}

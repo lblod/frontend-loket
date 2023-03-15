@@ -42,7 +42,7 @@
         <Mandatenbeheer::MandatarisEdit
           @bestuursorganen={{@bestuursorganen}}
           @mandataris={{mandataris}}
-          @mandatarissen={{mandatarissen}}
+          @mandatarissen={{this.mandatarissen}}
           @onSave={{@onMandatarisSaved}}
           @onCancelCreate={{this.mandatarisCreateCanceled}}
          />
@@ -57,7 +57,7 @@
       <AuAlert @alertIcon="alert-triangle" @alertskin="warning" class="au-u-margin-top-small">
         <p class="au-u-margin-bottom-small">
           <label class="checkbox checkbox--block u-spacer">
-            <Input @type="checkbox" @name="isAdmin" @checked={{persoon.verifiedMandaten}} @click={{action "updateVerifiedMandaten"}} @class="checkbox__toggle" />
+            <Input @type="checkbox" name="isAdmin" @checked={{@persoon.verifiedMandaten}} class="checkbox__toggle" {{on "click" (action "updateVerifiedMandaten")}} />
             <span></span>
             <span>De persoon en al de bijbehorende mandaten werden nagekeken.</span>
           </label>

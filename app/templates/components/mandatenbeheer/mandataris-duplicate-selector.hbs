@@ -1,9 +1,9 @@
 <PowerSelect
-        @allowClear={{allowClear}}
-        @disabled={{disabled}}
+        @allowClear={{this.allowClear}}
+        @disabled={{this.disabled}}
         @placeholder="Zoek mandataris"
-        @options={{options}}
-        @selected={{_duplicatedMandataris}}
+        @options={{this.options}}
+        @selected={{this._duplicatedMandataris}}
         @onChange={{action "select"}}
         as |mandataris|>
   {{mandataris.bekleedt.bestuursfunctie.label}}, {{moment-format mandataris.start 'DD/MM/YYYY'}} - {{moment-format mandataris.einde 'DD/MM/YYYY'}} ({{mandataris.status.label}})
