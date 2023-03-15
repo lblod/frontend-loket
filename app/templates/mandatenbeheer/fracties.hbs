@@ -102,12 +102,9 @@
                   <tr>
                     <td colspan="3">
                       Geen fracties gevonden.
-                      {{wu-button
-                          label="Voeg een nieuwe fractie toe"
-                          onClick=(action "createNewFractie")
-                          isNarrow=true
-                          isLink=true
-                      }}
+                      <AuButton @skin="link" {{on "click" this.createNewFractie}}>
+                        Voeg een nieuwe fractie toe
+                      </AuButton>
                     </td>
                   </tr>
                 {{/unless}}

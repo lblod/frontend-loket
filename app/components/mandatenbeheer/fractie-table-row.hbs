@@ -32,12 +32,7 @@
         Bewerk
       </AuButton>
       {{#if this.canRemove}}
-        {{wu-button
-            label="Verwijder"
-            onClick=(action "remove")
-            isWarning=true
-            size="small"
-        }}
+        <AuButton @icon="bin" @alert={{true}} {{on "click" this.remove}}>Verwijder</AuButton>
       {{/if}}
     {{/if}}
   </td>
