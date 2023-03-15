@@ -86,22 +86,32 @@
       {{/let}}
       </div>
       <div class="au-o-grid__item au-u-1-2">
-        {{#let (if this.model.errors.einde true false) as |showError|}}
-        <AuLabel for="mandate-correction-end-date" @error={{showError}}>Einddatum</AuLabel>
-        <AuDateInput
-          @value={{@model.einde}}
-          @onChange={{fn this.handleDateChange "einde"}}
-          @error={{showError}}
-          @width="block"
-          id="mandate-correction-end-date"
-        />
-        {{#if showError}}
-          <AuHelpText @error={{true}}>
-            {{#each this.model.errors.einde as |errors|}}
-              {{errors.message}}
-            {{/each}}
-          </AuHelpText>
-        {{/if}}
+        {{#let
+          (if this.model.errors.einde true false)
+          (if this.warningMessages.einde true false)
+          as |showError showWarning|
+        }}
+          <AuLabel for="mandate-correction-end-date" @error={{showError}} @warning={{showWarning}}>Einddatum</AuLabel>
+          <AuDateInput
+            @value={{@model.einde}}
+            @onChange={{fn this.handleDateChange "einde"}}
+            @error={{showError}}
+            @warning={{showWarning}}
+            @width="block"
+            id="mandate-correction-end-date"
+          />
+          {{#if showError}}
+            <AuHelpText @error={{true}}>
+              {{#each this.model.errors.einde as |errors|}}
+                {{errors.message}}
+              {{/each}}
+            </AuHelpText>
+          {{/if}}
+          {{#if showWarning}}
+            <AuHelpText @warning={{true}}>
+              {{this.warningMessages.einde}}
+            </AuHelpText>
+          {{/if}}
         {{/let}}
       </div>
     </div>

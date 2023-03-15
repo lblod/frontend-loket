@@ -42,6 +42,7 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
     controller.bestuursorganen = this.bestuursorganen;
     controller.contactList = this.contacts;
     controller.selectedContact = this.selectedContact;
+    controller.warningMessages = {};
   }
 
   resetController(controller) {
