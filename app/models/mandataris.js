@@ -21,17 +21,18 @@ export default class MandatarisModel extends AgentInPosition {
   @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
   @belongsTo('mandataris-status-code', { inverse: null }) status;
 
-
   @belongsTo('mandataris', { inverse: null }) duplicateOf;
   @attr('uri-set') generatedFrom;
 
   @computed('generatedFrom')
   get generatedFromGelinktNotuleren() {
-    return (this.generatedFrom || []).some(uri => uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService');
+    return (this.generatedFrom || []).some(
+      (uri) =>
+        uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService'
+    );
   }
 
   @hasMany('contact-punt', { inverse: 'mandatarissen' }) contactPoints;
-
 }
 
 export async function getUniqueBestuursorganen(mandataris) {

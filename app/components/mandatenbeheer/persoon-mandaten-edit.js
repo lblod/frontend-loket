@@ -58,11 +58,14 @@ export default class MandatenbeheerPersoonMandatenEditComponent extends Componen
   }
 
   @action
-  async updateVerifiedMandaten(){
-    await this.args.persoon.set('verifiedMandaten', !this.args.persoon.verifiedMandaten);
+  async updateVerifiedMandaten() {
+    await this.args.persoon.set(
+      'verifiedMandaten',
+      !this.args.persoon.verifiedMandaten
+    );
     await this.args.persoon.save();
   }
-  
+
   @action
   finish() {
     this.args.onFinish();

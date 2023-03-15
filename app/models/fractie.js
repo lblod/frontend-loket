@@ -9,6 +9,9 @@ export default class FractieModel extends Model {
   @attr('uri-set') generatedFrom;
   @computed('generatedFrom')
   get generatedFromGelinktNotuleren() {
-    return (this.generatedFrom || []).some(uri => uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService');
+    return (this.generatedFrom || []).some(
+      (uri) =>
+        uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService'
+    );
   }
 }

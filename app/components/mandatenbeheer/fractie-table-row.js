@@ -42,6 +42,6 @@ export default class MandatenbeheerFractieTableRowComponent extends Component {
 
   @action
   async remove() {
-      await this.fractie.destroyRecord();
+    await this.fractie.destroyRecord();
   }
 }

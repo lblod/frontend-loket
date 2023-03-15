@@ -19,7 +19,7 @@ export default Component.extend({
   createMode: false,
   promptMode: false,
   isDuplicated: false,
-  viewMode: computed('editOnlyMode', 'createMode', function(){
+  viewMode: computed('editOnlyMode', 'createMode', function () {
     return !(this.editOnlyMode || this.createMode);
   }),
   saveError: false,
@@ -45,7 +45,10 @@ export default Component.extend({
       ((await this.get('mandataris.beleidsdomein')) || A()).toArray()
     );
     this.set('duplicatedMandataris', await this.get('mandataris.duplicateOf'));
-    this.set('duplicationReason', await this.get('mandataris.duplicationReason'));
+    this.set(
+      'duplicationReason',
+      await this.get('mandataris.duplicationReason')
+    );
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
@@ -87,21 +90,24 @@ export default Component.extend({
       this.set('mandataris.rangorde', this.rangorde);
       this.set('mandataris.status', this.status);
 
-
       const currentSavedDuplicate = yield this.get('mandataris.duplicateOf');
 
-      if(this.duplicatedMandataris || currentSavedDuplicate) {
+      if (this.duplicatedMandataris || currentSavedDuplicate) {
         this.set('mandataris.duplicationReason', this.duplicationReason);
         this.set('mandataris.duplicateOf', this.duplicatedMandataris);
         const savedMandataris = yield this.mandataris.save();
 
         // We add a duplicate to the mandataris
         if (this.duplicatedMandataris) {
-          this.set('duplicatedMandataris.duplicationReason', this.duplicationReason);
+          this.set(
+            'duplicatedMandataris.duplicationReason',
+            this.duplicationReason
+          );
           this.set('duplicatedMandataris.duplicateOf', this.mandataris);
           yield this.duplicatedMandataris.save();
         }
-        if (currentSavedDuplicate) { // We remove the existing duplicate
+        if (currentSavedDuplicate) {
+          // We remove the existing duplicate
           currentSavedDuplicate.set('duplicationReason', undefined);
           currentSavedDuplicate.set('duplicateOf', undefined);
           yield currentSavedDuplicate.save();
@@ -110,7 +116,7 @@ export default Component.extend({
       } else {
         return yield this.mandataris.save();
       }
-    } catch(e){
+    } catch (e) {
       this.set('saveError', true);
       warn(`error during save ${e}`, { id: 'save-error' });
       this.cleanUpOnError();
@@ -250,7 +256,7 @@ export default Component.extend({
       this.set('fractie', fractie);
     },
 
-    setduplicatedMandataris(duplicatedMandataris){
+    setduplicatedMandataris(duplicatedMandataris) {
       this.set('duplicatedMandataris', duplicatedMandataris);
     },
 
@@ -315,7 +321,7 @@ export default Component.extend({
       this.set('editMode', true);
       this.set('terminateMode', !this.terminateMode);
     },
-    toggleIsDuplicated(){
+    toggleIsDuplicated() {
       this.toggleProperty('isDuplicated');
       if (!this.isDuplicated) {
         this.set('duplicatedMandataris', undefined);
@@ -323,5 +329,4 @@ export default Component.extend({
       }
     },
   },
-  
 });

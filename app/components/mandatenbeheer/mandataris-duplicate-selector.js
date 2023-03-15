@@ -5,17 +5,20 @@ export default Component.extend({
   store: service(),
   currentSession: service(),
 
-  async didReceiveAttrs(){
-    if(this.duplicatedMandataris)
+  async didReceiveAttrs() {
+    this._super();
+    if (this.duplicatedMandataris)
       this.set('_duplicatedMandataris', this.duplicatedMandataris);
-    const options = this.mandatarissen.filter(m => {return m != this.currentMandataris});
+    const options = this.mandatarissen.filter((m) => {
+      return m != this.currentMandataris;
+    });
     this.set('options', options);
   },
 
   actions: {
-    select(duplicatedMandataris){
+    select(duplicatedMandataris) {
       this.set('_duplicatedMandataris', duplicatedMandataris);
       this.onSelect(duplicatedMandataris);
-    }
-  }
+    },
+  },
 });
