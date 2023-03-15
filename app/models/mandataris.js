@@ -1,6 +1,5 @@
 import { attr, belongsTo, hasMany } from '@ember-data/model';
 import AgentInPosition from './agent-in-position';
-import { computed } from '@ember/object';
 
 // INHERITS FROM AGENT-IN-POSITION
 export default class MandatarisModel extends AgentInPosition {
@@ -24,7 +23,6 @@ export default class MandatarisModel extends AgentInPosition {
   @belongsTo('mandataris', { inverse: null }) duplicateOf;
   @attr('uri-set') generatedFrom;
 
-  @computed('generatedFrom')
   get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(
       (uri) =>
