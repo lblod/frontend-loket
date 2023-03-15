@@ -6,5 +6,5 @@
         @selected={{this._duplicatedMandataris}}
         @onChange={{action "select"}}
         as |mandataris|>
-  {{mandataris.bekleedt.bestuursfunctie.label}}, {{moment-format mandataris.start 'DD/MM/YYYY'}} - {{moment-format mandataris.einde 'DD/MM/YYYY'}} ({{mandataris.status.label}})
+  {{mandataris.bekleedt.bestuursfunctie.label}}, {{moment-format mandataris.start 'DD-MM-YYYY'}} - {{moment-format mandataris.einde 'DD-MM-YYYY'}} ({{mandataris.status.label}})
 </PowerSelect>
