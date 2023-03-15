@@ -102,6 +102,26 @@ trigger:
   event:
     - tag
 ---
+kind: pipeline
+type: docker
+name: release-controle
+steps:
+- name: push-tagged-build
+  image: plugins/docker
+  settings:
+    repo: ${DRONE_REPO}
+    tags: ${DRONE_TAG##v}-controle
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    purge: true
+    build_args:
+      - CONTROLE=true
+trigger:
+  event:
+    - tag
+---
 kind: secret
 name: docker_username
 data: z1mn+LhdmJHSXCP9vHnZ9oQ08Qb/YeRa/6lPfO+bgMoJJhXxzF23ug==

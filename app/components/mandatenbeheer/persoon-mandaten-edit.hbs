@@ -53,15 +53,18 @@
         <AuIcon @icon="add" @alignment="left" />
         Voeg nieuw mandaat toe
       </AuButton>
-      {{!-- This section is here temporarily for ABB to review all the mandates in August --}}
-      <AuAlert @icon="alert-triangle" @skin="warning" class="au-u-margin-top-small">
-        <p class="au-u-margin-bottom-small">
-          <AuControlCheckbox @checked={{@persoon.verifiedMandaten}} @onChange={{this.updateVerifiedMandaten}}>
-            De persoon en al de bijbehorende mandaten werden nagekeken.
-          </AuControlCheckbox>
-        </p>
-        <p>Wil u graag een <strong>mandaat of mandataris verwijderen</strong>, de <strong>gegevens van een mandataris wijzigen</strong> of een <strong>fractie toevoegen of aanpassen</strong>? Zoek naar de juiste tab in <a href="https://docs.google.com/spreadsheets/d/13D38ZLH0toLlJ2u7lBwywUThM77ze1O6YUOMFL9T2lQ/edit#gid=0" target="_blank" rel="noopener noreferrer" class="au-c-link">deze controle sheet</a> om het door te geven.</p>
-      </AuAlert>
+
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        {{!-- This section is here temporarily for ABB to review all the mandates in August --}}
+        <AuAlert @icon="alert-triangle" @skin="warning" class="au-u-margin-top-small">
+          <p class="au-u-margin-bottom-small">
+            <AuControlCheckbox @checked={{@persoon.verifiedMandaten}} @onChange={{this.updateVerifiedMandaten}}>
+              De persoon en al de bijbehorende mandaten werden nagekeken.
+            </AuControlCheckbox>
+          </p>
+          <p>Wil u graag een <strong>mandaat of mandataris verwijderen</strong>, de <strong>gegevens van een mandataris wijzigen</strong> of een <strong>fractie toevoegen of aanpassen</strong>? Zoek naar de juiste tab in <a href="https://docs.google.com/spreadsheets/d/13D38ZLH0toLlJ2u7lBwywUThM77ze1O6YUOMFL9T2lQ/edit#gid=0" target="_blank" rel="noopener noreferrer" class="au-c-link">deze controle sheet</a> om het door te geven.</p>
+        </AuAlert>
+      {{/if}}
     </div>
   </div>
 </div>

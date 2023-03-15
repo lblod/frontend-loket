@@ -5,7 +5,9 @@
       {{#unless @displaySubset}}
         <th class="au-u-visible-small-up">Orgaan</th>
       {{/unless}}
-      <AuDataTableThSortable @field='isBestuurlijkeAliasVan.verifiedMandaten' @currentSorting={{@sort}} @label='Nagekeken' class="u-hidden-mobile" />
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        <AuDataTableThSortable @field='isBestuurlijkeAliasVan.verifiedMandaten' @currentSorting={{@sort}} @label='Nagekeken' class="u-hidden-mobile" />
+      {{/if}}
       <AuDataTableThSortable @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{@sort}} @label='Naam' class="au-u-visible-small-up" />
       <AuDataTableThSortable @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{@sort}} @label='Familienaam'/>
       {{#unless @displaySubset}}
@@ -16,12 +18,16 @@
         <AuDataTableThSortable @field='start' @currentSorting={{@sort}} @label='Start mandaat' class="au-u-visible-medium-up" />
         <AuDataTableThSortable @field='einde' @currentSorting={{@sort}} @label='Einde mandaat' class="au-u-visible-medium-up" />
       {{/unless}}
-      <AuDataTableThSortable @field='generatedFromGelinktNotuleren' @currentSorting={{@sort}} @label='Gelinkt Notuleren'/>
-      <AuDataTableThSortable @field='duplicateOf.bekleedt.bestuursfunctie.label' @currentSorting={{@sort}} @label='Gedupliceerd'/>
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        <AuDataTableThSortable @field='generatedFromGelinktNotuleren' @currentSorting={{@sort}} @label='Gelinkt Notuleren'/>
+        <AuDataTableThSortable @field='duplicateOf.bekleedt.bestuursfunctie.label' @currentSorting={{@sort}} @label='Gedupliceerd'/>
+      {{/if}}
       <th></th>
-      {{#unless @displaySubset}}
-      <th></th>
-      {{/unless}}
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        {{#unless @displaySubset}}
+        <th></th>
+        {{/unless}}
+      {{/if}}
     </c.header>
     <c.body data-test-loket="mandatarissen-body" as |row|>
       {{#unless @displaySubset}}
@@ -32,9 +38,11 @@
         {{/each}}
         </td>
       {{/unless}}
-      <td>
-        <AuControlCheckbox @checked={{row.isBestuurlijkeAliasVan.verifiedMandaten}} @disabled={{true}} />
-      </td>
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        <td>
+          <AuControlCheckbox @checked={{row.isBestuurlijkeAliasVan.verifiedMandaten}} @disabled={{true}} />
+        </td>
+      {{/if}}
       <td class="au-u-visible-small-up">
         {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
       </td>
@@ -53,26 +61,27 @@
         <td class="au-u-visible-medium-up">{{moment-format row.start 'DD-MM-YYYY'}}</td>
         <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD-MM-YYYY'}}</td>
       {{/unless}}
-      <td>
-        {{row.generatedFromGelinktNotuleren}}
-      </td>
-      <td>
-        {{#if row.duplicateOf}}
-          true
-        {{else}}
-          false
-        {{/if}}
-      </td>
-      {{#unless @displaySubset}}
-        <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
         <td>
-          <AuButton @skin="link" @icon="bin" @alert="true" {{on "click" (fn this.removeMandataris row)}}>
-            Verwijder
-          </AuButton>
+          {{row.generatedFromGelinktNotuleren}}
         </td>
-      {{/unless}}
-      {{#if @displaySubset}}
-        <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
+        <td>
+          {{#if row.duplicateOf}}
+            true
+          {{else}}
+            false
+          {{/if}}
+        </td>
+      {{/if}}
+      <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        {{#unless @displaySubset}}
+          <td>
+            <AuButton @skin="link" @icon="bin" @alert="true" {{on "click" (fn this.removeMandataris row)}}>
+              Verwijder
+            </AuButton>
+          </td>
+        {{/unless}}
       {{/if}}
     </c.body>
   </t.content>

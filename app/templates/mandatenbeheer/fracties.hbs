@@ -65,53 +65,55 @@
         </table>
       </div>
 
-      {{#if this.saveFractie.isRunning}}
-        <div class="loader-wrapper">
-          <div class="loader">
-            <span class="u-visually-hidden">Bezig...</span>
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        {{#if this.saveFractie.isRunning}}
+          <div class="loader-wrapper">
+            <div class="loader">
+              <span class="u-visually-hidden">Bezig...</span>
+            </div>
           </div>
-        </div>
-      {{else}}
-        <div class="container-flex--scroll">
-          <table class="data-table data-table--nowrap">
-            <thead>
-              <tr class="data-table__header">
-                <th>Fractienaam</th>
-                <th>Bestuursperiode</th>
-                <th></th>
-                <th>Gelinkt notuleren</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#if this.newFractie}}
-                {{mandatenbeheer/fractie-table-row
-                    onCancel=this.cancelEdit
-                    onSave=(perform this.saveFractie)
-                    fractie=this.newFractie
-                    editMode=true
-                }}
-              {{/if}}
-              {{#each this.model as |row|}}
-                {{mandatenbeheer/fractie-table-row
-                    onCancel=this.cancelEdit
-                    onSave=(perform this.saveFractie)
-                    fractie=row
-                }}
-              {{else}}
-                {{#unless this.newFractie}}
-                  <tr>
-                    <td colspan="3">
-                      Geen fracties gevonden.
-                      <AuButton @skin="link" {{on "click" this.createNewFractie}}>
-                        Voeg een nieuwe fractie toe
-                      </AuButton>
-                    </td>
-                  </tr>
-                {{/unless}}
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
+        {{else}}
+          <div class="container-flex--scroll">
+            <table class="data-table data-table--nowrap">
+              <thead>
+                <tr class="data-table__header">
+                  <th>Fractienaam</th>
+                  <th>Bestuursperiode</th>
+                  <th></th>
+                  <th>Gelinkt notuleren</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#if this.newFractie}}
+                  {{mandatenbeheer/fractie-table-row
+                      onCancel=this.cancelEdit
+                      onSave=(perform this.saveFractie)
+                      fractie=this.newFractie
+                      editMode=true
+                  }}
+                {{/if}}
+                {{#each this.model as |row|}}
+                  {{mandatenbeheer/fractie-table-row
+                      onCancel=this.cancelEdit
+                      onSave=(perform this.saveFractie)
+                      fractie=row
+                  }}
+                {{else}}
+                  {{#unless this.newFractie}}
+                    <tr>
+                      <td colspan="3">
+                        Geen fracties gevonden.
+                        <AuButton @skin="link" {{on "click" this.createNewFractie}}>
+                          Voeg een nieuwe fractie toe
+                        </AuButton>
+                      </td>
+                    </tr>
+                  {{/unless}}
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        {{/if}}
       {{/if}}
     </div>
   </div>
