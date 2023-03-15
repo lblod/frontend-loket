@@ -33,8 +33,7 @@
         </td>
       {{/unless}}
       <td>
-        <Input @type="checkbox" @name="isAdmin" @checked={{row.isBestuurlijkeAliasVan.verifiedMandaten}} @disabled=true />
-        <span></span>
+        <AuControlCheckbox @checked={{row.isBestuurlijkeAliasVan.verifiedMandaten}} @disabled={{true}} />
       </td>
       <td class="au-u-visible-small-up">
         {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}

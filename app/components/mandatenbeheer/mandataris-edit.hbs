@@ -78,11 +78,12 @@
           }}
         </div>
         <div>
-          <label class="checkbox checkbox--block">
-            {{input class="checkbox__toggle" type="checkbox" checked=this.isDuplicated click=(action "toggleIsDuplicated") }}
-            <span></span>
-            Is het een duplicaat?
-          </label>
+          <div class="au-u-margin-bottom-tiny">
+            <AuControlCheckbox
+              @checked={{this.isDuplicated}}
+              @onChange={{fn (mut this.isDuplicated)}}
+            >Is het een duplicaat?</AuControlCheckbox>
+          </div>
           {{#if this.isDuplicated}}
             {{mandatenbeheer/mandataris-duplicate-selector
               onSelect=(action 'setduplicatedMandataris')
@@ -220,11 +221,12 @@
           }}
         </div>
         <div>
-          <label class="checkbox checkbox--block au-u-margin-bottom-tiny">
-            <Input class="checkbox__toggle" @type="checkbox" @checked={{this.isDuplicated}} {{on "click" (action "toggleIsDuplicated")}} />
-            <span></span>
-            Is het een duplicaat?
-          </label>
+          <div class="au-u-margin-bottom-tiny">
+            <AuControlCheckbox
+              @checked={{this.isDuplicated}}
+              @onChange={{fn (mut this.isDuplicated)}}
+            >Is het een duplicaat?</AuControlCheckbox>
+          </div>
 
           {{#if this.isDuplicated}}
             {{mandatenbeheer/mandataris-duplicate-selector
