@@ -66,8 +66,7 @@
       {{#unless @displaySubset}}
         <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
         <td>
-          <AuButton @skin="tertiary" @alert="true" {{on "click" (action "removeMandataris" row)}}>
-            <AuIcon @icon="bin" @alignment="left" />
+          <AuButton @skin="link" @icon="bin" @alert="true" {{on "click" (fn this.removeMandataris row)}}>
             Verwijder
           </AuButton>
         </td>

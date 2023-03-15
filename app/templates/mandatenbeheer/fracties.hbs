@@ -85,7 +85,7 @@
             <tbody>
               {{#if this.newFractie}}
                 {{mandatenbeheer/fractie-table-row
-                    onCancel=(action "cancelEdit")
+                    onCancel=this.cancelEdit
                     onSave=(perform this.saveFractie)
                     fractie=this.newFractie
                     editMode=true
@@ -93,7 +93,7 @@
               {{/if}}
               {{#each this.model as |row|}}
                 {{mandatenbeheer/fractie-table-row
-                    onCancel=(action "cancelEdit")
+                    onCancel=this.cancelEdit
                     onSave=(perform this.saveFractie)
                     fractie=row
                 }}
