@@ -17,13 +17,13 @@ module(
     });
 
     test('it displays a capitalized status label', async function (assert) {
-      await render(hbs`{{shared/document-status-pill status}}`);
+      await render(hbs`{{shared/document-status-pill this.status}}`);
 
       assert.dom('[data-test-loket=document-status-pill]').hasText('Concept');
     });
 
     test('it displays the status uri as resource attribute', async function (assert) {
-      await render(hbs`{{shared/document-status-pill status}}`);
+      await render(hbs`{{shared/document-status-pill this.status}}`);
 
       assert
         .dom('[data-test-loket=document-status-pill]')
