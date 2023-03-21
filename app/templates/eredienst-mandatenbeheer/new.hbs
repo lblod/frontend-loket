@@ -83,8 +83,11 @@
 
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
-        {{#let (if @model.worshipMandatee.errors.start true false) as |showError|}}
-        {{#let (if this.warningMessages.startDateMessage true false) as |showWarning|}}
+        {{#let
+          (if @model.worshipMandatee.errors.start true false)
+          (if this.warningMessages.startDateMessage true false)
+          as |showError showWarning|
+        }}
           <AuLabel for="mandate-start-date"
             @error={{showError}}
             @warning={{showWarning}}
@@ -114,12 +117,14 @@
           </AuHelpText>
         {{/if}}
         {{/let}}
-        {{/let}}
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
-          {{#let (if @model.worshipMandatee.errors.einde true false) as |showError|}}
-          {{#let (if this.warningMessages.endDateMessage true false) as |showWarning|}}
+          {{#let
+            (if @model.worshipMandatee.errors.einde true false)
+            (if this.warningMessages.endDateMessage true false)
+            as |showError showWarning|
+          }}
           <AuLabel for="mandate-end-date" @error={{showError}} @warning={{showWarning}}>Einddatum</AuLabel>
           <AuDateInput
             @value={{@model.worshipMandatee.einde}}
@@ -142,7 +147,6 @@
               <AuLinkExternal @icon="link-external" @iconAlignment="right" href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#verplichte-gegevens-1">Meer info vind je hier.</AuLinkExternal>
           </AuHelpText>
           {{/if}}
-          {{/let}}
           {{/let}}
         </div>
       </div>
