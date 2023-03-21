@@ -1,4 +1,4 @@
-import moment from 'moment';
+import { formatDate } from './date';
 
 /*
  * Assuming bestuursorganen in tijd are passed linked to mandates.
@@ -89,21 +89,19 @@ export async function warnOnMandateExceededTimePeriode(
     // Handle unexpected ministerType
   }
 
-  if (moment(startDate).isBefore(activeTimePeriodeLimitStart)) {
-    warningMessages.startDateMessage = `De startdatum ${moment(
+  if (startDate < activeTimePeriodeLimitStart) {
+    warningMessages.startDateMessage = `De startdatum ${formatDate(
       startDate
-    ).format(
-      'DD-MM-YYYY'
-    )} valt voor de voorgestelde startdatum van de bestuursperiode ${moment(
+    )} valt voor de voorgestelde startdatum van de bestuursperiode ${formatDate(
       activeTimePeriodeLimitStart
-    ).format('DD-MM-YYYY')}.`;
+    )}.`;
   }
-  if (moment(endDate).isAfter(activeTimePeriodeLimitEnd)) {
-    warningMessages.endDateMessage = `De einddatum ${moment(endDate).format(
-      'DD-MM-YYYY'
-    )} valt voor de voorgestelde einddatum van de bestuursperiode ${moment(
+  if (endDate > activeTimePeriodeLimitEnd) {
+    warningMessages.endDateMessage = `De einddatum ${formatDate(
+      endDate
+    )} valt voor de voorgestelde einddatum van de bestuursperiode ${formatDate(
       activeTimePeriodeLimitEnd
-    ).format('DD-MM-YYYY')}.`;
+    )}.`;
   }
 
   return warningMessages;
