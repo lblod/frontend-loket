@@ -10,7 +10,7 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
-import { setEndDates } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import { setMandate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
   @service router;
@@ -59,9 +59,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   @action
   async setMandaat(mandaat) {
     const { worshipMandatee } = this.model;
-    worshipMandatee.bekleedt = mandaat;
-    worshipMandatee.errors.remove('bekleedt');
-    const maybeWarnings = await setEndDates(
+    const maybeWarnings = await setMandate(
       this.store,
       worshipMandatee,
       mandaat
