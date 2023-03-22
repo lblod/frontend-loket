@@ -1,3 +1,9 @@
+## v0.77.1 (2023-03-22)
+
+### Worshipservices 
+#### :bug: Bug Fix
+* [#289](https://github.com/lblod/frontend-loket/pull/289) Fix end date prefill warning logic ([@Windvis](https://github.com/Windvis))
+
 ## v0.77.0 (2023-03-07)
 
 ### General 
