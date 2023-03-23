@@ -1,24 +1,24 @@
-import { warn } from '@ember/debug';
 import { inject as service } from '@ember/service';
 import SessionService from 'ember-simple-auth/services/session';
-import ENV from 'frontend-loket/config/environment';
 
 export default class LoketSessionService extends SessionService {
   @service currentSession;
 
-  handleAuthentication(routeAfterAuthentication) {
+  get isMockLoginSession() {
+    return this.isAuthenticated
+      ? this.data.authenticated.authenticator.includes('mock-login')
+      : false;
+  }
+
+  async handleAuthentication(routeAfterAuthentication) {
+    // We wait for the currentSession to load before navigating. This fixes the empty index page since the data might not be loaded yet.
+    await this.currentSession.load();
     super.handleAuthentication(routeAfterAuthentication);
-    this.currentSession.load();
   }
 
   handleInvalidation() {
-    const logoutUrl = ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'];
-    if (logoutUrl.startsWith('http')) {
-      super.handleInvalidation(logoutUrl);
-    } else {
-      warn('Incorrect logout URL configured', {
-        id: 'session-invalidation-failure',
-      });
-    }
+    // We don't want the default redirecting logic of the base class since we handle this ourselves in other places already.
+    // We can't do the logic here since we don't know which authenticator did the invalidation and we don't receive the arguments that are passed to `.invalidate` either.
+    // This is needed to be able to support both normal logouts, switch logouts (and as a bonus,also mock logouts).
   }
 }

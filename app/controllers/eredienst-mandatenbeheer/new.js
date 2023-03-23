@@ -11,7 +11,7 @@ import {
 } from 'frontend-loket/models/contact-punt';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import {
-  setExpectedEndDate,
+  setMandate,
   warnOnMandateExceededTimePeriode,
 } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
@@ -62,15 +62,24 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   @action
   async setMandaat(mandaat) {
     const { worshipMandatee } = this.model;
-    worshipMandatee.bekleedt = mandaat;
-    worshipMandatee.errors.remove('bekleedt');
-    setExpectedEndDate(this.store, worshipMandatee, mandaat);
-    this.warningMessages = await warnOnMandateExceededTimePeriode(
+    const endDateWarnings = await setMandate(
+      this.store,
+      worshipMandatee,
+      mandaat
+    );
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
       mandaat,
       this.store,
       worshipMandatee.start,
       worshipMandatee.einde
     );
+
+    if (endDateWarnings || periodeLimitWarnings) {
+      this.warningMessages = {
+        ...endDateWarnings,
+        ...periodeLimitWarnings,
+      };
+    }
   }
 
   @action
@@ -78,12 +87,13 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     const { worshipMandatee } = this.model;
     worshipMandatee[type] = date;
     let { einde, start } = worshipMandatee;
-    this.warningMessages = await warnOnMandateExceededTimePeriode(
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
       await worshipMandatee?.bekleedt,
       this.store,
       start,
       einde
     );
+    this.warningMessages = { ...periodeLimitWarnings };
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
         worshipMandatee.errors.add(

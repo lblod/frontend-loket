@@ -60,6 +60,7 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
       controller.addNewContact();
     }
     controller.selectedContact = transition.data.selectedContact;
+    controller.warningMessages = {};
   }
 
   resetController(controller, isExiting) {

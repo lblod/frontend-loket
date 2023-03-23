@@ -1,0 +1,16 @@
+{{page-title "Fout bij het aanmelden"}}
+
+{{! TODO: implement a better error page once Appuniversum provides a template example for it: https://github.com/appuniversum/ember-appuniversum/issues/384 }}
+<AuAlert @icon="circle-x" @skin="error" @title="Fout bij het aanmelden">
+  <p>
+    Er ging iets fout bij het aanmelden.
+    <AuLink @route="auth.login">Probeer het opnieuw</AuLink>.
+
+    <AuHelpText>
+      Indien dit probleem zich blijft voordoen, contacteer
+      <AuLinkExternal
+        href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
+      >gebruikersbeheer Vlaanderen</AuLinkExternal>.
+    </AuHelpText>
+  </p>
+</AuAlert>

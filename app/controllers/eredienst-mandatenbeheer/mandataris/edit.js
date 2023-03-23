@@ -10,8 +10,8 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import {
+  setMandate,
   warnOnMandateExceededTimePeriode,
-  setExpectedEndDate,
 } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
@@ -34,26 +34,36 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @action
   async setMandaat(mandaat) {
-    this.model.bekleedt = mandaat;
-    setExpectedEndDate(this.store, this.model, mandaat);
-    this.warningMessages = await warnOnMandateExceededTimePeriode(
+    const endDateWarnings = await setMandate(this.store, this.model, mandaat);
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
       mandaat,
       this.store,
       this.model.start,
       this.model.einde
     );
+
+    if (endDateWarnings || periodeLimitWarnings) {
+      this.warningMessages = {
+        ...endDateWarnings,
+        ...periodeLimitWarnings,
+      };
+    }
   }
 
   @action
   async handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
-    this.warningMessages = await warnOnMandateExceededTimePeriode(
+    // this.warningMessages = {};
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
       await this.model.bekleedt,
       this.store,
       start,
       einde
     );
+
+    this.warningMessages = { ...periodeLimitWarnings };
+
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
         this.model.errors.add(
@@ -255,4 +265,3 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     }
   }
 }
-
