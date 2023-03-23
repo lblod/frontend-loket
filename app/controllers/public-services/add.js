@@ -1,12 +1,15 @@
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class PublicServicesAddController extends Controller {
-  queryParams = ['search', 'sort', 'page'];
+  queryParams = ['search', 'sort', 'page', 'newOrKnownFilter', 'addedFilter'];
   @tracked search = '';
   @tracked sort = 'name';
   @tracked page = 0;
+  @tracked newOrKnownFilter = '';
+  @tracked addedFilter = '';
 
   get publicServices() {
     if (this.model.loadPublicServices.isFinished) {
@@ -39,6 +42,26 @@ export default class PublicServicesAddController extends Controller {
 
   get hasErrored() {
     return this.model.loadPublicServices.isError;
+  }
+
+  @action
+  handleNewOrKnownFilterChange(value) {
+    this.newOrKnownFilter = value;
+    this.page = 0;
+  }
+
+  @action
+  handleAddedFilterChange(value) {
+    this.addedFilter = value;
+    this.page = 0;
+  }
+
+  @action
+  resetFilters() {
+    this.search = '';
+    this.newOrKnownFilter = '';
+    this.addedFilter = '';
+    this.page = 0;
   }
 
   @restartableTask

@@ -10,6 +10,14 @@ export default class PublicServicesAddRoute extends Route {
       refreshModel: true,
       replace: true,
     },
+    newOrKnownFilter: {
+      refreshModel: true,
+      replace: true,
+    },
+    addedFilter: {
+      refreshModel: true,
+      replace: true,
+    },
     page: {
       refreshModel: true,
     },
@@ -26,13 +34,29 @@ export default class PublicServicesAddRoute extends Route {
   }
 
   @restartableTask
-  *loadPublicServicesTask({ search, page, sort }) {
+  *loadPublicServicesTask({
+    search,
+    page,
+    sort,
+    newOrKnownFilter,
+    addedFilter,
+  }) {
     let query = {
       'page[number]': page,
     };
 
     if (search) {
       query['filter'] = search.trim();
+    }
+
+    if (newOrKnownFilter) {
+      // TODO
+      console.log(newOrKnownFilter)
+    }
+
+    if (addedFilter) {
+      // TODO
+      console.log(addedFilter);
     }
 
     if (sort) {
