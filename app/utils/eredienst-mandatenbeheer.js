@@ -14,7 +14,6 @@ export async function setMandate(store, mandataris, mandaat) {
 
   const currentEndDate = mandataris.einde;
   const isCurrentlyEmpty = !currentEndDate;
-  const shouldShowWarning = hasCurrentMandate && !isCurrentlyEmpty;
 
   let warnings;
 
@@ -22,7 +21,7 @@ export async function setMandate(store, mandataris, mandaat) {
     mandataris.expectedEndDate = undefined;
     mandataris.einde = undefined;
 
-    if (shouldShowWarning) {
+    if (hasCurrentMandate && !isCurrentlyEmpty) {
       warnings = {
         einde:
           'De einddatum werd automatisch aangepast. Gelieve de einddatum te controleren.',
@@ -32,20 +31,23 @@ export async function setMandate(store, mandataris, mandaat) {
     const expectedEndDate = await getExpectedEndDateForPosition(store, mandaat);
     mandataris.expectedEndDate = expectedEndDate;
     mandataris.einde = expectedEndDate;
+    let wasLifeTimeBoardPosition = false;
 
-    const autoEndDateUpdateWarning =
-      'De einddatum werd automatisch aangepast naar de nieuwe geplande einddatum. Gelieve de einddatum te controleren.';
-
-    // Matches the case where Date is compared to Undefined so it returns false
-    if (!isSameIsoDate(expectedEndDate, currentEndDate)) {
-      warnings = {
-        einde: autoEndDateUpdateWarning,
-      };
+    if (hasCurrentMandate) {
+      const previousBestuursfunctie = await currentMandate.bestuursfunctie;
+      wasLifeTimeBoardPosition = isLifetimeBoardPosition(
+        previousBestuursfunctie
+      );
     }
 
-    if (shouldShowWarning && isSameIsoDate(expectedEndDate, currentEndDate)) {
+    if (
+      hasCurrentMandate &&
+      (!isCurrentlyEmpty || (isCurrentlyEmpty && wasLifeTimeBoardPosition)) &&
+      !isSameIsoDate(expectedEndDate, currentEndDate)
+    ) {
       warnings = {
-        einde: autoEndDateUpdateWarning,
+        einde:
+          'De einddatum werd automatisch aangepast naar de nieuwe geplande einddatum. Gelieve de einddatum te controleren.',
       };
     }
   }
