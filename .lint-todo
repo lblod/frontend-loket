@@ -41,3 +41,11 @@ add|ember-template-lint|no-curly-component-invocation|232|12|232|12|a648df2a8942
 add|ember-template-lint|no-curly-component-invocation|87|16|87|16|a9691f1a4f9bea71401f6223a01f98514da33726|1678838400000|||app/templates/mandatenbeheer/fracties.hbs
 add|ember-template-lint|no-curly-component-invocation|95|16|95|16|82e19ec4bfc240d5fd6708b391894de75b42e2dc|1678838400000|||app/templates/mandatenbeheer/fracties.hbs
 add|ember-template-lint|no-action|7|18|7|18|be51c27cc7a2bc76b71c185656c46f6d0496d6ad|1678838400000|||app/templates/components/mandatenbeheer/mandataris-duplicate-selector.hbs
+remove|ember-template-lint|no-curly-component-invocation|88|12|88|12|a648df2a8942089664709fe267c21257bed78525|1678838400000|||app/components/mandatenbeheer/mandataris-edit.hbs
+remove|ember-template-lint|no-curly-component-invocation|232|12|232|12|a648df2a8942089664709fe267c21257bed78525|1678838400000|||app/components/mandatenbeheer/mandataris-edit.hbs
+remove|ember-template-lint|no-curly-component-invocation|87|16|87|16|a9691f1a4f9bea71401f6223a01f98514da33726|1678838400000|||app/templates/mandatenbeheer/fracties.hbs
+remove|ember-template-lint|no-curly-component-invocation|95|16|95|16|82e19ec4bfc240d5fd6708b391894de75b42e2dc|1678838400000|||app/templates/mandatenbeheer/fracties.hbs
+add|ember-template-lint|no-curly-component-invocation|89|14|89|14|725adc1151446359f9c21ea54af318b7c01e474e|1678838400000|||app/components/mandatenbeheer/mandataris-edit.hbs
+add|ember-template-lint|no-curly-component-invocation|235|14|235|14|725adc1151446359f9c21ea54af318b7c01e474e|1678838400000|||app/components/mandatenbeheer/mandataris-edit.hbs
+add|ember-template-lint|no-curly-component-invocation|88|18|88|18|daf746c4fb4e39be85dc6448f01c0db64cd22fd3|1678838400000|||app/templates/mandatenbeheer/fracties.hbs
+add|ember-template-lint|no-curly-component-invocation|96|18|96|18|e3b84a15c08219bf7b7baae06f7aba4dcaba2ef9|1678838400000|||app/templates/mandatenbeheer/fracties.hbs

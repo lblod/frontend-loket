@@ -7,6 +7,7 @@ import { observer } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
+import { macroCondition, getOwnConfig } from '@embroider/macros';
 
 export default Component.extend({
   tag: 'li',
@@ -44,19 +45,20 @@ export default Component.extend({
       'beleidsdomeinen',
       ((await this.get('mandataris.beleidsdomein')) || A()).toArray()
     );
-    this.set('duplicatedMandataris', await this.get('mandataris.duplicateOf'));
-    this.set(
-      'duplicationReason',
-      await this.get('mandataris.duplicationReason')
-    );
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
     this.set('rangorde', this.get('mandataris.rangorde'));
     this.set('status', await this.get('mandataris.status'));
 
-    if (await this.get('mandataris.duplicateOf')) {
-      this.set('isDuplicated', true);
+    if (macroCondition(getOwnConfig().controle)) {
+      let duplicatedMandataris = await this.get('mandataris.duplicateOf');
+      this.set('duplicatedMandataris', duplicatedMandataris);
+      this.set(
+        'duplicationReason',
+        await this.get('mandataris.duplicationReason')
+      );
+      this.set('isDuplicated', Boolean(duplicatedMandataris));
     }
   },
 
@@ -90,29 +92,33 @@ export default Component.extend({
       this.set('mandataris.rangorde', this.rangorde);
       this.set('mandataris.status', this.status);
 
-      const currentSavedDuplicate = yield this.get('mandataris.duplicateOf');
+      if (macroCondition(getOwnConfig().controle)) {
+        const currentSavedDuplicate = yield this.get('mandataris.duplicateOf');
 
-      if (this.duplicatedMandataris || currentSavedDuplicate) {
-        this.set('mandataris.duplicationReason', this.duplicationReason);
-        this.set('mandataris.duplicateOf', this.duplicatedMandataris);
-        const savedMandataris = yield this.mandataris.save();
+        if (this.duplicatedMandataris || currentSavedDuplicate) {
+          this.set('mandataris.duplicationReason', this.duplicationReason);
+          this.set('mandataris.duplicateOf', this.duplicatedMandataris);
+          const savedMandataris = yield this.mandataris.save();
 
-        // We add a duplicate to the mandataris
-        if (this.duplicatedMandataris) {
-          this.set(
-            'duplicatedMandataris.duplicationReason',
-            this.duplicationReason
-          );
-          this.set('duplicatedMandataris.duplicateOf', this.mandataris);
-          yield this.duplicatedMandataris.save();
+          // We add a duplicate to the mandataris
+          if (this.duplicatedMandataris) {
+            this.set(
+              'duplicatedMandataris.duplicationReason',
+              this.duplicationReason
+            );
+            this.set('duplicatedMandataris.duplicateOf', this.mandataris);
+            yield this.duplicatedMandataris.save();
+          }
+          if (currentSavedDuplicate) {
+            // We remove the existing duplicate
+            currentSavedDuplicate.set('duplicationReason', undefined);
+            currentSavedDuplicate.set('duplicateOf', undefined);
+            yield currentSavedDuplicate.save();
+          }
+          return savedMandataris;
+        } else {
+          return yield this.mandataris.save();
         }
-        if (currentSavedDuplicate) {
-          // We remove the existing duplicate
-          currentSavedDuplicate.set('duplicationReason', undefined);
-          currentSavedDuplicate.set('duplicateOf', undefined);
-          yield currentSavedDuplicate.save();
-        }
-        return savedMandataris;
       } else {
         return yield this.mandataris.save();
       }

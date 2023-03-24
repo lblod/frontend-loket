@@ -56,19 +56,16 @@
       </td>
       <td>
         <AuButtonGroup @inline={{true}}>
-
-          <AuButton @icon="eye"
-                    @skin="tertiary"
-            {{on "click" (fn this.lookAt row)}}>
-            Bekijk
-          </AuButton>
-          <AuButton @icon="redo"
-                    @skin="tertiary"
-                    @alert={{true}}
-                    @disabled={{not row.status.isSent}}
-            {{on "click" (fn this.reopen row)}}>
-            Reopen
-          </AuButton>
+          <AuLink @route="supervision.submissions.edit" @model={{row.id}} @icon="eye">Bekijk</AuLink>
+          {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+            <AuButton @icon="redo"
+                      @skin="link"
+                      @alert={{true}}
+                      @disabled={{not row.status.isSent}}
+              {{on "click" (fn this.reopen row)}}>
+              Reopen
+            </AuButton>
+          {{/if}}
         </AuButtonGroup>
       </td>
     </c.body>
