@@ -5,4 +5,12 @@ export default class FractieModel extends Model {
   @belongsTo('fractietype', { inverse: null }) fractietype;
   @hasMany('bestuursorgaan', { inverse: null }) bestuursorganenInTijd;
   @belongsTo('bestuurseenheid', { inverse: null }) bestuurseenheid;
+  @attr('uri-set') generatedFrom;
+
+  get generatedFromGelinktNotuleren() {
+    return (this.generatedFrom || []).some(
+      (uri) =>
+        uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService'
+    );
+  }
 }

@@ -7,6 +7,7 @@ import { observer } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
+import { macroCondition, getOwnConfig } from '@embroider/macros';
 
 export default Component.extend({
   tag: 'li',
@@ -18,6 +19,7 @@ export default Component.extend({
   terminateMode: false,
   createMode: false,
   promptMode: false,
+  isDuplicated: false,
   viewMode: computed('editOnlyMode', 'createMode', function () {
     return !(this.editOnlyMode || this.createMode);
   }),
@@ -48,6 +50,16 @@ export default Component.extend({
     this.set('endDate', this.get('mandataris.einde'));
     this.set('rangorde', this.get('mandataris.rangorde'));
     this.set('status', await this.get('mandataris.status'));
+
+    if (macroCondition(getOwnConfig().controle)) {
+      let duplicatedMandataris = await this.get('mandataris.duplicateOf');
+      this.set('duplicatedMandataris', duplicatedMandataris);
+      this.set(
+        'duplicationReason',
+        await this.get('mandataris.duplicationReason')
+      );
+      this.set('isDuplicated', Boolean(duplicatedMandataris));
+    }
   },
 
   toggleCreateMode() {
@@ -80,7 +92,36 @@ export default Component.extend({
       this.set('mandataris.rangorde', this.rangorde);
       this.set('mandataris.status', this.status);
 
-      return yield this.mandataris.save();
+      if (macroCondition(getOwnConfig().controle)) {
+        const currentSavedDuplicate = yield this.get('mandataris.duplicateOf');
+
+        if (this.duplicatedMandataris || currentSavedDuplicate) {
+          this.set('mandataris.duplicationReason', this.duplicationReason);
+          this.set('mandataris.duplicateOf', this.duplicatedMandataris);
+          const savedMandataris = yield this.mandataris.save();
+
+          // We add a duplicate to the mandataris
+          if (this.duplicatedMandataris) {
+            this.set(
+              'duplicatedMandataris.duplicationReason',
+              this.duplicationReason
+            );
+            this.set('duplicatedMandataris.duplicateOf', this.mandataris);
+            yield this.duplicatedMandataris.save();
+          }
+          if (currentSavedDuplicate) {
+            // We remove the existing duplicate
+            currentSavedDuplicate.set('duplicationReason', undefined);
+            currentSavedDuplicate.set('duplicateOf', undefined);
+            yield currentSavedDuplicate.save();
+          }
+          return savedMandataris;
+        } else {
+          return yield this.mandataris.save();
+        }
+      } else {
+        return yield this.mandataris.save();
+      }
     } catch (e) {
       this.set('saveError', true);
       warn(`error during save ${e}`, { id: 'save-error' });
@@ -221,6 +262,10 @@ export default Component.extend({
       this.set('fractie', fractie);
     },
 
+    setduplicatedMandataris(duplicatedMandataris) {
+      this.set('duplicatedMandataris', duplicatedMandataris);
+    },
+
     setMandaat(mandaat) {
       this.set('mandaat', mandaat);
     },
@@ -270,15 +315,24 @@ export default Component.extend({
       this.set('editMode', false);
       this.set('promptMode', true);
     },
+
     correct() {
       this.set('promptMode', false);
       this.set('editMode', true);
       this.set('correctMode', !this.correctMode);
     },
+
     terminate() {
       this.set('promptMode', false);
       this.set('editMode', true);
       this.set('terminateMode', !this.terminateMode);
+    },
+    toggleIsDuplicated() {
+      this.toggleProperty('isDuplicated');
+      if (!this.isDuplicated) {
+        this.set('duplicatedMandataris', undefined);
+        this.set('duplicationReason', undefined);
+      }
     },
   },
 });

@@ -12,6 +12,11 @@ module.exports = function (defaults) {
       dutchDatePickerLocalization: true,
       disableWormholeElement: true,
     },
+    '@embroider/macros': {
+      setOwnConfig: {
+        controle: process.env.CONTROLE === 'true',
+      },
+    },
   };
 
   if (process.env.EMBER_TEST_SELECTORS_STRIP == 'false') {

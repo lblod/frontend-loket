@@ -6,6 +6,7 @@ export default class MandatarisModel extends AgentInPosition {
   @attr rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
+  @attr('string') duplicationReason;
   @belongsTo('mandaat', { inverse: null }) bekleedt;
   @belongsTo('lidmaatschap', { inverse: 'lid' }) heeftLidmaatschap;
   @belongsTo('persoon', { inverse: 'isAangesteldAls' }) isBestuurlijkeAliasVan;
@@ -18,6 +19,17 @@ export default class MandatarisModel extends AgentInPosition {
   @hasMany('mandataris', { inverse: null }) tijdelijkeVervangingen;
   @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
   @belongsTo('mandataris-status-code', { inverse: null }) status;
+
+  @belongsTo('mandataris', { inverse: null }) duplicateOf;
+  @attr('uri-set') generatedFrom;
+
+  get generatedFromGelinktNotuleren() {
+    return (this.generatedFrom || []).some(
+      (uri) =>
+        uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService'
+    );
+  }
+
   @hasMany('contact-punt', { inverse: 'mandatarissen' }) contactPoints;
 }
 

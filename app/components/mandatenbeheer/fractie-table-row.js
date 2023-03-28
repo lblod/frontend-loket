@@ -39,4 +39,9 @@ export default class MandatenbeheerFractieTableRowComponent extends Component {
     this.editMode = false;
     this.args.onSave(this.args.fractie);
   }
+
+  @action
+  async remove() {
+    await this.fractie.destroyRecord();
+  }
 }

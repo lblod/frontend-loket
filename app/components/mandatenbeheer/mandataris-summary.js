@@ -11,6 +11,7 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @reads('args.mandataris.heeftLidmaatschap.binnenFractie.naam') fractie;
   @reads('args.mandataris.rangorde') rangorde;
   @reads('args.mandataris.status.label') status;
+  @reads('args.mandataris.generatedFromGelinktNotuleren') gelinktNotuleren;
 
   @computed('args.mandataris.beleidsdomein.@each.id')
   get formattedBeleidsdomein() {

@@ -77,6 +77,34 @@
             bestuursorganen=this.bestuursorganen
           }}
         </div>
+        {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+          <div>
+            <div class="au-u-margin-bottom-tiny">
+              <AuControlCheckbox
+                @checked={{this.isDuplicated}}
+                @onChange={{fn (mut this.isDuplicated)}}
+              >Is het een duplicaat?</AuControlCheckbox>
+            </div>
+            {{#if this.isDuplicated}}
+              {{mandatenbeheer/mandataris-duplicate-selector
+                onSelect=(action 'setduplicatedMandataris')
+                mandatarissen=this.mandatarissen
+                currentMandataris=this.mandataris
+                duplicatedMandataris=this.duplicatedMandataris
+                allowClear=true
+              }}
+              <div>
+                <AuLabel for="duplication-reason">Reden voor duplicatie</AuLabel>
+                <AuInput
+                  id="duplication-reason"
+                  class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
+                  placeholder="Reden voor duplicatie"
+                  @value={{mut this.duplicationReason}}
+                />
+              </div>
+            {{/if}}
+          </div>
+        {{/if}}
       </div>
 
       <div class="au-u-margin-top">
@@ -194,6 +222,35 @@
             bestuursorganen=this.bestuursorganen
           }}
         </div>
+        {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+          <div>
+            <div class="au-u-margin-bottom-tiny">
+              <AuControlCheckbox
+                @checked={{this.isDuplicated}}
+                @onChange={{fn (mut this.isDuplicated)}}
+              >Is het een duplicaat?</AuControlCheckbox>
+            </div>
+
+            {{#if this.isDuplicated}}
+              {{mandatenbeheer/mandataris-duplicate-selector
+                onSelect=(action 'setduplicatedMandataris')
+                mandatarissen=this.mandatarissen
+                currentMandataris=this.mandataris
+                duplicatedMandataris=this.duplicatedMandataris
+                allowClear=true
+              }}
+              <div class="au-u-margin-top-small">
+                <AuLabel for="duplicationReason">Reden voor duplicatie</AuLabel>
+                <AuInput
+                  id="duplicationReason"
+                  class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
+                  placeholder="Reden voor duplicatie"
+                  @value={{mut this.duplicationReason}}
+                />
+              </div>
+            {{/if}}
+          </div>
+        {{/if}}
       </div>
 
       <div class="au-u-margin-top">
