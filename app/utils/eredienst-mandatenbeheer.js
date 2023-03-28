@@ -151,7 +151,7 @@ export async function warnOnMandateExceededTimePeriode(
   if (endDate > activeTimePeriodeLimitEnd) {
     warningMessages.endDateMessage = `De einddatum ${formatDate(
       endDate
-    )} valt voor de voorgestelde einddatum van de bestuursperiode ${formatDate(
+    )} valt na de voorgestelde einddatum van de bestuursperiode ${formatDate(
       activeTimePeriodeLimitEnd
     )}.`;
   }

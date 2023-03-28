@@ -153,6 +153,7 @@
           <div class="au-u-margin-bottom-small">
             <AuLabel for="mandate-expected-end-date">Geplande einddatum</AuLabel>
             <AuInput
+              @icon="calendar"
               @value={{if
                 @model.expectedEndDate
                 (moment-format @model.expectedEndDate "DD-MM-YYYY")
