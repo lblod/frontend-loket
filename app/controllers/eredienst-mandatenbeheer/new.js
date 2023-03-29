@@ -88,7 +88,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     worshipMandatee[type] = date;
     let { einde, start } = worshipMandatee;
     const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
-      await worshipMandatee?.bekleedt,
+      await worshipMandatee.bekleedt,
       this.store,
       start,
       einde

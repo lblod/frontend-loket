@@ -54,7 +54,6 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   async handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
-    // this.warningMessages = {};
     const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
       await this.model.bekleedt,
       this.store,
