@@ -39,59 +39,82 @@
   <div class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
       {{#let (if @model.errors.bekleedt true false) as |showError|}}
-      <AuLabel for="mandaat"
-        @required={{true}}
-        @error={{showError}}
-        >
-        Mandaat
-      </AuLabel>
-      <Mandatenbeheer::MandaatBestuursorganenSelector
-        @bestuursorganen={{this.bestuursorganen}}
-        @mandaat={{@model.bekleedt}}
-        @onSelect={{this.setMandaat}}
-        @error={{showError}}
-      />
-      {{#if showError}}
-        <AuHelpText @error="true">
-          {{#each @model.errors.bekleedt as |errors|}}
-            {{errors.message}}
-          {{/each}}
-        </AuHelpText>
-      {{/if}}
-      {{/let}}
-    </div>
-    <div class="au-o-grid au-o-grid--tiny au-o-grid--right au-u-margin-bottom-small">
-      <div class="au-o-grid__item au-u-1-2">
-      {{#let (if @model.errors.start true false) as |showError|}}
-        <AuLabel for="mandate-correction-start-date"
-        @required={{true}}
-        @error={{showError}}
-        >
-        Startdatum
+        <AuLabel for="mandaat" @required={{true}} @error={{showError}}>
+          Mandaat
         </AuLabel>
-        <AuDateInput
-          @value={{@model.start}}
-          @onChange={{fn this.handleDateChange "start"}}
+        <Mandatenbeheer::MandaatBestuursorganenSelector
+          @bestuursorganen={{this.bestuursorganen}}
+          @mandaat={{@model.bekleedt}}
+          @onSelect={{this.setMandaat}}
           @error={{showError}}
-          @width="block"
-          id="mandate-correction-start-date"
         />
         {{#if showError}}
-        <AuHelpText @error="true">
-          {{#each @model.errors.start as |errors|}}
-            {{errors.message}}
-          {{/each}}
-        </AuHelpText>
-      {{/if}}
+          <AuHelpText @error="true">
+            {{#each @model.errors.bekleedt as |errors|}}
+              {{errors.message}}
+            {{/each}}
+          </AuHelpText>
+        {{/if}}
       {{/let}}
+    </div>
+    <div
+      class="au-o-grid au-o-grid--tiny au-o-grid--right au-u-margin-bottom-small"
+    >
+      <div class="au-o-grid__item au-u-1-2">
+        {{#let
+          (if @model.errors.start true false)
+          (if this.warningMessages.startDateMessage true false)
+          as |showError showWarning|
+        }}
+          <AuLabel
+            for="mandate-correction-start-date"
+            @required={{true}}
+            @error={{showError}}
+            @warning={{showWarning}}
+          >
+            Startdatum
+          </AuLabel>
+          <AuDateInput
+            @value={{@model.start}}
+            @onChange={{fn this.handleDateChange "start"}}
+            @error={{showError}}
+            @warning={{showWarning}}
+            @width="block"
+            id="mandate-correction-start-date"
+          />
+          {{#if showError}}
+            <AuHelpText @error="true">
+              {{#each @model.errors.start as |errors|}}
+                {{errors.message}}
+              {{/each}}
+            </AuHelpText>
+          {{/if}}
+          {{#if showWarning}}
+            <AuHelpText @warning={{true}}>
+              {{this.warningMessages.startDateMessage}}
+              <AuLinkExternal
+                @icon="link-external"
+                @iconAlignment="right"
+                href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#verplichte-gegevens-1"
+              >Meer info vind je hier.</AuLinkExternal>
+            </AuHelpText>
+          {{/if}}
+        {{/let}}
       </div>
       <div class="au-o-grid__item au-u-1-2">
         {{#let
           (if this.model.errors.einde true false)
-          (if this.warningMessages.einde true false)
+          (or
+            (if this.warningMessages.endDateMessage true false)
+            (if this.warningMessages.einde true false)
+          )
           as |showError showWarning|
         }}
-          <AuLabel for="mandate-correction-end-date" @error={{showError}} @warning={{showWarning}}>Einddatum</AuLabel>
+          <AuLabel
+            for="mandate-correction-end-date"
+            @error={{showError}}
+            @warning={{showWarning}}
+          >Einddatum</AuLabel>
           <AuDateInput
             @value={{@model.einde}}
             @onChange={{fn this.handleDateChange "einde"}}
@@ -109,7 +132,18 @@
           {{/if}}
           {{#if showWarning}}
             <AuHelpText @warning={{true}}>
-              {{this.warningMessages.einde}}
+              {{#if this.warningMessages.endDateMessage}}
+                {{this.warningMessages.endDateMessage}}
+                <AuLinkExternal
+                  @icon="link-external"
+                  @iconAlignment="right"
+                  href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#verplichte-gegevens-1"
+                >Meer info vind je hier.</AuLinkExternal>
+              {{else}}
+                {{#if this.warningMessages.einde}}
+                  {{this.warningMessages.einde}}
+                {{/if}}
+              {{/if}}
             </AuHelpText>
           {{/if}}
         {{/let}}
@@ -119,7 +153,12 @@
           <div class="au-u-margin-bottom-small">
             <AuLabel for="mandate-expected-end-date">Geplande einddatum</AuLabel>
             <AuInput
-              @value={{if @model.expectedEndDate (moment-format @model.expectedEndDate 'DD-MM-YYYY') 'N/A'}}
+              @icon="calendar"
+              @value={{if
+                @model.expectedEndDate
+                (moment-format @model.expectedEndDate "DD-MM-YYYY")
+                "N/A"
+              }}
               @disabled={{true}}
               @id="mandate-expected-end-date"
               @width="block"
@@ -160,21 +199,21 @@
       </AuAlert>
     {{/if}}
     {{#let (if @model.errors.contacts true false) as |hasErrors|}}
-    {{#if hasErrors}}
-      <AuAlert
-        @skin="error"
-        @icon="cross"
-        @size="small"
-        class="au-u-margin-top-small"
-      >
-        <p>
-          Contactgegevens zijn verplicht.
-          {{#each @model.errors.contacts as |error|}}
-            {{error.message}}
-          {{/each}}
-        </p>
-      </AuAlert>
-    {{/if}}
+      {{#if hasErrors}}
+        <AuAlert
+          @skin="error"
+          @icon="cross"
+          @size="small"
+          class="au-u-margin-top-small"
+        >
+          <p>
+            Contactgegevens zijn verplicht.
+            {{#each @model.errors.contacts as |error|}}
+              {{error.message}}
+            {{/each}}
+          </p>
+        </AuAlert>
+      {{/if}}
     {{/let}}
   </div>
 </AuBodyContainer>

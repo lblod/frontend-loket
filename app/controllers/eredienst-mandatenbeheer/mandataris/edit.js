@@ -9,7 +9,10 @@ import {
   findPrimaryContactPoint,
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
-import { setMandate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import {
+  setMandate,
+  warnOnMandateExceededTimePeriode,
+} from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
@@ -20,6 +23,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
   @tracked selectedContact;
   @tracked editingContact;
   @tracked isManualAddress;
+
   @tracked warningMessages;
 
   originalContactAdres;
@@ -30,18 +34,34 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
   @action
   async setMandaat(mandaat) {
-    const maybeWarning = await setMandate(this.store, this.model, mandaat);
+    const endDateWarnings = await setMandate(this.store, this.model, mandaat);
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
+      mandaat,
+      this.store,
+      this.model.start,
+      this.model.einde
+    );
 
-    if (maybeWarning) {
-      this.warningMessages = maybeWarning;
+    if (endDateWarnings || periodeLimitWarnings) {
+      this.warningMessages = {
+        ...endDateWarnings,
+        ...periodeLimitWarnings,
+      };
     }
   }
 
   @action
-  handleDateChange(attributeName, isoDate, date) {
+  async handleDateChange(attributeName, isoDate, date) {
     this.model[attributeName] = date;
     let { start, einde } = this.model;
-    this.warningMessages = {};
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
+      await this.model.bekleedt,
+      this.store,
+      start,
+      einde
+    );
+
+    this.warningMessages = { ...periodeLimitWarnings };
 
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {

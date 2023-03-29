@@ -1,25 +1,25 @@
 {{page-title "Voeg mandaat toe"}}
 
-  <AuToolbar @border="bottom" @size="large" as |Group|>
-    <Group>
-      <div>
-        <AuHeading @skin="2">
-          Voeg mandataris toe
-        </AuHeading>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
+    <div>
+      <AuHeading @skin="2">
+        Voeg mandataris toe
+      </AuHeading>
 
-        <p class="au-u-h3">
-          {{@model.person.gebruikteVoornaam}}
-          {{@model.person.achternaam~}}
+      <p class="au-u-h3">
+        {{@model.person.gebruikteVoornaam}}
+        {{@model.person.achternaam~}}
 
-          {{~#if @model.worshipMandatee.bekleedt~}}
-            ,
-            {{@model.worshipMandatee.bekleedt.bestuursfunctie.label}}
-          {{/if}}
-        </p>
-      </div>
-    </Group>
+        {{~#if @model.worshipMandatee.bekleedt~}}
+          ,
+          {{@model.worshipMandatee.bekleedt.bestuursfunctie.label}}
+        {{/if}}
+      </p>
+    </div>
+  </Group>
 
-   {{#unless this.shouldSelectPerson}}
+  {{#unless this.shouldSelectPerson}}
     <Group>
       <AuButtonGroup>
         <AuButton
@@ -38,8 +38,8 @@
         </AuLink>
       </AuButtonGroup>
     </Group>
-   {{/unless}}
- </AuToolbar>
+  {{/unless}}
+</AuToolbar>
 
 {{#if this.shouldSelectPerson}}
   <Shared::Persoon::PersoonSearchForm
@@ -48,8 +48,7 @@
     @onCancel={{this.cancel}}
     @onSelect={{this.selectPersoon}}
     @showDefaultHead={{false}}
-  >
-  </Shared::Persoon::PersoonSearchForm>
+  />
 {{else}}
   <form
     id="create-mandatee"
@@ -58,62 +57,91 @@
   >
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
-        {{#let (if @model.worshipMandatee.errors.bekleedt true false) as |showError|}}
-        <AuLabel for="mandaat"
-          @error={{showError}}
-          @required={{true}}
-          >
-          Mandaat
-        </AuLabel>
-        <Mandatenbeheer::MandaatBestuursorganenSelector
-          @bestuursorganen={{@model.bestuursorganen}}
-          @mandaat={{@model.worshipMandatee.bekleedt}}
-          @onSelect={{this.setMandaat}}
-          @error={{showError}}
-        />
-        {{#if showError}}
-          <AuHelpText @error={{true}}>
-            {{#each @model.worshipMandatee.errors.bekleedt as |errors|}}
-              {{errors.message}}
-            {{/each}}
-          </AuHelpText>
-        {{/if}}
+        {{#let
+          (if @model.worshipMandatee.errors.bekleedt true false)
+          as |showError|
+        }}
+          <AuLabel for="mandaat" @error={{showError}} @required={{true}}>
+            Mandaat
+          </AuLabel>
+          <Mandatenbeheer::MandaatBestuursorganenSelector
+            @bestuursorganen={{@model.bestuursorganen}}
+            @mandaat={{@model.worshipMandatee.bekleedt}}
+            @onSelect={{this.setMandaat}}
+            @error={{showError}}
+          />
+          {{#if showError}}
+            <AuHelpText @error={{true}}>
+              {{#each @model.worshipMandatee.errors.bekleedt as |errors|}}
+                {{errors.message}}
+              {{/each}}
+            </AuHelpText>
+          {{/if}}
         {{/let}}
       </div>
 
-      <div class="au-o-grid au-o-grid--tiny au-o-grid--right au-u-margin-bottom-small">
+      <div
+        class="au-o-grid au-o-grid--tiny au-o-grid--right au-u-margin-bottom-small"
+      >
         <div class="au-o-grid__item au-u-1-2@small">
-        {{#let (if @model.worshipMandatee.errors.start true false) as |showError|}}
-          <AuLabel for="mandate-start-date"
-            @error={{showError}}
-            @required={{true}}
+          {{#let
+            (if @model.worshipMandatee.errors.start true false)
+            (or
+              (if this.warningMessages.startDateMessage true false)
+              (if @model.worshipMandatee.errors.start true false)
+            )
+            as |showError showWarning|
+          }}
+            <AuLabel
+              for="mandate-start-date"
+              @error={{showError}}
+              @warning={{showWarning}}
+              @required={{true}}
             >
-            Startdatum
-          </AuLabel>
-          <AuDateInput
-            @value={{@model.worshipMandatee.start}}
-            @onChange={{fn this.handleDateChange "start"}}
-            @error={{showError}}
-            @width="block"
-            id="mandate-start-date"
-          />
-          {{#if showError}}
-          <AuHelpText @error={{true}}>
-            {{#each @model.worshipMandatee.errors.start as |errors|}}
-              {{errors.message}}
-            {{/each}}
-          </AuHelpText>
-        {{/if}}
-        {{/let}}
+              Startdatum
+            </AuLabel>
+            <AuDateInput
+              @value={{@model.worshipMandatee.start}}
+              @onChange={{fn this.handleDateChange "start"}}
+              @error={{showError}}
+              @warning={{showWarning}}
+              @width="block"
+              id="mandate-start-date"
+            />
+            {{#if showError}}
+              <AuHelpText @error={{true}}>
+                {{#each @model.worshipMandatee.errors.start as |errors|}}
+                  {{errors.message}}
+                {{/each}}
+              </AuHelpText>
+            {{/if}}
+            {{#if showWarning}}
+              <AuHelpText @warning={{true}}>
+                {{this.warningMessages.startDateMessage}}
+                <AuLinkExternal
+                  @icon="link-external"
+                  @iconAlignment="right"
+                  href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#verplichte-gegevens-1"
+                >Meer info vind je hier.</AuLinkExternal>
+              </AuHelpText>
+            {{/if}}
+          {{/let}}
         </div>
 
         <div class="au-o-grid__item au-u-1-2@small">
           {{#let
             (if @model.worshipMandatee.errors.einde true false)
-            (if this.warningMessages.einde true false)
+            (or
+              (if this.warningMessages.endDateMessage true false)
+              (if this.warningMessages.einde true false)
+            )
             as |showError showWarning|
           }}
-            <AuLabel for="mandate-end-date" @error={{showError}} @warning={{showWarning}}>Einddatum</AuLabel>
+            <AuLabel
+              for="mandate-end-date"
+              @error={{showError}}
+              @warning={{showWarning}}
+            >Einddatum</AuLabel>
             <AuDateInput
               @value={{@model.worshipMandatee.einde}}
               @onChange={{fn this.handleDateChange "einde"}}
@@ -123,16 +151,27 @@
               id="mandate-end-date"
             />
             {{#if showError}}
-            <AuHelpText @error={{true}}>
-              {{#each @model.worshipMandatee.errors.einde as |errors|}}
-                {{errors.message}}
-              {{/each}}
-            </AuHelpText>
+              <AuHelpText @error={{true}}>
+                {{#each @model.worshipMandatee.errors.einde as |errors|}}
+                  {{errors.message}}
+                {{/each}}
+              </AuHelpText>
             {{/if}}
             {{#if showWarning}}
-            <AuHelpText @warning={{true}}>
-              {{this.warningMessages.einde}}
-            </AuHelpText>
+              <AuHelpText @warning={{true}}>
+                {{#if this.warningMessages.endDateMessage}}
+                  {{this.warningMessages.endDateMessage}}
+                  <AuLinkExternal
+                    @icon="link-external"
+                    @iconAlignment="right"
+                    href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#verplichte-gegevens-1"
+                  >Meer info vind je hier.</AuLinkExternal>
+                {{else}}
+                  {{#if this.warningMessages.einde}}
+                    {{this.warningMessages.einde}}
+                  {{/if}}
+                {{/if}}
+              </AuHelpText>
             {{/if}}
           {{/let}}
         </div>
@@ -142,7 +181,13 @@
               <AuLabel for="mandate-expected-end-date">Geplande einddatum</AuLabel>
               <AuInput
                 @icon="calendar"
-                @value={{if @model.worshipMandatee.expectedEndDate (moment-format @model.worshipMandatee.expectedEndDate 'DD-MM-YYYY') 'N/A'}}
+                @value={{if
+                  @model.worshipMandatee.expectedEndDate
+                  (moment-format
+                    @model.worshipMandatee.expectedEndDate "DD-MM-YYYY"
+                  )
+                  "N/A"
+                }}
                 @disabled={{true}}
                 @id="mandate-expected-end-date"
                 @width="block"
@@ -175,28 +220,31 @@
           class="au-u-margin-top-small"
         >
           <p>
-            Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te
-            vullen.
+            Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in
+            te vullen.
           </p>
         </AuAlert>
       {{/if}}
-      {{#let (if @model.worshipMandatee.errors.contacts true false) as |hasErrors|}}
-      {{#if hasErrors}}
-        <AuAlert
-          @skin="error"
-          @icon="cross"
-          @size="small"
-          class="au-u-margin-top-small"
-        >
-          <p>
-            Contactgegevens zijn verplicht.
-            {{#each @model.worshipMandatee.errors.contacts as |error|}}
-              {{error.message}}
-            {{/each}}
-          </p>
-        </AuAlert>
+      {{#let
+        (if @model.worshipMandatee.errors.contacts true false)
+        as |hasErrors|
+      }}
+        {{#if hasErrors}}
+          <AuAlert
+            @skin="error"
+            @icon="cross"
+            @size="small"
+            class="au-u-margin-top-small"
+          >
+            <p>
+              Contactgegevens zijn verplicht.
+              {{#each @model.worshipMandatee.errors.contacts as |error|}}
+                {{error.message}}
+              {{/each}}
+            </p>
+          </AuAlert>
         {{/if}}
-        {{/let}}
+      {{/let}}
     </div>
   </form>
 {{/if}}

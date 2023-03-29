@@ -10,7 +10,10 @@ import {
   isValidPrimaryContact,
 } from 'frontend-loket/models/contact-punt';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
-import { setMandate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import {
+  setMandate,
+  warnOnMandateExceededTimePeriode,
+} from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
   @service router;
@@ -18,10 +21,10 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
   queryParams = ['personId'];
   @tracked personId = '';
+  @tracked warningMessages;
   @tracked selectedContact;
   @tracked editingContact;
   @tracked isManualAddress;
-  @tracked warningMessages;
 
   originalContactAdres;
 
@@ -59,23 +62,38 @@ export default class EredienstMandatenbeheerNewController extends Controller {
   @action
   async setMandaat(mandaat) {
     const { worshipMandatee } = this.model;
-    const maybeWarnings = await setMandate(
+    const endDateWarnings = await setMandate(
       this.store,
       worshipMandatee,
       mandaat
     );
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
+      mandaat,
+      this.store,
+      worshipMandatee.start,
+      worshipMandatee.einde
+    );
 
-    if (maybeWarnings) {
-      this.warningMessages = maybeWarnings;
+    if (endDateWarnings || periodeLimitWarnings) {
+      this.warningMessages = {
+        ...endDateWarnings,
+        ...periodeLimitWarnings,
+      };
     }
   }
 
   @action
-  handleDateChange(type, isoDate, date) {
+  async handleDateChange(type, isoDate, date) {
     const { worshipMandatee } = this.model;
     worshipMandatee[type] = date;
     let { einde, start } = worshipMandatee;
-    this.warningMessages = {};
+    const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
+      await worshipMandatee.bekleedt,
+      this.store,
+      start,
+      einde
+    );
+    this.warningMessages = { ...periodeLimitWarnings };
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
         worshipMandatee.errors.add(
