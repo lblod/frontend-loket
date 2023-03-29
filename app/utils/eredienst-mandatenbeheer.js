@@ -1,5 +1,18 @@
 import { formatDate, isSameIsoDate } from './date';
 
+export const lifetimeBoardPosition =
+  'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5972fccd87f864c4ec06bfbd20b5008b'; // Bestuurslid (van rechtswege) is a lifetime mandate
+export const voorzitterBoardPosition =
+  'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/67e6e585166cd97575b3e17ffc430a43'; // Voorzitter van het bestuur van de eredienst
+export const penningmeesterBoardPosition =
+  'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/180d13930d6f1a3938e0aa7fa9990002'; // Penningmeester van het bestuur van de eredienst
+export const secretarisBoardPosition =
+  'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5ac134b9800b81da3c450d6b9605cef2'; // Secretaris van het bestuur van de eredienst
+export const groteHelftBoardPosition =
+  'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/a8b5509b-f86b-48f8-94d6-fe463a9b77e3'; // Bestuurslid van het bestuur van de eredienst (Grote Helft)
+export const kleineHelftBoardPosition =
+  'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/2962f0bd-2836-4758-9866-8ce8ea2c536f'; // Bestuurslid van het bestuur van de eredienst (Kleine Helft)
+
 /*
  * Assuming bestuursorganen in tijd are passed linked to mandates.
  * This function sets the mandate and the end dates from the array of bestuursorganenInTijd where records are ordered by DESC,
@@ -53,7 +66,7 @@ export async function setMandate(store, mandataris, mandaat) {
   }
 
   mandataris.bekleedt = mandaat;
-  mandataris.errors?.remove('bekleedt');
+  mandataris.errors.remove('bekleedt');
   return warnings;
 }
 
@@ -70,9 +83,6 @@ async function getExpectedEndDateForPosition(store, mandaat) {
 }
 
 export function isLifetimeBoardPosition(boardPosition) {
-  const lifetimeBoardPosition =
-    'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5972fccd87f864c4ec06bfbd20b5008b'; // Bestuurslid (van rechtswege) is a lifetime mandate
-
   return boardPosition.uri === lifetimeBoardPosition;
 }
 
@@ -114,31 +124,28 @@ export async function warnOnMandateExceededTimePeriode(
   startDate,
   endDate
 ) {
-  if (!(await mandate)) {
+  if (!mandate) {
     return; // Handling the case where we create a new worship-mandatee.
   }
   const activeTimePeriodes = await getActiveTimePeriodes(mandate, store);
   let activeTimePeriodeLimitStart;
   let activeTimePeriodeLimitEnd;
   let warningMessages = {};
-  const { label } = await mandate.bestuursfunctie;
-  // Maybe we should use uri instead
-  switch (label) {
-    case 'Voorzitter van het bestuur van de eredienst':
-    case 'Penningmeester van het bestuur van de eredienst':
-    case 'Secretaris van het bestuur van de eredienst':
-      activeTimePeriodeLimitStart = activeTimePeriodes[0].bindingStart;
-      activeTimePeriodeLimitEnd = activeTimePeriodes[0].bindingEinde;
-      break;
-    case 'Bestuurslid van het bestuur van de eredienst (Grote Helft)':
-    case 'Bestuurslid van het bestuur van de eredienst (Kleine Helft)':
+  const { uri } = await mandate.bestuursfunctie;
+
+  switch (uri) {
+    case lifetimeBoardPosition:
+      return; // no warnings needed for lifetime mandate
+    case groteHelftBoardPosition:
+    case kleineHelftBoardPosition:
       activeTimePeriodeLimitStart = activeTimePeriodes[0].bindingStart;
       activeTimePeriodeLimitEnd = activeTimePeriodes[1].bindingEinde;
       break;
-    case 'Bestuurslid (van rechtswege) van het bestuur van de eredienst':
-      return; // no warnings needed for lifetime mandate
     default:
-    // Handle unexpected ministerType
+      // Handle unexpected ministerType
+      activeTimePeriodeLimitStart = activeTimePeriodes[0].bindingStart;
+      activeTimePeriodeLimitEnd = activeTimePeriodes[0].bindingEinde;
+      break;
   }
 
   if (startDate < activeTimePeriodeLimitStart) {
