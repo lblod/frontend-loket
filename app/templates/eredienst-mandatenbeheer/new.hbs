@@ -106,7 +106,7 @@
               @error={{showError}}
               @warning={{showWarning}}
               @width="block"
-              @id="mandate-start-date"
+              id="mandate-start-date"
             />
             {{#if showError}}
               <AuHelpText @error={{true}}>
@@ -148,7 +148,7 @@
               @error={{showError}}
               @warning={{showWarning}}
               @width="block"
-              @id="mandate-end-date"
+              id="mandate-end-date"
             />
             {{#if showError}}
               <AuHelpText @error={{true}}>
@@ -166,10 +166,10 @@
                     @iconAlignment="right"
                     href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer#verplichte-gegevens-1"
                   >Meer info vind je hier.</AuLinkExternal>
-                  <br />
-                {{/if}}
-                {{#if this.warningMessages.einde}}
-                  {{this.warningMessages.einde}}
+                {{else}}
+                  {{#if this.warningMessages.einde}}
+                    {{this.warningMessages.einde}}
+                  {{/if}}
                 {{/if}}
               </AuHelpText>
             {{/if}}
