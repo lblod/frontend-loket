@@ -17,15 +17,40 @@
   </div>
 {{else}}
   <div class="rich-text-editor" {{on "focusout" this.updateValue}}>
-    <Rdfa::RdfaEditor
-      @schema={{this.schema}}
-      @widgets={{this.widgets}}
-      @plugins={{this.plugins}}
-      @rdfaEditorInit={{this.handleRdfaEditorInit}}
-      @editorOptions={{this.editorOptions}}
-      @toolbarOptions={{this.toolbarOptions}}
-      @stealFocus={{false}}
-    />
+    <EditorContainer>
+      <:top>
+        <Toolbar as |Tb|>
+          <Tb.Group>
+            <Plugins::Heading::HeadingMenu
+              @controller={{this.editorController}}
+            />
+          </Tb.Group>
+          <Tb.Group>
+            <Plugins::TextStyle::Bold @controller={{this.editorController}} />
+            <Plugins::TextStyle::Italic @controller={{this.editorController}} />
+            <RdfFormFields::RichTextEditor::ExtraFormattingOptions
+              @controller={{this.editorController}}
+            />
+          </Tb.Group>
+          <Tb.Group>
+            <Plugins::List::Unordered @controller={{this.editorController}} />
+            <Plugins::List::Ordered @controller={{this.editorController}} />
+          </Tb.Group>
+          <Tb.Group>
+            <Plugins::Link::LinkMenu @controller={{this.editorController}} />
+            <Plugins::Table::TableMenu @controller={{this.editorController}} />
+          </Tb.Group>
+        </Toolbar>
+      </:top>
+      <:default>
+        <Editor
+          @schema={{this.schema}}
+          @rdfaEditorInit={{this.handleRdfaEditorInit}}
+          @plugins={{this.plugins}}
+          @nodeViews={{this.nodeViews}}
+        />
+      </:default>
+    </EditorContainer>
   </div>
 {{/if}}
 

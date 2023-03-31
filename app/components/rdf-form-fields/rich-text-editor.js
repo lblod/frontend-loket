@@ -1,106 +1,106 @@
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
+import { tracked } from '@glimmer/tracking';
 import { Schema } from '@lblod/ember-rdfa-editor';
 import {
-  blockquote,
-  bullet_list,
+  block_rdfa,
   doc,
   hard_break,
-  heading,
   horizontal_rule,
-  image,
-  list_item,
-  ordered_list,
+  invisible_rdfa,
   paragraph,
   repaired_block,
   text,
 } from '@lblod/ember-rdfa-editor/nodes';
+import { inline_rdfa } from '@lblod/ember-rdfa-editor/marks';
 import {
   em,
-  link,
   strikethrough,
   strong,
+  subscript,
+  superscript,
   underline,
-} from '@lblod/ember-rdfa-editor/marks';
+} from '@lblod/ember-rdfa-editor/plugins/text-style';
 import {
   tableKeymap,
-  tableMenu,
   tableNodes,
   tablePlugin,
 } from '@lblod/ember-rdfa-editor/plugins/table';
-import { headingsMenu } from '@lblod/ember-rdfa-editor/plugins/headings';
-import { subscript } from '@lblod/ember-rdfa-editor/plugins/subscript';
-import { superscript } from '@lblod/ember-rdfa-editor/plugins/superscript';
+import { image } from '@lblod/ember-rdfa-editor/plugins/image';
+import { link, linkView } from '@lblod/ember-rdfa-editor/plugins/link';
+import { blockquote } from '@lblod/ember-rdfa-editor/plugins/blockquote';
+import { heading } from '@lblod/ember-rdfa-editor/plugins/heading';
+import { code_block } from '@lblod/ember-rdfa-editor/plugins/code';
+import {
+  bullet_list,
+  list_item,
+  ordered_list,
+} from '@lblod/ember-rdfa-editor/plugins/list';
+import { placeholder } from '@lblod/ember-rdfa-editor/plugins/placeholder';
 import SimpleInputFieldComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/simple-value-input-field';
 
 export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFieldComponent {
-  editor;
+  @tracked editorController;
   inputId = 'richtext-' + guidFor(this);
+  plugins = [tablePlugin, tableKeymap];
 
-  get editorOptions() {
+  nodeViews = (controller) => {
     return {
-      showToggleRdfaAnnotations: false,
-      showInsertButton: false,
-      showRdfa: false,
-      showRdfaHighlight: false,
-      showRdfaHover: false,
-      showPaper: false,
-      showSidebar: false,
+      link: linkView(this.linkOptions)(controller),
     };
-  }
+  };
 
-  get toolbarOptions() {
+  schema = new Schema({
+    nodes: {
+      doc,
+      paragraph,
+
+      repaired_block,
+
+      list_item,
+      ordered_list,
+      bullet_list,
+      placeholder,
+      ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
+      heading,
+      blockquote,
+
+      horizontal_rule,
+      code_block,
+
+      text,
+
+      image,
+
+      hard_break,
+      invisible_rdfa,
+      block_rdfa,
+      link: link(this.linkOptions),
+    },
+    marks: {
+      inline_rdfa,
+      em,
+      strong,
+      underline,
+      strikethrough,
+      subscript,
+      superscript,
+    },
+  });
+
+  get linkOptions() {
     return {
-      showTextStyleButtons: true,
-      showListButtons: true,
-      showIndentButtons: true,
+      interactive: true,
     };
-  }
-
-  get schema() {
-    return new Schema({
-      nodes: {
-        doc,
-        paragraph,
-        repaired_block,
-        list_item,
-        ordered_list,
-        bullet_list,
-        ...tableNodes({ tableGroup: 'block', cellContent: 'block+' }),
-        heading,
-        blockquote,
-        horizontal_rule,
-        text,
-        image,
-        hard_break,
-      },
-      marks: {
-        link,
-        em,
-        strong,
-        underline,
-        strikethrough,
-        subscript,
-        superscript,
-      },
-    });
-  }
-
-  get widgets() {
-    return [headingsMenu, tableMenu];
-  }
-
-  get plugins() {
-    return [tablePlugin, tableKeymap];
   }
 
   @action
-  handleRdfaEditorInit(editor) {
-    this.editor = editor;
+  handleRdfaEditorInit(editorController) {
+    this.editorController = editorController;
 
     // We only set the value if it contains actual content. This prevents the browser from focusing the editor field due to the content update.
     if (this.value) {
-      editor.setHtmlContent(this.value);
+      editorController.setHtmlContent(this.value);
     }
   }
 
@@ -109,8 +109,8 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
     if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
     //rdfaEditor setup is async, updateValue may be called before it is set
-    if (this.editor) {
-      const editorValue = this.editor.htmlContent;
+    if (this.editorController) {
+      const editorValue = this.editorController.htmlContent;
 
       // Only trigger an update if the value actually changed.
       // This prevents that the form observer is triggered even though no editor content was changed.

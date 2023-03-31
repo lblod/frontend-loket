@@ -1,0 +1,28 @@
+{{#if @controller}}
+  <Toolbar::Dropdown
+    @label="Meer opmaakopties"
+    @hideLabel={{true}}
+    @icon="three-dots"
+    @iconSize="small"
+    @controller={{@controller}}
+    class={{if this.isAnyMenuItemActive "say-dropdown--active-items"}}
+    as |Menu|
+  >
+    {{#each this.menuItems as |item|}}
+      <RdfFormFields::RichTextEditor::Mark
+        @mark={{item.mark}}
+        @controller={{@controller}}
+        as |mark|
+      >
+        <Menu.Item
+          @menuAction={{mark.toggle}}
+          class="extra-formatting-option
+            {{if mark.isActive 'extra-formatting-option--active'}}"
+        >
+          <AuIcon @icon={{item.icon}} @alignment="left" @ariaHidden={{true}} />
+          {{item.label}}
+        </Menu.Item>
+      </RdfFormFields::RichTextEditor::Mark>
+    {{/each}}
+  </Toolbar::Dropdown>
+{{/if}}
