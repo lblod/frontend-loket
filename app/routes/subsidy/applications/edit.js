@@ -16,6 +16,7 @@ import PlanLivingTogetherTableEditComponent from 'frontend-loket/components/rdf-
 import PlanLivingTogetherTableShowComponent from 'frontend-loket/components/rdf-form-fields/plan-living-together-table/show';
 import AccountabilityTableEditComponent from 'frontend-loket/components/rdf-form-fields/accountability-table/edit';
 import AccountabilityTableShowComponent from 'frontend-loket/components/rdf-form-fields/accountability-table/show';
+import FinancingTotalsComponent from 'frontend-loket/components/rdf-form-fields/urban-renewal/financing-totals';
 
 export default class SubsidyApplicationsEditRoute extends Route {
   @service store;
@@ -94,6 +95,11 @@ export default class SubsidyApplicationsEditRoute extends Route {
         displayType: 'http://lblod.data.gift/display-types/accountabilityTable',
         edit: AccountabilityTableEditComponent,
         show: AccountabilityTableShowComponent,
+      },
+      {
+        displayType:
+          'http://lblod.data.gift/display-types/urbanRenewalFinancingTotals',
+        edit: FinancingTotalsComponent,
       },
     ]);
   }
