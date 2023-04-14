@@ -1,20 +1,20 @@
 <div class="au-c-body-container au-c-body-container--scroll">
 
   <div
-    class="{{if this.saveConcept.isRunning 'au-c-form--disabled'}}
-      {{if this.submit.isRunning 'au-c-form--disabled'}}"
+    class="au-o-box {{if (or this.saveConcept.isRunning this.submit.isRunning) 'au-c-form--disabled'}}"
   >
-    <div class="au-o-grid__item au-u-2-3@medium au-u-1-1">
-      <RdfForm
-        @groupClass="au-o-grid__item au-u-2-4 au-u-1-1@small"
-        @form={{this.form}}
-        @show={{if (or this.submitted (not this.isActiveStep)) "true"}}
-        @graphs={{this.graphs}}
-        @sourceNode={{this.sourceNode}}
-        @formStore={{this.formStore}}
-        @forceShowErrors={{this.forceShowErrors}}
-      />
-    </div>
+    <RdfForm
+      @groupClass="au-o-grid__item"
+      @form={{this.form}}
+      @show={{if (or this.submitted (not this.isActiveStep)) "true"}}
+      @graphs={{this.graphs}}
+      @sourceNode={{this.sourceNode}}
+      @formStore={{this.formStore}}
+      @forceShowErrors={{this.forceShowErrors}}
+      @useNewListingLayout={{true}}
+      @level={{2}}
+      class="au-u-max-width-medium"
+    />
   </div>
 
   <AuToolbar @size="large" as |Group|>
