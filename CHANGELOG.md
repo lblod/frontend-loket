@@ -1,3 +1,23 @@
+## v0.78.0 (2023-04-14)
+
+### Worshipservices 
+#### :rocket: Enhancement
+* [#291](https://github.com/lblod/frontend-loket/pull/291) [Eredienst mandatenbeheer] Begin and End date should be limited to the period bounds ([@Poltergeistz](https://github.com/Poltergeistz))
+
+### LPDC 
+#### :rocket: Enhancement
+* [#293](https://github.com/lblod/frontend-loket/pull/293) Update to ember-rdfa-editor v3 ([@Windvis](https://github.com/Windvis))
+
+### Subsidies 
+#### :rocket: Enhancement
+* [#295](https://github.com/lblod/frontend-loket/pull/295) Subsidy form improvements ([@Windvis](https://github.com/Windvis))
+* [#294](https://github.com/lblod/frontend-loket/pull/294) Add a `UrbanRenewal::FinancingTotals` custom field component ([@Windvis](https://github.com/Windvis))
+
+### General 
+#### :house: Internal
+* [#292](https://github.com/lblod/frontend-loket/pull/292) Merge "batch-edit" back into the main branch setup ([@Windvis](https://github.com/Windvis))
+
+
 ## v0.77.1 (2023-03-22)
 
 ### Worshipservices 
@@ -13,6 +33,7 @@
 ### Worshipservices 
 #### :rocket: Enhancement
 * [#283](https://github.com/lblod/frontend-loket/pull/283) Prefill the endDate based on the expectedEndDate ([@Poltergeistz](https://github.com/Poltergeistz))
+
 
 ## v0.76.0 (2023-02-28)
 
