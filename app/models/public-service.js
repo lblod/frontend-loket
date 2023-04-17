@@ -34,3 +34,9 @@ export function isConceptUpdated(reviewStatus) {
 export function isConceptDeleted(reviewStatus) {
   return reviewStatus?.uri === REVIEW_STATUS.DELETED;
 }
+
+export function hasConcept(publicService) {
+  // This assumes the relationship was already loaded. Either by using includes, or by resolving the promise.
+  // Otherwise this will always return false
+  return Boolean(publicService.belongsTo('concept').id());
+}
