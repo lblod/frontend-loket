@@ -1,0 +1,164 @@
+{{page-title "Koppel een instantie aan een concept"}}
+
+<AuToolbar @size="large" @nowrap={{true}} as |Group|>
+  <Group>
+    <AuHeading @skin="2">
+      Koppel een instantie aan een concept
+    </AuHeading>
+  </Group>
+  <Group class="au-u-flex au-u-flex--vertical-center">
+    <AuLink
+      @route="public-services.details"
+      @model={{@model.publicService.id}}
+      @skin="button-secondary"
+    >
+      Annuleren
+    </AuLink>
+  </Group>
+</AuToolbar>
+
+<AuToolbar @border="bottom" @nowrap={{true}} @size="large" as |Group|>
+  <Group>
+    <AuContent @skin="small" class="au-u-max-width-small">
+      <p>
+        Selecteer het relevante concept in de lijst hieronder.
+      </p>
+      <p>
+        Door het koppelen van je instantie aan het concept kan je eventuele
+        wijzigingen aan het concept opvolgen.<br />
+        De instantie wordt hierbij in geen geval overschreven of op enige andere
+        manier gewijzigd.
+      </p>
+    </AuContent>
+  </Group>
+  <Group class="au-u-flex au-u-flex--vertical-end">
+    <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
+    {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
+    <span class="au-c-input-wrapper au-c-input-wrapper--left">
+      <AuIcon @icon="search" />
+      <input
+        value={{this.search}}
+        id="search"
+        class="au-c-input"
+        placeholder="Vul uw zoekterm in"
+        {{on "input" (perform this.searchTask value="target.value")}}
+      />
+    </span>
+  </Group>
+</AuToolbar>
+
+<AuDataTable
+  @content={{this.concepts}}
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{20}}
+  as |Table|
+>
+  <Table.content as |Content|>
+    <Content.header>
+      <AuDataTableThSortable
+        @field="name"
+        @currentSorting={{this.sort}}
+        @label="Productnaam"
+      />
+      <th>IPDC Concept ID</th>
+      <AuDataTableThSortable
+        @field="type"
+        @currentSorting={{this.sort}}
+        @label="ProductType"
+      />
+      <th>
+        Doelgroepen
+      </th>
+      <th>
+        Bevoegde bestuursniveaus
+      </th>
+      <th>
+        Concept tags
+      </th>
+      <th class="u-table-cell-shrink-content">
+        <span class="au-u-hidden-visually">voeg product of dienst toe</span>
+      </th>
+    </Content.header>
+
+    {{#if this.showTableLoader}}
+      <tbody>
+        <tr>
+          <td colspan="100%" class="au-c-data-table__message">
+            <AuLoader @size="small" />
+          </td>
+        </tr>
+      </tbody>
+    {{else if this.hasErrored}}
+      <tr>
+        <td colspan="100%" class="au-c-data-table__message">
+          <AuAlert
+            @title="Er ging iets fout bij het opvragen van de producten en diensten."
+            @icon="info-circle"
+            @skin="error"
+            @size="small"
+            class="au-u-margin-bottom-none"
+          />
+        </td>
+      </tr>
+    {{else if this.hasResults}}
+      <Content.body as |concept|>
+        <td>
+          <AuLink
+            @route="public-services.concept-details"
+            @model={{concept.id}}
+            @query={{hash publicServiceId=@model.publicService.id}}
+          >
+            {{! template-lint-disable no-triple-curlies~}}
+            {{{concept.nameNl}}}
+          </AuLink>
+        </td>
+        <td>{{concept.productId}}</td>
+        <td>{{concept.type.label}}</td>
+        <td>
+          {{#each concept.targetAudiences as |targetAudience|}}
+            <AuPill>
+              {{targetAudience.label}}
+            </AuPill>
+          {{/each}}
+        </td>
+        <td>
+          {{#each concept.competentAuthorityLevels as |level|}}
+            <AuPill>
+              {{level.label}}
+            </AuPill>
+          {{/each}}
+        </td>
+        <td>
+          {{#each concept.conceptTags as |tag|}}
+            <AuPill>
+              {{tag.label}}
+            </AuPill>
+          {{/each}}
+        </td>
+        <td class="u-table-cell-fit-content">
+          <AuLink
+            @route="public-services.link-concept.link"
+            @model={{concept.id}}
+            @icon="link"
+            @skin="button-secondary"
+          >
+            Koppelen
+          </AuLink>
+        </td>
+      </Content.body>
+    {{else}}
+      <tr>
+        <td colspan="100%" class="au-c-data-table__message">
+          <AuAlert
+            @title="Er werden geen producten of diensten gevonden"
+            @icon="info-circle"
+            @skin="info"
+            @size="small"
+            class="au-u-margin-bottom-none"
+          />
+        </td>
+      </tr>
+    {{/if}}
+  </Table.content>
+</AuDataTable>

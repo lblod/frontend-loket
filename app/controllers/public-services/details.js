@@ -17,15 +17,19 @@ export default class PublicServicesDetailsController extends Controller {
     return Boolean(this.reviewStatus);
   }
 
-  get hasConcept() {
-    return hasConcept(this.model.publicService);
+  get canLinkConcept() {
+    const { publicService } = this.model;
+
+    return !hasConcept(publicService) && !publicService.isSent;
   }
 
   get canUnlinkConcept() {
     const { publicService } = this.model;
 
     return (
-      this.hasConcept && !publicService.isSent && !this.shouldShowUnlinkWarning
+      hasConcept(publicService) &&
+      !publicService.isSent &&
+      !this.shouldShowUnlinkWarning
     );
   }
 

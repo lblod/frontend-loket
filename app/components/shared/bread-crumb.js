@@ -357,6 +357,20 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
+      route: 'public-services.link-concept.index',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        { label: 'Instantie koppelen' },
+      ],
+    },
+    {
+      route: 'public-services.link-concept.link',
+      crumbs: [
+        { label: 'Producten- en dienstencatalogus', link: 'public-services' },
+        { label: 'Instantie koppelen' },
+      ],
+    },
+    {
       route: 'public-services.concept-details.content',
       crumbs: [
         { label: 'Producten- en dienstencatalogus', link: 'public-services' },

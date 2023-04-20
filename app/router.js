@@ -118,6 +118,13 @@ Router.map(function () {
           this.route('properties', { path: '/eigenschappen' });
         });
         this.route(
+          'link-concept',
+          { path: '/:serviceId/koppelen' },
+          function () {
+            this.route('link', { path: '/:conceptId' });
+          }
+        );
+        this.route(
           'concept-details',
           { path: '/concept/:conceptId' },
           function () {
