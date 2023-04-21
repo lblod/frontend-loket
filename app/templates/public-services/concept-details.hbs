@@ -19,6 +19,29 @@
       </AuLink>
     </Group>
   </AuToolbar>
+{{else if this.isLinkFlowPreview}}
+  <AuToolbar @size="medium" as |Group|>
+    <Group>
+      <AuLink
+        @route="public-services.link-concept"
+        @model={{this.publicServiceId}}
+        @icon="arrow-left"
+      >
+        Bekijk andere concepten
+      </AuLink>
+    </Group>
+
+    <Group>
+      <AuLink
+        @route="public-services.link-concept.link"
+        @models={{array this.publicServiceId @model.concept.id}}
+        @skin="button-secondary"
+        @icon="link"
+      >
+        Koppelen
+      </AuLink>
+    </Group>
+  </AuToolbar>
 {{/if}}
 
 <AuToolbar @size="large" as |Group|>

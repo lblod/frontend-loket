@@ -21,18 +21,24 @@
         <Data>
           <:title>IPDC Concept ID</:title>
           <:content>
-            <ValueWithPlaceholder
-              @value={{@model.publicService.concept.productId}}
-            >
-              <:value as |productId|>
-                <AuLink
-                  @route="public-services.concept-details"
-                  @model={{@model.publicService.concept.id}}
-                >
-                  {{productId}}
-                </AuLink>
-              </:value>
-            </ValueWithPlaceholder>
+            {{#if @model.publicService.concept.id}}
+              <AuLink
+                @route="public-services.concept-details"
+                @model={{@model.publicService.concept.id}}
+              >
+                {{@model.publicService.concept.productId}}
+              </AuLink>
+            {{else if this.canLinkConcept}}
+              <AuLink
+                @icon="link"
+                @route="public-services.link-concept"
+                @model={{@model.publicService.id}}
+              >
+                Koppelen
+              </AuLink>
+            {{else}}
+              <ValueWithPlaceholder @value={{false}} />
+            {{/if}}
             {{#if this.canUnlinkConcept}}
               <AuButton
                 @alert={{true}}
@@ -115,8 +121,10 @@
           class="au-u-margin-top au-u-max-width-small"
         >
           <p class="au-u-margin-top-tiny">
-            De link met het concept waarop dit product is gebaseerd, wordt opgeheven. Hierdoor kan je mogelijke wijzigingen aan het concept niet langer opvolgen.
-            Je kan een instantie op elk moment opnieuw koppelen aan een concept.
+            De link met het concept waarop dit product is gebaseerd, wordt
+            opgeheven. Hierdoor kan je mogelijke wijzigingen aan het concept
+            niet langer opvolgen. Je kan een instantie op elk moment opnieuw
+            koppelen aan een concept.
           </p>
           <AuButtonGroup class="au-u-margin-top-small">
             <AuButton
