@@ -263,7 +263,7 @@ export default class PublicServicesDetailsPageComponent extends Component {
   willDestroy() {
     super.willDestroy(...arguments);
 
-    this.formStore.deregisterObserver(this.id);
+    this.formStore?.deregisterObserver(this.id);
     this.router.off('routeWillChange', this, this.showUnsavedChangesModal);
   }
 }
