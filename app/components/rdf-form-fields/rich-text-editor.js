@@ -112,8 +112,10 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
     if (this.editorController) {
       this.hasBeenFocused = true;
       const htmlContent = this.editorController.htmlContent;
-      // TODO: This is a known "issue" in the editor so it might be solved there as well. Check if this is still needed when updating the editor.
-      const editorValue = hasTextContent(htmlContent) ? htmlContent : '';
+      const hasTextContent = Boolean(
+        this.editorController.mainEditorState.doc.textContent
+      );
+      const editorValue = hasTextContent ? htmlContent : '';
 
       // Only trigger an update if the value actually changed.
       // This prevents that the form observer is triggered even though no editor content was changed.
@@ -131,11 +133,4 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
       this.value = '';
     }
   }
-}
-
-function hasTextContent(htmlContent) {
-  const div = document.createElement('div');
-  div.innerHTML = htmlContent;
-
-  return Boolean(div.textContent);
 }
