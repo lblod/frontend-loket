@@ -16,81 +16,125 @@
   as |Group|
 >
   <Group class="au-u-margin-bottom-small">
-    <DataList as |Data|>
+    <div>
+      <DataList as |Data|>
         <Data>
           <:title>IPDC Concept ID</:title>
           <:content>
-            <ValueWithPlaceholder @value={{@model.publicService.concept.productId}}>
-                <:value as |productId|>
-                  <AuLink
-                    @route="public-services.concept-details"
-                    @model={{@model.publicService.concept.id}}
-                  >
-                    {{productId}}
-                  </AuLink>
-                </:value>
+            <ValueWithPlaceholder
+              @value={{@model.publicService.concept.productId}}
+            >
+              <:value as |productId|>
+                <AuLink
+                  @route="public-services.concept-details"
+                  @model={{@model.publicService.concept.id}}
+                >
+                  {{productId}}
+                </AuLink>
+              </:value>
+            </ValueWithPlaceholder>
+            {{#if this.canUnlinkConcept}}
+              <AuButton
+                @alert={{true}}
+                @icon="link-broken"
+                @skin="link"
+                {{on "click" this.showUnlinkWarning}}
+              >
+                Loskoppelen
+              </AuButton>
+            {{/if}}
+          </:content>
+        </Data>
+        <Data>
+          <:title>Product type</:title>
+          <:content>
+            <ValueWithPlaceholder @value={{@model.publicService.type.label}} />
+          </:content>
+        </Data>
+        <Data>
+          <:title>Aangemaakt op</:title>
+          <:content>
+            <ValueWithPlaceholder @value={{@model.publicService.created}}>
+              <:value as |value|>
+                {{moment-format value "DD-MM-YYYY - HH:mm"}}
+              </:value>
             </ValueWithPlaceholder>
           </:content>
         </Data>
-      <Data>
-        <:title>Product type</:title>
-        <:content>
-          <ValueWithPlaceholder @value={{@model.publicService.type.label}} />
-        </:content>
-      </Data>
-      <Data>
-        <:title>Aangemaakt op</:title>
-        <:content>
-          <ValueWithPlaceholder @value={{@model.publicService.created}}>
-            <:value as |value|>
-              {{moment-format value "DD-MM-YYYY - HH:mm"}}
-            </:value>
-          </ValueWithPlaceholder>
-        </:content>
-      </Data>
-      <Data>
-        <:title>Bewerkt op</:title>
-        <:content>
-          <ValueWithPlaceholder @value={{@model.publicService.modified}}>
-            <:value as |value|>
-              {{moment-format value "DD-MM-YYYY - HH:mm"}}
-            </:value>
-          </ValueWithPlaceholder>
-        </:content>
-      </Data>
-      <Data>
-        <:title>Geldig vanaf</:title>
-        <:content>
-          <ValueWithPlaceholder @value={{@model.publicService.startDate}}>
-            <:value as |value|>
-              {{moment-format value "DD-MM-YYYY"}}
-            </:value>
-          </ValueWithPlaceholder>
-        </:content>
-      </Data>
-      <Data>
-        <:title>Geldig tot</:title>
-        <:content>
-          <ValueWithPlaceholder @value={{@model.publicService.endDate}}>
-            <:value as |value|>
-              {{moment-format value "DD-MM-YYYY"}}
-            </:value>
-          </ValueWithPlaceholder>
-        </:content>
-      </Data>
-      <Data>
-        <:title>Status document</:title>
-        <:content>
-          {{#if @model.publicService.status.label}}
-            <PublicServices::Status @uri={{@model.publicService.status.uri}}>
-              {{@model.publicService.status.label}}
-            </PublicServices::Status>
-          {{else}}
-            –
-          {{/if}}
-        </:content>
-      </Data>
-    </DataList>
+        <Data>
+          <:title>Bewerkt op</:title>
+          <:content>
+            <ValueWithPlaceholder @value={{@model.publicService.modified}}>
+              <:value as |value|>
+                {{moment-format value "DD-MM-YYYY - HH:mm"}}
+              </:value>
+            </ValueWithPlaceholder>
+          </:content>
+        </Data>
+        <Data>
+          <:title>Geldig vanaf</:title>
+          <:content>
+            <ValueWithPlaceholder @value={{@model.publicService.startDate}}>
+              <:value as |value|>
+                {{moment-format value "DD-MM-YYYY"}}
+              </:value>
+            </ValueWithPlaceholder>
+          </:content>
+        </Data>
+        <Data>
+          <:title>Geldig tot</:title>
+          <:content>
+            <ValueWithPlaceholder @value={{@model.publicService.endDate}}>
+              <:value as |value|>
+                {{moment-format value "DD-MM-YYYY"}}
+              </:value>
+            </ValueWithPlaceholder>
+          </:content>
+        </Data>
+        <Data>
+          <:title>Status document</:title>
+          <:content>
+            {{#if @model.publicService.status.label}}
+              <PublicServices::Status @uri={{@model.publicService.status.uri}}>
+                {{@model.publicService.status.label}}
+              </PublicServices::Status>
+            {{else}}
+              –
+            {{/if}}
+          </:content>
+        </Data>
+      </DataList>
+      {{#if this.shouldShowUnlinkWarning}}
+        <AuAlert
+          @title="Instantie loskoppelen van het concept"
+          @icon="circle-info"
+          @skin="error"
+          @size="small"
+          @closable={{this.unlinkConcept.isIdle}}
+          @onClose={{this.hideUnlinkWarning}}
+          class="au-u-margin-top au-u-max-width-small"
+        >
+          <p class="au-u-margin-top-tiny">
+            De link met het concept waarop dit product is gebaseerd, wordt opgeheven. Hierdoor kan je mogelijke wijzigingen aan het concept niet langer opvolgen.
+            Je kan een instantie op elk moment opnieuw koppelen aan een concept.
+          </p>
+          <AuButtonGroup class="au-u-margin-top-small">
+            <AuButton
+              @icon="link-broken"
+              @alert={{true}}
+              @loading={{this.unlinkConcept.isRunning}}
+              @loadingMessage="Aan het loskoppelen"
+              {{on "click" (perform this.unlinkConcept)}}
+            >Loskoppelen</AuButton>
+            <AuButton
+              @skin="secondary"
+              @disabled={{this.unlinkConcept.isRunning}}
+              {{on "click" this.hideUnlinkWarning}}
+            >Annuleren</AuButton>
+          </AuButtonGroup>
+        </AuAlert>
+      {{/if}}
+    </div>
   </Group>
 
   {{#if (or this.showReviewRequiredMessage this.markAsReviewed.isRunning)}}
