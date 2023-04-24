@@ -1,3 +1,19 @@
+## v0.79.0 (2023-04-24)
+
+## General
+#### :rocket: Enhancement
+* [#301](https://github.com/lblod/frontend-loket/pull/301) Update to ember-submission-form-fields v2.10.0 ([@Windvis](https://github.com/Windvis))
+
+### LPDC
+#### :rocket: Enhancement
+* [#297](https://github.com/lblod/frontend-loket/pull/297) Allow users to link an instance to a concept ([@Windvis](https://github.com/Windvis))
+* [#296](https://github.com/lblod/frontend-loket/pull/296) Allow users to unlink an instance from a concept ([@Windvis](https://github.com/Windvis))
+
+#### :bug: Bug Fix
+* [#298](https://github.com/lblod/frontend-loket/pull/298) Fix the rich text editor field validations ([@Windvis](https://github.com/Windvis))
+* [#299](https://github.com/lblod/frontend-loket/pull/299) Fix a LDPC form teardown issue ([@Windvis](https://github.com/Windvis))
+
+
 ## v0.78.0 (2023-04-14)
 
 ### Worshipservices 
