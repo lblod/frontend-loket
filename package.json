@@ -28,17 +28,13 @@
     "test:ember": "ember test"
   },
   "overrides": {
-    "@appuniversum/ember-appuniversum": "$@appuniversum/ember-appuniversum",
     "@embroider/macros": "$@embroider/macros",
     "@embroider/util": "^1.0.0",
     "ember-cli-babel": "$ember-cli-babel",
     "moment": "^2.29.1"
   },
-  "overridesNotes": {
-    "appuniversum": "ember-acmidm-login brings in a v1 version. We can remove the override once that is resolved."
-  },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^2.4.2",
+    "@appuniversum/ember-appuniversum": "^2.5.0",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/plugin-proposal-decorators": "^7.20.7",
     "@ember/optional-features": "^2.0.0",
