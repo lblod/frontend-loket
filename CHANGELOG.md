@@ -1,6 +1,13 @@
+## v0.79.1 (2023-04-27)
+
+### General
+#### :bug: Bug Fix
+* [#302](https://github.com/lblod/frontend-loket/pull/302) Fix a semantic forms regression ([@Windvis](https://github.com/Windvis))
+
+
 ## v0.79.0 (2023-04-24)
 
-## General
+### General
 #### :rocket: Enhancement
 * [#301](https://github.com/lblod/frontend-loket/pull/301) Update to ember-submission-form-fields v2.10.0 ([@Windvis](https://github.com/Windvis))
 
