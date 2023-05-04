@@ -1,5 +1,13 @@
+## v0.79.3 (2023-05-04)
+
+### LPDC
+#### :bug: Bug Fix
+* [#306](https://github.com/lblod/frontend-loket/pull/306) Fix the formatting of the rich-text editor contents in read-only mode ([@Windvis](https://github.com/Windvis))
+
+
 ## v0.79.2 (2023-05-03)
 
+### General
 #### :bug: Bug Fix
 * [#305](https://github.com/lblod/frontend-loket/pull/305) Fix a `<AuDateInput>` autofill issue ([@Windvis](https://github.com/Windvis))
 * [#304](https://github.com/lblod/frontend-loket/pull/304) Fix validations for sub forms in LPDC and subsidies ([@Windvis](https://github.com/Windvis))
