@@ -88,4 +88,9 @@ $toolbar-height: 3.2rem; // TODO: we decrease the toolbar size so more icons fit
   border-color: var(--au-gray-300);
   color: var(--au-gray-700);
   cursor: not-allowed;
+
+  // TODO: Should .au-c-content include link styles?
+  a {
+    @extend .au-c-link;
+  }
 }
