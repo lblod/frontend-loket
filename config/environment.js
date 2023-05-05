@@ -27,12 +27,12 @@ module.exports = function (environment) {
       includeTimezone: 'all',
     },
     acmidm: {
-      clientId: 'a2c0d6ea-01b4-4f68-920b-10834a943c27',
+      clientId: '{{ACMIDM_CLIENT_ID}}',
       scope: 'openid rrn vo profile abb_loketLB',
-      authUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/auth',
-      logoutUrl: 'https://authenticatie-ti.vlaanderen.be/op/v1/logout',
-      authRedirectUrl: 'https://loket.lblod.info/authorization/callback',
-      switchRedirectUrl: 'https://loket.lblod.info/switch-login',
+      authUrl: '{{ACMIDM_AUTH_URL}}',
+      logoutUrl: '{{ACMIDM_LOGOUT_URL}}',
+      authRedirectUrl: '{{ACMIDM_AUTH_REDIRECT_URL}}',
+      switchRedirectUrl: '{{ACMIDM_SWITCH_REDIRECT_URL}}',
     },
     features: {
       'eredienst-mandatenbeheer':
@@ -78,19 +78,6 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-  }
-
-  if (process.env.DEPLOY_ENV === 'production') {
-    ENV.acmidm = {
-      ...ENV.acmidm,
-      clientId: '90a39574-e986-4007-84f2-becf6d9eb481',
-      authUrl: 'https://authenticatie.vlaanderen.be/op/v1/auth',
-      logoutUrl: 'https://authenticatie.vlaanderen.be/op/v1/logout',
-      authRedirectUrl:
-        'https://loket.lokaalbestuur.vlaanderen.be/authorization/callback',
-      switchRedirectUrl:
-        'https://loket.lokaalbestuur.vlaanderen.be/switch-login',
-    };
   }
 
   return ENV;

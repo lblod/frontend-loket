@@ -8,6 +8,9 @@ module.exports = function (defaults) {
     'ember-simple-auth': {
       useSessionSetupMethod: true,
     },
+    'ember-test-selectors': {
+      strip: false,
+    },
     '@appuniversum/ember-appuniversum': {
       dutchDatePickerLocalization: true,
       disableWormholeElement: true,
@@ -18,13 +21,6 @@ module.exports = function (defaults) {
       },
     },
   };
-
-  if (process.env.EMBER_TEST_SELECTORS_STRIP == 'false') {
-    customBuildConfig['ember-test-selectors'] = { strip: false };
-  } else if (process.env.EMBER_TEST_SELECTORS_STRIP == 'true') {
-    customBuildConfig['ember-test-selectors'] = { strip: true };
-  }
-  //if EMBER_TEST_SELECTORS_STRIP left unspecificied, we fall back to default behavoir
 
   let app = new EmberApp(defaults, customBuildConfig);
 
