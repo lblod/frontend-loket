@@ -34,13 +34,9 @@ module.exports = function (environment) {
       authRedirectUrl: 'https://loket.lblod.info/authorization/callback',
       switchRedirectUrl: 'https://loket.lblod.info/switch-login',
     },
-    features: {
-      'eredienst-mandatenbeheer':
-        '{{FEATURE_EREDIENSTEN_MANDATENBEHEER_ENABLED}}',
-      'public-services': '{{FEATURE_PUBLIC_SERVICES_ENABLED}}',
-      'worship-minister-management':
-        '{{FEATURE_WORSHIP_MINISTER_MANAGEMENT_ENABLED}}',
-    },
+    // features: {
+    //   'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
+    // },
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
     'ember-plausible': {
