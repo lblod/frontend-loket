@@ -54,10 +54,6 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-
-    ENV.features['eredienst-mandatenbeheer'] = true;
-    ENV.features['public-services'] = true;
-    ENV.features['worship-minister-management'] = true;
   }
 
   if (environment === 'test') {
