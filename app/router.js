@@ -1,6 +1,5 @@
 import EmberRouter from '@ember/routing/router';
 import config from 'frontend-loket/config/environment';
-import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -106,74 +105,60 @@ Router.map(function () {
     });
   });
 
-  if (isFeatureEnabled('public-services')) {
-    this.route(
-      'public-services',
-      { path: '/producten-en-dienstencatalogus' },
-      function () {
-        this.route('add', { path: '/toevoegen' });
-        this.route('new', { path: '/nieuw' });
-        this.route('details', { path: '/:serviceId' }, function () {
+  this.route(
+    'public-services',
+    { path: '/producten-en-dienstencatalogus' },
+    function () {
+      this.route('add', { path: '/toevoegen' });
+      this.route('new', { path: '/nieuw' });
+      this.route('details', { path: '/:serviceId' }, function () {
+        this.route('content', { path: '/inhoud' });
+        this.route('properties', { path: '/eigenschappen' });
+      });
+      this.route('link-concept', { path: '/:serviceId/koppelen' }, function () {
+        this.route('link', { path: '/:conceptId' });
+      });
+      this.route(
+        'concept-details',
+        { path: '/concept/:conceptId' },
+        function () {
           this.route('content', { path: '/inhoud' });
           this.route('properties', { path: '/eigenschappen' });
-        });
-        this.route(
-          'link-concept',
-          { path: '/:serviceId/koppelen' },
-          function () {
-            this.route('link', { path: '/:conceptId' });
-          }
-        );
-        this.route(
-          'concept-details',
-          { path: '/concept/:conceptId' },
-          function () {
-            this.route('content', { path: '/inhoud' });
-            this.route('properties', { path: '/eigenschappen' });
-          }
-        );
-      }
-    );
-  }
+        }
+      );
+    }
+  );
 
   this.route('route-not-found', {
     path: '/*wildcard',
   });
 
-  if (isFeatureEnabled('eredienst-mandatenbeheer')) {
-    this.route('eredienst-mandatenbeheer', function () {
-      this.route('mandatarissen');
+  this.route('eredienst-mandatenbeheer', function () {
+    this.route('mandatarissen');
+
+    this.route('mandataris', { path: '/mandataris/:mandateeId' }, function () {
+      this.route('details');
+      this.route('edit');
+    });
+    this.route('new');
+    this.route('new-person');
+  });
+
+  this.route(
+    'worship-ministers-management',
+    { path: 'bedienarenbeheer' },
+    function () {
+      this.route('new', { path: '/nieuw' });
+      this.route('new-person', { path: '/nieuw-bedienaar' });
 
       this.route(
-        'mandataris',
-        { path: '/mandataris/:mandateeId' },
+        'minister',
+        { path: '/bedienaar/:worshipMinisterId' },
         function () {
-          this.route('details');
-          this.route('edit');
+          this.route('details', { path: '/bekijk' });
+          this.route('edit', { path: '/bewerk' });
         }
       );
-      this.route('new');
-      this.route('new-person');
-    });
-  }
-
-  if (isFeatureEnabled('worship-minister-management')) {
-    this.route(
-      'worship-ministers-management',
-      { path: 'bedienarenbeheer' },
-      function () {
-        this.route('new', { path: '/nieuw' });
-        this.route('new-person', { path: '/nieuw-bedienaar' });
-
-        this.route(
-          'minister',
-          { path: '/bedienaar/:worshipMinisterId' },
-          function () {
-            this.route('details', { path: '/bekijk' });
-            this.route('edit', { path: '/bewerk' });
-          }
-        );
-      }
-    );
-  }
+    }
+  );
 });

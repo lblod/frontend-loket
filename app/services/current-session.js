@@ -1,6 +1,5 @@
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 import config from 'frontend-loket/config/environment';
 
 const MODULE = {
@@ -106,23 +105,14 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessWorshipMinisterManagement() {
-    return (
-      isFeatureEnabled('worship-minister-management') &&
-      this.canAccess(MODULE.WORSHIP_MINISTER_MANAGEMENT)
-    );
+    return this.canAccess(MODULE.WORSHIP_MINISTER_MANAGEMENT);
   }
 
   get canAccessEredienstMandatenbeheer() {
-    return (
-      isFeatureEnabled('eredienst-mandatenbeheer') &&
-      this.canAccess(MODULE.EREDIENSTMANDATENBEHEER)
-    );
+    return this.canAccess(MODULE.EREDIENSTMANDATENBEHEER);
   }
 
   get canAccessPublicServices() {
-    return (
-      isFeatureEnabled('public-services') &&
-      this.canAccess(MODULE.PUBLIC_SERVICES)
-    );
+    return this.canAccess(MODULE.PUBLIC_SERVICES);
   }
 }
