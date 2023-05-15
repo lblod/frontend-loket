@@ -3,11 +3,16 @@ import { inject as service } from '@ember/service';
 import ENV from 'frontend-loket/config/environment';
 
 export default class AuthLoginRoute extends Route {
+  @service router;
   @service session;
 
   beforeModel() {
     if (this.session.prohibitAuthentication('index')) {
-      window.location.replace(buildLoginUrl(ENV.acmidm));
+      if (isValidAcmidmConfig(ENV.acmidm)) {
+        window.location.replace(buildLoginUrl(ENV.acmidm));
+      } else {
+        this.router.replaceWith('mock-login');
+      }
     }
   }
 }
@@ -22,4 +27,13 @@ function buildLoginUrl({ authUrl, clientId, authRedirectUrl, scope }) {
   searchParams.append('scope', scope);
 
   return loginUrl.href;
+}
+
+function isValidAcmidmConfig(acmidmConfig) {
+  return Object.values(acmidmConfig).every(
+    (value) =>
+      typeof value === 'string' &&
+      value.trim() !== '' &&
+      !value.startsWith('{{')
+  );
 }

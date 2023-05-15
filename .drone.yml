@@ -85,25 +85,6 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: release-prod
-steps:
-- name: push-tagged-build
-  image: plugins/docker
-  settings:
-    dockerfile: Dockerfile.prod
-    repo: ${DRONE_REPO}
-    tags: ${DRONE_TAG##v}-prod
-    username:
-      from_secret: docker_username
-    password:
-      from_secret: docker_password
-    purge: true
-trigger:
-  event:
-    - tag
----
-kind: pipeline
-type: docker
 name: release-controle
 steps:
 - name: push-tagged-build

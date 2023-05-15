@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN CONTROLE=$CONTROLE EMBER_TEST_SELECTORS_STRIP=false ember build -prod
+RUN CONTROLE=$CONTROLE npm run build
 
 FROM semtech/ember-proxy-service:1.5.1
 
