@@ -54,6 +54,24 @@
   </Group>
 </AuToolbar>
 
+{{#if @model.concept.displayConfiguration.isNewConcept}}
+  <AuAlert
+    @skin="success"
+    @icon="check"
+    @title="Dit is een nieuw product of dienst toegevoegd door IPDC"
+    @size="small"
+    class="au-u-margin-left au-u-margin-right au-u-margin-bottom-none"
+  >
+    <AuButton
+      @skin="secondary"
+      class="au-u-margin-top-tiny"
+      {{on "click" this.hideNewConceptMessage}}
+    >
+      Dit bericht niet meer tonen
+    </AuButton>
+  </AuAlert>
+{{/if}}
+
 <AuTabs as |Tab|>
   <Tab>
     <AuLink @route="public-services.concept-details.content">Inhoud</AuLink>

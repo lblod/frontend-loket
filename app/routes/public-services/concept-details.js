@@ -9,7 +9,7 @@ export default class PublicServicesConceptDetailsRoute extends Route {
       'conceptual-public-service',
       conceptId,
       {
-        include: 'type,status',
+        include: 'type,status,display-configuration',
       }
     );
 
