@@ -105,3 +105,9 @@ inflector.irregular(
 inflector.irregular('minister-position', 'minister-positions');
 
 inflector.irregular('nationality', 'nationalities');
+
+// LPDC
+inflector.irregular(
+  'concept-display-configuration',
+  'concept-display-configurations'
+);

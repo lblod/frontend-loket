@@ -20,6 +20,12 @@ export default class ConceptualPublicServiceModel extends Model {
   })
   status;
 
+  @belongsTo('concept-display-configuration', {
+    inverse: null,
+    async: false,
+  })
+  displayConfiguration;
+
   @hasMany('concept', {
     inverse: null,
   })

@@ -4,12 +4,24 @@ import { tracked } from '@glimmer/tracking';
 import { restartableTask, timeout } from 'ember-concurrency';
 
 export default class PublicServicesAddController extends Controller {
-  queryParams = ['search', 'sort', 'page', 'newOrKnownFilter', 'addedFilter'];
+  queryParams = [
+    'search',
+    'sort',
+    'page',
+    {
+      isNewConcept: {
+        type: 'boolean',
+      },
+      isInstantiated: {
+        type: 'boolean',
+      },
+    },
+  ];
   @tracked search = '';
   @tracked sort = 'name';
   @tracked page = 0;
-  @tracked newOrKnownFilter = '';
-  @tracked addedFilter = '';
+  @tracked isNewConcept;
+  @tracked isInstantiated;
 
   get publicServices() {
     if (this.model.loadPublicServices.isFinished) {
@@ -44,24 +56,32 @@ export default class PublicServicesAddController extends Controller {
     return this.model.loadPublicServices.isError;
   }
 
+  get hasActiveFilters() {
+    return (
+      Boolean(this.search) ||
+      typeof this.isNewConcept === 'boolean' ||
+      typeof this.isInstantiated === 'boolean'
+    );
+  }
+
   @action
-  handleNewOrKnownFilterChange(value) {
-    this.newOrKnownFilter = value;
+  handleNewConceptFilterChange(value) {
+    this.isNewConcept = value;
     this.page = 0;
   }
 
   @action
-  handleAddedFilterChange(value) {
-    this.addedFilter = value;
+  handleInstantiatedConceptFilterChange(value) {
+    this.isInstantiated = value;
     this.page = 0;
   }
 
   @action
   resetFilters() {
     this.search = '';
-    this.newOrKnownFilter = '';
-    this.addedFilter = '';
     this.page = 0;
+    this.isNewConcept = undefined;
+    this.isInstantiated = undefined;
   }
 
   @restartableTask

@@ -21,12 +21,12 @@
         </f.legend>
         <f.content>
           <AuRadioGroup
-            @selected={{this.newOrKnownFilter}}
-            @onChange={{this.handleNewOrKnownFilterChange}}
+            @selected={{this.isNewConcept}}
+            @onChange={{this.handleNewConceptFilterChange}}
             as |Group|
           >
-            <Group.Radio @value="new">Nieuwe producten</Group.Radio>
-            <Group.Radio @value="known">Gekende producten</Group.Radio>
+            <Group.Radio @value={{true}}>Nieuwe producten</Group.Radio>
+            <Group.Radio @value={{false}}>Gekende producten</Group.Radio>
           </AuRadioGroup>
         </f.content>
       </AuFieldset>
@@ -37,21 +37,23 @@
         </f.legend>
         <f.content>
           <AuRadioGroup
-            @selected={{this.addedFilter}}
-            @onChange={{this.handleAddedFilterChange}}
+            @selected={{this.isInstantiated}}
+            @onChange={{this.handleInstantiatedConceptFilterChange}}
             as |Group|
           >
-            <Group.Radio @value="added">Toegevoegde producten</Group.Radio>
-            <Group.Radio @value="not-added">Niet toegevoegde producten</Group.Radio>
+            <Group.Radio @value={{true}}>Toegevoegde producten</Group.Radio>
+            <Group.Radio @value={{false}}>Niet toegevoegde producten</Group.Radio>
           </AuRadioGroup>
         </f.content>
       </AuFieldset>
 
-      <div class="au-u-text-right@medium">
-        <AuButton @icon="cross" @skin="naked" {{on "click" this.resetFilters}}>
-          Herstel alle filters
-        </AuButton>
-      </div>
+      {{#if this.hasActiveFilters}}
+        <div class="au-u-text-right@medium">
+          <AuButton @icon="cross" @skin="naked" {{on "click" this.resetFilters}}>
+            Herstel alle filters
+          </AuButton>
+        </div>
+      {{/if}}
     </div>
   </:sidebar>
   <:content>
@@ -138,10 +140,10 @@
                 {{! template-lint-disable no-triple-curlies~}}
                 {{{publicService.nameNl}}}
               </AuLink>
-              {{#if true}} {{! TODO: add the correct check }}
+              {{#if publicService.displayConfiguration.isNewConcept}}
                 <AuPill @skin="success">Nieuw</AuPill>
               {{/if}}
-              {{#if true}} {{! TODO: add the correct check }}
+              {{#if publicService.displayConfiguration.isInstantiated}}
                 <AuPill @skin="border">Toegevoegd</AuPill>
               {{/if}}
             </td>

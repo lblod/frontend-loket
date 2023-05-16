@@ -10,13 +10,11 @@ export default class PublicServicesAddRoute extends Route {
       refreshModel: true,
       replace: true,
     },
-    newOrKnownFilter: {
+    isNewConcept: {
       refreshModel: true,
-      replace: true,
     },
-    addedFilter: {
+    isInstantiated: {
       refreshModel: true,
-      replace: true,
     },
     page: {
       refreshModel: true,
@@ -38,25 +36,24 @@ export default class PublicServicesAddRoute extends Route {
     search,
     page,
     sort,
-    newOrKnownFilter,
-    addedFilter,
+    isNewConcept,
+    isInstantiated,
   }) {
     let query = {
       'page[number]': page,
+      include: 'display-configuration',
     };
 
     if (search) {
       query['filter'] = search.trim();
     }
 
-    if (newOrKnownFilter) {
-      // TODO
-      console.log(newOrKnownFilter)
+    if (typeof isNewConcept === 'boolean') {
+      query['filter[display-configuration][is-new-concept]'] = isNewConcept;
     }
 
-    if (addedFilter) {
-      // TODO
-      console.log(addedFilter);
+    if (typeof isInstantiated === 'boolean') {
+      query['filter[display-configuration][is-instantiated]'] = isInstantiated;
     }
 
     if (sort) {
