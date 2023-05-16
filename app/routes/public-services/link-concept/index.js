@@ -10,6 +10,12 @@ export default class PublicServicesLinkConceptIndexRoute extends Route {
       refreshModel: true,
       replace: true,
     },
+    isNewConcept: {
+      refreshModel: true,
+    },
+    isInstantiated: {
+      refreshModel: true,
+    },
     page: {
       refreshModel: true,
     },
@@ -28,13 +34,22 @@ export default class PublicServicesLinkConceptIndexRoute extends Route {
   }
 
   @restartableTask
-  *loadConcepts({ search, page, sort }) {
+  *loadConcepts({ search, page, sort, isNewConcept, isInstantiated }) {
     let query = {
       'page[number]': page,
+      include: 'display-configuration',
     };
 
     if (search) {
       query['filter'] = search.trim();
+    }
+
+    if (typeof isNewConcept === 'boolean') {
+      query['filter[display-configuration][is-new-concept]'] = isNewConcept;
+    }
+
+    if (typeof isInstantiated === 'boolean') {
+      query['filter[display-configuration][is-instantiated]'] = isInstantiated;
     }
 
     if (sort) {
