@@ -15,7 +15,7 @@ import {
   warnOnMandateExceededTimePeriode,
 } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
-const MANDATARIS_STATUS_EFFECTIEF = "21063a5b-912c-4241-841c-cc7fb3c73e75"
+const MANDATARIS_STATUS_EFFECTIEF = '21063a5b-912c-4241-841c-cc7fb3c73e75';
 
 export default class EredienstMandatenbeheerNewController extends Controller {
   @service router;
@@ -179,8 +179,11 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     let { worshipMandatee, contacts } = this.model;
     this.model.worshipMandatee.errors.remove('contacts');
 
-    const status = yield this.store.findRecord('mandataris-status-code', MANDATARIS_STATUS_EFFECTIEF)
-    worshipMandatee.status = status
+    const status = yield this.store.findRecord(
+      'mandataris-status-code',
+      MANDATARIS_STATUS_EFFECTIEF
+    );
+    worshipMandatee.status = status;
 
     if (!worshipMandatee.start) {
       worshipMandatee.errors.add('start', 'startdatum is een vereist veld.');
