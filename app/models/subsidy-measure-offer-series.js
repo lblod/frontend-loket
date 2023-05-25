@@ -24,27 +24,35 @@ export default class SubsidyMeasureOfferSeriesModel extends Model {
   /**
    * Returns if the series can be processed externally
    * - when it has a reference to an outside form
-   * - when the subsidyProceduralStep of the firstApplicationStep is of type ExternallyProcessed
+   * - when the subsidyProceduralStep of the firstApplicationStep is of type "Externally Processed"
    * @returns boolean
    */
-  get isExternallyProcessed() {
-    const isReplacedBy = this.activeApplicationFlow.get(
-      'firstApplicationStep.isReplacedBy'
-    );
-    const isExternallyProcessed = this.activeApplicationFlow.get(
-      'firstApplicationStep.subsidyProceduralStep.isExternallyProcessed'
-    );
+  isExternallyProcessed() {
+    const activeApplicationFlow = this.belongsTo(
+      'activeApplicationFlow'
+    ).value();
+    const firstApplicationStep = activeApplicationFlow
+      .belongsTo('firstApplicationStep')
+      .value();
+    const isReplacedBy = firstApplicationStep.isReplacedBy;
+    const isExternallyProcessed = firstApplicationStep
+      .belongsTo('subsidyProceduralStep')
+      .value().isExternallyProcessed;
+
     if (isReplacedBy && !isExternallyProcessed) {
       console.warn(
         'found a link to an external processes, but step is not marked for external processing.'
       );
+
       return false;
     } else if (!isReplacedBy && isExternallyProcessed) {
       console.warn(
         'found no link to an external processes, but step is marked for external processing.'
       );
+
       return true;
     }
+
     return isReplacedBy && isExternallyProcessed;
   }
 }

@@ -30,8 +30,6 @@ export default class SubsidyApplicationsNewRoute extends Route {
     }
 
     if (transition.data.series.isExternallyProcessed) {
-      // TODO: Show a warning / error page
-      console.warn('This subsidy application should be processed externally');
       this.router.transitionTo('subsidy.applications.available-subsidies');
     }
 

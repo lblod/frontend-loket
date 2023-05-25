@@ -101,22 +101,18 @@
       <td>{{moment-format series.deadline.end "DD MMMM YYYY"}}</td>
       <td>
         {{#if series.isExternallyProcessed}}
-          <a
+          <AuLinkExternal
             href={{series.activeApplicationFlow.firstApplicationStep.isReplacedBy}}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="au-c-link"
           >
             Start aanvraag
-          </a>
+          </AuLinkExternal>
           <AuHelpText @skin="secondary" class="au-u-margin-top-none">
             <AuIcon
               @icon="export"
               @alignment="left"
               @size="default"
               @ariaHidden={{true}}
-            />
-            Externe afhandeling
+            />Externe afhandeling
           </AuHelpText>
         {{else}}
           <LinkTo
