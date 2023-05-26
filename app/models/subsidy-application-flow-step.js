@@ -4,7 +4,7 @@ export default class SubsidyApplicationFlowStepModel extends Model {
   @attr order;
 
   // A reference to an external procedure (application flow step)
-  @attr isReplacedBy;
+  @attr externalProcessLink;
 
   @belongsTo('file') formSpecification;
   @belongsTo('subsidy-application-flow') applicationFlow;
