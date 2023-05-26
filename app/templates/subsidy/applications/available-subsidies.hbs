@@ -67,13 +67,18 @@
       <td>
         {{series.label}}
         <AuHelpText @skin="secondary" class="au-u-margin-top-none">
-          {{#if (and series.period.begin series.period.end)}}
-            {{moment-format series.period.begin "DD MMMM YYYY"}}
+          {{#if (or series.period.begin series.period.end)}}
+            {{if
+              series.period.begin
+              (moment-format series.period.begin "DD MMMM YYYY")
+              "N.V.T"
+            }}
             &#8211;
-            {{moment-format series.period.end "DD MMMM YYYY"}}
-          {{else if series.period.begin}}
-            {{moment-format series.period.begin "DD MMMM YYYY"}}
-            &#8211; N.V.T
+            {{if
+              series.period.end
+              (moment-format series.period.end "DD MMMM YYYY")
+              "N.V.T"
+            }}
           {{else}}
             N.V.T
           {{/if}}
