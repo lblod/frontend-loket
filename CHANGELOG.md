@@ -1,3 +1,10 @@
+## v0.81.0 (2023-05-31)
+
+### LPDC
+#### :rocket: Enhancement
+* [#290](https://github.com/lblod/frontend-loket/pull/290) Implement the concept label and filtering functionality ([@Windvis](https://github.com/Windvis))
+
+
 ## v0.80.0 (2023-05-17)
 
 ### General
