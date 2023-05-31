@@ -1,0 +1,26 @@
+.au-c-sidebar-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  overflow: hidden;
+}
+
+.au-c-sidebar-container__sidebar {
+  @include mq(medium) {
+    height: 100%;
+    flex-basis: 25rem;
+    flex-shrink: 0;
+  }
+}
+
+.au-c-sidebar-container__content {
+  flex-basis: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  @include mq(medium) {
+    height: 100%;
+    flex-basis: 0;
+    flex-grow: 1;
+  }
+}

@@ -88,28 +88,22 @@
   </Group>
 </AuToolbar>
 
-<div class="au-c-sidebar-container">
-  <div class="au-c-sidebar-container__sidebar">
-    <div class="au-c-sidebar">
-      <div class="au-c-sidebar__content">
-        <nav>
-          <ul class="au-c-list-navigation">
-            {{#each this.consumption.subsidyApplicationFlow.sortedDefinedSteps as |step|}}
-              <li class="au-c-list-navigation__item">
-                <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link" style="flex-direction: column; align-items: start;" {{!template-lint-disable no-inline-styles}}>
-                  <div> {{step.subsidyProceduralStep.description}} </div>
-                  <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal" {{!template-lint-disable no-inline-styles}}>Instuurbaar tot {{moment-format  step.subsidyProceduralStep.period.end 'DD MMMM YYYY'}}</AuHelpText>
-                </LinkTo>
-              </li>
-            {{/each}}
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
-  <div class="au-c-sidebar-container__content">
-    <div class="au-c-body-container au-c-body-container--scroll">
-      {{outlet}}
-    </div>
-  </div>
-</div>
+<SidebarContainer>
+  <:sidebar>
+    <nav>
+      <ul class="au-c-list-navigation">
+        {{#each this.consumption.subsidyApplicationFlow.sortedDefinedSteps as |step|}}
+          <li class="au-c-list-navigation__item">
+            <LinkTo @route="subsidy.applications.edit.step" @model={{step.id}} class="au-c-list-navigation__link" style="flex-direction: column; align-items: start;" {{!template-lint-disable no-inline-styles}}>
+              <div> {{step.subsidyProceduralStep.description}} </div>
+              <AuHelpText @skin="secondary" @size="small" style="margin: 0; line-height:normal" {{!template-lint-disable no-inline-styles}}>Instuurbaar tot {{moment-format  step.subsidyProceduralStep.period.end 'DD MMMM YYYY'}}</AuHelpText>
+            </LinkTo>
+          </li>
+        {{/each}}
+      </ul>
+    </nav>
+  </:sidebar>
+  <:content>
+    {{outlet}}
+  </:content>
+</SidebarContainer>

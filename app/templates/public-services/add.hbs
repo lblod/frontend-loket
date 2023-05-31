@@ -1,147 +1,200 @@
 {{page-title "Product of dienst toevoegen"}}
 
-<AuToolbar @border="bottom" @size="large" @nowrap={{true}} as |Group|>
-  <Group>
-    <AuHeading @skin="2" data-test-loket="public-services-page-title">
-      Product of dienst toevoegen
-    </AuHeading>
-  </Group>
-  <Group class="au-u-flex au-u-flex--vertical-center">
-    <label for="search" class="au-u-hidden-visually">Vul uw zoekterm in</label>
-    {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
-    <span class="au-c-input-wrapper au-c-input-wrapper--left">
-      <AuIcon @icon="search" />
-      <input
-        value={{this.search}}
-        id="search"
-        class="au-c-input"
-        placeholder="Vul uw zoekterm in"
-        {{on "input" (perform this.searchTask value="target.value")}}
-      />
-    </span>
-    <AuLink
-      @route="public-services.new"
-      @query={{hash concept=undefined}}
-      @icon="add"
-      @skin="button"
+<SidebarContainer @scroll={{true}}>
+  <:sidebar>
+    <div class="au-o-box au-o-box--small au-o-flow">
+      <div>
+        <AuLabel for="search">Zoeken</AuLabel>
+        {{! TODO: Replace this with `AuInput` once we get rid of 2-way-binding }}
+        <input
+          value={{this.search}}
+          id="search"
+          class="au-c-input au-c-input--block"
+          placeholder="Vul uw zoekterm in"
+          {{on "input" (perform this.searchTask value="target.value")}}
+        />
+      </div>
+
+      <AuFieldset as |f|>
+        <f.legend>
+          Toon enkel
+        </f.legend>
+        <f.content>
+          <AuRadioGroup
+            @selected={{this.isNewConcept}}
+            @onChange={{this.handleNewConceptFilterChange}}
+            as |Group|
+          >
+            <Group.Radio @value={{true}}>Nieuwe producten</Group.Radio>
+            <Group.Radio @value={{false}}>Gekende producten</Group.Radio>
+          </AuRadioGroup>
+        </f.content>
+      </AuFieldset>
+
+      <AuFieldset as |f|>
+        <f.legend>
+          Toon enkel
+        </f.legend>
+        <f.content>
+          <AuRadioGroup
+            @selected={{this.isInstantiated}}
+            @onChange={{this.handleInstantiatedConceptFilterChange}}
+            as |Group|
+          >
+            <Group.Radio @value={{true}}>Toegevoegde producten</Group.Radio>
+            <Group.Radio @value={{false}}>Niet toegevoegde producten</Group.Radio>
+          </AuRadioGroup>
+        </f.content>
+      </AuFieldset>
+
+      {{#if this.hasActiveFilters}}
+        <div class="au-u-text-right@medium">
+          <AuButton @icon="cross" @skin="naked" {{on "click" this.resetFilters}}>
+            Herstel alle filters
+          </AuButton>
+        </div>
+      {{/if}}
+    </div>
+  </:sidebar>
+  <:content>
+    <AuToolbar @border="bottom" @size="large" as |Group|>
+      <Group>
+        <AuHeading @skin="2" data-test-loket="public-services-page-title">
+          Product of dienst toevoegen
+        </AuHeading>
+      </Group>
+      <Group class="au-u-flex au-u-flex--vertical-center">
+        <AuLink
+          @route="public-services.new"
+          @query={{hash concept=undefined}}
+          @icon="add"
+          @skin="button"
+        >
+          Volledig nieuw product toevoegen
+        </AuLink>
+      </Group>
+    </AuToolbar>
+
+    <AuDataTable
+      @content={{this.publicServices}}
+      @sort={{this.sort}}
+      @page={{this.page}}
+      @size={{20}}
+      as |Table|
     >
-      Volledig nieuw product toevoegen
-    </AuLink>
-  </Group>
-</AuToolbar>
-
-<AuDataTable
-  @content={{this.publicServices}}
-  @sort={{this.sort}}
-  @page={{this.page}}
-  @size={{20}}
-  as |Table|
->
-  <Table.content as |Content|>
-    <Content.header>
-      <AuDataTableThSortable
-        @field="name"
-        @currentSorting={{this.sort}}
-        @label="Productnaam"
-      />
-      <th>IPDC Concept ID</th>
-      <AuDataTableThSortable
-        @field="type"
-        @currentSorting={{this.sort}}
-        @label="ProductType"
-      />
-      <th>
-        Doelgroepen
-      </th>
-      <th>
-        Bevoegde bestuursniveaus
-      </th>
-      <th>
-        Concept tags
-      </th>
-      <th class="u-table-cell-shrink-content">
-        <span class="au-u-hidden-visually">voeg product of dienst toe</span>
-      </th>
-    </Content.header>
-
-    {{#if this.showTableLoader}}
-      <tbody>
-        <tr>
-          <td colspan="100%" class="au-c-data-table__message">
-            <AuLoader @size="small" />
-          </td>
-        </tr>
-      </tbody>
-    {{else if this.hasErrored}}
-      <tr>
-        <td colspan="100%" class="au-c-data-table__message">
-          <AuAlert
-            @title="Er ging iets fout bij het opvragen van de producten en diensten."
-            @icon="info-circle"
-            @skin="error"
-            @size="small"
-            class="au-u-margin-bottom-none"
+      <Table.content as |Content|>
+        <Content.header>
+          <AuDataTableThSortable
+            @field="name"
+            @currentSorting={{this.sort}}
+            @label="Productnaam"
           />
-        </td>
-      </tr>
-    {{else if this.hasResults}}
-      <Content.body as |publicService|>
-        <td>
-          <AuLink
-            @route="public-services.concept-details"
-            @model={{publicService.id}}
-            @query={{hash preview=true}}
-          >
-            {{! template-lint-disable no-triple-curlies~}}
-            {{{publicService.nameNl}}}
-          </AuLink>
-        </td>
-        <td>{{publicService.productId}}</td>
-        <td>{{publicService.type.label}}</td>
-        <td>
-          {{#each publicService.targetAudiences as |targetAudience|}}
-            <AuPill>
-              {{targetAudience.label}}
-            </AuPill>
-          {{/each}}
-        </td>
-        <td>
-          {{#each publicService.competentAuthorityLevels as |level|}}
-            <AuPill>
-              {{level.label}}
-            </AuPill>
-          {{/each}}
-        </td>
-        <td>
-          {{#each publicService.conceptTags as |tag|}}
-            <AuPill>
-              {{tag.label}}
-            </AuPill>
-          {{/each}}
-        </td>
-        <td class="u-table-cell-fit-content">
-          <AuLink
-            @route="public-services.new"
-            @query={{hash concept=publicService.id}}
-            @icon="add"
-            @skin="button-secondary"
-          >
-            Voeg toe
-          </AuLink>
-        </td>
-      </Content.body>
-    {{else}}
-      <tr>
-        <td colspan="100%" class="au-c-data-table__message">
-          <AuAlert
-            @title="Er werden geen producten of diensten gevonden"
-            @icon="info-circle"
-            @skin="info"
-            @size="small"
-            class="au-u-margin-bottom-none"
+          <th>IPDC Concept ID</th>
+          <AuDataTableThSortable
+            @field="type"
+            @currentSorting={{this.sort}}
+            @label="ProductType"
           />
-        </td>
-      </tr>
-    {{/if}}
-  </Table.content>
-</AuDataTable>
+          <th>
+            Doelgroepen
+          </th>
+          <th>
+            Bevoegde bestuursniveaus
+          </th>
+          <th>
+            Concept tags
+          </th>
+          <th class="u-table-cell-shrink-content">
+            <span class="au-u-hidden-visually">voeg product of dienst toe</span>
+          </th>
+        </Content.header>
+
+        {{#if this.showTableLoader}}
+          <tbody>
+            <tr>
+              <td colspan="100%" class="au-c-data-table__message">
+                <AuLoader @size="small" />
+              </td>
+            </tr>
+          </tbody>
+        {{else if this.hasErrored}}
+          <tr>
+            <td colspan="100%" class="au-c-data-table__message">
+              <AuAlert
+                @title="Er ging iets fout bij het opvragen van de producten en diensten."
+                @icon="info-circle"
+                @skin="error"
+                @size="small"
+                class="au-u-margin-bottom-none"
+              />
+            </td>
+          </tr>
+        {{else if this.hasResults}}
+          <Content.body as |publicService|>
+            <td>
+              <AuLink
+                @route="public-services.concept-details"
+                @model={{publicService.id}}
+                @query={{hash preview=true}}
+              >
+                {{! template-lint-disable no-triple-curlies~}}
+                {{{publicService.nameNl}}}
+              </AuLink>
+              {{#if publicService.displayConfiguration.isNewConcept}}
+                <AuPill @skin="success">Nieuw</AuPill>
+              {{/if}}
+              {{#if publicService.displayConfiguration.isInstantiated}}
+                <AuPill @skin="border">Toegevoegd</AuPill>
+              {{/if}}
+            </td>
+            <td>{{publicService.productId}}</td>
+            <td>{{publicService.type.label}}</td>
+            <td>
+              {{#each publicService.targetAudiences as |targetAudience|}}
+                <AuPill>
+                  {{targetAudience.label}}
+                </AuPill>
+              {{/each}}
+            </td>
+            <td>
+              {{#each publicService.competentAuthorityLevels as |level|}}
+                <AuPill>
+                  {{level.label}}
+                </AuPill>
+              {{/each}}
+            </td>
+            <td>
+              {{#each publicService.conceptTags as |tag|}}
+                <AuPill>
+                  {{tag.label}}
+                </AuPill>
+              {{/each}}
+            </td>
+            <td class="u-table-cell-fit-content">
+              <AuLink
+                @route="public-services.new"
+                @query={{hash concept=publicService.id}}
+                @icon="add"
+                @skin="button-secondary"
+              >
+                Voeg toe
+              </AuLink>
+            </td>
+          </Content.body>
+        {{else}}
+          <tr>
+            <td colspan="100%" class="au-c-data-table__message">
+              <AuAlert
+                @title="Er werden geen producten of diensten gevonden"
+                @icon="info-circle"
+                @skin="info"
+                @size="small"
+                class="au-u-margin-bottom-none"
+              />
+            </td>
+          </tr>
+        {{/if}}
+      </Table.content>
+    </AuDataTable>
+  </:content>
+</SidebarContainer>

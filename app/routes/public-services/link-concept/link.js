@@ -14,12 +14,24 @@ export default class PublicServicesLinkConceptLinkRoute extends Route {
   async linkPublicServiceToConcept(conceptId) {
     const concept = await this.store.findRecord(
       'conceptual-public-service',
-      conceptId
+      conceptId,
+      { include: 'display-configuration' }
     );
     const { publicService } = this.modelFor('public-services.link-concept');
 
     publicService.concept = concept;
     await publicService.save();
+
+    const { displayConfiguration } = concept;
+
+    if (
+      displayConfiguration.isNewConcept ||
+      !displayConfiguration.isInstantiated
+    ) {
+      displayConfiguration.isInstantiated = true;
+      displayConfiguration.isNewConcept = false;
+      await displayConfiguration.save();
+    }
 
     this.router.replaceWith('public-services.details', publicService.id);
   }

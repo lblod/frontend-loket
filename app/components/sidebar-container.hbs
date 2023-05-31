@@ -1,0 +1,14 @@
+<div class="au-c-sidebar-container" ...attributes>
+  <div class="au-c-sidebar-container__sidebar">
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+        {{yield to="sidebar"}}
+      </div>
+    </div>
+  </div>
+  <div class="au-c-sidebar-container__content">
+    <div class="au-c-body-container {{if @scroll "au-c-body-container--scroll"}}">
+      {{yield to="content"}}
+    </div>
+  </div>
+</div>
