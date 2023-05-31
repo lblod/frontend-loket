@@ -27,7 +27,7 @@ export default class SubsidyMeasureOfferSeriesModel extends Model {
    * - when the subsidyProceduralStep of the firstApplicationStep is of type "Externally Processed"
    * @returns boolean
    */
-  isExternallyProcessed() {
+  get isExternallyProcessed() {
     const activeApplicationFlow = this.belongsTo(
       'activeApplicationFlow'
     ).value();
