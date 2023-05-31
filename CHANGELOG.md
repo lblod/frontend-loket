@@ -1,3 +1,15 @@
+## v0.80.0 (2023-05-17)
+
+### General
+#### :house: Internal
+* [#308](https://github.com/lblod/frontend-loket/pull/308) Remove the -prod image builds ([@Windvis](https://github.com/Windvis))
+* [#307](https://github.com/lblod/frontend-loket/pull/307) Remove feature flags for shipped features ([@Windvis](https://github.com/Windvis))
+
+### Worshipservices
+#### :rocket: Enhancement
+* [#309](https://github.com/lblod/frontend-loket/pull/309) set default status for new worship mandatees to "effectief" ([@aatauil](https://github.com/aatauil))
+
+
 ## v0.79.3 (2023-05-04)
 
 ### LPDC
