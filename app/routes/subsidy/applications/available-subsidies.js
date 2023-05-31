@@ -41,8 +41,15 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
         'filter[active-application-flow][first-application-step][subsidy-procedural-step][period]'
       ] = {
         ':lte:begin': today.toISOString(),
-        ':gte:end': today.toISOString(),
       };
+
+      query[
+        'filter[:or:][active-application-flow][first-application-step][subsidy-procedural-step][period][:gte:end]'
+      ] = today.toISOString();
+
+      query[
+        'filter[:or:][active-application-flow][first-application-step][:has:external-process-link]'
+      ] = true;
 
       query[
         'filter[subsidy-measure-offer][criteria][requirement-groups][criterion-requirements][:exact:is-satisfiable-by]'
