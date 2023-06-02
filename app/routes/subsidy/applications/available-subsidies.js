@@ -38,17 +38,11 @@ export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.ex
       const today = new Date();
 
       query[
-        'filter[active-application-flow][first-application-step][subsidy-procedural-step][period][:lte:begin]'
-      ] = today.toISOString();
-
-      query[
-        'filter[:or:][active-application-flow][first-application-step][subsidy-procedural-step][period][:gte:end]'
-      ] = today.toISOString();
-
-      query[
-        'filter[:or:][active-application-flow][first-application-step][subsidy-procedural-step][type]'
-      ] =
-        'http://lblod.data.gift/concepts/3ded9eab-ff5b-4a20-a095-0825de486f42';
+        'filter[active-application-flow][first-application-step][subsidy-procedural-step][period]'
+      ] = {
+        ':lte:begin': today.toISOString(),
+        ':gte:end': today.toISOString(),
+      };
 
       query[
         'filter[subsidy-measure-offer][criteria][requirement-groups][criterion-requirements][:exact:is-satisfiable-by]'
