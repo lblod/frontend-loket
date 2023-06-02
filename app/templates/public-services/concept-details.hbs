@@ -54,6 +54,16 @@
   </Group>
 </AuToolbar>
 
+{{#if this.isArchived}}
+  <AuAlert
+    @skin="warning"
+    @icon="circle-info"
+    @title="Dit concept werd gearchiveerd"
+    @size="small"
+    class="au-u-margin-left au-u-margin-right au-u-margin-bottom-none"
+  />
+{{/if}}
+
 {{#if @model.concept.displayConfiguration.isNewConcept}}
   <AuAlert
     @skin="success"

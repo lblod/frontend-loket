@@ -40,6 +40,7 @@ export default class PublicServicesAddRoute extends Route {
     isInstantiated,
   }) {
     let query = {
+      'filter[:has-no:status]': 'yes',
       'page[number]': page,
       include: 'display-configuration',
     };

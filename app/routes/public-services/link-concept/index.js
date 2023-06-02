@@ -36,6 +36,7 @@ export default class PublicServicesLinkConceptIndexRoute extends Route {
   @restartableTask
   *loadConcepts({ search, page, sort, isNewConcept, isInstantiated }) {
     let query = {
+      'filter[:has-no:status]': 'yes',
       'page[number]': page,
       include: 'display-configuration',
     };

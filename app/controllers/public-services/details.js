@@ -14,10 +14,17 @@ export default class PublicServicesDetailsController extends Controller {
   // We use a separate flag, otherwise the message would be hidden before the save was actually completed
   @tracked reviewStatus;
   @tracked shouldShowUnlinkWarning = false;
-  isConceptUpdated = isConceptUpdated;
 
   get showReviewRequiredMessage() {
     return Boolean(this.reviewStatus);
+  }
+
+  get isConceptUpdatedStatus() {
+    if (!this.showReviewRequiredMessage) {
+      return false;
+    }
+
+    return isConceptUpdated(this.reviewStatus);
   }
 
   get canLinkConcept() {
