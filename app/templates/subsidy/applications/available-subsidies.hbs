@@ -67,7 +67,9 @@
       <td>
         {{series.label}}
         <AuHelpText @skin="secondary" class="au-u-margin-top-none">
-          {{#if (or series.period.begin series.period.end)}}
+          {{#if series.isExternallyProcessed}}
+            Aanvragen doorlopend mogelijk
+          {{else if (or series.period.begin series.period.end)}}
             {{if
               series.period.begin
               (moment-format series.period.begin "DD MMMM YYYY")
@@ -76,8 +78,6 @@
             &#8211;
             {{#if (and series.period.end (not series.isExternallyProcessed))}}
               {{moment-format series.period.end "DD MMMM YYYY"}}
-            {{else if series.isExternallyProcessed}}
-              Aanvragen doorlopend mogelijk
             {{/if}}
           {{else}}
             N.V.T
