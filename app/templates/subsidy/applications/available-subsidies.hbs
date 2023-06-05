@@ -74,11 +74,11 @@
               "N.V.T"
             }}
             &#8211;
-            {{if
-              series.period.end
-              (moment-format series.period.end "DD MMMM YYYY")
-              "N.V.T"
-            }}
+            {{#if (and series.period.end (not series.isExternallyProcessed))}}
+              {{moment-format series.period.end "DD MMMM YYYY"}}
+            {{else if series.isExternallyProcessed}}
+              Aanvragen doorlopend mogelijk
+            {{/if}}
           {{else}}
             N.V.T
           {{/if}}
@@ -103,7 +103,13 @@
           Externe link, klik rechter muisknop om te openen
         </AuHelpText>
       </td>
-      <td>{{moment-format series.deadline.end "DD MMMM YYYY"}}</td>
+      <td>
+        {{#if (not series.isExternallyProcessed)}}
+          {{moment-format series.deadline.end "DD MMMM YYYY"}}
+        {{else}}
+          Aanvragen doorlopend mogelijk
+        {{/if}}
+      </td>
       <td>
         {{#if series.isExternallyProcessed}}
           <AuLinkExternal
