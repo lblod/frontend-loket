@@ -104,10 +104,10 @@
         </AuHelpText>
       </td>
       <td>
-        {{#if (not series.isExternallyProcessed)}}
-          {{moment-format series.deadline.end "DD MMMM YYYY"}}
-        {{else}}
+        {{#if series.isExternallyProcessed}}
           Aanvragen doorlopend mogelijk
+        {{else}}
+          {{moment-format series.deadline.end "DD MMMM YYYY"}}
         {{/if}}
       </td>
       <td>
