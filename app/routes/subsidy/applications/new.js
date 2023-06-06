@@ -29,6 +29,10 @@ export default class SubsidyApplicationsNewRoute extends Route {
       this.router.transitionTo('subsidy.applications.available-subsidies');
     }
 
+    if (transition.data.series.isExternallyProcessed) {
+      this.router.transitionTo('subsidy.applications.available-subsidies');
+    }
+
     const statuses = await this.store.query(
       'subsidy-measure-consumption-status',
       {

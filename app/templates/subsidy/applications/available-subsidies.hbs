@@ -5,14 +5,25 @@
     <div>
       <AuHeading @skin="2">Beschikbare subsidiemaatregelen</AuHeading>
       <p>
-        Kies een van de subsidiemaatregelen om een nieuwe aanvraag te starten. Bekijk <a href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies" target="_blank"
-                  rel="noopener noreferrer">inhoudelijke informatie over de subsidies</a> die je hier kan aanvragen.
+        Kies een van de subsidiemaatregelen om een nieuwe aanvraag te starten.
+        Bekijk
+        <a
+          href="https://lokaalbestuur.vlaanderen.be/loket-lokaal-bestuur-module-subsidies"
+          target="_blank"
+          rel="noopener noreferrer"
+        >inhoudelijke informatie over de subsidies</a>
+        die je hier kan aanvragen.
       </p>
     </div>
   </Group>
   <Group>
-    <LinkTo @route="subsidy.applications" class="au-c-button au-c-button--secondary" type="button">
-      <AuIcon @icon="arrow-left" @alignment="left"/> Terug naar lopende subsidiedossiers
+    <LinkTo
+      @route="subsidy.applications"
+      class="au-c-button au-c-button--secondary"
+      type="button"
+    >
+      <AuIcon @icon="arrow-left" @alignment="left" />
+      Terug naar lopende subsidiedossiers
     </LinkTo>
   </Group>
 </AuToolbar>
@@ -28,10 +39,21 @@
 >
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="subsidyMeasureOffer.title" @currentSorting={{this.sort}} @label="Subsidiemaatregel"/>
-      <AuDataTableThSortable @field="title" @currentSorting={{this.sort}} @label="Periode"/>
-      <AuDataTableThSortable @field="subsidyMeasureOffer.externalInformation" @currentSorting={{this.sort}}
-                             @label="Informatie subsidiemaatregel"/>
+      <AuDataTableThSortable
+        @field="subsidyMeasureOffer.title"
+        @currentSorting={{this.sort}}
+        @label="Subsidiemaatregel"
+      />
+      <AuDataTableThSortable
+        @field="title"
+        @currentSorting={{this.sort}}
+        @label="Periode"
+      />
+      <AuDataTableThSortable
+        @field="subsidyMeasureOffer.externalInformation"
+        @currentSorting={{this.sort}}
+        @label="Informatie subsidiemaatregel"
+      />
       <AuDataTableThSortable
         @field="activeApplicationFlow.firstApplicationStep.subsidyProceduralStep.period.end"
         @currentSorting={{this.sort}}
@@ -45,32 +67,73 @@
       <td>
         {{series.label}}
         <AuHelpText @skin="secondary" class="au-u-margin-top-none">
-            {{#if (or series.period.begin series.period.end)}}
-              {{moment-format series.period.begin "DD MMMM YYYY"}}
-              &#8211;
+          {{#if series.isExternallyProcessed}}
+            Aanvragen doorlopend mogelijk
+          {{else if (or series.period.begin series.period.end)}}
+            {{if
+              series.period.begin
+              (moment-format series.period.begin "DD MMMM YYYY")
+              "N.V.T"
+            }}
+            &#8211;
+            {{#if (and series.period.end (not series.isExternallyProcessed))}}
               {{moment-format series.period.end "DD MMMM YYYY"}}
-            {{else}}
-              N.V.T
-           {{/if}}
+            {{/if}}
+          {{else}}
+            N.V.T
+          {{/if}}
         </AuHelpText>
       </td>
       <td>
-        <a href={{series.subsidyMeasureOffer.externalInformation}}
-           target="_blank"
-           rel="noopener noreferrer"
-           class="au-c-link">
+        <a
+          href={{series.subsidyMeasureOffer.externalInformation}}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="au-c-link"
+        >
           {{series.subsidyMeasureOffer.externalInformation}}
         </a>
         <AuHelpText @skin="secondary" class="au-u-margin-top-none">
-          <AuIcon @icon="export" @alignment="left" @size="default" @ariaHidden={{true}} />
+          <AuIcon
+            @icon="export"
+            @alignment="left"
+            @size="default"
+            @ariaHidden={{true}}
+          />
           Externe link, klik rechter muisknop om te openen
         </AuHelpText>
       </td>
-      <td>{{moment-format series.deadline.end "DD MMMM YYYY"}}</td>
       <td>
-        <LinkTo @route="subsidy.applications.new" @query={{hash seriesId=series.id}} class="au-c-link">
-          Start aanvraag
-        </LinkTo>
+        {{#if series.isExternallyProcessed}}
+          Aanvragen doorlopend mogelijk
+        {{else}}
+          {{moment-format series.deadline.end "DD MMMM YYYY"}}
+        {{/if}}
+      </td>
+      <td>
+        {{#if series.isExternallyProcessed}}
+          <AuLinkExternal
+            href={{series.activeApplicationFlow.firstApplicationStep.externalProcessLink}}
+          >
+            Start aanvraag
+          </AuLinkExternal>
+          <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+            <AuIcon
+              @icon="export"
+              @alignment="left"
+              @size="default"
+              @ariaHidden={{true}}
+            />Externe afhandeling
+          </AuHelpText>
+        {{else}}
+          <LinkTo
+            @route="subsidy.applications.new"
+            @query={{hash seriesId=series.id}}
+            class="au-c-link"
+          >
+            Start aanvraag
+          </LinkTo>
+        {{/if}}
       </td>
     </c.body>
   </t.content>
