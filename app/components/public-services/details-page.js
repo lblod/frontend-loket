@@ -51,7 +51,10 @@ export default class PublicServicesDetailsPageComponent extends Component {
     super(...arguments);
     this.loadForm.perform();
     this.sourceNode = new NamedNode(this.args.publicService.uri);
-    this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
+
+    if (!this.args.readOnly) {
+      this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
+    }
   }
 
   @task
@@ -74,7 +77,9 @@ export default class PublicServicesDetailsPageComponent extends Component {
       FORM_GRAPHS.formGraph
     );
 
-    formStore.registerObserver(this.updateFormDirtyState, this.id);
+    if (!this.args.readOnly) {
+      formStore.registerObserver(this.updateFormDirtyState, this.id);
+    }
 
     this.form = form;
     this.formStore = formStore;
@@ -263,8 +268,10 @@ export default class PublicServicesDetailsPageComponent extends Component {
   willDestroy() {
     super.willDestroy(...arguments);
 
-    this.formStore?.deregisterObserver(this.id);
-    this.router.off('routeWillChange', this, this.showUnsavedChangesModal);
+    if (!this.args.readOnly) {
+      this.formStore?.deregisterObserver(this.id);
+      this.router.off('routeWillChange', this, this.showUnsavedChangesModal);
+    }
   }
 }
 
