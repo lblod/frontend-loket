@@ -2,7 +2,10 @@
 
 <PublicServices::DetailsPage
   @publicService={{@model.publicService}}
-  @readOnly={{@model.readOnly}}
+  {{! We use `this.model` here since the value is used in the willDestroy method, and the `@model` version is undefined at that point.
+      More information: https://github.com/emberjs/ember.js/issues/18987
+  }}
+  @readOnly={{this.model.readOnly}}
   @formId="cd0b5eba-33c1-45d9-aed9-75194c3728d3"
   @tabName="au-c-rdf-form--content"
 />
