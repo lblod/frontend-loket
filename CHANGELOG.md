@@ -1,3 +1,18 @@
+## v0.82.0 (2023-06-08)
+
+### General
+#### :rocket: Enhancement
+* [#314](https://github.com/lblod/frontend-loket/pull/314) Update the submit button text in the Toezicht module ([@Windvis](https://github.com/Windvis))
+* [#312](https://github.com/lblod/frontend-loket/pull/312) Replace links to the old website with the new equivalents ([@Windvis](https://github.com/Windvis))
+
+### LPDC
+#### :bug: Bug Fix
+* [#313](https://github.com/lblod/frontend-loket/pull/313) Don't show the unsaved changes modal for read-only forms ([@Windvis](https://github.com/Windvis))
+
+### Subsidies 
+#### :rocket: Enhancement
+* [#310](https://github.com/lblod/frontend-loket/pull/310) Add support for handling external subsidies ([@Riadabd](https://github.com/Riadabd))
+
 ## v0.81.0 (2023-05-31)
 
 ### LPDC
