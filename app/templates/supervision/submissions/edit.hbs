@@ -82,7 +82,7 @@
       <AuButton data-test-field-uri="submit-form-button"
                 @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.submit.isRunning "true"}}
-                {{on "click" (perform this.submit)}}>Verzend naar Vlaamse overheid</AuButton>
+                {{on "click" (perform this.submit)}}>Verzenden</AuButton>
       <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
                 @loading={{if this.save.isRunning "true"}}
                 @skin={{"secondary"}}
