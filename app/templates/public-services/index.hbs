@@ -34,10 +34,11 @@
 <AuToolbar @border="bottom" @size="medium" as |Group|>
   <Group class="au-u-flex au-u-flex--vertical-center">
     <AuToggleSwitch
-      @label="Herziening nodig"
       @checked={{this.isReviewRequiredFilterEnabled}}
       @onChange={{this.toggleReviewRequiredFilter}}
-    />
+    >
+      Herziening nodig
+    </AuToggleSwitch>
     <AuHelpText @skin="tertiary" class="au-u-margin-top-none">
       Toon enkel producten waarvan het concept aangepast of verwijderd werd.
     </AuHelpText>
