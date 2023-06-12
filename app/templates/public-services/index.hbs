@@ -121,18 +121,21 @@
         </td>
         <td>{{publicService.type.label}}</td>
         <td>
-          {{#each publicService.targetAudiences as |tag|}}
+          <PillList @list={{publicService.targetAudiences}} as |targetAudience|>
             <AuPill>
-              {{tag.label}}
+              {{targetAudience.label}}
             </AuPill>
-          {{/each}}
+          </PillList>
         </td>
         <td>
-          {{#each publicService.executingAuthorityLevels as |tag|}}
+          <PillList
+            @list={{publicService.executingAuthorityLevels}}
+            as |executingAuthorityLevel|
+          >
             <AuPill>
-              {{tag.label}}
+              {{executingAuthorityLevel.label}}
             </AuPill>
-          {{/each}}
+          </PillList>
         </td>
         <td>
           {{moment-format publicService.modified "DD-MM-YYYY - HH:mm"}}

@@ -169,25 +169,25 @@
             <td>{{concept.productId}}</td>
             <td>{{concept.type.label}}</td>
             <td>
-              {{#each concept.targetAudiences as |targetAudience|}}
+              <PillList @list={{concept.targetAudiences}} as |targetAudience|>
                 <AuPill>
                   {{targetAudience.label}}
                 </AuPill>
-              {{/each}}
+              </PillList>
             </td>
             <td>
-              {{#each concept.competentAuthorityLevels as |level|}}
+              <PillList @list={{concept.competentAuthorityLevels}} as |level|>
                 <AuPill>
                   {{level.label}}
                 </AuPill>
-              {{/each}}
+              </PillList>
             </td>
             <td>
-              {{#each concept.conceptTags as |tag|}}
+              <PillList @list={{concept.conceptTags}} as |tag|>
                 <AuPill>
                   {{tag.label}}
                 </AuPill>
-              {{/each}}
+              </PillList>
             </td>
             <td class="u-table-cell-fit-content">
               <AuLink
