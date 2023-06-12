@@ -1,0 +1,7 @@
+{{#if @list}}
+  <AuList @direction="horizontal" class="au-u-flex--wrap" as |Item|>
+    {{#each @list as |item|}}
+      <Item>{{yield item}}</Item>
+    {{/each}}
+  </AuList>
+{{/if}}
