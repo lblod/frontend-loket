@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 import { tracked } from '@glimmer/tracking';
-import { Schema } from '@lblod/ember-rdfa-editor';
+import { ProseParser, Schema, Selection } from '@lblod/ember-rdfa-editor';
 import {
   block_rdfa,
   doc,
@@ -97,11 +97,7 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
   @action
   handleRdfaEditorInit(editorController) {
     this.editorController = editorController;
-
-    // We only set the value if it contains actual content. This prevents the browser from focusing the editor field due to the content update.
-    if (this.value) {
-      editorController.setHtmlContent(this.value);
-    }
+    this.setInitialValue();
   }
 
   @action
@@ -131,6 +127,30 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
     if (this.value == null) {
       // The editor returns an empty string if it contains no content, so we default to that to make the value comparison check works as expected.
       this.value = '';
+    }
+  }
+
+  setInitialValue() {
+    if (this.value) {
+      // We replicate the behavior of the controller.setHtmlContent method without focussing the field.
+      // Since we use the `focusout` event focusing the field would trigger the `updateValue` action,
+      // which in turn causes the "unsaved changes" modal to appear when it shouldn't.
+      // Source: https://github.com/lblod/ember-rdfa-editor/blob/4dc3fdf14ac3e92567db22811bb76b2079c2280b/addon/core/say-controller.ts#L42-L58
+      const { editorController } = this;
+      const tr = editorController.mainEditorState.tr;
+      const domParser = new DOMParser();
+      tr.replaceWith(
+        0,
+        tr.doc.nodeSize - 2,
+        ProseParser.fromSchema(this.schema).parse(
+          domParser.parseFromString(this.value, 'text/html'),
+          {
+            preserveWhitespace: true,
+          }
+        )
+      );
+      tr.setSelection(Selection.atEnd(tr.doc));
+      editorController.editor.mainView.dispatch(tr);
     }
   }
 }
