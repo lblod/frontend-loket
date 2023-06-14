@@ -1,3 +1,18 @@
+## v0.83.0 (2023-06-14)
+
+### General
+#### :rocket: Enhancement
+* [#239](https://github.com/lblod/frontend-loket/pull/239) Integrate the Sentry client ([@Windvis](https://github.com/Windvis))
+
+### LPDC
+#### :rocket: Enhancement
+* [#311](https://github.com/lblod/frontend-loket/pull/311) Add support for concept archiving ([@Windvis](https://github.com/Windvis))
+
+#### :bug: Bug Fix
+* [#317](https://github.com/lblod/frontend-loket/pull/317) Disable the submit and save buttons if the form isn't loaded ([@Windvis](https://github.com/Windvis))
+* [#316](https://github.com/lblod/frontend-loket/pull/316) Don't focus the rich-text editor window when setting the initial value ([@Windvis](https://github.com/Windvis))
+* [#315](https://github.com/lblod/frontend-loket/pull/315) Fix the spacing between pills in table rows ([@Windvis](https://github.com/Windvis))
+
 ## v0.82.0 (2023-06-08)
 
 ### General
