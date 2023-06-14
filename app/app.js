@@ -4,6 +4,9 @@ import loadInitializers from 'ember-load-initializers';
 import browserUpdate from 'browser-update';
 import config from './config/environment';
 import './config/custom-inflector-rules';
+import { setupSentry } from 'frontend-loket/utils/sentry';
+
+setupSentry();
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;
