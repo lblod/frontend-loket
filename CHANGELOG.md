@@ -1,3 +1,9 @@
+## v0.83.1 (2023-06-14)
+
+### LPDC
+#### :bug: Bug Fix
+* [#318](https://github.com/lblod/frontend-loket/pull/318) Fix a modal issue in Chromium-based browsers when `prefers-reduced-motion` is set ([@Windvis](https://github.com/Windvis))
+
 ## v0.83.0 (2023-06-14)
 
 ### General
