@@ -49,7 +49,7 @@
         </AuButton>
       {{else}}
         <AuButton
-          @disabled={{this.publicServiceAction.isRunning}}
+          @disabled={{not this.canSubmit}}
           {{on "click" this.requestSubmitConfirmation}}
         >
           Verzend naar Vlaamse overheid
@@ -57,10 +57,7 @@
 
         <AuButton
           @skin="secondary"
-          @disabled={{or
-            (not this.hasUnsavedChanges)
-            this.publicServiceAction.isRunning
-          }}
+          @disabled={{not this.canSave}}
           @loading={{this.handleFormSubmit.isRunning}}
           form={{this.id}}
           type="submit"

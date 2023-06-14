@@ -41,9 +41,9 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @tracked hasUnsavedChanges = false;
   @tracked forceShowErrors = false;
+  @tracked form;
 
   id = guidFor(this);
-  form;
   formStore;
   graphs = FORM_GRAPHS;
 
@@ -55,6 +55,22 @@ export default class PublicServicesDetailsPageComponent extends Component {
     if (!this.args.readOnly) {
       this.router.on('routeWillChange', this, this.showUnsavedChangesModal);
     }
+  }
+
+  get isInitialized() {
+    return this.loadForm.last.isSuccessful;
+  }
+
+  get canSubmit() {
+    return this.isInitialized && this.publicServiceAction.isIdle;
+  }
+
+  get canSave() {
+    return (
+      this.isInitialized &&
+      this.hasUnsavedChanges &&
+      this.publicServiceAction.isIdle
+    );
   }
 
   @task
@@ -156,6 +172,10 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @dropTask
   *saveSemanticForm() {
+    if (!this.canSave) {
+      return;
+    }
+
     let { publicService, formId } = this.args;
     let serializedData = this.formStore.serializeDataWithAddAndDelGraph(
       this.graphs.sourceGraph,
@@ -173,6 +193,10 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @action
   requestSubmitConfirmation() {
+    if (!this.canSubmit) {
+      return;
+    }
+
     let isValidForm = validateForm(this.form, {
       ...this.graphs,
       sourceNode: this.sourceNode,
