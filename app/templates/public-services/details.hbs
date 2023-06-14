@@ -148,24 +148,25 @@
   {{#if (or this.showReviewRequiredMessage this.markAsReviewed.isRunning)}}
     <Group>
       <AuAlert
-        @title="Herziening nodig"
-        @skin="warning"
+        @title={{if this.isConceptUpdated "Herziening nodig" "Concept gearchiveerd"}}
+        @skin={{if this.isConceptUpdated "warning" "error"}}
         @icon="alert-triangle"
         @size="small"
         class="au-u-margin-bottom-none"
       >
         <p>
-          {{#if (this.isConceptUpdated @model.publicService.reviewStatus)}}
+          {{#if this.isConceptUpdated}}
             Het concept waarop dit product is gebaseerd, werd aangepast. Gelieve
             na te kijken of je deze versie ook wil aanpassen.
           {{else}}
-            Het concept waarop dit product is gebaseerd, werd verwijderd.
-            Gelieve na te kijken of je deze versie ook wil verwijderen.
+            Het concept waarop dit product is gebaseerd, werd gearchiveerd.
+            Gelieve na te kijken of je deze versie wil behouden, aanpassen of
+            verwijderen.
           {{/if}}
         </p>
         <div class="au-u-margin-top-small">
           <AuButtonGroup>
-            {{#if (this.isConceptUpdated @model.publicService.reviewStatus)}}
+            {{#if @model.publicService.concept}}
               <AuLink
                 @route="public-services.concept-details"
                 @model={{@model.publicService.concept.id}}
