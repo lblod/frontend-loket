@@ -34,9 +34,11 @@ module.exports = function (environment) {
       authRedirectUrl: '{{ACMIDM_AUTH_REDIRECT_URL}}',
       switchRedirectUrl: '{{ACMIDM_SWITCH_REDIRECT_URL}}',
     },
-    // features: {
-    //   'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
-    // },
+    features: {
+      // 'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
+      'lpdc-external': '{{FEATURE_LPDC_EXTERNAL}}',
+    },
+    lpdcUrl: '{{LPDC_URL}}',
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
     'ember-plausible': {

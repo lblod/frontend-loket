@@ -75,10 +75,21 @@
     {{/if}}
     {{#if this.currentSession.canAccessPublicServices}}
       <li class="au-c-list-navigation__item">
-        <AuNavigationLink @route="public-services">
-          <AuIcon @icon="unordered-list" @alignment="left" />
-          Producten- en dienstencatalogus
-        </AuNavigationLink>
+        {{#if (is-feature-enabled "lpdc-external")}}
+          <AuLinkExternal
+            @icon="link-external"
+            @iconAlignment="left"
+            class="au-c-list-navigation__link"
+            href={{(lpdc-url)}}
+          >
+            Producten- en dienstencatalogus
+          </AuLinkExternal>
+        {{else}}
+          <AuNavigationLink @route="public-services">
+            <AuIcon @icon="unordered-list" @alignment="left" />
+            Producten- en dienstencatalogus
+          </AuNavigationLink>
+        {{/if}}
       </li>
     {{/if}}
     {{#if this.currentSession.canAccessWorshipDecisionsDb}}

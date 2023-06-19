@@ -2,6 +2,7 @@ import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
+import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
 
 const MODULE = {
@@ -130,6 +131,13 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessPublicServices() {
+    if (isFeatureEnabled('lpdc-external')) {
+      return (
+        this.canAccess(MODULE.PUBLIC_SERVICES) &&
+        !config.lpdcUrl.startsWith('{{')
+      );
+    }
+
     return this.canAccess(MODULE.PUBLIC_SERVICES);
   }
 }

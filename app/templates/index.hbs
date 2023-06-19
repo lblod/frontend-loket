@@ -155,7 +155,16 @@
           <:title>Producten- en dienstencatalogus</:title>
           <:description>Beheer uw producten en diensten.</:description>
           <:link>
-            <AuLink @route="public-services" @skin="button">Ga naar de producten- en dienstencatalogus</AuLink>
+            {{#if (is-feature-enabled "lpdc-external")}}
+              <AuLinkExternal
+                @skin="button"
+                href={{(lpdc-url)}}
+              >
+                Ga naar de producten- en dienstencatalogus (externe link)
+              </AuLinkExternal>
+            {{else}}
+              <AuLink @route="public-services" @skin="button">Ga naar de producten- en dienstencatalogus</AuLink>
+            {{/if}}
           </:link>
         </LoketModuleCard>
         </li>
