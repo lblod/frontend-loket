@@ -172,10 +172,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @dropTask
   *saveSemanticForm() {
-    if (!this.canSave) {
-      return;
-    }
-
     let { publicService, formId } = this.args;
     let serializedData = this.formStore.serializeDataWithAddAndDelGraph(
       this.graphs.sourceGraph,
@@ -193,10 +189,6 @@ export default class PublicServicesDetailsPageComponent extends Component {
 
   @action
   requestSubmitConfirmation() {
-    if (!this.canSubmit) {
-      return;
-    }
-
     let isValidForm = validateForm(this.form, {
       ...this.graphs,
       sourceNode: this.sourceNode,
