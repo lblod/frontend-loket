@@ -1,3 +1,16 @@
+## v0.84.0 (2023-06-22)
+
+### General
+#### :house: Internal
+* [#321](https://github.com/lblod/frontend-loket/pull/321) Update to ember-submission-form-fields v2.11.0 ([@Poltergeistz](https://github.com/Poltergeistz))
+
+### LPDC
+#### :rocket: Enhancement
+* [#319](https://github.com/lblod/frontend-loket/pull/319) Add a `lpdc-external` feature flag ([@Windvis](https://github.com/Windvis))
+
+#### :bug: Bug Fix
+* [#320](https://github.com/lblod/frontend-loket/pull/320) Fix the save and submit buttons ([@Windvis](https://github.com/Windvis))
+
 ## v0.83.1 (2023-06-14)
 
 ### LPDC
