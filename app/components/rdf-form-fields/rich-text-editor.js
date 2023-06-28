@@ -111,7 +111,7 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
       const hasTextContent = Boolean(
         this.editorController.mainEditorState.doc.textContent
       );
-      const editorValue = hasTextContent ? htmlContent : '';
+      const editorValue = hasTextContent ? stripNbspEntities(htmlContent) : '';
 
       // Only trigger an update if the value actually changed.
       // This prevents that the form observer is triggered even though no editor content was changed.
@@ -153,4 +153,11 @@ export default class RdfFormFieldsRichTextEditorComponent extends SimpleInputFie
       editorController.editor.mainView.dispatch(tr);
     }
   }
+}
+
+// https://discuss.prosemirror.net/t/non-breaking-spaces-being-added-to-pasted-html/3911/4
+// Kaleidos ran into the same issue:
+// https://github.com/kanselarij-vlaanderen/frontend-kaleidos/blob/6489a2dec8d58f2cc981f0c45267821169061cc7/app/components/news-item/edit-panel.js#L84-L100
+function stripNbspEntities(htmlContent) {
+  return htmlContent.replaceAll(/&nbsp;/gm, ' ');
 }
