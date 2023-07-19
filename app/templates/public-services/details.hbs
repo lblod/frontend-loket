@@ -148,14 +148,14 @@
   {{#if (or this.showReviewRequiredMessage this.markAsReviewed.isRunning)}}
     <Group>
       <AuAlert
-        @title={{if this.isConceptUpdated "Herziening nodig" "Concept gearchiveerd"}}
-        @skin={{if this.isConceptUpdated "warning" "error"}}
+        @title={{if this.isConceptUpdatedStatus "Herziening nodig" "Concept gearchiveerd"}}
+        @skin={{if this.isConceptUpdatedStatus "warning" "error"}}
         @icon="alert-triangle"
         @size="small"
         class="au-u-margin-bottom-none"
       >
         <p>
-          {{#if this.isConceptUpdated}}
+          {{#if this.isConceptUpdatedStatus}}
             Het concept waarop dit product is gebaseerd, werd aangepast. Gelieve
             na te kijken of je deze versie ook wil aanpassen.
           {{else}}
