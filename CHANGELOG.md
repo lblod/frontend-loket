@@ -1,3 +1,9 @@
+## v0.84.1 (2023-07-19)
+
+### LPDC
+#### :bug: Bug Fix
+* [#323](https://github.com/lblod/frontend-loket/pull/323) Fix getter used to toggle archive vs concept updated ([@cecemel](https://github.com/cecemel))
+
 ## v0.84.0 (2023-06-22)
 
 ### General
