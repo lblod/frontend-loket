@@ -179,4 +179,9 @@ Router.map(function () {
       );
     }
   );
+  this.route('sites', { path: '/vestigingen' }, function () {
+    this.route('site', { path: '/:siteId' }, function () {
+      this.route('edit');
+    });
+  });
 });
