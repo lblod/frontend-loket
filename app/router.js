@@ -179,9 +179,21 @@ Router.map(function () {
       );
     }
   );
-  this.route('sites', { path: '/vestigingen' }, function () {
-    this.route('site', { path: '/:siteId' }, function () {
-      this.route('edit');
-    });
-  });
+  this.route(
+    'administrative-units',
+    { path: '/bestuurseenheden' },
+    function () {
+      this.route('administrative-unit', { path: '/test/' }, function () {
+        this.route('core-data', { path: '/kerngegevens' }, function () {
+          this.route('edit');
+        });
+        this.route('sites', { path: '/vestigingen' }, function () {
+          this.route('site', { path: '/test/' }, function () {
+            this.route('edit');
+          });
+          this.route('new', { path: '/nieuwe-vestiging' });
+        });
+      });
+    }
+  );
 });
