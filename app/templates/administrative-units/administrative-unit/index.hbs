@@ -1,0 +1,43 @@
+<SidebarContainer>
+  <:sidebar>
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content au-o-box">
+        <form
+          {{on "reset" this.resetFilters}}
+          class="au-o-grid au-o-grid--small"
+        >
+          <div class="au-o-grid__item au-u-1-2@small au-u-1-1@medium">
+            <AuLabel for="filter-name">Naam</AuLabel>
+
+          </div>
+          <div class="au-o-grid__item au-u-1-2@small au-u-1-1@medium">
+            <AuLabel for="filter-municipality">Gemeente</AuLabel>
+
+          </div>
+          <div class="au-o-grid__item au-u-1-2@small au-u-1-1@medium">
+            <AuLabel for="filter-province">Provincie</AuLabel>
+
+          </div>
+          <div class="au-o-grid__item au-u-1-2@small au-u-1-1@medium">
+            <AuLabel for="classification">Type bestuur</AuLabel>
+
+          </div>
+
+          <div class="au-o-grid__item au-u-1-2@small au-u-1-1@medium">
+            <AuLabel for="statuses">Status</AuLabel>
+
+          </div>
+          <div class="au-o-grid__item">
+            <AuButton @skin="tertiary" type="reset">
+              <AuIcon @icon="cross" @alignment="left" />
+              Herstel alle filters
+            </AuButton>
+          </div>
+        </form>
+      </div>
+    </div>
+  </:sidebar>
+  <:content>
+
+  </:content>
+</SidebarContainer>
