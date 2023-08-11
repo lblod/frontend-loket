@@ -179,15 +179,9 @@ Router.map(function () {
       );
     }
   );
-  this.route('administrative-units', { path: '/contact-info' }, function () {
-    this.route('administrative-unit', { path: '/admin-unit/' }, function () {
-      this.route('sites', { path: '/vestigingen' }, function () {
-        this.route('edit');
-      });
-    });
-  });
 
   this.route('contact-data', { path: '/contactgegevens' }, function () {
     this.route('core-data-overview', { path: '/overzicht-kerngegevens' });
+    this.route('sites', { path: '/vestigingen' });
   });
 });
