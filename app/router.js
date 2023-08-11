@@ -184,4 +184,8 @@ Router.map(function () {
       this.route('edit');
     });
   });
+
+  this.route('contact-data', { path: '/contactgegevens' }, function () {
+    this.route('core-data-overview', { path: '/overzicht-kerngegevens' });
+  });
 });
