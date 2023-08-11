@@ -1,19 +1,12 @@
+{{page-title "Vestigingen"}}
+
 <PageHeader class="au-o-box">
   <:title>Vestigingen</:title>
   {{!-- <:subtitle>{{@model.administrativeUnit.name}}
     ({{@model.administrativeUnit.classification.label}})</:subtitle> --}}
   <:action>
     <SecuredArea>
-      <:edit>
-        <AuLink
-          @route="administrative-units.administrative-unit.sites.new"
-          @icon="add"
-          @iconAlignment="left"
-          @skin="button"
-        >
-          Nieuw
-        </AuLink>
-      </:edit>
+
       <:readOnly>
         <ReportWrongData />
       </:readOnly>
