@@ -1,2 +1,22 @@
 {{page-title "Kerngegevens bestuurseenheid"}}
-{{outlet}}
+<AuMainContainer as |m|>
+  <m.sidebar>
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+         <AuHeading @skin="4" class="au-u-margin-tiny">Contactgegevens</AuHeading>
+        <nav>
+          <ul class="au-c-list-navigation">
+            <li class="au-c-list-navigation__item">
+              <AuNavigationLink @linkRoute="contact-data.core-data-overview">
+                Kerngegevens
+              </AuNavigationLink>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </m.sidebar>
+  <m.content>
+    {{outlet}}
+  </m.content>
+</AuMainContainer>
