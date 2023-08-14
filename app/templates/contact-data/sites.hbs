@@ -2,15 +2,8 @@
 
 <PageHeader class="au-o-box">
   <:title>Vestigingen</:title>
-  <:subtitle>{{this.currentSession.user.fullName}}</:subtitle>
-  <:action>
-    <SecuredArea>
-
-      <:readOnly>
-        <ReportWrongData />
-      </:readOnly>
-    </SecuredArea>
-  </:action>
+  <:subtitle>{{this.currentSession.user.fullName}}
+    ({{this.currentSession.groupClassification.label}})</:subtitle>
 </PageHeader>
 
 <AuDataTable
@@ -24,11 +17,9 @@
       <th class="au-c-data-table__header-title">Type vestiging</th>
       <th class="au-c-data-table__header-title">Primair correspondentieadres
       </th>
-      <SecuredArea>
-        <:edit>
-          <th></th>
-        </:edit>
-      </SecuredArea>
+
+      <th></th>
+
     </c.header>
     <c.body as |site|>
       <td>
@@ -38,15 +29,13 @@
       </td>
       <td>{{site.siteType.label}}</td>
       <td>{{if (eq site.id this.model.primarySite.id) "Ja" "Neen"}}</td>
-      <SecuredArea>
-        <:edit>
-          <td>
-            <AuLink @model={{site.id}}>
-              Bewerk
-            </AuLink>
-          </td>
-        </:edit>
-      </SecuredArea>
+
+      <td>
+        <AuLink @model={{site.id}}>
+          Bewerk
+        </AuLink>
+      </td>
+
     </c.body>
   </t.content>
 </AuDataTable>
