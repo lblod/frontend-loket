@@ -2,8 +2,7 @@
 
 <PageHeader class="au-o-box">
   <:title>Vestigingen</:title>
-  {{!-- <:subtitle>{{@model.administrativeUnit.name}}
-    ({{@model.administrativeUnit.classification.label}})</:subtitle> --}}
+  <:subtitle>{{this.currentSession.user.fullName}}</:subtitle>
   <:action>
     <SecuredArea>
 
@@ -14,7 +13,11 @@
   </:action>
 </PageHeader>
 
-<AuDataTable @content={{this.sites}} @noDataMessage="Geen vestigingen" as |t|>
+<AuDataTable
+  @content={{this.model.sites}}
+  @noDataMessage="Geen vestigingen"
+  as |t|
+>
   <t.content as |c|>
     <c.header>
       <th class="au-c-data-table__header-title">Locatie</th>
@@ -29,10 +32,7 @@
     </c.header>
     <c.body as |site|>
       <td>
-        <AuLink
-          @model={{site.id}}
-          @route="administrative-units.administrative-unit.sites.site"
-        >
+        <AuLink @model={{site.id}}>
           {{site.address.fullAddress}}
         </AuLink>
       </td>
@@ -41,10 +41,7 @@
       <SecuredArea>
         <:edit>
           <td>
-            <AuLink
-              @model={{site.id}}
-              @route="administrative-units.administrative-unit.sites.site.edit"
-            >
+            <AuLink @model={{site.id}}>
               Bewerk
             </AuLink>
           </td>
