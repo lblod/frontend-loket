@@ -1,5 +1,7 @@
 <div class="au-u-margin-left au-u-margin-right au-u-margin-top-large">
-  <div class="au-u-flex au-u-flex--nowrap au-u-flex--between au-u-flex-self-baseline">
+  <div
+    class="au-u-flex au-u-flex--nowrap au-u-flex--between au-u-flex-self-baseline"
+  >
     <AuHeading @skin="2">
       Kerngegevens
     </AuHeading>
@@ -13,18 +15,28 @@
   <AuHeading @skin="6">
     Bestuurseenheid
   </AuHeading>
-  <div class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large">
-    {{#each (range 10) as |index| }}
-    <CoreDataField @fieldName={{(concat "Field " index)}} @fieldValue="Value"></CoreDataField>
+  <div
+    class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large"
+  >
+    {{#each (range 10) as |index|}}
+      <CoreDataField
+        @fieldName={{(concat "Field " index)}}
+        @fieldValue="Value"
+      />
     {{/each}}
   </div>
 
   <AuHeading @skin="6">
     Primaire contactgegvens
   </AuHeading>
-  <div class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large">
-    {{#each (range 10) as |index| }}
-    <CoreDataField @fieldName={{(concat "Field " index)}} @fieldValue="Value"></CoreDataField>
+  <div
+    class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large"
+  >
+    {{#each (range 10) as |index|}}
+      <CoreDataField
+        @fieldName={{(concat "Field " index)}}
+        @fieldValue="Value"
+      />
     {{/each}}
   </div>
 </div>
