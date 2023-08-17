@@ -23,7 +23,7 @@
     </c.header>
     <c.body as |site|>
       <td>
-        <AuLink @model={{site.id}}>
+        <AuLink @model={{site.id}} @route="contact-data.sites.site">
           {{site.address.fullAddress}}
         </AuLink>
       </td>

@@ -1,3 +1,3 @@
 import Route from '@ember/routing/route';
 
-export default class CoreDataOverviewRoute extends Route {}
+export default class ContactDataCoreDataOverviewRoute extends Route {}
