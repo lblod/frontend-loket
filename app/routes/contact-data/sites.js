@@ -57,7 +57,7 @@ export default class ContactDataSitesRoute extends Route {
         },
       ],
     };
-    console.log('model', sites);
+
     return sites;
   }
 }
