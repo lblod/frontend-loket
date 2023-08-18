@@ -179,4 +179,9 @@ Router.map(function () {
       );
     }
   );
+
+  this.route('contact-data', { path: '/contactgegevens' }, function () {
+    this.route('core-data-overview', { path: '/kerngegevens' });
+    this.route('sites', { path: '/vestigingen' });
+  });
 });
