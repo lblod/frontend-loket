@@ -5,8 +5,28 @@ export default class BerichtModel extends Model {
   @attr('datetime') aangekomen;
   @attr inhoud;
   @attr typeCommunicatie;
-  @belongsTo('bestuurseenheid') van;
-  @belongsTo('gebruiker') auteur;
-  @belongsTo('bestuurseenheid') naar;
-  @hasMany('file') bijlagen;
+
+  @belongsTo('bestuurseenheid', {
+    async: true,
+    inverse: null,
+  })
+  van;
+
+  @belongsTo('gebruiker', {
+    async: true,
+    inverse: null,
+  })
+  auteur;
+
+  @belongsTo('bestuurseenheid', {
+    async: true,
+    inverse: null,
+  })
+  naar;
+
+  @hasMany('file', {
+    async: true,
+    inverse: null,
+  })
+  bijlagen;
 }

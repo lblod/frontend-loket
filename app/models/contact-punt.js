@@ -16,19 +16,33 @@ export default class ContactPuntModel extends Model {
   @attr achternaam;
   @attr website;
   @attr telefoon;
-  @belongsTo('adres', { inverse: null }) adres;
 
-  @belongsTo('contact-punt', { inverse: null })
+  @belongsTo('adres', {
+    async: true,
+    inverse: null,
+  })
+  adres;
+
+  @belongsTo('contact-punt', {
+    async: true,
+    inverse: null,
+  })
   secondaryContactPoint;
 
   @hasMany('agent-in-position', {
+    async: true,
     inverse: 'contacts',
     polymorphic: true,
     as: 'contact-punt',
   })
   agentsInPosition;
 
-  @hasMany('mandataris', { inverse: 'contactPoints', polymorphic: true })
+  @hasMany('mandataris', {
+    async: true,
+    inverse: 'contactPoints',
+    polymorphic: true,
+    as: 'contact-punt',
+  })
   mandatarissen;
 }
 

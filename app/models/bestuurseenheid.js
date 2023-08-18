@@ -10,17 +10,23 @@ export default class Bestuurseenheid extends Model {
   @attr viewOnlyModules;
 
   @belongsTo('werkingsgebied', {
+    async: true,
     inverse: 'bestuurseenheid',
     polymorphic: true,
     as: 'bestuurseenheid',
   })
   werkingsgebied;
 
-  @belongsTo('bestuurseenheid-classificatie-code', { inverse: null })
+  @belongsTo('bestuurseenheid-classificatie-code', {
+    async: true,
+    inverse: null,
+  })
   classificatie;
-  @hasMany('contact-punt', { inverse: null }) contactinfo;
+
+  @hasMany('contact-punt', { async: true, inverse: null }) contactinfo;
 
   @hasMany('bestuursorgaan', {
+    async: true,
     inverse: 'bestuurseenheid',
     polymorphic: true,
     as: 'bestuurseenheid',

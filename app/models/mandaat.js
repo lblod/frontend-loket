@@ -5,6 +5,16 @@ import Post from './post';
 export default class MandaatModel extends Post {
   @attr uri;
   @attr aantalHouders;
-  @belongsTo('bestuursfunctie-code', { inverse: null }) bestuursfunctie;
-  @hasMany('bestuursorgaan', { inverse: null }) bevatIn;
+
+  @belongsTo('bestuursfunctie-code', {
+    async: true,
+    inverse: null,
+  })
+  bestuursfunctie;
+
+  @hasMany('bestuursorgaan', {
+    async: true,
+    inverse: 'bevat',
+  })
+  bevatIn;
 }

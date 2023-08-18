@@ -6,10 +6,12 @@ export default class MandatarisModel extends AgentInPosition {
   @attr rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
-  @attr('string') duplicationReason;
-  @belongsTo('mandaat', { inverse: null }) bekleedt;
+  @attr duplicationReason;
+
+  @belongsTo('mandaat', { async: true, inverse: null }) bekleedt;
 
   @belongsTo('lidmaatschap', {
+    async: true,
     inverse: 'lid',
     polymorphic: true,
     as: 'mandataris',
@@ -17,6 +19,7 @@ export default class MandatarisModel extends AgentInPosition {
   heeftLidmaatschap;
 
   @hasMany('rechtsgrond-aanstelling', {
+    async: true,
     inverse: 'bekrachtigtAanstellingenVan',
     polymorphic: true,
     as: 'mandataris',
@@ -24,18 +27,40 @@ export default class MandatarisModel extends AgentInPosition {
   rechtsgrondenAanstelling;
 
   @hasMany('rechtsgrond-beeindiging', {
+    async: true,
     inverse: 'bekrachtigtOntslagenVan',
     polymorphic: true,
     as: 'mandataris',
   })
   rechtsgrondenBeeindiging;
 
-  @hasMany('mandataris', { inverse: null }) tijdelijkeVervangingen;
-  @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
-  @belongsTo('mandataris-status-code', { inverse: null }) status;
+  @hasMany('mandataris', {
+    async: true,
+    inverse: null,
+  })
+  tijdelijkeVervangingen;
 
-  @belongsTo('mandataris', { inverse: null }) duplicateOf;
-  @attr('uri-set') generatedFrom;
+  @hasMany('beleidsdomein-code', {
+    async: true,
+    inverse: null,
+  })
+  beleidsdomein;
+
+  @belongsTo('mandataris-status-code', {
+    async: true,
+    inverse: null,
+  })
+  status;
+
+  @belongsTo('mandataris', { async: true, inverse: null }) duplicateOf;
+
+  @hasMany('contact-punt', {
+    async: true,
+    inverse: 'mandatarissen',
+    polymorphic: true,
+    as: 'mandataris',
+  })
+  contactPoints;
 
   get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(
@@ -43,13 +68,6 @@ export default class MandatarisModel extends AgentInPosition {
         uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService'
     );
   }
-
-  @hasMany('contact-punt', {
-    inverse: 'mandatarissen',
-    polymorphic: true,
-    as: 'mandataris',
-  })
-  contactPoints;
 }
 
 export async function getUniqueBestuursorganen(mandataris) {

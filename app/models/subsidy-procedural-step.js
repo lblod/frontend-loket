@@ -8,7 +8,12 @@ const SUBSIDY_PROCEDURE_STEP_TYPE = {
 export default class SubsidyProceduralStepModel extends Model {
   @attr description;
   @attr('uri-set') type;
-  @belongsTo('period-of-time') period;
+
+  @belongsTo('period-of-time', {
+    async: true,
+    inverse: null,
+  })
+  period;
 
   get isExternallyProcessed() {
     return (

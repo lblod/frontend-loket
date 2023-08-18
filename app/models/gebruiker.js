@@ -5,11 +5,13 @@ export default class GebruikerModel extends Model {
   @attr voornaam;
   @attr achternaam;
   @attr rijksregisterNummer;
-  @hasMany('account', { inverse: null }) account;
+
+  @hasMany('account', { async: true, inverse: 'gebruiker' }) account;
+
   @hasMany('bestuurseenheid', {
     async: true,
-    polymorphic: true,
     inverse: null,
+    polymorphic: true,
   })
   bestuurseenheden;
 

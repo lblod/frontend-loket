@@ -5,7 +5,22 @@ export default class EmployeeDatasetModel extends Model {
   @attr title;
   @attr description;
   @attr('datetime') modified;
-  @belongsTo('bestuurseenheid') bestuurseenheid;
-  @hasMany('employee-period-slice') periods;
-  @hasMany('employee-unit-measure') subjects;
+
+  @belongsTo('bestuurseenheid', {
+    async: true,
+    inverse: null,
+  })
+  bestuurseenheid;
+
+  @hasMany('employee-period-slice', {
+    async: true,
+    inverse: 'dataset',
+  })
+  periods;
+
+  @hasMany('employee-unit-measure', {
+    async: true,
+    inverse: null,
+  })
+  subjects;
 }

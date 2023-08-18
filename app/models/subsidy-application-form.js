@@ -19,23 +19,46 @@ export default class SubsidyApplicationForm extends Model {
 
   @attr projectName;
 
-  // TODO faze out
-  // @belongsTo('contact-punt') contactinfo; // default needed
-  // @belongsTo('bank-account') bankAccount; // default needed
-  // @belongsTo('time-block') timeBlock; // concept
+  @belongsTo('subsidy-application-flow-step', {
+    async: true,
+    inverse: null,
+  })
+  subsidyApplicationFlowStep;
 
-  @belongsTo('subsidy-application-flow-step') subsidyApplicationFlowStep;
+  @belongsTo('subsidy-measure-consumption', {
+    async: true,
+    inverse: 'subsidyApplicationForms',
+  })
+  subsidyMeasureConsumption;
 
-  @belongsTo('subsidy-measure-consumption') subsidyMeasureConsumption;
+  @belongsTo('gebruiker', {
+    async: true,
+    inverse: null,
+  })
+  creator;
 
-  @belongsTo('gebruiker') creator;
-
-  @belongsTo('gebruiker') lastModifier;
+  @belongsTo('gebruiker', {
+    async: true,
+    inverse: null,
+  })
+  lastModifier;
 
   // TODO could this be defined as a concept
-  @belongsTo('submission-document-status') status;
+  @belongsTo('submission-document-status', {
+    async: true,
+    inverse: null,
+  })
+  status;
 
-  @hasMany('file') sources;
+  @hasMany('file', {
+    async: true,
+    inverse: null,
+  })
+  sources;
 
-  @hasMany('bestuurseenheid') organization;
+  @hasMany('bestuurseenheid', {
+    async: true,
+    inverse: null,
+  })
+  organization;
 }

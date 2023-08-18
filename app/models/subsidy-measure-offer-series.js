@@ -4,9 +4,24 @@ import moment from 'moment';
 export default class SubsidyMeasureOfferSeriesModel extends Model {
   @attr title;
   @attr description;
-  @belongsTo('subsidy-application-flow') activeApplicationFlow;
-  @belongsTo('period-of-time') period;
-  @belongsTo('subsidy-measure-offer') subsidyMeasureOffer;
+
+  @belongsTo('subsidy-application-flow', {
+    async: true,
+    inverse: null,
+  })
+  activeApplicationFlow;
+
+  @belongsTo('period-of-time', {
+    async: true,
+    inverse: null,
+  })
+  period;
+
+  @belongsTo('subsidy-measure-offer', {
+    async: true,
+    inverse: 'series',
+  })
+  subsidyMeasureOffer;
 
   get deadline() {
     return this.activeApplicationFlow.get(
