@@ -2,9 +2,10 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box au-o-flow au-o-flow--large">
     <PageHeader class="au-o-box">
-      <:title>Vestiging: </:title>
-      <:subtitle>{{this.currentSession.user.fullName}}
-        ({{this.currentSession.groupClassification.label}})</:subtitle>
+      <:title>Vestiging:
+        {{this.model.selectedSite.address.fullAddress}}
+      </:title>
+      <:subtitle>{{this.currentSession.user.fullName}}</:subtitle>
     </PageHeader>
   </div>
 </div>

@@ -3,9 +3,11 @@ import { inject as service } from '@ember/service';
 
 export default class ContactDataSitesSiteIndexRoute extends Route {
   @service store;
+
   async model() {
-    const data = this.store.findAll('bestuurseenheid');
-    console.log(data);
-    return data;
+    const sites = this.modelFor('contact-data.sites');
+    let { id: siteId } = this.paramsFor('contact-data.sites.site');
+    const selectedSite = sites['sites'].find((site) => site.id === siteId);
+    return { selectedSite, sites };
   }
 }
