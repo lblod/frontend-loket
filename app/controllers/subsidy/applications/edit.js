@@ -49,8 +49,12 @@ export default class SubsidyApplicationsEditController extends Controller {
         });
       }
       yield this.consumption.get('participations').invoke('destroyRecord');
-      yield this.consumption.destroyRecord();
+      // We intentionally don't use 'destroyRecord` here since that calls unloadRecord before the
+      // transition which causes issues in the ConsumptionStatusPill component
+      this.consumption.deleteRecord();
+      yield this.consumption.save();
       this.router.transitionTo('subsidy.applications');
+      this.consumption.unloadRecord();
     } catch (error) {
       console.log('Removal of consumption failed because:');
       console.error(error);

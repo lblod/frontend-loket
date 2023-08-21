@@ -43,6 +43,7 @@ export default class SubsidyApplicationsEditRoute extends Route {
           'participations.participating-bestuurseenheid',
           'last-modifier',
         ].join(','),
+        reload: true,
       }
     );
 
