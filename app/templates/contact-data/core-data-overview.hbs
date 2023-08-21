@@ -7,24 +7,31 @@
   </div>
 
   <AuHeading @skin="3" class="au-u-margin-bottom-large">
-    Kerkeghem (Gemeente)
+    {{this.currentSession.user.fullName}} ({{this.currentSession.groupClassification.label}})
   </AuHeading>
 
   <AuHeading @skin="6">
     Bestuurseenheid
   </AuHeading>
   <div class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large">
-    {{#each (range 10) as |index| }}
-    <CoreDataField @fieldName={{(concat "Field " index)}} @fieldValue="Value"></CoreDataField>
-    {{/each}}
+    <CoreDataField @fieldName="Naam" >{{this.model.administrativeUnit.name}}</CoreDataField>
+    <CoreDataField @fieldName="Type Bestuur">{{this.model.administrativeUnit.classification.label}}</CoreDataField>
+    <CoreDataField @fieldName="Stadstitel">TODO</CoreDataField>
+    <CoreDataField @fieldName="Regio">TODO</CoreDataField>
+    <CoreDataField @fieldName="Status">{{this.model.administrativeUnit.organizationStatus.label}}</CoreDataField>
+    <CoreDataField @fieldName="KBO nummer">{{this.model.kbo}}</CoreDataField>
+    <CoreDataField @fieldName="NIS">TODO</CoreDataField>
+    <CoreDataField @fieldName="OVO-nummer">{{this.model.ovo}}</CoreDataField>
   </div>
 
   <AuHeading @skin="6">
     Primaire contactgegvens
   </AuHeading>
   <div class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large">
-    {{#each (range 10) as |index| }}
-    <CoreDataField @fieldName={{(concat "Field " index)}} @fieldValue="Value"></CoreDataField>
-    {{/each}}
+    <CoreDataField @fieldName="Adres">{{this.model.administrativeUnit.primarySite.address.fullAddress}}</CoreDataField>
+    <CoreDataField @fieldName="Provincie">{{this.model.administrativeUnit.primarySite.address.province}}</CoreDataField>
+    <CoreDataField @fieldName="Primair telefoonnummer">{{this.model.administrativeUnit.primaryContact.telephone}}</CoreDataField>
+    <CoreDataField @fieldName="Secundair telefoonnummer">{{this.model.administrativeUnit.secondaryContact.telephone}}</CoreDataField>
+    <CoreDataField @fieldName="Website">{{this.model.administrativeUnit.primaryContact.website}}</CoreDataField>
   </div>
 </div>
