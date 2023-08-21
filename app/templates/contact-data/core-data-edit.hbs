@@ -1,0 +1,18 @@
+<div class="au-u-margin-left au-u-margin-right au-u-margin-top-large">
+  <div class="au-u-flex au-u-flex--nowrap au-u-flex--between au-u-flex-self-baseline">
+    <AuHeading @skin="2">
+      Bewerk kerngegevens
+    </AuHeading>
+    <AuLink @skin="button-secondary" @icon="pencil">Bewerk</AuLink>
+  </div>
+
+  <AuHeading @skin="3" class="au-u-margin-bottom-large">
+    {{this.currentSession.user.fullName}} ({{this.currentSession.groupClassification.label}})
+  </AuHeading>
+
+  <AuHeading @skin="6">
+    Bestuurseenheid
+  </AuHeading>
+
+  <p>Form</p>
+</div>
