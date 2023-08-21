@@ -1,18 +1,97 @@
 <div class="au-u-margin-left au-u-margin-right au-u-margin-top-large">
-  <div class="au-u-flex au-u-flex--nowrap au-u-flex--between au-u-flex-self-baseline">
+  <form class="au-c-form">
+  <div class="au-u-flex au-u-flex--nowrap au-u-flex--between au-c-flex--flex-start">
     <AuHeading @skin="2">
       Bewerk kerngegevens
     </AuHeading>
-    <AuLink @skin="button-secondary" @icon="pencil">Bewerk</AuLink>
-  </div>
+    <div class="au-u-flex au-u-flex--column au-u-flex--nowrap au-c-flex--flex-end">
+      <AuButtonGroup>
+        <AuButton @skin="secondary">Annuleer</AuButton>
+        <AuButton @skin="primary">Opslaan</AuButton>
+      </AuButtonGroup>
+      <div class="au-u-flex au-u-flex--nowrap">
+        <p>Zie je een fout in de data?</p>
+        <a href="derp">Meld het ons</a>
+      </div>
 
+    </div>
+
+  </div>
   <AuHeading @skin="3" class="au-u-margin-bottom-large">
     {{this.currentSession.user.fullName}} ({{this.currentSession.groupClassification.label}})
   </AuHeading>
-
   <AuHeading @skin="6">
     Bestuurseenheid
   </AuHeading>
+  <AuPanel class="au-u-padding-tiny">
 
-  <p>Form</p>
+    <div class="grid-container-responsive-core-data">
+      <AuFormRow @alignment="inline">
+        <AuLabel for="nameControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          Naam
+        </AuLabel>
+        <AuInput id="nameControl" @disabled="true" class="au-u-4-6 au-u-margin-tiny" />
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="selectTypeBestuurControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          Type bestuur
+        </AuLabel>
+        <PowerSelect @allowClear={{false}} @options={{this.selectTypeBestuurOptions}} @renderInPlace={{false}}
+          @disabled={{false}} @onChange={{fn (mut this.selectedTypeBestuur)}} @searchEnabled={{false}}
+          @selected={{this.selectedTypeBestuur}} class="au-u-4-6 au-u-margin-tiny" id="selectTypeBestuurControl" as
+          |selectTypeBestuurControl|>
+          {{selectTypeBestuurControl}}
+        </PowerSelect>
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="selectRegioControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          Regio
+        </AuLabel>
+        <PowerSelect @allowClear={{false}} @options={{this.selectRegioOptions}} @renderInPlace={{false}}
+          @disabled={{false}} @onChange={{fn (mut this.selectedRegio)}} @searchEnabled={{false}}
+          @selected={{this.selectedRegio}} class="au-u-4-6 au-u-margin-tiny" id="selectRegioControl" as
+          |selectRegioControl|>
+          {{selectRegioControl}}
+        </PowerSelect>
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="selectStatus" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          Status
+        </AuLabel>
+        <PowerSelect @allowClear={{false}} @options={{this.selectStatusOptions}} @renderInPlace={{false}}
+          @disabled={{false}} @onChange={{fn (mut this.selectedStatus)}} @searchEnabled={{false}}
+          @selected={{this.selectedStatus}} class="au-u-4-6 au-u-margin-tiny" id="selectStatusControl" as
+          |selectStatusControl|>
+          {{selectStatusControl}}
+        </PowerSelect>
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="kboControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          KBO nummer
+        </AuLabel>
+        <AuInput id="kboControl" @maskOptions={{this.kboMaskOptions}} class="au-u-4-6 au-u-margin-tiny" />
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="sharepointControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          Sharepoint identificator
+        </AuLabel>
+        <AuInput id="sharepointControl" class="au-u-4-6 au-u-margin-tiny" />
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="nisControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          NIS code
+        </AuLabel>
+        <AuInput id="nisControl" @disabled={{true}} class="au-u-4-6 au-u-margin-tiny" />
+      </AuFormRow>
+      <AuFormRow @alignment="inline">
+        <AuLabel for="ovoControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+          OVO-nummer
+        </AuLabel>
+        <AuInput id="ovoControl" @disabled={{true}} class="au-u-4-6 au-u-margin-tiny" />
+      </AuFormRow>
+    </div>
+
+
+  </AuPanel>
+  </form>
 </div>
