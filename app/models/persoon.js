@@ -10,10 +10,12 @@ export default class PersoonModel extends Model {
   @belongsTo('identificator', { inverse: null }) identificator;
   @belongsTo('geslacht-code', { inverse: null }) geslacht;
   @hasMany('nationality', { inverse: null }) nationalities;
-  @hasMany('mandataris', {
+
+  @hasMany('agent-in-position', {
     inverse: 'isBestuurlijkeAliasVan',
     polymorphic: true,
   })
   isAangesteldAls;
+
   @hasMany('kandidatenlijst', { inverse: 'kandidaten' }) isKandidaatVoor;
 }

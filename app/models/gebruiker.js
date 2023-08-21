@@ -6,7 +6,12 @@ export default class GebruikerModel extends Model {
   @attr achternaam;
   @attr rijksregisterNummer;
   @hasMany('account', { inverse: null }) account;
-  @hasMany('bestuurseenheid') bestuurseenheden;
+  @hasMany('bestuurseenheid', {
+    async: true,
+    polymorphic: true,
+    inverse: null,
+  })
+  bestuurseenheden;
 
   get group() {
     return this.get('bestuurseenheden.firstObject');
