@@ -15,6 +15,7 @@ export default class ContactDataSitesRoute extends Route {
           address: {
             fullAddress: 'Grote Markt 3, 9300 Aalst, België',
             province: 'Oost-Vlaanderen',
+            municipality: 'Aalst',
           },
           siteType: {
             label: 'Maatschappelijke zetel',
@@ -33,6 +34,7 @@ export default class ContactDataSitesRoute extends Route {
           address: {
             fullAddress: 'Kerkakker 1, 8340 Damme, België',
             province: 'West-Vlaanderen',
+            municipality: 'Damme',
           },
           siteType: {
             label: 'Gemeentehuis',
@@ -44,6 +46,7 @@ export default class ContactDataSitesRoute extends Route {
           address: {
             fullAddress: 'Werf 9, 9300 Aalst, België',
             province: 'Oost-Vlaanderen',
+            municipality: 'Aalst',
           },
           siteType: {
             label: 'Ander administratief adres',
@@ -66,6 +69,7 @@ export default class ContactDataSitesRoute extends Route {
           address: {
             fullAddress: 'Grote Markt 1, 9300 Aalst, België',
             province: 'Oost-Vlaanderen',
+            municipality: 'Aalst',
           },
           siteType: {
             label: 'Gemeentehuis',
@@ -88,6 +92,7 @@ export default class ContactDataSitesRoute extends Route {
           address: {
             fullAddress: 'Kerkakker 1, 9270 Laarne, België',
             province: 'Oost-Vlaanderen',
+            municipality: 'Laarne',
           },
           siteType: {
             label: 'Maatschappelijke zetel',

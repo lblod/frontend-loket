@@ -7,7 +7,7 @@ export default class ContactDataSitesSiteIndexRoute extends Route {
   async model() {
     const sites = this.modelFor('contact-data.sites');
     let { id: siteId } = this.paramsFor('contact-data.sites.site');
-    const selectedSite = sites['sites'].find((site) => site.id === siteId);
-    return { selectedSite, sites };
+    const site = sites['sites'].find((site) => site.id === siteId);
+    return { site, sites };
   }
 }
