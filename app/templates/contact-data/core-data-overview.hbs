@@ -1,37 +1,84 @@
-<div class="au-u-margin-left au-u-margin-right au-u-margin-top-large">
-  <div class="au-u-flex au-u-flex--nowrap au-u-flex--between au-u-flex-self-baseline">
-    <AuHeading @skin="2">
-      Kerngegevens
-    </AuHeading>
-    <AuLink @skin="button-secondary" @icon="pencil">Bewerk</AuLink>
-  </div>
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box au-o-flow au-o-flow--large">
+    <PageHeader>
+      <:title>Kerngegevens</:title>
+      <:subtitle>{{this.currentSession.fullName}}
+        ({{this.currentSession.groupClassification.label}})</:subtitle>
+      <:action>
+        <SecuredArea>
+          <:edit>
+            <AuLink
+              @route=""
+              @skin="button-secondary"
+              @icon="pencil"
+              @iconAlignment="left"
+            >
+              Bewerk
+            </AuLink>
+          </:edit>
+          <:readOnly>
+            <ReportWrongData />
+          </:readOnly>
+        </SecuredArea>
+      </:action>
+    </PageHeader>
 
-  <AuHeading @skin="3" class="au-u-margin-bottom-large">
-    {{this.currentSession.user.fullName}} ({{this.currentSession.groupClassification.label}})
-  </AuHeading>
-
-  <AuHeading @skin="6">
-    Bestuurseenheid
-  </AuHeading>
-  <div class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large">
-    <CoreDataField @fieldName="Naam" >{{this.model.administrativeUnit.name}}</CoreDataField>
-    <CoreDataField @fieldName="Type Bestuur">{{this.model.administrativeUnit.classification.label}}</CoreDataField>
-    <CoreDataField @fieldName="Stadstitel">TODO</CoreDataField>
-    <CoreDataField @fieldName="Regio">TODO</CoreDataField>
-    <CoreDataField @fieldName="Status">{{this.model.administrativeUnit.organizationStatus.label}}</CoreDataField>
-    <CoreDataField @fieldName="KBO nummer">{{this.model.kbo}}</CoreDataField>
-    <CoreDataField @fieldName="NIS">TODO</CoreDataField>
-    <CoreDataField @fieldName="OVO-nummer">{{this.model.ovo}}</CoreDataField>
-  </div>
-
-  <AuHeading @skin="6">
-    Primaire contactgegvens
-  </AuHeading>
-  <div class="au-o-box au-u-background-gray-100 grid-container-responsive-core-data au-u-margin-bottom-large">
-    <CoreDataField @fieldName="Adres">{{this.model.administrativeUnit.primarySite.address.fullAddress}}</CoreDataField>
-    <CoreDataField @fieldName="Provincie">{{this.model.administrativeUnit.primarySite.address.province}}</CoreDataField>
-    <CoreDataField @fieldName="Primair telefoonnummer">{{this.model.administrativeUnit.primaryContact.telephone}}</CoreDataField>
-    <CoreDataField @fieldName="Secundair telefoonnummer">{{this.model.administrativeUnit.secondaryContact.telephone}}</CoreDataField>
-    <CoreDataField @fieldName="Website">{{this.model.administrativeUnit.primaryContact.website}}</CoreDataField>
+    <DataCard>
+      <:title>Bestuurseenheid</:title>
+      <:card as |Card|>
+        <Card.Columns>
+          <:left as |Item|>
+            <Item>
+              <:label>Naam</:label>
+              <:content>{{@model.administrativeUnit.name}}</:content>
+            </Item>
+            <Item>
+              <:label>Type bestuur</:label>
+              <:content>{{@model.administrativeUnit.classification.label}}</:content>
+            </Item>
+            <Item>
+              <:label>Stadstitel</:label>
+              <:content>TODO</:content>
+            </Item>
+            <Item>
+              <:label>Regio</:label>
+              <:content>TODO</:content>
+            </Item>
+          </:left>
+          <:right as |Item|>
+            <Item>
+              <:label>Status</:label>
+              <:content>
+                <OrganizationStatus
+                  @id="Derp"
+                  @label={{@model.administrativeUnit.organizationStatus.label}}
+                />
+              </:content>
+            </Item>
+            <Item>
+              <:label>KBO nummer</:label>
+              <:content>{{@model.kbo}}</:content>
+            </Item>
+            <Item>
+              <:label>NIS</:label>
+              <:content>TODO</:content>
+            </Item>
+            <Item>
+              <:label>OVO-nummer</:label>
+              <:content>{{@model.ovo}}</:content>
+            </Item>
+          </:right>
+        </Card.Columns>
+      </:card>
+    </DataCard>
+    <Site::ContactDataCard
+      @address={{@model.administrativeUnit.primarySite.address}}
+      @primaryContact={{@model.administrativeUnit.primaryContact}}
+      @secondaryContact={{@model.administrativeUnit.secondaryContact}}
+    >
+      <:title>
+        Primaire contactgegevens
+      </:title>
+    </Site::ContactDataCard>
   </div>
 </div>

@@ -1,0 +1,62 @@
+<DataCard>
+  <:title>
+    {{yield to="title"}}
+  </:title>
+  <:card as |Card|>
+    <Card.Columns>
+      <:left as |Item|>
+        <Item>
+          <:label>Adres</:label>
+          <:content>
+            {{@address.fullAddress}}
+          </:content>
+        </Item>
+        {{#if @address.province}}
+          <Item>
+            <:label>Provincie</:label>
+            <:content>
+              {{@address.province}}
+            </:content>
+          </Item>
+        {{/if}}
+      </:left>
+      <:right as |Item|>
+        {{#if @primaryContact.telephone}}
+          <Item>
+            <:label>Primair telefoonnummer</:label>
+            <:content>
+              {{@primaryContact.telephone}}
+            </:content>
+          </Item>
+        {{/if}}
+        {{#if @secondaryContact.telephone}}
+          <Item>
+            <:label>Secundair telefoonnummer</:label>
+            <:content>
+              {{@secondaryContact.telephone}}
+            </:content>
+          </Item>
+        {{/if}}
+        {{#if @primaryContact.email}}
+          <Item>
+            <:label>E-mail</:label>
+            <:content>
+              {{@primaryContact.email}}
+            </:content>
+          </Item>
+        {{/if}}
+        {{#if @primaryContact.website}}
+          <Item>
+            <:label>Website</:label>
+            <:content>
+              <AuLinkExternal href={{@primaryContact.website}}>
+                {{@primaryContact.website}}
+                (externe link)
+              </AuLinkExternal>
+            </:content>
+          </Item>
+        {{/if}}
+      </:right>
+    </Card.Columns>
+  </:card>
+</DataCard>
