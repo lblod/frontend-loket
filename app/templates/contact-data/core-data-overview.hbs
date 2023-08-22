@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-<div class="au-u-margin-left au-u-margin-right au-u-margin-top-large">
-  <div class="au-u-flex au-u-flex--nowrap au-u-flex--between au-u-flex-self-baseline">
-    <AuHeading @skin="2">
-      Kerngegevens
-    </AuHeading>
-    <AuLink @skin="button-secondary" @icon="pencil" @route="contact-data.core-data-edit">Bewerk</AuLink>
-  </div>
-=======
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box au-o-flow au-o-flow--large">
     <PageHeader>
@@ -17,7 +8,7 @@
         <SecuredArea>
           <:edit>
             <AuLink
-              @route=""
+              @route="contact-data.core-data-edit"
               @skin="button-secondary"
               @icon="pencil"
               @iconAlignment="left"
@@ -31,8 +22,6 @@
         </SecuredArea>
       </:action>
     </PageHeader>
->>>>>>> clb-17-consult-core-data
-
     <DataCard>
       <:title>Bestuurseenheid</:title>
       <:card as |Card|>
