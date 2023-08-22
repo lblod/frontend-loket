@@ -325,17 +325,22 @@
 .grid-container-responsive-core-data {
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-flow: row;
+
 
   @media screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-.au-c-flex--flex-start {
+.grid-container-two-column-fixed {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.au-u-flex--flex-start {
   align-items: flex-start;
 }
 
-.au-c-flex--flex-end {
+.au-u-flex--flex-end {
   align-items: flex-end;
 }
