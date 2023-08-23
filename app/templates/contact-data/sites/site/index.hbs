@@ -1,0 +1,64 @@
+{{page-title @model.site.address.fullAddress}}
+
+<div class="au-c-body-container au-c-body-container--scroll">
+  <div class="au-o-box au-o-flow au-o-flow--large">
+    <PageHeader>
+      <:title>Vestiging: {{@model.site.address.fullAddress}}</:title>
+      <:subtitle>{{@model.site.address.municipality}}</:subtitle>
+      <:action>
+        <SecuredArea>
+          <:edit>
+            <AuLink
+              @route="contact-data.sites.site.edit"
+              @skin="button-secondary"
+              @icon="pencil"
+              @iconAlignment="left"
+            >
+              Bewerk
+            </AuLink>
+          </:edit>
+          <:readOnly>
+            <ReportWrongData />
+          </:readOnly>
+        </SecuredArea>
+      </:action>
+    </PageHeader>
+
+    <DataCard>
+      <:title>Kerngegevens</:title>
+      <:card as |Card|>
+        <Card.Columns>
+
+          <:left as |Item|>
+            <Item>
+              <:label>Type vestiging</:label>
+              <:content>{{@model.site.siteType.label}}</:content>
+            </Item>
+          </:left>
+
+          <:right as |Item|>
+            <Item>
+              <:label>Primair correspondentieadres</:label>
+              <:content>{{if
+                  (eq @model.site.id @model.site.primarySite.id)
+                  "Ja"
+                  "Nee"
+                }}
+              </:content>
+            </Item>
+          </:right>
+
+        </Card.Columns>
+      </:card>
+    </DataCard>
+
+    <Site::ContactDataCard
+      @address={{@model.site.address.fullAddress}}
+      @primaryContact={{@model.site.addreprimaryContact}}
+      @secondaryContact={{@model.site.secondaryContact}}
+    >
+      <:title>Contactgegevens</:title>
+    </Site::ContactDataCard>
+
+  </div>
+</div>

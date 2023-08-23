@@ -51,7 +51,7 @@
             </Item>
             <Item>
               <:label>KBO nummer</:label>
-              <:content>{{@model.kbo}}</:content>
+              <:content>{{if @model.kbo @model.kbo "Niet ingegesteld"}}</:content>
             </Item>
             <Item>
               <:label>NIS</:label>
@@ -59,7 +59,7 @@
             </Item>
             <Item>
               <:label>OVO-nummer</:label>
-              <:content>{{@model.ovo}}</:content>
+              <:content>{{if @model.ovo @model.ovo "Niet ingegesteld"}}</:content>
             </Item>
           </:right>
         </Card.Columns>

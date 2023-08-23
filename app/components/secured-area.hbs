@@ -1,9 +1,9 @@
 {{printAsJson this.currentSession}}
 
 {{#if (and (has-block "edit") this.canEdit)}}
-    {{yield to="edit"}}
+  {{yield to="edit"}}
 {{/if}}
 
 {{#if (and (has-block "readOnly") this.canOnlyRead)}}
-    {{yield to="readOnly"}}
+  {{yield to="readOnly"}}
 {{/if}}

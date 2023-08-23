@@ -38,22 +38,21 @@ $au-fractions: 1 2 3 4 5 6 12;
 // ember-rdfa-editor styles
 // TODO: `@import "ember-rdfa-editor";` imports annotation styles which are _huge_ when compiled
 // so we only import the base component styles for now.
-@import 'ember-rdfa-editor/c-container';
-@import 'ember-rdfa-editor/c-dropdown';
-@import 'ember-rdfa-editor/c-content';
-@import 'ember-rdfa-editor/c-editor';
-@import 'ember-rdfa-editor/c-editor-hints';
-@import 'ember-rdfa-editor/c-icon';
-@import 'ember-rdfa-editor/c-toast';
-@import 'ember-rdfa-editor/c-toolbar';
-@import 'ember-rdfa-editor/c-table';
-@import 'ember-rdfa-editor/c-table';
-@import 'ember-rdfa-editor/c-ember-node';
-@import 'ember-rdfa-editor/shame';
-
+@import "ember-rdfa-editor/c-container";
+@import "ember-rdfa-editor/c-dropdown";
+@import "ember-rdfa-editor/c-content";
+@import "ember-rdfa-editor/c-editor";
+@import "ember-rdfa-editor/c-editor-hints";
+@import "ember-rdfa-editor/c-icon";
+@import "ember-rdfa-editor/c-toast";
+@import "ember-rdfa-editor/c-toolbar";
+@import "ember-rdfa-editor/c-table";
+@import "ember-rdfa-editor/c-table";
+@import "ember-rdfa-editor/c-ember-node";
+@import "ember-rdfa-editor/shame";
 
 // UTILITIES
 @import "ember-appuniversum/a-utilities";
 
 // TEMPORARY HACKS AND QUICKFIXES
-@import 'shame';
+@import "shame";

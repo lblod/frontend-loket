@@ -48,8 +48,13 @@ export default class CoreDataOverviewRoute extends Route {
         website: 'https://wikipedia.org',
       },
     };
-    const kbo = administrativeUnit.identifiers[0].structuredIdentifier.localId;
-    const ovo = administrativeUnit.identifiers[2].structuredIdentifier.localId;
+
+    const kbo = administrativeUnit.identifiers.find(
+      (sub) => sub.idName === 'KBO nummer'
+    ).structuredIdentifier.localId;
+    const ovo = administrativeUnit.identifiers.find(
+      (sub) => sub.idName === 'OVO-nummer'
+    ).structuredIdentifier.localId;
 
     return { administrativeUnit, kbo, ovo };
   }

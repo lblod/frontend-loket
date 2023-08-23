@@ -1,5 +1,5 @@
 {{page-title "Vestigingen"}}
-
+{{outlet}}
 <PageHeader class="au-o-box">
   <:title>Vestigingen</:title>
   <:subtitle>{{this.currentSession.user.fullName}}
@@ -23,7 +23,7 @@
     </c.header>
     <c.body as |site|>
       <td>
-        <AuLink @model={{site.id}}>
+        <AuLink @model={{site.id}} @route="contact-data.sites.site">
           {{site.address.fullAddress}}
         </AuLink>
       </td>
