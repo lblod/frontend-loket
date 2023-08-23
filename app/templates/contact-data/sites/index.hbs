@@ -31,7 +31,7 @@
       <td>{{if (eq site.id this.model.primarySite.id) "Ja" "Neen"}}</td>
 
       <td>
-        <AuLink @model={{site.id}}>
+        <AuLink @model={{site.id}} @route="contact-data.sites.site.edit">
           Bewerk
         </AuLink>
       </td>
