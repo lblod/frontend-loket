@@ -28,12 +28,26 @@
               {{@primaryContact}}
             </:content>
           </Item>
+        {{else}}
+          <Item>
+            <:label>Primair telefoonnummer</:label>
+            <:content>
+              Niet ingesteld
+            </:content>
+          </Item>
         {{/if}}
         {{#if @secondaryContact}}
           <Item>
             <:label>Secundair telefoonnummer</:label>
             <:content>
               {{@secondaryContact}}
+            </:content>
+          </Item>
+        {{else}}
+          <Item>
+            <:label>Secundair telefoonnummer</:label>
+            <:content>
+              Niet ingesteld
             </:content>
           </Item>
         {{/if}}
