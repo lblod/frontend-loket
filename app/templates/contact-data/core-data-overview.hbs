@@ -5,21 +5,16 @@
       <:subtitle>{{this.currentSession.fullName}}
         ({{this.currentSession.groupClassification.label}})</:subtitle>
       <:action>
-        <SecuredArea>
-          <:edit>
-            <AuLink
-              @route="contact-data.core-data-edit"
-              @skin="button-secondary"
-              @icon="pencil"
-              @iconAlignment="left"
-            >
-              Bewerk
-            </AuLink>
-          </:edit>
-          <:readOnly>
-            <ReportWrongData />
-          </:readOnly>
-        </SecuredArea>
+      {{!-- Secured area --}}
+        <AuLink
+          @route="contact-data.core-data-edit"
+          @skin="button-secondary"
+          @icon="pencil"
+          @iconAlignment="left"
+        >
+          Bewerk
+        </AuLink>
+      {{!-- End of secured area --}}
       </:action>
     </PageHeader>
     <DataCard>

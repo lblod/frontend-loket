@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { action } from '@ember/object';
 
-export default class CoreDataOverviewController extends Controller {
+export default class CoreDataEditController extends Controller {
   @service currentSession;
 
   selectTypeBestuurOptions = ['Test 1', 'Test 2'];
@@ -28,7 +27,7 @@ export default class CoreDataOverviewController extends Controller {
   /** @type {'automatic' | 'manual'} */
   addressInputMode = 'automatic';
 
-  selectedAutomaticAddress = 'Grote Markt 3, 9300 Aalst';
+  selectedAutomaticAddress = 'Kleine dorpstraat 99, 5000 Snuiteghem';
 
   automaticAddressOptions = ['Kleine dorpstraat 99, 5000 Snuiteghem'];
 
@@ -38,4 +37,16 @@ export default class CoreDataOverviewController extends Controller {
 
   municipalityOptions = ['Kerkeghem'];
   selectedManualMunicipality = 'Kerkeghem';
+
+  phoneNumberMaskOptions = {
+    placeholder: '+32 400 10 20 30',
+  };
+
+  emailMaskOptions = {
+    placeholder: 'naam.achternaam@provider.be',
+  };
+
+  websiteMaskOptions = {
+    placeholder: 'naam.achternaam@provider.be',
+  };
 }

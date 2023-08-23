@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
-export default class CoreDataOverviewRoute extends Route {
+export default class CoreDataEditRoute extends Route {
+  @service currentSession;
+
   async model() {
     const administrativeUnit = {
       name: 'Aalst',
