@@ -1,6 +1,9 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
-export default class CoreDataOverviewRoute extends Route {
+export default class CoreDataEditRoute extends Route {
+  @service currentSession;
+
   async model() {
     const administrativeUnit = {
       name: 'Aalst',
@@ -48,13 +51,8 @@ export default class CoreDataOverviewRoute extends Route {
         website: 'https://wikipedia.org',
       },
     };
-
-    const kbo = administrativeUnit.identifiers.find(
-      (sub) => sub.idName === 'KBO nummer'
-    ).structuredIdentifier.localId;
-    const ovo = administrativeUnit.identifiers.find(
-      (sub) => sub.idName === 'OVO-nummer'
-    ).structuredIdentifier.localId;
+    const kbo = administrativeUnit.identifiers[0].structuredIdentifier.localId;
+    const ovo = administrativeUnit.identifiers[2].structuredIdentifier.localId;
 
     return { administrativeUnit, kbo, ovo };
   }
