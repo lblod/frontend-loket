@@ -54,8 +54,10 @@
 
     <Site::ContactDataCard
       @address={{@model.site.address.fullAddress}}
-      @primaryContact={{@model.site.addreprimaryContact}}
-      @secondaryContact={{@model.site.secondaryContact}}
+      @province={{@model.site.address.province}}
+      @type={{@model.site.contacts.type}}
+      @primaryContact={{@model.site.contacts.telephone}}
+      @secondaryContact={{@model.site.contacts.telephone}}
     >
       <:title>Contactgegevens</:title>
     </Site::ContactDataCard>

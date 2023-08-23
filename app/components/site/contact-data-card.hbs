@@ -8,20 +8,20 @@
         <Item>
           <:label>Adres</:label>
           <:content>
-            {{@address.fullAddress}}
+            {{@address}}
           </:content>
         </Item>
-        {{#if @address.province}}
+        {{#if @province}}
           <Item>
             <:label>Provincie</:label>
             <:content>
-              {{@address.province}}
+              {{@province}}
             </:content>
           </Item>
         {{/if}}
       </:left>
       <:right as |Item|>
-        {{#if @primaryContact.telephone}}
+        {{#if (eq @type "primary")}}
           <Item>
             <:label>Primair telefoonnummer</:label>
             <:content>
@@ -29,7 +29,7 @@
             </:content>
           </Item>
         {{/if}}
-        {{#if @secondaryContact.telephone}}
+        {{#if (eq @type "secondary")}}
           <Item>
             <:label>Secundair telefoonnummer</:label>
             <:content>
