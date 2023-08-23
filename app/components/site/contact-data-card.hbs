@@ -21,19 +21,19 @@
         {{/if}}
       </:left>
       <:right as |Item|>
-        {{#if (eq @type "primary")}}
+        {{#if @primaryContact}}
           <Item>
             <:label>Primair telefoonnummer</:label>
             <:content>
-              {{@primaryContact.telephone}}
+              {{@primaryContact}}
             </:content>
           </Item>
         {{/if}}
-        {{#if (eq @type "secondary")}}
+        {{#if @secondaryContact}}
           <Item>
             <:label>Secundair telefoonnummer</:label>
             <:content>
-              {{@secondaryContact.telephone}}
+              {{@secondaryContact}}
             </:content>
           </Item>
         {{/if}}
@@ -45,12 +45,12 @@
             </:content>
           </Item>
         {{/if}}
-        {{#if @primaryContact.website}}
+        {{#if @website}}
           <Item>
             <:label>Website</:label>
             <:content>
-              <AuLinkExternal href={{@primaryContact.website}}>
-                {{@primaryContact.website}}
+              <AuLinkExternal href={{@website}}>
+                {{@website}}
                 (externe link)
               </AuLinkExternal>
             </:content>

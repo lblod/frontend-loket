@@ -6,21 +6,14 @@
       <:title>Vestiging: {{@model.site.address.fullAddress}}</:title>
       <:subtitle>{{@model.site.address.municipality}}</:subtitle>
       <:action>
-        <SecuredArea>
-          <:edit>
-            <AuLink
-              @route="contact-data.sites.site.edit"
-              @skin="button-secondary"
-              @icon="pencil"
-              @iconAlignment="left"
-            >
-              Bewerk
-            </AuLink>
-          </:edit>
-          <:readOnly>
-            <ReportWrongData />
-          </:readOnly>
-        </SecuredArea>
+        <AuLink
+          @route="contact-data.sites.site.edit"
+          @skin="button-secondary"
+          @icon="pencil"
+          @iconAlignment="left"
+        >
+          Bewerk
+        </AuLink>
       </:action>
     </PageHeader>
 
@@ -55,9 +48,9 @@
     <Site::ContactDataCard
       @address={{@model.site.address.fullAddress}}
       @province={{@model.site.address.province}}
-      @type={{@model.site.contacts.type}}
-      @primaryContact={{@model.site.contacts.telephone}}
-      @secondaryContact={{@model.site.contacts.telephone}}
+      @primaryContact={{@model.primaryContact.telephone}}
+      @secondaryContact={{@model.secondaryContact.telephone}}
+      @website={{@model.primaryContact.website}}
     >
       <:title>Contactgegevens</:title>
     </Site::ContactDataCard>
