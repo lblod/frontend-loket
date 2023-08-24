@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
-import { all } from 'ember-concurrency';
-import { task, keepLatestTask } from 'ember-concurrency-decorators';
+import { all, task, keepLatestTask } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 
 const CONCEPT_SCHEME_REGULATION_TYPE =
