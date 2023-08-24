@@ -44,6 +44,7 @@ export default class CurrentSessionService extends Service {
       let groupId = this.session.data.authenticated.relationships.group.data.id;
       this.group = await this.store.findRecord('bestuurseenheid', groupId, {
         include: 'classificatie',
+        reload: true,
       });
       this.groupClassification = await this.group.classificatie;
 
