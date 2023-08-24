@@ -190,6 +190,10 @@ export default class WorshipMinistersManagementNewController extends Controller 
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
+          // Ember Data v4.7+ doesn't remove the record from the relationship when we call destroyRecord, so we do it manually for now
+          // More info: https://github.com/emberjs/data/issues/8792
+          contactPoint.secondaryContactPoint = null;
+
           // The secondary contact point is empty so we can remove it if it was ever persisted before
           yield secondaryContactPoint.destroyRecord();
         }
@@ -201,6 +205,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
     // the user has selected an already existing contact pair
     if (this.selectedContact) {
       let secondaryContact = yield this.selectedContact.secondaryContactPoint;
+
       worshipMinister.contacts = [
         this.selectedContact,
         secondaryContact,
@@ -252,6 +257,10 @@ export default class WorshipMinistersManagementNewController extends Controller 
       }
 
       secondaryContactPoint?.rollbackAttributes?.();
+
+      // Ember Data v4.7+ throws an error if we don't empty out the relationship before calling rollbackAttributes
+      // More info: https://github.com/emberjs/data/issues/8792
+      contactPoint.secondaryContactPoint = null;
       contactPoint.rollbackAttributes();
 
       this.editingContact = null;
