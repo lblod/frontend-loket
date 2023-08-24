@@ -4,7 +4,11 @@ import Post from './post';
 export default class MinisterPositionModel extends Post {
   @belongsTo('minister-position-function', { inverse: null }) function;
 
-  @belongsTo('worship-administrative-unit', { inverse: 'ministerPositions' })
+  @belongsTo('worship-administrative-unit', {
+    inverse: 'ministerPositions',
+    polymorphic: true,
+    as: 'minister-position',
+  })
   worshipService;
 
   @belongsTo('representative-body', { inverse: 'ministerPosition' })

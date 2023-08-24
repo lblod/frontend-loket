@@ -61,7 +61,6 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
     if (isExiting) {
       controller.personId = '';
-      controller.model?.worshipMinister?.rollbackAttributes();
       controller.rollbackUnsavedChanges();
     }
   }

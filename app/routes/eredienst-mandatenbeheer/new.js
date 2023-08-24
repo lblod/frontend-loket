@@ -67,7 +67,6 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
     super.resetController(...arguments);
     if (isExiting) {
       controller.personId = '';
-      controller.model?.worshipMandatee?.rollbackAttributes();
       controller.rollbackUnsavedChanges();
     }
   }

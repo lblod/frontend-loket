@@ -8,14 +8,28 @@ export default class MandatarisModel extends AgentInPosition {
   @attr('datetime') einde;
   @attr('string') duplicationReason;
   @belongsTo('mandaat', { inverse: null }) bekleedt;
-  @belongsTo('lidmaatschap', { inverse: 'lid' }) heeftLidmaatschap;
-  @belongsTo('persoon', { inverse: 'isAangesteldAls' }) isBestuurlijkeAliasVan;
+
+  @belongsTo('lidmaatschap', {
+    inverse: 'lid',
+    polymorphic: true,
+    as: 'mandataris',
+  })
+  heeftLidmaatschap;
+
   @hasMany('rechtsgrond-aanstelling', {
     inverse: 'bekrachtigtAanstellingenVan',
+    polymorphic: true,
+    as: 'mandataris',
   })
   rechtsgrondenAanstelling;
-  @hasMany('rechtsgrond-beeindiging', { inverse: 'bekrachtigtOntslagenVan' })
+
+  @hasMany('rechtsgrond-beeindiging', {
+    inverse: 'bekrachtigtOntslagenVan',
+    polymorphic: true,
+    as: 'mandataris',
+  })
   rechtsgrondenBeeindiging;
+
   @hasMany('mandataris', { inverse: null }) tijdelijkeVervangingen;
   @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
   @belongsTo('mandataris-status-code', { inverse: null }) status;
@@ -30,7 +44,12 @@ export default class MandatarisModel extends AgentInPosition {
     );
   }
 
-  @hasMany('contact-punt', { inverse: 'mandatarissen' }) contactPoints;
+  @hasMany('contact-punt', {
+    inverse: 'mandatarissen',
+    polymorphic: true,
+    as: 'mandataris',
+  })
+  contactPoints;
 }
 
 export async function getUniqueBestuursorganen(mandataris) {

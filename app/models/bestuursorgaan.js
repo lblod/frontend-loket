@@ -5,7 +5,12 @@ export default class BestuursorgaanModel extends Model {
   @attr naam;
   @attr('date') bindingStart;
   @attr('date') bindingEinde;
-  @belongsTo('bestuurseenheid', { inverse: 'bestuursorganen' }) bestuurseenheid;
+  @belongsTo('bestuurseenheid', {
+    inverse: 'bestuursorganen',
+    polymorphic: true,
+    as: 'bestuursorgaan',
+  })
+  bestuurseenheid;
   @belongsTo('bestuursorgaan-classificatie-code', { inverse: null })
   classificatie;
   @belongsTo('bestuursorgaan', { inverse: 'heeftTijdsspecialisaties' })
