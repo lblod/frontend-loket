@@ -1,0 +1,128 @@
+      <DataCardEdit ...attributes>
+        <:title>{{if @title "Contactgegevens"}}</:title>
+        <:card as |Card|>
+          <Card.Columns>
+            <:left>
+              {{#if (eq this.addressInputMode "automatic")}}
+              <AuFormRow @alignment="inline">
+                <AuLabel for="selectAutomaticAddressControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Adres
+                </AuLabel>
+                <div class="au-u-flex--inline au-u-flex--column au-u-4-6">
+                  <PowerSelect @allowClear={{false}} @options={{this.automaticAddressOptions}} @renderInPlace={{false}}
+                    @disabled={{false}} @onChange={{this.automaticAddressSearchChanged}} @searchEnabled={{true}}
+                    @selected={{this.selectedAutomaticAddress}} class="au-u-margin-tiny" id="selectAutomaticAddressControl" as
+                    |selectAutomaticAddressControl|>
+                    {{selectAutomaticAddressControl}}
+                  </PowerSelect>
+                  <AuButton {{on "click" (fn (mut this.addressInputMode) "manual")}} @skin="naked">Vul adres manueel in</AuButton>
+                </div>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="automaticBusNummerControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Busnummer
+                </AuLabel>
+                <AuInput id="automaticBusNummerControl" class="au-u-4-6 au-u-margin-tiny"
+                  {{on "input" this.handleManualBusnumberControl}}
+                />
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="selectAutomaticProvincieControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Provincie
+                </AuLabel>
+                <PowerSelect @allowClear={{false}} @options={{this.selectProvincieOptions}} @renderInPlace={{false}}
+                  @disabled={{true}} @onChange={{fn (mut this.selectedAutomaticProvincie)}} @searchEnabled={{false}}
+                  @selected={{this.selectedAutomaticProvincie}} class="au-u-4-6 au-u-margin-tiny" id="selectAutomaticProvincieControl" as
+                  |selectAutomaticProvincieControl|>
+                  {{selectAutomaticProvincieControl}}
+                </PowerSelect>
+              </AuFormRow>
+              {{/if}}
+              {{#if (eq this.addressInputMode "manual")}}
+              <AuFormRow @alignment="inline">
+                <AuLabel for="manualStreetControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Straat
+                </AuLabel>
+                <div class="au-u-flex--inline au-u-flex--column au-u-4-6">
+                  <AuInput id="manualStreetControl" class="au-u-margin-tiny" {{on "input" this.handleManualStreetControl}}/>
+                  <AuButton {{on "click" (fn (mut this.addressInputMode) "automatic")}} @skin="naked">Vind adres in lijst</AuButton>
+                </div>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="manualHousenumberControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Huisnummer
+                </AuLabel>
+                <AuInput id="manualHousenumberControl" class="au-u-4-6 au-u-margin-tiny" {{on "input" this.handleManualHousenumberControl}}/>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="manualBusnumberControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Busnummer
+                </AuLabel>
+                <AuInput id="manualBusnumberControl" class="au-u-4-6 au-u-margin-tiny" {{on "input" this.handleManualBusnumberControl}}/>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="manualPostcodeControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Postcode
+                </AuLabel>
+                <AuInput id="manualPostcodeControl" class="au-u-4-6 au-u-margin-tiny" @maskOptions={{this.postcodeMaskOptions}} {{on "input" this.handleManualPostcodeControl}}/>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="selectManualMunicipalityControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Gemeente
+                </AuLabel>
+                <PowerSelect @allowClear={{false}} @options={{this.municipalityOptions}} @renderInPlace={{false}}
+                  @onChange={{this.handleManualMunicipalityControl}} @searchEnabled={{true}}
+                  @selected={{this._result.address.gemeentenaam}} class="au-u-4-6 au-u-margin-tiny" id="selectManualMunicipalityControl" as
+                  |selectManualMunicipalityControl|>
+                  {{selectManualMunicipalityControl}}
+                </PowerSelect>
+                {{!-- <MunicipalitySelect @renderInPlace={{false}}
+                  @disabled={{true}} @onChange={{this.handleManualMunicipalityControl}}
+                  @selected={{this._result.address.gemeentenaam}} class="au-u-4-6 au-u-margin-tiny" id="selectManualMunicipalityControl" as
+                  |selectManualMunicipalityControl|>
+                  {{selectManualMunicipalityControl}}
+                </MunicipalitySelect> --}}
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="selectManualProvincieControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Provincie
+                </AuLabel>
+                {{!-- template-lint-disable no-log --}}
+                <PowerSelect @allowClear={{false}} @options={{this.selectProvincieOptions}} @renderInPlace={{false}}
+                  @onChange={{this.handleManualProvinceControl}} @searchEnabled={{false}}
+                  @selected={{this._result.address.provincie}} class="au-u-4-6 au-u-margin-tiny" id="selectManualProvincieControl" as
+                  |selectManualProvincieControl|>
+                  {{selectManualProvincieControl}}
+                </PowerSelect>
+              </AuFormRow>
+              {{/if}}
+            </:left>
+            <:right>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="primaryPhoneControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny" @maskOptions={{this.phoneNumberMaskOptions}}>
+                  Primair telefoonnummer
+                </AuLabel>
+                <AuInput id="primaryPhoneControl" class="au-u-4-6 au-u-margin-tiny" {{on "input" this.handlePrimaryPhoneControl}}/>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="secondaryPhoneControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny" @maskOptions={{this.phoneNumberMaskOptions}}>
+                  Secundair telefoonnummer
+                </AuLabel>
+                <AuInput id="secondaryPhoneControl" class="au-u-4-6 au-u-margin-tiny" {{on "input" this.handleSecondaryPhoneControl}}/>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="emailControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  E-mail
+                </AuLabel>
+                <AuInput id="emailControl" class="au-u-4-6 au-u-margin-tiny" {{on "input" this.handleEmailControl}}/>
+              </AuFormRow>
+              <AuFormRow @alignment="inline">
+                <AuLabel for="websiteControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
+                  Website
+                </AuLabel>
+                <AuInput id="websiteControl" class="au-u-4-6 au-u-margin-tiny" {{on "input" this.handleWebsiteControl}}/>
+              </AuFormRow>
+            </:right>
+          </Card.Columns>
+        </:card>
+      </DataCardEdit>
