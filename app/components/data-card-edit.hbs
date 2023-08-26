@@ -1,0 +1,27 @@
+<div class="au-u-max-width-large" ...attributes>
+  {{#if (has-block "title")}}
+    <AuHeading
+      @level={{or @headingLevel "3"}}
+      @skin={{or @headingSkin "5"}}
+      class="au-u-margin-bottom-tiny"
+    >
+      {{yield to="title"}}
+    </AuHeading>
+  {{/if}}
+
+  <dl class="au-o-box au-o-box--small au-c-card">
+    <div class="au-c-card__content">
+      {{yield
+        (hash
+          Grid=(component
+            "card-grid" itemComponent=(component "data-card/item" isGrid=true)
+          )
+          Columns=(component
+            "card-columns" itemComponent=(component "data-card/item")
+          )
+        )
+        to="card"
+      }}
+    </div>
+  </dl>
+</div>
