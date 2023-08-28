@@ -8,10 +8,10 @@
         </AuPill>
       {{/if}} --}}
     </Group>
-    <button type="button" class="au-c-close au-c-close--large" {{on 'click' @close}} data-test-loket="berichtencentrum-header-cross">
+    <LinkTo @route="berichtencentrum.berichten" class="au-c-close au-c-close--large" data-test-loket="berichtencentrum-header-cross">
       <AuIcon @icon="cross" @size="large" />
       <span class="au-u-hidden-visually">Venster sluiten</span>
-    </button>
+    </LinkTo>
   </AuToolbar>
   <AuHeading
     @level="2"

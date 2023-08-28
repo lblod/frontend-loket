@@ -21,18 +21,18 @@
       {{/unless}}
       <th>{{!-- Actions --}}</th>
     </c.header>
-    <c.body data-test-loket="berichtencentrum-body" as |row|>
-      <td>{{row.betreft}}</td>
-      <td>{{row.laatsteBericht.typeCommunicatie}}</td>
-      <td class="au-u-visible-small-up au-u-word-break">{{row.dossiernummer}}</td>
+    <c.body data-test-loket="berichtencentrum-body" as |conversatie|>
+      <td>{{conversatie.betreft}}</td>
+      <td>{{conversatie.laatsteBericht.typeCommunicatie}}</td>
+      <td class="au-u-visible-small-up au-u-word-break">{{conversatie.dossiernummer}}</td>
       {{#unless @renderSmallTable}}
-        <td class="au-u-visible-small-up">{{moment-format (await row.laatsteBericht.verzonden) 'DD-MM-YYYY'}}</td>
-        <td class="au-u-visible-small-up">{{row.laatsteBericht.van.naam}}</td>
+        <td class="au-u-visible-small-up">{{moment-format conversatie.laatsteBericht.verzonden 'DD-MM-YYYY'}}</td>
+        <td class="au-u-visible-small-up">{{conversatie.laatsteBericht.van.naam}}</td>
       {{/unless}}
       <td>
-        <LinkTo @route='berichtencentrum.berichten.conversatie' @model={{row}} data-test-loket="berichtencentrum-bekijk" class="au-c-link">
+        <AuLink @route='berichtencentrum.berichten.conversatie' @model={{conversatie.id}} data-test-loket="berichtencentrum-bekijk">
           Bekijk
-        </LinkTo>
+        </AuLink>
       </td>
     </c.body>
   </t.content>

@@ -7,25 +7,25 @@ export default class BerichtModel extends Model {
   @attr typeCommunicatie;
 
   @belongsTo('bestuurseenheid', {
-    async: true,
+    async: false,
     inverse: null,
   })
   van;
 
   @belongsTo('gebruiker', {
-    async: true,
+    async: false,
     inverse: null,
   })
   auteur;
 
   @belongsTo('bestuurseenheid', {
-    async: true,
+    async: false,
     inverse: null,
   })
   naar;
 
   @hasMany('file', {
-    async: true,
+    async: false,
     inverse: null,
   })
   bijlagen;

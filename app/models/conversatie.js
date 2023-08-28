@@ -7,13 +7,13 @@ export default class ConversatieModel extends Model {
   @attr reactietermijn;
 
   @hasMany('bericht', {
-    async: true,
+    async: false,
     inverse: null,
   })
   berichten;
 
   @belongsTo('bericht', {
-    async: true,
+    async: false,
     inverse: null,
   })
   laatsteBericht;

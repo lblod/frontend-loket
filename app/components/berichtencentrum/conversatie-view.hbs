@@ -1,27 +1,30 @@
 <div class="au-o-grid__item au-u-2-5@medium">
   <div class="au-c-body-container au-c-action-sidebar" {{auto-focus ".au-c-action-sidebar__header"}}>
-    <Berichtencentrum::ConversatieViewHeader @conversatie={{@model}} @close={{@close}} data-test-loket="berichtencentrum-conversatie-header"/>
+    <Berichtencentrum::ConversatieViewHeader @conversatie={{@conversatie}} data-test-loket="berichtencentrum-conversatie-header" />
 
     <div class="au-o-box au-c-body-container au-c-body-container--scroll">
       {{#if this.sortedBerichten}}
         <ul class="au-o-flow">
           {{#each this.sortedBerichten as |bericht|}}
             <li>
-              <Berichtencentrum::BerichtView  @bericht={{bericht}} @conversatie={{@model}} data-test-loket="berichtencentrum-bericht-view"/>
+              <Berichtencentrum::BerichtView  @bericht={{bericht}} @conversatie={{@conversatie}} data-test-loket="berichtencentrum-bericht-view"/>
             </li>
           {{/each}}
         </ul>
       {{/if}}
 
       <Berichtencentrum::ConversatieReactie
-        @conversatie={{@model}}
+        @conversatie={{@conversatie}}
+        @berichten={{this.sortedBerichten}}
         class="au-u-margin-top"
         data-test-loket="berichtencentrum-conversatie"
       />
     </div>
 
     <div class="au-o-box au-c-action-sidebar__footer">
-      <AuButton {{on  'click' @close}} data-test-loket="berichtencentrum-conversatie-button" @skin="secondary">Sluit venster</AuButton>
+      <AuLink @skin="button-secondary" @route="berichtencentrum.berichten" data-test-loket="berichtencentrum-conversatie-button">
+        Sluit venster
+      </AuLink>
     </div>
   </div>
 </div>

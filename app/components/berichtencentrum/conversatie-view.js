@@ -1,18 +1,14 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
-import { tracked } from '@glimmer/tracking';
-import { sort } from '@ember/object/computed';
+import { service } from '@ember/service';
 
 export default class BerichtencentrumConversatieViewComponent extends Component {
-  @service() router;
+  @service router;
 
-  @sort('berichten', 'generalSort') sortedBerichten;
-
-  @tracked generalSort = ['verzonden'];
-  @tracked showExitModal = false;
-
-  get berichten() {
-    return this.args.model.berichten;
+  get sortedBerichten() {
+    return this.args.conversatie.berichten.slice().sort(sortBySentDate);
   }
+}
+
+function sortBySentDate(berichtA, berichtB) {
+  return berichtA.verzonden - berichtB.verzonden;
 }
