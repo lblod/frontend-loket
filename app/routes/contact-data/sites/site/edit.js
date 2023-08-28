@@ -9,6 +9,12 @@ export default class ContactDataSitesSiteEditRoute extends Route {
     const sites = this.modelFor('contact-data.sites');
     let { id: siteId } = this.paramsFor('contact-data.sites.site');
     const site = sites['sites'].find((site) => site.id === siteId);
-    return { site, sites };
+    const primaryContact = site['contacts'].find(
+      (contact) => contact.type === 'Primary'
+    );
+    const secondaryContact = site['contacts'].find(
+      (contact) => contact.type === 'Secondary'
+    );
+    return { site, sites, primaryContact, secondaryContact };
   }
 }
