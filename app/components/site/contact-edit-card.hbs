@@ -22,7 +22,7 @@
                 <TrimInput
                   @width="block"
                   @value={{@address.fullAddress}}
-                  {{!-- @onUpdate={{fn (mut @address.street)}} --}}
+                  @onUpdate={{fn (mut @address.street)}}
                   @error={{hasError}}
                   id="site-address-street-name"
                 />
@@ -40,7 +40,7 @@
                 <TrimInput
                   @width="block"
                   @value={{@address.number}}
-                  {{!-- @onUpdate={{fn (mut @address.number)}} --}}
+                  @onUpdate={{fn (mut @address.number)}}
                   @error={{hasError}}
                   id="site-address-house-number"
                 />
@@ -52,7 +52,7 @@
                 <TrimInput
                   @width="block"
                   @value={{@address.boxNumber}}
-                  {{!-- @onUpdate={{fn (mut @address.boxNumber)}} --}}
+                  @onUpdate={{fn (mut @address.boxNumber)}}
                   id="site-address-bus-number"
                 />
               </:content>
@@ -67,7 +67,7 @@
                 <TrimInput
                   @width="block"
                   @value={{@address.postcode}}
-                  {{!-- @onUpdate={{fn (mut @address.postcode)}} --}}
+                  @onUpdate={{fn (mut @address.postcode)}}
                   @error={{hasError}}
                   id="site-address-postal-code"
                 />
@@ -84,7 +84,7 @@
                   <MunicipalitySelectByName
                     @selected={{@address.municipality}}
                     @selectedProvince={{@address.province}}
-                    {{!-- @onChange={{fn (mut @address.municipality)}} --}}
+                    @onChange={{fn (mut @address.municipality)}}
                     @id="site-address-municipality"
                     @error={{hasError}}
                   />
@@ -101,7 +101,7 @@
                   <TrimInput
                     @width="block"
                     @value={{@address.municipality}}
-                    {{!-- @onUpdate={{fn (mut @address.municipality)}} --}}
+                    @onUpdate={{fn (mut @address.municipality)}}
                     @error={{hasError}}
                     id="site-address-municipality"
                   />
@@ -121,7 +121,7 @@
                   <ProvinceSelect
                     @selected={{@address.municipality}}
                     @selectedMunicipality={{@address.municipality}}
-                    {{!-- @onChange={{fn (mut @address.province)}} --}}
+                    @onChange={{fn (mut @address.province)}}
                     @id="site-address-province"
                     @error={{hasError}}
                   />
@@ -138,7 +138,7 @@
             <TrimInput
               @width="block"
               @value={{@primaryContact}}
-              {{!-- @onUpdate={{fn (mut @primaryContact.telephone)}} --}}
+              @onUpdate={{fn (mut @primaryContact.telephone)}}
               @error={{hasError}}
               type="tel"
             />
@@ -156,8 +156,8 @@
           <:content as |hasError|>
             <TrimInput
               @width="block"
-              @value={{@secondaryContact.telephone}}
-              {{!-- @onUpdate={{fn (mut @secondaryContact.telephone)}} --}}
+              @value={{@secondaryContact}}
+              @onUpdate={{fn (mut @secondaryContact)}}
               @error={{hasError}}
               id="site-contact-secondary-phone-number"
               type="tel"
@@ -175,8 +175,8 @@
           <:content as |errorMessage|>
             <TrimInput
               @width="block"
-              @value={{@primaryContact.email}}
-              {{!-- @onUpdate={{fn (mut @primaryContact.email)}} --}}
+              @value={{@email}}
+              @onUpdate={{fn (mut @email)}}
               @error={{errorMessage}}
               id="site-contact-email"
             />
@@ -193,8 +193,8 @@
           <:content as |hasError|>
             <TrimInput
               @width="block"
-              @value={{@primaryContact.website}}
-              {{!-- @onUpdate={{fn (mut @primaryContact.website)}} --}}
+              @value={{@website}}
+              @onUpdate={{fn (mut @website)}}
               @error={{hasError}}
               id="site-contact-website"
             />

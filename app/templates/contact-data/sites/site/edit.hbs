@@ -10,6 +10,7 @@
         </:subtitle>
         <:action>
           {{! Secured area }}
+
           <div
             class="au-u-flex au-u-flex--column au-u-flex--nowrap au-u-flex--flex-end"
           >
@@ -17,12 +18,10 @@
               <AuButton @skin="secondary">Annuleer</AuButton>
               <AuButton @skin="primary">Opslaan</AuButton>
             </AuButtonGroup>
-            <div class="au-u-flex au-u-flex--nowrap">
-              <p>Zie je een fout in de data?</p>
-              <a href="derp">Meld het ons</a>
-            </div>
+            <ReportWrongData />
 
           </div>
+
           {{! End of secured area }}
         </:action>
       </PageHeader>
@@ -45,13 +44,12 @@
                   id="nameControl"
                   @disabled="true"
                   class="au-u-4-6 au-u-margin-tiny"
-                  {{on "change" (fn (mut this.selectedName))}}
                 />
               </AuFormRow>
             </:left>
 
             <:right as |Item|>
-              <Item @errorMessage={{this.isNoPrimarySiteErrorMessage}}>
+              <Item @errorMessage="ERRORMESSAGE">
                 <:label>Primair correspondentieadres</:label>
                 <:content>
                   <ul class="au-c-list-inline">
@@ -61,7 +59,6 @@
                         @name="is-primary-site"
                         @value={{this.isPrimarySite}}
                         @identifier="primary-site-true"
-                        @onChange={{this.updateIsPrimarySite true}}
                         checked={{this.isPrimarySite}}
                       />
                     </li>
@@ -71,7 +68,6 @@
                         @name="is-primary-site"
                         @value={{this.isPrimarySite}}
                         @identifier="primary-site-false"
-                        @onChange={{this.updateIsPrimarySite false}}
                         checked={{not this.isPrimarySite}}
                       />
                     </li>
@@ -88,6 +84,7 @@
         @primaryContact={{@model.primaryContact.telephone}}
         @secondaryContact={{@model.secondaryContact.telephone}}
         @website={{@model.primaryContact.website}}
+        @email={{@model.primaryContact.email}}
       >
         <:title>Contactgegevens</:title>
       </Site::ContactEditCard>
