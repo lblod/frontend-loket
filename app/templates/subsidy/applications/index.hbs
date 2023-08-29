@@ -48,13 +48,13 @@
         <td>
           {{consumption.subsidyMeasureOffer.title}}
 
-          {{! TODO: The solution in the lint rule docs doesn't work here. We need to find a different solution.}}
-          {{! template-lint-disable no-array-prototype-extensions}}
-          {{#if consumption.subsidyApplicationForms.firstObject.projectName}}
-            <AuHelpText @skin="secondary" class="au-u-margin-top-none">
-              {{consumption.subsidyApplicationForms.firstObject.projectName}}
-            </AuHelpText>
-          {{/if}}
+          {{#let (this.projectName consumption) as |projectName|}}
+            {{#if projectName}}
+              <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+                {{projectName}}
+              </AuHelpText>
+            {{/if}}
+          {{/let}}
         </td>
         <td>
           {{series.label}}

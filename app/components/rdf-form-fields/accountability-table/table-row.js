@@ -130,7 +130,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
         'filter[:uri:]': uri,
         page: { size: 1 },
       });
-      const file = files.get('firstObject');
+      const file = files.at(0);
       if (file) return new FileField({ record: file, errors: [] });
       else
         return new FileField({

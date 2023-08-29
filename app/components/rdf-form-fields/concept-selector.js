@@ -91,7 +91,7 @@ export default class RdfFormFieldsConceptSchemeSelectorComponent extends InputFi
       'filter[:uri:]': uri,
     });
 
-    return response.firstObject;
+    return response.at(0);
   }
 
   @action

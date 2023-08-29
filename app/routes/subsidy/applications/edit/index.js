@@ -36,7 +36,7 @@ export default class SubsidyApplicationsEditIndexRoute extends Route {
     /**
      * NOTE: we default back to the first step.
      */
-    const first = steps.firstObject;
+    const first = steps.at(0);
     return this.redirectToStep(consumption, first);
   }
 

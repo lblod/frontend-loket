@@ -264,7 +264,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
       'filter[:uri:]': statusUri,
     });
 
-    if (statuses.length) model.status = statuses.firstObject;
+    if (statuses.length) model.status = statuses.at(0);
     await model.save();
   }
 
