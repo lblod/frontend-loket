@@ -19,7 +19,7 @@ export default class EmployeeDatasetSummary extends Component {
       sort: '-time-period.start',
       'filter[dataset][id]': this.args.dataset.id,
     });
-    const latestPeriod = periods.firstObject;
+    const latestPeriod = periods.at(0);
 
     if (latestPeriod) {
       const workingTimeCategories = yield this.store.findAll(
@@ -39,8 +39,8 @@ export default class EmployeeDatasetSummary extends Component {
 
           let datasetSubjects = await this.args.dataset.subjects;
 
-          const isFloat = datasetSubjects.firstObject
-            ? datasetSubjects.firstObject.isFTE
+          const isFloat = datasetSubjects.at(0)
+            ? datasetSubjects.at(0).isFTE
             : false;
 
           if (isFloat) total = total.toFixed(2);
