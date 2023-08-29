@@ -1,5 +1,3 @@
-{{page-title @model.site.address.fullAddress}}
-
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box au-o-flow au-o-flow--large">
     <form class="au-c-form">
@@ -41,6 +39,7 @@
                   Type vestiging
                 </AuLabel>
                 <AuInput
+                  @value={{@model.site.siteType.label}}
                   id="nameControl"
                   @disabled="true"
                   class="au-u-4-6 au-u-margin-tiny"
