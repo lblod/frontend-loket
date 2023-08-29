@@ -14,6 +14,8 @@ export default class PersoneelsbeheerRoute extends Route {
   }
 
   model() {
-    return this.currentSession.group; // bestuurseenheid
+    return {
+      bestuurseenheid: this.currentSession.group,
+    };
   }
 }
