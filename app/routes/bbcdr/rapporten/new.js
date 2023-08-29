@@ -9,7 +9,7 @@ export default class BbcdrRapportenNewRoute extends Route {
       await this.store.query('document-status', {
         filter: { ':uri:': 'http://data.lblod.info/document-statuses/concept' },
       })
-    ).firstObject;
+    ).at(0);
 
     return this.store.createRecord('bbcdr-report', { status });
   }

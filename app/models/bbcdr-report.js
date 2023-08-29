@@ -5,25 +5,25 @@ export default class BbcdrReportModel extends Model {
   @attr('datetime') modified;
 
   @belongsTo('document-status', {
-    async: true,
+    async: false,
     inverse: null,
   })
   status;
 
   @belongsTo('gebruiker', {
-    async: true,
+    async: false,
     inverse: null,
   })
   lastModifier;
 
   @belongsTo('bestuurseenheid', {
-    async: true,
+    async: false,
     inverse: null,
   })
   bestuurseenheid;
 
   @hasMany('file', {
-    async: true,
+    async: false,
     inverse: null,
   })
   files;
