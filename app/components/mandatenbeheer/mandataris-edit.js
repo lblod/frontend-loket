@@ -294,8 +294,8 @@ export default Component.extend({
       }
     },
 
-    cancel() {
-      this.initComponentProperties();
+    async cancel() {
+      await this.initComponentProperties();
       if (this.createMode) {
         this.set('createMode', false);
         this.onCancelCreate(this.mandataris);
