@@ -33,7 +33,11 @@
     "@embroider/macros": "$@embroider/macros",
     "@embroider/util": "^1.0.0",
     "ember-cli-babel": "$ember-cli-babel",
+    "ember-power-select": "$ember-power-select",
     "moment": "^2.29.1"
+  },
+  "overridesNotes": {
+    "ember-power-select": "Some addons bring in v6, this can be removed once those support v7 as well"
   },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^2.6.0",
@@ -83,7 +87,7 @@
     "ember-mu-transform-helpers": "^2.1.2",
     "ember-page-title": "^7.0.0",
     "ember-plausible": "^0.2.0",
-    "ember-power-select": "^6.0.0",
+    "ember-power-select": "^7.0.0",
     "ember-power-select-with-create": "^1.0.0",
     "ember-promise-helpers": "^2.0.0",
     "ember-promise-modals": "^4.0.0",
