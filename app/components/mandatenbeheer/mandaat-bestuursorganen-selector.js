@@ -9,7 +9,8 @@ export default Component.extend({
   _mandaat: oneWay('mandaat'),
   bestuursorganen: null,
 
-  async didReceiveAttrs() {
+  async init() {
+    this._super(...arguments);
     const mandaten = await this.store.query('mandaat', {
       sort: 'bestuursfunctie.label',
       include: 'bestuursfunctie',

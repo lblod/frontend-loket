@@ -17,6 +17,7 @@ export default class MandatenbeheerFractiesRoute extends Route {
       sort: 'naam',
       page: { size: 1000 },
       'filter[bestuursorganen-in-tijd][id]': bestuursorganenIds.join(','),
+      include: 'bestuursorganen-in-tijd',
     });
   }
 
@@ -27,7 +28,7 @@ export default class MandatenbeheerFractiesRoute extends Route {
         'filter[:uri:]':
           'http://data.vlaanderen.be/id/concept/Fractietype/Samenwerkingsverband',
       })
-    ).firstObject;
+    ).at(0);
 
     transition.data.defaultFractieType = defaultFractieType;
   }

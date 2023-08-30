@@ -37,14 +37,12 @@ export default Component.extend({
     this.set('destroyOnError', A());
     this.set('saveError', false);
     this.set('requiredFieldError', false);
-    this.set(
-      'fractie',
-      await this.get('mandataris.heeftLidmaatschap.binnenFractie')
-    );
-    this.set(
-      'beleidsdomeinen',
-      ((await this.get('mandataris.beleidsdomein')) || A()).toArray()
-    );
+    const membership = await this.mandataris.heeftLidmaatschap;
+    const fractie = await membership?.fractie;
+    this.set('fractie', fractie);
+
+    const beleidsdomeinen = await this.mandataris.beleidsdomein;
+    this.set('beleidsdomeinen', beleidsdomeinen?.slice());
     this.set('mandaat', await this.get('mandataris.bekleedt'));
     this.set('startDate', this.get('mandataris.start'));
     this.set('endDate', this.get('mandataris.einde'));
@@ -86,7 +84,7 @@ export default Component.extend({
       }
 
       this.set('mandataris.bekleedt', this.mandaat);
-      this.get('mandataris.beleidsdomein').setObjects(this.beleidsdomeinen);
+      this.mandataris.beleidsdomein = this.beleidsdomeinen;
       this.set('mandataris.start', this.startDate);
       this.set('mandataris.einde', this.endDate);
       this.set('mandataris.rangorde', this.rangorde);
@@ -244,9 +242,12 @@ export default Component.extend({
   async findTijdsinterval(startDate, endDate) {
     let begin = startDate ? startDate.toISOString().substring(0, 10) : '';
     let einde = endDate ? endDate.toISOString().substring(0, 10) : '';
-    return await this.store.query('tijdsinterval', {
+
+    const results = await this.store.query('tijdsinterval', {
       filter: { begin, einde },
     });
+
+    return results.at(0);
   },
 
   async cleanUpOnError() {

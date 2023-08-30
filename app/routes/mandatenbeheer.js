@@ -105,10 +105,12 @@ export default class MandatenbeheerRoute extends Route {
    * TODO: note, this is going to fail once we have more then 20 organen, oh well...
    */
   async getRelevantBestuursorganen(bestuurseenheidId) {
-    return await this.store.query('bestuursorgaan', {
-      'filter[is-tijdsspecialisatie-van][bestuurseenheid][id]':
-        bestuurseenheidId,
-      'filter[:has:bevat]': true, // only organs with a political mandate
-    });
+    return (
+      await this.store.query('bestuursorgaan', {
+        'filter[is-tijdsspecialisatie-van][bestuurseenheid][id]':
+          bestuurseenheidId,
+        'filter[:has:bevat]': true, // only organs with a political mandate
+      })
+    ).slice(); // TODO, it should be possible to remove .slice after updating to EmberData v5. Something calls toArray and triggers a deprecation on v4.
   }
 }

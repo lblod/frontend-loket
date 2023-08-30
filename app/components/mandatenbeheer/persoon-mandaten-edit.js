@@ -35,7 +35,7 @@ export default class MandatenbeheerPersoonMandatenEditComponent extends Componen
     };
 
     let mandatarissen = await this.store.query('mandataris', queryParams);
-    this.mandatarissen = mandatarissen.toArray();
+    this.mandatarissen = mandatarissen.slice();
   }
 
   @action

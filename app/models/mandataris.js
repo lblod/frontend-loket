@@ -76,7 +76,7 @@ export async function getUniqueBestuursorganen(mandataris) {
 
   let bestuursorganen = new Set();
 
-  for (const bestuursorgaanInTijd of bestuursorganenInTijd.toArray()) {
+  for (const bestuursorgaanInTijd of bestuursorganenInTijd) {
     let bestuursorgaan = await bestuursorgaanInTijd.isTijdsspecialisatieVan;
     bestuursorganen.add(bestuursorgaan);
   }
