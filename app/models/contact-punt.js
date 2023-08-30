@@ -61,11 +61,15 @@ export function createSecondaryContactPoint(store) {
 }
 
 export function findPrimaryContactPoint(contactList) {
-  return contactList.findBy('type', CONTACT_TYPE.PRIMARY);
+  return findByType(contactList, CONTACT_TYPE.PRIMARY);
 }
 
 export function findSecondaryContactPoint(contactList) {
-  return contactList.findBy('type', CONTACT_TYPE.SECONDARY);
+  return findByType(contactList, CONTACT_TYPE.SECONDARY);
+}
+
+function findByType(contactList, type) {
+  return contactList.find((contact) => contact.type === type);
 }
 
 export async function isValidPrimaryContact(primaryContactPoint) {

@@ -40,7 +40,7 @@ export default class EredienstMandatenbeheerNewRoute extends Route {
       });
 
       if (contacts.length === 1) {
-        transition.data.selectedContact = contacts.firstObject;
+        transition.data.selectedContact = contacts.at(0);
       }
 
       return {
