@@ -5,8 +5,10 @@ import browserUpdate from 'browser-update';
 import config from './config/environment';
 import './config/custom-inflector-rules';
 import { setupSentry } from 'frontend-loket/utils/sentry';
+import { silenceEmptySyncRelationshipWarnings } from './utils/ember-data';
 
 setupSentry();
+silenceEmptySyncRelationshipWarnings();
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;

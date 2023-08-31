@@ -86,7 +86,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     });
 
     if (queryResult.length >= 1) {
-      identificator = queryResult.get('firstObject');
+      identificator = queryResult.at(0);
     } else {
       identificator = yield this.store
         .createRecord('identificator', {
@@ -105,7 +105,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     });
 
     if (queryResult.length >= 1) {
-      geboorte = queryResult.get('firstObject');
+      geboorte = queryResult.at(0);
     } else {
       geboorte = yield this.store
         .createRecord('geboorte', { datum: this.birthDate })

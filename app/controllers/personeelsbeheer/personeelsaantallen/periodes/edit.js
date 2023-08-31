@@ -6,9 +6,9 @@ export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController e
   @tracked dataset;
 
   get isFTEDataset() {
-    return (
-      this.dataset.subjects && this.dataset.subjects.find((um) => um.isFTE)
-    );
+    const subjects = this.dataset.hasMany('subjects').value();
+
+    return subjects?.find((um) => um.isFTE);
   }
 
   @keepLatestTask

@@ -6,4 +6,9 @@ export default class SubsidyApplicationsIndexController extends Controller {
   size = 20;
   sort = '-modified';
   sentStatus = SENT_STATUS;
+
+  projectName = (consumption) => {
+    return consumption.hasMany('subsidyApplicationForms').value()?.at(0)
+      ?.projectName;
+  };
 }

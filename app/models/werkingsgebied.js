@@ -4,7 +4,9 @@ export default class WerkingsgebiedModel extends Model {
   @attr uri;
   @attr naam;
   @attr niveau;
+
   @hasMany('bestuurseenheid', {
+    async: true,
     inverse: 'werkingsgebied',
     polymorphic: true,
     as: 'werkingsgebied',

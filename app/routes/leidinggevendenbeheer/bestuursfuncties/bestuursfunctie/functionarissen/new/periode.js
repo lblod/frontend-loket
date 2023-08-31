@@ -21,7 +21,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
     const functionaris = await this.store.createRecord('functionaris', {
       bekleedt: bestuursfunctie,
       isBestuurlijkeAliasVan: person,
-      status: status.firstObject,
+      status: status.at(0),
       start: new Date(),
     });
 

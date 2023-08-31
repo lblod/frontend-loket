@@ -2,10 +2,25 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class FractieModel extends Model {
   @attr naam;
-  @belongsTo('fractietype', { inverse: null }) fractietype;
-  @hasMany('bestuursorgaan', { inverse: null }) bestuursorganenInTijd;
-  @belongsTo('bestuurseenheid', { inverse: null }) bestuurseenheid;
   @attr('uri-set') generatedFrom;
+
+  @belongsTo('fractietype', {
+    async: true,
+    inverse: null,
+  })
+  fractietype;
+
+  @hasMany('bestuursorgaan', {
+    async: true,
+    inverse: null,
+  })
+  bestuursorganenInTijd;
+
+  @belongsTo('bestuurseenheid', {
+    async: true,
+    inverse: null,
+  })
+  bestuurseenheid;
 
   get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(

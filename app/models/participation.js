@@ -4,7 +4,11 @@ export default class ParticipationModel extends Model {
   @attr description;
   @attr role;
 
-  @belongsTo('bestuurseenheid') participatingBestuurseenheid;
+  @belongsTo('bestuurseenheid', {
+    async: true,
+    inverse: null,
+  })
+  participatingBestuurseenheid;
 }
 
 export const ROLES = {

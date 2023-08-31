@@ -11,7 +11,6 @@ export default class BbcdrRapportenEditRoute extends Route {
 
     return {
       report,
-      reportFiles: await report.files,
     };
   }
 }

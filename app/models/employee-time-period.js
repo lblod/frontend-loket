@@ -4,5 +4,10 @@ export default class EmployeeTimePeriodModel extends Model {
   @attr uri;
   @attr label;
   @attr('datetime') start;
-  @hasMany('employee-period-slice') slices;
+
+  @hasMany('employee-period-slice', {
+    async: true,
+    inverse: 'timePeriod',
+  })
+  slices;
 }

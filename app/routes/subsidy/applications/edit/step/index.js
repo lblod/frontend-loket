@@ -22,7 +22,7 @@ export default class SubsidyApplicationsEditStepIndexRoute extends Route {
     /**
      * NOTE: for now hardcoded with the assumption "one step has only one form"
      */
-    const form = forms.firstObject;
+    const form = forms.at(0);
 
     if (form) {
       return this.router.replaceWith(

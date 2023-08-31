@@ -16,19 +16,33 @@ export default class ContactPuntModel extends Model {
   @attr achternaam;
   @attr website;
   @attr telefoon;
-  @belongsTo('adres', { inverse: null }) adres;
 
-  @belongsTo('contact-punt', { inverse: null })
+  @belongsTo('adres', {
+    async: true,
+    inverse: null,
+  })
+  adres;
+
+  @belongsTo('contact-punt', {
+    async: true,
+    inverse: null,
+  })
   secondaryContactPoint;
 
   @hasMany('agent-in-position', {
+    async: true,
     inverse: 'contacts',
     polymorphic: true,
     as: 'contact-punt',
   })
   agentsInPosition;
 
-  @hasMany('mandataris', { inverse: 'contactPoints', polymorphic: true })
+  @hasMany('mandataris', {
+    async: true,
+    inverse: 'contactPoints',
+    polymorphic: true,
+    as: 'contact-punt',
+  })
   mandatarissen;
 }
 
@@ -47,11 +61,15 @@ export function createSecondaryContactPoint(store) {
 }
 
 export function findPrimaryContactPoint(contactList) {
-  return contactList.findBy('type', CONTACT_TYPE.PRIMARY);
+  return findByType(contactList, CONTACT_TYPE.PRIMARY);
 }
 
 export function findSecondaryContactPoint(contactList) {
-  return contactList.findBy('type', CONTACT_TYPE.SECONDARY);
+  return findByType(contactList, CONTACT_TYPE.SECONDARY);
+}
+
+function findByType(contactList, type) {
+  return contactList.find((contact) => contact.type === type);
 }
 
 export async function isValidPrimaryContact(primaryContactPoint) {

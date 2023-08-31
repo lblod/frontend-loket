@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, click } from '@ember/test-helpers';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberObject from '@ember/object';
 
@@ -96,9 +96,8 @@ module(
     });
 
     test('it shows a dossiernummer, a typeCommunicatie, a cross and a betreft', async function (assert) {
-      this.set('close', () => {});
       await render(
-        hbs`<Berichtencentrum::ConversatieViewHeader @conversatie={{this.model}} @close={{this.close}} />`
+        hbs`<Berichtencentrum::ConversatieViewHeader @conversatie={{this.model}} />`
       );
 
       assert
@@ -109,23 +108,6 @@ module(
         .exists();
       assert.dom(`[data-test-loket=berichtencentrum-header-cross]`).exists();
       assert.dom(`[data-test-loket=berichtencentrum-header-betreft]`).exists();
-    });
-
-    test('it calls the given `@close` action when the cross is clicked', async function (assert) {
-      this.set('close', () => {
-        assert.step('cross-clicked');
-      });
-
-      await render(hbs`
-        <Berichtencentrum::ConversatieViewHeader
-          @conversatie={{this.model}}
-          @close={{this.close}}
-          @crossClicked={{this.crossClicked}}
-        />
-      `);
-
-      await click('[data-test-loket=berichtencentrum-header-cross]');
-      assert.verifySteps(['cross-clicked']);
     });
   }
 );

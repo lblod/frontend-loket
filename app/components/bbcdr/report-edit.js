@@ -18,7 +18,7 @@ export default class BbcdrReportEditComponent extends Component {
       if (this.args.reportFiles) {
         // We make a copy of the original files so that we can safely discard
         // changes without having to roll back any changes to the relationship itself.
-        let copiedFiles = this.args.reportFiles.toArray();
+        let copiedFiles = this.args.reportFiles.slice();
         return A(copiedFiles);
       }
 
@@ -46,7 +46,7 @@ export default class BbcdrReportEditComponent extends Component {
   }
 
   async deleteFilesAndReport() {
-    const files = await this.args.report.files;
+    const files = this.args.report.files;
     await all(files.map((file) => file.destroyRecord()));
     await this.args.report.destroyRecord();
   }
@@ -67,7 +67,7 @@ export default class BbcdrReportEditComponent extends Component {
             ':uri:': 'http://data.lblod.info/document-statuses/verstuurd',
           },
         })
-      ).firstObject;
+      ).at(0);
       this.args.report.set('status', statusSent);
       await this.updateReport();
       this.router.transitionTo('bbcdr.rapporten.index');

@@ -2,11 +2,23 @@ import { hasMany, belongsTo } from '@ember-data/model';
 import AgentInPosition from './agent-in-position';
 
 export default class MinisterModel extends AgentInPosition {
-  @belongsTo('minister-position', { inverse: 'heldByMinisters' })
+  @belongsTo('minister-position', {
+    async: true,
+    inverse: 'heldByMinisters',
+  })
   ministerPosition;
 
-  @belongsTo('financing-code', { inverse: null }) financing;
-  @hasMany('minister-condition', { inverse: null }) conditions;
+  @belongsTo('financing-code', {
+    async: true,
+    inverse: null,
+  })
+  financing;
+
+  @hasMany('minister-condition', {
+    async: true,
+    inverse: null,
+  })
+  conditions;
 }
 
 export async function validateFunctie(worshipMinister) {

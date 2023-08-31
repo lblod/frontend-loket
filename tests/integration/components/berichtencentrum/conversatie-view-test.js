@@ -98,12 +98,9 @@ module(
     });
 
     test('the component renders a header, a conversatie and a button', async function (assert) {
-      this.close = () => {};
-
       await render(
         hbs`<Berichtencentrum::ConversatieView
-          @model={{this.model}}
-          @close={{this.close}}
+          @conversatie={{this.model}}
           data-test-loket="berichtencentrum-conversatie"
         />`
       );
@@ -118,12 +115,9 @@ module(
     });
 
     test('the conversatie has exactly one message', async function (assert) {
-      this.close = () => {};
-
       await render(
         hbs`<Berichtencentrum::ConversatieView
-          @model={{this.model}}
-          @close={{this.close}}
+          @conversatie={{this.model}}
           data-test-loket="berichtencentrum-conversatie"
         />`
       );

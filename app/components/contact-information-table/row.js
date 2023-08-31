@@ -24,7 +24,7 @@ export default class ContactInformationTableRowComponent extends Component {
         this.newAdres = this.store.createRecord('adres', adres);
       }
 
-      this.args.contact.adres = this.newAdres || addresses.firstObject;
+      this.args.contact.adres = this.newAdres || addresses.at(0);
     } else {
       this.args.contact.adres = null;
     }

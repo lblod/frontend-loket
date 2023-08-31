@@ -22,7 +22,11 @@ export default class MandatenbeheerBeleidsdomeinSelectorWithCreateComponent exte
       sort: 'label',
       'filter[label]': searchData,
     };
-    return yield this.store.query('beleidsdomein-code', queryParams);
+
+    const codes = yield this.store.query('beleidsdomein-code', queryParams);
+    // EmberData throws a deprecation because PowerSelectWithCreate calls `.toArray`, but only because it exists.
+    // TODO: On EmberData v5 we can remove this workaround since the `toArray` method will no longer exist
+    return codes.slice();
   }
 
   @action

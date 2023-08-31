@@ -13,14 +13,14 @@ export default class SubsidyApplicationsEditStepNewRoute extends Route {
       'filter[:uri:]': NEW_STATUS,
     });
 
-    if (newStatuses.length) this.newStatus = newStatuses.firstObject;
+    if (newStatuses.length) this.newStatus = newStatuses.at(0);
   }
 
   async model() {
     let { consumption } = this.modelFor('subsidy.applications.edit');
     let { step } = this.modelFor('subsidy.applications.edit.step');
 
-    const spec = await step.get('formSpecification');
+    const spec = await step.formSpecification;
 
     let form = this.store.createRecord('subsidy-application-form', {
       creator: this.currentSession.user,
@@ -30,10 +30,11 @@ export default class SubsidyApplicationsEditStepNewRoute extends Route {
       status: this.newStatus,
     });
 
-    form.sources.pushObject(spec);
+    form.sources.push(spec);
     await form.save();
 
-    consumption.subsidyApplicationForms.pushObject(form);
+    const forms = await consumption.subsidyApplicationForms;
+    forms.push(form);
     await consumption.save();
 
     return { consumption, step, form };

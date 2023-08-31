@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency-decorators';
+import { task } from 'ember-concurrency';
 import fetch from 'fetch';
 
 export default class SubsidyApplicationsEditController extends Controller {
@@ -40,15 +40,18 @@ export default class SubsidyApplicationsEditController extends Controller {
       /**
        * NOTE: this endpoint prevents the removal of submitted forms, preventing the removal of a consumption all together.
        */
-      const forms = yield this.consumption
-        .get('subsidyApplicationForms')
-        .toArray();
+      const forms = yield this.consumption.subsidyApplicationForms;
       for (const form of forms) {
         yield fetch(`/management-application-forms/${form.id}`, {
           method: 'DELETE',
         });
       }
-      yield this.consumption.get('participations').invoke('destroyRecord');
+
+      const participations = yield this.consumption.participations;
+      yield Promise.all(
+        participations.map((participation) => participation.destroyRecord())
+      );
+
       // We intentionally don't use 'destroyRecord` here since that calls unloadRecord before the
       // transition which causes issues in the ConsumptionStatusPill component
       this.consumption.deleteRecord();

@@ -1,11 +1,14 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { service } from '@ember/service';
 
 export default class MandatenbeheerMandatarisTableComponent extends Component {
+  @service router;
+
   @action
   async removeMandataris(mandataris) {
     await mandataris.destroyRecord();
-    const count = this.args.content.meta.count - 1;
-    this.args.content.set('meta.count', count);
+
+    this.router.refresh('mandatenbeheer.mandatarissen');
   }
 }
