@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import Component from '@glimmer/component';
-// import { tracked } from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 
 /*
 type ContactDataEditFormResult = { address: Address, primary: ContactPunt, seconday: ContactPunt, isValid: boolean }
 */
+
 
 /**
  * Component to edit contact data. Used initially in core data edit and in site data edit pages
@@ -23,6 +24,7 @@ export default class ContactDataEditFormComponent extends Component {
 
   }
 
+  @tracked
   _formData = {
     address: {},
     primary: {},
@@ -40,6 +42,13 @@ export default class ContactDataEditFormComponent extends Component {
 
   automaticAddressOptions = [];
   selectMunicipalityOptions = ['Kerkeghem'];
+  selectProvincieOptions = [
+    'West-Vlaanderen',
+    'Oost-Vlaanderen',
+    'Vlaams-Brabant',
+    'Antwerpen',
+    'Limburg'
+  ]
 
   postcodeMaskOptions = {
     mask: '9999',
@@ -97,7 +106,8 @@ export default class ContactDataEditFormComponent extends Component {
   handleManualStreetControl(event) {
     this.addressInputEventHandler('straatnaam')(event);
   }
-  @action handleManualHousenumberControl(event) {
+  @action
+  handleManualHousenumberControl(event) {
     this.addressInputEventHandler('huisnummer')(event);
   }
   @action
@@ -115,6 +125,7 @@ export default class ContactDataEditFormComponent extends Component {
   }
   @action
   handleManualProvinceControl(province) {
+
     this._formData.address.provincie = province;
     this.args.onChange(this.computeResult());
   }

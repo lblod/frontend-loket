@@ -1,6 +1,7 @@
       <DataCardEdit ...attributes>
         <:title>{{if @title "Contactgegevens"}}</:title>
         <:card as |Card|>
+          {{printAsJson this._formData}}
           <Card.Columns>
             <:left>
               {{#if (eq this.addressInputMode "automatic")}}
@@ -72,13 +73,13 @@
                 </AuLabel>
                 <PowerSelect @allowClear={{false}} @options={{this.municipalityOptions}} @renderInPlace={{false}}
                   @onChange={{this.handleManualMunicipalityControl}} @searchEnabled={{true}}
-                  @selected={{this._result.address.gemeentenaam}} class="au-u-4-6 au-u-margin-tiny" id="selectManualMunicipalityControl" as
+                  @selected={{this._formData.address.gemeentenaam}} class="au-u-4-6 au-u-margin-tiny" id="selectManualMunicipalityControl" as
                   |selectManualMunicipalityControl|>
                   {{selectManualMunicipalityControl}}
                 </PowerSelect>
                 {{!-- <MunicipalitySelect @renderInPlace={{false}}
                   @disabled={{true}} @onChange={{this.handleManualMunicipalityControl}}
-                  @selected={{this._result.address.gemeentenaam}} class="au-u-4-6 au-u-margin-tiny" id="selectManualMunicipalityControl" as
+                  @selected={{this._formData.address.gemeentenaam}} class="au-u-4-6 au-u-margin-tiny" id="selectManualMunicipalityControl" as
                   |selectManualMunicipalityControl|>
                   {{selectManualMunicipalityControl}}
                 </MunicipalitySelect> --}}
@@ -90,7 +91,7 @@
                 {{!-- template-lint-disable no-log --}}
                 <PowerSelect @allowClear={{false}} @options={{this.selectProvincieOptions}} @renderInPlace={{false}}
                   @onChange={{this.handleManualProvinceControl}} @searchEnabled={{false}}
-                  @selected={{this._result.address.provincie}} class="au-u-4-6 au-u-margin-tiny" id="selectManualProvincieControl" as
+                  @selected={{this._formData.address.provincie}} class="au-u-4-6 au-u-margin-tiny" id="selectManualProvincieControl" as
                   |selectManualProvincieControl|>
                   {{selectManualProvincieControl}}
                 </PowerSelect>
