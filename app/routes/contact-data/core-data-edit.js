@@ -1,10 +1,25 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import { createValidatedChangeset } from '../../utils/changeset';
+import { getAddressValidations } from 'frontend-loket/validations/address';
+import contactValidations from 'frontend-loket/validations/contact-point';
+import secondaryContactValidations from 'frontend-loket/validations/secondary-contact-point';
 
 export default class CoreDataEditRoute extends Route {
   @service currentSession;
 
+  // TODO: Add check beforeModel to test if canEdit is true
+  // beforeModel() {
+  //   if (!this.currentSession.canEdit) {
+  //     this.router.transitionTo('route-not-found', {
+  //       wildcard: 'pagina-niet-gevonden',
+  //     });
+  //   }
+  // }
+
+  // TODO: Get from store
   async model() {
+    // TODO: Get this from store
     const administrativeUnit = {
       name: 'Aalst',
       classification: {
@@ -40,7 +55,7 @@ export default class CoreDataEditRoute extends Route {
           province: 'Oost-Vlaanderen',
         },
       },
-      primaryContact: {
+      contact: {
         telephone: '081 00 0000',
         email: 'fakeemail@gmail.com',
         website: 'https://google.com',
@@ -51,9 +66,19 @@ export default class CoreDataEditRoute extends Route {
         website: 'https://wikipedia.org',
       },
     };
-    const kbo = administrativeUnit.identifiers[0].structuredIdentifier.localId;
-    const ovo = administrativeUnit.identifiers[2].structuredIdentifier.localId;
+    // Todo: extract from model, the notations are taken from loket
+    let address = administrativeUnit.primarySite.address;
+    let contact = administrativeUnit.primaryContact;
+    let secondaryContact = administrativeUnit.secondaryContact;
 
-    return { administrativeUnit, kbo, ovo };
+    return {
+      address: createValidatedChangeset(address, getAddressValidations()),
+      contact: createValidatedChangeset(contact, contactValidations),
+      secondaryContact: createValidatedChangeset(
+        secondaryContact,
+        secondaryContactValidations
+      ),
+      administrativeUnit,
+    };
   }
 }
