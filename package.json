@@ -122,5 +122,8 @@
     "ember-template-lint": {
       "daysToDecay": null
     }
+  },
+  "dependencies": {
+    "ember-resources": "^4.8.2"
   }
 }

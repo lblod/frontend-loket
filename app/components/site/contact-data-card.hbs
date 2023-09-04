@@ -1,0 +1,83 @@
+<DataCard>
+  <:title>
+    {{yield to="title"}}
+  </:title>
+  <:card as |Card|>
+    <Card.Columns>
+      <:left as |Item|>
+        <Item>
+          <:label>Adres</:label>
+          <:content>
+            {{@address}}
+          </:content>
+        </Item>
+        {{#if @province}}
+          <Item>
+            <:label>Provincie</:label>
+            <:content>
+              {{@province}}
+            </:content>
+          </Item>
+        {{/if}}
+      </:left>
+      <:right as |Item|>
+        {{#if @primaryContact}}
+          <Item>
+            <:label>Primair telefoonnummer</:label>
+            <:content>
+              {{@primaryContact}}
+            </:content>
+          </Item>
+        {{else}}
+          <Item>
+            <:label>Primair telefoonnummer</:label>
+            <:content>
+              Niet ingesteld
+            </:content>
+          </Item>
+        {{/if}}
+        {{#if @secondaryContact}}
+          <Item>
+            <:label>Secundair telefoonnummer</:label>
+            <:content>
+              {{@secondaryContact}}
+            </:content>
+          </Item>
+        {{else}}
+          <Item>
+            <:label>Secundair telefoonnummer</:label>
+            <:content>
+              Niet ingesteld
+            </:content>
+          </Item>
+        {{/if}}
+        {{#if @primaryContact.email}}
+          <Item>
+            <:label>E-mail</:label>
+            <:content>
+              {{@primaryContact.email}}
+            </:content>
+          </Item>
+        {{/if}}
+        {{#if @website}}
+          <Item>
+            <:label>Website</:label>
+            <:content>
+              <AuLinkExternal href={{@website}}>
+                {{@website}}
+                (externe link)
+              </AuLinkExternal>
+            </:content>
+          </Item>
+        {{else}}
+          <Item>
+            <:label>Website</:label>
+            <:content>
+              Niet ingesteld
+            </:content>
+          </Item>
+        {{/if}}
+      </:right>
+    </Card.Columns>
+  </:card>
+</DataCard>
