@@ -84,7 +84,6 @@
   color: $au-gray-800;
 }
 
-
 // Close button
 .au-c-close {
   position: absolute;
@@ -111,13 +110,12 @@
   right: $au-unit;
 }
 
-
 // Vertical list
 .au-c-list-vertical__item {
   & + & {
     margin-top: $au-unit-small;
     padding-top: $au-unit-small;
-    border-top: .1rem solid $au-gray-200;
+    border-top: 0.1rem solid $au-gray-200;
   }
 
   .au-c-collapsible & + & {
@@ -126,7 +124,6 @@
     border-top-color: $au-gray-300;
   }
 }
-
 
 // Toggle button
 .au-c-button--toggle {
@@ -172,12 +169,12 @@
   border-collapse: collapse;
 
   thead {
-    border-top: .2rem solid $au-gray-300;
-    border-bottom: .2rem solid $au-gray-300;
+    border-top: 0.2rem solid $au-gray-300;
+    border-bottom: 0.2rem solid $au-gray-300;
   }
 
   tbody {
-    border-bottom: .2rem solid $au-gray-300;
+    border-bottom: 0.2rem solid $au-gray-300;
   }
 
   th,
@@ -223,7 +220,7 @@
 
   thead th,
   tbody th {
-    border-right: .2rem solid $au-gray-300;
+    border-right: 0.2rem solid $au-gray-300;
   }
 
   thead th:last-child,
@@ -232,7 +229,7 @@
   }
 
   tbody td {
-    border-right: .2rem solid $au-gray-300;
+    border-right: 0.2rem solid $au-gray-300;
   }
 
   tbody td:last-child {
@@ -240,11 +237,11 @@
   }
 
   thead tr + tr {
-    border-top: .2rem solid $au-gray-300;
+    border-top: 0.2rem solid $au-gray-300;
   }
 
   tbody tr + tr {
-    border-top: .1rem solid $au-gray-300;
+    border-top: 0.1rem solid $au-gray-300;
   }
 }
 
@@ -326,7 +323,6 @@
   display: grid;
   grid-template-columns: 1fr;
 
-
   @media screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
@@ -343,4 +339,30 @@
 
 .au-u-flex--flex-end {
   align-items: flex-end;
+}
+
+// Inline list for radio buttons
+.au-c-list-inline {
+  display: flex;
+  flex-direction: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: $au-unit-tiny;
+  margin-bottom: $au-unit-tiny;
+}
+
+.au-c-list--styled {
+  padding-left: 1em;
+  &.au-c-list--styled__disc {
+    list-style-type: disc;
+  }
+}
+
+.au-c-list-inline__item {
+  display: flex;
+  align-items: center;
+
+  & + & {
+    margin-left: $au-unit;
+  }
 }
