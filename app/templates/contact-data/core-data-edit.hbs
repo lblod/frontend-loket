@@ -98,7 +98,7 @@
         </:card>
       </DataCardEdit>
 
-      <ContactDataEditForm
+      {{!-- <ContactDataEditForm
         @title="Primaire contactgegevens"
         @onChange={{this.handleContactDataForm}}
         @initialAddress={{hash
@@ -109,7 +109,19 @@
         }}
         @initialPrimary={{hash telefoon='+32 400 00 00 00' email='derp@herp.com' website='http://omg.be'}}
         @initialSecondary={{hash telefoon='+32 400 00 00 01'}}
-      ></ContactDataEditForm>
+      ></ContactDataEditForm> --}}
+      <Site::ContactEditCard
+          @address={{@model.address}}
+          @isAddressSearchEnabledInitially={{if
+            (or (not @model.address.id) @model.address.addressRegisterUri)
+            true
+            false
+          }}
+          @primaryContact={{@model.contact}}
+          @secondaryContact={{@model.secondaryContact}}
+        >
+          <:title>Primaire contactgegevens</:title>
+      </Site::ContactEditCard>
 
     </form>
   </div>

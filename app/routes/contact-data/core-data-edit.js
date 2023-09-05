@@ -68,9 +68,8 @@ export default class CoreDataEditRoute extends Route {
     };
     // Todo: extract from model, the notations are taken from loket
     let address = administrativeUnit.primarySite.address;
-    let contact = administrativeUnit.primaryContact;
+    let contact = administrativeUnit.contact;
     let secondaryContact = administrativeUnit.secondaryContact;
-
     return {
       address: createValidatedChangeset(address, getAddressValidations()),
       contact: createValidatedChangeset(contact, contactValidations),

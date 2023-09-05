@@ -1,5 +1,5 @@
 import { validatePresence } from 'ember-changeset-validations/validators';
-import { validateConditionally } from 'frontend-organization-portal/validators/validate-conditionally';
+import { validateConditionally } from '../validators/validate-conditionally';
 
 export function getAddressValidations(isAlwaysRequired = false) {
   const REQUIRED_MESSAGE = 'Vul het volledige adres in';

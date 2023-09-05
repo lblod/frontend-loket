@@ -1,0 +1,20 @@
+<div class={{if @error "ember-power-select--error"}}>
+  <PowerSelect
+    @width="block"
+    @triggerId={{@id}}
+    @allowClear={{false}}
+    @renderInPlace={{false}}
+    @search={{perform this.search}}
+    @selected={{this.addressSuggestion}}
+    @options={{this.addressSuggestion}}
+    @onChange={{perform this.selectSuggestion}}
+    @loadingMessage="Aan het laden..."
+    @searchEnabled={{true}}
+    @noMatchesMessage="Geen resultaten"
+    @searchMessage="Typ om te zoeken"
+    @beforeOptionsComponent={{component "power-select/before-options-with-pre-filled-text" addressSuggestion=this.addressSuggestion}}
+    as |suggestion|
+  >
+    {{suggestion.fullAddress}}
+  </PowerSelect>
+</div>

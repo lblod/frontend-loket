@@ -1,5 +1,5 @@
 import { validateFormat } from 'ember-changeset-validations/validators';
-import { validateUrl } from 'frontend-organization-portal/validators/url';
+import { validateUrl } from '../validators/url';
 
 export default {
   telephone: validateFormat({
