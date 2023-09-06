@@ -1,6 +1,5 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box au-o-flow au-o-flow--large">
-    <form class="au-c-form">
       <PageHeader>
         <:title>Bewerk kerngegevens</:title>
         <:subtitle>{{this.currentSession.group.naam}}
@@ -10,7 +9,15 @@
           <div class="au-u-flex au-u-flex--column au-u-flex--nowrap au-u-flex--flex-end">
             <AuButtonGroup>
               <AuButton @skin="secondary">Annuleer</AuButton>
-              <AuButton @skin="primary">Opslaan</AuButton>
+              <AuButton
+                @skin="primary"
+                @loading={{this.save.isRunning}}
+                @disabled={{this.save.isRunning}}
+                form="core-data-edit"
+                type="submit"
+              >
+                Opslaan
+              </AuButton>
             </AuButtonGroup>
             <div class="au-u-flex au-u-flex--nowrap">
               <p>Zie je een fout in de data?</p>
@@ -21,108 +28,24 @@
         {{!-- End of secured area --}}
         </:action>
       </PageHeader>
-      <DataCardEdit>
-        <:title>Bestuurseenheid</:title>
-        <:card as |Card|>
-          <Card.Columns>
-            <:left>
-              <AuFormRow @alignment="inline">
-                <AuLabel for="nameControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
-                  Naam
-                </AuLabel>
-                <AuInput id="nameControl" @disabled="true" class="au-u-4-6 au-u-margin-tiny"
-                  {{on "change" (fn (mut this.selectedName))}}
-                />
-              </AuFormRow>
-              <AuFormRow @alignment="inline">
-                <AuLabel for="selectTypeBestuurControl" @inline={{true}} @disabled="true" class="au-u-2-6 au-u-margin-tiny">
-                  Type bestuur
-                </AuLabel>
-                <PowerSelect @allowClear={{false}} @options={{this.selectTypeBestuurOptions}} @renderInPlace={{false}}
-                  @disabled="true" @onChange={{fn (mut this.selectedTypeBestuur)}} @searchEnabled={{false}}
-                  @selected={{this.selectedTypeBestuur}} class="au-u-4-6 au-u-margin-tiny" id="selectTypeBestuurControl" as
-                  |selectTypeBestuurControl|>
-                  {{selectTypeBestuurControl}}
-                </PowerSelect>
-              </AuFormRow>
-              <AuFormRow @alignment="inline">
-                <AuLabel for="selectRegioControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
-                  Regio
-                </AuLabel>
-                <PowerSelect @allowClear={{false}} @options={{this.selectRegioOptions}} @renderInPlace={{false}}
-                  @disabled="true" @onChange={{fn (mut this.selectedRegio)}} @searchEnabled={{false}}
-                  @selected={{this.selectedRegio}} class="au-u-4-6 au-u-margin-tiny" id="selectRegioControl" as
-                  |selectRegioControl|>
-                  {{selectRegioControl}}
-                </PowerSelect>
-              </AuFormRow>
-            </:left>
-            <:right>
-              <AuFormRow @alignment="inline">
-                <AuLabel for="selectStatus" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
-                  Status
-                </AuLabel>
-                <PowerSelect @allowClear={{false}} @options={{this.selectStatusOptions}} @renderInPlace={{false}}
-                  @disabled="true" @onChange={{fn (mut this.selectedStatus)}} @searchEnabled={{false}}
-                  @selected={{this.selectedStatus}} class="au-u-4-6 au-u-margin-tiny" id="selectStatusControl" as
-                  |selectStatusControl|>
-                  {{selectStatusControl}}
-                </PowerSelect>
-              </AuFormRow>
-              <AuFormRow @alignment="inline">
-                <AuLabel for="kboControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
-                  KBO nummer
-                </AuLabel>
-                <AuInput id="kboControl" @maskOptions={{this.kboMaskOptions}} class="au-u-4-6 au-u-margin-tiny" @disabled={{true}}
-                  {{on "change" (fn (mut this.selectedKbo))}}
-                />
-              </AuFormRow>
-              <AuFormRow @alignment="inline">
-                <AuLabel for="nisControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
-                  NIS code
-                </AuLabel>
-                <AuInput id="nisControl" class="au-u-4-6 au-u-margin-tiny" @disabled={{true}}
-                  {{on "change" (fn (mut this.selectedNis))}}
-                />
-              </AuFormRow>
-              <AuFormRow @alignment="inline">
-                <AuLabel for="ovoControl" @inline={{true}} class="au-u-2-6 au-u-margin-tiny">
-                  OVO-nummer
-                </AuLabel>
-                <AuInput id="ovoControl" class="au-u-4-6 au-u-margin-tiny" @disabled={{true}}
-                  {{on "change" (fn (mut this.selectedOvo))}}
-                />
-              </AuFormRow>
-            </:right>
-          </Card.Columns>
-        </:card>
-      </DataCardEdit>
-
-      {{!-- <ContactDataEditForm
-        @title="Primaire contactgegevens"
-        @onChange={{this.handleContactDataForm}}
-        @initialAddress={{hash
-          straatnaam='Stolpstaat'
-          huisnummer='80'
-          postcode='1000'
-          gemeentenaam='Reetveerdeghem'
-        }}
-        @initialPrimary={{hash telefoon='+32 400 00 00 00' email='derp@herp.com' website='http://omg.be'}}
-        @initialSecondary={{hash telefoon='+32 400 00 00 01'}}
-      ></ContactDataEditForm> --}}
-      <Site::ContactEditCard
-          @address={{@model.address}}
-          @isAddressSearchEnabledInitially={{if
-            (or (not @model.address.id) @model.address.addressRegisterUri)
-            true
-            false
-          }}
-          @primaryContact={{@model.contact}}
-          @secondaryContact={{@model.secondaryContact}}
+      <form id="core-data-edit" aria-label="edit-core-info-form" {{on "submit" (perform this.save)}}>
+        <CoreDataEditCard
+          @coreData={{@model.coreData}}
         >
-          <:title>Primaire contactgegevens</:title>
-      </Site::ContactEditCard>
-
-    </form>
+          <:title>Bestuurseenheid</:title>
+        </CoreDataEditCard>
+        <ContactDataEditCard
+            @address={{@model.address}}
+            @isAddressSearchEnabledInitially={{if
+              (or (not @model.address.id) @model.address.addressRegisterUri)
+              true
+              false
+            }}
+            @primaryContact={{@model.primaryContact}}
+            @secondaryContact={{@model.secondaryContact}}
+          >
+            <:title>Primaire contactgegevens</:title>
+        </ContactDataEditCard>
+      </form>
   </div>
 </div>

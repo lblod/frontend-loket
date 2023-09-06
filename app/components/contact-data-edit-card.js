@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
-export default class ContactEditCard extends Component {
+export default class ContactDataEditCard extends Component {
+  derp = 'HerpDerpDerpDerp';
+
   get isCountryBelgium() {
     return this.args.address.country == 'België';
   }

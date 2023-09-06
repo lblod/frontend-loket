@@ -38,7 +38,7 @@
                   @value={{@address.street}}
                   @onUpdate={{fn (mut @address.street)}}
                   @error={{hasError}}
-                  id="site-address-street-name"
+                  @id="site-address-street-name"
                 />
               </:content>
             </Item>
@@ -56,7 +56,7 @@
                   @value={{@address.number}}
                   @onUpdate={{fn (mut @address.number)}}
                   @error={{hasError}}
-                  id="site-address-house-number"
+                  @id="site-address-house-number"
                 />
               </:content>
             </Item>
@@ -67,7 +67,7 @@
                   @width="block"
                   @value={{@address.boxNumber}}
                   @onUpdate={{fn (mut @address.boxNumber)}}
-                  id="site-address-bus-number"
+                  @id="site-address-bus-number"
                 />
               </:content>
             </Item>
@@ -157,7 +157,7 @@
               @value={{@primaryContact.telephone}}
               @onUpdate={{fn (mut @primaryContact.telephone)}}
               @error={{hasError}}
-              id="site-contact-phone-number"
+              @id="site-contact-phone-number"
               type="tel"
             />
           </:content>
@@ -177,7 +177,7 @@
               @value={{@secondaryContact.telephone}}
               @onUpdate={{fn (mut @secondaryContact.telephone)}}
               @error={{hasError}}
-              id="site-contact-secondary-phone-number"
+              @id="site-contact-secondary-phone-number"
               type="tel"
             />
           </:content>
@@ -196,7 +196,7 @@
               @value={{@primaryContact.email}}
               @onUpdate={{fn (mut @primaryContact.email)}}
               @error={{errorMessage}}
-              id="site-contact-email"
+              @id="site-contact-email"
             />
           </:content>
           <:helpText>
@@ -214,7 +214,7 @@
               @value={{@primaryContact.website}}
               @onUpdate={{fn (mut @primaryContact.website)}}
               @error={{hasError}}
-              id="site-contact-website"
+              @id="site-contact-website"
             />
           </:content>
           <:helpText>

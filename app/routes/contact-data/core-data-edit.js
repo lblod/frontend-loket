@@ -1,83 +1,107 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
+import EmberObject from '@ember/object';
 import { createValidatedChangeset } from '../../utils/changeset';
 import { getAddressValidations } from 'frontend-loket/validations/address';
+import coreDataValidations from 'frontend-loket/validations/coreData';
 import contactValidations from 'frontend-loket/validations/contact-point';
 import secondaryContactValidations from 'frontend-loket/validations/secondary-contact-point';
 
 export default class CoreDataEditRoute extends Route {
   @service currentSession;
+  @service store;
 
-  // TODO: Add check beforeModel to test if canEdit is true
-  // beforeModel() {
-  //   if (!this.currentSession.canEdit) {
-  //     this.router.transitionTo('route-not-found', {
-  //       wildcard: 'pagina-niet-gevonden',
-  //     });
-  //   }
-  // }
+  demoRecord = undefined;
 
-  // TODO: Get from store
-  async model() {
-    // TODO: Get this from store
-    const administrativeUnit = {
+  _insertDemoRecord() {
+    this.demoRecord = EmberObject.create({
       name: 'Aalst',
-      classification: {
+      classification: EmberObject.create({
         label: 'OCMW',
-      },
-      organizationStatus: {
+      }),
+      organizationStatus: EmberObject.create({
         id: '63cc561de9188d64ba5840a42ae8f0d6',
         label: 'Actief',
-      },
+      }),
       identifiers: [
-        {
+        EmberObject.create({
           idName: 'KBO nummer',
-          structuredIdentifier: {
+          structuredIdentifier: EmberObject.create({
             localId: '0212.237.186',
-          },
-        },
-        {
+          }),
+        }),
+        EmberObject.create({
           idName: 'SharePoint identificator',
-          structuredIdentifier: {
-            localId: '324',
-          },
-        },
-        {
+          structuredIdentifier: EmberObject.create({
+            localId: 'flqskjdfqkjsd',
+          }),
+        }),
+        EmberObject.create({
           idName: 'OVO-nummer',
-          structuredIdentifier: {
+          structuredIdentifier: EmberObject.create({
             localId: 'OVO002601',
-          },
-        },
+          }),
+        }),
       ],
-      primarySite: {
-        address: {
+      primarySite: EmberObject.create({
+        address: EmberObject.create({
           fullAddress: 'Gasthuisstraat 40, 9300 Aalst, België',
           province: 'Oost-Vlaanderen',
-        },
-      },
-      contact: {
-        telephone: '081 00 0000',
-        email: 'fakeemail@gmail.com',
-        website: 'https://google.com',
-      },
-      secondaryContact: {
-        telephone: '081 00 0002',
-        email: 'fakeemail2@gmail.com',
-        website: 'https://wikipedia.org',
-      },
-    };
-    // Todo: extract from model, the notations are taken from loket
-    let address = administrativeUnit.primarySite.address;
-    let contact = administrativeUnit.contact;
-    let secondaryContact = administrativeUnit.secondaryContact;
+        }),
+        contacts: [
+          EmberObject.create({
+            telephone: '081 00 0000',
+            email: 'fakeemail@gmail.com',
+            website: 'https://google.com',
+          }),
+          EmberObject.create({
+            telephone: '081 00 0002',
+            email: 'fakeemail2@gmail.com',
+            website: 'https://wikipedia.org',
+          }),
+        ],
+      }),
+    });
+    return this.demoRecord;
+  }
+
+  async model() {
+    // This is demo code with a hardcoded record
+    // Normally this should be an ember model
+    const administrativeUnitRecord =
+      this.demoRecord ?? this._insertDemoRecord();
+
+    const address = administrativeUnitRecord.primarySite.address;
+
+    const kbo = administrativeUnitRecord.identifiers.find(
+      (sub) => sub.idName === 'KBO nummer'
+    ).structuredIdentifier.localId;
+    const ovo = administrativeUnitRecord.identifiers.find(
+      (sub) => sub.idName === 'OVO-nummer'
+    ).structuredIdentifier.localId;
+
+    const coreData = EmberObject.create({
+      name: administrativeUnitRecord.name,
+      adminType: administrativeUnitRecord.classification.label,
+      region: 'Onbekend',
+      status: administrativeUnitRecord.organizationStatus.label,
+      kbo,
+      nis: '0',
+      ovo,
+    });
+
     return {
-      address: createValidatedChangeset(address, getAddressValidations()),
-      contact: createValidatedChangeset(contact, contactValidations),
+      administrativeUnit: administrativeUnitRecord,
+      coreData: createValidatedChangeset(coreData, coreDataValidations),
+      address: createValidatedChangeset(address, getAddressValidations(true)),
+      primaryContact: createValidatedChangeset(
+        administrativeUnitRecord.primarySite.contacts[0],
+        contactValidations
+      ),
       secondaryContact: createValidatedChangeset(
-        secondaryContact,
+        administrativeUnitRecord.primarySite.contacts[1],
         secondaryContactValidations
       ),
-      administrativeUnit,
     };
   }
 }
