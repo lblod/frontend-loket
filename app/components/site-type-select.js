@@ -113,20 +113,20 @@ export default class SiteTypeSelectComponent extends Component {
   *loadSiteTypesTask() {
     // let allTypes = yield this.store.findAll('site-type', { reload: true });
     let allTypes = yield mockSiteTypes;
-
     let filteredTypes = [];
 
-    if (this.args.selected.content.label === 'Maatschappelijke zetel') {
-      filteredTypes.push(
-        allTypes.find((type) => type.id == 'f1381723dec42c0b6ba6492e41d6f5dd') // Maatschappelijke zetel
-      );
-    }
+    filteredTypes.push(
+      allTypes.find((type) => type.id == 'f1381723dec42c0b6ba6492e41d6f5dd') // Maatschappelijke zetel
+    );
 
     if (this.args.selected.content.label === 'Hoofdgebouw erediensten') {
       filteredTypes.push(
         allTypes.find((type) => type.id == 'dd0418307e7038c0c3809e3ec03a0932') // Hoofdgebouw erediensten
       );
-    } else if (this.args.selected.content.label === 'Gemeentehuis') {
+    } else if (
+      this.args.selected.content.label === 'Gemeentehuis' ||
+      this.args.selected.content.label === 'Ander administratief adres'
+    ) {
       filteredTypes.push(
         allTypes.find((type) => type.id == '57e8e5498ca84056b8a87631a26c90af') // Gemeentehuis
       );
@@ -142,7 +142,7 @@ export default class SiteTypeSelectComponent extends Component {
         allTypes.find((type) => type.id == 'db13a289b78e42d19d8d1d269b61b18f') // Districtshuis
       );
     }
-    console.log('filteredTypes', filteredTypes);
+
     return filteredTypes;
   }
 }

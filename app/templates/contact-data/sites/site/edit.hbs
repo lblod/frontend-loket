@@ -49,7 +49,7 @@
                       <SiteTypeSelect
                         @selected={{this.model.site.siteType}}
                         @onChange={{fn (mut this.model.site.siteType)}}
-                        @administrativeUnitClassification={{this.model.administrativeUnit.classification}}
+                        @administrativeUnitClassification={{this.model.site.siteType.id}}
                         @id="site-type"
                         @error={{hasError}}
                       />
