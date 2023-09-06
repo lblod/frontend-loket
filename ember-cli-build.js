@@ -20,6 +20,9 @@ module.exports = function (defaults) {
         controle: process.env.CONTROLE === 'true',
       },
     },
+    babel: {
+      sourceMaps: 'inline',
+    },
   };
 
   let app = new EmberApp(defaults, customBuildConfig);

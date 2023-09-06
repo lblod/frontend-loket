@@ -28,7 +28,6 @@
     "test:ember": "ember test"
   },
   "overrides": {
-    "@embroider/macros": "$@embroider/macros",
     "@embroider/util": "^1.0.0",
     "ember-cli-babel": "$ember-cli-babel",
     "moment": "^2.29.1"
@@ -39,7 +38,6 @@
     "@babel/plugin-proposal-decorators": "^7.20.7",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
-    "@embroider/macros": "^1.10.0",
     "@glimmer/component": "^1.0.4",
     "@glimmer/tracking": "^1.0.4",
     "@lblod/ember-acmidm-login": "2.0.0-beta.1",
@@ -127,6 +125,7 @@
     }
   },
   "dependencies": {
+    "@lblod/ember-address-search": "^0.1.0",
     "ember-resources": "^4.8.2"
   }
 }

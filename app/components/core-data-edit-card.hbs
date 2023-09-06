@@ -1,0 +1,138 @@
+<EditCard @containsRequiredFields={{true}}>
+  <:title>{{yield to="title"}}</:title>
+  <:card as |Card|>
+    <Card.Columns>
+      <:left as |Item|>
+        <Item
+          @labelFor="name"
+          @errorMessage={{@coreData.error.name.validation}}
+        >
+          <:label>Naam</:label>
+          <:content as |hasError|>
+            <TrimInput
+              @width="block"
+              @id="name"
+              @error={{hasError}}
+              @value={{@coreData.name}}
+              @onUpdate={{fn (mut @coreData.name)}}
+
+            ></TrimInput>
+          </:content>
+        </Item>
+        <Item
+          @labelFor="adminType"
+          @errorMessage={{@coreData.error.adminType.validation}}
+        >
+          <:label>Type bestuur</:label>
+          <:content as |hasError|>
+            <div class={{if hasError "ember-power-select--error"}}>
+              <PowerSelect
+                @allowClear={{false}}
+                @options={{this.selectAdminTypeOptions}}
+                @renderInPlace={{false}}
+                @onChange={{fn (mut @coreData.adminType)}}
+                @searchEnabled={{false}}
+                @selected={{@coreData.adminType}}
+                @error={{hasError}}
+                class="au-u-4-6 au-u-margin-tiny"
+                id="adminType" as |adminType|>
+                {{adminType}}
+              </PowerSelect>
+            </div>
+          </:content>
+        </Item>
+        <Item
+          @labelFor="region"
+          @errorMessage={{@coreData.error.region.validation}}
+        >
+          <:label>Type bestuur</:label>
+          <:content as |hasError|>
+            <div class={{if hasError "ember-power-select--error"}}>
+              <PowerSelect
+                  @allowClear={{false}}
+                  @options={{this.selectRegionOptions}}
+                  @renderInPlace={{false}}
+                  @onChange={{fn (mut @coreData.region)}}
+                  @searchEnabled={{false}}
+                  @selected={{@coreData.region}}
+                  @error={{hasError}}
+                  class="au-u-4-6 au-u-margin-tiny"
+                  id="region" as |region|>
+                  {{region}}
+              </PowerSelect>
+            </div>
+          </:content>
+        </Item>
+      </:left>
+      <:right as |Item|>
+        <Item
+          @labelFor="status"
+          @errorMessage={{@coreData.error.status.validation}}
+        >
+          <:label>Status</:label>
+          <:content as |hasError|>
+            <div class={{if hasError "ember-power-select--error"}}>
+              <PowerSelect
+                  @allowClear={{false}}
+                  @options={{this.selectStatusOptions}}
+                  @renderInPlace={{false}}
+                  @onChange={{fn (mut @coreData.status)}}
+                  @searchEnabled={{false}}
+                  @selected={{@coreData.status}}
+                  @error={{hasError}}
+                  class="au-u-4-6 au-u-margin-tiny"
+                  id="status" as |status|>
+                  {{status}}
+              </PowerSelect>
+            </div>
+          </:content>
+        </Item>
+        <Item
+          @labelFor="kbo"
+          @errorMessage={{@coreData.error.kbo.validation}}
+        >
+          <:label>KBO nummer</:label>
+          <:content as |hasError|>
+            <TrimInput
+              @width="block"
+              @id="kbo"
+              @error={{hasError}}
+              @value={{@coreData.kbo}}
+              @onUpdate={{fn (mut @coreData.kbo)}}
+            ></TrimInput>
+          </:content>
+        </Item>
+        <Item
+          @labelFor="nis"
+          @errorMessage={{@coreData.error.nis.validation}}
+        >
+          <:label>NIS code</:label>
+          <:content as |hasError|>
+            <TrimInput
+              @width="block"
+              @id="nis"
+              @error={{hasError}}
+              @value={{@coreData.nis}}
+              @onUpdate={{fn (mut @coreData.nis)}}
+            ></TrimInput>
+          </:content>
+        </Item>
+        <Item
+          @labelFor="ovo"
+          @errorMessage={{@coreData.error.ovo.validation}}
+        >
+          <:label>OVO nummer</:label>
+          <:content as |hasError|>
+            <TrimInput
+              @width="block"
+              @id="ovo"
+              @error={{hasError}}
+              @value={{@coreData.ovo}}
+              @onUpdate={{fn (mut @coreData.ovo)}}
+            ></TrimInput>
+          </:content>
+        </Item>
+      </:right>
+    </Card.Columns>
+  </:card>
+</EditCard>

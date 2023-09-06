@@ -1,7 +1,12 @@
 <div
   class="au-c-card-item
+<<<<<<< HEAD
     {{if @alignTop 'au-c-card-item--align-top'}}
     {{if @isGrid 'au-o-grid__item au-u-1-2@medium'}}"
+=======
+    {{if @alignTop "au-c-card-item--align-top"}}
+    {{if @isGrid "au-o-grid__item au-u-1-2@medium"}}"
+>>>>>>> clb-19-edit-core-data
   ...attributes
 >
   {{#if (has-block "label")}}
@@ -22,8 +27,8 @@
   {{#if (has-block "content")}}
     <div
       class="au-c-card-item__content
-        {{if (not (has-block 'label')) 'au-c-card-item__content--offset'}}
-        "
+        {{if (not (has-block "label")) "au-c-card-item__content--offset"}}
+      "
     >
       {{yield @errorMessage to="content"}}
 
