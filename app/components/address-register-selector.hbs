@@ -12,7 +12,7 @@
     @searchEnabled={{true}}
     @noMatchesMessage="Geen resultaten"
     @searchMessage="Typ om te zoeken"
-    @beforeOptionsComponent={{component "power-select/before-options-with-pre-filled-text" addressSuggestion=this.addressSuggestion}}
+    {{!-- @beforeOptionsComponent={{component "power-select/before-options-with-pre-filled-text" addressSuggestion=this.addressSuggestion}} --}}
     as |suggestion|
   >
     {{suggestion.fullAddress}}

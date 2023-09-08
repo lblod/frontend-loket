@@ -9,6 +9,7 @@
           @isSearchEnabledInitially={{@isAddressSearchEnabledInitially}}
           @required={{true}}
           @error={{@address.isInvalid}}
+          @onChange={{this.automaticAddressSearchChanged}}
         >
           <:manualAddressInputBeforeButton>
             <Item

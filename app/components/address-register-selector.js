@@ -26,22 +26,21 @@ export default class AddressRegisterSelectorComponent extends Component {
 
   @task
   *selectSuggestion(addressSuggestion) {
-    this.args.onChange(null);
+    //this.args.onChange(null); // What is the point of this? (Code was copied from OP)
     this.addressSuggestion = addressSuggestion;
 
     if (addressSuggestion) {
       const addresses = yield this.addressRegister.findAll(addressSuggestion);
 
-      if (!this.sourceCrab) {
-        this.sourceCrab = yield this.store.findRecord(
-          'concept',
-          'e59c97a9-4e95-4d65-9696-756de47fbc1f'
-        );
-      }
-      // TODO: this should probably be fixed in the API itself (, if possible)
-      // avoid duplicates, e.g Liebaardstnaat 10, 8792 Waregem
+      // if (!this.sourceCrab) {
+      //   this.sourceCrab = yield this.store.findRecord(
+      //     'concept',
+      //     'e59c97a9-4e95-4d65-9696-756de47fbc1f'
+      //   );
+      // }
+      // TODO: This code was copied from OP but the required concept does not exist.
       this.args.onChange({
-        source: this.sourceCrab,
+        // source: this.sourceCrab,
         addresses: [
           ...new Map(
             addresses.map((a) => [

@@ -44,10 +44,7 @@ export default class CoreDataEditRoute extends Route {
         }),
       ],
       primarySite: EmberObject.create({
-        address: EmberObject.create({
-          fullAddress: 'Gasthuisstraat 40, 9300 Aalst, België',
-          province: 'Oost-Vlaanderen',
-        }),
+        address: EmberObject.create({}),
         contacts: [
           EmberObject.create({
             telephone: '081 00 0000',
