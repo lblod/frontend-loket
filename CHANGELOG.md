@@ -1,3 +1,8 @@
+## v0.85.0 (2023-09-11)
+
+#### :rocket: Enhancement
+* [#334](https://github.com/lblod/frontend-loket/pull/334) Add a "global system notification" bar ([@Windvis](https://github.com/Windvis))
+
 ## v0.84.1 (2023-07-19)
 
 ### LPDC
