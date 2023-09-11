@@ -10,7 +10,11 @@
           class="au-u-flex au-u-flex--column au-u-flex--nowrap au-u-flex--flex-end"
         >
           <AuButtonGroup>
-            <AuButton @skin="secondary">Annuleer</AuButton>
+            <AuButton
+              @skin="secondary"
+              form="core-data-edit"
+              {{on "click" this.cancel}}
+            >Annuleer</AuButton>
             <AuButton
               @skin="primary"
               @loading={{this.save.isRunning}}

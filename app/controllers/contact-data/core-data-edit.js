@@ -1,10 +1,12 @@
 /* eslint-disable ember/no-get */
 import Controller from '@ember/controller';
 import { task } from 'ember-concurrency';
-// import { inject as service } from '@ember/service';
+import { inject as service } from '@ember/service';
+import { action } from '@ember/object';
 
 export default class CoreDataEditController extends Controller {
-  // @service currentSession;
+  @service currentSession;
+  @service router;
 
   @task
   *save(event) {
@@ -17,5 +19,11 @@ export default class CoreDataEditController extends Controller {
       primaryContact.validate(),
       secondaryContact.validate(),
     ]);
+  }
+
+  @action
+  cancel(event) {
+    event.preventDefault();
+    this.router.transitionTo('contact-data.core-data-overview');
   }
 }

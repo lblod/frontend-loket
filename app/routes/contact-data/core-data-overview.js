@@ -37,12 +37,12 @@ const hardcodedAdministrativeUnitDataForDemo = {
     },
     contacts: [
       {
-        telephone: '081 00 0000',
+        telephone: '081000000',
         email: 'fakeemail@gmail.com',
         website: 'https://google.com',
       },
       {
-        telephone: '081 00 0002',
+        telephone: '081000002',
         email: 'fakeemail2@gmail.com',
         website: 'https://wikipedia.org',
       },

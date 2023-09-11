@@ -15,7 +15,6 @@
               @error={{hasError}}
               @value={{@coreData.name}}
               @onUpdate={{fn (mut @coreData.name)}}
-
             ></TrimInput>
           </:content>
         </Item>
@@ -34,9 +33,8 @@
                 @searchEnabled={{false}}
                 @selected={{@coreData.adminType}}
                 @error={{hasError}}
-                class="au-u-4-6 au-u-margin-tiny"
                 id="adminType" as |adminType|>
-                {{adminType}}
+                  {{adminType}}
               </PowerSelect>
             </div>
           </:content>
@@ -45,7 +43,7 @@
           @labelFor="region"
           @errorMessage={{@coreData.error.region.validation}}
         >
-          <:label>Type bestuur</:label>
+          <:label>Regio</:label>
           <:content as |hasError|>
             <div class={{if hasError "ember-power-select--error"}}>
               <PowerSelect
@@ -56,7 +54,6 @@
                   @searchEnabled={{false}}
                   @selected={{@coreData.region}}
                   @error={{hasError}}
-                  class="au-u-4-6 au-u-margin-tiny"
                   id="region" as |region|>
                   {{region}}
               </PowerSelect>
@@ -80,9 +77,8 @@
                   @searchEnabled={{false}}
                   @selected={{@coreData.status}}
                   @error={{hasError}}
-                  class="au-u-4-6 au-u-margin-tiny"
                   id="status" as |status|>
-                  {{status}}
+                    {{status}}
               </PowerSelect>
             </div>
           </:content>
@@ -99,6 +95,8 @@
               @error={{hasError}}
               @value={{@coreData.kbo}}
               @onUpdate={{fn (mut @coreData.kbo)}}
+              @mask="9999.999.999"
+              @maskPlaceholder="____.___.___"
             ></TrimInput>
           </:content>
         </Item>
