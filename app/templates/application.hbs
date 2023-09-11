@@ -1,6 +1,7 @@
 {{page-title this.appTitle}}
 
 <AuApp>
+  <GlobalSystemNotification />
   <AuMainHeader
     @brandLink={{unless
       this.session.isAuthenticated
@@ -26,19 +27,11 @@
           @alignment="right"
           role="menu"
         >
-          <AuLink
-            @route="auth.switch"
-            @icon="switch"
-            role="menuitem"
-          >
+          <AuLink @route="auth.switch" @icon="switch" role="menuitem">
             Wissel van bestuurseenheid
           </AuLink>
 
-          <AuLink
-            @route="auth.logout"
-            @icon="logout"
-            role="menuitem"
-          >
+          <AuLink @route="auth.logout" @icon="logout" role="menuitem">
             Afmelden
           </AuLink>
         </AuDropdown>
