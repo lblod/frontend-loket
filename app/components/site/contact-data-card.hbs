@@ -8,32 +8,46 @@
         <Item>
           <:label>Adres</:label>
           <:content>
-            {{@address.fullAddress}}
+            {{@address}}
           </:content>
         </Item>
-        {{#if @address.province}}
+        {{#if @province}}
           <Item>
             <:label>Provincie</:label>
             <:content>
-              {{@address.province}}
+              {{@province}}
             </:content>
           </Item>
         {{/if}}
       </:left>
       <:right as |Item|>
-        {{#if @primaryContact.telephone}}
+        {{#if @primaryContact}}
           <Item>
             <:label>Primair telefoonnummer</:label>
             <:content>
-              {{@primaryContact.telephone}}
+              {{@primaryContact}}
+            </:content>
+          </Item>
+        {{else}}
+          <Item>
+            <:label>Primair telefoonnummer</:label>
+            <:content>
+              Niet ingesteld
             </:content>
           </Item>
         {{/if}}
-        {{#if @secondaryContact.telephone}}
+        {{#if @secondaryContact}}
           <Item>
             <:label>Secundair telefoonnummer</:label>
             <:content>
-              {{@secondaryContact.telephone}}
+              {{@secondaryContact}}
+            </:content>
+          </Item>
+        {{else}}
+          <Item>
+            <:label>Secundair telefoonnummer</:label>
+            <:content>
+              Niet ingesteld
             </:content>
           </Item>
         {{/if}}
@@ -45,14 +59,21 @@
             </:content>
           </Item>
         {{/if}}
-        {{#if @primaryContact.website}}
+        {{#if @website}}
           <Item>
             <:label>Website</:label>
             <:content>
-              <AuLinkExternal href={{@primaryContact.website}}>
-                {{@primaryContact.website}}
+              <AuLinkExternal href={{@website}}>
+                {{@website}}
                 (externe link)
               </AuLinkExternal>
+            </:content>
+          </Item>
+        {{else}}
+          <Item>
+            <:label>Website</:label>
+            <:content>
+              Niet ingesteld
             </:content>
           </Item>
         {{/if}}

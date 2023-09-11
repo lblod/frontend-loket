@@ -1,51 +1,55 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box au-o-flow au-o-flow--large">
-      <PageHeader>
-        <:title>Bewerk kerngegevens</:title>
-        <:subtitle>{{this.currentSession.group.naam}}
-          ({{this.currentSession.groupClassification.label}})</:subtitle>
-        <:action>
-        {{!-- Secured area --}}
-          <div class="au-u-flex au-u-flex--column au-u-flex--nowrap au-u-flex--flex-end">
-            <AuButtonGroup>
-              <AuButton @skin="secondary">Annuleer</AuButton>
-              <AuButton
-                @skin="primary"
-                @loading={{this.save.isRunning}}
-                @disabled={{this.save.isRunning}}
-                form="core-data-edit"
-                type="submit"
-              >
-                Opslaan
-              </AuButton>
-            </AuButtonGroup>
-            <div class="au-u-flex au-u-flex--nowrap">
-              <p>Zie je een fout in de data?</p>
-              <a href="derp">Meld het ons</a>
-            </div>
-
-          </div>
-        {{!-- End of secured area --}}
-        </:action>
-      </PageHeader>
-      <form id="core-data-edit" aria-label="edit-core-info-form" {{on "submit" (perform this.save)}}>
-        <CoreDataEditCard
-          @coreData={{@model.coreData}}
+    <PageHeader>
+      <:title>Bewerk kerngegevens</:title>
+      <:subtitle>{{this.currentSession.group.naam}}
+        ({{this.currentSession.groupClassification.label}})</:subtitle>
+      <:action>
+        {{! Secured area }}
+        <div
+          class="au-u-flex au-u-flex--column au-u-flex--nowrap au-u-flex--flex-end"
         >
-          <:title>Bestuurseenheid</:title>
-        </CoreDataEditCard>
-        <ContactDataEditCard
-            @address={{@model.address}}
-            @isAddressSearchEnabledInitially={{if
-              (or (not @model.address.id) @model.address.addressRegisterUri)
-              true
-              false
-            }}
-            @primaryContact={{@model.primaryContact}}
-            @secondaryContact={{@model.secondaryContact}}
-          >
-            <:title>Primaire contactgegevens</:title>
-        </ContactDataEditCard>
-      </form>
+          <AuButtonGroup>
+            <AuButton @skin="secondary">Annuleer</AuButton>
+            <AuButton
+              @skin="primary"
+              @loading={{this.save.isRunning}}
+              @disabled={{this.save.isRunning}}
+              form="core-data-edit"
+              type="submit"
+            >
+              Opslaan
+            </AuButton>
+          </AuButtonGroup>
+          <div class="au-u-flex au-u-flex--nowrap">
+            <p>Zie je een fout in de data?</p>
+            <a href="derp">Meld het ons</a>
+          </div>
+
+        </div>
+        {{! End of secured area }}
+      </:action>
+    </PageHeader>
+    <form
+      id="core-data-edit"
+      aria-label="edit-core-info-form"
+      {{on "submit" (perform this.save)}}
+    >
+      <CoreDataEditCard @coreData={{@model.coreData}}>
+        <:title>Bestuurseenheid</:title>
+      </CoreDataEditCard>
+      <ContactDataEditCard
+        @address={{@model.address}}
+        @isAddressSearchEnabledInitially={{if
+          (or (not @model.address.id) @model.address.addressRegisterUri)
+          true
+          false
+        }}
+        @primaryContact={{@model.primaryContact}}
+        @secondaryContact={{@model.secondaryContact}}
+      >
+        <:title>Primaire contactgegevens</:title>
+      </ContactDataEditCard>
+    </form>
   </div>
 </div>

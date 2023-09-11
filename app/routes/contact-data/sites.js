@@ -23,7 +23,7 @@ export default class ContactDataSitesRoute extends Route {
           contacts: [
             {
               type: 'Primary',
-              telephone: '443567',
+              telephone: '+32 475 50 99 00',
               email: 'da39a3ee5e6b4b0d3255bfef95601890afd80709@email.com',
               website: 'https://www.aalst.be/',
             },
@@ -54,13 +54,13 @@ export default class ContactDataSitesRoute extends Route {
           contacts: [
             {
               type: 'Primary',
-              telephone: '2f4b710606b804778715d4fd4608f82fa31b1aff',
+              telephone: '+32 475 65 78 89',
               email: 'da39a3ee5e6b4b0d3255bfef95601890afd80709@email.com',
               website: 'https://www.aalst.be/',
             },
             {
               type: 'Secondary',
-              telephone: 'da39a3ee5e6b4b0d3255bfef95601890afd80709',
+              telephone: '+32 3 877 78 11',
             },
           ],
         },
@@ -77,13 +77,13 @@ export default class ContactDataSitesRoute extends Route {
           contacts: [
             {
               type: 'Primary',
-              telephone: '56f5245fbf2a9b20bba17195a5a4299bb899687a',
-              email: 'da39a3ee5e6b4b0d3255bfef95601890afd80709@email.com',
+              telephone: '+32 475 50 84 75',
+              email: 'aalstgemeentehuis@email.com',
               website: 'https://www.aalst.be/',
             },
             {
               type: 'Secondary',
-              telephone: 'da39a3ee5e6b4b0d3255bfef95601890afd80709',
+              telephone: '+32 473 34 55 64',
             },
           ],
         },
@@ -97,6 +97,14 @@ export default class ContactDataSitesRoute extends Route {
           siteType: {
             label: 'Maatschappelijke zetel',
           },
+          contacts: [
+            {
+              type: 'Primary',
+              telephone: '+32 9 365 46 00',
+              email: 'kerkakker@vestiging.be',
+              website: 'https://www.laarne.be/',
+            },
+          ],
         },
       ],
     };

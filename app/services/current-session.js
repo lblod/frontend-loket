@@ -130,6 +130,10 @@ export default class CurrentSessionService extends Service {
     return this.canAccess(MODULE.EREDIENSTMANDATENBEHEER);
   }
 
+  get canEdit() {
+    return true;
+  }
+
   get canAccessPublicServices() {
     if (isFeatureEnabled('lpdc-external')) {
       return (

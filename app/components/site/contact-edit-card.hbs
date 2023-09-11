@@ -4,38 +4,24 @@
     <Card.Columns>
       <:left as |Item|>
         <AddressSearch
-          @address={{@address}}
+          {{!-- @address={{@address}}
           @itemComponent={{Item}}
           @isSearchEnabledInitially={{@isAddressSearchEnabledInitially}}
           @required={{true}}
-          @error={{@address.isInvalid}}
+          @error={{@address.isInvalid}} --}}
         >
           <:manualAddressInputBeforeButton>
-            <Item
-              @labelFor="site-address-country"
-              @required={{true}}
-              @errorMessage={{@address.error.country.validation}}
-            >
-              <:label>Land</:label>
-              <:content as |hasError|>
-                <CountrySelect
-                  @selected={{@address.country}}
-                  @onChange={{this.updateCountry}}
-                  @id="site-address-country"
-                  @error={{hasError}}
-                />
-              </:content>
-            </Item>
+
             <Item
               @labelFor="site-address-street-name"
               @required={{true}}
               @errorMessage={{@address.error.street.validation}}
             >
-              <:label>Straat</:label>
+              <:label>Adres</:label>
               <:content as |hasError|>
                 <TrimInput
                   @width="block"
-                  @value={{@address.street}}
+                  @value={{@address.fullAddress}}
                   @onUpdate={{fn (mut @address.street)}}
                   @error={{hasError}}
                   id="site-address-street-name"
@@ -133,7 +119,7 @@
                 <:label>Provincie</:label>
                 <:content as |hasError|>
                   <ProvinceSelect
-                    @selected={{@address.province}}
+                    @selected={{@address.municipality}}
                     @selectedMunicipality={{@address.municipality}}
                     @onChange={{fn (mut @address.province)}}
                     @id="site-address-province"
@@ -146,18 +132,14 @@
         </AddressSearch>
       </:left>
       <:right as |Item|>
-        <Item
-          @labelFor="site-contact-phone-number"
-          @errorMessage={{@primaryContact.error.telephone.validation}}
-        >
-          <:label>Primair telefoonnummer</:label>
+        <Item @errorMessage={{@primaryContact.error.telephone.validation}}>
+          <:label>Primair telefoonnummer{{@primaryContact.telephone}}</:label>
           <:content as |hasError|>
             <TrimInput
               @width="block"
-              @value={{@primaryContact.telephone}}
+              @value={{@primaryContact}}
               @onUpdate={{fn (mut @primaryContact.telephone)}}
               @error={{hasError}}
-              id="site-contact-phone-number"
               type="tel"
             />
           </:content>
@@ -174,8 +156,8 @@
           <:content as |hasError|>
             <TrimInput
               @width="block"
-              @value={{@secondaryContact.telephone}}
-              @onUpdate={{fn (mut @secondaryContact.telephone)}}
+              @value={{@secondaryContact}}
+              @onUpdate={{fn (mut @secondaryContact)}}
               @error={{hasError}}
               id="site-contact-secondary-phone-number"
               type="tel"
@@ -193,8 +175,8 @@
           <:content as |errorMessage|>
             <TrimInput
               @width="block"
-              @value={{@primaryContact.email}}
-              @onUpdate={{fn (mut @primaryContact.email)}}
+              @value={{@email}}
+              @onUpdate={{fn (mut @email)}}
               @error={{errorMessage}}
               id="site-contact-email"
             />
@@ -211,8 +193,8 @@
           <:content as |hasError|>
             <TrimInput
               @width="block"
-              @value={{@primaryContact.website}}
-              @onUpdate={{fn (mut @primaryContact.website)}}
+              @value={{@website}}
+              @onUpdate={{fn (mut @website)}}
               @error={{hasError}}
               id="site-contact-website"
             />
