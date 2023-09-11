@@ -1,0 +1,14 @@
+{{#if this.show}}
+  <AuAlert
+    @skin="warning"
+    @size="tiny"
+    @closable={{true}}
+    class="au-u-margin-bottom-none"
+    ...attributes
+  >
+    <p class="au-u-text-center">
+      {{!template-lint-disable no-triple-curlies}}
+      {{{this.notification}}}
+    </p>
+  </AuAlert>
+{{/if}}
