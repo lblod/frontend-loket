@@ -6,22 +6,61 @@ export default class MandatarisModel extends AgentInPosition {
   @attr rangorde;
   @attr('datetime') start;
   @attr('datetime') einde;
-  @attr('string') duplicationReason;
-  @belongsTo('mandaat', { inverse: null }) bekleedt;
-  @belongsTo('lidmaatschap', { inverse: 'lid' }) heeftLidmaatschap;
-  @belongsTo('persoon', { inverse: 'isAangesteldAls' }) isBestuurlijkeAliasVan;
+  @attr duplicationReason;
+
+  @belongsTo('mandaat', { async: true, inverse: null }) bekleedt;
+
+  @belongsTo('lidmaatschap', {
+    async: true,
+    inverse: 'lid',
+    polymorphic: true,
+    as: 'mandataris',
+  })
+  heeftLidmaatschap;
+
   @hasMany('rechtsgrond-aanstelling', {
+    async: true,
     inverse: 'bekrachtigtAanstellingenVan',
+    polymorphic: true,
+    as: 'mandataris',
   })
   rechtsgrondenAanstelling;
-  @hasMany('rechtsgrond-beeindiging', { inverse: 'bekrachtigtOntslagenVan' })
-  rechtsgrondenBeeindiging;
-  @hasMany('mandataris', { inverse: null }) tijdelijkeVervangingen;
-  @hasMany('beleidsdomein-code', { inverse: null }) beleidsdomein;
-  @belongsTo('mandataris-status-code', { inverse: null }) status;
 
-  @belongsTo('mandataris', { inverse: null }) duplicateOf;
-  @attr('uri-set') generatedFrom;
+  @hasMany('rechtsgrond-beeindiging', {
+    async: true,
+    inverse: 'bekrachtigtOntslagenVan',
+    polymorphic: true,
+    as: 'mandataris',
+  })
+  rechtsgrondenBeeindiging;
+
+  @hasMany('mandataris', {
+    async: true,
+    inverse: null,
+  })
+  tijdelijkeVervangingen;
+
+  @hasMany('beleidsdomein-code', {
+    async: true,
+    inverse: null,
+  })
+  beleidsdomein;
+
+  @belongsTo('mandataris-status-code', {
+    async: true,
+    inverse: null,
+  })
+  status;
+
+  @belongsTo('mandataris', { async: true, inverse: null }) duplicateOf;
+
+  @hasMany('contact-punt', {
+    async: true,
+    inverse: 'mandatarissen',
+    polymorphic: true,
+    as: 'mandataris',
+  })
+  contactPoints;
 
   get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(
@@ -29,8 +68,6 @@ export default class MandatarisModel extends AgentInPosition {
         uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService'
     );
   }
-
-  @hasMany('contact-punt', { inverse: 'mandatarissen' }) contactPoints;
 }
 
 export async function getUniqueBestuursorganen(mandataris) {
@@ -39,7 +76,7 @@ export async function getUniqueBestuursorganen(mandataris) {
 
   let bestuursorganen = new Set();
 
-  for (const bestuursorgaanInTijd of bestuursorganenInTijd.toArray()) {
+  for (const bestuursorgaanInTijd of bestuursorganenInTijd) {
     let bestuursorgaan = await bestuursorgaanInTijd.isTijdsspecialisatieVan;
     bestuursorganen.add(bestuursorgaan);
   }

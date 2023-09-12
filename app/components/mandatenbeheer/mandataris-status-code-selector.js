@@ -12,7 +12,13 @@ export default class MandatenbeheerMandatarisStatusCodeSelectorComponent extends
   constructor() {
     super(...arguments);
     this.selectedStatusCode = this.args.statusCode;
-    this.statusCodeList = this.store.query('mandataris-status-code', {
+    this.statusCodeList = this.fetchStatusCodes();
+  }
+
+  // By returning a native promise we work around the `PromiseArray` deprecations
+  // TODO: On v5+ EmberData should return a promise directly, so we can remove the workaround again
+  async fetchStatusCodes() {
+    return await this.store.query('mandataris-status-code', {
       sort: 'label',
     });
   }

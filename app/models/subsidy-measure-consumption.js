@@ -11,15 +11,59 @@ export default class SubsidyMeasureConsumptionModel extends Model {
   @attr('datetime') created;
   @attr('datetime') modified;
 
-  @belongsTo('gebruiker') creator;
-  @belongsTo('gebruiker') lastModifier;
-  @belongsTo('subsidy-request') subsidyRequest;
-  @belongsTo('subsidy-measure-offer') subsidyMeasureOffer;
-  @belongsTo('subsidy-application-flow') subsidyApplicationFlow;
-  @belongsTo('subsidy-application-flow-step') activeSubsidyApplicationFlowStep;
-  @belongsTo('subsidy-measure-consumption-status') status;
-  @hasMany('participation') participations;
-  @hasMany('subsidy-application-form') subsidyApplicationForms;
+  @belongsTo('gebruiker', {
+    async: true,
+    inverse: null,
+  })
+  creator;
+
+  @belongsTo('gebruiker', {
+    async: true,
+    inverse: null,
+  })
+  lastModifier;
+
+  @belongsTo('subsidy-request', {
+    async: true,
+    inverse: 'subsidyMeasureConsumption',
+  })
+  subsidyRequest;
+
+  @belongsTo('subsidy-measure-offer', {
+    async: true,
+    inverse: null,
+  })
+  subsidyMeasureOffer;
+
+  @belongsTo('subsidy-application-flow', {
+    async: true,
+    inverse: null,
+  })
+  subsidyApplicationFlow;
+
+  @belongsTo('subsidy-application-flow-step', {
+    async: true,
+    inverse: null,
+  })
+  activeSubsidyApplicationFlowStep;
+
+  @belongsTo('subsidy-measure-consumption-status', {
+    async: true,
+    inverse: null,
+  })
+  status;
+
+  @hasMany('participation', {
+    async: true,
+    inverse: null,
+  })
+  participations;
+
+  @hasMany('subsidy-application-form', {
+    async: true,
+    inverse: 'subsidyMeasureConsumption',
+  })
+  subsidyApplicationForms;
 
   get deadline() {
     if (this.activeSubsidyApplicationFlowStep)

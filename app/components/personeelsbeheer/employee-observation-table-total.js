@@ -7,7 +7,7 @@ const aggregate = function (aggregations, obs) {
 };
 export default class EmployeeObservationTableTotal extends Component {
   get total() {
-    const isFloat = this.args.observations.firstObject.unitMeasure.get('isFTE');
+    const isFloat = this.args.observations.at(0).unitMeasure.get('isFTE');
     if (this.args.observations && this.args.aggregations) {
       const observedValue = this.args.observations
         .filter((obs) => aggregate(this.args.aggregations, obs))

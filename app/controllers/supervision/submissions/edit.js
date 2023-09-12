@@ -51,7 +51,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
         page: { size: 1 },
         'filter[:uri:]': DELETED_STATUS,
       })
-    ).firstObject;
+    ).at(0);
   }
 
   @action

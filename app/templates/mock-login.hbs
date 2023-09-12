@@ -21,20 +21,18 @@
               <login.each-account @accounts={{this.model}} as |account|>
                 <div class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small">
                   <p>
-                  {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
+                    {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
                   </p>
-                  {{! TODO: The solution in the lint rule docs doesn't work here. We need to find a different solution.}}
-                  {{! template-lint-disable no-array-prototype-extensions}}
-                  {{#if (await account.gebruiker.bestuurseenheden.firstObject.alternatieveNaam)}}
-                  <AuHr/>
-                  <p>
-                    <span class="au-c-info-text">Alternatieve naam:</span>
-                    {{#each (await account.gebruiker.bestuurseenheden) as |bestuurseenheid|}}
-                      {{#each bestuurseenheid.alternatieveNaam as |alternatieveNaam|}}
-                        <AuPill>{{alternatieveNaam}}</AuPill>
+                  {{#if account.gebruiker.group.alternatieveNaam}}
+                    <AuHr/>
+                    <p>
+                      <span class="au-c-info-text">Alternatieve naam:</span>
+                      {{#each account.gebruiker.bestuurseenheden as |bestuurseenheid|}}
+                        {{#each bestuurseenheid.alternatieveNaam as |alternatieveNaam|}}
+                          <AuPill>{{alternatieveNaam}}</AuPill>
+                        {{/each}}
                       {{/each}}
-                    {{/each}}
-                  </p>
+                    </p>
                   {{/if}}
                 </div>
               </login.each-account>

@@ -4,8 +4,7 @@ import { action } from '@ember/object';
 
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { timeout } from 'ember-concurrency';
-import { dropTask, task } from 'ember-concurrency-decorators';
+import { dropTask, task, timeout } from 'ember-concurrency';
 import fetch from 'fetch';
 import { validateForm } from '@lblod/ember-submission-form-fields';
 import {
@@ -265,7 +264,7 @@ export default class SubsidyApplicationsEditStepEditController extends Controlle
       'filter[:uri:]': statusUri,
     });
 
-    if (statuses.length) model.status = statuses.firstObject;
+    if (statuses.length) model.status = statuses.at(0);
     await model.save();
   }
 

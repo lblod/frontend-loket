@@ -149,7 +149,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
         'filter[:uri:]': uri,
         page: { size: 1 },
       });
-      const file = files.firstObject;
+      const file = files.at(0);
       if (file) return new FileField({ record: file, errors: [] });
       else
         return new FileField({

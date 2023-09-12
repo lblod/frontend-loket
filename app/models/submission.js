@@ -7,24 +7,71 @@ export default class Submission extends Model {
     },
   })
   created;
+
   @attr('datetime', {
     defaultValue() {
       return new Date();
     },
   })
   modified;
+
   @attr('datetime') sentDate;
   @attr('datetime') receivedDate;
   @attr source;
   @attr uri;
   @attr href;
-  @belongsTo('bestuurseenheid') organization;
-  @belongsTo('vendor') publisher;
-  @belongsTo('submission-document') submissionDocument;
-  @belongsTo('submission-document-status') status;
-  @belongsTo('gebruiker') creator;
-  @belongsTo('gebruiker') lastModifier;
-  @belongsTo('form-data') formData;
-  @belongsTo('job') job;
-  @hasMany('file') files;
+
+  @belongsTo('bestuurseenheid', {
+    async: true,
+    inverse: null,
+    polymorphic: true, // This shouldn't be needed since the inverse is `null`, but without it EmberData throws an error, probably a bug
+  })
+  organization;
+
+  @belongsTo('vendor', {
+    async: true,
+    inverse: null,
+  })
+  publisher;
+
+  @belongsTo('submission-document', {
+    async: true,
+    inverse: 'submission',
+  })
+  submissionDocument;
+
+  @belongsTo('submission-document-status', {
+    async: true,
+    inverse: null,
+  })
+  status;
+
+  @belongsTo('gebruiker', {
+    async: true,
+    inverse: null,
+  })
+  creator;
+
+  @belongsTo('gebruiker', {
+    async: true,
+    inverse: null,
+  })
+  lastModifier;
+  @belongsTo('form-data', {
+    async: true,
+    inverse: 'submission',
+  })
+  formData;
+
+  @belongsTo('job', {
+    async: true,
+    inverse: null,
+  })
+  job;
+
+  @hasMany('file', {
+    async: true,
+    inverse: null,
+  })
+  files;
 }

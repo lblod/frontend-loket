@@ -1,6 +1,4 @@
-/* eslint-disable ember/no-computed-properties-in-native-classes */
 import Component from '@glimmer/component';
-import { reads } from '@ember/object/computed';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
@@ -20,10 +18,17 @@ export default class MandatenbeheerFractieTableRowComponent extends Component {
     );
   }
 
-  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingStart')
-  bestuursperiodeStart;
-  @reads('args.fractie.bestuursorganenInTijd.firstObject.bindingEinde')
-  bestuursperiodeEnd;
+  get bestuursperiode() {
+    return this.args.fractie.hasMany('bestuursorganenInTijd').value()?.at(0);
+  }
+
+  get bestuursperiodeStart() {
+    return this.bestuursperiode?.bindingStart;
+  }
+
+  get bestuursperiodeEnd() {
+    return this.bestuursperiode?.bindingEinde;
+  }
 
   @action
   cancel() {

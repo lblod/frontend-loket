@@ -40,7 +40,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
         'filter[:uri:]': STATUS.CONCEPT,
       }
     );
-    if (statuses.length) this.concept = statuses.firstObject;
+    if (statuses.length) this.concept = statuses.at(0);
   }
 
   async model(params, transition) {
@@ -70,7 +70,8 @@ export default class SubsidyApplicationsNewRoute extends Route {
       status: this.concept,
     });
 
-    consumption.participations.pushObject(participation);
+    const participations = await consumption.participations;
+    participations.push(participation);
 
     await consumption.save();
 

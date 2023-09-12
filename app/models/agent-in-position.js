@@ -4,9 +4,29 @@ export default class AgentInPositionModel extends Model {
   @attr('date') agentStartDate;
   @attr('date') agentEndDate;
 
-  @belongsTo('post', { inverse: 'agentsInPosition' }) post;
-  @belongsTo('persoon', { inverse: null }) person;
-  @belongsTo('persoon', { inverse: 'isAangesteldAls' }) isBestuurlijkeAliasVan;
+  @belongsTo('post', {
+    async: true,
+    inverse: 'agentsInPosition',
+    polymorphic: true,
+    as: 'agent-in-position',
+  })
+  post;
 
-  @hasMany('contact-punt', { inverse: 'agentsInPosition' }) contacts;
+  @belongsTo('persoon', { async: true, inverse: null }) person;
+
+  @belongsTo('persoon', {
+    async: true,
+    inverse: 'isAangesteldAls',
+    polymorphic: true,
+    as: 'agent-in-position',
+  })
+  isBestuurlijkeAliasVan;
+
+  @hasMany('contact-punt', {
+    async: true,
+    inverse: 'agentsInPosition',
+    polymorphic: true,
+    as: 'agent-in-position',
+  })
+  contacts;
 }

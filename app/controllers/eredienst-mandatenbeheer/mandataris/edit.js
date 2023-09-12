@@ -15,6 +15,7 @@ import {
 } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { validateMandaat } from 'frontend-loket/models/worship-mandatee';
 import { combineFullAddress, isValidAdres } from 'frontend-loket/models/adres';
+
 export default class EredienstMandatenbeheerMandatarisEditController extends Controller {
   @service currentSession;
   @service store;
@@ -166,6 +167,10 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
         if (secondaryContactPoint.telefoon) {
           yield secondaryContactPoint.save();
         } else {
+          // Ember Data v4.7+ doesn't remove the record from the relationship when we call destroyRecord, so we do it manually for now
+          // More info: https://github.com/emberjs/data/issues/8792
+          contactPoint.secondaryContactPoint = null;
+
           // The secondary contact point is empty so we can remove it if it was ever persisted before
           yield secondaryContactPoint.destroyRecord();
         }
@@ -258,6 +263,10 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       }
 
       secondaryContactPoint?.rollbackAttributes?.();
+
+      // Ember Data v4.7+ throws an error if we don't empty out the relationship before calling rollbackAttributes
+      // More info: https://github.com/emberjs/data/issues/8792
+      contactPoint.secondaryContactPoint = null;
       contactPoint.rollbackAttributes();
 
       this.editingContact = null;

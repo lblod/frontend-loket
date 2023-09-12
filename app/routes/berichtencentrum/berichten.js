@@ -10,6 +10,11 @@ export default class BerichtencentrumBerichtenRoute extends Route.extend(
   @service store;
 
   modelName = 'conversatie';
+  mergeQueryOptions() {
+    return {
+      include: 'laatste-bericht.van',
+    };
+  }
 
   setupController(controller) {
     super.setupController(...arguments);

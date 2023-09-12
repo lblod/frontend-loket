@@ -5,6 +5,16 @@ export default class ConversatieModel extends Model {
   @attr betreft;
   @attr currentTypeCommunicatie;
   @attr reactietermijn;
-  @hasMany('bericht', { inverse: null }) berichten;
-  @belongsTo('bericht', { inverse: null }) laatsteBericht;
+
+  @hasMany('bericht', {
+    async: false,
+    inverse: null,
+  })
+  berichten;
+
+  @belongsTo('bericht', {
+    async: false,
+    inverse: null,
+  })
+  laatsteBericht;
 }

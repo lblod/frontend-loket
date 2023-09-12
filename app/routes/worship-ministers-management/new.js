@@ -35,7 +35,7 @@ export default class WorshipMinisterManagementNewRoute extends Route {
       });
       // Pre select only where there is one primary contact point
       if (contacts.length === 1) {
-        transition.data.selectedContact = contacts.firstObject;
+        transition.data.selectedContact = contacts.at(0);
       }
 
       return {
@@ -61,7 +61,6 @@ export default class WorshipMinisterManagementNewRoute extends Route {
 
     if (isExiting) {
       controller.personId = '';
-      controller.model?.worshipMinister?.rollbackAttributes();
       controller.rollbackUnsavedChanges();
     }
   }

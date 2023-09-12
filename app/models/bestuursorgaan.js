@@ -5,16 +5,44 @@ export default class BestuursorgaanModel extends Model {
   @attr naam;
   @attr('date') bindingStart;
   @attr('date') bindingEinde;
-  @belongsTo('bestuurseenheid', { inverse: 'bestuursorganen' }) bestuurseenheid;
-  @belongsTo('bestuursorgaan-classificatie-code', { inverse: null })
+
+  @belongsTo('bestuurseenheid', {
+    async: true,
+    inverse: 'bestuursorganen',
+    polymorphic: true,
+    as: 'bestuursorgaan',
+  })
+  bestuurseenheid;
+
+  @belongsTo('bestuursorgaan-classificatie-code', {
+    async: true,
+    inverse: null,
+  })
   classificatie;
-  @belongsTo('bestuursorgaan', { inverse: 'heeftTijdsspecialisaties' })
+
+  @belongsTo('bestuursorgaan', {
+    async: true,
+    inverse: 'heeftTijdsspecialisaties',
+  })
   isTijdsspecialisatieVan;
-  @belongsTo('rechtstreekse-verkiezing', { inverse: 'steltSamen' })
+
+  @belongsTo('rechtstreekse-verkiezing', {
+    async: true,
+    inverse: 'steltSamen',
+  })
   wordtSamengesteldDoor;
-  @hasMany('bestuursorgaan', { inverse: 'isTijdsspecialisatieVan' })
+
+  @hasMany('bestuursorgaan', {
+    async: true,
+    inverse: 'isTijdsspecialisatieVan',
+  })
   heeftTijdsspecialisaties;
-  @hasMany('mandaat', { inverse: null }) bevat;
+
+  @hasMany('mandaat', {
+    async: true,
+    inverse: 'bevatIn',
+  })
+  bevat;
 
   rdfaBindings = {
     naam: 'http://www.w3.org/2004/02/skos/core#prefLabel',

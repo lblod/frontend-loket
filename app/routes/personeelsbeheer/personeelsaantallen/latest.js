@@ -13,7 +13,7 @@ export default class PersoneelsbeheerPersoneelsaantallenLatestRoute extends Rout
       sort: '-time-period.start',
       'filter[dataset][id]': datasetId,
     });
-    return periods.firstObject;
+    return periods.at(0);
   }
 
   afterModel(model, transition) {

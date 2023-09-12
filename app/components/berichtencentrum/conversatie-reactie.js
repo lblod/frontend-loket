@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
-import { task } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
@@ -21,7 +20,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
 
   constructor() {
     super(...arguments);
-    this.ensureOriginator.perform();
+    this.ensureOriginator();
     this.initInputState();
   }
 
@@ -32,16 +31,13 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
     this.bijlagen = A();
   }
 
-  @task
-  *ensureOriginator() {
-    const berichten = yield this.args.conversatie.berichten;
-    const sortedBerichten = berichten.sortBy('verzonden');
+  ensureOriginator() {
     const ourGroup = this.currentSession.group;
 
     // find first sender of message that is not our group
-    for (let bericht of sortedBerichten) {
-      let sender = yield bericht.van;
-      if (sender && sender.id !== ourGroup.id) {
+    for (let bericht of this.args.berichten) {
+      let sender = bericht.van;
+      if (sender?.id !== ourGroup.id) {
         this.originator = sender;
         return;
       }
@@ -71,7 +67,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
       });
 
       await reactie.save();
-      this.args.conversatie.berichten.pushObject(reactie);
+      this.args.conversatie.berichten.push(reactie);
       this.args.conversatie.laatsteBericht = reactie;
       await this.args.conversatie.save();
     } catch (err) {

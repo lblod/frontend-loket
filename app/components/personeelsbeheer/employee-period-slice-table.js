@@ -9,7 +9,7 @@ export default class EmployeePeriodSliceTable extends Component {
     super(...arguments);
     const { observations } = this.args;
     this.observations = observations;
-    this.isFTEDataset = observations.firstObject.unitMeasure.get('isFTE');
+    this.isFTEDataset = observations.at(0).unitMeasure.get('isFTE');
     if (observations) this.initTable.perform();
   }
 
@@ -37,7 +37,7 @@ export default class EmployeePeriodSliceTable extends Component {
     this.legalStatuses = legalStatuses;
     this.educationalLevels = educationalLevels;
 
-    const unitMeasure = (this.observations.firstObject || {}).unitMeasure;
+    const unitMeasure = (this.observations.at(0) || {}).unitMeasure;
     this.unitMeasure = unitMeasure;
   }
 
