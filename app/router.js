@@ -1,6 +1,5 @@
 import EmberRouter from '@ember/routing/router';
 import config from 'frontend-loket/config/environment';
-import isFeatureEnabled from './helpers/is-feature-enabled';
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -106,46 +105,16 @@ Router.map(function () {
     });
   });
 
-  if (!isFeatureEnabled('lpdc-external')) {
-    this.route(
-      'public-services',
-      { path: '/producten-en-dienstencatalogus' },
-      function () {
-        this.route('add', { path: '/toevoegen' });
-        this.route('new', { path: '/nieuw' });
-        this.route('details', { path: '/:serviceId' }, function () {
-          this.route('content', { path: '/inhoud' });
-          this.route('properties', { path: '/eigenschappen' });
-        });
-        this.route(
-          'link-concept',
-          { path: '/:serviceId/koppelen' },
-          function () {
-            this.route('link', { path: '/:conceptId' });
-          }
-        );
-        this.route(
-          'concept-details',
-          { path: '/concept/:conceptId' },
-          function () {
-            this.route('content', { path: '/inhoud' });
-            this.route('properties', { path: '/eigenschappen' });
-          }
-        );
-      }
-    );
-  } else {
-    this.route(
-      'lpdc-external-redirect',
-      { path: '/producten-en-dienstencatalogus' },
-      function () {
-        // We need the child routes since `/producten-en-dienstencatalogus/*` won't match the case without a subpath
-        // By using an index and named route with a path we work around that issue. The lpdc-external-redirect route
-        // then retrieves the needed data from the transition object.
-        this.route('with-path', { path: '/*path' });
-      }
-    );
-  }
+  this.route(
+    'lpdc-external-redirect',
+    { path: '/producten-en-dienstencatalogus' },
+    function () {
+      // We need the child routes since `/producten-en-dienstencatalogus/*` won't match the case without a subpath
+      // By using an index and named route with a path we work around that issue. The lpdc-external-redirect route
+      // then retrieves the needed data from the transition object.
+      this.route('with-path', { path: '/*path' });
+    }
+  );
 
   this.route('route-not-found', {
     path: '/*wildcard',

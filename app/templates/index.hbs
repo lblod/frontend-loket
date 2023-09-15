@@ -3,73 +3,90 @@
     <div class="au-o-grid au-o-grid--small">
       <div class="au-o-grid__item au-u-2-5@medium">
         <AuContent class="au-u-margin-bottom">
-          <AuHeading @skin="2">{{this.currentSession.groupClassification.label}} {{this.currentSession.group.naam}}</AuHeading>
-          <p>Indien u toegang mist tot een van de modules in het loket, neem contact op met uw <strong>interne beheerder</strong>. Indien er zich een probleem voordoet met <strong>toegang</strong>, neem contact op met het <a href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer" class="au-c-link">gebruikersbeheer Vlaanderen</a>.</p>
+          <AuHeading @skin="2">{{this.currentSession.groupClassification.label}}
+            {{this.currentSession.group.naam}}</AuHeading>
+          <p>Indien u toegang mist tot een van de modules in het loket, neem
+            contact op met uw
+            <strong>interne beheerder</strong>. Indien er zich een probleem
+            voordoet met
+            <strong>toegang</strong>, neem contact op met het
+            <a
+              href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
+              class="au-c-link"
+            >gebruikersbeheer Vlaanderen</a>.</p>
         </AuContent>
       </div>
     </div>
-    <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">Beschikbare modules</AuHeading>
+    <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">Beschikbare
+      modules</AuHeading>
 
     <ul class="au-o-grid au-o-grid--small">
       {{#if this.currentSession.canAccessToezicht}}
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="search-folder"
-          @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/toezicht"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/toezicht"
-        >
-          <:title>Toezicht</:title>
-          <:description>Bezorg besluiten en overzichtslijsten aan de toezichthoudende overheid.</:description>
-          <:link>
-            <AuLink @route="supervision.submissions" @skin="button">Ga naar toezicht</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="search-folder"
+            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/toezicht"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/toezicht"
+          >
+            <:title>Toezicht</:title>
+            <:description>Bezorg besluiten en overzichtslijsten aan de
+              toezichthoudende overheid.</:description>
+            <:link>
+              <AuLink @route="supervision.submissions" @skin="button">Ga naar
+                toezicht</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
       {{#if this.currentSession.canAccessBerichten}}
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="message"
-          @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/berichtencentrum"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/berichtencentrum"
-        >
-          <:title>Berichtencentrum</:title>
-          <:description>Bekijk en reageer op de berichten van de toezichthoudende overheid.</:description>
-          <:link>
-            <AuLink @route="berichtencentrum.berichten" @skin="button">Ga naar berichtencentrum</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="message"
+            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/berichtencentrum"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/berichtencentrum"
+          >
+            <:title>Berichtencentrum</:title>
+            <:description>Bekijk en reageer op de berichten van de
+              toezichthoudende overheid.</:description>
+            <:link>
+              <AuLink @route="berichtencentrum.berichten" @skin="button">Ga naar
+                berichtencentrum</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
       {{#if this.currentSession.canAccessBbcdr}}
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="document"
-          @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/beleids-en-beheerscyclus-digitale-rapportering-bbc-dr"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/bbc-dr"
-        >
-          <:title>BBC-DR</:title>
-          <:description>Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus.</:description>
-          <:link>
-            <AuLink @route="bbcdr.rapporten" @skin="button">Ga naar BBC DR</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="document"
+            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/beleids-en-beheerscyclus-digitale-rapportering-bbc-dr"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/bbc-dr"
+          >
+            <:title>BBC-DR</:title>
+            <:description>Bezorg de digitale rapporten aan de Vlaamse Regering
+              over de beleids- en beheerscyclus.</:description>
+            <:link>
+              <AuLink @route="bbcdr.rapporten" @skin="button">Ga naar BBC DR</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
       {{#if this.currentSession.canAccessMandaat}}
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="user-fill"
-          @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-lokale-besturen"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/mandatenbeheer"
-        >
-          <:title>Mandatenbeheer</:title>
-          <:description>Hou de mandaten binnen de gemeenten, OCMW's, districten en provincies bij.</:description>
-          <:link>
-            <AuLink @route="mandatenbeheer.mandatarissen" @skin="button">Ga naar mandatenbeheer</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="user-fill"
+            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-lokale-besturen"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/mandatenbeheer"
+          >
+            <:title>Mandatenbeheer</:title>
+            <:description>Hou de mandaten binnen de gemeenten, OCMW's,
+              districten en provincies bij.</:description>
+            <:link>
+              <AuLink @route="mandatenbeheer.mandatarissen" @skin="button">Ga
+                naar mandatenbeheer</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
       {{#if this.currentSession.canAccessWorshipMinisterManagement}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
@@ -81,7 +98,8 @@
             <:title>Bedienarenbeheer</:title>
             <:description>Hou de bedienaren binnen de erediensten bij.</:description>
             <:link>
-              <AuLink @route="worship-ministers-management" @skin="button">Ga naar bedienarenbeheer</AuLink>
+              <AuLink @route="worship-ministers-management" @skin="button">Ga
+                naar bedienarenbeheer</AuLink>
             </:link>
           </LoketModuleCard>
         </li>
@@ -96,77 +114,80 @@
             <:title>Mandatenbeheer</:title>
             <:description>Hou de mandaten binnen de erediensten bij.</:description>
             <:link>
-              <AuLink @route="eredienst-mandatenbeheer.mandatarissen" @skin="button">Ga naar Mandatenbeheer</AuLink>
+              <AuLink
+                @route="eredienst-mandatenbeheer.mandatarissen"
+                @skin="button"
+              >Ga naar Mandatenbeheer</AuLink>
             </:link>
           </LoketModuleCard>
         </li>
       {{/if}}
       {{#if this.currentSession.canAccessLeidinggevenden}}
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="user-popup"
-          @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/leidinggevendenbeheer"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/leidinggevendenbeheer"
-        >
-          <:title>Leidinggevendenbeheer</:title>
-          <:description>Hou hier de leidinggevende functies voor uw bestuur bij.</:description>
-          <:link>
-            <AuLink @route="leidinggevendenbeheer.bestuursfuncties" @skin="button">Ga naar leidinggevendenbeheer</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="user-popup"
+            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/leidinggevendenbeheer"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/leidinggevendenbeheer"
+          >
+            <:title>Leidinggevendenbeheer</:title>
+            <:description>Hou hier de leidinggevende functies voor uw bestuur
+              bij.</:description>
+            <:link>
+              <AuLink
+                @route="leidinggevendenbeheer.bestuursfuncties"
+                @skin="button"
+              >Ga naar leidinggevendenbeheer</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
       {{#if this.currentSession.canAccessPersoneelsbeheer}}
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="users"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/personeelsbeheer"
-        >
-          <:title>Personeelsbeheer</:title>
-          <:description>Hou hier de personeelsaantallen voor uw bestuur bij: aantal werknemers en voltijds equivalenten.</:description>
-          <:link>
-            <AuLink @route="personeelsbeheer" @skin="button">Ga naar personeelsbeheer</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="users"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/personeelsbeheer"
+          >
+            <:title>Personeelsbeheer</:title>
+            <:description>Hou hier de personeelsaantallen voor uw bestuur bij:
+              aantal werknemers en voltijds equivalenten.</:description>
+            <:link>
+              <AuLink @route="personeelsbeheer" @skin="button">Ga naar
+                personeelsbeheer</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
       {{#if this.currentSession.canAccessSubsidies}}
-      <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="documents"
-          @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/subsidiebeheer"
-        >
-          <:title>Subsidiebeheer</:title>
-          <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
-          <:link>
-          <AuLink @route="subsidy.applications" @skin="button">Ga naar subsidiebeheer</AuLink>
-          </:link>
-        </LoketModuleCard>
-      </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="documents"
+            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/subsidiebeheer"
+          >
+            <:title>Subsidiebeheer</:title>
+            <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
+            <:link>
+              <AuLink @route="subsidy.applications" @skin="button">Ga naar
+                subsidiebeheer</AuLink>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
       {{#if this.currentSession.canAccessPublicServices}}
         <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-        <LoketModuleCard
-          @icon="unordered-list"
-          @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/lokale-producten-en-dienstencatalogus"
-          @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/producten-en-dienstencatalogus"
-        >
-          <:title>Producten- en dienstencatalogus</:title>
-          <:description>Beheer uw producten en diensten.</:description>
-          <:link>
-            {{#if (is-feature-enabled "lpdc-external")}}
-              <AuLinkExternal
-                @skin="button"
-                href={{(lpdc-url)}}
-              >
+          <LoketModuleCard
+            @icon="unordered-list"
+            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/lokale-producten-en-dienstencatalogus"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/producten-en-dienstencatalogus"
+          >
+            <:title>Producten- en dienstencatalogus</:title>
+            <:description>Beheer uw producten en diensten.</:description>
+            <:link>
+              <AuLinkExternal @skin="button" href={{(lpdc-url)}}>
                 Ga naar de producten- en dienstencatalogus (externe link)
               </AuLinkExternal>
-            {{else}}
-              <AuLink @route="public-services" @skin="button">Ga naar de producten- en dienstencatalogus</AuLink>
-            {{/if}}
-          </:link>
-        </LoketModuleCard>
+            </:link>
+          </LoketModuleCard>
         </li>
       {{/if}}
       {{#if this.currentSession.canAccessWorshipDecisionsDb}}
@@ -180,35 +201,36 @@
               van de eredienst, gemeente- en provincieoverheid en representatief
               orgaan.</:description>
             <:link>
-            <AuLinkExternal
-              @skin="button"
-              href={{(worship-decisions-database-url)}}
-            >
-              Ga naar de databank erediensten (externe link)
-            </AuLinkExternal>
+              <AuLinkExternal
+                @skin="button"
+                href={{(worship-decisions-database-url)}}
+              >
+                Ga naar de databank erediensten (externe link)
+              </AuLinkExternal>
             </:link>
           </LoketModuleCard>
         </li>
       {{/if}}
       {{#if this.currentSession.canAccessWorshipOrganisationsDb}}
-       <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-           <LoketModuleCard
-             @icon="link-external"
-             @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/eredienst-organisaties"
-           >
-             <:title>Organisaties Erediensten</:title>
-             <:description>Consulteer hier de mandaten en bedienaren
-             van de besturen van eredienst. </:description>
-             <:link>
-             <AuLinkExternal
-               @skin="button"
-               href={{(worship-organisations-database-url)}}
-             >
-               Ga naar de eredienst organisaties (externe link)
-             </AuLinkExternal>
-             </:link>
-           </LoketModuleCard>
-         </li>
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="link-external"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/eredienst-organisaties"
+          >
+            <:title>Organisaties Erediensten</:title>
+            <:description>Consulteer hier de mandaten en bedienaren van de
+              besturen van eredienst.
+            </:description>
+            <:link>
+              <AuLinkExternal
+                @skin="button"
+                href={{(worship-organisations-database-url)}}
+              >
+                Ga naar de eredienst organisaties (externe link)
+              </AuLinkExternal>
+            </:link>
+          </LoketModuleCard>
+        </li>
       {{/if}}
     </ul>
   </div>
