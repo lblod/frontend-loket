@@ -4,23 +4,23 @@ type: docker
 name: test
 steps:
 - name: install
-  image: danlynn/ember-cli:4.2.0-node_16.14
+  image: danlynn/ember-cli:5.2.1-node_18.17
   commands:
   - npm ci
 - name: lint:js
-  image: danlynn/ember-cli:4.2.0-node_16.14
+  image: danlynn/ember-cli:5.2.1-node_18.17
   commands:
   - npm run lint:js
 - name: lint:hbs
-  image: danlynn/ember-cli:4.2.0-node_16.14
+  image: danlynn/ember-cli:5.2.1-node_18.17
   commands:
   - npm run lint:hbs
 - name: lint:dependencies
-  image: danlynn/ember-cli:4.2.0-node_16.14
+  image: danlynn/ember-cli:5.2.1-node_18.17
   commands:
   - ember dependency-lint
 - name: test
-  image: danlynn/ember-cli:4.2.0-node_16.14
+  image: danlynn/ember-cli:5.2.1-node_18.17
   commands:
   - npm run test:ember
 trigger:
