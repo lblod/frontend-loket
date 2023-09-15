@@ -1,0 +1,77 @@
+diff --git a/node_modules/@lblod/ember-rdfa-editor/addon/components/toolbar/dropdown.hbs b/node_modules/@lblod/ember-rdfa-editor/addon/components/toolbar/dropdown.hbs
+index caa295a..f3965b4 100644
+--- a/node_modules/@lblod/ember-rdfa-editor/addon/components/toolbar/dropdown.hbs
++++ b/node_modules/@lblod/ember-rdfa-editor/addon/components/toolbar/dropdown.hbs
+@@ -1,6 +1,9 @@
+ 
+ <div class="say-dropdown" ...attributes>
+-  <Velcro @placement="bottom" @offsetOptions={{hash mainAxis=6}} as |velcro|>
++  {{! There is a bug in Embroider where the "nested layout" no longer works properly in v2 addons
++      More info: https://github.com/embroider-build/embroider/pull/1587
++  }}
++  <Velcro::Index @placement="bottom" @offsetOptions={{hash mainAxis=6}} as |velcro| {{! template-lint-disable no-index-component-invocation}}>
+     <button
+       {{this.reference}}
+       class='say-dropdown__button {{if this.dropdownOpen "is-active" ""}}'
+@@ -37,5 +40,5 @@
+         }}
+       </div>
+     {{/if}}
+-  </Velcro>
++  </Velcro::Index>
+ </div>
+\ No newline at end of file
+diff --git a/node_modules/@lblod/ember-rdfa-editor/addon/utils/_private/ember-node.ts b/node_modules/@lblod/ember-rdfa-editor/addon/utils/_private/ember-node.ts
+index 95d8449..274a920 100644
+--- a/node_modules/@lblod/ember-rdfa-editor/addon/utils/_private/ember-node.ts
++++ b/node_modules/@lblod/ember-rdfa-editor/addon/utils/_private/ember-node.ts
+@@ -105,7 +105,7 @@ export function emberComponent(
+   template: TemplateFactory,
+   props: EmberNodeArgs & {
+     atom: boolean;
+-    componentPath: string;
++    componentClass: any;
+     contentDOM?: HTMLElement;
+   },
+ ): { node: HTMLElement; component: EmberInlineComponent } {
+@@ -147,20 +147,20 @@ class EmberNodeView implements NodeView {
+     // when a node gets updated, `update()` is called.
+     // We set the new node here and pass it to the component to render it.
+     this.config = emberNodeConfig;
+-    const { name, componentPath, atom, inline } = emberNodeConfig;
+-    this.template = hbs`{{#component this.componentPath
+-                          getPos=this.getPos
+-                          node=this.node
+-                          updateAttribute=this.updateAttribute
+-                          controller=this.controller
+-                          view=this.view
+-                          selected=this.selected
+-                          contentDecorations=this.contentDecorations
+-                        }}
++    const { name, componentClass, atom, inline } = emberNodeConfig;
++    this.template = hbs`<this.componentClass
++                          @getPos={{this.getPos}}
++                          @node={{this.node}}
++                          @updateAttribute={{this.updateAttribute}}
++                          @controller={{this.controller}}
++                          @view={{this.view}}
++                          @selected={{this.selected}}
++                          @contentDecorations={{this.contentDecorations}}
++                        >
+                           {{#unless this.atom}}
+                           <EmberNode::Slot @contentDOM={{this.contentDOM}}/>
+                           {{/unless}}
+-                        {{/component}}`;
++                        </this.componentClass>`;
+     this.node = pNode;
+     this.contentDOM = !atom
+       ? document.createElement(inline ? 'span' : 'div', {})
+@@ -187,7 +187,7 @@ class EmberNodeView implements NodeView {
+         },
+         controller,
+         contentDOM: this.contentDOM,
+-        componentPath,
++        componentClass,
+         atom,
+         view,
+         selected: false,
