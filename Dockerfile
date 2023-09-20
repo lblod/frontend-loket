@@ -5,7 +5,6 @@ LABEL maintainer="info@redpencil.io"
 ARG CONTROLE=false
 WORKDIR /app
 COPY package.json package-lock.json ./
-COPY ./patches ./patches
 RUN npm ci
 COPY . .
 RUN CONTROLE=$CONTROLE npm run build
