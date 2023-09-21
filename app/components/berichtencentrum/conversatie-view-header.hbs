@@ -1,14 +1,20 @@
 <div class="au-o-box au-c-action-sidebar__header" tabindex="0" ...attributes>
   <AuToolbar class="au-u-margin-bottom-small" as |Group|>
     <Group>
-      <AuPill data-test-loket="berichtencentrum-header-dossiernummer">Dossiernummer: {{@conversatie.dossiernummer}}</AuPill>
+      <AuPill
+        data-test-loket="berichtencentrum-header-dossiernummer"
+      >Dossiernummer: {{@conversatie.dossiernummer}}</AuPill>
       {{!--     {{#if conversatie.reactietermijn}}
         <AuPill>
           Reactietermijn: {{berichtencentrum/display-moment-indays conversatie.reactietermijn}} dagen
         </AuPill>
       {{/if}} --}}
     </Group>
-    <LinkTo @route="berichtencentrum.berichten" class="au-c-close au-c-close--large" data-test-loket="berichtencentrum-header-cross">
+    <LinkTo
+      @route="berichtencentrum.berichten"
+      class="au-c-close au-c-close--large"
+      data-test-loket="berichtencentrum-header-cross"
+    >
       <AuIcon @icon="cross" @size="large" />
       <span class="au-u-hidden-visually">Venster sluiten</span>
     </LinkTo>
@@ -23,10 +29,36 @@
   </AuHeading>
   <div class="grid u-spacer--small">
     <div class="col--12-12">
-      <div class="au-c-content" data-test-loket="berichtencentrum-header-betreft">
+      <div
+        class="au-c-content"
+        data-test-loket="berichtencentrum-header-betreft"
+      >
         <p>{{@conversatie.betreft}}</p>
       </div>
     </div>
   </div>
+
+  {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+    <AuAccordion
+      @buttonLabel="Test berichten toevoegen"
+      @iconOpen="circle-info"
+      @iconClosed="circle-info"
+      @reverse={{true}}
+      class="au-u-margin-top au-u-padding-bottom-none"
+    >
+      <AuContent @skin="tiny">
+        <p>Om berichten toe te voegen aan deze conversatie kan de volgende URI
+          worden gebruikt:
+          <AuPill>{{@conversatie.uri}}</AuPill>
+        </p>
+        <p>
+          Meer informatie kan je terugvinden in de
+          <AuLinkExternal
+            href="https://lblod.github.io/pages-vendors/#/docs/berichtencentrum-api"
+          >Berichtencentrum API documentatie</AuLinkExternal>.
+        </p>
+      </AuContent>
+    </AuAccordion>
+  {{/if}}
   {{yield}}
 </div>

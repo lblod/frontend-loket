@@ -20,6 +20,10 @@ export default class BerichtencentrumBerichtenController extends Controller {
     );
   }
 
+  get isCreatingConversation() {
+    return this.router.currentRouteName === 'berichtencentrum.berichten.new';
+  }
+
   @action
   showPreferences() {
     this.preferences = true;
