@@ -7,7 +7,6 @@ import 'moment-timezone';
 
 export default class ApplicationRoute extends Route {
   @service currentSession;
-  @service intl;
   @service moment;
   @service session;
   @service plausible;
@@ -15,9 +14,6 @@ export default class ApplicationRoute extends Route {
 
   async beforeModel() {
     await this.session.setup();
-
-    // ember-intl defaults to en-US and ember-rdfa-editor uses translations internally
-    this.intl.setLocale(['nl-BE']);
 
     const moment = this.moment;
     moment.setLocale('nl-be');
