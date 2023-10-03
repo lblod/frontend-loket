@@ -1,8 +1,18 @@
 <div class="au-c-main-container" itemprop="mainContentOfPage">
-  <div class="au-c-main-container__content au-c-main-container__content--scroll">
+  <div
+    class="au-c-main-container__content au-c-main-container__content--scroll"
+  >
     <main id="content">
-      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
-        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
+      <AuContentHeader
+        @titlePartOne="Vlaanderen"
+        @titlePartTwo="is lokaal bestuur"
+      >
+        <img
+          sizes="50vw"
+          src="/assets/images/loket-header-1600.jpg"
+          srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w"
+          alt="Foto van een laptop met daarop het vlaanderen logo."
+        />
       </AuContentHeader>
 
       <section class="au-o-region-large">
@@ -11,11 +21,25 @@
             <div class="au-o-grid__item au-u-3-4@small au-u-1-2@medium">
               <AuContent @skin="large">
                 <h1>Loket voor lokale besturen</h1>
-                <p>Controleer tot welke organisaties u toegang hebt via deze <AuLinkExternal href="https://mijnprofiel-gebruikersbeheer.vlaanderen.be/user/">link</AuLinkExternal>. U kan toegang aanvragen door middel van <AuLinkExternal href="https://zelfregistratie-gebruikersbeheer.vlaanderen.be/user/aanvraag?&an=287&dg=LB&ec=ABB_LoketLB_LB_CompEnt_Gebruiker">zelfregistratie</AuLinkExternal>. Uw interne beheerder zal de toegangsaanvraag behandelen.</p>
-                <p>Lukt het aanmelden niet? Neem contact op met uw interne beheerder. Indien er zich een probleem voordoet, contacteer <AuLinkExternal href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer">gebruikersbeheer Vlaanderen</AuLinkExternal>.</p>
+                <p>Controleer tot welke organisaties u toegang hebt via deze
+                  <AuLinkExternal
+                    href="https://mijnprofiel-gebruikersbeheer.vlaanderen.be/user/"
+                  >link</AuLinkExternal>. U kan toegang aanvragen door middel
+                  van
+                  <AuLinkExternal
+                    href="https://zelfregistratie-gebruikersbeheer.vlaanderen.be/user/aanvraag?&an=287&dg=LB&ec=ABB_LoketLB_LB_CompEnt_Gebruiker"
+                  >zelfregistratie</AuLinkExternal>. Uw interne beheerder zal de
+                  toegangsaanvraag behandelen.</p>
+                <p>Lukt het aanmelden niet? Neem contact op met uw interne
+                  beheerder. Indien er zich een probleem voordoet, contacteer
+                  <AuLinkExternal
+                    href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
+                  >gebruikersbeheer Vlaanderen</AuLinkExternal>.</p>
               </AuContent>
             </div>
-            <div class="au-o-grid__item au-u-1-4@small au-u-1-2@medium au-u-text-right@medium">
+            <div
+              class="au-o-grid__item au-u-1-4@small au-u-1-2@medium au-u-text-right@medium"
+            >
               <LoginButton />
             </div>
           </div>
@@ -24,7 +48,8 @@
 
       <section class="au-o-region-large au-u-background-gray-200">
         <div class="au-o-layout">
-          <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">De functionaliteiten in het loket</AuHeading>
+          <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">De
+            functionaliteiten in het loket</AuHeading>
           <div class="au-o-grid au-o-grid--small">
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
               <AuCard @textCenter="true" as |c|>
@@ -34,7 +59,9 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Bezorg besluiten en overzichtslijsten elektronisch aan de toezichthoudende overheid.</p>
+                  <p class="au-u-margin-top-tiny">Bezorg besluiten en
+                    overzichtslijsten elektronisch aan de toezichthoudende
+                    overheid.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -64,7 +91,8 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Bekijk en reageer op de berichten van de toezichthoudende overheid.</p>
+                  <p class="au-u-margin-top-tiny">Bekijk en reageer op de
+                    berichten van de toezichthoudende overheid.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -94,7 +122,9 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten aan de Vlaamse Regering over de beleids- en beheerscyclus (BBC).</p>
+                  <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten
+                    aan de Vlaamse Regering over de beleids- en beheerscyclus
+                    (BBC).</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -124,7 +154,10 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de gemeenteraad, college van burgemeester en schepenen, raad voor maatschappelijk welzijn, vast bureau en bijzonder comité voor de sociale dienst bij.</p>
+                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de
+                    gemeenteraad, college van burgemeester en schepenen, raad
+                    voor maatschappelijk welzijn, vast bureau en bijzonder
+                    comité voor de sociale dienst bij.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -154,7 +187,8 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de erediensten bij.</p>
+                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de
+                    erediensten bij.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -184,7 +218,8 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de erediensten bij.</p>
+                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de
+                    erediensten bij.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -214,7 +249,8 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Hou hier de leidinggevende functies voor uw bestuur bij.</p>
+                  <p class="au-u-margin-top-tiny">Hou hier de leidinggevende
+                    functies voor uw bestuur bij.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -244,7 +280,8 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Hou hier de personeelsaantallen voor uw bestuur bij.</p>
+                  <p class="au-u-margin-top-tiny">Hou hier de
+                    personeelsaantallen voor uw bestuur bij.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -268,7 +305,8 @@
                   </AuHeading>
                 </c.header>
                 <c.content>
-                  <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor subsidiemaatregelen op.</p>
+                  <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor
+                    subsidiemaatregelen op.</p>
                 </c.content>
                 <c.footer>
                   <p>
@@ -291,56 +329,69 @@
               </AuCard>
             </div>
 
-            {{#if (not (is-feature-enabled "lpdc-external"))}}
-              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-                <AuCard @textCenter="true" as |c|>
-                  <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
-                    <AuHeading @level="3" @skin="4">
-                      Producten- en dienstencatalogus
-                    </AuHeading>
-                  </c.header>
-                  <c.content>
-                    <p class="au-u-margin-top-tiny">Beheer uw producten en diensten.</p>
-                  </c.content>
-                  <c.footer>
-                    <p>
-                      <AuLinkExternal
-                        @skin="button"
-                        @icon="link"
-                        href="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/lokale-producten-en-dienstencatalogus"
-                      >
-                        Meer informatie
-                      </AuLinkExternal>
-                      <AuLinkExternal
-                        @skin="button-secondary"
-                        @icon="manual"
-                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/producten-en-dienstencatalogus"
-                      >
-                        Handleiding
-                      </AuLinkExternal>
-                    </p>
-                  </c.footer>
-                </AuCard>
-              </div>
-            {{/if}}
+            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+              <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
+                  <AuHeading @level="3" @skin="4">
+                    Producten- en dienstencatalogus
+                  </AuHeading>
+                </c.header>
+                <c.content>
+                  <p class="au-u-margin-top-tiny">
+                    Beheer uw producten en diensten.
+                  </p>
+                </c.content>
+                <c.footer>
+                  <p>
+                    <AuLinkExternal
+                      @skin="button"
+                      @icon="link"
+                      href="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/lokale-producten-en-dienstencatalogus"
+                    >
+                      Meer informatie
+                    </AuLinkExternal>
+                    <AuLinkExternal
+                      @skin="button-secondary"
+                      @icon="manual"
+                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/producten-en-dienstencatalogus"
+                    >
+                      Handleiding
+                    </AuLinkExternal>
+                  </p>
+                </c.footer>
+              </AuCard>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
     <AuMainFooter>
-      <Shared::FooterHeading/>
+      <Shared::FooterHeading />
       <AuContent @skin="small">
-        <p>Uitgegeven door <a class="au-c-link" href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur">Agentschap Binnenlands Bestuur</a></p>
+        <p>Uitgegeven door
+          <a
+            class="au-c-link"
+            href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur"
+          >Agentschap Binnenlands Bestuur</a></p>
         <ul class="au-c-list-horizontal">
           <li class="au-c-list-horizontal__item">
-            <AuLink @route="legaal.disclaimer" @skin="secondary">Disclaimer</AuLink>
+            <AuLink
+              @route="legaal.disclaimer"
+              @skin="secondary"
+            >Disclaimer</AuLink>
           </li>
           <li class="au-c-list-horizontal__item">
-            <AuLink @route="legaal.cookieverklaring" @skin="secondary">Cookieverklaring</AuLink>
+            <AuLink
+              @route="legaal.cookieverklaring"
+              @skin="secondary"
+            >Cookieverklaring</AuLink>
           </li>
           <li class="au-c-list-horizontal__item">
-            <AuLink @route="legaal.toegankelijkheidsverklaring" @skin="secondary">Toegankelijkheid</AuLink>
+            <AuLink
+              @route="legaal.toegankelijkheidsverklaring"
+              @skin="secondary"
+            >Toegankelijkheid</AuLink>
           </li>
         </ul>
       </AuContent>

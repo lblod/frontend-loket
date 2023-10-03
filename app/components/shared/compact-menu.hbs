@@ -1,6 +1,10 @@
 {{! the role="menu" is added by the AuDropdown component, so we can ignore the rule here.}}
 {{! template-lint-disable require-context-role}}
-<AuDropdown @alignment="left" @title="Menu modules" @buttonLabel="Account settings">
+<AuDropdown
+  @alignment="left"
+  @title="Menu modules"
+  @buttonLabel="Account settings"
+>
   {{#if this.currentSession.canAccessToezicht}}
     <AuLink @route="supervision.submissions" role="menuitem">
       <AuIcon @icon="search-folder" @alignment="left" />
@@ -56,20 +60,14 @@
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessPublicServices}}
-    {{#if (is-feature-enabled "lpdc-external")}}
-      <AuLinkExternal
-        @icon="link-external"
-        @iconAlignment="left"
-        href={{(lpdc-url)}}
-        role="menuitem"
-      >
-        Producten- en dienstencatalogus
-      </AuLinkExternal>
-    {{else}}
-      <AuLink @route="public-services" @icon="unordered-list" @iconAlignment="left" role="menuitem">
-        Producten- en dienstencatalogus
-      </AuLink>
-    {{/if}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{(lpdc-url)}}
+      role="menuitem"
+    >
+      Producten- en dienstencatalogus
+    </AuLinkExternal>
   {{/if}}
   {{#if this.currentSession.canAccessWorshipDecisionsDb}}
     <AuLinkExternal

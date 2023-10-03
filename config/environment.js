@@ -33,7 +33,6 @@ module.exports = function (environment) {
     },
     features: {
       // 'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
-      'lpdc-external': '{{FEATURE_LPDC_EXTERNAL}}',
     },
     lpdcUrl: '{{LPDC_URL}}',
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
