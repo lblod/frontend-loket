@@ -1,3 +1,14 @@
+## v0.86.0 (2023-10-05)
+
+## LPDC
+#### :rocket: Enhancement
+* [#336](https://github.com/lblod/frontend-loket/pull/336) Remove the LPDC module ([@Windvis](https://github.com/Windvis))
+* [#341](https://github.com/lblod/frontend-loket/pull/341) Update the LPDC user manual links ([@Windvis](https://github.com/Windvis))
+
+## Toezicht
+#### :bug: Bug Fix
+* [#331](https://github.com/lblod/frontend-loket/pull/331) Fix an issue when reopening a supervision submission in the controle environment ([@Windvis](https://github.com/Windvis))
+
 ## v0.85.0 (2023-09-11)
 
 #### :rocket: Enhancement
