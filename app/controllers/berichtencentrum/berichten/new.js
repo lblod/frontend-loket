@@ -26,6 +26,8 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
 
   @action async handleFinishUpload(fileId) {
     let file = await this.store.findRecord('file', fileId);
+    file.downloadUrl = buildDownloadUrl(file);
+    await file.save();
     this.model.formData.files.push(file);
   }
 
@@ -68,4 +70,8 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
       conversation.id
     );
   });
+}
+
+function buildDownloadUrl(file) {
+  return new URL(file.downloadLink, window.location.origin).toString();
 }
