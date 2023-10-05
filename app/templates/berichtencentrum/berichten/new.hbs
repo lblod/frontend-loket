@@ -1,0 +1,111 @@
+{{page-title "Nieuwe test conversatie"}}
+
+<div class="au-o-grid__item au-u-2-5@medium">
+  <div class="au-c-body-container au-c-action-sidebar">
+    <div class="au-o-box au-c-action-sidebar__header">
+      <AuHeading @level="2" @skin="3">Nieuwe test conversatie</AuHeading>
+    </div>
+
+    <div class="au-o-box au-c-body-container au-c-body-container--scroll">
+      <form
+        class="au-c-form"
+        id="new-conversation"
+        {{on "submit" (perform this.save)}}
+      >
+        <AuFormRow>
+          <AuLabel for="dossiernummer">
+            Dossiernummer
+          </AuLabel>
+          <AuInput
+            @width="block"
+            id="dossiernummer"
+            value={{@model.formData.dossiernummer}}
+            required=""
+            {{on
+              "change"
+              (with-value (fn (mut @model.formData.dossiernummer)))
+            }}
+          />
+        </AuFormRow>
+
+        <AuFormRow>
+          <AuLabel for="type">
+            Type
+          </AuLabel>
+          <PowerSelect
+            @options={{this.communicationTypes}}
+            @selected={{@model.formData.type}}
+            @onChange={{fn (mut @model.formData.type)}}
+            @triggerId="type"
+            @triggerClass="au-u-1-1"
+            as |type|
+          >
+            {{type}}
+          </PowerSelect>
+        </AuFormRow>
+
+        <AuFormRow>
+          <AuLabel for="description">
+            Beschrijving
+          </AuLabel>
+          <AuTextarea
+            @width="block"
+            id="description"
+            rows="5"
+            value={{@model.formData.description}}
+            required=""
+            {{on "change" (with-value (fn (mut @model.formData.description)))}}
+          />
+        </AuFormRow>
+
+        <AuFormRow>
+          <AuFieldset class="au-u-1-1" as |f|>
+            <f.legend @skin="6">
+              Bericht als bijlage
+            </f.legend>
+            <f.content class="au-u-1-1">
+              <div class="au-u-1-1">
+                {{#if (gt @model.formData.files.length 0)}}
+                  <ul
+                    class="au-o-flow au-o-flow--tiny au-u-margin-bottom-small"
+                  >
+                    {{#each @model.formData.files as |file|}}
+                      <li>
+                        <AuFileCard
+                          @filename={{file.filename}}
+                          @fileSize={{file.humanReadableSize}}
+                          @downloadLink={{file.downloadLink}}
+                          @onDelete={{fn this.handleDelete file}}
+                        />
+                      </li>
+                    {{/each}}
+                  </ul>
+                {{/if}}
+
+                <AuFileUpload
+                  @onFinishUpload={{this.handleFinishUpload}}
+                  @maxFileSizeMB="1024"
+                />
+              </div>
+            </f.content>
+          </AuFieldset>
+        </AuFormRow>
+      </form>
+    </div>
+
+    <div class="au-o-box au-c-action-sidebar__footer">
+      <AuButton
+        @loading={{this.save.isRunning}}
+        @disabled={{not this.hasNeededData}}
+        @loadingMessage="Aan het verwerken"
+        type="submit"
+        form="new-conversation"
+      >
+        Conversatie aanmaken
+      </AuButton>
+      <AuLink @skin="button-naked" @route="berichtencentrum.berichten">
+        Annuleer
+      </AuLink>
+    </div>
+  </div>
+</div>

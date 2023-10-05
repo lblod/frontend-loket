@@ -1,46 +1,52 @@
-{{page-title "Berichtencentrum " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
+{{page-title
+  "Berichtencentrum "
+  this.bestuurseenheid.classificatie.label
+  " "
+  this.bestuurseenheid.naam
+}}
 
 <div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
-  <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
+  <div
+    class="au-o-grid__item
+      {{if
+        this.hasActiveChildRoute
+        'au-u-3-5@medium au-u-visible-medium-up'
+        'au-u-1-1@medium'
+      }}"
+  >
     <div class="au-c-body-container" tabindex="0">
       <AuToolbar @size="large" as |Group|>
         <Group>
           <AuHeading @skin="2">Berichtencentrum</AuHeading>
         </Group>
         <Group>
-          <button type="button" class="au-c-button au-c-button--tertiary" data-test-loket="berichtencentrum-setting-email-button" {{on 'click' this.showPreferences}}>
+          <button
+            type="button"
+            class="au-c-button au-c-button--tertiary"
+            data-test-loket="berichtencentrum-setting-email-button"
+            {{on "click" this.showPreferences}}
+          >
             <AuIcon @icon="settings" @alignment="left" />
             Ontvang mails bij nieuwe berichten
           </button>
-        </Group>
 
-        {{!-- Hiding search options b/c they're not implemented yet --}}
-  {{!--         <div class="grid u-hidden-mobile u-hidden">
-          <div class="col--12-12">
-            <div class="input-field-icon-container--right u-spacer--bottom--tiny">
-              <input class="input-field input-field--block" id="input-field" type="text" placeholder="Type communicatie, dossiernummer, ..." style="min-width: 25rem;"><i class="input-field__icon vi vi-magnifier" aria-hidden="true"></i>
-            </div>
-            <div class="popover js-popover">
-              <div class="input-field-icon-container--right u-spacer--bottom--tiny">
-                <input class="input-field input-field--block js-popover__toggle" name="datepicker-range" type="text" placeholder="01.01.2017 - heden"><i class="input-field__icon vi vi-calendar" aria-hidden="true"></i>
-                <div class="popover__content u-padding--round--tiny">
-                  <form class="form" action="">
-                    <div class="date-range">
-                      <label class="date-range__label u-spacer--tiny" for="datepicker-from">van</label>
-                      <div class="date-range__datepicker datepicker">
-                        <input class="input-field input-field--block" id="datepicker-from" type="text" placeholder="01.01.2016" name="datepicker-from" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2017">
-                      </div>
-                      <label class="date-range__label" for="datepicker-to">tot</label>
-                      <div class="date-range__datepicker datepicker">
-                        <input class="input-field input-field--block" id="datepicker-to" type="text" placeholder="01.01.2017" name="datepicker-to" data-datepicker="" data-datepicker-min="01.01.2016" data-datepicker-max="01.01.2018">
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> --}}
+          {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+            {{#if this.isCreatingConversation}}
+              {{! We use a button for the disabled state because links can't easily be disabled }}
+              <AuButton @icon="add" @disabled={{true}}>
+                Nieuwe conversatie
+              </AuButton>
+            {{else}}
+              <AuLink
+                @route="berichtencentrum.berichten.new"
+                @icon="add"
+                @skin="button"
+              >
+                Nieuwe conversatie
+              </AuLink>
+            {{/if}}
+          {{/if}}
+        </Group>
       </AuToolbar>
 
       <Berichtencentrum::ConversatieTable

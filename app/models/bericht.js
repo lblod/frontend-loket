@@ -1,5 +1,11 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
+export const COMMUNICATION_TYPES = {
+  KENNISGEVING: 'Kennisgeving toezichtsbeslissing',
+  OPVRAGING: 'Opvraging',
+  REACTIE: 'Reactie',
+};
+
 export default class BerichtModel extends Model {
   @attr('datetime') verzonden;
   @attr('datetime') aangekomen;
