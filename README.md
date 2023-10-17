@@ -31,9 +31,7 @@ The [ember-proxy-service](https://github.com/mu-semtech/ember-proxy-service#conf
 
 Feature flags are new / experimental features that can be enabled by setting them to "true".
 
-| Name                          | Description                                                                                                                        |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `EMBER_FEATURE_LPDC_EXTERNAL` | Replaces the built-in LPDC module with a link to the external application. Old bookmarks will be redirected to the new app as well |
+> There are no feature flags available right now.
 
 ### Plausible
 
