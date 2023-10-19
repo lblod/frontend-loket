@@ -11,6 +11,7 @@ export default class BerichtModel extends Model {
   @attr('datetime') aangekomen;
   @attr inhoud;
   @attr typeCommunicatie;
+  @attr creator;
 
   @belongsTo('bestuurseenheid', {
     async: false,
