@@ -1,3 +1,9 @@
+## v0.87.1 (2023-10-27)
+
+### Berichtencentrum
+#### :rocket: Enhancement
+* Creator is set by default.
+
 ## v0.87.0 (2023-10-27)
 
 ### Berichtencentrum
