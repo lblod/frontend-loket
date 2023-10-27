@@ -1,3 +1,9 @@
+## v0.87.0 (2023-10-27)
+
+### Berichtencentrum
+#### :rocket: Enhancement
+* [#342](https://github.com/lblod/frontend-loket/pull/342) Added Creator for message ([@benjay10](https://github.com/benjay10))
+
 ## v0.86.0 (2023-10-05)
 
 ### LPDC
