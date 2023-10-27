@@ -70,11 +70,6 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
       this.args.conversatie.berichten.push(reactie);
       this.args.conversatie.laatsteBericht = reactie;
       await this.args.conversatie.save();
-      //Save message as the last thing
-      //  → see vendor-data-distribution-service
-      //It needs the `creator` prop to make the data transactionaly available
-      //to the Vendor API. All the data needs to exist at that point.
-      reactie.creator = 'https://github.com/lblod/frontend-loket';
       await reactie.save();
     } catch (err) {
       alert(err.message);
