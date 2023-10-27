@@ -11,7 +11,15 @@ export default class BerichtModel extends Model {
   @attr('datetime') aangekomen;
   @attr inhoud;
   @attr typeCommunicatie;
-  @attr creator;
+
+  //Save message as the last thing
+  //  → see vendor-data-distribution-service
+  //It needs the `creator` prop to make the data transactionaly available
+  //to the Vendor API. All the data needs to exist at that point.
+  @attr(
+    { defaultValue:
+      'https://github.com/lblod/frontend-loket'
+    }) creator;
 
   @belongsTo('bestuurseenheid', {
     async: false,
