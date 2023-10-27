@@ -74,7 +74,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
       //  → see vendor-data-distribution-service
       //It needs the `creator` prop to make the data transactionaly available
       //to the Vendor API. All the data needs to exist at that point.
-      reactie.creator = 'https://github.com/lblod/frontend-loket/';
+      reactie.creator = 'https://github.com/lblod/frontend-loket';
       await reactie.save();
     } catch (err) {
       alert(err.message);
