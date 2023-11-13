@@ -53,6 +53,8 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
       inhoud: '',
       bijlagen: files,
     });
+    const creatorDefault = message.creator;
+    message.creator = 'pending';
     await message.save();
 
     const conversation = this.store.createRecord('conversatie', {
@@ -64,6 +66,9 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
       laatsteBericht: message,
     });
     await conversation.save();
+
+    message.creator = creatorDefault;
+    await message.save();
 
     this.router.transitionTo(
       'berichtencentrum.berichten.conversatie',
