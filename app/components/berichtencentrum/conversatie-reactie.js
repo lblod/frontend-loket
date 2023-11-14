@@ -66,7 +66,6 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
         typeCommunicatie: this.args.conversatie.currentTypeCommunicatie,
       });
 
-      await reactie.save();
       this.args.conversatie.berichten.push(reactie);
       this.args.conversatie.laatsteBericht = reactie;
       await this.args.conversatie.save();
