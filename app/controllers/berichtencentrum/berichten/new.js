@@ -53,6 +53,11 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
       inhoud: '',
       bijlagen: files,
     });
+
+    //The creator field must only be set at the end when all data is in the
+    //database. This field is used to trigger the
+    //vendor-data-distribution-service and should not be triggered too soon.
+    //Store the default value, set it to a placeholder and restore later
     const creatorDefault = message.creator;
     message.creator = 'pending';
     await message.save();
@@ -67,6 +72,7 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
     });
     await conversation.save();
 
+    //Restore the default value and save again
     message.creator = creatorDefault;
     await message.save();
 
