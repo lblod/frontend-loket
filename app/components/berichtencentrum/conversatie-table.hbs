@@ -13,7 +13,7 @@
   <t.content as |c|>
     <c.header>
       <AuDataTableThSortable @label='Betreft' @field='betreft' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Type communicatie' @field='laatste-bericht.type-communicatie' @currentSorting={{@sort}} />
+      <AuDataTableThSortable @label='Type communicatie' @field='currentTypeCommunicatie' @currentSorting={{@sort}} />
       <AuDataTableThSortable @label='Dossiernummer' @field='dossiernummer' @currentSorting={{@sort}} class="au-u-visible-small-up" />
       {{#unless @renderSmallTable}}
          <AuDataTableThSortable @label='Laatste bericht' @field='laatste-bericht.verzonden' @currentSorting={{@sort}} class="au-u-visible-small-up" />
@@ -23,7 +23,7 @@
     </c.header>
     <c.body data-test-loket="berichtencentrum-body" as |conversatie|>
       <td>{{conversatie.betreft}}</td>
-      <td>{{conversatie.laatsteBericht.typeCommunicatie}}</td>
+      <td>{{conversatie.currentTypeCommunicatie}}</td>
       <td class="au-u-visible-small-up au-u-word-break">{{conversatie.dossiernummer}}</td>
       {{#unless @renderSmallTable}}
         <td class="au-u-visible-small-up">{{moment-format conversatie.laatsteBericht.verzonden 'DD-MM-YYYY'}}</td>
