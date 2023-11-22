@@ -76,6 +76,39 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
   }
 
   @action
+  async verstuurBerichtAlsABB() {
+    const abb = (
+      await this.store.query('bestuurseenheid', {
+        'filter[:uri:]':
+          'http://data.lblod.info/id/bestuurseenheden/141d9d6b-54af-4d17-b313-8d1c30bc3f5b',
+      })
+    ).at(0);
+    const user = this.currentSession.user;
+
+    try {
+      this.collapse();
+
+      const reactie = await this.store.createRecord('bericht', {
+        inhoud: this.inhoud,
+        // aangekomen              : new Date(),
+        verzonden: new Date(),
+        van: abb,
+        auteur: user,
+        naar: this.originator,
+        bijlagen: this.bijlagen,
+        typeCommunicatie: this.args.conversatie.currentTypeCommunicatie,
+      });
+
+      this.args.conversatie.berichten.push(reactie);
+      this.args.conversatie.laatsteBericht = reactie;
+      await this.args.conversatie.save();
+      await reactie.save();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  @action
   async attachFile(fileId) {
     let file = await this.store.findRecord('file', fileId);
     this.bijlagen.pushObject(file);

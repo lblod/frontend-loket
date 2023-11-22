@@ -57,6 +57,11 @@
       <AuButton {{on 'click' this.verstuurBericht}} @disabled={{this.cantSend}} class="js-accordion__toggle js-accordion-bound">
         Verstuur bericht
       </AuButton>
+      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        <AuButton {{on 'click' this.verstuurBerichtAlsABB}} @disabled={{this.cantSend}} class="js-accordion__toggle js-accordion-bound">
+          Verstuur bericht als ABB
+        </AuButton>
+      {{/if}}
       <AuButton {{on 'click' this.collapseMe}} @skin="secondary" class="js-accordion__toggle js-accordion-bound">
         Verwijder nieuw bericht
       </AuButton>
