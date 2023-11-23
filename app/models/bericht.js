@@ -21,6 +21,7 @@ export default class BerichtModel extends Model {
   @belongsTo('bestuurseenheid', {
     async: false,
     inverse: null,
+    polymorphic: true,
   })
   van;
 
@@ -33,6 +34,7 @@ export default class BerichtModel extends Model {
   @belongsTo('bestuurseenheid', {
     async: false,
     inverse: null,
+    polymorphic: true,
   })
   naar;
 
