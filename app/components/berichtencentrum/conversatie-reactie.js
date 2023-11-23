@@ -66,9 +66,20 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
         typeCommunicatie: this.args.conversatie.currentTypeCommunicatie,
       });
 
+      //The creator field must only be set at the end when all data is in the
+      //database. This field is used to trigger the
+      //vendor-data-distribution-service and should not be triggered too soon.
+      //Store the default value, set it to a placeholder and restore later
+      const creatorDefault = reactie.creator;
+      reactie.creator = 'pending';
+      await reactie.save();
+
       this.args.conversatie.berichten.push(reactie);
       this.args.conversatie.laatsteBericht = reactie;
       await this.args.conversatie.save();
+
+      //Restore the default value and save again
+      reactie.creator = creatorDefault;
       await reactie.save();
     } catch (err) {
       alert(err.message);
@@ -99,9 +110,20 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
         typeCommunicatie: this.args.conversatie.currentTypeCommunicatie,
       });
 
+      //The creator field must only be set at the end when all data is in the
+      //database. This field is used to trigger the
+      //vendor-data-distribution-service and should not be triggered too soon.
+      //Store the default value, set it to a placeholder and restore later
+      const creatorDefault = reactie.creator;
+      reactie.creator = 'pending';
+      await reactie.save();
+
       this.args.conversatie.berichten.push(reactie);
       this.args.conversatie.laatsteBericht = reactie;
       await this.args.conversatie.save();
+
+      //Restore the default value and save again
+      reactie.creator = creatorDefault;
       await reactie.save();
     } catch (err) {
       alert(err.message);
