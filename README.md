@@ -49,9 +49,9 @@ Feature flags are new / experimental features that can be enabled by setting the
 | `EMBER_SENTRY_DSN`         | Sentry DSN. Setting this activates the sentry integration.                                      |
 | `EMBER_SENTRY_ENVIRONMENT` | The name of the environment under which the errors should be reported. Defaults to 'production' |
 
-We use [`release-it`](https://github.com/release-it/release-it) to handle our release flow 
-
 ## Releasing a new version
+
+We use [`release-it`](https://github.com/release-it/release-it) to handle our release flow 
 
 ### Generating the changelog (optional)
 At the moment the changelog is updated manually. To make this a bit easier you can generate a basic changelog based on the merged PRs with [`lerna-changelog`](https://github.com/lerna/lerna-changelog) by  adding the correct labels and updating the PR titles.
