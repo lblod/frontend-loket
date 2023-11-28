@@ -22,9 +22,8 @@ module.exports = function (defaults) {
     },
   };
 
-  // console.log(defaults);
-
   let app = new EmberApp(defaults, customBuildConfig);
+
   // Uncomment this if you want a "classic build"
   // return app.toTree();
 
