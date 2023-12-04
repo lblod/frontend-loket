@@ -88,6 +88,8 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
 
   @action
   async verstuurBerichtAlsABB() {
+    const bestuurseenheid = this.currentSession.group;
+    const user = this.currentSession.user;
     const abb = (
       await this.store.query('bestuurseenheid', {
         'filter[:uri:]':
@@ -103,7 +105,8 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
         // aangekomen              : new Date(),
         verzonden: new Date(),
         van: abb,
-        naar: this.originator,
+        auteur: user,
+        naar: bestuurseenheid,
         bijlagen: this.bijlagen,
         typeCommunicatie: this.args.conversatie.currentTypeCommunicatie,
       });
