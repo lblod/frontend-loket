@@ -55,14 +55,16 @@
 
     <AuButtonGroup>
       <AuButton
-        {{on 'click' this.verstuurBericht}}
+        {{on 'click' (perform this.verstuurBericht)}}
+        @loading={{this.verstuurBericht.isRunning}}
         @disabled={{this.cantSend}}
         class="js-accordion__toggle js-accordion-bound">
         Verstuur bericht
       </AuButton>
       {{#if (macroCondition (macroGetOwnConfig "controle"))}}
         <AuButton
-          {{on 'click' this.verstuurBerichtAlsABB}}
+          {{on 'click' (perform this.verstuurBerichtAlsABB)}}
+          @loading={{this.verstuurBerichtAlsABB.isRunning}}
           @disabled={{this.cantSend}}
           class="js-accordion__toggle js-accordion-bound">
           Verstuur bericht als ABB
