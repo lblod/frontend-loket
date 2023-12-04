@@ -54,11 +54,17 @@
     </div>
 
     <AuButtonGroup>
-      <AuButton {{on 'click' this.verstuurBericht}} @disabled={{this.cantSend}} class="js-accordion__toggle js-accordion-bound">
+      <AuButton
+        {{on 'click' this.verstuurBericht}}
+        @disabled={{this.cantSend}}
+        class="js-accordion__toggle js-accordion-bound">
         Verstuur bericht
       </AuButton>
       {{#if (macroCondition (macroGetOwnConfig "controle"))}}
-        <AuButton {{on 'click' this.verstuurBerichtAlsABB}} @disabled={{this.cantSend}} class="js-accordion__toggle js-accordion-bound">
+        <AuButton
+          {{on 'click' this.verstuurBerichtAlsABB}}
+          @disabled={{this.cantSend}}
+          class="js-accordion__toggle js-accordion-bound">
           Verstuur bericht als ABB
         </AuButton>
       {{/if}}
