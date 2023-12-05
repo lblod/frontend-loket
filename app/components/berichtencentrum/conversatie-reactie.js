@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import { A } from '@ember/array';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { task } from 'ember-concurrency';
 
 export default class BerichtencentrumConversatieReactieComponent extends Component {
   @service() router;
@@ -47,8 +48,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
     this.originator = null;
   }
 
-  @action
-  async verstuurBericht() {
+  verstuurBericht = task(async () => {
     const bestuurseenheid = this.currentSession.group;
     const user = this.currentSession.user;
 
@@ -84,10 +84,9 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
     } catch (err) {
       alert(err.message);
     }
-  }
+  });
 
-  @action
-  async verstuurBerichtAlsABB() {
+  verstuurBerichtAlsABB = task(async () => {
     const bestuurseenheid = this.currentSession.group;
     const user = this.currentSession.user;
     const abb = (
@@ -129,7 +128,7 @@ export default class BerichtencentrumConversatieReactieComponent extends Compone
     } catch (err) {
       alert(err.message);
     }
-  }
+  });
 
   @action
   async attachFile(fileId) {
