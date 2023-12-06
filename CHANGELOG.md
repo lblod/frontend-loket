@@ -1,5 +1,8 @@
+## v0.88.1 (2023-12-06)
+#### :bug: Bug Fix
+ - Rollback of [commit](https://github.com/lblod/frontend-loket/commit/bfb37c897ec57ab703be2263e4ab15ab406f96d6)
+   - Setting the URL is now handled by the backend.
 ## v0.88.0 (2023-12-05)
-
 #### :rocket: Enhancement
 * [#350](https://github.com/lblod/frontend-loket/pull/350) Enhance: loading state on send buttons ([@benjay10](https://github.com/benjay10))
 
