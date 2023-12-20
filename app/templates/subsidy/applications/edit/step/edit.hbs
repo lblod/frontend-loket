@@ -175,7 +175,7 @@
     <RdfForm
       @groupClass="au-o-grid__item"
       @form={{this.form}}
-      @show={{if (or this.submitted (not this.isActiveStep)) "true"}}
+      @show={{unless this.canSubmit "true"}}
       @graphs={{this.graphs}}
       @sourceNode={{this.sourceNode}}
       @formStore={{this.formStore}}
