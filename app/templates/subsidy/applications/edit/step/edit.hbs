@@ -1,23 +1,6 @@
 <div class="au-c-body-container au-c-body-container--scroll">
 
-  <div
-    class="au-o-box {{if (or this.saveConcept.isRunning this.submit.isRunning) 'au-c-form--disabled'}}"
-  >
-    <RdfForm
-      @groupClass="au-o-grid__item"
-      @form={{this.form}}
-      @show={{if (or this.submitted (not this.isActiveStep)) "true"}}
-      @graphs={{this.graphs}}
-      @sourceNode={{this.sourceNode}}
-      @formStore={{this.formStore}}
-      @forceShowErrors={{this.forceShowErrors}}
-      @useNewListingLayout={{true}}
-      @level={{2}}
-      class="au-u-max-width-medium"
-    />
-  </div>
-
-  <AuToolbar @size="large" as |Group|>
+  <AuToolbar @size="large" class="{{if this.canSubmit 'au-u-padding-none' 'au-u-padding-vertical'}}" as |Group|>
     {{#if (and this.forceShowErrors (not this.isValidForm))}}
       <Group class="au-c-toolbar__group--row">
         <AuAlert
@@ -33,54 +16,8 @@
         </AuAlert>
       </Group>
     {{/if}}
-    {{#if this.error}}
-      <Group class="au-c-toolbar__group--row">
-        <AuAlert
-          @icon="alert-triangle"
-          @title="Oeps! Dit is een beetje gênant ..."
-          @skin="error"
-          @size="small"
-          @closable="true"
-          class="au-u-margin-bottom-none"
-        >
-          <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het
-            {{this.error.action}}
-            van het formulier.</p>
-        </AuAlert>
-      </Group>
-    {{/if}}
-    <Group class="au-u-margin-top-small au-u-margin-bottom-small">
-      {{! DEFAULT CRUD CASE }}
-      {{#if this.canSubmit}}
-        <AuButton
-          @disabled={{if
-            (or
-              this.saveConcept.isRunning
-              this.submit.isRunning
-              this.delete.isRunning
-            )
-            "true"
-          }}
-          @loading={{if this.submit.isRunning "true"}}
-          {{on "click" (perform this.submit)}}
-        >Verstuur naar de Vlaamse overheid
-        </AuButton>
-        <AuButton
-          @disabled={{if
-            (or
-              this.saveConcept.isRunning
-              this.submit.isRunning
-              this.delete.isRunning
-            )
-            "true"
-          }}
-          @loading={{if this.saveConcept.isRunning "true"}}
-          @skin={{"secondary"}}
-          {{on "click" (perform this.saveConcept)}}
-        >
-          Bewaar als concept
-        </AuButton>
-      {{else}}
+    <Group class="au-u-margin-top-none au-u-margin-bottom-none">
+      {{#unless this.canSubmit}}
         {{! SENDING NOT POSSIBLE }}
         {{#if this.submitted}}
           <div>
@@ -89,6 +26,7 @@
               @title="De subsidiestap werd verstuurd."
               @skin="success"
               @size="small"
+              class="au-u-margin-bottom-none"
             >
               <p>We nemen contact op met de opgegeven contactpersoon over het
                 verdere verloop.
@@ -227,11 +165,96 @@
             </div>
           {{/if}}
         {{/if}}
-      {{/if}}
+      {{/unless}}
     </Group>
+  </AuToolbar>
+
+  <div
+    class="au-o-box {{if (or this.saveConcept.isRunning this.submit.isRunning) 'au-c-form--disabled'}}"
+  >
+    <RdfForm
+      @groupClass="au-o-grid__item"
+      @form={{this.form}}
+      @show={{if (or this.submitted (not this.isActiveStep)) "true"}}
+      @graphs={{this.graphs}}
+      @sourceNode={{this.sourceNode}}
+      @formStore={{this.formStore}}
+      @forceShowErrors={{this.forceShowErrors}}
+      @useNewListingLayout={{true}}
+      @level={{2}}
+      class="au-u-max-width-medium"
+    />
+  </div>
+
+  <AuToolbar @size="large" as |GroupBottom|>
+    {{#if this.error}}
+      <GroupBottom class="au-c-toolbar__group--row">
+        <AuAlert
+          @icon="alert-triangle"
+          @title="Oeps! Dit is een beetje gênant ..."
+          @skin="error"
+          @size="small"
+          @closable="true"
+          class="au-u-margin-bottom-none"
+        >
+          <p>Het lijkt er op dat er iets onverwacht is fout gelopen bij het
+            {{this.error.action}}
+            van het formulier.</p>
+        </AuAlert>
+      </GroupBottom>
+    {{/if}}
+    {{#if (and this.forceShowErrors (not this.isValidForm))}}
+      <GroupBottom class="au-c-toolbar__group--row">
+        <AuAlert
+          @icon="alert-triangle"
+          @title="Kan dossier niet versturen"
+          @skin="error"
+          @size="small"
+          @closable="true"
+          class="au-u-margin-bottom-none"
+        >
+          <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde
+            velden.</p>
+        </AuAlert>
+      </GroupBottom>
+    {{/if}}
+    <GroupBottom class="au-u-margin-top-small au-u-margin-bottom-small">
+      {{! DEFAULT CRUD CASE }}
+      {{#if this.canSubmit}}
+        <AuButton
+          @disabled={{if
+            (or
+              this.saveConcept.isRunning
+              this.submit.isRunning
+              this.delete.isRunning
+            )
+            "true"
+          }}
+          @loading={{if this.submit.isRunning "true"}}
+          {{on "click" (perform this.submit)}}
+        >Verstuur naar de Vlaamse overheid
+        </AuButton>
+        <AuButton
+          @disabled={{if
+            (or
+              this.saveConcept.isRunning
+              this.submit.isRunning
+              this.delete.isRunning
+            )
+            "true"
+          }}
+          @loading={{if this.saveConcept.isRunning "true"}}
+          @skin={{"secondary"}}
+          {{on "click" (perform this.saveConcept)}}
+        >
+          Bewaar als concept
+        </AuButton>
+      {{/if}}
+    </GroupBottom>
+
 
     {{! USER NOTIFICATIONS }}
-    <Group>
+    <GroupBottom>
       <ul class="au-o-grid">
         {{! SAVING }}
         {{#if this.saveConcept.isRunning}}
@@ -295,6 +318,6 @@
           </li>
         {{/if}}
       </ul>
-    </Group>
+    </GroupBottom>
   </AuToolbar>
 </div>
