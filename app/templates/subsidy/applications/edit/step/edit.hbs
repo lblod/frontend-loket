@@ -142,12 +142,16 @@
           {{else}}
             {{! PREVIOUS STEP NEEDS TO BE COMPLETED FIRST }}
             <div>
+              <AuLink @route="subsidy.applications.edit" @skin="primary">
+                <AuIcon @icon="arrow-left" @alignment="left" />
+                Terug naar vorige stap
+              </AuLink>
               <AuAlert
                 @icon="info-circle"
                 @title="Deze subsidieaanvraag stap is nog niet beschikbaar."
                 @skin="info"
                 @size="small"
-                class="au-u-margin-bottom-small"
+                class="au-u-margin-top-small au-u-margin-bottom-none"
               >
                 <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
                 <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem
@@ -158,10 +162,6 @@
                   >LoketLokaalBestuur@vlaanderen.be</a>.
                 </p>
               </AuAlert>
-              <AuLink @route="subsidy.applications.edit" @skin="secondary">
-                <AuIcon @icon="arrow-left" @alignment="left" />
-                Terug naar vorige stap
-              </AuLink>
             </div>
           {{/if}}
         {{/if}}
