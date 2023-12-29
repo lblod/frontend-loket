@@ -37,6 +37,7 @@ module.exports = function (environment) {
     lpdcUrl: '{{LPDC_URL}}',
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
+    verenigingenUrl: '{{VERENIGINGEN_URL}}',
     'ember-plausible': {
       enabled: false,
     },

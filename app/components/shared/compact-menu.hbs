@@ -89,4 +89,14 @@
       Organisaties Erediensten
     </AuLinkExternal>
   {{/if}}
+  {{#if this.currentSession.canAccessVerenigingen}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{(verenigingen-url)}}
+      role="menuitem"
+    >
+      Verenigingen
+    </AuLinkExternal>
+  {{/if}}
 </AuDropdown>

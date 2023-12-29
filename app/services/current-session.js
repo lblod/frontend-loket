@@ -17,6 +17,7 @@ const MODULE = {
   PUBLIC_SERVICES: 'LoketLB-LPDCGebruiker',
   WORSHIP_DECISIONS_DB: 'LoketLB-databankEredienstenGebruiker',
   WORSHIP_ORGANISATIONS_DB: 'LoketLB-eredienstOrganisatiesGebruiker',
+  VERENIGINGEN: 'LoketLB-verenigingenGebruiker',
 };
 
 export default class CurrentSessionService extends Service {
@@ -132,5 +133,9 @@ export default class CurrentSessionService extends Service {
 
   get canAccessPublicServices() {
     return this.canAccess(MODULE.PUBLIC_SERVICES);
+  }
+
+  get canAccessVerenigingen() {
+    return this.canAccess(MODULE.VERENIGINGEN);
   }
 }
