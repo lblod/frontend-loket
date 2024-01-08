@@ -1,21 +1,6 @@
 <div class="au-c-body-container au-c-body-container--scroll">
 
   <AuToolbar @size="large" class="{{if this.canSubmit 'au-u-padding-none' 'au-u-padding-vertical'}}" as |Group|>
-    {{#if (and this.forceShowErrors (not this.isValidForm))}}
-      <Group class="au-c-toolbar__group--row">
-        <AuAlert
-          @icon="alert-triangle"
-          @title="Kan dossier niet versturen"
-          @skin="error"
-          @size="small"
-          @closable="true"
-          class="au-u-margin-bottom-none"
-        >
-          <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde
-            velden.</p>
-        </AuAlert>
-      </Group>
-    {{/if}}
     <Group class="au-u-margin-top-none au-u-margin-bottom-none">
       {{#unless this.canSubmit}}
         {{! SENDING NOT POSSIBLE }}
