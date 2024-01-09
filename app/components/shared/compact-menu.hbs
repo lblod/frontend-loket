@@ -99,4 +99,14 @@
       Verenigingen
     </AuLinkExternal>
   {{/if}}
+  {{#if this.currentSession.canAccessContact}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{(contact-url)}}
+      role="menuitem"
+    >
+      Contact- en Organisatiegegevens
+    </AuLinkExternal>
+  {{/if}}
 </AuDropdown>

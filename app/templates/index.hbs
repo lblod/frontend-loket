@@ -252,6 +252,26 @@
           </LoketModuleCard>
         </li>
       {{/if}}
+      {{#if this.currentSession.canAccessContact}}
+        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+          <LoketModuleCard
+            @icon="link-external"
+            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-contact-en-organisatiegegevens/"
+          >
+            <:title>Contact- en Organisatiegegevens</:title>
+            <:description>Beheer uw contactgegevens en consulteer uw organisatiegegevens, zoals gekend bij Agentschap Binnenlands Bestuur.
+            </:description>
+            <:link>
+              <AuLinkExternal
+                @skin="button"
+                href={{(contact-url)}}
+              >
+                Ga naar contact- en organisatiegegevens (externe link)
+              </AuLinkExternal>
+            </:link>
+          </LoketModuleCard>
+        </li>
+      {{/if}}
     </ul>
   </div>
 </div>
