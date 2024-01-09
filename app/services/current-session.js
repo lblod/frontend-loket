@@ -18,6 +18,7 @@ const MODULE = {
   WORSHIP_DECISIONS_DB: 'LoketLB-databankEredienstenGebruiker',
   WORSHIP_ORGANISATIONS_DB: 'LoketLB-eredienstOrganisatiesGebruiker',
   VERENIGINGEN: 'abb_loketverenigingenapp',
+  CONTACT: 'abb_organisatieportaal_rol_3d'
 };
 
 export default class CurrentSessionService extends Service {
@@ -137,5 +138,9 @@ export default class CurrentSessionService extends Service {
 
   get canAccessVerenigingen() {
     return this.canAccess(MODULE.VERENIGINGEN);
+  }
+
+  get canAccessContact() {
+    return this.canAccess(MODULE.CONTACT);
   }
 }
