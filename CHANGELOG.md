@@ -1,3 +1,8 @@
+## v0.88.3 (2024-01-10)
+### Toezicht
+#### :bug: Bug Fix
+* [#356](https://github.com/lblod/frontend-loket/pull/356) Make sure the "test link"s are displayed properly ([@Windvis](https://github.com/Windvis))
+
 ## v0.88.1 (2023-12-06)
 #### :bug: Bug Fix
  - Rollback of [commit](https://github.com/lblod/frontend-loket/commit/bfb37c897ec57ab703be2263e4ab15ab406f96d6)
