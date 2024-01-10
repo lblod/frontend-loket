@@ -38,6 +38,7 @@ module.exports = function (environment) {
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
     verenigingenUrl: '{{VERENIGINGEN_URL}}',
+    contactUrl: '{{CONTACT_URL}}',
     'ember-plausible': {
       enabled: false,
     },
