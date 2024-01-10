@@ -133,14 +133,21 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessPublicServices() {
-    return this.canAccess(MODULE.PUBLIC_SERVICES);
+    return (
+      this.canAccess(MODULE.PUBLIC_SERVICES) && !config.lpdcUrl.startsWith('{{')
+    );
   }
 
   get canAccessVerenigingen() {
-    return this.canAccess(MODULE.VERENIGINGEN);
+    return (
+      this.canAccess(MODULE.VERENIGINGEN) &&
+      !config.verenigingenUrl.startsWith('{{')
+    );
   }
 
   get canAccessContact() {
-    return this.canAccess(MODULE.CONTACT);
+    return (
+      this.canAccess(MODULE.CONTACT) && !config.contactUrl.startsWith('{{')
+    );
   }
 }
