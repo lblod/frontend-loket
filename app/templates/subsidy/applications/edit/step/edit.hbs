@@ -107,81 +107,80 @@
             </AuAlert>
           </div>
         {{else}}
-          {{#if this.isActiveStep}}
-            {{! DEADLINE ISSUES }}
-            {{#if this.submittablePeriodNeedsToStart}}
-              <div>
-                <AuAlert
-                  class="au-u-margin-bottom-small"
-                  @icon="info-circle"
-                  @skin="info"
-                  @size="small"
-                  @title="Deze stap kan u nog niet indienen."
-                >
-                  <AuContent>
-                    <p>U kan pas vanaf een later moment indienen.</p>
+          {{#if this.submittablePeriodNeedsToStart}}
+            <div>
+              <AuAlert
+                class="au-u-margin-bottom-small"
+                @icon="info-circle"
+                @skin="info"
+                @size="small"
+                @title="Deze stap kan u nog niet indienen."
+              >
+                <AuContent>
+                  <p>U kan pas vanaf een later moment indienen.</p>
 
-                    <p>
-                      Meer informatie over de subsidieaanvragen vindt u
-                      <AuLinkExternal
-                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
-                      >
-                        hier
-                      </AuLinkExternal>.<br />
-                      Indien u een fout heeft ontdekt, of een vraag heeft, neem
-                      contact op met
-                      <a
-                        class="au-c-link"
-                        href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                      >
-                        LoketLokaalBestuur@vlaanderen.be
-                      </a>.
-                    </p>
-                  </AuContent>
-                </AuAlert>
-                <AuButton
-                  @disabled={{if
-                    (or
-                      this.saveConcept.isRunning
-                      this.submit.isRunning
-                      this.delete.isRunning
-                    )
-                    "true"
-                  }}
-                  @loading={{if this.saveConcept.isRunning "true"}}
-                  @skin={{"secondary"}}
-                  {{on "click" (perform this.saveConcept)}}
-                >
-                  Bewaar als concept
-                </AuButton>
-              </div>
-            {{else if this.submittablePeriodExpired}}
-              <div>
-                <AuAlert
-                  @icon="info-circle"
-                  @title="De deadline voor deze stap is verstreken."
-                  @skin="warning"
-                  @size="small"
-                  class="au-u-margin-bottom-small"
-                >
                   <p>
-                    Deze stap was beschikbaar tot en met
-                    {{moment-format
-                      this.step.subsidyProceduralStep.period.end
-                      "DD-MM-YYYY"
-                    }}.
-                  </p>
-                  <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem
+                    Meer informatie over de subsidieaanvragen vindt u
+                    <AuLinkExternal
+                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
+                    >
+                      hier
+                    </AuLinkExternal>.<br />
+                    Indien u een fout heeft ontdekt, of een vraag heeft, neem
                     contact op met
                     <a
-                      href="mailto:LoketLokaalBestuur@vlaanderen.be"
                       class="au-c-link"
-                    >LoketLokaalBestuur@vlaanderen.be</a>.
+                      href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                    >
+                      LoketLokaalBestuur@vlaanderen.be
+                    </a>.
                   </p>
-                </AuAlert>
-              </div>
-            {{else}}
-              {{! GENERAL ISSUES (data is broken) }}
+                </AuContent>
+              </AuAlert>
+              <AuButton
+                @disabled={{if
+                  (or
+                    this.saveConcept.isRunning
+                    this.submit.isRunning
+                    this.delete.isRunning
+                  )
+                  "true"
+                }}
+                @loading={{if this.saveConcept.isRunning "true"}}
+                @skin={{"secondary"}}
+                {{on "click" (perform this.saveConcept)}}
+              >
+                Bewaar als concept
+              </AuButton>
+            </div>
+          {{else if this.submittablePeriodExpired}}
+            <div>
+              <AuAlert
+                @icon="info-circle"
+                @title="De deadline voor deze stap is verstreken."
+                @skin="warning"
+                @size="small"
+                class="au-u-margin-bottom-small"
+              >
+                <p>
+                  Deze stap was beschikbaar tot en met
+                  {{moment-format
+                    this.step.subsidyProceduralStep.period.end
+                    "DD-MM-YYYY"
+                  }}.
+                </p>
+                <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem
+                  contact op met
+                  <a
+                    href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                    class="au-c-link"
+                  >LoketLokaalBestuur@vlaanderen.be</a>.
+                </p>
+              </AuAlert>
+            </div>
+          {{else}}
+            {{! GENERAL ISSUES (data is broken) }}
+            {{#if this.isActiveStep}}
               <div>
                 <AuAlert
                   @icon="info-circle"
@@ -200,31 +199,31 @@
                   </p>
                 </AuAlert>
               </div>
+            {{else}}
+              {{! PREVIOUS STEP NEEDS TO BE COMPLETED FIRST }}
+              <div>
+                <AuAlert
+                  @icon="info-circle"
+                  @title="Deze subsidieaanvraag stap is nog niet beschikbaar."
+                  @skin="info"
+                  @size="small"
+                  class="au-u-margin-bottom-small"
+                >
+                  <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
+                  <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem
+                    contact op met
+                    <a
+                      href="mailto:LoketLokaalBestuur@vlaanderen.be"
+                      class="au-c-link"
+                    >LoketLokaalBestuur@vlaanderen.be</a>.
+                  </p>
+                </AuAlert>
+                <AuLink @route="subsidy.applications.edit" @skin="secondary">
+                  <AuIcon @icon="arrow-left" @alignment="left" />
+                  Terug naar vorige stap
+                </AuLink>
+              </div>
             {{/if}}
-          {{else}}
-            {{! PREVIOUS STEP NEEDS TO BE COMPLETED FIRST }}
-            <div>
-              <AuAlert
-                @icon="info-circle"
-                @title="Deze subsidieaanvraag stap is nog niet beschikbaar."
-                @skin="info"
-                @size="small"
-                class="au-u-margin-bottom-small"
-              >
-                <p>Gelieve eerst de nog in te dienen stappen aan te vullen.</p>
-                <p>Indien u een fout heeft ontdekt, of een vraag heeft, neem
-                  contact op met
-                  <a
-                    href="mailto:LoketLokaalBestuur@vlaanderen.be"
-                    class="au-c-link"
-                  >LoketLokaalBestuur@vlaanderen.be</a>.
-                </p>
-              </AuAlert>
-              <AuLink @route="subsidy.applications.edit" @skin="secondary">
-                <AuIcon @icon="arrow-left" @alignment="left" />
-                Terug naar vorige stap
-              </AuLink>
-            </div>
           {{/if}}
         {{/if}}
       {{/if}}
