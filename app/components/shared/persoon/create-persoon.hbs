@@ -134,32 +134,32 @@
       {{/let}}
       </div>
       <div>
-        <AuLabel @error={{if this.errors.geslacht true}} @required={{true}}>
-          Geslacht
-        </AuLabel>
-        <div class="au-o-grid au-o-grid--tiny">
-          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <AuControlRadio
-              @label="Vrouw"
-              checked={{this.isFemale}}
-              @value={{this.female}}
-              @onChange={{this.setGender}}
+        <AuFieldset
+          as |f|
+        >
+          <f.legend
+            @required={{true}}
+            @error={{this.errors.geslacht}}
+          >
+            Geslacht
+          </f.legend>
+          <f.content>
+            <AuRadioGroup
+              @alignment="inline"
               @name="gender"
-            />
-          </div>
-          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <AuControlRadio
-              @label="Man"
-              checked={{this.isMale}}
-              @value={{this.male}}
-              @name="gender"
+              @selected={{this.geslacht}}
               @onChange={{this.setGender}}
-            />
-          </div>
-          {{#if this.errors.geslacht}}
-            <AuHelpText @error="true">{{this.errors.geslacht}}</AuHelpText>
-          {{/if}}
-        </div>
+              as |Group|
+            >
+              <Group.Radio @value={{this.female}}>Vrouw</Group.Radio>
+              <Group.Radio @value={{this.male}}>Man</Group.Radio>
+            </AuRadioGroup>
+          </f.content>
+        </AuFieldset>
+
+        {{#if this.errors.geslacht}}
+          <AuHelpText @error={{true}}>{{this.errors.geslacht}}</AuHelpText>
+        {{/if}}
       </div>
       {{#if this.errors.save}}
         <AuAlert

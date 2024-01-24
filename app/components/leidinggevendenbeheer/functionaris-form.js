@@ -22,6 +22,14 @@ export default class LeidinggevendenbeheerFunctionarisFormComponent extends Comp
     this.args.model[attributeName] = date;
   }
 
+  @action
+  handleStatusChange(statusId) {
+    this.args.model.status = this.store.peekRecord(
+      'functionaris-status-code',
+      statusId
+    );
+  }
+
   async getBestuursInfo() {
     const bestuursfunctie = await this.args.model.get('bekleedt');
     const bestuursfunctieCode = await bestuursfunctie.rol;

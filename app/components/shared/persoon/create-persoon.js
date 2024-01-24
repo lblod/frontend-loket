@@ -62,14 +62,6 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     }
   }
 
-  get isMale() {
-    return this.geslacht === maleId;
-  }
-
-  get isFemale() {
-    return this.geslacht === femaleId;
-  }
-
   get isNationalityFieldRequired() {
     return !!this.args.nationalityRequired;
   }
