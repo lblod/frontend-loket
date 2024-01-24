@@ -94,7 +94,7 @@
         €{{entry.totalAmount}}
       </td>
       <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
-        <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true"
+        <AuButton @hideText="true" @icon="bin" @skin="link" @alert="true"
           {{on "click" (fn this.removeEntry entry)}}>
           <AuIcon @icon="bin" @alignment="left"/>
           Verwijder rij
