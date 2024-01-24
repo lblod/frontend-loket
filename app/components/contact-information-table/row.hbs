@@ -81,7 +81,7 @@
       />
     </td>
     <td>
-      <AuControlCheckbox @disabled={{true}} @checked={{@isSelected}} />
+      <AuCheckbox @disabled={{true}} @checked={{@isSelected}} />
     </td>
     <td>
       <AuButton @skin="link" {{on "click" @onEditContactCancel}}>
@@ -98,12 +98,12 @@
     <td>{{@contact.telefoon}}</td>
     <td>{{@secondaryContact.telefoon}}</td>
     <td>
-      <AuControlCheckbox
+      <AuCheckbox
+        @checked={{@isSelected}}
         @value={{@contact.id}}
         @name="contact"
         @onChange={{fn @onContactSelectionChange @contact}}
         @disabled={{@isDisabled}}
-        checked={{@isSelected}}
       />
     </td>
     <td>

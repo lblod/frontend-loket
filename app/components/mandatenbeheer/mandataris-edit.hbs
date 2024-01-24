@@ -80,10 +80,10 @@
         {{#if (macroCondition (macroGetOwnConfig "controle"))}}
           <div>
             <div class="au-u-margin-bottom-tiny">
-              <AuControlCheckbox
+              <AuCheckbox
                 @checked={{this.isDuplicated}}
                 @onChange={{fn (mut this.isDuplicated)}}
-              >Is het een duplicaat?</AuControlCheckbox>
+              >Is het een duplicaat?</AuCheckbox>
             </div>
             {{#if this.isDuplicated}}
               {{mandatenbeheer/mandataris-duplicate-selector
@@ -225,10 +225,10 @@
         {{#if (macroCondition (macroGetOwnConfig "controle"))}}
           <div>
             <div class="au-u-margin-bottom-tiny">
-              <AuControlCheckbox
+              <AuCheckbox
                 @checked={{this.isDuplicated}}
                 @onChange={{fn (mut this.isDuplicated)}}
-              >Is het een duplicaat?</AuControlCheckbox>
+              >Is het een duplicaat?</AuCheckbox>
             </div>
 
             {{#if this.isDuplicated}}

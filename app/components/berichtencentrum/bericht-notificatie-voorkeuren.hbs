@@ -15,11 +15,10 @@
       class="au-o-flow--small"
       {{on "submit" this.savePreferences}}
     >
-      <AuControlCheckbox
-        @label="Ontvang mails bij nieuwe berichten"
+      <AuCheckbox
         @checked={{this.wilMailOntvangen}}
         @onChange={{fn (mut this.wilMailOntvangen) (not this.wilMailOntvangen)}}
-      />
+      >Ontvang mails bij nieuwe berichten</AuCheckbox>
 
       {{#if this.wilMailOntvangen}}
         <div>
