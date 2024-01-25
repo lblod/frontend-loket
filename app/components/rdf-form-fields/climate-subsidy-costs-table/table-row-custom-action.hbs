@@ -5,13 +5,14 @@
     </label>
     <AuTextarea
       @error={{if this.descriptionErrors true false}}
-      @value={{this.description}}
       @disabled={{@disabled}}
       @width="block"
+      value={{this.description}}
       placeholder="Omschrijving actie"
       id="description-{{this.id}}"
-      style="resize: vertical;"
       {{!template-lint-disable no-inline-styles}}
+      style="resize: vertical;"
+      {{on "input" (with-value (fn (mut this.description)))}}
       {{on "blur" this.update}}
       {{auto-focus}}
     />
