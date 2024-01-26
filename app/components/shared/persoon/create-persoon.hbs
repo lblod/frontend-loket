@@ -13,11 +13,12 @@
                 Voornaam
               </AuLabel>
               <AuInput
-                @value={{this.voornaam}}
                 @width="block"
                 @error={{showError}}
+                value={{this.voornaam}}
                 id="mandataris-naam"
                 name="mandataris-naam"
+                {{on "input" (with-value (fn (mut this.voornaam)))}}
               />
               {{#if showError}}
                 <AuHelpText
@@ -36,11 +37,12 @@
                 Familienaam
               </AuLabel>
               <AuInput
-                @value={{this.familienaam}}
                 @width="block"
                 @error={{showError}}
+                value={{this.familienaam}}
                 id="mandataris-familienaam"
                 name="mandataris-familienaam"
+                {{on "input" (with-value (fn (mut this.familienaam)))}}
               />
               {{#if showError}}
                 <AuHelpText
@@ -54,10 +56,11 @@
       <div>
         <AuLabel for="mandataris-roepnaam">Roepnaam</AuLabel>
         <AuInput
-          @value={{this.roepnaam}}
           @width="block"
+          value={{this.roepnaam}}
           id="mandataris-roepnaam"
           name="mandataris-roepnaam"
+          {{on "input" (with-value (fn (mut this.roepnaam)))}}
         />
       </div>
       <div>
@@ -71,13 +74,15 @@
           </AuLabel>
           <AuInput
             @error={{showError}}
-            @mask="99.99.99-999.99"
-            @maskPlaceholder="_"
             @width="block"
-            @onChange={{this.setRijksregisternummer}}
             value={{this.rijksregisternummer}}
             id="mandataris-rijksregister"
             placeholder="00.00.00-000.00"
+            {{au-inputmask options=(hash
+              mask="99.99.99-999.99"
+              placeholder="_"
+            )}}
+            {{on "input" this.setRijksregisternummer}}
           />
           {{#if showError}}
             <AuHelpText @error="true">
@@ -134,32 +139,32 @@
       {{/let}}
       </div>
       <div>
-        <AuLabel @error={{if this.errors.geslacht true}} @required={{true}}>
-          Geslacht
-        </AuLabel>
-        <div class="au-o-grid au-o-grid--tiny">
-          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <AuControlRadio
-              @label="Vrouw"
-              checked={{this.isFemale}}
-              @value={{this.female}}
-              @onChange={{this.setGender}}
+        <AuFieldset
+          as |f|
+        >
+          <f.legend
+            @required={{true}}
+            @error={{this.errors.geslacht}}
+          >
+            Geslacht
+          </f.legend>
+          <f.content>
+            <AuRadioGroup
+              @alignment="inline"
               @name="gender"
-            />
-          </div>
-          <div class="au-o-grid__item au-u-1-2 au-u-1-4@medium">
-            <AuControlRadio
-              @label="Man"
-              checked={{this.isMale}}
-              @value={{this.male}}
-              @name="gender"
+              @selected={{this.geslacht}}
               @onChange={{this.setGender}}
-            />
-          </div>
-          {{#if this.errors.geslacht}}
-            <AuHelpText @error="true">{{this.errors.geslacht}}</AuHelpText>
-          {{/if}}
-        </div>
+              as |Group|
+            >
+              <Group.Radio @value={{this.female}}>Vrouw</Group.Radio>
+              <Group.Radio @value={{this.male}}>Man</Group.Radio>
+            </AuRadioGroup>
+          </f.content>
+        </AuFieldset>
+
+        {{#if this.errors.geslacht}}
+          <AuHelpText @error={{true}}>{{this.errors.geslacht}}</AuHelpText>
+        {{/if}}
       </div>
       {{#if this.errors.save}}
         <AuAlert

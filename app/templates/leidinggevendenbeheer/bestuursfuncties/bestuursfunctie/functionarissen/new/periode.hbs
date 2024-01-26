@@ -12,7 +12,7 @@
 <Leidinggevendenbeheer::FunctionarisForm @model={{this.model}} as |isValid|>
   <AuToolbar @border="top" @size="large" as |Group|>
     <Group>
-      <AuButton {{on 'click' this.goBackToSearch}} @skin="tertiary" @disabled={{this.save.isRunning}}>
+      <AuButton {{on 'click' this.goBackToSearch}} @skin="link" @disabled={{this.save.isRunning}}>
         <AuIcon @icon="arrow-left" @alignment="left" />
         Vorige stap
       </AuButton>

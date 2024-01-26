@@ -101,12 +101,15 @@
 
   {{#unless this.model.submitted}}
   <Group>
-    <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-              @loading={{if this.delete.isRunning "true"}}
-              @skin={{"tertiary"}}
-              @alert={{"true"}}
-              {{on "click" (perform this.delete)}}>
-      <AuIcon @icon="bin" @alignment="left" /> Verwijder dossier
+    <AuButton
+      @disabled={{or this.save.isRunning this.submit.isRunning this.delete.isRunning}}
+      @loading={{this.delete.isRunning}}
+      @skin="link"
+      @alert={{true}}
+      @icon="bin"
+      {{on "click" (perform this.delete)}}
+    >
+      Verwijder dossier
     </AuButton>
   </Group>
   {{/unless}}

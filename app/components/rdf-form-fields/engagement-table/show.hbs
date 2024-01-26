@@ -31,11 +31,11 @@
             Bestaand personeelskader
           </AuLabel>
           <AuInput
-            id="existing-staff-{{index}}"
             @width="block"
-            @value={{entry.existingStaff.value}}
             @disabled={{true}}
-            @type="number"
+            value={{entry.existingStaff.value}}
+            type="number"
+            id="existing-staff-{{index}}"
           />
         </td>
         <td>
@@ -47,9 +47,9 @@
           </AuLabel>
           <AuInput
             @width="block"
-            @value={{entry.additionalStaff.value}}
             @disabled={{true}}
-            @type="number"
+            value={{entry.additionalStaff.value}}
+            type="number"
             id="additional-staff-{{index}}"
           />
         </td>
@@ -59,9 +59,9 @@
           </AuLabel>
           <AuInput
             @width="block"
-            @value={{entry.volunteers.value}}
             @disabled={{true}}
-            @type="number"
+            value={{entry.volunteers.value}}
+            type="number"
             id="volunteers-{{index}}"
           />
         </td>

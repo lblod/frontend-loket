@@ -270,7 +270,11 @@ export default class RdfFormFieldsEngagementTableEditComponent extends InputFiel
   }
 
   @action
-  updateExistingStaffValue(entry) {
+  updateExistingStaffValue(entry, event) {
+    if (event) {
+      entry.existingStaff.value = event.target.value;
+    }
+
     entry.existingStaff.errors = [];
     const parsedValue = Number(entry.existingStaff.value);
     entry.existingStaff.value = !isNaN(parsedValue)
@@ -292,7 +296,11 @@ export default class RdfFormFieldsEngagementTableEditComponent extends InputFiel
   }
 
   @action
-  updateAdditionalStaffValue(entry) {
+  updateAdditionalStaffValue(entry, event) {
+    if (event) {
+      entry.additionalStaff.value = event.target.value;
+    }
+
     entry.additionalStaff.errors = [];
     const parsedValue = Number(entry.additionalStaff.value);
     entry.additionalStaff.value = !isNaN(parsedValue)
@@ -315,7 +323,11 @@ export default class RdfFormFieldsEngagementTableEditComponent extends InputFiel
   }
 
   @action
-  updateVolunteersValue(entry) {
+  updateVolunteersValue(entry, event) {
+    if (event) {
+      entry.volunteers.value = event.target.value;
+    }
+
     entry.volunteers.errors = [];
     const parsedValue = Number(entry.volunteers.value);
     entry.volunteers.value = !isNaN(parsedValue)

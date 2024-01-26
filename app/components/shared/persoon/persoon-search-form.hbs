@@ -18,36 +18,34 @@
         <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
         <AuInput
           @icon="search"
-          @iconAlignment="left"
-          @value={{this.voornaam}}
+          value={{this.voornaam}}
           id="mandataris-voornaam"
           placeholder="Voornaam"
-          {{on "input" (perform this.search)}}
+          {{on "input" (fn this.updateSearchParam "voornaam")}}
         />
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-naam">Familienaam</AuLabel>
         <AuInput
           @icon="search"
-          @iconAlignment="left"
-          @value={{this.achternaam}}
+          value={{this.achternaam}}
           id="mandataris-naam"
           placeholder="Familienaam"
-          {{on "input" (perform this.search)}}
+          {{on "input" (fn this.updateSearchParam "achternaam")}}
         />
       </div>
       <div class="au-o-grid__item">
         <AuLabel for="mandataris-rijksregisternummer">Zoek rijksregisternummer</AuLabel>
         <AuInput
           @icon="search"
-          @iconAlignment="left"
-          @value={{this.rijksregisternummer}}
-          @mask="99.99.99-999.99"
-          @maskPlaceholder="_"
-          @onChange={{(fn (mut this.rijksregisternummer))}}
+          value={{this.rijksregisternummer}}
           id="mandataris-rijksregisternummer"
           placeholder="00.00.00-000.00"
-          {{on "input" (perform this.search)}}
+          {{au-inputmask options=(hash
+            mask="99.99.99-999.99"
+            placeholder="_"
+          )}}
+          {{on "input" (fn this.updateSearchParam "rijksregisternummer")}}
         />
       </div>
     </div>
@@ -82,7 +80,7 @@
           <AuAlert @title="Komt het zoekresultaat niet overeen met wat u zocht?" @skin="info" @size="tiny" class="au-u-margin-top-small">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="tertiary" {{on 'click' this.handleCreatePersonClick}} class="au-c-link">
+              <AuButton @skin="link" {{on 'click' this.handleCreatePersonClick}} class="au-c-link">
                 <AuIcon @icon="add" @alignment="left" />
                 voeg een nieuwe persoon toe
               </AuButton>.
@@ -92,7 +90,7 @@
           <AuAlert @title='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @skin="info" @size="tiny">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="tertiary" {{on 'click' this.handleCreatePersonClick}} class="au-c-link">
+              <AuButton @skin="link" {{on 'click' this.handleCreatePersonClick}} class="au-c-link">
                 <AuIcon @icon="add" @alignment="left" />
                 voeg een nieuwe persoon toe
               </AuButton>.
@@ -103,7 +101,7 @@
         <AuContent>
           <p class="au-c-text-info">
             Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of
-            <AuButton @skin="tertiary" {{on 'click' this.handleCreatePersonClick}}>
+            <AuButton @skin="link" {{on 'click' this.handleCreatePersonClick}}>
               <AuIcon @icon="add" @alignment="left" />
               voeg een nieuwe persoon toe
             </AuButton>.

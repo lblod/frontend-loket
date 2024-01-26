@@ -39,11 +39,11 @@
           </AuLabel>
           <AuInput
             @width="block"
-            @value={{entry.cost.value}}
-            @type="number"
+            @error={{if entry.cost.errors true false}}
+            value={{entry.cost.value}}
+            type="number"
             id="costs-{{index}}"
             step="any"
-            class={{if entry.cost.errors "au-c-input--error"}}
             {{on "blur" (fn this.updateCost entry)}}
           />
           {{#each entry.cost.errors as |error|}}
@@ -56,11 +56,11 @@
           </AuLabel>
           <AuInput
             @width="block"
-            @value={{entry.share.value}}
-            @type="number"
+            @error={{if entry.share.errors true false}}
+            value={{entry.share.value}}
+            type="number"
             id="share-{{index}}"
             step="any"
-            class={{if entry.share.errors "au-c-input--error"}}
             {{on "blur" (fn this.updateShare entry)}}
           />
           {{#each entry.share.errors as |error|}}

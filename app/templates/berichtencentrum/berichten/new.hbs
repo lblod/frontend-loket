@@ -22,7 +22,7 @@
             value={{@model.formData.dossiernummer}}
             required=""
             {{on
-              "change"
+              "input"
               (with-value (fn (mut @model.formData.dossiernummer)))
             }}
           />

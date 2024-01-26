@@ -12,10 +12,11 @@
     <AuInput
       @disabled={{@disabled}}
       @width="block"
-      @value={{this.costPerUnit}}
       @error={{if this.costPerUnitErrors true false}}
-      @type="number"
+      type="number"
+      value={{this.costPerUnit}}
       lang="nl-BE"
+      {{on "input" (with-value (fn (mut this.costPerUnit)))}}
       {{on "blur" this.update}}
     />
     per Strategisch Vastgoedplan
@@ -32,10 +33,11 @@
     <AuInput
       @disabled={{@disabled}}
       @width="block"
-      @value={{this.toRealiseUnits}}
       @error={{if this.toRealiseUnitsErrors true false}}
-      @type="number"
+      type="number"
+      value={{this.toRealiseUnits}}
       lang="nl-BE"
+      {{on "input" (with-value (fn (mut this.toRealiseUnits)))}}
       {{on "blur" this.update}}
     />
     <span class="au-c-info-text">max 1</span>

@@ -42,10 +42,11 @@
       {{/if}}
       <AuInput
         @width="block"
-        @value={{@contact.email}}
         @error={{@contact.errors.email}}
+        value={{@contact.email}}
         id="email"
         aria-labelledby="contact-point-email"
+        {{on "input" (with-value (fn (mut @contact.email)))}}
       />
     </td>
     <td>
@@ -59,10 +60,11 @@
       {{/if}}
       <AuInput
         @width="block"
-        @value={{@contact.telefoon}}
         @error={{@contact.errors.telefoon}}
+        value={{@contact.telefoon}}
         id="telephone"
         aria-labelledby="contact-point-telephone"
+        {{on "input" (with-value (fn (mut @contact.telefoon)))}}
       />
     </td>
     <td>
@@ -75,13 +77,14 @@
       {{/if}}
       <AuInput
         @width="block"
-        @value={{@secondaryContact.telefoon}}
+        value={{@secondaryContact.telefoon}}
         id="secondary-telephone"
         aria-labelledby="contact-point-telephone-secondary"
+        {{on "input" (with-value (fn (mut @secondaryContact.telefoon)))}}
       />
     </td>
     <td>
-      <AuControlCheckbox @disabled={{true}} @checked={{@isSelected}} />
+      <AuCheckbox @disabled={{true}} @checked={{@isSelected}} />
     </td>
     <td>
       <AuButton @skin="link" {{on "click" @onEditContactCancel}}>
@@ -98,12 +101,12 @@
     <td>{{@contact.telefoon}}</td>
     <td>{{@secondaryContact.telefoon}}</td>
     <td>
-      <AuControlCheckbox
+      <AuCheckbox
+        @checked={{@isSelected}}
         @value={{@contact.id}}
         @name="contact"
         @onChange={{fn @onContactSelectionChange @contact}}
         @disabled={{@isDisabled}}
-        checked={{@isSelected}}
       />
     </td>
     <td>

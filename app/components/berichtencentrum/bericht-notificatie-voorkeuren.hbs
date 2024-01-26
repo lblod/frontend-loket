@@ -15,19 +15,20 @@
       class="au-o-flow--small"
       {{on "submit" this.savePreferences}}
     >
-      <AuControlCheckbox
-        @label="Ontvang mails bij nieuwe berichten"
+      <AuCheckbox
         @checked={{this.wilMailOntvangen}}
         @onChange={{fn (mut this.wilMailOntvangen) (not this.wilMailOntvangen)}}
-      />
+      >Ontvang mails bij nieuwe berichten</AuCheckbox>
 
       {{#if this.wilMailOntvangen}}
         <div>
           <AuLabel for="voorkeurenmailadres">E-mailadres</AuLabel>
           <AuInput
-            id="voorkeurenmailadres"
             @width="block"
-            @value={{this.emailAddress}}
+            value={{this.emailAddress}}
+            id="voorkeurenmailadres"
+            type="email"
+            {{on "input" (with-value (fn (mut this.emailAddress)))}}
             {{auto-focus}}
           />
           <AuHelpText>vb. mail@adres.com</AuHelpText>

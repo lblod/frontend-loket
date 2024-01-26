@@ -31,10 +31,11 @@
         <div>
           <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
           <AuInput
-            @value={{this.rangorde}}
             @width="block"
+            value={{this.rangorde}}
             id="mandataris-rangorde"
             placeholder="Eerste schepen"
+            {{on "input" (with-value (fn (mut this.rangorde)))}}
           />
           <AuHelpText>Enkel voor schepenen</AuHelpText>
         </div>
@@ -80,10 +81,10 @@
         {{#if (macroCondition (macroGetOwnConfig "controle"))}}
           <div>
             <div class="au-u-margin-bottom-tiny">
-              <AuControlCheckbox
+              <AuCheckbox
                 @checked={{this.isDuplicated}}
                 @onChange={{fn (mut this.isDuplicated)}}
-              >Is het een duplicaat?</AuControlCheckbox>
+              >Is het een duplicaat?</AuCheckbox>
             </div>
             {{#if this.isDuplicated}}
               {{mandatenbeheer/mandataris-duplicate-selector
@@ -99,7 +100,8 @@
                   id="duplication-reason"
                   class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
                   placeholder="Reden voor duplicatie"
-                  @value={{mut this.duplicationReason}}
+                  value={{this.duplicationReason}}
+                  {{on "input" (with-value (fn (mut this.duplicationReason)))}}
                 />
               </div>
             {{/if}}
@@ -176,10 +178,11 @@
         <div>
           <AuLabel for="mandataris-rangorde">Rangorde</AuLabel>
           <AuInput
-            @value={{this.rangorde}}
             @width="block"
             id="mandataris-rangorde"
             placeholder="Eerste schepen"
+            value={{this.rangorde}}
+            {{on "input" (with-value (fn (mut this.rangorde)))}}
           />
           <AuHelpText>Enkel voor schepenen</AuHelpText>
         </div>
@@ -225,10 +228,10 @@
         {{#if (macroCondition (macroGetOwnConfig "controle"))}}
           <div>
             <div class="au-u-margin-bottom-tiny">
-              <AuControlCheckbox
+              <AuCheckbox
                 @checked={{this.isDuplicated}}
                 @onChange={{fn (mut this.isDuplicated)}}
-              >Is het een duplicaat?</AuControlCheckbox>
+              >Is het een duplicaat?</AuCheckbox>
             </div>
 
             {{#if this.isDuplicated}}
@@ -245,7 +248,8 @@
                   id="duplicationReason"
                   class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound"
                   placeholder="Reden voor duplicatie"
-                  @value={{mut this.duplicationReason}}
+                  value={{mut this.duplicationReason}}
+                  {{on "input" (with-value (fn (mut this.duplicationReason)))}}
                 />
               </div>
             {{/if}}

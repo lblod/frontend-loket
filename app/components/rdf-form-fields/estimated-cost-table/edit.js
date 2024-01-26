@@ -295,7 +295,11 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
   }
 
   @action
-  updateCost(entry) {
+  updateCost(entry, event) {
+    if (event) {
+      entry.cost.value = event.target.value;
+    }
+
     entry.cost.errors = [];
 
     if (!this.isPositiveInteger(entry.cost.value)) {
@@ -341,7 +345,11 @@ export default class RdfFormFieldsEstimatedCostTableEditComponent extends BaseTa
   }
 
   @action
-  updateShare(entry) {
+  updateShare(entry, event) {
+    if (event) {
+      entry.share.value = event.target.value;
+    }
+
     entry.share.errors = [];
     entry['share'].value = commasToDecimalPointsFix(entry['share'].value);
     if (this.isEmpty(entry.share.value)) {

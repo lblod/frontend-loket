@@ -10,22 +10,24 @@
       <div>
         <AuLabel for="email">E-mailadres</AuLabel>
         <AuInput
-          @value={{this.model.email}}
+          value={{this.model.email}}
           class="au-u-2-3@medium"
           inputmode="email"
           id="email"
           name="bestuursfunctie-email"
+          {{on "input" (with-value (fn (mut this.model.email)))}}
         />
       </div>
       <div>
         <AuLabel for="phone">Telefoonnummer</AuLabel>
         <AuInput
-          @value={{this.model.telefoon}}
-          @type="tel"
+          value={{this.model.telefoon}}
+          type="tel"
           class="au-u-2-3@medium"
           id="phone"
           inputmode="tel"
           name="bestuursfunctie-telefoon"
+          {{on "input" (with-value (fn (mut this.model.telefoon)))}}
         />
       </div>
       <AdressenregisterSelector

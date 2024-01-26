@@ -20,15 +20,14 @@
           <AuHeading @skin="2">Berichtencentrum</AuHeading>
         </Group>
         <Group>
-          <button
-            type="button"
-            class="au-c-button au-c-button--tertiary"
+          <AuButton
+            @skin="link"
+            @icon="settings"
             data-test-loket="berichtencentrum-setting-email-button"
             {{on "click" this.showPreferences}}
           >
-            <AuIcon @icon="settings" @alignment="left" />
             Ontvang mails bij nieuwe berichten
-          </button>
+          </AuButton>
 
           {{#if (macroCondition (macroGetOwnConfig "controle"))}}
             {{#if this.isCreatingConversation}}

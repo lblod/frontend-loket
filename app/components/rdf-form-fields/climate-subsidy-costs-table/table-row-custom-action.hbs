@@ -5,13 +5,14 @@
     </label>
     <AuTextarea
       @error={{if this.descriptionErrors true false}}
-      @value={{this.description}}
       @disabled={{@disabled}}
       @width="block"
+      value={{this.description}}
       placeholder="Omschrijving actie"
       id="description-{{this.id}}"
-      style="resize: vertical;"
       {{!template-lint-disable no-inline-styles}}
+      style="resize: vertical;"
+      {{on "input" (with-value (fn (mut this.description)))}}
       {{on "blur" this.update}}
       {{auto-focus}}
     />
@@ -23,10 +24,11 @@
     <AuInput
       @disabled={{@disabled}}
       @width="block"
-      @value={{this.costPerUnit}}
       @error={{if this.costPerUnitErrors true false}}
-      @type="number"
+      type="number"
+      value={{this.costPerUnit}}
       lang="nl-BE"
+      {{on "input" (with-value (fn (mut this.costPerUnit)))}}
       {{on "blur" this.update}}
     />
     {{#each this.costPerUnitErrors as |error|}}
@@ -37,10 +39,11 @@
     <AuInput
       @disabled={{@disabled}}
       @width="block"
-      @value={{this.toRealiseUnits}}
       @error={{if this.toRealiseUnitsErrors true false}}
-      @type="number"
+      type="number"
+      value={{this.toRealiseUnits}}
       lang="nl-BE"
+      {{on "input" (with-value (fn (mut this.toRealiseUnits)))}}
       {{on "blur" this.update}}
     />
     {{#each this.toRealiseUnitsErrors as |error|}}

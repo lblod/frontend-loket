@@ -33,7 +33,7 @@
       <tr>
         <td>
           <AuLabel for="actor-name-{{index}}" class="au-u-hidden-visually">Naam organisator</AuLabel>
-          <AuInput id="actor-name-{{index}}" @width="block" @value={{entry.actorName.value}} @disabled={{true}}/>
+          <AuInput id="actor-name-{{index}}" @width="block" value={{entry.actorName.value}} @disabled={{true}}/>
         </td>
         <td>
           <AuLabel for="all-day-{{index}}" class="au-u-hidden-visually">
@@ -41,7 +41,7 @@
             <br>
             met personeel
           </AuLabel>
-          <AuInput id="all-day-{{index}}" @width="block" @value={{entry.numberChildrenForFullDay.value}} @disabled={{true}}/>
+          <AuInput id="all-day-{{index}}" @width="block" value={{entry.numberChildrenForFullDay.value}} @disabled={{true}}/>
         </td>
         <td>
           <AuLabel for="half-day-{{index}}"  class="au-u-hidden-visually">
@@ -49,7 +49,7 @@
             <br>
             met personeel
           </AuLabel>
-          <AuInput id="half-day-{{index}}" @width="block" @value={{entry.numberChildrenForHalfDay.value}} @disabled={{true}}/>
+          <AuInput id="half-day-{{index}}" @width="block" value={{entry.numberChildrenForHalfDay.value}} @disabled={{true}}/>
         </td>
         <td>
           <AuLabel for="per-infra-{{index}}" class="au-u-hidden-visually">
@@ -57,7 +57,7 @@
             <br>
             met of zonder personeel
           </AuLabel>
-          <AuInput id="per-infra-{{index}}" @width="block" @value={{entry.numberChildrenPerInfrastructure.value}} @disabled={{true}}/>
+          <AuInput id="per-infra-{{index}}" @width="block" value={{entry.numberChildrenPerInfrastructure.value}} @disabled={{true}}/>
         </td>
         <td style="white-space: nowrap; vertical-align: middle;" {{! template-lint-disable no-inline-styles }}>
           €&hairsp;{{entry.totalAmount}}

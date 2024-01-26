@@ -1,8 +1,18 @@
 <tr>
   <td>
     {{#if this.editMode}}
-      <AuLabel @for="fractienaam" class="au-u-hidden-visually">Fractienaam</AuLabel>
-      <AuInput @id="fractienaam" @width="block" @value={{@fractie.naam}} placeholder="Fractienaam" {{auto-focus}} />
+      <AuLabel
+        @for="fractienaam"
+        class="au-u-hidden-visually"
+      >Fractienaam</AuLabel>
+      <AuInput
+        @width="block"
+        id="fractienaam"
+        value={{@fractie.naam}}
+        placeholder="Fractienaam"
+        {{on "input" (with-value (fn (mut @fractie.naam)))}}
+        {{auto-focus}}
+      />
     {{else}}
       <strong>{{@fractie.naam}}</strong>
     {{/if}}
@@ -27,7 +37,7 @@
       </AuButton>
     </AuButtonGroup>
     {{else}}
-      <AuButton {{on "click" (fn (mut this.editMode) true)}} @skin="tertiary">
+      <AuButton {{on "click" (fn (mut this.editMode) true)}} @skin="link">
         <AuIcon @icon="pencil" @alignment="left" />
         Bewerk
       </AuButton>

@@ -239,6 +239,13 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   }
 
   @action
+  updateBedroomCount(event) {
+    this.bedroomCount = event.target.value;
+
+    this.validate();
+  }
+
+  @action
   async updateAddress(value) {
     this.address = value?.fullAddress;
 
@@ -323,9 +330,7 @@ export default class RdfFormFieldsAccountabilityTableTableRowComponent extends C
   }
 
   @action
-  validate(e) {
-    if (e && typeof e.preventDefault === 'function') e.preventDefault();
-
+  validate() {
     const invalidRowTriple = [
       {
         subject: this.tableSubject,

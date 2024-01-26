@@ -1,12 +1,13 @@
 <td headers={{@tableHeaders}}>
   <AuInput
     @disabled={{@disabled}}
-    @type="number"
     @width="block"
-    @value={{this.kilometers}}
     @error={{if this.errors true false}}
+    value={{this.kilometers}}
+    type="number"
     lang="nl-BE"
     step="any"
+    {{on "input" (with-value (fn (mut this.kilometers)))}}
     {{on "blur" this.update}}
   />
   {{#each this.errors as |error|}}

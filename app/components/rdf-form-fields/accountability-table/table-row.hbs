@@ -49,12 +49,12 @@
     </AuLabel>
     <AuInput
       @width="block"
-      @value={{this.bedroomCount}}
-      @type="number"
       @disabled={{@disabled}}
-      id="bedroom-count-{{@index}}"
       @error={{if this.bedroomCountErrors true false}}
-      {{on 'blur' this.validate}}
+      type="number"
+      value={{this.bedroomCount}}
+      id="bedroom-count-{{@index}}"
+      {{on 'blur' this.updateBedroomCount}}
     />
     {{#each this.bedroomCountErrors as |error|}}
       <AuHelpText @error={{true}}>{{error.message}}</AuHelpText>
@@ -105,7 +105,7 @@
 
   </td>
   <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
-    <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true" @disabled={{@disabled}}
+    <AuButton @hideText="true" @icon="bin" @skin="link" @alert="true" @disabled={{@disabled}}
       {{on "click" this.removeEntry}}>
       <AuIcon @icon="bin" @alignment="left"/>
       Verwijder rij

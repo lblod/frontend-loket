@@ -58,7 +58,11 @@ export default class RdfFormFieldsEInclusionMaxValidatorComponent extends Simple
   }
 
   @action
-  validate() {
+  validate(event) {
+    if (event) {
+      this.value = event.target.value;
+    }
+
     this.errors = A();
     const source = this.storeOptions.sourceNode;
     const num = Number(this.value);

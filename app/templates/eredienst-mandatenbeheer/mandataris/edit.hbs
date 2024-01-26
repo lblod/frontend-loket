@@ -154,14 +154,14 @@
             <AuLabel for="mandate-expected-end-date">Geplande einddatum</AuLabel>
             <AuInput
               @icon="calendar"
-              @value={{if
+              @disabled={{true}}
+              @width="block"
+              id="mandate-expected-end-date"
+              value={{if
                 @model.expectedEndDate
                 (moment-format @model.expectedEndDate "DD-MM-YYYY")
                 "N/A"
               }}
-              @disabled={{true}}
-              @id="mandate-expected-end-date"
-              @width="block"
             />
           </div>
         </div>

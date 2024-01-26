@@ -62,14 +62,6 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     }
   }
 
-  get isMale() {
-    return this.geslacht === maleId;
-  }
-
-  get isFemale() {
-    return this.geslacht === femaleId;
-  }
-
   get isNationalityFieldRequired() {
     return !!this.args.nationalityRequired;
   }
@@ -188,8 +180,9 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   }
 
   @action
-  setRijksregisternummer(rijksregisternummer = '') {
-    this.rijksregisternummer = rijksregisternummer;
+  setRijksregisternummer(event) {
+    this.rijksregisternummer = event.target.inputmask.unmaskedvalue();
+
     if (isValidRijksregisternummer(this.rijksregisternummer)) {
       this.birthDate = isBirthDateKnown(this.rijksregisternummer)
         ? new Date(getBirthDate(this.rijksregisternummer))

@@ -21,7 +21,7 @@
         <AuButton
           @disabled={{not this.consumption.isStable}}
           @loading={{this.delete.isRunning}}
-          @skin="tertiary"
+          @skin="link"
           @alert="true"
           @icon="bin"
           @iconAlignment="left"
@@ -35,7 +35,7 @@
         <AuButton
           @disabled={{not this.consumption.isStable}}
           @loading={{this.delete.isRunning}}
-          @skin="tertiary"
+          @skin="link"
           @icon="archive"
           @iconAlignment="left"
           {{on "click" (perform this.delete)}}
@@ -43,8 +43,8 @@
           Archiveer verlopen aanvraag
         </AuButton>
       {{/if}}
-      <AuLink @route="subsidy.applications.index" class="au-c-button au-c-button--tertiary">
-        <AuIcon @icon="cross" @alignment="left"/>Sluit
+      <AuLink @route="subsidy.applications.index" @icon="cross">
+        Sluit
       </AuLink>
     </AuButtonGroup>
   </Group>

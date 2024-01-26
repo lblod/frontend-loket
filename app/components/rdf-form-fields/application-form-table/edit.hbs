@@ -40,8 +40,11 @@
     <tr>
       <td>
         <AuLabel for="actor-name-{{index}}" class="au-u-hidden-visually">Naam organisator</AuLabel>
-        <AuInput id="actor-name-{{index}}" @width="block" @value={{entry.actorName.value}}
-                 class={{if entry.actorName.errors "au-c-input--error"}}
+        <AuInput
+          @width="block"
+          @error={{if entry.actorName.errors true false}}
+          id="actor-name-{{index}}"
+          value={{entry.actorName.value}}
           {{on "blur" (fn this.updateActorNameValue entry)}}
         />
         {{#each entry.actorName.errors as |error|}}
@@ -54,8 +57,11 @@
           <br>
           met personeel
         </AuLabel>
-        <AuInput id="all-day-{{index}}" @width="block" @value={{entry.numberChildrenForFullDay.value}}
-                 class={{if entry.numberChildrenForFullDay.errors "au-c-input--error"}}
+        <AuInput
+          @width="block"
+          @error={{if entry.numberChildrenForFullDay.errors true false}}
+          id="all-day-{{index}}"
+          value={{entry.numberChildrenForFullDay.value}}
           {{on "blur" (fn this.updateNumberChildrenForFullDayValue entry)}}
         />
         {{#each entry.numberChildrenForFullDay.errors as |error|}}
@@ -68,8 +74,11 @@
           <br>
           met personeel
         </AuLabel>
-        <AuInput id="half-day-{{index}}" @width="block" @value={{entry.numberChildrenForHalfDay.value}}
-                 class={{if entry.numberChildrenForHalfDay.errors "au-c-input--error"}}
+        <AuInput
+          @width="block"
+          @error={{if entry.numberChildrenForHalfDay.errors true false}}
+          id="half-day-{{index}}"
+          value={{entry.numberChildrenForHalfDay.value}}
           {{on "blur" (fn this.updateNumberChildrenForHalfDayValue entry)}}
         />
         {{#each entry.numberChildrenForHalfDay.errors as |error|}}
@@ -82,8 +91,11 @@
           <br>
           met of zonder personeel
         </AuLabel>
-        <AuInput id="per-infra-{{index}}" @width="block" @value={{entry.numberChildrenPerInfrastructure.value}}
-                 class={{if entry.numberChildrenPerInfrastructure.errors "au-c-input--error"}}
+        <AuInput
+          @width="block"
+          @error={{if entry.numberChildrenPerInfrastructure.errors true false}}
+          id="per-infra-{{index}}"
+          value={{entry.numberChildrenPerInfrastructure.value}}
           {{on "blur" (fn this.updateNumberChildrenPerInfrastructureValue entry)}}
         />
         {{#each entry.numberChildrenPerInfrastructure.errors as |error|}}
@@ -94,7 +106,7 @@
         €{{entry.totalAmount}}
       </td>
       <td style="vertical-align: middle;" {{!template-lint-disable no-inline-styles}}>
-        <AuButton @hideText="true" @icon="bin" @skin="tertiary" @alert="true"
+        <AuButton @hideText="true" @icon="bin" @skin="link" @alert="true"
           {{on "click" (fn this.removeEntry entry)}}>
           <AuIcon @icon="bin" @alignment="left"/>
           Verwijder rij

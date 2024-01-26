@@ -11,9 +11,9 @@
 </AuHelpText>
 <AuInput
   @error={{this.hasErrors}}
-  @value={{this.value}}
   @disabled={{@show}}
-  @type="number"
+  type="number"
+  value={{this.value}}
   id={{this.inputId}}
   lang="nl-BE"
   {{on "change" this.validate}}

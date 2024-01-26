@@ -41,6 +41,16 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
     this.personen = A();
   }
 
+  @action
+  updateSearchParam(paramField, event) {
+    this[paramField] =
+      paramField === 'rijksregisternummer'
+        ? event.target.inputmask.unmaskedvalue()
+        : event.target.value;
+
+    this.search.perform();
+  }
+
   @restartableTask
   *search() {
     yield timeout(300);

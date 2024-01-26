@@ -5,10 +5,11 @@
         Straat
       </AuLabel>
       <AuInput
-        id="manual-address-street"
         @error={{showError}}
-        @value={{@address.straatnaam}}
         @width="block"
+        value={{@address.straatnaam}}
+        id="manual-address-street"
+        {{on "input" (with-value (fn (mut @address.straatnaam)))}}
       />
       {{#if showError}}
         <AuHelpText @error={{showError}}>
@@ -25,10 +26,11 @@
         Huisnummer
       </AuLabel>
       <AuInput
-        id="manual-address-house-number"
         @error={{showError}}
-        @value={{@address.huisnummer}}
         @width="block"
+        value={{@address.huisnummer}}
+        id="manual-address-house-number"
+        {{on "input" (with-value (fn (mut @address.huisnummer)))}}
       />
       {{#if showError}}
         <AuHelpText @error={{showError}}>
@@ -45,10 +47,11 @@
         Postcode
       </AuLabel>
       <AuInput
-        id="manual-address-postcode"
         @error={{showError}}
-        @value={{@address.postcode}}
         @width="block"
+        value={{@address.postcode}}
+        id="manual-address-postcode"
+        {{on "input" (with-value (fn (mut @address.postcode)))}}
       />
       {{#if showError}}
         <AuHelpText @error={{showError}}>
@@ -65,10 +68,11 @@
         Gemeente
       </AuLabel>
       <AuInput
-        id="manual-address-municipality"
         @error={{showError}}
-        @value={{@address.gemeentenaam}}
         @width="block"
+        value={{@address.gemeentenaam}}
+        id="manual-address-municipality"
+        {{on "input" (with-value (fn (mut @address.gemeentenaam)))}}
       />
       {{#if showError}}
         <AuHelpText @error={{showError}}>
@@ -91,9 +95,10 @@
       Busnummer
     </AuLabel>
     <AuInput
-      id="manual-address-busnumber"
-      @value={{@address.busnummer}}
       @width="block"
+      value={{@address.busnummer}}
+      id="manual-address-busnumber"
+      {{on "input" (with-value (fn (mut @address.busnummer)))}}
     />
   </div>
 </td>
