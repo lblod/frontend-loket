@@ -18,36 +18,34 @@
         <AuLabel for="mandataris-voornaam">Zoek voornaam</AuLabel>
         <AuInput
           @icon="search"
-          @iconAlignment="left"
-          @value={{this.voornaam}}
+          value={{this.voornaam}}
           id="mandataris-voornaam"
           placeholder="Voornaam"
-          {{on "input" (perform this.search)}}
+          {{on "input" (fn this.updateSearchParam "voornaam")}}
         />
       </div>
       <div class="au-o-grid__item au-u-1-2">
         <AuLabel for="mandataris-naam">Familienaam</AuLabel>
         <AuInput
           @icon="search"
-          @iconAlignment="left"
-          @value={{this.achternaam}}
+          value={{this.achternaam}}
           id="mandataris-naam"
           placeholder="Familienaam"
-          {{on "input" (perform this.search)}}
+          {{on "input" (fn this.updateSearchParam "achternaam")}}
         />
       </div>
       <div class="au-o-grid__item">
         <AuLabel for="mandataris-rijksregisternummer">Zoek rijksregisternummer</AuLabel>
         <AuInput
           @icon="search"
-          @iconAlignment="left"
-          @value={{this.rijksregisternummer}}
-          @mask="99.99.99-999.99"
-          @maskPlaceholder="_"
-          @onChange={{(fn (mut this.rijksregisternummer))}}
+          value={{this.rijksregisternummer}}
           id="mandataris-rijksregisternummer"
           placeholder="00.00.00-000.00"
-          {{on "input" (perform this.search)}}
+          {{au-inputmask options=(hash
+            mask="99.99.99-999.99"
+            placeholder="_"
+          )}}
+          {{on "input" (fn this.updateSearchParam "rijksregisternummer")}}
         />
       </div>
     </div>

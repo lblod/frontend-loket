@@ -3,9 +3,9 @@
     {{#let this.observation.id as |id|}}
       <AuLabel for="observation-{{id}}" class="au-u-hidden-visually">Waarde</AuLabel>
       <AuInput
-        @value={{this.observation.value}}
         @width="block"
-        @type="number"
+        type="number"
+        value={{this.observation.value}}
         id="observation-{{id}}"
         step={{this.step}}
         {{on "focusout" this.setValue}}

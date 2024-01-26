@@ -180,8 +180,9 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
   }
 
   @action
-  setRijksregisternummer(rijksregisternummer = '') {
-    this.rijksregisternummer = rijksregisternummer;
+  setRijksregisternummer(event) {
+    this.rijksregisternummer = event.target.inputmask.unmaskedvalue();
+
     if (isValidRijksregisternummer(this.rijksregisternummer)) {
       this.birthDate = isBirthDateKnown(this.rijksregisternummer)
         ? new Date(getBirthDate(this.rijksregisternummer))

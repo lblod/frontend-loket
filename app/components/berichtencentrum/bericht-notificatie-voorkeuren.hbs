@@ -24,9 +24,11 @@
         <div>
           <AuLabel for="voorkeurenmailadres">E-mailadres</AuLabel>
           <AuInput
-            id="voorkeurenmailadres"
             @width="block"
-            @value={{this.emailAddress}}
+            value={{this.emailAddress}}
+            id="voorkeurenmailadres"
+            type="email"
+            {{on "input" (with-value (fn (mut this.emailAddress)))}}
             {{auto-focus}}
           />
           <AuHelpText>vb. mail@adres.com</AuHelpText>
