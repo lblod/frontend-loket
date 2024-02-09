@@ -1,3 +1,13 @@
+## v0.89.0 (2024-01-19)
+## General
+#### :rocket: Enhancement
+* [#355](https://github.com/lblod/frontend-loket/pull/355) [DL-5537] Add contact app card and its external links ([@Riadabd](https://github.com/Riadabd))
+* [#353](https://github.com/lblod/frontend-loket/pull/353) [DL-5538] Add verenigingen app card and its external links ([@Riadabd](https://github.com/Riadabd))
+
+## Subsidies
+#### :rocket: Enhancement
+* [#352](https://github.com/lblod/frontend-loket/pull/352) [DGS-111] Change subsidy warnings order ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.88.3 (2024-01-10)
 ### Toezicht
 #### :bug: Bug Fix
