@@ -1,3 +1,8 @@
+## v0.90.0 (2024-02-09)
+### General
+#### :rocket: Enhancement
+* [#358](https://github.com/lblod/frontend-loket/pull/358) [DL-5624] Update to the latest semantic forms packages ([@Windvis](https://github.com/Windvis))
+
 ## v0.88.3 (2024-01-10)
 ### Toezicht
 #### :bug: Bug Fix
