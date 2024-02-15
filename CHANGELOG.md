@@ -1,3 +1,8 @@
+## v0.89.1 (2024-02-15)
+### General
+#### :bug: Bug Fix
+* [#361](https://github.com/lblod/frontend-loket/pull/361) [DL-5537] Fix wrong ACM/IDM session roles ([@Riadabd](https://github.com/Riadabd))
+
 ## v0.89.0 (2024-01-19)
 ## General
 #### :rocket: Enhancement
