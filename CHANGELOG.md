@@ -1,3 +1,8 @@
+## v0.89.2 (2024-02-15)
+### General
+#### :bug: Bug Fix
+* [#362](https://github.com/lblod/frontend-loket/pull/362) [DL-5537] Fix wrong ACM/IDM session role for `verenigingen` ([@Riadabd](https://github.com/Riadabd))
+
 ## v0.89.1 (2024-02-15)
 ### General
 #### :bug: Bug Fix
