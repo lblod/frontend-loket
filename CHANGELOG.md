@@ -1,3 +1,8 @@
+## v0.90.2 (2024-02-19)
+### General
+#### :bug: Bug Fix
+* [#360](https://github.com/lblod/frontend-loket/pull/360) Fix `verenigingen` app session role
+
 ## v0.90.1 (2024-02-15)
 ### General
 #### :bug: Bug Fix
