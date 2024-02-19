@@ -17,7 +17,7 @@ const MODULE = {
   PUBLIC_SERVICES: 'LoketLB-LPDCGebruiker',
   WORSHIP_DECISIONS_DB: 'LoketLB-databankEredienstenGebruiker',
   WORSHIP_ORGANISATIONS_DB: 'LoketLB-eredienstOrganisatiesGebruiker',
-  VERENIGINGEN: 'LoketVerenigingen-Gebruiker',
+  VERENIGINGEN: 'LoketLB-verenigingenGebruiker',
   CONTACT: 'LoketLB-ContactOrganisatiegegevensGebruiker',
 };
 
