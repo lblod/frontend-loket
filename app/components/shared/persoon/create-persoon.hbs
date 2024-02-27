@@ -82,7 +82,7 @@
               mask="99.99.99-999.99"
               placeholder="_"
             )}}
-            {{on "input" this.setRijksregisternummer}}
+            {{on "input" this.handleRijksregisternummerChange}}
           />
           {{#if showError}}
             <AuHelpText @error="true">
