@@ -1,3 +1,8 @@
+## v0.90.3 (2024-02-28)
+### General
+#### :bug: Bug Fix
+* [#364](https://github.com/lblod/frontend-loket/pull/364) [DL-5708] Fix an issue in the "create person" flow ([@Windvis](https://github.com/Windvis))
+
 ## v0.90.2 (2024-02-19)
 ### General
 #### :bug: Bug Fix
