@@ -60,7 +60,7 @@ export default class CurrentSessionService extends Service {
         account: this.account.id,
         user: this.user.id,
         group: this.group.uri,
-        groupClassification: this.groupClassification.uri,
+        groupClassification: this.groupClassification?.uri,
         roles: this.roles,
       });
     }
