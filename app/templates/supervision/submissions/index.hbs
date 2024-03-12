@@ -52,7 +52,9 @@
         {{/if}}
       </td>
       <td>
-        <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
+        {{#if row.status}}
+          <AuPill @skin={{if row.status.isSent "success" "warning"}}>{{row.status.label}}</AuPill>
+        {{/if}}
       </td>
       <td>
         <AuButtonGroup @inline={{true}}>
