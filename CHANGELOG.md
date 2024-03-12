@@ -1,3 +1,15 @@
+## v0.91.0 (2024-03-12)
+### Toezicht
+#### :rocket: Enhancement
+* [#366](https://github.com/lblod/frontend-loket/pull/366) [DL-5735] Enable the 'bulk download' feature ([@Windvis](https://github.com/Windvis))
+#### :bug: Bug Fix
+* [#367](https://github.com/lblod/frontend-loket/pull/367) Hide the status label in the overview table until the data is loaded ([@Windvis](https://github.com/Windvis))
+### General
+#### :bug: Bug Fix
+* [#365](https://github.com/lblod/frontend-loket/pull/365) Make the groupClassification optional for the GlitchTip context ([@Windvis](https://github.com/Windvis))
+#### :house: Internal
+* [#368](https://github.com/lblod/frontend-loket/pull/368) Update to Appuniversum v3 ([@Windvis](https://github.com/Windvis))
+
 ## v0.90.3 (2024-02-28)
 ### General
 #### :bug: Bug Fix
