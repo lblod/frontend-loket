@@ -55,7 +55,7 @@
     "@glimmer/tracking": "^1.1.2",
     "@lblod/ember-acmidm-login": "2.0.0-beta.1",
     "@lblod/ember-mock-login": "^0.7.0",
-    "@lblod/ember-submission-form-fields": "^2.17.2",
+    "@lblod/ember-submission-form-fields": "^2.19.0",
     "@lblod/submission-form-helpers": "^2.9.0",
     "@sentry/ember": "^7.54.0",
     "@zestia/ember-auto-focus": "^5.1.0",
