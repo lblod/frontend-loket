@@ -27,7 +27,6 @@
             @width="block"
             value={{this.emailAddress}}
             id="voorkeurenmailadres"
-            type="email"
             {{on "input" (with-value (fn (mut this.emailAddress)))}}
             {{auto-focus}}
           />
