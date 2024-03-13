@@ -15,6 +15,11 @@
 #### :house: Internal
 * [#368](https://github.com/lblod/frontend-loket/pull/368) Update to Appuniversum v3 ([@Windvis](https://github.com/Windvis))
 
+## v0.90.4 (2024-03-13)
+### Berichtencentrum
+#### :bug: Bug Fix
+* [#370](https://github.com/lblod/frontend-loket/pull/370) [DL-5751] Allow multiple emails in the berichtencentrum preferences ([@Windvis](https://github.com/Windvis))
+
 ## v0.90.3 (2024-02-28)
 ### General
 #### :bug: Bug Fix
