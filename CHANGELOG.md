@@ -1,3 +1,8 @@
+## v0.91.1 (2024-03-13)
+### Berichtencentrum
+#### :bug: Bug Fix
+* [#369](https://github.com/lblod/frontend-loket/pull/369) [DL-5751] Allow multiple emails in the berichtencentrum preferences ([@Windvis](https://github.com/Windvis))
+
 ## v0.91.0 (2024-03-12)
 ### Toezicht
 #### :rocket: Enhancement
