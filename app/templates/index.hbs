@@ -167,8 +167,16 @@
             <:title>Subsidiebeheer</:title>
             <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
             <:link>
-              <AuLink @route="subsidy.applications" @skin="button">Ga naar
-                subsidiebeheer</AuLink>
+            {{#if (is-feature-enabled "subsidies-external")}}
+                <AuLinkExternal
+                  @skin="button"
+                  href={{(subsidies-url)}}
+                >
+                  Ga naar subsidiebeheer (externe link)
+                </AuLinkExternal>
+              {{else}}
+                <AuLink @route="subsidy.applications.index" @skin="button">Ga naar subsidiebeheer</AuLink>
+              {{/if}}
             </:link>
           </LoketModuleCard>
         </li>
