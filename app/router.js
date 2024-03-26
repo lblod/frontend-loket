@@ -11,6 +11,9 @@ Router.map(function () {
   this.route('login');
   this.route('switch-login');
   this.route('mock-login');
+  if (macroCondition(getOwnConfig().controle)) {
+    this.route('impersonate');
+  }
 
   this.route('auth', { path: '/authorization' }, function () {
     this.route('callback');

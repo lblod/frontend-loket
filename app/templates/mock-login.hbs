@@ -7,10 +7,14 @@
 
       <div class="au-o-region-large">
         <div class="au-o-layout">
-          <AuHeading @skin="4">Kies een bestuurseenheid om mee in te loggen.</AuHeading>
-          <p class="au-u-margin-top-small au-u-margin-bottom">
-            <input class="au-c-input au-c-input--block js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{this.gemeente}} oninput={{perform this.updateSearch value='target.value'}} aria-label="Kies een bestuurseenheid om mee in te loggen">
-          </p>
+          <AuHeading @skin="4" class="au-u-margin-bottom-small">Kies een bestuurseenheid om mee in te loggen.</AuHeading>
+          {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+            {{! macroCondition doesn't support unless, so we use the else + empty block as a workaround}}
+          {{else}}
+            <p class="au-u-margin-bottom">
+              <input class="au-c-input au-c-input--block js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{this.gemeente}} oninput={{perform this.updateSearch value='target.value'}} aria-label="Kies een bestuurseenheid om mee in te loggen">
+            </p>
+          {{/if}}
           <MockLogin as |login|>
             {{#if this.queryStore.isRunning}}
               <AuLoader @padding="small" />
