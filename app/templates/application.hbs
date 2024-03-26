@@ -19,6 +19,12 @@
         Help
       </AuLinkExternal>
     </li>
+    {{#if this.currentSession.isAdmin}}
+      <li class="au-c-list-horizontal__item">
+        <AuPill @icon="user">Admin</AuPill>
+        <ImpersonationMenu />
+      </li>
+    {{/if}}
     <li class="au-c-list-horizontal__item">
       {{#if this.session.isAuthenticated}}
         <AuDropdown

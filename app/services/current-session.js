@@ -24,6 +24,7 @@ const MODULE = {
 export default class CurrentSessionService extends Service {
   @service session;
   @service store;
+  @service impersonation;
 
   @tracked account;
   @tracked user;
@@ -49,6 +50,10 @@ export default class CurrentSessionService extends Service {
       });
       this.groupClassification = await this.group.classificatie;
 
+      if (this.canImpersonate) {
+        await this.impersonation.load();
+      }
+
       this.setupSentrySession();
     }
   }
@@ -67,7 +72,14 @@ export default class CurrentSessionService extends Service {
   }
 
   canAccess(role) {
-    return this.roles.includes(role);
+    if (this.impersonation.isImpersonating) {
+      // TODO: we need a way to retrieve the roles for the impersonated user
+      // We'll allow everything for now, since they just won't see any data if they don't have access.
+      return true;
+    } else {
+
+      return this.roles.includes(role);
+    }
   }
 
   get hasViewOnlyWorshipMinistersManagementData() {
@@ -149,5 +161,14 @@ export default class CurrentSessionService extends Service {
     return (
       this.canAccess(MODULE.CONTACT) && !config.contactUrl.startsWith('{{')
     );
+  }
+
+  get isAdmin() {
+    return this.roles.includes('LoketAdmin');
+  }
+
+  get canImpersonate() {
+    // TODO: Do we want a build flag / feature flag?
+    return this.isAdmin;
   }
 }
