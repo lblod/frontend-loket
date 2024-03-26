@@ -23,7 +23,7 @@ export default class EmployeeDatasetSummary extends Component {
 
     if (latestPeriod) {
       const workingTimeCategories = yield this.store.findAll(
-        'working-time-category'
+        'working-time-category',
       );
 
       const summary = yield all(
@@ -47,7 +47,7 @@ export default class EmployeeDatasetSummary extends Component {
           else total = parseInt(total);
 
           return { label: category.label, total };
-        })
+        }),
       );
 
       this.summary = summary;

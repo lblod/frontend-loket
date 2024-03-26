@@ -14,17 +14,17 @@ const tableEntryBaseUri = 'http://data.lblod.info/id/climate-table/row-entry';
 const ClimateEntryType = new NamedNode(`${climateBaseUri}ClimateEntry`);
 const climateEntryPredicate = new NamedNode(`${climateBaseUri}climateEntry`);
 const actionDescriptionPredicate = new NamedNode(
-  `${climateBaseUri}actionDescription`
+  `${climateBaseUri}actionDescription`,
 );
 const amountPerActionPredicate = new NamedNode(
-  `${climateBaseUri}amountPerAction`
+  `${climateBaseUri}amountPerAction`,
 );
 const restitutionPredicate = new NamedNode(`${climateBaseUri}restitution`);
 const hasInvalidRowPredicate = new NamedNode(
-  `${climateTableBaseUri}/hasInvalidClimateTableEntry`
+  `${climateTableBaseUri}/hasInvalidClimateTableEntry`,
 );
 const toRealiseUnitsPredicate = new NamedNode(
-  `${climateBaseUri}toRealiseUnits`
+  `${climateBaseUri}toRealiseUnits`,
 );
 const costPerUnitPredicate = new NamedNode(`${climateBaseUri}costPerUnit`);
 
@@ -78,7 +78,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
       null,
       actionDescriptionPredicate,
       this.businessRuleUri,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     return values.length;
   }
@@ -88,7 +88,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
       null,
       actionDescriptionPredicate,
       this.businessRuleUri,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     if (values.length > 1) {
       throw `Expected single value for ${this.businessRuleUri}`;
@@ -166,25 +166,25 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
       this.tableEntryUri,
       amountPerActionPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     )[0].object.value;
     this.restitution = this.storeOptions.store.match(
       this.tableEntryUri,
       restitutionPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     )[0].object.value;
     this.toRealiseUnits = this.storeOptions.store.match(
       this.tableEntryUri,
       toRealiseUnitsPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     )[0].object.value;
     this.costPerUnit = this.storeOptions.store.match(
       this.tableEntryUri,
       costPerUnitPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     )[0].object.value;
   }
 
@@ -193,7 +193,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
       subject,
       predicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     this.storeOptions.store.removeStatements([...triples]);
@@ -220,7 +220,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
       this.updateTripleObject(
         this.climateTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     } else if (!this.isValidInteger(toRealiseUnits)) {
@@ -230,14 +230,14 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
       this.updateTripleObject(
         this.climateTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     } else {
       this.updateTripleObject(
         this.climateTableSubject,
         hasInvalidRowPredicate,
-        null
+        null,
       );
       return true;
     }
@@ -253,7 +253,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
       this.updateTripleObject(
         this.climateTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     }
@@ -286,22 +286,22 @@ export default class RdfFormFieldsClimateSubsidyCostsTableTableRowClimateTablesC
     this.updateTripleObject(
       this.tableEntryUri,
       toRealiseUnitsPredicate,
-      literal(this.toRealiseUnits, XSD('integer'))
+      literal(this.toRealiseUnits, XSD('integer')),
     );
     this.updateTripleObject(
       this.tableEntryUri,
       amountPerActionPredicate,
-      literal(amount, XSD('integer'))
+      literal(amount, XSD('integer')),
     );
     this.updateTripleObject(
       this.tableEntryUri,
       restitutionPredicate,
-      literal(newRestitution, XSD('float'))
+      literal(newRestitution, XSD('float')),
     );
     this.updateTripleObject(
       this.tableEntryUri,
       costPerUnitPredicate,
-      literal(this.costPerUnit, XSD('float'))
+      literal(this.costPerUnit, XSD('float')),
     );
     this.setComponentValues(this.tableEntryUri);
 

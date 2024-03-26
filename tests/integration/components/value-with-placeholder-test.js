@@ -49,7 +49,7 @@ module('Integration | Component | value-with-placeholder', function (hooks) {
       .dom(this.element)
       .hasText(
         '-',
-        'it uses the handlebars definition of falsy which considers empty arrays falsy'
+        'it uses the handlebars definition of falsy which considers empty arrays falsy',
       );
   });
 });

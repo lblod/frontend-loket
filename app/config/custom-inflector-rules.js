@@ -30,7 +30,7 @@ inflector.singular(/o([a-z])en$/, 'oo$1');
 inflector.singular(/([auio])s$/, '$1s');
 inflector.irregular(
   'behandeling-van-agendapunt',
-  'behandelingen-van-agendapunten'
+  'behandelingen-van-agendapunten',
 );
 inflector.irregular('rechtsgrond-aanstelling', 'rechtsgronden-aanstelling');
 inflector.irregular('rechtsgrond-artikel', 'rechtsgronden-artikel');
@@ -50,7 +50,7 @@ inflector.irregular('validation-error', 'validation-errors');
 inflector.irregular('inzending-voor-toezicht', 'inzendingen-voor-toezicht');
 inflector.irregular(
   'toezicht-account-acceptance-status',
-  'toezicht-account-acceptance-statuses'
+  'toezicht-account-acceptance-statuses',
 );
 inflector.irregular('toezicht-fiscal-period', 'toezicht-fiscal-periods');
 inflector.irregular('form-solution', 'form-solutions');
@@ -58,7 +58,7 @@ inflector.irregular('dynamic-subform', 'dynamic-subforms');
 inflector.irregular('form-input', 'form-inputs');
 inflector.irregular(
   'inzending-voor-toezicht-form-version',
-  'inzending-voor-toezicht-form-versions'
+  'inzending-voor-toezicht-form-versions',
 );
 inflector.irregular('file-address', 'file-addresses');
 inflector.irregular('adres', 'adressen');
@@ -86,20 +86,20 @@ inflector.irregular('participation', 'participations');
 inflector.irregular('period-of-time', 'periods-of-time');
 inflector.irregular(
   'subsidy-measure-consumption',
-  'subsidy-measure-consumptions'
+  'subsidy-measure-consumptions',
 );
 inflector.irregular(
   'subsidy-application-flow-step',
-  'subsidy-application-flow-steps'
+  'subsidy-application-flow-steps',
 );
 inflector.irregular(
   'subsidy-measure-consumption-status',
-  'subsidy-measure-consumption-statuses'
+  'subsidy-measure-consumption-statuses',
 );
 
 inflector.irregular(
   'minister-position-function',
-  'minister-position-functions'
+  'minister-position-functions',
 );
 
 inflector.irregular('minister-position', 'minister-positions');

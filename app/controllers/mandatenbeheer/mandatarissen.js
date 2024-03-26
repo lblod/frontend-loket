@@ -26,7 +26,7 @@ export default class MandatenbeheerMandatarissenController extends Controller {
   get hasActiveChildRoute() {
     return (
       this.router.currentRouteName.startsWith(
-        'mandatenbeheer.mandatarissen.'
+        'mandatenbeheer.mandatarissen.',
       ) && this.router.currentRouteName != 'mandatenbeheer.mandatarissen.index'
     );
   }

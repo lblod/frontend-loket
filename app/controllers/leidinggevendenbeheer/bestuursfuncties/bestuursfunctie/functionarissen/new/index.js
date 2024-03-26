@@ -9,7 +9,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
   choosePeriode(person) {
     this.router.transitionTo(
       'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new.periode',
-      person.get('id')
+      person.get('id'),
     );
   }
 
@@ -18,17 +18,17 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
     hasData
       ? this.router.transitionTo(
           'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person',
-          { queryParams: hasData }
+          { queryParams: hasData },
         )
       : this.router.transitionTo(
-          'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person'
+          'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.new-person',
         );
   }
 
   @action
   cancel() {
     this.router.transitionTo(
-      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index'
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index',
     );
   }
 }

@@ -6,7 +6,7 @@ import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
 
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
-  DataTableRouteMixin
+  DataTableRouteMixin,
 ) {
   @service store;
 
@@ -28,7 +28,7 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
 
   mergeQueryOptions(params) {
     const bestuursorganenIds = this.mandatenbeheer.bestuursorganen.map((o) =>
-      o.get('id')
+      o.get('id'),
     );
 
     const queryParams = {
@@ -57,7 +57,7 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
   setupController(controller) {
     super.setupController(...arguments);
     controller.searchData = this.paramsFor(
-      'eredienst-mandatenbeheer.mandatarissen'
+      'eredienst-mandatenbeheer.mandatarissen',
     )['filter'];
     controller.mandatenbeheer = this.mandatenbeheer;
     controller.mandatarisBestuursorganen = this.mandatarisBestuursorganen;

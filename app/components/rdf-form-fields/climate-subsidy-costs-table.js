@@ -19,16 +19,16 @@ const climateBaseUri = 'http://data.lblod.info/vocabularies/subsidie/climate/';
 
 const climateTableType = new NamedNode(`${lblodSubsidieBaseUri}ClimateTable`);
 const climateTablePredicate = new NamedNode(
-  `${lblodSubsidieBaseUri}climateTable`
+  `${lblodSubsidieBaseUri}climateTable`,
 );
 const hasInvalidRowPredicate = new NamedNode(
-  `${climateTableBaseUri}/hasInvalidClimateTableEntry`
+  `${climateTableBaseUri}/hasInvalidClimateTableEntry`,
 );
 const validClimateTable = new NamedNode(
-  `${lblodSubsidieBaseUri}validClimateTable`
+  `${lblodSubsidieBaseUri}validClimateTable`,
 );
 const totalBudgettedAmount = new NamedNode(
-  `${lblodSubsidieBaseUri}totalBudgettedAmount`
+  `${lblodSubsidieBaseUri}totalBudgettedAmount`,
 );
 const allowNewActions = new NamedNode(`${climateTableBaseUri}/allowNewActions`);
 const climateEntryCustomAction = new NamedNode(`${climateBaseUri}customAction`);
@@ -66,7 +66,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
           this.sourceNode,
           climateTablePredicate,
           this.climateTableSubject,
-          this.storeOptions.sourceGraph
+          this.storeOptions.sourceGraph,
         ).length > 0
       );
   }
@@ -80,7 +80,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       undefined,
       allowNewActions,
       undefined,
-      this.args.graphs.formGraph
+      this.args.graphs.formGraph,
     );
 
     if (triples.length > 0) {
@@ -118,14 +118,14 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       undefined,
       DBPEDIA('populationTotal'),
       undefined,
-      metaGraph
+      metaGraph,
     )[0].object.value;
 
     const drawingRight = this.args.formStore.match(
       undefined,
       LBLOD_SUBSIDIE('drawingRight'),
       undefined,
-      metaGraph
+      metaGraph,
     )[0].object.value;
 
     const lekpValidation =
@@ -133,7 +133,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
         undefined,
         LBLOD_SUBSIDIE('lekp'),
         undefined,
-        metaGraph
+        metaGraph,
       )[0]?.object?.value || '1.0';
 
     this.drawingRight = drawingRight;
@@ -151,7 +151,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       undefined,
       climateEntryCustomAction,
       undefined,
-      sourceGraph
+      sourceGraph,
     );
 
     if (triples.length > 0) {
@@ -165,13 +165,13 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
 
           let order = triples.find(
             ({ predicate }) =>
-              predicate.value === 'http://purl.org/linked-data/cube#order'
+              predicate.value === 'http://purl.org/linked-data/cube#order',
           )?.object.value;
           order = parseInt(order);
 
           let businessRuleUri = triples.find(
             ({ predicate }) =>
-              predicate.value === `${climateBaseUri}actionDescription`
+              predicate.value === `${climateBaseUri}actionDescription`,
           )?.object;
 
           return {
@@ -215,7 +215,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       subject,
       predicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     this.storeOptions.store.removeStatements([...triples]);
@@ -241,7 +241,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
     this.updateTripleObject(
       this.climateTableSubject,
       totalBudgettedAmount,
-      totalBudgettedAmountValue
+      totalBudgettedAmountValue,
     );
   }
 
@@ -252,7 +252,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       this.climateTableSubject,
       hasInvalidRowPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     if (invalidRow) {
       this.errors.pushObject({
@@ -261,7 +261,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       this.updateTripleObject(
         this.climateTableSubject,
         validClimateTable,
-        null
+        null,
       );
     } else if (!this.isPositiveInteger(this.restitutionToDestribute)) {
       this.errors.pushObject({
@@ -270,13 +270,13 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       this.updateTripleObject(
         this.climateTableSubject,
         validClimateTable,
-        null
+        null,
       );
     } else {
       this.updateTripleObject(
         this.climateTableSubject,
         validClimateTable,
-        true
+        true,
       );
     }
   }
@@ -293,7 +293,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
       ...this.customActions,
       {
         businessRuleUri: new NamedNode(
-          `http://data.lblod.info/id/subsidies/rules/custom/${uuid}`
+          `http://data.lblod.info/id/subsidies/rules/custom/${uuid}`,
         ),
         order: highestOrderValue + 1,
       },
@@ -303,7 +303,7 @@ export default class RdfFormFieldsClimateSubsidyCostsTableComponent extends Inpu
   @action
   removeCustomAction(actionToRemove) {
     this.customActions = this.customActions.filter(
-      (action) => action !== actionToRemove
+      (action) => action !== actionToRemove,
     );
     this.validate();
   }

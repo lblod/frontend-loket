@@ -18,7 +18,7 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
     this.bestuursorganen = mandatenbeheer.bestuursorganen;
 
     const mandataris = await this.modelFor(
-      'eredienst-mandatenbeheer.mandataris'
+      'eredienst-mandatenbeheer.mandataris',
     );
     const persoon = await mandataris.isBestuurlijkeAliasVan;
 

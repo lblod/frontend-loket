@@ -26,7 +26,7 @@ export default class LeidinggevendenbeheerFunctionarisFormComponent extends Comp
   handleStatusChange(statusId) {
     this.args.model.status = this.store.peekRecord(
       'functionaris-status-code',
-      statusId
+      statusId,
     );
   }
 
@@ -51,7 +51,7 @@ export default class LeidinggevendenbeheerFunctionarisFormComponent extends Comp
 
     const statusOptions = await this.store.query(
       'functionaris-status-code',
-      queryParams
+      queryParams,
     );
     this.statusOptions = statusOptions;
   }

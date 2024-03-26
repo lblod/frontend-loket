@@ -40,7 +40,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       mandaat,
       this.store,
       this.model.start,
-      this.model.einde
+      this.model.einde,
     );
 
     if (endDateWarnings || periodeLimitWarnings) {
@@ -59,7 +59,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       await this.model.bekleedt,
       this.store,
       start,
-      einde
+      einde,
     );
 
     this.warningMessages = { ...periodeLimitWarnings };
@@ -68,7 +68,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       if (einde <= start) {
         this.model.errors.add(
           'einde',
-          'De einddatum moet na de startdatum liggen'
+          'De einddatum moet na de startdatum liggen',
         );
       } else {
         this.model.errors.remove('einde');
@@ -193,14 +193,14 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
     if (this.selectedContact) {
       let primaryContactPoint = findPrimaryContactPoint(
-        yield this.model.contacts
+        yield this.model.contacts,
       );
 
       if (this.selectedContact.id !== primaryContactPoint?.id) {
         let secondaryContact = yield this.selectedContact.secondaryContactPoint;
 
         this.model.contacts = [this.selectedContact, secondaryContact].filter(
-          Boolean
+          Boolean,
         );
       }
     } else {
@@ -217,7 +217,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
           this.contactList.length > 0
             ? ' of selecteer een van de bestaande contactgegevens.'
             : '.'
-        }`
+        }`,
       );
       return;
     }
@@ -231,7 +231,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
       try {
         yield this.router.transitionTo(
-          'eredienst-mandatenbeheer.mandatarissen'
+          'eredienst-mandatenbeheer.mandatarissen',
         );
       } catch (error) {
         // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038

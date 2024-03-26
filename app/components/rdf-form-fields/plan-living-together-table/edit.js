@@ -14,21 +14,21 @@ const planTableBaseUri = 'http://data.lblod.info/plan-living-together-tables';
 
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
 const planTableType = new NamedNode(
-  `${lblodSubsidieBaseUri}PlanLivingTogetherTable`
+  `${lblodSubsidieBaseUri}PlanLivingTogetherTable`,
 );
 const planTablePredicate = new NamedNode(
-  `${lblodSubsidieBaseUri}planLivingTogetherTable`
+  `${lblodSubsidieBaseUri}planLivingTogetherTable`,
 );
 const plannedRangePredicate = new NamedNode(`${planBaseUri}plannedRange`);
 const contributionPredicate = new NamedNode(`${planBaseUri}contribution`);
 const totalContributionPredicate = new NamedNode(
-  `${planBaseUri}totalContribution`
+  `${planBaseUri}totalContribution`,
 );
 const hasInvalidRowPredicate = new NamedNode(
-  `${planTableBaseUri}hasInvalidPlanLivingTogetherTableEntry`
+  `${planTableBaseUri}hasInvalidPlanLivingTogetherTableEntry`,
 );
 const validPlanTable = new NamedNode(
-  `${lblodSubsidieBaseUri}validPlanLivingTogetherTable`
+  `${lblodSubsidieBaseUri}validPlanLivingTogetherTable`,
 );
 
 export default class RdfFormFieldsPlanLivingTogetherTableEditComponent extends InputFieldComponent {
@@ -45,7 +45,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableEditComponent extends I
           this.sourceNode,
           planTablePredicate,
           this.planTableSubject,
-          this.storeOptions.sourceGraph
+          this.storeOptions.sourceGraph,
         ).length > 0
       );
   }
@@ -106,7 +106,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableEditComponent extends I
       subject,
       predicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     this.storeOptions.store.removeStatements([...triples]);
@@ -132,12 +132,12 @@ export default class RdfFormFieldsPlanLivingTogetherTableEditComponent extends I
       undefined,
       contributionPredicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     this.totalContribution = contributionEntries.reduce(
       (prev, curr) => prev + Number(curr.object.value),
-      0
+      0,
     );
 
     // check that at least 1 value set in column C
@@ -145,17 +145,17 @@ export default class RdfFormFieldsPlanLivingTogetherTableEditComponent extends I
       undefined,
       plannedRangePredicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     const invalidRow = this.storeOptions.store.any(
       this.planTableSubject,
       hasInvalidRowPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     const hasPlannedRange = rangeEntries.filter(
-      (entry) => parseInt(entry.object.value) > 0
+      (entry) => parseInt(entry.object.value) > 0,
     );
 
     if (invalidRow) {
@@ -173,7 +173,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableEditComponent extends I
       this.updateTripleObject(
         this.planTableSubject,
         totalContributionPredicate,
-        this.totalContribution
+        this.totalContribution,
       );
       this.updateTripleObject(this.planTableSubject, validPlanTable, true);
     }

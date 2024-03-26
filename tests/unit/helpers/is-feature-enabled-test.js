@@ -11,31 +11,31 @@ module('Unit | Helper | is-feature-enabled', function () {
     config.features.foo = true;
     assert.true(
       isFeatureEnabled('foo'),
-      'it returns true if the value is the boolean `true`'
+      'it returns true if the value is the boolean `true`',
     );
 
     config.features.foo = 'true';
     assert.true(
       isFeatureEnabled('foo'),
-      "it returns true if the value is the string 'true'"
+      "it returns true if the value is the string 'true'",
     );
 
     config.features.foo = false;
     assert.false(
       isFeatureEnabled('foo'),
-      'it returns true if the value is the boolean `false`'
+      'it returns true if the value is the boolean `false`',
     );
 
     config.features.foo = null;
     assert.false(
       isFeatureEnabled('foo'),
-      'it returns false if the value is falsy'
+      'it returns false if the value is falsy',
     );
 
     config.features.foo = 'bar';
     assert.false(
       isFeatureEnabled('foo'),
-      'it returns false if the value is any string other than "true"'
+      'it returns false if the value is any string other than "true"',
     );
 
     assert.throws(
@@ -43,7 +43,7 @@ module('Unit | Helper | is-feature-enabled', function () {
         isFeatureEnabled('baz');
       },
       /The "baz" feature is not defined. Make sure the feature is defined in the "features" object in the config\/environment.js file and that there are no typos in the name./,
-      "it throws an assertion error if the feature name doesn't exist"
+      "it throws an assertion error if the feature name doesn't exist",
     );
 
     config.features = originalFeaturesConfig;

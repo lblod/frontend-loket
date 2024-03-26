@@ -72,13 +72,13 @@ export default class CurrentSessionService extends Service {
 
   get hasViewOnlyWorshipMinistersManagementData() {
     return !!this.group.viewOnlyModules?.includes(
-      MODULE.WORSHIP_MINISTER_MANAGEMENT
+      MODULE.WORSHIP_MINISTER_MANAGEMENT,
     );
   }
 
   get hasViewOnlyWorshipMandateesManagementData() {
     return !!this.group.viewOnlyModules?.includes(
-      MODULE.EREDIENSTMANDATENBEHEER
+      MODULE.EREDIENSTMANDATENBEHEER,
     );
   }
 
