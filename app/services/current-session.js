@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
 import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
+import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 
 const MODULE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
@@ -121,6 +122,13 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessSubsidies() {
+    if (isFeatureEnabled('subsidies-external')) {
+      return (
+        this.canAccess(MODULE.SUBSIDIES) &&
+        !config.subsidiesUrl.startsWith('{{')
+      );
+    }
+
     return this.canAccess(MODULE.SUBSIDIES);
   }
 
