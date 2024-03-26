@@ -25,7 +25,7 @@ export default class SubsidyMeasureOfferSeriesModel extends Model {
 
   get deadline() {
     return this.activeApplicationFlow.get(
-      'firstApplicationStep.subsidyProceduralStep.period'
+      'firstApplicationStep.subsidyProceduralStep.period',
     );
   }
 
@@ -44,7 +44,7 @@ export default class SubsidyMeasureOfferSeriesModel extends Model {
    */
   get isExternallyProcessed() {
     const activeApplicationFlow = this.belongsTo(
-      'activeApplicationFlow'
+      'activeApplicationFlow',
     ).value();
     const firstApplicationStep = activeApplicationFlow
       .belongsTo('firstApplicationStep')
@@ -56,13 +56,13 @@ export default class SubsidyMeasureOfferSeriesModel extends Model {
 
     if (externalProcessLink && !isExternallyProcessed) {
       console.warn(
-        'found a link to an external processes, but step is not marked for external processing.'
+        'found a link to an external processes, but step is not marked for external processing.',
       );
 
       return false;
     } else if (!externalProcessLink && isExternallyProcessed) {
       console.warn(
-        'found no link to an external processes, but step is marked for external processing.'
+        'found no link to an external processes, but step is marked for external processing.',
       );
 
       return true;

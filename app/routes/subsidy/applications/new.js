@@ -13,7 +13,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
     let seriesId = transition.to.queryParams.seriesId;
     assert(
       'A subsidy-measure-offer-series id needs to be provided through the `seriesId` query parameter',
-      Boolean(seriesId)
+      Boolean(seriesId),
     );
 
     transition.data.series = await this.store.findRecord(
@@ -21,7 +21,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
       seriesId,
       {
         backgroundReload: false,
-      }
+      },
     );
 
     if (!transition.data.series) {
@@ -38,7 +38,7 @@ export default class SubsidyApplicationsNewRoute extends Route {
       {
         page: { size: 1 },
         'filter[:uri:]': STATUS.CONCEPT,
-      }
+      },
     );
     if (statuses.length) this.concept = statuses.at(0);
   }

@@ -16,7 +16,7 @@ export default class MandatenbeheerFractieSelectorComponent extends Component {
     if (this.args.fractie) this._fractie = this.args.fractie;
     if (this.args.bestuursorganen) {
       this.bestuursorganenId = this.args.bestuursorganen.map((o) =>
-        o.get('id')
+        o.get('id'),
       );
     }
   }
@@ -45,7 +45,7 @@ export default class MandatenbeheerFractieSelectorComponent extends Component {
 
   async createNewOnafhankelijkeFractie() {
     let onafFractie = (await this.store.findAll('fractietype')).find((f) =>
-      f.get('isOnafhankelijk')
+      f.get('isOnafhankelijk'),
     );
     return this.store.createRecord('fractie', {
       naam: 'Onafhankelijk',

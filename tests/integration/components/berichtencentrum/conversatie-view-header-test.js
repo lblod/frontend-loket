@@ -97,7 +97,7 @@ module(
 
     test('it shows a dossiernummer, a typeCommunicatie, a cross and a betreft', async function (assert) {
       await render(
-        hbs`<Berichtencentrum::ConversatieViewHeader @conversatie={{this.model}} />`
+        hbs`<Berichtencentrum::ConversatieViewHeader @conversatie={{this.model}} />`,
       );
 
       assert
@@ -109,5 +109,5 @@ module(
       assert.dom(`[data-test-loket=berichtencentrum-header-cross]`).exists();
       assert.dom(`[data-test-loket=berichtencentrum-header-betreft]`).exists();
     });
-  }
+  },
 );

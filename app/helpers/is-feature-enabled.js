@@ -6,7 +6,7 @@ export default function isFeatureEnabled(featureName) {
 
   assert(
     `The "${featureName}" feature is not defined. Make sure the feature is defined in the "features" object in the config/environment.js file and that there are no typos in the name.`,
-    featureName in features
+    featureName in features,
   );
 
   let featureFlagValue = features[featureName];

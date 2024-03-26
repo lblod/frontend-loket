@@ -42,7 +42,7 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
       if (agentEndDate <= agentStartDate) {
         minister.errors.add(
           'agentEndDate',
-          'De einddatum moet na de startdatum liggen'
+          'De einddatum moet na de startdatum liggen',
         );
       } else {
         minister.errors.remove('agentEndDate');
@@ -169,14 +169,14 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
 
     if (this.selectedContact) {
       let primaryContactPoint = findPrimaryContactPoint(
-        yield minister.contacts
+        yield minister.contacts,
       );
 
       if (this.selectedContact.id !== primaryContactPoint?.id) {
         let secondaryContact = yield this.selectedContact.secondaryContactPoint;
 
         minister.contacts = [this.selectedContact, secondaryContact].filter(
-          Boolean
+          Boolean,
         );
       }
     } else {
@@ -193,7 +193,7 @@ export default class WorshipMinistersManagementMinisterEditController extends Co
           contacts.length > 0
             ? ' of selecteer een van de bestaande contactgegevens.'
             : '.'
-        }`
+        }`,
       );
       return;
     }

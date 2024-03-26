@@ -11,7 +11,7 @@ export default class SubsidyApplicationsEditStepRoute extends Route {
       stepId,
       {
         include: ['subsidy-procedural-step.period'].join(','),
-      }
+      },
     );
     return {
       consumption,

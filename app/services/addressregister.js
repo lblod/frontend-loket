@@ -81,7 +81,7 @@ export default class AddressregisterService extends Service {
     if (!suggestion.isEmpty()) {
       const results = await (
         await fetch(
-          `/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`
+          `/adressenregister/match?municipality=${suggestion.municipality}&zipcode=${suggestion.zipCode}&thoroughfarename=${suggestion.street}&housenumber=${suggestion.housenumber}`,
         )
       ).json();
       addresses = results.map(function (result) {

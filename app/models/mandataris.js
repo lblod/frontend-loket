@@ -65,7 +65,7 @@ export default class MandatarisModel extends AgentInPosition {
   get generatedFromGelinktNotuleren() {
     return (this.generatedFrom || []).some(
       (uri) =>
-        uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService'
+        uri == 'http://mu.semte.ch/vocabularies/ext/mandatenExtractorService',
     );
   }
 }

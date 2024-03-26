@@ -19,7 +19,7 @@ export default class SubsidiesConsumptionStatusPill extends Component {
   get description() {
     if (this.status.get('uri') === STATUS.ACTIVE) {
       const step = this.consumption.get(
-        'activeSubsidyApplicationFlowStep.subsidyProceduralStep'
+        'activeSubsidyApplicationFlowStep.subsidyProceduralStep',
       );
       if (step) return step.get('description');
     }

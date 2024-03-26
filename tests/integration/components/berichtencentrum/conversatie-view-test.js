@@ -102,7 +102,7 @@ module(
         hbs`<Berichtencentrum::ConversatieView
           @conversatie={{this.model}}
           data-test-loket="berichtencentrum-conversatie"
-        />`
+        />`,
       );
 
       assert
@@ -119,14 +119,14 @@ module(
         hbs`<Berichtencentrum::ConversatieView
           @conversatie={{this.model}}
           data-test-loket="berichtencentrum-conversatie"
-        />`
+        />`,
       );
 
       assert
         .dom(`[data-test-loket=berichtencentrum-bericht-view]`)
         .exists({ count: 1 });
     });
-  }
+  },
 );
 
 function mockCurrentSessionGroup(owner) {

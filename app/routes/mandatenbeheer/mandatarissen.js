@@ -7,7 +7,7 @@ import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class MandatenbeheerMandatarissenRoute extends Route.extend(
-  DataTableRouteMixin
+  DataTableRouteMixin,
 ) {
   @service store;
 
@@ -29,7 +29,7 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
 
   mergeQueryOptions(params) {
     const bestuursorganenIds = this.mandatenbeheer.bestuursorganen.map((o) =>
-      o.get('id')
+      o.get('id'),
     );
 
     const queryParams = {
@@ -42,7 +42,7 @@ export default class MandatenbeheerMandatarissenRoute extends Route.extend(
         },
       },
       include: ['is-bestuurlijke-alias-van', 'bekleedt.bestuursfunctie'].join(
-        ','
+        ',',
       ),
     };
 

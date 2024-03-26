@@ -28,7 +28,7 @@ export default class EmployeeObservationTableCell extends Component {
           obs.workingTimeCategory.get('uri') ==
             workingTimeCategory.get('uri') &&
           obs.legalStatus.get('uri') == legalStatus.get('uri') &&
-          obs.sex.get('uri') == sex.get('uri')
+          obs.sex.get('uri') == sex.get('uri'),
       );
       this.observation = observation;
     }

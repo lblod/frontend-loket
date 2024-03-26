@@ -19,7 +19,7 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
   @action async handleDelete(file) {
     this.model.formData.files.splice(
       this.model.formData.files.indexOf(file),
-      1
+      1,
     );
     await file.destroyRecord();
   }
@@ -76,7 +76,7 @@ export default class BerichtencentrumBerichtenNewController extends Controller {
 
     this.router.transitionTo(
       'berichtencentrum.berichten.conversatie',
-      conversation.id
+      conversation.id,
     );
   });
 }

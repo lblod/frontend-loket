@@ -7,13 +7,13 @@ import { NamedNode } from 'rdflib';
 const extBaseUri = 'http://mu.semte.ch/vocabularies/ext/';
 const engagementEntryPredicate = new NamedNode(`${extBaseUri}engagementEntry`);
 const existingStaffPredicate = new NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/existingStaff'
+  'http://mu.semte.ch/vocabularies/ext/existingStaff',
 );
 const additionalStaffPredicate = new NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/additionalStaff'
+  'http://mu.semte.ch/vocabularies/ext/additionalStaff',
 );
 const volunteersPredicate = new NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/volunteers'
+  'http://mu.semte.ch/vocabularies/ext/volunteers',
 );
 
 class EntryProperties {
@@ -37,11 +37,11 @@ class EngagementEntry {
     this.engagementEntrySubject = engagementEntrySubject;
     this.existingStaff = new EntryProperties(
       existingStaff,
-      existingStaffPredicate
+      existingStaffPredicate,
     );
     this.additionalStaff = new EntryProperties(
       additionalStaff,
-      additionalStaffPredicate
+      additionalStaffPredicate,
     );
     this.volunteers = new EntryProperties(volunteers, volunteersPredicate);
   }
@@ -80,7 +80,7 @@ export default class RdfFormFieldsEngagementTableShowComponent extends InputFiel
             entry.object,
             undefined,
             undefined,
-            this.storeOptions.sourceGraph
+            this.storeOptions.sourceGraph,
           );
 
           const parsedEntry = this.parseEntryProperties(entryProperties);
@@ -91,7 +91,7 @@ export default class RdfFormFieldsEngagementTableShowComponent extends InputFiel
               existingStaff: parsedEntry.existingStaff,
               additionalStaff: parsedEntry.additionalStaff,
               volunteers: parsedEntry.volunteers,
-            })
+            }),
           );
         }
       }
@@ -106,27 +106,27 @@ export default class RdfFormFieldsEngagementTableShowComponent extends InputFiel
 
     if (
       entryProperties.find(
-        (entry) => entry.predicate.value == existingStaffPredicate.value
+        (entry) => entry.predicate.value == existingStaffPredicate.value,
       )
     )
       entry.existingStaff = entryProperties.find(
-        (entry) => entry.predicate.value == existingStaffPredicate.value
+        (entry) => entry.predicate.value == existingStaffPredicate.value,
       ).object.value;
     if (
       entryProperties.find(
-        (entry) => entry.predicate.value == additionalStaffPredicate.value
+        (entry) => entry.predicate.value == additionalStaffPredicate.value,
       )
     )
       entry.additionalStaff = entryProperties.find(
-        (entry) => entry.predicate.value == additionalStaffPredicate.value
+        (entry) => entry.predicate.value == additionalStaffPredicate.value,
       ).object.value;
     if (
       entryProperties.find(
-        (entry) => entry.predicate.value == volunteersPredicate.value
+        (entry) => entry.predicate.value == volunteersPredicate.value,
       )
     )
       entry.volunteers = entryProperties.find(
-        (entry) => entry.predicate.value == volunteersPredicate.value
+        (entry) => entry.predicate.value == volunteersPredicate.value,
       ).object.value;
 
     return entry;

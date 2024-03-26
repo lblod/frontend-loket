@@ -34,7 +34,7 @@ export async function validateFunctie(worshipMinister) {
     worshipMinister.send?.('becomeDirty');
     worshipMinister.errors.add(
       'ministerPosition',
-      'functienaam is een vereist veld.'
+      'functienaam is een vereist veld.',
     );
   }
   return isFunctie;
