@@ -1,17 +1,17 @@
-{{page-title "Imiteer an account"}}
+{{page-title "Simuleer een bestuurseenheid"}}
 
 <AuMainContainer as |m|>
   <m.content @scroll={{true}}>
     <main id="content">
       <div class="au-o-region-large">
         <div class="au-o-layout">
-          <AuHeading @skin="4">Kies een bestuurseenheid om te imiteren</AuHeading>
+          <AuHeading @skin="4">Simuleer een bestuurseenheid</AuHeading>
           <p class="au-u-margin-top-small au-u-margin-bottom">
             <AuInput
               @width="block"
               placeholder="Aalst, Berchem,..."
               value={{this.gemeente}}
-              aria-label="Kies een bestuurseenheid om te imiteren"
+              aria-label="Kies een bestuurseenheid om te simuleren"
               {{on "input" this.updateSearch.perform}}
             />
           </p>

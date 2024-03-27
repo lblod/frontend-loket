@@ -4,6 +4,11 @@ import {
   AuLink,
   AuButton,
 } from '@appuniversum/ember-appuniversum';
+import { LogoutIcon } from '@appuniversum/ember-appuniversum/components/icons/logout';
+import { LoginIcon } from '@appuniversum/ember-appuniversum/components/icons/login';
+import { NotVisibleIcon } from '@appuniversum/ember-appuniversum/components/icons/not-visible';
+import { SwitchIcon } from '@appuniversum/ember-appuniversum/components/icons/switch';
+// import { VisibleIcon } from '@appuniversum/ember-appuniversum/components/icons/visible';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
@@ -18,10 +23,12 @@ export default class ImpersonationMenu extends Component {
 
   <template>
     <AuDropdown
-      @title="Bestuurseenheid imitatie opties"
+      @title="Simulatie opties"
       @hideText={{true}}
       @alignment="right"
-      @icon={{if this.impersonation.isImpersonating "visible" "not-visible"}}
+      {{!-- TODO: Use the VisibleIcon component once the issue is resolved: https://github.com/appuniversum/ember-appuniversum/issues/482#issuecomment-2022446973 --}}
+      @icon={{if this.impersonation.isImpersonating "visible" NotVisibleIcon}}
+      {{!-- @icon={{if this.impersonation.isImpersonating VisibleIcon NotVisibleIcon}} --}}
       @alert={{this.impersonation.isImpersonating}}
       class="au-u-margin-left-tiny"
       role="menu"
@@ -35,16 +42,21 @@ export default class ImpersonationMenu extends Component {
           </AuPill>
         </div>
 
-        <AuLink @route="impersonate" @icon="switch" role="menuitem">
-          Imiteer een andere bestuurseenheid
+        <AuLink @route="impersonate" @icon={{SwitchIcon}} role="menuitem">
+          Simuleer een andere bestuurseenheid
         </AuLink>
 
-        <AuButton @skin="link" @icon="logout" role="menuitem" {{on "click" this.stopImpersonation}}>
-          Stop met imiteren
+        <AuButton
+          @skin="link"
+          @icon={{LogoutIcon}}
+          role="menuitem"
+          {{on "click" this.stopImpersonation}}
+        >
+          Simulatie stopzetten
         </AuButton>
       {{else}}
-        <AuLink @route="impersonate" @icon="login" role="menuitem">
-          Kies een bestuurseenheid om te imiteren
+        <AuLink @route="impersonate" @icon={{LoginIcon}} role="menuitem">
+          Simuleer een bestuurseenheid
         </AuLink>
       {{/if}}
     </AuDropdown>
