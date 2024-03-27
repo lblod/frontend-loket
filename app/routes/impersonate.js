@@ -2,6 +2,8 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 export default class ImpersonateRoute extends Route {
+  @service currentSession;
+  @service router;
   @service session;
   @service store;
 
@@ -12,8 +14,11 @@ export default class ImpersonateRoute extends Route {
   };
 
   beforeModel(transition) {
-    // TODO: verify that the user can impersonate someone, based on their role
     this.session.requireAuthentication(transition, 'login');
+
+    if (!this.currentSession.canImpersonate) {
+      this.router.replaceWith('index');
+    }
   }
 
   model() {
@@ -22,7 +27,6 @@ export default class ImpersonateRoute extends Route {
   }
 
   setupController(controller) {
-    console.log('here');
     controller.setup();
   }
 }

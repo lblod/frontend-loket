@@ -18,13 +18,12 @@ export default class ImpersonateController extends Controller {
     this.queryStore.perform();
   }
 
-  @task
-  *queryStore() {
+  queryStore = task(async () => {
     const filter = { provider: 'https://github.com/lblod/mock-login-service' };
     if (this.gemeente) {
       filter.gebruiker = { bestuurseenheden: this.gemeente };
     }
-    const accounts = yield this.store.query('account', {
+    const accounts = await this.store.query('account', {
       include: 'gebruiker,gebruiker.bestuurseenheden',
       filter: filter,
       page: { size: this.size, number: this.page },
@@ -32,20 +31,24 @@ export default class ImpersonateController extends Controller {
     });
 
     this.model = accounts;
-  }
+  });
 
-  @restartableTask
-  *updateSearch(event) {
-    yield timeout(500);
+  updateSearch = restartableTask(async (event) => {
+    await timeout(500);
     this.page = 0;
     this.gemeente = event.target.value;
 
-    yield this.queryStore.perform();
-  }
+    await this.queryStore.perform();
+  });
 
   impersonateAccount = task(async (accountId) => {
-    // TODO; check if an impersonation was already active, we probably need to clear things first then, or refresh the app afterwards to delete the in-memory data.
+    const shouldClearData = this.impersonation.isImpersonating;
+
     await this.impersonation.impersonate(accountId);
-    this.router.transitionTo('index');
+    await this.router.transitionTo('index');
+
+    if (shouldClearData) {
+      window.location.reload();
+    }
   });
 }
