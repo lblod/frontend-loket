@@ -8,7 +8,7 @@ import { LogoutIcon } from '@appuniversum/ember-appuniversum/components/icons/lo
 import { LoginIcon } from '@appuniversum/ember-appuniversum/components/icons/login';
 import { NotVisibleIcon } from '@appuniversum/ember-appuniversum/components/icons/not-visible';
 import { SwitchIcon } from '@appuniversum/ember-appuniversum/components/icons/switch';
-// import { VisibleIcon } from '@appuniversum/ember-appuniversum/components/icons/visible';
+import { VisibleIcon } from '@appuniversum/ember-appuniversum/components/icons/visible';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 import Component from '@glimmer/component';
@@ -26,9 +26,7 @@ export default class ImpersonationMenu extends Component {
       @title="Simulatie opties"
       @hideText={{true}}
       @alignment="right"
-      {{!-- TODO: Use the VisibleIcon component once the issue is resolved: https://github.com/appuniversum/ember-appuniversum/issues/482#issuecomment-2022446973 --}}
-      @icon={{if this.impersonation.isImpersonating "visible" NotVisibleIcon}}
-      {{!-- @icon={{if this.impersonation.isImpersonating VisibleIcon NotVisibleIcon}} --}}
+      @icon={{if this.impersonation.isImpersonating VisibleIcon NotVisibleIcon}}
       @alert={{this.impersonation.isImpersonating}}
       class="au-u-margin-left-tiny"
       role="menu"
