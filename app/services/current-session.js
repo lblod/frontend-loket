@@ -73,11 +73,8 @@ export default class CurrentSessionService extends Service {
 
   canAccess(role) {
     if (this.impersonation.isImpersonating) {
-      // TODO: we need a way to retrieve the roles for the impersonated user
-      // We'll allow everything for now, since they just won't see any data if they don't have access.
-      return true;
+      return this.impersonation.impersonatedAccount.roles.includes(role);
     } else {
-
       return this.roles.includes(role);
     }
   }
