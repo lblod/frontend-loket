@@ -1,5 +1,6 @@
 import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import { loadAccountData } from 'frontend-loket/utils/account';
 
 export default class ImpersonationService extends Service {
   @service store;
@@ -68,12 +69,23 @@ export default class ImpersonationService extends Service {
   }
 
   async #loadImpersonatedAccount(accountId) {
-    this.impersonatedAccount = await this.store.findRecord(
-      'account',
-      accountId,
-      {
-        include: 'gebruiker',
-      },
-    );
+    const account = await loadAccountData(this.store, accountId);
+
+    this.impersonatedAccount = account;
+
+    const user = account.gebruiker;
+    const roles = account.roles;
+    const group = user.group;
+    // const classification = group.belongsTo('classificatie').value();
+    const classification = await group.classificatie;
+
+    console.log(user.fullName, roles, group.naam, classification.label)
+
+    // let groupId = this.session.data.authenticated.relationships.group.data.id;
+    // this._group = await this.store.findRecord('bestuurseenheid', groupId, {
+    //   include: 'classificatie',
+    //   reload: true,
+    // });
+    // this._groupClassification = await this._group.classificatie;
   }
 }

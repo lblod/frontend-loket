@@ -37,8 +37,8 @@ Router.map(function () {
       this.route('edit', { path: '/:id/edit' });
     });
 
-    this.route('personen', function () { });
-    this.route('fracties', function () { });
+    this.route('personen', function () {});
+    this.route('fracties', function () {});
   });
 
   this.route('bbcdr', function () {
@@ -64,7 +64,7 @@ Router.map(function () {
 
   this.route('berichtencentrum', function () {
     this.route('berichten', function () {
-      this.route('conversatie', { path: '/:id' }, function () { });
+      this.route('conversatie', { path: '/:id' }, function () {});
       if (macroCondition(getOwnConfig().controle)) {
         this.route('new');
       }

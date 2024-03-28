@@ -3,6 +3,7 @@ import { macroCondition, getOwnConfig } from '@embroider/macros';
 import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
+import { loadAccountData } from 'frontend-loket/utils/account';
 import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
 
 const MODULE = {
@@ -27,29 +28,50 @@ export default class CurrentSessionService extends Service {
   @service store;
   @service impersonation;
 
-  @tracked account;
-  @tracked user;
-  @tracked group;
-  @tracked groupClassification;
-  @tracked roles = [];
+  @tracked _account;
+  @tracked _user;
+  @tracked _group;
+  @tracked _groupClassification;
+  @tracked _roles = [];
+
+  get account() {
+    if (this.impersonation.isImpersonating) {
+      return this.impersonation.impersonatedAccount;
+    } else {
+      return this._account;
+    }
+  }
+  get user() {
+    return this.account.gebruiker;
+  }
+
+  get group() {
+    return this.user.group;
+  }
+
+  get groupClassification() {
+    return this.group.belongsTo('classificatie').value()
+  }
 
   async load() {
     if (this.session.isAuthenticated) {
       let accountId =
         this.session.data.authenticated.relationships.account.data.id;
-      this.account = await this.store.findRecord('account', accountId, {
-        include: 'gebruiker',
-      });
+      this._account = await loadAccountData(this.store, accountId);
 
-      this.user = this.account.gebruiker;
-      this.roles = this.session.data.authenticated.data.attributes.roles;
+      // TODO: I don't think we need all of these as properties
+      this._user = this._account.gebruiker;
+      this._roles = this.session.data.authenticated.data.attributes.roles;
+      this._group = this._user.group;
+      this._groupClassification = this._group.belongsTo('classificatie').value();
+      // this._groupClassification = await this._group.classificatie;
 
-      let groupId = this.session.data.authenticated.relationships.group.data.id;
-      this.group = await this.store.findRecord('bestuurseenheid', groupId, {
-        include: 'classificatie',
-        reload: true,
-      });
-      this.groupClassification = await this.group.classificatie;
+      // let groupId = this.session.data.authenticated.relationships.group.data.id;
+      // this._group = await this.store.findRecord('bestuurseenheid', groupId, {
+      //   include: 'classificatie',
+      //   reload: true,
+      // });
+      // this._groupClassification = await this._group.classificatie;
 
       if (macroCondition(getOwnConfig().controle)) {
         if (this.canImpersonate) {
@@ -63,13 +85,13 @@ export default class CurrentSessionService extends Service {
 
   setupSentrySession() {
     if (SHOULD_ENABLE_SENTRY) {
-      setUser({ id: this.user.id, ip_address: null });
+      setUser({ id: this._user.id, ip_address: null });
       setContext('session', {
-        account: this.account.id,
-        user: this.user.id,
-        group: this.group.uri,
-        groupClassification: this.groupClassification?.uri,
-        roles: this.roles,
+        account: this._account.id,
+        user: this._user.id,
+        group: this._group.uri,
+        groupClassification: this._groupClassification?.uri,
+        roles: this._roles,
       });
     }
   }
@@ -78,7 +100,7 @@ export default class CurrentSessionService extends Service {
     if (this.impersonation.isImpersonating) {
       return this.impersonation.impersonatedAccount.roles.includes(role);
     } else {
-      return this.roles.includes(role);
+      return this._roles.includes(role);
     }
   }
 
@@ -164,7 +186,7 @@ export default class CurrentSessionService extends Service {
   }
 
   get isAdmin() {
-    return this.roles.includes('LoketAdmin');
+    return this._roles.includes('LoketAdmin');
   }
 
   get canImpersonate() {
@@ -175,3 +197,4 @@ export default class CurrentSessionService extends Service {
     }
   }
 }
+
