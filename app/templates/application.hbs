@@ -19,6 +19,14 @@
         Help
       </AuLinkExternal>
     </li>
+    {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if this.currentSession.isAdmin}}
+        <li class="au-c-list-horizontal__item">
+          <AuPill @icon="user">Admin</AuPill>
+          <ImpersonationMenu />
+        </li>
+      {{/if}}
+    {{/if}}
     <li class="au-c-list-horizontal__item">
       {{#if this.session.isAuthenticated}}
         <AuDropdown

@@ -1,0 +1,69 @@
+{{page-title "Simuleer een bestuurseenheid"}}
+
+<AuMainContainer as |m|>
+  <m.content @scroll={{true}}>
+    <main id="content">
+      <div class="au-o-region-large">
+        <div class="au-o-layout">
+          <AuHeading @skin="4">Simuleer een bestuurseenheid</AuHeading>
+          <p class="au-u-margin-top-small au-u-margin-bottom">
+            <AuInput
+              @width="block"
+              placeholder="Aalst, Berchem,..."
+              value={{this.gemeente}}
+              aria-label="Kies een bestuurseenheid om te simuleren"
+              {{on "input" this.updateSearch.perform}}
+            />
+          </p>
+          {{#if this.queryStore.isRunning}}
+            <AuLoader>Accounts aan het laden</AuLoader>
+          {{else}}
+            {{#if this.model.length}}
+              <ul class="au-o-flow au-o-flow--small au-u-margin-bottom-small">
+                {{#each this.model as |account|}}
+                  <li>
+                    <AuButton
+                      {{!TODO: this should be a tertiary button, but Appuniversum doesn't support that yet}}
+                      @skin="secondary"
+                      class="mock-account-button au-u-padding-small au-u-1-1 au-u-text-left"
+                      {{on
+                        "click"
+                        (fn this.impersonateAccount.perform account.id)
+                      }}
+                    >
+                      {{account.gebruiker.voornaam}}
+                      {{account.gebruiker.achternaam}}
+                      {{#if account.gebruiker.group.alternatieveNaam}}
+                        <span>
+                          <span class="au-c-info-text">Alternatieve naam:</span>
+                          {{#each
+                            account.gebruiker.bestuurseenheden
+                            as |bestuurseenheid|
+                          }}
+                            {{#each
+                              bestuurseenheid.alternatieveNaam
+                              as |alternatieveNaam|
+                            }}
+                              <AuPill>{{alternatieveNaam}}</AuPill>
+                            {{/each}}
+                          {{/each}}
+                        </span>
+                      {{/if}}
+                    </AuButton>
+                  </li>
+                {{/each}}
+              </ul>
+            {{/if}}
+            <AuDataTableNumberPagination
+              @page={{this.page}}
+              @size={{this.size}}
+              @nbOfItems={{this.model.length}}
+              @total={{this.model.meta.count}}
+              @links={{this.model.meta.pagination}}
+            />
+          {{/if}}
+        </div>
+      </div>
+    </main>
+  </m.content>
+</AuMainContainer>

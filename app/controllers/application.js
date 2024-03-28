@@ -1,10 +1,11 @@
 import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 export default class ApplicationController extends Controller {
-  @service() session;
-  @service() currentSession;
-  @service() router;
+  @service currentSession;
+  @service impersonation;
+  @service session;
+  @service router;
 
   appTitle = 'Loket voor lokale besturen';
 
