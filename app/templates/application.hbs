@@ -19,12 +19,10 @@
         Help
       </AuLinkExternal>
     </li>
-    {{#if (macroCondition (macroGetOwnConfig "controle"))}}
-      {{#if this.currentSession.isAdmin}}
-        <li class="au-c-list-horizontal__item">
-          <ImpersonationMenu />
-        </li>
-      {{/if}}
+    {{#if this.currentSession.isAdmin}}
+      <li class="au-c-list-horizontal__item">
+        <ImpersonationMenu />
+      </li>
     {{/if}}
     <li class="au-c-list-horizontal__item">
       {{#if this.session.isAuthenticated}}

@@ -1,5 +1,4 @@
 import Service, { inject as service } from '@ember/service';
-import { macroCondition, getOwnConfig } from '@embroider/macros';
 import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
@@ -67,10 +66,8 @@ export default class CurrentSessionService extends Service {
       this._group = this._user.group;
       this._groupClassification = this._group.belongsTo('classificatie').value();
 
-      if (macroCondition(getOwnConfig().controle)) {
-        if (this.canImpersonate) {
-          await this.impersonation.load();
-        }
+      if (this.isAdmin) {
+        await this.impersonation.load();
       }
 
       this.setupSentrySession();
@@ -187,14 +184,6 @@ export default class CurrentSessionService extends Service {
 
   get isAdmin() {
     return this._roles.includes(ADMIN_ROLE);
-  }
-
-  get canImpersonate() {
-    if (macroCondition(getOwnConfig().controle)) {
-      return this.isAdmin;
-    } else {
-      return false;
-    }
   }
 }
 

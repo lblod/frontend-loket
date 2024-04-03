@@ -15,11 +15,6 @@ module.exports = function (defaults) {
       dutchDatePickerLocalization: true,
       disableWormholeElement: true,
     },
-    '@embroider/macros': {
-      setOwnConfig: {
-        controle: process.env.CONTROLE === 'true',
-      },
-    },
   };
 
   let app = new EmberApp(defaults, customBuildConfig);

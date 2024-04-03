@@ -54,7 +54,7 @@
         Voeg nieuw mandaat toe
       </AuButton>
 
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         {{!-- This section is here temporarily for ABB to review all the mandates in August --}}
         <AuAlert @icon="alert-triangle" @skin="warning" class="au-u-margin-top-small">
           <p class="au-u-margin-bottom-small">

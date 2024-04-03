@@ -78,7 +78,7 @@
             bestuursorganen=this.bestuursorganen
           }}
         </div>
-        {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        {{#if (is-admin)}}
           <div>
             <div class="au-u-margin-bottom-tiny">
               <AuCheckbox
@@ -225,7 +225,7 @@
             bestuursorganen=this.bestuursorganen
           }}
         </div>
-        {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        {{#if (is-admin)}}
           <div>
             <div class="au-u-margin-bottom-tiny">
               <AuCheckbox

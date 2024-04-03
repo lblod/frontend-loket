@@ -7,11 +7,11 @@ import { observer } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
-import { macroCondition, getOwnConfig } from '@embroider/macros';
 
 export default Component.extend({
   tag: 'li',
   classNames: ['au-c-list-vertical__item'],
+  currentSession: service(),
   store: service(),
   dateFormat: 'DD-MM-YYYY',
   editMode: false, //some components will change behaviour when being in editMode
@@ -49,7 +49,7 @@ export default Component.extend({
     this.set('rangorde', this.get('mandataris.rangorde'));
     this.set('status', await this.get('mandataris.status'));
 
-    if (macroCondition(getOwnConfig().controle)) {
+    if (this.currentSession.isAdmin) {
       let duplicatedMandataris = await this.get('mandataris.duplicateOf');
       this.set('duplicatedMandataris', duplicatedMandataris);
       this.set(
@@ -90,7 +90,7 @@ export default Component.extend({
       this.set('mandataris.rangorde', this.rangorde);
       this.set('mandataris.status', this.status);
 
-      if (macroCondition(getOwnConfig().controle)) {
+      if (this.currentSession.isAdmin) {
         const currentSavedDuplicate = yield this.get('mandataris.duplicateOf');
 
         if (this.duplicatedMandataris || currentSavedDuplicate) {

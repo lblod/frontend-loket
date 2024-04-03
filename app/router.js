@@ -1,5 +1,4 @@
 import EmberRouter from '@ember/routing/router';
-import { macroCondition, getOwnConfig } from '@embroider/macros';
 import config from 'frontend-loket/config/environment';
 
 export default class Router extends EmberRouter {
@@ -11,9 +10,7 @@ Router.map(function () {
   this.route('login');
   this.route('switch-login');
   this.route('mock-login');
-  if (macroCondition(getOwnConfig().controle)) {
-    this.route('impersonate');
-  }
+  this.route('impersonate');
 
   this.route('auth', { path: '/authorization' }, function () {
     this.route('callback');
@@ -65,9 +62,7 @@ Router.map(function () {
   this.route('berichtencentrum', function () {
     this.route('berichten', function () {
       this.route('conversatie', { path: '/:id' }, function () {});
-      if (macroCondition(getOwnConfig().controle)) {
-        this.route('new');
-      }
+      this.route('new');
     });
   });
 
