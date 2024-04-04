@@ -31,11 +31,6 @@ module.exports = function (deployTarget) {
     //TODO:
   }
 
-  if (deployTarget === 'controle') {
-    ENV['ssh-index'].remoteDir = '/data/app-digitaal-loket-dev/controle-app';
-    ENV['rsync']['dest'] = '/data/app-digitaal-loket-dev/controle-app';
-  }
-
   // Note: if you need to build some configuration asynchronously, you can return
   // a promise that resolves with the ENV object instead of returning the
   // ENV object synchronously.

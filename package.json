@@ -28,7 +28,6 @@
     "lint:dependencies": "npx ember dependency-lint",
     "release": "release-it",
     "start": "ember serve",
-    "start:controle": "CONTROLE=true ember serve",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },

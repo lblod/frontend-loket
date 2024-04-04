@@ -16,7 +16,7 @@ export default class ImpersonateRoute extends Route {
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
 
-    if (!this.currentSession.canImpersonate) {
+    if (!this.currentSession.isAdmin) {
       this.router.replaceWith('index');
     }
   }

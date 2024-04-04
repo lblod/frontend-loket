@@ -47,7 +47,7 @@
       {{/if}}
     {{/if}}
   </td>
-  {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+  {{#if (is-admin)}}
     <td>
       {{@fractie.generatedFromGelinktNotuleren}}
     </td>

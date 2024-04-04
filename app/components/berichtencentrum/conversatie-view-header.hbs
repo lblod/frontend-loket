@@ -38,7 +38,7 @@
     </div>
   </div>
 
-  {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+  {{#if (is-admin)}}
     <AuAccordion
       @buttonLabel="Test berichten toevoegen"
       @iconOpen="circle-info"
