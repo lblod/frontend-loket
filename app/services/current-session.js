@@ -22,7 +22,7 @@ const MODULE_ROLE = {
   CONTACT: 'LoketLB-ContactOrganisatiegegevensGebruiker',
 };
 
-const ADMIN_ROLE = 'LoketAdmin';
+const ADMIN_ROLE = 'LoketLB-admin';
 
 export default class CurrentSessionService extends Service {
   @service session;
