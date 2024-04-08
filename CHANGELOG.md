@@ -1,3 +1,8 @@
+## v0.92.1 (2024-04-08)
+### General
+#### :bug: Bug Fix
+* [#378](https://github.com/lblod/frontend-loket/pull/378) Use the correct admin role ([@Windvis](https://github.com/Windvis))
+
 ##  v0.92.0 (2024-04-04)
 ### General
 #### :rocket: Enhancement
