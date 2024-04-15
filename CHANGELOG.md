@@ -1,3 +1,13 @@
+## v0.92.1 (2024-04-08)
+### General
+#### :bug: Bug Fix
+* [#378](https://github.com/lblod/frontend-loket/pull/378) Use the correct admin role ([@Windvis](https://github.com/Windvis))
+
+##  v0.92.0 (2024-04-04)
+### General
+#### :rocket: Enhancement
+* [#371](https://github.com/lblod/frontend-loket/pull/371) [DL-5790] Allow admin users to impersonate other accounts ([@Windvis](https://github.com/Windvis))
+
 ## v0.91.2 (2024-04-15)
 ### General
 #### :rocket: Enhancement
@@ -19,6 +29,11 @@
 * [#365](https://github.com/lblod/frontend-loket/pull/365) Make the groupClassification optional for the GlitchTip context ([@Windvis](https://github.com/Windvis))
 #### :house: Internal
 * [#368](https://github.com/lblod/frontend-loket/pull/368) Update to Appuniversum v3 ([@Windvis](https://github.com/Windvis))
+
+## v0.90.4 (2024-03-13)
+### Berichtencentrum
+#### :bug: Bug Fix
+* [#370](https://github.com/lblod/frontend-loket/pull/370) [DL-5751] Allow multiple emails in the berichtencentrum preferences ([@Windvis](https://github.com/Windvis))
 
 ## v0.90.3 (2024-02-28)
 ### General

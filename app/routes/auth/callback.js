@@ -16,7 +16,7 @@ export default class AuthCallbackRoute extends Route {
       } catch (error) {
         throw new Error(
           'Something went wrong while authenticating the user in the backend. The token might be expired.',
-          { cause: error }
+          { cause: error },
         );
       }
     } else {

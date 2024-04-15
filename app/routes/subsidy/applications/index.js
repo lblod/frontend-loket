@@ -5,7 +5,7 @@ import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { ROLES } from 'frontend-loket/models/participation';
 
 export default class SubsidyApplicationsIndexRoute extends Route.extend(
-  DataTableRouteMixin
+  DataTableRouteMixin,
 ) {
   @service currentSession;
   @service store;

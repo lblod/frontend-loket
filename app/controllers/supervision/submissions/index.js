@@ -14,7 +14,7 @@ export default class SupervisionSubmissionsIndexController extends Controller {
   @action
   async reopen(submission) {
     const hasAcknowledged = confirm(
-      'Weet je zeker dat je dit wilt doen? Deze actie kan onverwachte gevolgen hebben!'
+      'Weet je zeker dat je dit wilt doen? Deze actie kan onverwachte gevolgen hebben!',
     );
 
     if (hasAcknowledged) {

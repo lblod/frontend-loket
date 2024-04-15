@@ -7,19 +7,19 @@ import { LBLOD_SUBSIDIE } from 'frontend-loket/rdf/namespaces';
 const extBaseUri = 'http://mu.semte.ch/vocabularies/ext/';
 
 const applicationFormEntryPredicate = new NamedNode(
-  `${extBaseUri}applicationFormEntry`
+  `${extBaseUri}applicationFormEntry`,
 );
 const actorNamePredicate = new NamedNode(
-  `http://mu.semte.ch/vocabularies/ext/actorName`
+  `http://mu.semte.ch/vocabularies/ext/actorName`,
 );
 const numberChildrenForFullDayPredicate = new NamedNode(
-  `http://mu.semte.ch/vocabularies/ext/numberChildrenForFullDay`
+  `http://mu.semte.ch/vocabularies/ext/numberChildrenForFullDay`,
 );
 const numberChildrenForHalfDayPredicate = new NamedNode(
-  `http://mu.semte.ch/vocabularies/ext/numberChildrenForHalfDay`
+  `http://mu.semte.ch/vocabularies/ext/numberChildrenForHalfDay`,
 );
 const numberChildrenPerInfrastructurePredicate = new NamedNode(
-  `http://mu.semte.ch/vocabularies/ext/numberChildrenPerInfrastructure`
+  `http://mu.semte.ch/vocabularies/ext/numberChildrenPerInfrastructure`,
 );
 const createdPredicate = new NamedNode('http://purl.org/dc/terms/created');
 
@@ -58,15 +58,15 @@ class ApplicationFormEntry {
     this.actorName = new EntryProperties(actorName, actorNamePredicate);
     this.numberChildrenForFullDay = new EntryProperties(
       numberChildrenForFullDay,
-      numberChildrenForFullDayPredicate
+      numberChildrenForFullDayPredicate,
     );
     this.numberChildrenForHalfDay = new EntryProperties(
       numberChildrenForHalfDay,
-      numberChildrenForHalfDayPredicate
+      numberChildrenForHalfDayPredicate,
     );
     this.numberChildrenPerInfrastructure = new EntryProperties(
       numberChildrenPerInfrastructure,
-      numberChildrenPerInfrastructurePredicate
+      numberChildrenPerInfrastructurePredicate,
     );
     this.created = new EntryProperties(created, createdPredicate);
   }
@@ -94,7 +94,7 @@ export default class RdfFormFieldsApplicationFormTableShowComponent extends Inpu
 
   get sortedEntries() {
     return this.entries.sort((a, b) =>
-      a.created.value.localeCompare(b.created.value)
+      a.created.value.localeCompare(b.created.value),
     );
   }
 
@@ -120,7 +120,7 @@ export default class RdfFormFieldsApplicationFormTableShowComponent extends Inpu
             entry.object,
             undefined,
             undefined,
-            this.storeOptions.sourceGraph
+            this.storeOptions.sourceGraph,
           );
 
           const parsedEntry = this.parseEntryProperties(entryProperties);
@@ -134,7 +134,7 @@ export default class RdfFormFieldsApplicationFormTableShowComponent extends Inpu
               numberChildrenPerInfrastructure:
                 parsedEntry.numberChildrenPerInfrastructure,
               created: parsedEntry.created,
-            })
+            }),
           );
         }
       }
@@ -145,7 +145,7 @@ export default class RdfFormFieldsApplicationFormTableShowComponent extends Inpu
         sourceNode,
         predicate,
         undefined,
-        sourceGraph
+        sourceGraph,
       );
     }
   }
@@ -157,51 +157,51 @@ export default class RdfFormFieldsApplicationFormTableShowComponent extends Inpu
     let entry = {};
     if (
       entryProperties.find(
-        (entry) => entry.predicate.value == actorNamePredicate.value
+        (entry) => entry.predicate.value == actorNamePredicate.value,
       )
     )
       entry.actorName = entryProperties.find(
-        (entry) => entry.predicate.value == actorNamePredicate.value
+        (entry) => entry.predicate.value == actorNamePredicate.value,
       ).object.value;
     if (
       entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForFullDayPredicate.value
+          entry.predicate.value == numberChildrenForFullDayPredicate.value,
       )
     )
       entry.numberChildrenForFullDay = entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForFullDayPredicate.value
+          entry.predicate.value == numberChildrenForFullDayPredicate.value,
       ).object.value;
     if (
       entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForHalfDayPredicate.value
+          entry.predicate.value == numberChildrenForHalfDayPredicate.value,
       )
     )
       entry.numberChildrenForHalfDay = entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForHalfDayPredicate.value
+          entry.predicate.value == numberChildrenForHalfDayPredicate.value,
       ).object.value;
     if (
       entryProperties.find(
         (entry) =>
           entry.predicate.value ==
-          numberChildrenPerInfrastructurePredicate.value
+          numberChildrenPerInfrastructurePredicate.value,
       )
     )
       entry.numberChildrenPerInfrastructure = entryProperties.find(
         (entry) =>
           entry.predicate.value ==
-          numberChildrenPerInfrastructurePredicate.value
+          numberChildrenPerInfrastructurePredicate.value,
       ).object.value;
     if (
       entryProperties.find(
-        (entry) => entry.predicate.value == createdPredicate.value
+        (entry) => entry.predicate.value == createdPredicate.value,
       )
     )
       entry.created = entryProperties.find(
-        (entry) => entry.predicate.value == createdPredicate.value
+        (entry) => entry.predicate.value == createdPredicate.value,
       ).object.value;
     return entry;
   }

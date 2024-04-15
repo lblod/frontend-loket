@@ -5,7 +5,7 @@
       {{#unless @displaySubset}}
         <th class="au-u-visible-small-up">Orgaan</th>
       {{/unless}}
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         <AuDataTableThSortable @field='isBestuurlijkeAliasVan.verifiedMandaten' @currentSorting={{@sort}} @label='Nagekeken' class="u-hidden-mobile" />
       {{/if}}
       <AuDataTableThSortable @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{@sort}} @label='Naam' class="au-u-visible-small-up" />
@@ -18,12 +18,12 @@
         <AuDataTableThSortable @field='start' @currentSorting={{@sort}} @label='Start mandaat' class="au-u-visible-medium-up" />
         <AuDataTableThSortable @field='einde' @currentSorting={{@sort}} @label='Einde mandaat' class="au-u-visible-medium-up" />
       {{/unless}}
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         <AuDataTableThSortable @field='generatedFromGelinktNotuleren' @currentSorting={{@sort}} @label='Gelinkt Notuleren'/>
         <AuDataTableThSortable @field='duplicateOf.bekleedt.bestuursfunctie.label' @currentSorting={{@sort}} @label='Gedupliceerd'/>
       {{/if}}
       <th></th>
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         {{#unless @displaySubset}}
         <th></th>
         {{/unless}}
@@ -38,7 +38,7 @@
         {{/each}}
         </td>
       {{/unless}}
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         <td>
           <AuCheckbox @checked={{row.isBestuurlijkeAliasVan.verifiedMandaten}} @disabled={{true}} />
         </td>
@@ -61,7 +61,7 @@
         <td class="au-u-visible-medium-up">{{moment-format row.start 'DD-MM-YYYY'}}</td>
         <td class="au-u-visible-medium-up">{{moment-format row.einde 'DD-MM-YYYY'}}</td>
       {{/unless}}
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         <td>
           {{row.generatedFromGelinktNotuleren}}
         </td>
@@ -74,7 +74,7 @@
         </td>
       {{/if}}
       <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         {{#unless @displaySubset}}
           <td>
             <AuButton @skin="link" @icon="bin" @alert="true" {{on "click" (fn this.removeMandataris row)}}>

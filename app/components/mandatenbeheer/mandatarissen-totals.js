@@ -46,7 +46,7 @@ export default class MandatenbeheerMandatarissenTotalsComponent extends Componen
     const mapMandtnOrgs = yield Promise.all(
       bstOrgs.map(async (o) => {
         return { org: o, mandtn: await this.getMandatenOrgaan(o) };
-      })
+      }),
     );
 
     const mapMandtnMandarissen = async (mandaat) => {
@@ -62,7 +62,7 @@ export default class MandatenbeheerMandatarissenTotalsComponent extends Componen
           orgaan: e.org,
           mandaten: await Promise.all(e.mandtn.map(mapMandtnMandarissen)),
         };
-      })
+      }),
     );
 
     this.mandatarissenTotals = mapMandtrsOrgs;

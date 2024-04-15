@@ -23,7 +23,7 @@ export default class MandatenbeheerMandatarissenNewPersonController extends Cont
   onCreate(user) {
     this.router.transitionTo(
       'mandatenbeheer.mandatarissen.edit',
-      user.get('id')
+      user.get('id'),
     );
   }
 

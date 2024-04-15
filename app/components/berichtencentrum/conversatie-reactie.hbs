@@ -62,7 +62,7 @@
         class="js-accordion__toggle js-accordion-bound">
         Verstuur bericht
       </AuButton>
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         <AuButton
           {{on 'click' (perform this.verstuurBerichtAlsABB)}}
           @loading={{this.verstuurBerichtAlsABB.isRunning}}

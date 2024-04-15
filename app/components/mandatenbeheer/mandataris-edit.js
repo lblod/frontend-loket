@@ -7,11 +7,11 @@ import { observer } from '@ember/object';
 import { isBlank } from '@ember/utils';
 import { A } from '@ember/array';
 import { computed } from '@ember/object';
-import { macroCondition, getOwnConfig } from '@embroider/macros';
 
 export default Component.extend({
   tag: 'li',
   classNames: ['au-c-list-vertical__item'],
+  currentSession: service(),
   store: service(),
   dateFormat: 'DD-MM-YYYY',
   editMode: false, //some components will change behaviour when being in editMode
@@ -49,12 +49,12 @@ export default Component.extend({
     this.set('rangorde', this.get('mandataris.rangorde'));
     this.set('status', await this.get('mandataris.status'));
 
-    if (macroCondition(getOwnConfig().controle)) {
+    if (this.currentSession.isAdmin) {
       let duplicatedMandataris = await this.get('mandataris.duplicateOf');
       this.set('duplicatedMandataris', duplicatedMandataris);
       this.set(
         'duplicationReason',
-        await this.get('mandataris.duplicationReason')
+        await this.get('mandataris.duplicationReason'),
       );
       this.set('isDuplicated', Boolean(duplicatedMandataris));
     }
@@ -90,7 +90,7 @@ export default Component.extend({
       this.set('mandataris.rangorde', this.rangorde);
       this.set('mandataris.status', this.status);
 
-      if (macroCondition(getOwnConfig().controle)) {
+      if (this.currentSession.isAdmin) {
         const currentSavedDuplicate = yield this.get('mandataris.duplicateOf');
 
         if (this.duplicatedMandataris || currentSavedDuplicate) {
@@ -102,7 +102,7 @@ export default Component.extend({
           if (this.duplicatedMandataris) {
             this.set(
               'duplicatedMandataris.duplicationReason',
-              this.duplicationReason
+              this.duplicationReason,
             );
             this.set('duplicatedMandataris.duplicateOf', this.mandataris);
             yield this.duplicatedMandataris.save();
@@ -150,7 +150,7 @@ export default Component.extend({
 
     // if new and old fractie are both onafhankelijk, nothing needs to be done...
     let currFractie = await this.get(
-      'mandataris.heeftLidmaatschap.binnenFractie'
+      'mandataris.heeftLidmaatschap.binnenFractie',
     );
     if (
       currFractie &&
@@ -172,8 +172,8 @@ export default Component.extend({
       'mandataris.heeftLidmaatschap.tijdsinterval',
       await this.getTijdsinterval(
         this.get('mandataris.start'),
-        this.get('mandataris.einde')
-      )
+        this.get('mandataris.einde'),
+      ),
     );
   },
 
@@ -192,7 +192,7 @@ export default Component.extend({
   async createNewLidmaatschap() {
     let tijdsinterval = await this.getTijdsinterval(
       this.get('mandataris.start'),
-      this.get('mandataris.einde')
+      this.get('mandataris.einde'),
     );
     let fractie = this.fractie;
 
@@ -220,7 +220,7 @@ export default Component.extend({
     if (start && end && end < start) {
       this.set(
         'startDateError',
-        'geplande start moet voor gepland einde liggen'
+        'geplande start moet voor gepland einde liggen',
       );
       this.set('endDateError', 'gepland einde moet na geplande start liggen');
     }

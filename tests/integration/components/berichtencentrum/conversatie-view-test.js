@@ -3,6 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import EmberObject from '@ember/object';
+import CurrentSession from 'frontend-loket/services/current-session';
 
 module(
   'Integration | Component | berichtencentrum/conversatie-view',
@@ -10,6 +11,8 @@ module(
     setupRenderingTest(hooks);
 
     hooks.beforeEach(function () {
+      this.owner.register('service:current-session', MockableCurrentSession);
+
       const classificatieCode = {
         label: 'Gemeente',
         scopeNote: undefined,
@@ -102,7 +105,7 @@ module(
         hbs`<Berichtencentrum::ConversatieView
           @conversatie={{this.model}}
           data-test-loket="berichtencentrum-conversatie"
-        />`
+        />`,
       );
 
       assert
@@ -119,17 +122,22 @@ module(
         hbs`<Berichtencentrum::ConversatieView
           @conversatie={{this.model}}
           data-test-loket="berichtencentrum-conversatie"
-        />`
+        />`,
       );
 
       assert
         .dom(`[data-test-loket=berichtencentrum-bericht-view]`)
         .exists({ count: 1 });
     });
-  }
+  },
 );
 
 function mockCurrentSessionGroup(owner) {
   let currentSession = owner.lookup('service:current-session');
   currentSession.group = { id: '1234' };
+}
+
+class MockableCurrentSession extends CurrentSession {
+  // This allows us to override the group in some of the tests
+  group = undefined;
 }

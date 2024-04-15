@@ -29,13 +29,13 @@ export default class SubsidyApplicationsEditStepIndexRoute extends Route {
         'subsidy.applications.edit.step.edit',
         consumption.id,
         step.id,
-        form.id
+        form.id,
       );
     } else {
       return this.router.replaceWith(
         'subsidy.applications.edit.step.new',
         consumption.id,
-        step.id
+        step.id,
       );
     }
   }

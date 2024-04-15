@@ -72,13 +72,13 @@ export default class SupervisionSubmissionsEditController extends Controller {
       undefined,
       undefined,
       undefined,
-      addGraphFor(this.graphs.sourceGraph)
+      addGraphFor(this.graphs.sourceGraph),
     );
     this.removedTriples = this.formStore.match(
       undefined,
       undefined,
       undefined,
-      delGraphFor(this.graphs.sourceGraph)
+      delGraphFor(this.graphs.sourceGraph),
     );
   }
 
@@ -89,7 +89,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
       headers: { 'Content-Type': 'application/vnd.api+json' },
       body: JSON.stringify({
         ...this.formStore.serializeDataWithAddAndDelGraph(
-          this.graphs.sourceGraph
+          this.graphs.sourceGraph,
         ),
       }),
     });
@@ -97,7 +97,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
       `/submission-forms/${this.model.submissionDocument.id}/flatten`,
       {
         method: 'PUT',
-      }
+      },
     );
 
     // Since the form data and related entities are not updated via ember-data
@@ -114,7 +114,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/vnd.api+json' },
-      }
+      },
     );
     // Since the sent date and sent status of the submission will be set by the backend
     // and not via ember-data, we need to manually reload the submission record

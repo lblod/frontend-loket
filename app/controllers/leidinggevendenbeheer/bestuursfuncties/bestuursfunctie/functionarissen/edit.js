@@ -34,7 +34,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
 
   exit() {
     this.router.transitionTo(
-      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen'
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen',
     );
   }
 }

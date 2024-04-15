@@ -44,12 +44,12 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     const hundredYearsAgo = new Date(
       now.getFullYear() - 100,
       now.getMonth(),
-      now.getDate()
+      now.getDate(),
     );
     const eighteenYearsAgo = new Date(
       now.getFullYear() - 18,
       now.getMonth(),
-      now.getDate()
+      now.getDate(),
     );
 
     this.minDate = hundredYearsAgo;
@@ -57,7 +57,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
     if (this.args.prefilledValues?.rijksregisternummer) {
       this.setRijksregisternummer(
-        this.args.prefilledValues?.rijksregisternummer
+        this.args.prefilledValues?.rijksregisternummer,
       );
     }
   }

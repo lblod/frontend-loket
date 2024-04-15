@@ -59,7 +59,7 @@
       <td>
         <AuButtonGroup @inline={{true}}>
           <AuLink @route="supervision.submissions.edit" @model={{row.id}} @icon="eye">Bekijk</AuLink>
-          {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+          {{#if (is-admin)}}
             <AuButton @icon="redo"
                       @skin="link"
                       @alert={{true}}

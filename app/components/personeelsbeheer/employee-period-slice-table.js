@@ -21,7 +21,7 @@ export default class EmployeePeriodSliceTable extends Component {
     });
     const workingTimeCategories = yield this.store.query(
       'working-time-category',
-      { page: { size: 10 }, sort: '-label' }
+      { page: { size: 10 }, sort: '-label' },
     );
     const legalStatuses = yield this.store.query('employee-legal-status', {
       page: { size: 10 },

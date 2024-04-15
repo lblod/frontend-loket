@@ -27,7 +27,7 @@ export default class MandatenbeheerRoute extends Route {
 
     const bestuurseenheid = this.currentSession.group;
     const bestuursorganen = await this.getRelevantBestuursorganen(
-      bestuurseenheid.get('id')
+      bestuurseenheid.get('id'),
     );
     const bestuursperiods =
       this.calculateUniqueBestuursperiods(bestuursorganen);
@@ -38,7 +38,7 @@ export default class MandatenbeheerRoute extends Route {
 
     const selectedBestuursOrganen = this.getBestuursorganenForPeriod(
       bestuursorganen,
-      selectedPeriod
+      selectedPeriod,
     );
 
     return RSVP.hash({
@@ -59,7 +59,7 @@ export default class MandatenbeheerRoute extends Route {
 
     const comparablePeriods = periods.map((period) => JSON.stringify(period));
     const uniquePeriods = [...new Set(comparablePeriods)].map((period) =>
-      JSON.parse(period)
+      JSON.parse(period),
     );
 
     return uniquePeriods;
@@ -76,7 +76,7 @@ export default class MandatenbeheerRoute extends Route {
       const today = moment(new Date()).format('YYYY-MM-DD');
 
       const currentPeriod = sortedPeriods.find(
-        (p) => p.startDate <= today && (today < p.endDate || !p.endDate)
+        (p) => p.startDate <= today && (today < p.endDate || !p.endDate),
       );
       const firstfuturePeriod = sortedPeriods.find((p) => p.startDate > today);
       const firstPreviousPeriod = sortedPeriods.slice(-1)[0];
