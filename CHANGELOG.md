@@ -1,3 +1,8 @@
+## v0.92.3 (2024-04-15)
+
+#### :bug: Bug Fix
+* [#381](https://github.com/lblod/frontend-loket/pull/381), [#382](https://github.com/lblod/frontend-loket/pull/382) Fix some issues when logging in with ACM/IDM ([@Windvis](https://github.com/Windvis))
+
 ## v0.92.1 (2024-04-08)
 ### General
 #### :bug: Bug Fix
