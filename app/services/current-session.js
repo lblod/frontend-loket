@@ -63,8 +63,15 @@ export default class CurrentSessionService extends Service {
       // TODO: I don't think we need all of these as properties
       this._user = this._account.gebruiker;
       this._roles = this.session.data.authenticated.data.attributes.roles;
-      this._group = this._user.group;
-      this._groupClassification = this._group.belongsTo('classificatie').value();
+
+      // We need to do an extra API call here because ACM/IDM users don't seem to have a "bestuurseenheden" relationship in the DB.
+      // By fetching the record directly we bypass that issue
+      const groupId = this.session.data.authenticated.relationships.group.data.id;
+      this._group = await this.store.findRecord('bestuurseenheid', groupId, {
+        include: 'classificatie',
+        reload: true,
+      });
+      this._groupClassification = await this.group.classificatie;
 
       if (this.isAdmin) {
         await this.impersonation.load();
