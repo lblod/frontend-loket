@@ -40,7 +40,7 @@ export default class ApplicationController extends Controller {
       groupInfo += classification.label;
     }
 
-    if (group.naam) {
+    if (group?.naam) {
       groupInfo += ` ${group.naam}`;
     }
 
