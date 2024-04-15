@@ -1,3 +1,8 @@
+## v0.91.2 (2024-04-15)
+### General
+#### :rocket: Enhancement
+* [#377](https://github.com/lblod/frontend-loket/pull/377) [DGS-184] update ember-submission-form-fields to v2.22.1 ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.91.1 (2024-03-13)
 ### Berichtencentrum
 #### :bug: Bug Fix
