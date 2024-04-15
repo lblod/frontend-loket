@@ -47,7 +47,12 @@ export default class CurrentSessionService extends Service {
   }
 
   get group() {
-    return this.user?.group;
+    if (this.impersonation.isImpersonating) {
+      // These are mock users, so it should be ok to access the "bestuurseenheden" relationship
+      return this.user?.group;
+    } else {
+      return this._group;
+    }
   }
 
   get groupClassification() {
