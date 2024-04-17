@@ -42,13 +42,9 @@ export default class ImpersonateController extends Controller {
   });
 
   impersonateAccount = task(async (accountId) => {
-    const shouldClearData = this.impersonation.isImpersonating;
-
     await this.impersonation.impersonate(accountId);
     await this.router.transitionTo('index');
 
-    if (shouldClearData) {
-      window.location.reload();
-    }
+    window.location.reload();
   });
 }
