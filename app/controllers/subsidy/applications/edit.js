@@ -9,10 +9,10 @@ export default class SubsidyApplicationsEditController extends Controller {
   get reeksHasStartOrEnd() {
     return (
       this.consumption.get(
-        'subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin'
+        'subsidyApplicationFlow.subsidyMeasureOfferSeries.period.begin',
       ) ||
       this.consumption.get(
-        'subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end'
+        'subsidyApplicationFlow.subsidyMeasureOfferSeries.period.end',
       )
     );
   }
@@ -49,7 +49,7 @@ export default class SubsidyApplicationsEditController extends Controller {
 
       const participations = yield this.consumption.participations;
       yield Promise.all(
-        participations.map((participation) => participation.destroyRecord())
+        participations.map((participation) => participation.destroyRecord()),
       );
 
       // We intentionally don't use 'destroyRecord` here since that calls unloadRecord before the

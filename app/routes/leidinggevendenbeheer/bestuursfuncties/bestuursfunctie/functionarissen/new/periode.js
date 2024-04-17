@@ -15,7 +15,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
       page: { size: 1 },
     });
     const bestuursfunctie = this.modelFor(
-      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie',
     );
 
     const functionaris = await this.store.createRecord('functionaris', {

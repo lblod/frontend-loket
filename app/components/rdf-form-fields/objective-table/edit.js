@@ -12,20 +12,20 @@ const bicycleInfrastructureUri =
 const resourceInstanceBaseUri =
   'http://lblod.data.gift/id/subsidie/bicycle-infrastructure';
 const ObjectiveTableType = new NamedNode(
-  `${bicycleInfrastructureUri}ObjectiveTable`
+  `${bicycleInfrastructureUri}ObjectiveTable`,
 );
 const objectiveTablePredicate = new NamedNode(
-  `${bicycleInfrastructureUri}objectiveTable`
+  `${bicycleInfrastructureUri}objectiveTable`,
 );
 const kilometersPredicate = new NamedNode(
-  `${bicycleInfrastructureUri}kilometers`
+  `${bicycleInfrastructureUri}kilometers`,
 );
 
 const hasInvalidCellPredicate = new NamedNode(
-  `${bicycleInfrastructureUri}/hasInvalidObjectiveTableEntry`
+  `${bicycleInfrastructureUri}/hasInvalidObjectiveTableEntry`,
 );
 const validObjectiveTable = new NamedNode(
-  `${bicycleInfrastructureUri}validObjectiveTable`
+  `${bicycleInfrastructureUri}validObjectiveTable`,
 );
 
 export default class RdfFormFieldsObjectiveTableEditComponent extends InputFieldComponent {
@@ -38,7 +38,7 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
         this.sourceNode,
         objectiveTablePredicate,
         this.objectiveTableSubject,
-        this.storeOptions.sourceGraph
+        this.storeOptions.sourceGraph,
       ).length > 0
     );
   }
@@ -70,7 +70,7 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
   createObjectiveTable() {
     const uuid = uuidv4();
     this.objectiveTableSubject = new NamedNode(
-      `${resourceInstanceBaseUri}/${uuid}`
+      `${resourceInstanceBaseUri}/${uuid}`,
     );
     const triples = [
       {
@@ -100,7 +100,7 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
       subject,
       predicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     this.storeOptions.store.removeStatements([...triples]);
@@ -122,7 +122,7 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
       null,
       kilometersPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     const cellsWithValue = cells.filter((item) => item.object.value > 0);
     return cellsWithValue.length > 0;
@@ -136,7 +136,7 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
       this.objectiveTableSubject,
       hasInvalidCellPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     if (!this.cellHasValue()) {
@@ -146,7 +146,7 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
       this.updateTripleObject(
         this.objectiveTableSubject,
         validObjectiveTable,
-        null
+        null,
       );
     } else if (invalidRow) {
       this.errors.pushObject({
@@ -155,13 +155,13 @@ export default class RdfFormFieldsObjectiveTableEditComponent extends InputField
       this.updateTripleObject(
         this.objectiveTableSubject,
         validObjectiveTable,
-        null
+        null,
       );
     } else {
       this.updateTripleObject(
         this.objectiveTableSubject,
         validObjectiveTable,
-        true
+        true,
       );
     }
   }

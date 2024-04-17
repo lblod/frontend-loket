@@ -1,3 +1,19 @@
+## v0.92.3 (2024-04-15)
+
+#### :bug: Bug Fix
+* [#381](https://github.com/lblod/frontend-loket/pull/381), [#382](https://github.com/lblod/frontend-loket/pull/382) Fix some issues when logging in with ACM/IDM ([@Windvis](https://github.com/Windvis))
+
+## v0.92.1 (2024-04-08)
+### General
+#### :bug: Bug Fix
+* [#378](https://github.com/lblod/frontend-loket/pull/378) Use the correct admin role ([@Windvis](https://github.com/Windvis))
+
+##  v0.92.0 (2024-04-04)
+### General
+#### :rocket: Enhancement
+* [#371](https://github.com/lblod/frontend-loket/pull/371) [DL-5790] Allow admin users to impersonate other accounts ([@Windvis](https://github.com/Windvis))
+* [#377](https://github.com/lblod/frontend-loket/pull/377) [DGS-184] update ember-submission-form-fields to v2.22.1 ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.91.1 (2024-03-13)
 ### Berichtencentrum
 #### :bug: Bug Fix

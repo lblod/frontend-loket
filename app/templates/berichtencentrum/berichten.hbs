@@ -29,7 +29,7 @@
             Ontvang mails bij nieuwe berichten
           </AuButton>
 
-          {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+          {{#if (is-admin)}}
             {{#if this.isCreatingConversation}}
               {{! We use a button for the disabled state because links can't easily be disabled }}
               <AuButton @icon="add" @disabled={{true}}>

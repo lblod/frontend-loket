@@ -19,10 +19,15 @@
         Help
       </AuLinkExternal>
     </li>
+    {{#if this.currentSession.isAdmin}}
+      <li class="au-c-list-horizontal__item">
+        <ImpersonationMenu />
+      </li>
+    {{/if}}
     <li class="au-c-list-horizontal__item">
       {{#if this.session.isAuthenticated}}
         <AuDropdown
-          @title="{{this.currentSession.user.voornaam}} {{this.currentSession.user.achternaam}} - {{this.currentSession.groupClassification.label}} {{this.currentSession.group.naam}}"
+          @title={{this.userInfo}}
           @buttonLabel="Account settings"
           @alignment="right"
           role="menu"
@@ -47,7 +52,9 @@
         <main.sidebar>
           <div class="au-c-sidebar">
             <div class="au-c-sidebar__content">
-              <Shared::MainMenu />
+              {{#if this.currentSession.canAccessModules}}
+                <Shared::MainMenu />
+              {{/if}}
             </div>
             <div class="au-c-sidebar__footer">
               <AuLinkExternal
@@ -67,15 +74,17 @@
             <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
               <Group>
                 <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-                  <li class="au-c-list-horizontal__item">
-                    <AuLink @route="index">
-                      <AuIcon @icon="arrow-left" @alignment="left" />
-                      Overzicht modules
-                    </AuLink>
-                  </li>
-                  <li class="au-c-list-horizontal__item">
-                    <Shared::CompactMenu />
-                  </li>
+                  {{#if this.currentSession.canAccessModules}}
+                    <li class="au-c-list-horizontal__item">
+                      <AuLink @route="index">
+                        <AuIcon @icon="arrow-left" @alignment="left" />
+                        Overzicht modules
+                      </AuLink>
+                    </li>
+                    <li class="au-c-list-horizontal__item">
+                      <Shared::CompactMenu />
+                    </li>
+                  {{/if}}
                   <Shared::BreadCrumb />
                 </ul>
               </Group>

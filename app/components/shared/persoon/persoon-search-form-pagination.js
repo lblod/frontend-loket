@@ -39,7 +39,7 @@ export default class PersoonSearchFormPagination extends Component {
     const nbOfPages = this.lastPage - this.firstPage + 1;
     return Array.from(
       new Array(nbOfPages),
-      (_val, index) => this.firstPage + index
+      (_val, index) => this.firstPage + index,
     );
   }
 

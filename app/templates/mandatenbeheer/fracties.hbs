@@ -65,7 +65,7 @@
         </table>
       </div>
 
-      {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+      {{#if (is-admin)}}
         {{#if this.saveFractie.isRunning}}
           <div class="loader-wrapper">
             <div class="loader">

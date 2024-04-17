@@ -19,25 +19,25 @@ const accountabilityEntryBaseUri =
 const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
 
 const AccountabilityTableType = new NamedNode(
-  `${lblodSubsidieBaseUri}AccountabilityTable`
+  `${lblodSubsidieBaseUri}AccountabilityTable`,
 );
 const AccountabilityEntryType = new NamedNode(
-  `${lblodSubsidieBaseUri}AccountabilityEntry`
+  `${lblodSubsidieBaseUri}AccountabilityEntry`,
 );
 const accountabilityTablePredicate = new NamedNode(
-  `${lblodSubsidieBaseUri}accountabilityTable`
+  `${lblodSubsidieBaseUri}accountabilityTable`,
 );
 const accountabilityEntryPredicate = new NamedNode(
-  `${lblodSubsidieBaseUri}accountabilityEntry`
+  `${lblodSubsidieBaseUri}accountabilityEntry`,
 );
 
 const createdPredicate = new NamedNode('http://purl.org/dc/terms/created');
 
 const hasInvalidRowPredicate = new NamedNode(
-  `${subsidyBaseUri}hasInvalidAccountabilityTableEntry`
+  `${subsidyBaseUri}hasInvalidAccountabilityTableEntry`,
 );
 const validAccountabilityTable = new NamedNode(
-  `${lblodSubsidieBaseUri}validAccountabilityTable`
+  `${lblodSubsidieBaseUri}validAccountabilityTable`,
 );
 
 class FileField {
@@ -73,7 +73,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
           this.sourceNode,
           accountabilityTablePredicate,
           this.accountabilityTableSubject,
-          this.storeOptions.sourceGraph
+          this.storeOptions.sourceGraph,
         ).length > 0
       );
   }
@@ -123,7 +123,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
         entry.object,
         createdPredicate,
         undefined,
-        this.storeOptions.sourceGraph
+        this.storeOptions.sourceGraph,
       );
 
       this.entries.pushObject({
@@ -158,7 +158,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
         });
     } catch (error) {
       console.log(
-        `Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`
+        `Failed to retrieve file with URI ${uri}: ${JSON.stringify(error)}`,
       );
       return new FileField({
         record: null,
@@ -170,7 +170,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
   createAccountabilityTable() {
     const uuid = uuidv4();
     this.accountabilityTableSubject = new NamedNode(
-      `${accountabilityTableBaseUri}/${uuid}`
+      `${accountabilityTableBaseUri}/${uuid}`,
     );
     const triples = [
       {
@@ -200,7 +200,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     const uuid = uuidv4();
     const created = new Date().toISOString();
     const accountabilityEntrySubject = new NamedNode(
-      `${accountabilityEntryBaseUri}/${uuid}`
+      `${accountabilityEntryBaseUri}/${uuid}`,
     );
     const triples = [
       {
@@ -259,7 +259,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
     this.storeOptions.store.removeStatements(entryTriples);
 
     this.entries = this.entries.filter(
-      (entry) => entry.entrySubject != tableEntrySubject
+      (entry) => entry.entrySubject != tableEntrySubject,
     );
     this.validate();
   }
@@ -269,7 +269,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
       subject,
       predicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     this.storeOptions.store.removeStatements([...triples]);
@@ -293,7 +293,7 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
       this.accountabilityTableSubject,
       hasInvalidRowPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     if (invalidRow) {
@@ -304,13 +304,13 @@ export default class RdfFormFieldsAccountabilityTableEditComponent extends Input
       this.updateTripleObject(
         this.accountabilityTableSubject,
         validAccountabilityTable,
-        null
+        null,
       );
     } else {
       this.updateTripleObject(
         this.accountabilityTableSubject,
         validAccountabilityTable,
-        true
+        true,
       );
     }
   }

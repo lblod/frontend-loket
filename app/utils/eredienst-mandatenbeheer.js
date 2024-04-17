@@ -49,7 +49,7 @@ export async function setMandate(store, mandataris, mandaat) {
     if (hasCurrentMandate) {
       const previousBestuursfunctie = await currentMandate.bestuursfunctie;
       wasLifeTimeBoardPosition = isLifetimeBoardPosition(
-        previousBestuursfunctie
+        previousBestuursfunctie,
       );
     }
 
@@ -76,7 +76,7 @@ async function getExpectedEndDateForPosition(store, mandaat) {
     sort: '-binding-start',
   });
   let expectedEndDates = bestuursorganenInTijd.map(
-    (bestuursorgaan) => bestuursorgaan.bindingEinde
+    (bestuursorgaan) => bestuursorgaan.bindingEinde,
   );
 
   return expectedEndDates[0];
@@ -122,7 +122,7 @@ export async function warnOnMandateExceededTimePeriode(
   mandate,
   store,
   startDate,
-  endDate
+  endDate,
 ) {
   if (!mandate) {
     return; // Handling the case where we create a new worship-mandatee.
@@ -150,16 +150,16 @@ export async function warnOnMandateExceededTimePeriode(
 
   if (startDate < activeTimePeriodeLimitStart) {
     warningMessages.startDateMessage = `De startdatum ${formatDate(
-      startDate
+      startDate,
     )} valt voor de voorgestelde startdatum van de bestuursperiode ${formatDate(
-      activeTimePeriodeLimitStart
+      activeTimePeriodeLimitStart,
     )}.`;
   }
   if (endDate > activeTimePeriodeLimitEnd) {
     warningMessages.endDateMessage = `De einddatum ${formatDate(
-      endDate
+      endDate,
     )} valt na de voorgestelde einddatum van de bestuursperiode ${formatDate(
-      activeTimePeriodeLimitEnd
+      activeTimePeriodeLimitEnd,
     )}.`;
   }
 

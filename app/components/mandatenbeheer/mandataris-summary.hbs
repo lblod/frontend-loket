@@ -32,7 +32,7 @@
         {{#if this.fractie}}
         <li class="au-c-list-horizontal__item">{{this.fractie}}</li>
         {{/if}}
-        {{#if (macroCondition (macroGetOwnConfig "controle"))}}
+        {{#if (is-admin)}}
           <li class="au-c-list-horizontal__item">Gelinkt notuleren? {{this.gelinktNotuleren}}</li>
           {{#if @mandataris.duplicateOf}}
             <li class="au-c-list-horizontal__item">Gedupliceerd</li>

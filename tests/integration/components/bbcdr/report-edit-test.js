@@ -145,7 +145,7 @@ module('Integration | Component | bbcdr/report-edit', function (hooks) {
 
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-close-panel-btn]'
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-close-panel-btn]',
       )
       .exists({ count: 1 });
 
@@ -153,7 +153,7 @@ module('Integration | Component | bbcdr/report-edit', function (hooks) {
       .dom('[data-test-loket=bbcdr-already-submitted-message]')
       .exists(
         { count: 1 },
-        'It shows a message that the report was already submitted before'
+        'It shows a message that the report was already submitted before',
       );
 
     assert.dom('[data-test-loket=bbcdr-send-btn]').doesNotExist();
@@ -193,13 +193,13 @@ module('Integration | Component | bbcdr/report-edit', function (hooks) {
     this.set('report', unsavedReport);
 
     await render(
-      hbs`<Bbcdr::ReportEdit @report={{this.report}} @reportFiles={{this.reportFiles}} />`
+      hbs`<Bbcdr::ReportEdit @report={{this.report}} @reportFiles={{this.reportFiles}} />`,
     );
 
     assert.true(unsavedReport.isNew, 'The report isNew');
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]',
       )
       .exists({ count: 1 })
       .isDisabled();
@@ -218,7 +218,7 @@ module('Integration | Component | bbcdr/report-edit', function (hooks) {
 
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]',
       )
       .exists({ count: 1 })
       .isDisabled();
@@ -239,7 +239,7 @@ module('Integration | Component | bbcdr/report-edit', function (hooks) {
     assert.true(unsavedReportWith2Files.isNew, 'The report isNew');
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]',
       )
       .exists({ count: 1 })
       .isNotDisabled();
@@ -263,7 +263,7 @@ module('Integration | Component | bbcdr/report-edit', function (hooks) {
 
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]'
+        '[data-test-loket=bbcdr-report-edit-buttons] [data-test-loket=bbcdr-send-btn]',
       )
       .doesNotExist();
   });

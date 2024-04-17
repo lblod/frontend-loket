@@ -46,7 +46,7 @@ export default class SubsidyApplicationsEditStepNewRoute extends Route {
       'subsidy.applications.edit.step.edit',
       consumption.id,
       step.id,
-      form.id
+      form.id,
     );
   }
 }

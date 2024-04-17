@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenIndexRoute extends Route.extend(
-  DataTableRouteMixin
+  DataTableRouteMixin,
 ) {
   @service currentSession;
   @service router;
@@ -25,7 +25,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
 
   mergeQueryOptions() {
     this.bestuursfunctie = this.modelFor(
-      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie',
     );
 
     return {

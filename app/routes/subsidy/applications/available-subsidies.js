@@ -4,7 +4,7 @@ import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 
 export default class SubsidyApplicationsAvailableSubsidiesRoute extends Route.extend(
-  DataTableRouteMixin
+  DataTableRouteMixin,
 ) {
   @service currentSession;
   @service store;

@@ -78,17 +78,17 @@ module('Integration | Component | bbcdr/report-table', function (hooks) {
 
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(1) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]'
+        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(1) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]',
       )
       .exists({ count: 3 });
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(2) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]'
+        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(2) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]',
       )
       .exists({ count: 1 });
     assert
       .dom(
-        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(3) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]'
+        '[data-test-loket=bbcdr-report-table-body] tr:nth-child(3) td[data-test-loket=bbcdr-report-table-files-column] [data-test-loket=bbcdr-file-miniature]',
       )
       .doesNotExist();
   });
@@ -121,7 +121,7 @@ module('Integration | Component | bbcdr/report-table', function (hooks) {
         .dom(
           `[data-test-loket=bbcdr-report-table-body] tr:nth-child(${
             i + 1
-          }) td[data-test-loket=bbcdr-report-table-open-details-column] a`
+          }) td[data-test-loket=bbcdr-report-table-open-details-column] a`,
         )
         .exists({ count: 1 });
     }

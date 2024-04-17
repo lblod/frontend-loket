@@ -2,10 +2,11 @@ import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
+import { loadAccountData } from 'frontend-loket/utils/account';
 import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
 import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 
-const MODULE = {
+const MODULE_ROLE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
   BERICHTENCENTRUM: 'LoketLB-berichtenGebruiker',
   BBCDR: 'LoketLB-bbcdrGebruiker',
@@ -22,33 +23,65 @@ const MODULE = {
   CONTACT: 'LoketLB-ContactOrganisatiegegevensGebruiker',
 };
 
+const ADMIN_ROLE = 'LoketLB-admin';
+
 export default class CurrentSessionService extends Service {
   @service session;
   @service store;
+  @service impersonation;
 
-  @tracked account;
-  @tracked user;
-  @tracked group;
-  @tracked groupClassification;
-  @tracked roles = [];
+  @tracked _account;
+  @tracked _user;
+  @tracked _group;
+  @tracked _groupClassification;
+  @tracked _roles = [];
+
+  get account() {
+    if (this.impersonation.isImpersonating) {
+      return this.impersonation.impersonatedAccount;
+    } else {
+      return this._account;
+    }
+  }
+  get user() {
+    return this.account?.gebruiker;
+  }
+
+  get group() {
+    if (this.impersonation.isImpersonating) {
+      // These are mock users, so it should be ok to access the "bestuurseenheden" relationship
+      return this.user?.group;
+    } else {
+      return this._group;
+    }
+  }
+
+  get groupClassification() {
+    return this.group?.belongsTo('classificatie').value()
+  }
 
   async load() {
     if (this.session.isAuthenticated) {
       let accountId =
         this.session.data.authenticated.relationships.account.data.id;
-      this.account = await this.store.findRecord('account', accountId, {
-        include: 'gebruiker',
-      });
+      this._account = await loadAccountData(this.store, accountId);
 
-      this.user = this.account.gebruiker;
-      this.roles = this.session.data.authenticated.data.attributes.roles;
+      // TODO: I don't think we need all of these as properties
+      this._user = this._account.gebruiker;
+      this._roles = this.session.data.authenticated.data.attributes.roles;
 
-      let groupId = this.session.data.authenticated.relationships.group.data.id;
-      this.group = await this.store.findRecord('bestuurseenheid', groupId, {
+      // We need to do an extra API call here because ACM/IDM users don't seem to have a "bestuurseenheden" relationship in the DB.
+      // By fetching the record directly we bypass that issue
+      const groupId = this.session.data.authenticated.relationships.group.data.id;
+      this._group = await this.store.findRecord('bestuurseenheid', groupId, {
         include: 'classificatie',
         reload: true,
       });
-      this.groupClassification = await this.group.classificatie;
+      this._groupClassification = await this.group.classificatie;
+
+      if (this.isAdmin) {
+        await this.impersonation.load();
+      }
 
       this.setupSentrySession();
     }
@@ -56,106 +89,120 @@ export default class CurrentSessionService extends Service {
 
   setupSentrySession() {
     if (SHOULD_ENABLE_SENTRY) {
-      setUser({ id: this.user.id, ip_address: null });
+      setUser({ id: this._user.id, ip_address: null });
       setContext('session', {
-        account: this.account.id,
-        user: this.user.id,
-        group: this.group.uri,
-        groupClassification: this.groupClassification?.uri,
-        roles: this.roles,
+        account: this._account.id,
+        user: this._user.id,
+        group: this._group.uri,
+        groupClassification: this._groupClassification?.uri,
+        roles: this._roles,
       });
     }
   }
 
   canAccess(role) {
-    return this.roles.includes(role);
+    if (this.impersonation.isImpersonating) {
+      return this.impersonation.impersonatedAccount.roles.includes(role);
+    } else {
+      return this._roles.includes(role);
+    }
   }
 
   get hasViewOnlyWorshipMinistersManagementData() {
     return !!this.group.viewOnlyModules?.includes(
-      MODULE.WORSHIP_MINISTER_MANAGEMENT
+      MODULE_ROLE.WORSHIP_MINISTER_MANAGEMENT,
     );
   }
 
   get hasViewOnlyWorshipMandateesManagementData() {
     return !!this.group.viewOnlyModules?.includes(
-      MODULE.EREDIENSTMANDATENBEHEER
+      MODULE_ROLE.EREDIENSTMANDATENBEHEER,
     );
   }
 
   get canAccessWorshipDecisionsDb() {
     return (
-      this.canAccess(MODULE.WORSHIP_DECISIONS_DB) &&
+      this.canAccess(MODULE_ROLE.WORSHIP_DECISIONS_DB) &&
       !config.worshipDecisionsDatabaseUrl.startsWith('{{')
     );
   }
 
   get canAccessWorshipOrganisationsDb() {
     return (
-      this.canAccess(MODULE.WORSHIP_ORGANISATIONS_DB) &&
+      this.canAccess(MODULE_ROLE.WORSHIP_ORGANISATIONS_DB) &&
       !config.worshipOrganisationsDatabaseUrl.startsWith('{{')
     );
   }
 
   get canAccessToezicht() {
-    return this.canAccess(MODULE.SUPERVISION);
+    return this.canAccess(MODULE_ROLE.SUPERVISION);
   }
 
   get canAccessBbcdr() {
-    return this.canAccess(MODULE.BBCDR);
+    return this.canAccess(MODULE_ROLE.BBCDR);
   }
 
   get canAccessMandaat() {
-    return this.canAccess(MODULE.MANDATENBEHEER);
+    return this.canAccess(MODULE_ROLE.MANDATENBEHEER);
   }
 
   get canAccessBerichten() {
-    return this.canAccess(MODULE.BERICHTENCENTRUM);
+    return this.canAccess(MODULE_ROLE.BERICHTENCENTRUM);
   }
 
   get canAccessLeidinggevenden() {
-    return this.canAccess(MODULE.LEIDINGGEVENDENBEHEER);
+    return this.canAccess(MODULE_ROLE.LEIDINGGEVENDENBEHEER);
   }
 
   get canAccessPersoneelsbeheer() {
-    return this.canAccess(MODULE.PERSONEELSBEHEER);
+    return this.canAccess(MODULE_ROLE.PERSONEELSBEHEER);
   }
 
   get canAccessSubsidies() {
     if (isFeatureEnabled('subsidies-external')) {
       return (
-        this.canAccess(MODULE.SUBSIDIES) &&
+        this.canAccess(MODULE_ROLE.SUBSIDIES) &&
         !config.subsidiesUrl.startsWith('{{')
       );
     }
 
-    return this.canAccess(MODULE.SUBSIDIES);
   }
 
   get canAccessWorshipMinisterManagement() {
-    return this.canAccess(MODULE.WORSHIP_MINISTER_MANAGEMENT);
+    return this.canAccess(MODULE_ROLE.WORSHIP_MINISTER_MANAGEMENT);
   }
 
   get canAccessEredienstMandatenbeheer() {
-    return this.canAccess(MODULE.EREDIENSTMANDATENBEHEER);
+    return this.canAccess(MODULE_ROLE.EREDIENSTMANDATENBEHEER);
   }
 
   get canAccessPublicServices() {
     return (
-      this.canAccess(MODULE.PUBLIC_SERVICES) && !config.lpdcUrl.startsWith('{{')
+      this.canAccess(MODULE_ROLE.PUBLIC_SERVICES) && !config.lpdcUrl.startsWith('{{')
     );
   }
 
   get canAccessVerenigingen() {
     return (
-      this.canAccess(MODULE.VERENIGINGEN) &&
+      this.canAccess(MODULE_ROLE.VERENIGINGEN) &&
       !config.verenigingenUrl.startsWith('{{')
     );
   }
 
   get canAccessContact() {
     return (
-      this.canAccess(MODULE.CONTACT) && !config.contactUrl.startsWith('{{')
+      this.canAccess(MODULE_ROLE.CONTACT) && !config.contactUrl.startsWith('{{')
     );
   }
+
+  get canAccessModules() {
+    return Object.values(MODULE_ROLE).some((module) => {
+      return this.canAccess(module);
+    })
+  }
+
+  get isAdmin() {
+    return this._roles.includes(ADMIN_ROLE);
+  }
 }
+
