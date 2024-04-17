@@ -18,9 +18,9 @@ export default class ApplicationController extends Controller {
     let group;
     let classification;
 
-    if (this.currentSession.isAdmin) {
-      // TODO: should we create extra "public" properties, so we don't need to use the underscored ones?
-      user = this.currentSession._user;
+    if (this.impersonation.isImpersonating) {
+      user = this.impersonation.originalAccount.gebruiker;
+      // TODO; these don't work yet
       group = this.currentSession._group;
       classification = this.currentSession._groupClassification;
     } else {

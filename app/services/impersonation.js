@@ -4,10 +4,12 @@ import { loadAccountData } from 'frontend-loket/utils/account';
 
 export default class ImpersonationService extends Service {
   @service store;
-  @tracked impersonatedAccount;
+  // @tracked impersonatedAccount;
+  @tracked originalAccount;
+  @tracked originalGroup;
 
   get isImpersonating() {
-    return Boolean(this.impersonatedAccount);
+    return Boolean(this.originalAccount);
   }
 
   async load() {
@@ -15,10 +17,12 @@ export default class ImpersonationService extends Service {
 
     if (response.ok) {
       const result = await response.json();
-      const impersonatedAccountId =
-        result.data.relationships.impersonates.data.id;
-      if (impersonatedAccountId) {
-        await this.#loadImpersonatedAccount(impersonatedAccountId);
+      const originalAccountId =
+        result.data.relationships['original-resource'].data.id;
+
+      if (originalAccountId) {
+        const { account } = await this.#loadAccount(originalAccountId);
+        this.originalAccount = account;
       }
     }
   }
@@ -45,9 +49,9 @@ export default class ImpersonationService extends Service {
       }),
     });
 
-    if (response.ok) {
-      await this.#loadImpersonatedAccount(accountId);
-    } else {
+    if (!response.ok) {
+      // await this.#loadAccount(accountId);
+      // } else {
       const result = await response.json();
       throw new Error(
         'An exception occurred while trying to impersonate someone: ' +
@@ -63,14 +67,19 @@ export default class ImpersonationService extends Service {
       });
 
       if (response.ok) {
-        this.impersonatedAccount = null;
+        this.originalAccount = null;
+        this.originalGroup = null;
       }
     }
   }
 
-  async #loadImpersonatedAccount(accountId) {
+  async #loadAccount(accountId) {
     const account = await loadAccountData(this.store, accountId);
 
-    this.impersonatedAccount = account;
+    // TODO; we need to retrieve the group info in some way, but ACM/IDM accounts/users don't have a relationship to it...
+
+    return {
+      account,
+    }
   }
 }

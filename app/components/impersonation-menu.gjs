@@ -22,6 +22,7 @@ const PauseIcon = <template>
 </template>
 
 export default class ImpersonationMenu extends Component {
+  @service currentSession;
   @service impersonation;
 
   get isImpersonating() {
@@ -37,7 +38,7 @@ export default class ImpersonationMenu extends Component {
       return null;
     }
 
-    return this.impersonation.impersonatedAccount.gebruiker;
+    return this.currentSession.user;
   }
 
   get adminLabel() {

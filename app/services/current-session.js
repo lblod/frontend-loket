@@ -36,23 +36,23 @@ export default class CurrentSessionService extends Service {
   @tracked _roles = [];
 
   get account() {
-    if (this.impersonation.isImpersonating) {
-      return this.impersonation.impersonatedAccount;
-    } else {
-      return this._account;
-    }
+    // if (this.impersonation.isImpersonating) {
+    //   return this.impersonation.impersonatedAccount;
+    // } else {
+    return this._account;
+    // }
   }
   get user() {
     return this.account?.gebruiker;
   }
 
   get group() {
-    if (this.impersonation.isImpersonating) {
-      // These are mock users, so it should be ok to access the "bestuurseenheden" relationship
-      return this.user?.group;
-    } else {
-      return this._group;
-    }
+    // if (this.impersonation.isImpersonating) {
+    //   // These are mock users, so it should be ok to access the "bestuurseenheden" relationship
+    //   return this.user?.group;
+    // } else {
+    return this._group;
+    // }
   }
 
   get groupClassification() {
@@ -61,6 +61,16 @@ export default class CurrentSessionService extends Service {
 
   async load() {
     if (this.session.isAuthenticated) {
+      // This now needs to happen first, since we override the session data but still need to know if the original account is an admin
+      // if (this.isAdmin) {
+      await this.impersonation.load();
+      // }
+
+      if (this.impersonation.isImpersonating) {
+        // TODO, the data in the session storage is the impersonated user,
+        // we need to use the impersonation service to get the actual user
+      }
+      // else {
       let accountId =
         this.session.data.authenticated.relationships.account.data.id;
       this._account = await loadAccountData(this.store, accountId);
@@ -77,10 +87,7 @@ export default class CurrentSessionService extends Service {
         reload: true,
       });
       this._groupClassification = await this.group.classificatie;
-
-      if (this.isAdmin) {
-        await this.impersonation.load();
-      }
+      // }
 
       this.setupSentrySession();
     }
@@ -88,6 +95,8 @@ export default class CurrentSessionService extends Service {
 
   setupSentrySession() {
     if (SHOULD_ENABLE_SENTRY) {
+      // TODO: this needs to always be the admin user, so we need to check if we are impersonating
+      // Maybe we could provide info about the impersonation as well?
       setUser({ id: this._user.id, ip_address: null });
       setContext('session', {
         account: this._account.id,
@@ -100,11 +109,11 @@ export default class CurrentSessionService extends Service {
   }
 
   canAccess(role) {
-    if (this.impersonation.isImpersonating) {
-      return this.impersonation.impersonatedAccount.roles.includes(role);
-    } else {
-      return this._roles.includes(role);
-    }
+    // if (this.impersonation.isImpersonating) {
+    //   return this.impersonation.impersonatedAccount.roles.includes(role);
+    // } else {
+    return this._roles.includes(role);
+    // }
   }
 
   get hasViewOnlyWorshipMinistersManagementData() {
@@ -195,7 +204,13 @@ export default class CurrentSessionService extends Service {
   }
 
   get isAdmin() {
-    return this._roles.includes(ADMIN_ROLE);
+    let roles = this._roles;
+    if (this.impersonation.isImpersonating) {
+      // TODO, this only works for mock accounts, so only the mock admin. Real acm/idm users won't have this _I think_
+      // We should return this from the impersonation service
+      roles = this.impersonation.originalAccount.roles;
+    }
+    return roles.includes(ADMIN_ROLE);
   }
 }
 
