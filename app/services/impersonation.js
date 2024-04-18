@@ -4,9 +4,9 @@ import { loadAccountData } from 'frontend-loket/utils/account';
 
 export default class ImpersonationService extends Service {
   @service store;
-  // @tracked impersonatedAccount;
   @tracked originalAccount;
   @tracked originalGroup;
+  @tracked originalRoles;
 
   get isImpersonating() {
     return Boolean(this.originalAccount);
@@ -20,10 +20,18 @@ export default class ImpersonationService extends Service {
       const originalAccountId =
         result.data.relationships['original-resource'].data.id;
 
-      if (originalAccountId) {
-        const { account } = await this.#loadAccount(originalAccountId);
-        this.originalAccount = account;
-      }
+      const originalGroupId = result.data.relationships['original-session-group'].data.id;
+      const [originalAccount, originalGroup] = await Promise.all([
+        loadAccountData(this.store, originalAccountId),
+        this.store.findRecord('bestuurseenheid', originalGroupId, {
+          include: 'classificatie',
+          reload: true,
+        })
+      ]);
+
+      this.originalAccount = originalAccount;
+      this.originalGroup = originalGroup;
+      this.originalRoles = result.data.attributes['original-session-roles'];
     }
   }
 
@@ -50,8 +58,6 @@ export default class ImpersonationService extends Service {
     });
 
     if (!response.ok) {
-      // await this.#loadAccount(accountId);
-      // } else {
       const result = await response.json();
       throw new Error(
         'An exception occurred while trying to impersonate someone: ' +
@@ -69,17 +75,8 @@ export default class ImpersonationService extends Service {
       if (response.ok) {
         this.originalAccount = null;
         this.originalGroup = null;
+        this.originalRoles = [];
       }
-    }
-  }
-
-  async #loadAccount(accountId) {
-    const account = await loadAccountData(this.store, accountId);
-
-    // TODO; we need to retrieve the group info in some way, but ACM/IDM accounts/users don't have a relationship to it...
-
-    return {
-      account,
     }
   }
 }

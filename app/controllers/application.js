@@ -20,9 +20,8 @@ export default class ApplicationController extends Controller {
 
     if (this.impersonation.isImpersonating) {
       user = this.impersonation.originalAccount.gebruiker;
-      // TODO; these don't work yet
-      group = this.currentSession._group;
-      classification = this.currentSession._groupClassification;
+      group = this.impersonation.originalGroup;
+      classification = group.belongsTo('classificatie').value();
     } else {
       user = this.currentSession.user;
       group = this.currentSession.group;
