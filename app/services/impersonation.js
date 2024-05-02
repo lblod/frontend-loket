@@ -18,7 +18,7 @@ export default class ImpersonationService extends Service {
     if (response.ok) {
       const result = await response.json();
       const originalAccountId =
-        result.data.relationships['original-resource'].data.id;
+        result.data.relationships['original-account'].data.id;
 
       const originalGroupId = result.data.relationships['original-session-group'].data.id;
       const [originalAccount, originalGroup] = await Promise.all([
@@ -48,7 +48,7 @@ export default class ImpersonationService extends Service {
           relationships: {
             impersonates: {
               data: {
-                type: 'resource',
+                type: 'accounts',
                 id: accountId,
               },
             },
