@@ -1,3 +1,8 @@
+## v0.93.0 (2024-05-02)
+
+#### :rocket: Enhancement
+* [#384](https://github.com/lblod/frontend-loket/pull/384) [DL-5849] Support the impersonation feature refactor ([@Windvis](https://github.com/Windvis))
+
 ## v0.92.3 (2024-04-15)
 
 #### :bug: Bug Fix
