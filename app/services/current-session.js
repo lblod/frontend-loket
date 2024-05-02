@@ -29,58 +29,31 @@ export default class CurrentSessionService extends Service {
   @service store;
   @service impersonation;
 
-  @tracked _account;
-  @tracked _user;
-  @tracked _group;
-  @tracked _groupClassification;
+  @tracked account;
+  @tracked user;
+  @tracked group;
+  @tracked groupClassification;
   @tracked _roles = [];
-
-  get account() {
-    if (this.impersonation.isImpersonating) {
-      return this.impersonation.impersonatedAccount;
-    } else {
-      return this._account;
-    }
-  }
-  get user() {
-    return this.account?.gebruiker;
-  }
-
-  get group() {
-    if (this.impersonation.isImpersonating) {
-      // These are mock users, so it should be ok to access the "bestuurseenheden" relationship
-      return this.user?.group;
-    } else {
-      return this._group;
-    }
-  }
-
-  get groupClassification() {
-    return this.group?.belongsTo('classificatie').value()
-  }
 
   async load() {
     if (this.session.isAuthenticated) {
+      await this.impersonation.load();
+
       let accountId =
         this.session.data.authenticated.relationships.account.data.id;
-      this._account = await loadAccountData(this.store, accountId);
+      this.account = await loadAccountData(this.store, accountId);
 
-      // TODO: I don't think we need all of these as properties
-      this._user = this._account.gebruiker;
+      this.user = this.account.gebruiker;
       this._roles = this.session.data.authenticated.data.attributes.roles;
 
       // We need to do an extra API call here because ACM/IDM users don't seem to have a "bestuurseenheden" relationship in the DB.
       // By fetching the record directly we bypass that issue
       const groupId = this.session.data.authenticated.relationships.group.data.id;
-      this._group = await this.store.findRecord('bestuurseenheid', groupId, {
+      this.group = await this.store.findRecord('bestuurseenheid', groupId, {
         include: 'classificatie',
         reload: true,
       });
-      this._groupClassification = await this.group.classificatie;
-
-      if (this.isAdmin) {
-        await this.impersonation.load();
-      }
+      this.groupClassification = await this.group.classificatie;
 
       this.setupSentrySession();
     }
@@ -88,23 +61,39 @@ export default class CurrentSessionService extends Service {
 
   setupSentrySession() {
     if (SHOULD_ENABLE_SENTRY) {
-      setUser({ id: this._user.id, ip_address: null });
+      let account;
+      let user;
+      let group;
+      let groupClassification;
+      let roles;
+
+      if (this.impersonation.isImpersonating) {
+        account = this.impersonation.originalAccount;
+        user = account.gebruiker;
+        group = this.impersonation.originalGroup;
+        groupClassification = group.belongsTo('classificatie').value();
+        roles = this.impersonation.originalRoles;
+      } else {
+        account = this.account;
+        user = this.user;
+        group = this.group;
+        groupClassification = this.groupClassification;
+        roles = this._roles;
+      }
+
+      setUser({ id: user.id, ip_address: null });
       setContext('session', {
-        account: this._account.id,
-        user: this._user.id,
-        group: this._group.uri,
-        groupClassification: this._groupClassification?.uri,
-        roles: this._roles,
+        account: account.id,
+        user: user.id,
+        group: group.uri,
+        groupClassification: groupClassification?.uri,
+        roles,
       });
     }
   }
 
   canAccess(role) {
-    if (this.impersonation.isImpersonating) {
-      return this.impersonation.impersonatedAccount.roles.includes(role);
-    } else {
-      return this._roles.includes(role);
-    }
+    return this._roles.includes(role);
   }
 
   get hasViewOnlyWorshipMinistersManagementData() {
@@ -195,7 +184,11 @@ export default class CurrentSessionService extends Service {
   }
 
   get isAdmin() {
-    return this._roles.includes(ADMIN_ROLE);
+    let roles = this._roles;
+    if (this.impersonation.isImpersonating) {
+      roles = this.impersonation.originalRoles || [];
+    }
+    return roles.includes(ADMIN_ROLE);
   }
 }
 

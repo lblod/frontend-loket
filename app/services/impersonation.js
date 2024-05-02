@@ -4,10 +4,12 @@ import { loadAccountData } from 'frontend-loket/utils/account';
 
 export default class ImpersonationService extends Service {
   @service store;
-  @tracked impersonatedAccount;
+  @tracked originalAccount;
+  @tracked originalGroup;
+  @tracked originalRoles;
 
   get isImpersonating() {
-    return Boolean(this.impersonatedAccount);
+    return Boolean(this.originalAccount);
   }
 
   async load() {
@@ -15,11 +17,21 @@ export default class ImpersonationService extends Service {
 
     if (response.ok) {
       const result = await response.json();
-      const impersonatedAccountId =
-        result.data.relationships.impersonates.data.id;
-      if (impersonatedAccountId) {
-        await this.#loadImpersonatedAccount(impersonatedAccountId);
-      }
+      const originalAccountId =
+        result.data.relationships['original-account'].data.id;
+
+      const originalGroupId = result.data.relationships['original-session-group'].data.id;
+      const [originalAccount, originalGroup] = await Promise.all([
+        loadAccountData(this.store, originalAccountId),
+        this.store.findRecord('bestuurseenheid', originalGroupId, {
+          include: 'classificatie',
+          reload: true,
+        })
+      ]);
+
+      this.originalAccount = originalAccount;
+      this.originalGroup = originalGroup;
+      this.originalRoles = result.data.attributes['original-session-roles'];
     }
   }
 
@@ -36,7 +48,7 @@ export default class ImpersonationService extends Service {
           relationships: {
             impersonates: {
               data: {
-                type: 'resource',
+                type: 'accounts',
                 id: accountId,
               },
             },
@@ -45,9 +57,7 @@ export default class ImpersonationService extends Service {
       }),
     });
 
-    if (response.ok) {
-      await this.#loadImpersonatedAccount(accountId);
-    } else {
+    if (!response.ok) {
       const result = await response.json();
       throw new Error(
         'An exception occurred while trying to impersonate someone: ' +
@@ -63,14 +73,10 @@ export default class ImpersonationService extends Service {
       });
 
       if (response.ok) {
-        this.impersonatedAccount = null;
+        this.originalAccount = null;
+        this.originalGroup = null;
+        this.originalRoles = [];
       }
     }
-  }
-
-  async #loadImpersonatedAccount(accountId) {
-    const account = await loadAccountData(this.store, accountId);
-
-    this.impersonatedAccount = account;
   }
 }
