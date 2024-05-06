@@ -1,4 +1,11 @@
+## v0.93.1 (2024-05-06)
+
+### Mandatenbeheer
+#### :bug: Bug Fix
+* [#385](https://github.com/lblod/frontend-loket/pull/385) [DL-5888] Fix the prefill of the fractie-selector component ([@Windvis](https://github.com/Windvis))
+
 ## v0.91.3 (2024-05-06)
+
 ### Mandatenbeheer
 #### :bug: Bug Fix
 * [#386](https://github.com/lblod/frontend-loket/pull/386) [DL-5888] Fix the prefill of the fractie-selector component ([@Windvis](https://github.com/Windvis))
