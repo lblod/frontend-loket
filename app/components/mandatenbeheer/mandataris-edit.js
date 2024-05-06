@@ -38,7 +38,7 @@ export default Component.extend({
     this.set('saveError', false);
     this.set('requiredFieldError', false);
     const membership = await this.mandataris.heeftLidmaatschap;
-    const fractie = await membership?.fractie;
+    const fractie = await membership?.binnenFractie;
     this.set('fractie', fractie);
 
     const beleidsdomeinen = await this.mandataris.beleidsdomein;
