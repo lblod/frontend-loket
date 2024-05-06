@@ -20,6 +20,11 @@
 #### :bug: Bug Fix
 * [#381](https://github.com/lblod/frontend-loket/pull/381), [#382](https://github.com/lblod/frontend-loket/pull/382) Fix some issues when logging in with ACM/IDM ([@Windvis](https://github.com/Windvis))
 
+## v0.91.2 (2024-04-15)
+### General
+#### :rocket: Enhancement
+* [#377](https://github.com/lblod/frontend-loket/pull/377) [DGS-184] update ember-submission-form-fields to v2.22.1 ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.92.1 (2024-04-08)
 ### General
 #### :bug: Bug Fix
