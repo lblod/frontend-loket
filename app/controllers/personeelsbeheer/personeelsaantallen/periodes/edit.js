@@ -20,7 +20,7 @@ export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController e
   @task
   *save() {
     const dirtyObservations = this.model.filter(
-      (obs) => obs.hasDirtyAttributes
+      (obs) => obs.hasDirtyAttributes,
     );
 
     if (dirtyObservations.length) {

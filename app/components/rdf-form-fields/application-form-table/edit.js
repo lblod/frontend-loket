@@ -16,31 +16,31 @@ const lblodSubsidieBaseUri = 'http://lblod.data.gift/vocabularies/subsidie/';
 const extBaseUri = 'http://mu.semte.ch/vocabularies/ext/';
 
 const ApplicationFormTableType = new NamedNode(
-  `${lblodSubsidieBaseUri}ApplicationFormTable`
+  `${lblodSubsidieBaseUri}ApplicationFormTable`,
 );
 const ApplicationFormEntryType = new NamedNode(
-  `${extBaseUri}ApplicationFormEntry`
+  `${extBaseUri}ApplicationFormEntry`,
 );
 const applicationFormTablePredicate = new NamedNode(
-  `${lblodSubsidieBaseUri}applicationFormTable`
+  `${lblodSubsidieBaseUri}applicationFormTable`,
 );
 const applicationFormEntryPredicate = new NamedNode(
-  `${extBaseUri}applicationFormEntry`
+  `${extBaseUri}applicationFormEntry`,
 );
 const actorNamePredicate = new NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/actorName'
+  'http://mu.semte.ch/vocabularies/ext/actorName',
 );
 const numberChildrenForFullDayPredicate = new NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/numberChildrenForFullDay'
+  'http://mu.semte.ch/vocabularies/ext/numberChildrenForFullDay',
 );
 const numberChildrenForHalfDayPredicate = new NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/numberChildrenForHalfDay'
+  'http://mu.semte.ch/vocabularies/ext/numberChildrenForHalfDay',
 );
 const numberChildrenPerInfrastructurePredicate = new NamedNode(
-  'http://mu.semte.ch/vocabularies/ext/numberChildrenPerInfrastructure'
+  'http://mu.semte.ch/vocabularies/ext/numberChildrenPerInfrastructure',
 );
 const totalAmountPredicate = new NamedNode(
-  'http://lblod.data.gift/vocabularies/subsidie/totalAmount'
+  'http://lblod.data.gift/vocabularies/subsidie/totalAmount',
 );
 const createdPredicate = new NamedNode('http://purl.org/dc/terms/created');
 
@@ -88,15 +88,15 @@ class ApplicationFormEntry {
     this.actorName = new EntryProperties(actorName, actorNamePredicate);
     this.numberChildrenForFullDay = new EntryProperties(
       numberChildrenForFullDay,
-      numberChildrenForFullDayPredicate
+      numberChildrenForFullDayPredicate,
     );
     this.numberChildrenForHalfDay = new EntryProperties(
       numberChildrenForHalfDay,
-      numberChildrenForHalfDayPredicate
+      numberChildrenForHalfDayPredicate,
     );
     this.numberChildrenPerInfrastructure = new EntryProperties(
       numberChildrenPerInfrastructure,
-      numberChildrenPerInfrastructurePredicate
+      numberChildrenPerInfrastructurePredicate,
     );
     this.created = new EntryProperties(created, createdPredicate);
     this.calculateEntryTotal();
@@ -141,7 +141,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
           sourceNode,
           predicate,
           undefined,
-          sourceGraph
+          sourceGraph,
         );
         this.updateAangevraagdBedrag();
       }
@@ -159,7 +159,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
           this.sourceNode,
           applicationFormTablePredicate,
           this.applicationFormTableSubject,
-          this.storeOptions.sourceGraph
+          this.storeOptions.sourceGraph,
         ).length > 0
       );
   }
@@ -170,14 +170,14 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
         this.applicationFormTableSubject,
         applicationFormEntryPredicate,
         undefined,
-        this.storeOptions.sourceGraph
+        this.storeOptions.sourceGraph,
       ).length > 0
     );
   }
 
   get sortedEntries() {
     return this.entries.sort((a, b) =>
-      a.created.value.localeCompare(b.created.value)
+      a.created.value.localeCompare(b.created.value),
     );
   }
 
@@ -190,7 +190,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
         this.storeOptions.sourceNode,
         LBLOD_SUBSIDIE('usedParentalContribution'),
         undefined,
-        this.storeOptions.sourceGraph
+        this.storeOptions.sourceGraph,
       );
       this.applicationFormTableSubject = triples[0].object; // assuming only one per form
 
@@ -209,7 +209,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
             entry.object,
             undefined,
             undefined,
-            this.storeOptions.sourceGraph
+            this.storeOptions.sourceGraph,
           );
 
           const parsedEntry = this.parseEntryProperties(entryProperties);
@@ -229,7 +229,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
                   ? parsedEntry.numberChildrenPerInfrastructure
                   : 0,
               created: parsedEntry.created,
-            })
+            }),
           );
         }
       }
@@ -247,51 +247,51 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
     let entry = {};
     if (
       entryProperties.find(
-        (entry) => entry.predicate.value == actorNamePredicate.value
+        (entry) => entry.predicate.value == actorNamePredicate.value,
       )
     )
       entry.actorName = entryProperties.find(
-        (entry) => entry.predicate.value == actorNamePredicate.value
+        (entry) => entry.predicate.value == actorNamePredicate.value,
       ).object.value;
     if (
       entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForFullDayPredicate.value
+          entry.predicate.value == numberChildrenForFullDayPredicate.value,
       )
     )
       entry.numberChildrenForFullDay = entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForFullDayPredicate.value
+          entry.predicate.value == numberChildrenForFullDayPredicate.value,
       ).object.value;
     if (
       entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForHalfDayPredicate.value
+          entry.predicate.value == numberChildrenForHalfDayPredicate.value,
       )
     )
       entry.numberChildrenForHalfDay = entryProperties.find(
         (entry) =>
-          entry.predicate.value == numberChildrenForHalfDayPredicate.value
+          entry.predicate.value == numberChildrenForHalfDayPredicate.value,
       ).object.value;
     if (
       entryProperties.find(
         (entry) =>
           entry.predicate.value ==
-          numberChildrenPerInfrastructurePredicate.value
+          numberChildrenPerInfrastructurePredicate.value,
       )
     )
       entry.numberChildrenPerInfrastructure = entryProperties.find(
         (entry) =>
           entry.predicate.value ==
-          numberChildrenPerInfrastructurePredicate.value
+          numberChildrenPerInfrastructurePredicate.value,
       ).object.value;
     if (
       entryProperties.find(
-        (entry) => entry.predicate.value == createdPredicate.value
+        (entry) => entry.predicate.value == createdPredicate.value,
       )
     )
       entry.created = entryProperties.find(
-        (entry) => entry.predicate.value == createdPredicate.value
+        (entry) => entry.predicate.value == createdPredicate.value,
       ).object.value;
     return entry;
   }
@@ -299,7 +299,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
   createApplicationFormTable() {
     const uuid = uuidv4();
     this.applicationFormTableSubject = new NamedNode(
-      `${applicationFormTableBaseUri}/${uuid}`
+      `${applicationFormTableBaseUri}/${uuid}`,
     );
     const triples = [
       {
@@ -327,7 +327,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
   createApplicationFormEntry() {
     const uuid = uuidv4();
     const applicationFormEntrySubject = new NamedNode(
-      `${applicationFormEntryBaseUri}/${uuid}`
+      `${applicationFormEntryBaseUri}/${uuid}`,
     );
     const triples = [
       {
@@ -358,7 +358,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
       this.applicationFormTableSubject,
       undefined,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     const triples = [
       ...applicationFormTableTriples,
@@ -401,7 +401,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
       entry.applicationFormEntrySubject,
       entry[field].predicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     const triples = [...fieldValueTriples];
     this.storeOptions.store.removeStatements(triples);
@@ -424,7 +424,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
       this.storeOptions.sourceNode,
       totalAmountPredicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     const triples = [...aangevraagdBedragTriples];
     this.storeOptions.store.removeStatements(triples);
@@ -435,7 +435,7 @@ export default class RdfFormFieldsApplicationFormTableEditComponent extends Inpu
         predicate: totalAmountPredicate,
         object: literal(
           Number.parseFloat(this.totalAmount).toFixed(2),
-          XSD('float')
+          XSD('float'),
         ),
         graph: this.storeOptions.sourceGraph,
       },

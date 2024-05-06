@@ -44,7 +44,7 @@ export default class SubsidyApplicationsEditRoute extends Route {
           'last-modifier',
         ].join(','),
         reload: true,
-      }
+      },
     );
 
     return {

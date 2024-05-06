@@ -7,7 +7,7 @@ export default class WorshipMinistersManagementMinisterDetailsRoute extends Rout
 
   async model() {
     let { worshipMinisterId } = this.paramsFor(
-      'worship-ministers-management.minister'
+      'worship-ministers-management.minister',
     );
 
     const minister = await this.store.findRecord(
@@ -15,7 +15,7 @@ export default class WorshipMinistersManagementMinisterDetailsRoute extends Rout
       worshipMinisterId,
       {
         include: ['person', 'contacts', 'minister-position.function'].join(),
-      }
+      },
     );
 
     let positionContacts = await minister.contacts;

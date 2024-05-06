@@ -82,7 +82,7 @@ Router.map(function () {
               this.route('periode', { path: '/:persoon_id/periode' });
             });
           });
-        }
+        },
       );
     });
   });
@@ -117,7 +117,7 @@ Router.map(function () {
       // By using an index and named route with a path we work around that issue. The lpdc-external-redirect route
       // then retrieves the needed data from the transition object.
       this.route('with-path', { path: '/*path' });
-    }
+    },
   );
 
   this.route('route-not-found', {
@@ -148,8 +148,8 @@ Router.map(function () {
         function () {
           this.route('details', { path: '/bekijk' });
           this.route('edit', { path: '/bewerk' });
-        }
+        },
       );
-    }
+    },
   );
 });

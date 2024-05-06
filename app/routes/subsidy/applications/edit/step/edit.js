@@ -17,7 +17,7 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
     let { step } = this.modelFor('subsidy.applications.edit.step');
     let semanticForm = await this.store.findRecord(
       'subsidy-application-form',
-      semanticFormID
+      semanticFormID,
     );
     await semanticForm.belongsTo('status').reload();
 
@@ -36,14 +36,14 @@ export default class SubsidyApplicationsEditStepEditRoute extends Route {
     await this.retrieveForm(
       `/management-application-forms/${semanticForm.id}`,
       formStore,
-      graphs
+      graphs,
     );
 
     const formNode = formStore.any(
       undefined,
       RDF('type'),
       FORM('Form'),
-      FORM_GRAPH
+      FORM_GRAPH,
     );
     const sourceNode = new NamedNode(semanticForm.uri);
 

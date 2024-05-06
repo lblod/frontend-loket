@@ -38,7 +38,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
     formStore.parse(form, formGraph, 'text/turtle');
 
     const sourceGraph = new NamedNode(
-      `http://data.lblod.info/submission-document/data/${submissionDocument.id}`
+      `http://data.lblod.info/submission-document/data/${submissionDocument.id}`,
     );
     if (removals || additions) {
       formStore.loadDataWithAddAndDelGraph(
@@ -46,7 +46,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
         sourceGraph,
         additions,
         removals,
-        'text/turtle'
+        'text/turtle',
       );
     } else {
       formStore.parse(source, sourceGraph, 'text/turtle');
@@ -57,7 +57,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
       undefined,
       RDF('type'),
       FORM('Form'),
-      formGraph
+      formGraph,
     );
 
     return {

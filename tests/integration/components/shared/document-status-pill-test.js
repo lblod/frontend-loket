@@ -29,7 +29,7 @@ module(
         .dom('[data-test-loket=document-status-pill]')
         .hasAttribute(
           'resource',
-          'http://data.lblod.info/document-statuses/concept'
+          'http://data.lblod.info/document-statuses/concept',
         );
     });
 
@@ -38,5 +38,5 @@ module(
 
       assert.dom('[data-test-loket=document-status-pill]').doesNotIncludeText();
     });
-  }
+  },
 );

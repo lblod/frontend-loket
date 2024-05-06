@@ -15,7 +15,7 @@ const tableEntryBaseUri =
   'http://data.lblod.info/id/plan-living-together-table/row-entry';
 const PlanEntryType = new NamedNode(`${planBaseUri}PlanLivingTogetherEntry`);
 const planEntryPredicate = new NamedNode(
-  `${planBaseUri}planLivingTogetherEntry`
+  `${planBaseUri}planLivingTogetherEntry`,
 );
 const descriptionPredicate = new NamedNode(`${planBaseUri}description`);
 const currentRangePredicate = new NamedNode(`${planBaseUri}currentRange`);
@@ -23,7 +23,7 @@ const plannedRangePredicate = new NamedNode(`${planBaseUri}plannedRange`);
 const contributionPredicate = new NamedNode(`${planBaseUri}contribution`);
 const priorityPredicate = new NamedNode(`${planBaseUri}priority`);
 const hasInvalidRowPredicate = new NamedNode(
-  `${planTableBaseUri}hasInvalidPlanLivingTogetherTableEntry`
+  `${planTableBaseUri}hasInvalidPlanLivingTogetherTableEntry`,
 );
 
 export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent extends Component {
@@ -83,7 +83,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       null,
       descriptionPredicate,
       this.businessRuleUri,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     return values.length;
   }
@@ -93,7 +93,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       null,
       descriptionPredicate,
       this.businessRuleUri,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
     if (values.length > 1) {
       throw `Expected single value for ${this.businessRuleUri}`;
@@ -109,19 +109,19 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.tableEntryUri,
       currentRangePredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     )[0].object.value;
     this.plannedRange = this.storeOptions.store.match(
       this.tableEntryUri,
       plannedRangePredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     )[0].object.value;
     this.priority = this.storeOptions.store.match(
       this.tableEntryUri,
       priorityPredicate,
       null,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     )[0].object.value;
 
     this.convertInputValuesToNumbers();
@@ -188,7 +188,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       subject,
       predicate,
       undefined,
-      this.storeOptions.sourceGraph
+      this.storeOptions.sourceGraph,
     );
 
     this.storeOptions.store.removeStatements([...triples]);
@@ -215,7 +215,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     } else if (!this.isValidInteger(currentRange)) {
@@ -225,7 +225,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     }
@@ -241,7 +241,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     } else if (!this.isValidInteger(plannedRange)) {
@@ -251,7 +251,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     } else if (plannedRange > this.maxRange) {
@@ -261,7 +261,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     }
@@ -277,7 +277,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     } else if (!this.isPositiveInteger(priority)) {
@@ -287,7 +287,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     } else if (!this.isValidInteger(priority)) {
@@ -297,7 +297,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
       this.updateTripleObject(
         this.planTableSubject,
         hasInvalidRowPredicate,
-        this.tableEntryUri
+        this.tableEntryUri,
       );
       return false;
     }
@@ -310,7 +310,7 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
     this.updateTripleObject(
       this.planTableSubject,
       hasInvalidRowPredicate,
-      null
+      null,
     );
 
     this.convertInputValuesToNumbers();
@@ -328,22 +328,22 @@ export default class RdfFormFieldsPlanLivingTogetherTableTableRowComponent exten
     this.updateTripleObject(
       this.tableEntryUri,
       currentRangePredicate,
-      literal(this.currentRange, XSD('integer'))
+      literal(this.currentRange, XSD('integer')),
     );
     this.updateTripleObject(
       this.tableEntryUri,
       plannedRangePredicate,
-      literal(this.plannedRange, XSD('integer'))
+      literal(this.plannedRange, XSD('integer')),
     );
     this.updateTripleObject(
       this.tableEntryUri,
       contributionPredicate,
-      literal(this.contribution, XSD('float'))
+      literal(this.contribution, XSD('float')),
     );
     this.updateTripleObject(
       this.tableEntryUri,
       priorityPredicate,
-      literal(this.priority, XSD('integer'))
+      literal(this.priority, XSD('integer')),
     );
     this.setComponentValues(this.tableEntryUri);
 

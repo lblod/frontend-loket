@@ -7,7 +7,7 @@ export default class EredienstMandatenbeheerMandatarisDetailsRoute extends Route
 
   async beforeModel() {
     const mandataris = await this.modelFor(
-      'eredienst-mandatenbeheer.mandataris'
+      'eredienst-mandatenbeheer.mandataris',
     );
 
     let positionContacts = await mandataris.contacts;

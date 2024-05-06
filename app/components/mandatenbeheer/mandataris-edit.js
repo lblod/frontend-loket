@@ -54,7 +54,7 @@ export default Component.extend({
       this.set('duplicatedMandataris', duplicatedMandataris);
       this.set(
         'duplicationReason',
-        await this.get('mandataris.duplicationReason')
+        await this.get('mandataris.duplicationReason'),
       );
       this.set('isDuplicated', Boolean(duplicatedMandataris));
     }
@@ -102,7 +102,7 @@ export default Component.extend({
           if (this.duplicatedMandataris) {
             this.set(
               'duplicatedMandataris.duplicationReason',
-              this.duplicationReason
+              this.duplicationReason,
             );
             this.set('duplicatedMandataris.duplicateOf', this.mandataris);
             yield this.duplicatedMandataris.save();
@@ -150,7 +150,7 @@ export default Component.extend({
 
     // if new and old fractie are both onafhankelijk, nothing needs to be done...
     let currFractie = await this.get(
-      'mandataris.heeftLidmaatschap.binnenFractie'
+      'mandataris.heeftLidmaatschap.binnenFractie',
     );
     if (
       currFractie &&
@@ -172,8 +172,8 @@ export default Component.extend({
       'mandataris.heeftLidmaatschap.tijdsinterval',
       await this.getTijdsinterval(
         this.get('mandataris.start'),
-        this.get('mandataris.einde')
-      )
+        this.get('mandataris.einde'),
+      ),
     );
   },
 
@@ -192,7 +192,7 @@ export default Component.extend({
   async createNewLidmaatschap() {
     let tijdsinterval = await this.getTijdsinterval(
       this.get('mandataris.start'),
-      this.get('mandataris.einde')
+      this.get('mandataris.einde'),
     );
     let fractie = this.fractie;
 
@@ -220,7 +220,7 @@ export default Component.extend({
     if (start && end && end < start) {
       this.set(
         'startDateError',
-        'geplande start moet voor gepland einde liggen'
+        'geplande start moet voor gepland einde liggen',
       );
       this.set('endDateError', 'gepland einde moet na geplande start liggen');
     }

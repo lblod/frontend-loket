@@ -9,7 +9,7 @@ export default class MandatenbeheerMandatarissenNewController extends Controller
   selectPersoon(persoon) {
     this.router.transitionTo(
       'mandatenbeheer.mandatarissen.edit',
-      persoon.get('id')
+      persoon.get('id'),
     );
   }
 

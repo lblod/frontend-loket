@@ -20,7 +20,7 @@ export default class PersoneelsbeheerPersoneelsaantallenLatestRoute extends Rout
     this.router.transitionTo(
       'personeelsbeheer.personeelsaantallen.periodes.edit',
       transition.data.datasetId,
-      model.id
+      model.id,
     );
   }
 }

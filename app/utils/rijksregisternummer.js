@@ -60,7 +60,7 @@ function getBirthYear(nrn) {
     year = Number(`20${partialYear}`);
   } else {
     throw new Error(
-      `Could not calculate birthDate with invalid checksum of "${checksum}", expected "${checksum19}" for 1900 or "${checksum20}" for 2000`
+      `Could not calculate birthDate with invalid checksum of "${checksum}", expected "${checksum19}" for 1900 or "${checksum20}" for 2000`,
     );
   }
   return year;

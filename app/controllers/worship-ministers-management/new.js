@@ -58,7 +58,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
       if (agentEndDate <= agentStartDate) {
         worshipMinister.errors.add(
           'agentEndDate',
-          'De einddatum moet na de startdatum liggen'
+          'De einddatum moet na de startdatum liggen',
         );
       } else {
         worshipMinister.errors.remove('agentEndDate');
@@ -154,7 +154,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
     if (!worshipMinister.agentStartDate) {
       worshipMinister.errors.add(
         'agentStartDate',
-        'startdatum is een vereist veld.'
+        'startdatum is een vereist veld.',
       );
     }
     yield validateFunctie(worshipMinister);
@@ -217,7 +217,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
           contacts.length > 0
             ? ' of selecteer een van de bestaande contactgegevens.'
             : '.'
-        }`
+        }`,
       );
       return;
     }

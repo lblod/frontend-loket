@@ -5,7 +5,7 @@ import { Literal, Namespace } from 'rdflib';
 
 const EXT = new Namespace('http://mu.semte.ch/vocabularies/ext/');
 const PARTNER_TYPE = new Namespace(
-  'http://lblod.data.gift/vocabularies/subsidie/concept/FinancieringPartnerType/'
+  'http://lblod.data.gift/vocabularies/subsidie/concept/FinancieringPartnerType/',
 );
 
 export default class FinancingTotals extends Component {
@@ -59,7 +59,7 @@ export default class FinancingTotals extends Component {
           partner.node,
           EXT('partnerType'),
           undefined,
-          graphs.sourceGraph
+          graphs.sourceGraph,
         );
 
         if (partnerType) {
@@ -68,7 +68,7 @@ export default class FinancingTotals extends Component {
             partner.node,
             EXT('financingAmount'),
             undefined,
-            graphs.sourceGraph
+            graphs.sourceGraph,
           );
 
           partner.amount = financingAmountLiteral

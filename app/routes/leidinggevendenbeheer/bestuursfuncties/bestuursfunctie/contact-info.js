@@ -6,7 +6,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
 
   async model() {
     const bestuursfunctie = this.modelFor(
-      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'
+      'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie',
     );
 
     let info = await bestuursfunctie.contactinfo;
@@ -35,7 +35,7 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
     controller.set('bestuurseenheid', this.modelFor('leidinggevendenbeheer'));
     controller.set(
       'bestuursfunctie',
-      this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie')
+      this.modelFor('leidinggevendenbeheer.bestuursfuncties.bestuursfunctie'),
     );
   }
 }

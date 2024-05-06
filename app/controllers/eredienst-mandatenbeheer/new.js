@@ -67,13 +67,13 @@ export default class EredienstMandatenbeheerNewController extends Controller {
     const endDateWarnings = await setMandate(
       this.store,
       worshipMandatee,
-      mandaat
+      mandaat,
     );
     const periodeLimitWarnings = await warnOnMandateExceededTimePeriode(
       mandaat,
       this.store,
       worshipMandatee.start,
-      worshipMandatee.einde
+      worshipMandatee.einde,
     );
 
     if (endDateWarnings || periodeLimitWarnings) {
@@ -93,14 +93,14 @@ export default class EredienstMandatenbeheerNewController extends Controller {
       await worshipMandatee.bekleedt,
       this.store,
       start,
-      einde
+      einde,
     );
     this.warningMessages = { ...periodeLimitWarnings };
     if (einde instanceof Date && start instanceof Date) {
       if (einde <= start) {
         worshipMandatee.errors.add(
           'einde',
-          'De einddatum moet na de startdatum liggen'
+          'De einddatum moet na de startdatum liggen',
         );
       } else {
         worshipMandatee.errors.remove('einde');
@@ -181,7 +181,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
     const status = yield this.store.findRecord(
       'mandataris-status-code',
-      MANDATARIS_STATUS_EFFECTIEF
+      MANDATARIS_STATUS_EFFECTIEF,
     );
     worshipMandatee.status = status;
 
@@ -244,7 +244,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
           contacts.length > 0
             ? ' of selecteer een van de bestaande contactgegevens.'
             : '.'
-        }`
+        }`,
       );
       return;
     }
@@ -259,7 +259,7 @@ export default class EredienstMandatenbeheerNewController extends Controller {
 
       try {
         yield this.router.transitionTo(
-          'eredienst-mandatenbeheer.mandatarissen'
+          'eredienst-mandatenbeheer.mandatarissen',
         );
       } catch (error) {
         // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038

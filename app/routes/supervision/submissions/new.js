@@ -13,7 +13,7 @@ export default class SupervisionSubmissionsNewRoute extends Route {
       {
         page: { size: 1 },
         'filter[:uri:]': CONCEPT_STATUS,
-      }
+      },
     );
 
     if (conceptStatuses.length) {
@@ -26,7 +26,7 @@ export default class SupervisionSubmissionsNewRoute extends Route {
 
     const submissionDocument = this.store.createRecord(
       'submissionDocument',
-      {}
+      {},
     );
     await submissionDocument.save();
     const currentUser = this.currentSession.user;
