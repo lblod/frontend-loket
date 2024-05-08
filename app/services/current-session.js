@@ -4,6 +4,7 @@ import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
 import { loadAccountData } from 'frontend-loket/utils/account';
 import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
+import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 
 const MODULE_ROLE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
@@ -147,7 +148,14 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessSubsidies() {
-    return this.canAccess(MODULE_ROLE.SUBSIDIES);
+    if (isFeatureEnabled('subsidies-external')) {
+      return (
+        this.canAccess(MODULE_ROLE.SUBSIDIES) &&
+        !config.subsidiesUrl.startsWith('{{')
+      );
+    } else {
+      return this.canAccess(MODULE_ROLE.SUBSIDIES);
+    }
   }
 
   get canAccessWorshipMinisterManagement() {

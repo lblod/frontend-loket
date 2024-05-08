@@ -47,7 +47,16 @@
       Personeelsbeheer
     </AuLink>
   {{/if}}
-  {{#if this.currentSession.canAccessSubsidies}}
+  {{#if (is-feature-enabled "subsidies-external")}}
+      <AuLinkExternal
+        @icon="link-external"
+        @iconAlignment="left"
+        href={{(subsidies-url)}}
+        role="menuitem"
+      >
+        SubsidiePunt
+      </AuLinkExternal>
+    {{else}}
     <AuLink @route="subsidy.applications.index" role="menuitem">
       <AuIcon @icon="documents" @alignment="left" />
       Subsidiebeheer
