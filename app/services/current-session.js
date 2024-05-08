@@ -164,8 +164,9 @@ export default class CurrentSessionService extends Service {
         this.canAccess(MODULE_ROLE.SUBSIDIES) &&
         !config.subsidiesUrl.startsWith('{{')
       );
+    } else {
+      return this.canAccess(MODULE_ROLE.SUBSIDIES);
     }
-
   }
 
   get canAccessWorshipMinisterManagement() {
