@@ -49,7 +49,8 @@ export default class CurrentSessionService extends Service {
 
       // We need to do an extra API call here because ACM/IDM users don't seem to have a "bestuurseenheden" relationship in the DB.
       // By fetching the record directly we bypass that issue
-      const groupId = this.session.data.authenticated.relationships.group.data.id;
+      const groupId =
+        this.session.data.authenticated.relationships.group.data.id;
       this.group = await this.store.findRecord('bestuurseenheid', groupId, {
         include: 'classificatie',
         reload: true,
@@ -168,7 +169,8 @@ export default class CurrentSessionService extends Service {
 
   get canAccessPublicServices() {
     return (
-      this.canAccess(MODULE_ROLE.PUBLIC_SERVICES) && !config.lpdcUrl.startsWith('{{')
+      this.canAccess(MODULE_ROLE.PUBLIC_SERVICES) &&
+      !config.lpdcUrl.startsWith('{{')
     );
   }
 
@@ -188,7 +190,7 @@ export default class CurrentSessionService extends Service {
   get canAccessModules() {
     return Object.values(MODULE_ROLE).some((module) => {
       return this.canAccess(module);
-    })
+    });
   }
 
   get isAdmin() {
@@ -199,4 +201,3 @@ export default class CurrentSessionService extends Service {
     return roles.includes(ADMIN_ROLE);
   }
 }
-
