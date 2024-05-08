@@ -20,13 +20,14 @@ export default class ImpersonationService extends Service {
       const originalAccountId =
         result.data.relationships['original-account'].data.id;
 
-      const originalGroupId = result.data.relationships['original-session-group'].data.id;
+      const originalGroupId =
+        result.data.relationships['original-session-group'].data.id;
       const [originalAccount, originalGroup] = await Promise.all([
         loadAccountData(this.store, originalAccountId),
         this.store.findRecord('bestuurseenheid', originalGroupId, {
           include: 'classificatie',
           reload: true,
-        })
+        }),
       ]);
 
       this.originalAccount = originalAccount;
@@ -61,7 +62,7 @@ export default class ImpersonationService extends Service {
       const result = await response.json();
       throw new Error(
         'An exception occurred while trying to impersonate someone: ' +
-        JSON.stringify(result.errors),
+          JSON.stringify(result.errors),
       );
     }
   }

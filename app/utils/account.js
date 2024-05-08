@@ -4,11 +4,7 @@
  * @param {string} accountId
  */
 export async function loadAccountData(store, accountId) {
-  return await store.findRecord(
-    'account',
-    accountId,
-    {
-      include: 'gebruiker.bestuurseenheden.classificatie',
-    },
-  );
+  return await store.findRecord('account', accountId, {
+    include: 'gebruiker.bestuurseenheden.classificatie',
+  });
 }

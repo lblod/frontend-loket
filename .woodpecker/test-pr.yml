@@ -13,6 +13,16 @@ steps:
     group: lint
     commands:
       - npm run lint:hbs
+  lint-css:
+    image: danlynn/ember-cli:5.8.0-node_20.12
+    group: lint
+    commands:
+      - npm run lint:css
+  lint-formatting:
+    image: danlynn/ember-cli:5.8.0-node_20.12
+    group: lint
+    commands:
+      - npm run lint:format
   dependency-lint:
     image: danlynn/ember-cli:5.8.0-node_20.12
     group: lint
