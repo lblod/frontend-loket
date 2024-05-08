@@ -62,7 +62,7 @@
       </AuAlert>
     {{/if}}
     {{#if this.isQuerying}}
-      <AuLoader @padding="small" />
+      <PageLoader>Aan het laden</PageLoader>
     {{else}}
       {{#if this.hasSearched}}
         {{#if this.personen}}

@@ -5,7 +5,9 @@
 </AuButton>
 <div class="au-c-collapsible au-u-text-left">
   {{#if this.getMandatarissenTotals.isRunning}}
-    <AuLoader @padding="small" />
+    <AuLoader @centered={{false}} @hideMessage={{true}} class="au-u-margin-top-tiny">
+      Totalen aan het laden
+    </AuLoader>
   {{else}}
     <div class="au-o-grid">
       {{#each this.mandatarissenTotals as |orgaanMap|}}
