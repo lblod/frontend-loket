@@ -117,7 +117,9 @@
           <AuAlert @icon="alert-triangle" @title="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @skin="error" @size="small" />
         {{/if}}
         {{#if this.save.isRunning}}
-          <AuLoader @padding="small" />
+          <AuLoader @centered={{false}} @hideMessage={{true}}>
+            Aan het toevoegen
+          </AuLoader>
         {{else}}
           <AuButtonGroup>
             <AuButton {{action "save"}}>Voeg toe</AuButton>
@@ -265,7 +267,13 @@
           <AuAlert @icon="alert-triangle" @title="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @skin="error" @size="small" />
         {{/if}}
         {{#if this.save.isRunning}}
-          <AuLoader @padding="small" />
+          <AuLoader @centered={{false}} @hideMessage={{true}}>
+              {{#if this.createMode}}
+                Aan het toevoegen
+              {{else if this.correctMode}}
+                Aan het opslaan
+              {{/if}}
+          </AuLoader>
         {{else}}
           <AuButtonGroup>
             <AuButton {{action "save"}}>
@@ -330,7 +338,9 @@
           <AuAlert @icon="alert-triangle" @title="Er is een fout opgetreden tijdens het opslaan, gelieve opnieuw te proberen of de systeembeheerder te contacteren." @skin="error" @size="small" />
         {{/if}}
         {{#if this.save.isRunning}}
-          <AuLoader @padding="small" />
+          <AuLoader @centered={{false}} @hideMessage={{true}}>
+            Aan het opslaan
+          </AuLoader>
         {{else}}
           <AuButtonGroup>
             <AuButton {{action "save"}}>

@@ -1,13 +1,12 @@
 <div
-  class="au-o-box au-u-flex au-u-flex--column au-u-flex--vertical-center"
+  class="au-o-box"
   ...attributes
 >
-  <AuLoader @padding="small" @disableMessage={{true}} />
-  <p class="au-u-para">
+  <AuLoader>
     {{~#if (has-block)~}}
       {{yield}}
     {{~else~}}
       Aan het laden
     {{~/if~}}
-  </p>
+  </AuLoader>
 </div>

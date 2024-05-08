@@ -1,5 +1,11 @@
 {{#if this.calculateTotals.isRunning}}
-  <AuLoader @padding="small" />
+  <AuLoader
+    @centered={{false}}
+    @hideMessage={{true}}
+    class="au-u-margin-top-small"
+  >
+    Aantallen aan het laden
+  </AuLoader>
 {{else}}
   <ul class="au-c-list-horizontal au-u-margin-top-small">
     {{#each this.summary as |entry|}}
