@@ -166,7 +166,9 @@
               @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
               @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/subsidiebeheer"
             >
-              <:title>SubsidiePunt</:title>
+              <:title>
+                {{if (is-feature-enabled "subsidies-external") "SubsidiePunt" "Subsidiebeheer"}}
+              </:title>
               <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
               <:link>
                 {{#if (is-feature-enabled "subsidies-external")}}
