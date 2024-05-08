@@ -68,7 +68,7 @@
             class="au-c-list-navigation__link"
             href={{(subsidies-url)}}
           >
-            Subsidiebeheer
+            SubsidiePunt
           </AuLinkExternal>
         {{else}}
           <AuNavigationLink @route="subsidy.applications.index">
@@ -76,10 +76,6 @@
             Subsidiebeheer
           </AuNavigationLink>
         {{/if}}
-        {{!-- <AuNavigationLink @route="subsidy.applications.index">
-          <AuIcon @icon="documents" @alignment="left" />
-          Subsidiebeheer
-        </AuNavigationLink> --}}
       </li>
     {{/if}}
     {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
