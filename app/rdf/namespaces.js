@@ -7,4 +7,6 @@ export const LBLOD_SUBSIDIE = new Namespace(
   'http://lblod.data.gift/vocabularies/subsidie/',
 );
 export const MU = new Namespace('http://mu.semte.ch/vocabularies/core/');
+export const EXT = new Namespace('http://mu.semte.ch/vocabularies/ext/');
 export const QB = new Namespace('http://purl.org/linked-data/cube#');
+

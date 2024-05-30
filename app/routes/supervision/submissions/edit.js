@@ -2,14 +2,26 @@ import Route from '@ember/routing/route';
 import { warn } from '@ember/debug';
 import { inject as service } from '@ember/service';
 import fetch from 'fetch';
-import { ForkingStore } from '@lblod/ember-submission-form-fields';
+import { ForkingStore, registerFormFields } from '@lblod/ember-submission-form-fields';
 import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
 import { NamedNode } from 'rdflib';
 import { SENT_STATUS } from '../../../models/submission-document-status';
+import WorshipDecisionsCrossReferenceSelector from 'frontend-loket/components/supervision/worship-decisions-cross-reference-selector';
 
 export default class SupervisionSubmissionsEditRoute extends Route {
   @service router;
   @service store;
+
+  constructor() {
+    super(...arguments);
+
+    registerFormFields([
+      {
+        displayType: 'http://lblod.data.gift/display-types/worshipDecisionsCrossReferenceSelector',
+        edit: WorshipDecisionsCrossReferenceSelector,
+      }
+    ])
+  }
 
   async model(params) {
     // Fetch data from backend
