@@ -16,6 +16,7 @@ import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import {
   RDF,
+  SHACL,
   SKOS,
   validationsForFieldWithType,
 } from '@lblod/submission-form-helpers';
@@ -31,6 +32,7 @@ const hasPart = ELI('has_part');
 const documentType = ELI('type_document');
 const refersTo = ELI('refers_to');
 const prefLabel = SKOS('prefLabel');
+const shOrder = SHACL('order');
 
 export default class DecisionArticlesField extends Component {
   @tracked articles = [];
@@ -71,20 +73,59 @@ export default class DecisionArticlesField extends Component {
   }
 
   loadArticles = () => {
-    const store = this.args.formStore;
-    const triples = store.match(
-      this.args.sourceNode,
+    const {
+      formStore,
+      sourceNode,
+      graphs: { sourceGraph },
+    } = this.args;
+    const triples = formStore.match(
+      sourceNode,
       hasPart,
       undefined,
-      this.args.graphs.sourceGraph,
+      sourceGraph,
     );
 
-    this.articles = triples.map((triple) => triple.object);
+    const articles = triples.map((triple) => {
+      const article = triple.object;
+      const order = formStore.any(article, shOrder, undefined, sourceGraph);
+
+      return {
+        node: article,
+        order,
+      };
+    });
+
+    // Add sh:order predicates of the sourceGraph doesn't contain them yet
+    // (which could be possible if the decision wasn't created through the Toezicht module)
+    if (
+      !this.isReadOnly &&
+      articles.some((article) => typeof article.order === 'undefined')
+    ) {
+      articles.map((article, index) => {
+        article.order = index + 1;
+
+        formStore.addAll([
+          {
+            subject: article.node,
+            predicate: shOrder,
+            object: article.order,
+            graph: sourceGraph,
+          },
+        ]);
+
+        return article;
+      });
+    } else {
+      articles.sort(byOrder);
+    }
+
+    this.articles = articles;
   };
 
   createArticle = () => {
     const article = articleNode();
-    this.articles = [...this.articles, article];
+    const nextOrder = this.articles.at(-1)?.order + 1 || 1;
+    this.articles = [...this.articles, { node: article, order: nextOrder }];
 
     const {
       formStore,
@@ -94,18 +135,23 @@ export default class DecisionArticlesField extends Component {
 
     const triples = [
       {
+        subject: sourceNode,
+        predicate: hasPart,
+        object: article,
+        graph: sourceGraph,
+      },
+      {
         subject: article,
         predicate: RDF('type'),
         object: BESLUIT('Artikel'),
         graph: sourceGraph,
       },
       {
-        subject: sourceNode,
-        predicate: hasPart,
-        object: article,
+        subject: article,
+        predicate: shOrder,
+        object: nextOrder,
         graph: sourceGraph,
       },
-      // TODO: should we add "order" predicates?
     ];
     formStore.addAll(triples);
   };
@@ -125,7 +171,7 @@ export default class DecisionArticlesField extends Component {
       {
         subject: sourceNode,
         predicate: hasPart,
-        object: articleToRemove,
+        object: articleToRemove.node,
         graph: sourceGraph,
       },
       ...formStore.match(articleToRemove, undefined, undefined, sourceGraph),
@@ -148,7 +194,7 @@ export default class DecisionArticlesField extends Component {
         {{#each this.articles as |article index|}}
           <li>
             <ArticleDetails
-              @article={{article}}
+              @article={{article.node}}
               @count={{plusOne index}}
               @isReadOnly={{this.isReadOnly}}
               @onRemove={{fn this.removeArticle article}}
@@ -663,6 +709,10 @@ function byLabel(a, b) {
   const textA = a.label.toUpperCase();
   const textB = b.label.toUpperCase();
   return textA < textB ? -1 : textA > textB ? 1 : 0;
+}
+
+function byOrder(a, b) {
+  return a?.order - b?.order;
 }
 
 function plusOne(number) {
