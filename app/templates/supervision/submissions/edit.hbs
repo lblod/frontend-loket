@@ -46,16 +46,15 @@
 
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}} {{if this.delete.isRunning "au-c-form--disabled"}}">
-    <div class="au-o-grid">
-      <div class="au-o-grid__item au-u-1-2@medium au-u-1-1">
-        <SubmissionForm
-          @form={{this.form}}
-          @show={{this.model.submitted}}
-          @graphs={{this.graphs}}
-          @sourceNode={{this.sourceNode}}
-          @formStore={{this.formStore}}
-          @forceShowErrors={{this.forceShowErrors}} />
-      </div>
+    <div class="au-u-max-width-small">
+      <SubmissionForm
+        @form={{this.form}}
+        @show={{this.model.submitted}}
+        @graphs={{this.graphs}}
+        @sourceNode={{this.sourceNode}}
+        @formStore={{this.formStore}}
+        @forceShowErrors={{this.forceShowErrors}}
+      />
     </div>
   </div>
 </div>

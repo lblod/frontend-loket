@@ -1,45 +1,38 @@
-import Component from '@glimmer/component';
-import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
+import AuCheckbox from '@appuniversum/ember-appuniversum/components/au-checkbox';
+import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
+import AuHelpText from '@appuniversum/ember-appuniversum/components/au-help-text';
+import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
+import AuLoader from '@appuniversum/ember-appuniversum/components/au-loader';
 import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
 import AuTable from '@appuniversum/ember-appuniversum/components/au-table';
 import { AddIcon } from '@appuniversum/ember-appuniversum/components/icons/add';
 import { BinIcon } from '@appuniversum/ember-appuniversum/components/icons/bin';
+import { SearchIcon } from '@appuniversum/ember-appuniversum/components/icons/search';
+import { NavLeftIcon } from '@appuniversum/ember-appuniversum/components/icons/nav-left';
+import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
-import PowerSelect from 'ember-power-select/components/power-select';
+import { on } from '@ember/modifier';
 import {
   RDF,
   SKOS,
-  triplesForPath,
-  updateSimpleFormValue,
+  validationsForFieldWithType,
 } from '@lblod/submission-form-helpers';
-import { Literal, NamedNode, parse, Store } from 'rdflib';
+import { task } from 'ember-concurrency';
+import PowerSelect from 'ember-power-select/components/power-select';
+import eq from 'ember-truth-helpers/helpers/eq';
+import not from 'ember-truth-helpers/helpers/not';
 import { BESLUIT, ELI, EXT } from 'frontend-loket/rdf/namespaces';
+import { Literal, NamedNode, parse, Store } from 'rdflib';
 import { v4 as uuid } from 'uuid';
 
-const articlePredicate = ELI('has_part');
-
-class Article {
-  @tracked type;
-  @tracked decisions = [];
-  sourceNode;
-
-  // constructor(articleNode) {
-  // }
-
-  addDecisions(decisions) {
-    this.decisions = [...this.decisions, decisions];
-  }
-
-  removeDecisionss(decisions) {
-    this.decisions;
-  }
-}
+const hasPart = ELI('has_part');
+const documentType = ELI('type_document');
+const refersTo = ELI('refers_to');
+const prefLabel = SKOS('prefLabel');
 
 export default class DecisionArticlesField extends Component {
-  @tracked showModal = false;
   @tracked articles = [];
 
   constructor() {
@@ -48,19 +41,32 @@ export default class DecisionArticlesField extends Component {
     this.loadArticles();
   }
 
+  get isReadOnly() {
+    return this.args.show;
+  }
+
   get hasErrors() {
-    // TODO
+    // TODO: Implement, copy from the addon, or move to a util
+    // Might not be needed
     return false;
   }
 
   get hasWarnings() {
-    // TODO
+    // TODO: Implement, copy from the addon, or move to a util
+    // Might not be needed
     return false;
   }
 
   get isRequired() {
-    // TODO
-    return true;
+    // TODO: Not sure if we want the validator for this or if we just always assume it's required, needs more testing
+    return (
+      !this.isReadOnly &&
+      isRequiredField(
+        this.args.field.uri,
+        this.args.formStore,
+        this.args.graphs.formGraph,
+      )
+    );
   }
 
   get decisionType() {
@@ -73,37 +79,26 @@ export default class DecisionArticlesField extends Component {
   }
 
   loadArticles = () => {
-    // TODO: load the data from the forking store
-    // <decision> a <<https://data.vlaanderen.be/id/concept/BesluitType/79414af4-4f57-4ca3-aaa4-f8f1e015e71c>>.
-    // # Note <decision> will be your 'starting'-uri, as usual in the forms
-
-    // # The CRUD'ing happens on the following set of triples.
-    // <decision> eli:has_part <artikel>.
-    // <artikel> a besluit:Artikel;
-    //   <<http://data.europa.eu/eli/ontology#type_document>> <Verwerping gerefereerde documenten>; # See definition of ConceptScheme, later in the text.
-    //   <<http://data.europa.eu/eli/ontology#refers_to>> <cross-referenced-decision-1>, <cross-referenced-decision-2>.
-
     const store = this.args.formStore;
     const triples = store.match(
       this.args.sourceNode,
-      articlePredicate,
+      hasPart,
       undefined,
       this.args.graphs.sourceGraph,
     );
 
-    this.articles = triples.map(triple => triple.object);
-    // TODO, fetch the needed data for each article, type, linked decisions,..
+    this.articles = triples.map((triple) => triple.object);
   };
 
   createArticle = () => {
     const article = articleNode();
-    this.articles = [
-      ...this.articles,
-      // TODO; use a wrapper class with tracked state instead
-      article
-    ];
+    this.articles = [...this.articles, article];
 
-    const sourceGraph = this.args.graphs.sourceGraph;
+    const {
+      formStore,
+      sourceNode,
+      graphs: { sourceGraph },
+    } = this.args;
 
     const triples = [
       {
@@ -113,13 +108,14 @@ export default class DecisionArticlesField extends Component {
         graph: sourceGraph,
       },
       {
-        subject: this.args.sourceNode,
-        predicate: articlePredicate,
+        subject: sourceNode,
+        predicate: hasPart,
         object: article,
         graph: sourceGraph,
       },
+      // TODO: should we add "order" predicates?
     ];
-    this.args.formStore.addAll(triples);
+    formStore.addAll(triples);
   };
 
   removeArticle = (articleToRemove) => {
@@ -127,17 +123,22 @@ export default class DecisionArticlesField extends Component {
       (article) => article !== articleToRemove,
     );
 
-    const sourceGraph = this.args.graphs.sourceGraph;
+    const {
+      formStore,
+      sourceNode,
+      graphs: { sourceGraph },
+    } = this.args;
+
     const triples = [
       {
-        subject: this.args.sourceNode,
-        predicate: articlePredicate,
-        object: articleToRemove, // TODO, should be the node
+        subject: sourceNode,
+        predicate: hasPart,
+        object: articleToRemove,
         graph: sourceGraph,
       },
-      ...this.args.formStore.match(articleToRemove, undefined, undefined, sourceGraph),
+      ...formStore.match(articleToRemove, undefined, undefined, sourceGraph),
     ];
-    this.args.formStore.removeStatements(triples);
+    formStore.removeStatements(triples);
   };
 
   <template>
@@ -157,9 +158,10 @@ export default class DecisionArticlesField extends Component {
             <ArticleDetails
               @article={{article}}
               @count={{plusOne index}}
-              @show={{@show}}
+              @isReadOnly={{this.isReadOnly}}
               @onRemove={{fn this.removeArticle article}}
               @formStore={{@formStore}}
+              @sourceGraph={{@graphs.sourceGraph}}
               @metaGraph={{@graphs.metaGraph}}
               @decisionType={{this.decisionType}}
             />
@@ -168,117 +170,263 @@ export default class DecisionArticlesField extends Component {
       </ul>
     {{else}}
       <div class="au-u-text-center">
-        Geen artikels
+        <AuHelpText>
+          Er werden nog geen artikels toegevoegd
+        </AuHelpText>
       </div>
     {{/if}}
 
-    <div class="au-u-text-center">
-      <AuButton @icon={{AddIcon}} {{on "click" this.createArticle}}>
-        Voeg artikel toe
-      </AuButton>
-    </div>
+    {{#unless this.isReadOnly}}
+      <div class="au-u-text-center au-u-margin-top-small">
+        <AuButton
+          @icon={{AddIcon}}
+          @skin="secondary"
+          @width="block"
+          {{on "click" this.createArticle}}
+        >
+          Voeg artikel toe
+        </AuButton>
+      </div>
+    {{/unless}}
   </template>
 }
 
 class ArticleDetails extends Component {
-  @tracked type;
   @tracked showModal = false;
+  @tracked type;
+  @tracked decisions;
 
-  addDecisions = () => {
-    // Add the selected decisions to the list and store
+  constructor() {
+    super(...arguments);
+
+    this.loadData.perform();
+  }
+
+  loadData = task(async () => {
+    const { article, formStore, sourceGraph } = this.args;
+
+    this.type = formStore.any(article, documentType, undefined, sourceGraph);
+
+    const decisionsPromises = formStore
+      .match(article, refersTo, undefined, sourceGraph)
+      .map((triple) => triple.object)
+      .map(async (decisionNode) => {
+        const url = new URL(
+          '/related-document-information',
+          window.location.origin,
+        );
+
+        url.searchParams.append('forRelatedDecision', decisionNode.uri);
+        const response = await fetch(url);
+
+        if (response.ok) {
+          const ttlData = await response.text();
+
+          if (ttlData.length > 0) {
+            let data = ttlToJs(ttlData);
+
+            return data.at(0);
+          }
+        }
+      });
+
+    const decisions = await Promise.all(decisionsPromises);
+
+    this.decisions = decisions;
+  });
+
+  handleTypeChange = (type) => {
+    this.type = type;
+
+    const { article, formStore, sourceGraph } = this.args;
+
+    const currentTypes = formStore.match(
+      article,
+      documentType,
+      undefined,
+      sourceGraph,
+    );
+    if (currentTypes.length > 0) {
+      formStore.removeStatements(currentTypes);
+    }
+
+    formStore.addAll([
+      {
+        subject: article,
+        predicate: documentType,
+        object: type,
+        graph: sourceGraph,
+      },
+    ]);
+  };
+
+  addDecisions = (decisionsToAdd) => {
+    this.decisions = [...this.decisions, ...decisionsToAdd];
+
+    const { article, formStore, sourceGraph } = this.args;
+    const statements = decisionsToAdd.map((decision) => {
+      return {
+        subject: article,
+        predicate: refersTo,
+        object: decision.node,
+        graph: sourceGraph,
+      };
+    });
+
+    formStore.addAll(statements);
+
+    this.showModal = false;
+  };
+
+  removeDecision = (decisionToRemove) => {
+    this.decisions = this.decisions.filter(
+      (decision) => decision !== decisionToRemove,
+    );
+
+    const { article, formStore, sourceGraph } = this.args;
+    formStore.removeStatements([
+      {
+        subject: article,
+        predicate: refersTo,
+        object: decisionToRemove.node,
+        graph: sourceGraph,
+      },
+    ]);
   };
 
   <template>
     <div class="article-details" ...attributes>
-      Artikel
-      {{@count}}
-      <AuButton
-        @icon={{BinIcon}}
-        @hideText={{true}}
-        @alert={{true}}
-        {{on "click" @onRemove}}
-      >Artikel verwijderen</AuButton>
+      <div class="au-u-flex au-u-flex--between au-u-margin-bottom">
+        <AuHeading @level="2" @skin="4">
+          Artikel
+          {{@count}}
+        </AuHeading>
 
-      <ConceptSchemeSelect
-        @formStore={{@formStore}}
-        @metaGraph={{@metaGraph}}
-        @conceptScheme="http://data.lblod.info/concept-schemes/aeb364c6-768a-4a6b-8cbf-a681d1a6b8b6"
-        {{! ArticleTypes }}
-        @selected={{this.type}}
-        @onChange={{fn (mut this.type)}}
-      >
-        <:label>Type referentie</:label>
-      </ConceptSchemeSelect>
+        {{#unless @isReadOnly}}
+          <AuButton
+            @skin="naked"
+            @icon={{BinIcon}}
+            @hideText={{true}}
+            @alert={{true}}
+            {{on "click" @onRemove}}
+          >
+            Artikel verwijderen
+          </AuButton>
+        {{/unless}}
+      </div>
 
-      <AuTable>
-        <:title>Besluiten</:title>
-        <:header>
-          <tr>
-            <th>Naam</th>
-            <th>Datum</th>
-            <th>Bestuur van de eredienst</th>
-            <th></th>
-          </tr>
-        </:header>
-        <:body>
-          {{#each this.decisions as |decision|}}
-            <tr>
-              <td>{{decision.name}}</td>
-              <td>{{decision.sentBy}}</td>
-              <td>{{decision.sentDate}}</td>
-              <td>
-                {{! TODO: implement removal }}
-                <AuButton
-                  @skin="naked"
-                  @alert={{true}}
-                  @hideText={{true}}
-                  @icon={{BinIcon}}
-                >
-                  Verwijder
-                </AuButton>
-              </td>
-            </tr>
-          {{else}}
-            <tr>
-              <td colspan="4">Geen besluiten</td>
-            </tr>
-          {{/each}}
-        </:body>
-        <:footer>
-          <tr>
-            <td colspan="4">
-              <AuButton
-                @skin="secondary"
-                @icon={{AddIcon}}
-                {{on "click" (fn (mut this.showModal) true)}}
-              >
-                Voeg besluiten toe
-              </AuButton>
-            </td>
-          </tr>
-        </:footer>
-      </AuTable>
-
-      {{#if this.showModal}}
-        <Modal
-          @decisionType={{@decisionType}}
+      {{#if this.loadData.isIdle}}
+        <ConceptSchemeSelect
           @formStore={{@formStore}}
           @metaGraph={{@metaGraph}}
-          @onClose={{fn (mut this.showModal)}}
-          @onAdd={{this.addDecisions}}
-        />
+          {{! Article types }}
+          @conceptScheme="http://data.lblod.info/concept-schemes/aeb364c6-768a-4a6b-8cbf-a681d1a6b8b6"
+          @selected={{this.type}}
+          @onChange={{this.handleTypeChange}}
+          @isReadOnly={{@isReadOnly}}
+          class="au-u-margin-bottom"
+        >
+          <:label>Artikeltype</:label>
+        </ConceptSchemeSelect>
+
+        <AuTable @size="small" class="au-table-test">
+          <:title>Besluiten</:title>
+          <:header>
+            <tr>
+              <th>Naam</th>
+              <th>Ingezonden door</th>
+              <th>Ingezonden op</th>
+              {{#unless this.isReadOnly}}
+                <th></th>
+              {{/unless}}
+            </tr>
+          </:header>
+          <:body>
+            {{#each this.decisions as |decision|}}
+              <tr>
+                <td>{{decision.name}}</td>
+                <td>{{decision.sentBy.name}}</td>
+                <td>{{formatDate decision.sentDate}}</td>
+                {{#unless @isReadOnly}}
+                  <td>
+                    <AuButton
+                      @skin="naked"
+                      @alert={{true}}
+                      @hideText={{true}}
+                      @icon={{BinIcon}}
+                      {{on "click" (fn this.removeDecision decision)}}
+                    >
+                      Verwijder
+                    </AuButton>
+                  </td>
+                {{/unless}}
+              </tr>
+            {{else}}
+              <tr>
+                <td colspan="4">Er werden nog geen besluiten toegevoegd</td>
+              </tr>
+            {{/each}}
+          </:body>
+        </AuTable>
+
+        {{#unless @isReadOnly}}
+          <AuButton
+            @icon={{AddIcon}}
+            @skin="secondary"
+            @width="block"
+            class="au-u-margin-top-small"
+            {{on "click" (fn (mut this.showModal) true)}}
+          >
+            Voeg besluiten toe
+          </AuButton>
+
+          {{#if this.showModal}}
+            <AddDecisionsModal
+              @decisionType={{@decisionType}}
+              @addedDecisions={{this.decisions}}
+              @formStore={{@formStore}}
+              @metaGraph={{@metaGraph}}
+              @onClose={{fn (mut this.showModal)}}
+              @onAdd={{this.addDecisions}}
+            />
+          {{/if}}
+        {{/unless}}
+      {{else}}
+        <AuLoader>Gegevens aan het laden</AuLoader>
       {{/if}}
     </div>
   </template>
 }
 
-class Modal extends Component {
-  @tracked type;
+class AddDecisionsModal extends Component {
   @tracked org;
-  @tracked searchResults = [];
+  @tracked selectedDecisions = [];
+  @tracked searchMode = false;
 
-  search = async () => {
-    // TODO: check if the "org" is set before
+  get shouldSelectOrg() {
+    return !this.org;
+  }
+
+  get orgName() {
+    if (!this.org) {
+      return '';
+    }
+
+    return this.args.formStore.any(
+      this.org,
+      prefLabel,
+      undefined,
+      this.args.metaGraph,
+    );
+  }
+
+  search = task(async () => {
+    if (!this.org) {
+      return;
+    }
+
+    this.searchMode = true;
+
     const url = new URL(
       '/related-document-information',
       window.location.origin,
@@ -291,110 +439,136 @@ class Modal extends Component {
       const ttlData = await response.text();
 
       if (ttlData.length > 0) {
-        // TODO; put data in rdflib graph, convert the data to an array of objects
-        const store = new Store();
-        const graph = new NamedNode('http://this-seems-needed');
-        parse(ttlData, store, graph.uri);
+        let data = ttlToJs(ttlData);
 
-        console.log(store);
-        const submissions = store.match(
-          null,
-          RDF('type'),
-          EXT('SubmissionDocument'),
-          graph,
-        );
-        let data = submissions.map((submission) => {
-          const subject = submission.subject;
-          const prefLabel = store.any(
-            subject,
-            SKOS('prefLabel'),
-            undefined,
-            graph,
+        data = data.filter((decision) => {
+          return !this.args.addedDecisions.some(
+            (addedDecision) => addedDecision.node.uri === decision.node.uri,
           );
-          const sentDate = store.any(
-            subject,
-            new NamedNode(
-              'http://www.semanticdesktop.org/ontologies/2007/03/22/nmo#sentDate',
-            ),
-            undefined,
-            graph,
-          );
-          return {
-            uri: subject.uri,
-            label: prefLabel.value,
-            sentDate: Literal.toJS(sentDate),
-          };
         });
-
         data.sort((a, b) => b.sentDate - a.sentDate);
 
-        this.searchResults = data;
-
-        // for (const submission of data) {
-        //   const url = new URL('/related-document-information', window.location.origin);
-        //   url.searchParams.append('forRelatedDecision', submission.uri);
-
-        //   const response = await fetch(url);
-        // }
-
-        console.log(data);
         return data;
       } else {
         // no results
       }
     }
+  });
+
+  handleSelectionChange = (decision, selected) => {
+    if (selected) {
+      this.selectedDecisions = [...this.selectedDecisions, decision];
+    } else {
+      this.selectedDecisions = this.selectedDecisions.filter(
+        (selected) => selected !== decision,
+      );
+    }
   };
 
   <template>
-    <AuModal
-      @modalOpen={{true}}
-      @closeModal={{@onClose}}
-      {{! @size="large" }}
-      @overflow={{true}}
-    >
-      <:title>Besluiten zoeken</:title>
-      <:body>
-        <ConceptSchemeSelect
-          @formStore={{@formStore}}
-          @metaGraph={{@metaGraph}}
-          {{! // TODO: there are 2 different "betreffende bestuur van de eredienst" fields in the form and both have a different concept scheme, so this might need to be adjustable if this is correct }}
-          @conceptScheme="http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07"
-          {{! bestuurseenheden }}
-          {{!-- @conceptScheme="http://lblod.data.gift/concept-schemes/164a27d5-cf7e-43ea-996b-21645c02a920" {{! bestuurseenheden }} --}}
-          @selected={{this.org}}
-          @onChange={{fn (mut this.org)}}
-        >
-          <:label>Bestuur van de eredienst</:label>
-        </ConceptSchemeSelect>
+    {{#if this.searchMode}}
+      <AuModal @modalOpen={{true}} @closeModal={{@onClose}} @overflow={{true}}>
+        <:title>Besluiten toevoegen</:title>
+        <:body>
+          {{#if this.search.isIdle}}
+            <div>
+              <AuTable>
+                <:title>
+                  Ingezonden door "{{this.orgName}}"
+                </:title>
+                <:header>
+                  <tr>
+                    <th></th>
+                    <th>Naam</th>
+                    <th>Datum</th>
+                  </tr>
+                </:header>
+                <:body>
+                  {{#each this.search.lastSuccessful.value as |decision|}}
+                    <tr>
+                      <td>
+                        <AuCheckbox
+                          @checked={{arrayIncludes
+                            this.selectedDecisions
+                            decision
+                          }}
+                          @onChange={{fn this.handleSelectionChange decision}}
+                        />
+                      </td>
+                      <td>{{decision.name}}</td>
+                      <td>{{formatDate decision.sentDate}}</td>
+                    </tr>
+                  {{else}}
+                    <tr>
+                      <td colspan="3">
+                        Geen resultaten
+                      </td>
+                    </tr>
+                  {{/each}}
+                </:body>
+              </AuTable>
+            </div>
+          {{else}}
+            <AuLoader>Besluiten aan het laden</AuLoader>
+          {{/if}}
+        </:body>
+        <:footer>
+          <div class="au-u-flex au-u-flex--between">
+            <AuButton
+              @icon={{NavLeftIcon}}
+              @skin="naked"
+              {{on "click" (fn (mut this.searchMode) false)}}
+            >
+              Vorige
+            </AuButton>
 
-        <AuButton {{on "click" this.search}}>Besluiten zoeken</AuButton>
-
-        <div>
-          <table>
-            <tr>
-              <th></th>
-              <th>URI</th>
-              <th>Naam</th>
-              <th>Datum</th>
-            </tr>
-            {{#each this.searchResults as |submission|}}
-              <tr>
-                <td>Checkbox</td>
-                <td>{{submission.uri}}</td>
-                <td>{{submission.label}}</td>
-                <td>{{submission.sentDate}}</td>
-              </tr>
-            {{/each}}
-          </table>
-        </div>
-      </:body>
-      <:footer>
-        <AuButton>Action</AuButton>
-      </:footer>
-    </AuModal>
+            <AuButton
+              @disabled={{not this.selectedDecisions.length}}
+              {{on "click" (fn @onAdd this.selectedDecisions)}}
+            >
+              {{#if (eq this.selectedDecisions.length 1)}}
+                Besluit toevoegen
+              {{else}}
+                Besluiten toevoegen
+              {{/if}}
+            </AuButton>
+          </div>
+        </:footer>
+      </AuModal>
+    {{else}}
+      <AuModal @modalOpen={{true}} @closeModal={{@onClose}} @overflow={{true}}>
+        <:title>Besluiten zoeken</:title>
+        <:body>
+          <ConceptSchemeSelect
+            @formStore={{@formStore}}
+            @metaGraph={{@metaGraph}}
+            {{! // TODO: there are 2 different "betreffende bestuur van de eredienst" fields in the form and both have a different concept scheme, so this might need to be adjustable if this is correct }}
+            {{! bestuurseenheden }}
+            @conceptScheme="http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07"
+            {{!-- @conceptScheme="http://lblod.data.gift/concept-schemes/164a27d5-cf7e-43ea-996b-21645c02a920" {{! bestuurseenheden }} --}}
+            @selected={{this.org}}
+            @onChange={{fn (mut this.org)}}
+          >
+            <:label>Ingezonden door</:label>
+          </ConceptSchemeSelect>
+        </:body>
+        <:footer>
+          <div class="au-u-text-right">
+            <AuButton
+              @icon={{SearchIcon}}
+              @disabled={{this.shouldSelectOrg}}
+              {{on "click" this.search.perform}}
+            >
+              Besluiten zoeken
+            </AuButton>
+          </div>
+        </:footer>
+      </AuModal>
+    {{/if}}
   </template>
 }
 
+// Based on the ember-submission-form-fields version
 class ConceptSchemeSelect extends Component {
   @tracked options = this.getOptions();
 
@@ -408,7 +582,7 @@ class ConceptSchemeSelect extends Component {
       .map((t) => {
         const label = this.args.formStore.any(
           t.subject,
-          SKOS('prefLabel'),
+          prefLabel,
           undefined,
           metaGraph,
         );
@@ -435,19 +609,28 @@ class ConceptSchemeSelect extends Component {
   };
 
   <template>
-    <AuLabel>{{yield to="label"}}</AuLabel>
-    <PowerSelect
-      @options={{this.options}}
-      @selected={{this.selected}}
-      @onChange={{this.handleChange}}
-      {{!-- @renderInPlace={{true}} --}}
-      as |concept|
-    >
-      {{concept.label}}
-    </PowerSelect>
+    <div ...attributes>
+      <AuLabel>{{yield to="label"}}</AuLabel>
+      {{#if @isReadOnly}}
+        {{this.selected.label}}
+      {{else}}
+        <PowerSelect
+          @options={{this.options}}
+          @selected={{this.selected}}
+          @searchEnabled={{true}}
+          @searchField="label"
+          @onChange={{this.handleChange}}
+          {{!-- @renderInPlace={{true}} --}}
+          as |concept|
+        >
+          {{concept.label}}
+        </PowerSelect>
+      {{/if}}
+    </div>
   </template>
 }
 
+// Source: https://github.com/lblod/ember-submission-form-fields/blob/5eb12a7794a70a04dfd1e8d392f0cc079d6aad72/addon/components/rdf-input-fields/concept-scheme-selector.js#L14C1-L18C2
 function byLabel(a, b) {
   const textA = a.label.toUpperCase();
   const textB = b.label.toUpperCase();
@@ -460,5 +643,72 @@ function plusOne(number) {
 
 function articleNode() {
   // TODO, double check if this base url is fine
-  return new NamedNode(`http://data.lblod.info/decision-article/${uuid()}`);
+  return new NamedNode(`http://data.lblod.info/besluit-artikel/${uuid()}`);
+}
+
+function isRequiredField(fieldUri, store, formGraph) {
+  const constraints = validationsForFieldWithType(fieldUri, {
+    store,
+    formGraph,
+  });
+  return constraints.some(
+    (constraint) =>
+      constraint.type.value ===
+      'http://lblod.data.gift/vocabularies/forms/RequiredConstraint',
+  );
+}
+
+function ttlToJs(ttl) {
+  const store = new Store();
+  const graph = new NamedNode('http://temporary-graph');
+  parse(ttl, store, graph.uri);
+
+  const submissions = store.match(
+    null,
+    RDF('type'),
+    EXT('SubmissionDocument'),
+    graph,
+  );
+
+  return submissions.map((submission) => {
+    const subject = submission.subject;
+    const name = store.any(subject, prefLabel, undefined, graph);
+    const sentDate = store.any(
+      subject,
+      new NamedNode(
+        'http://www.semanticdesktop.org/ontologies/2007/03/22/nmo#sentDate',
+      ),
+      undefined,
+      graph,
+    );
+    const org = store.any(
+      subject,
+      new NamedNode('http://purl.org/pav/createdBy'),
+      undefined,
+      graph,
+    );
+    const orgName = store.any(org, SKOS('prefLabel'), undefined, graph);
+    return {
+      node: subject,
+      name: name.value,
+      sentDate: Literal.toJS(sentDate),
+      sentBy: {
+        node: org,
+        name: orgName,
+      },
+    };
+  });
+}
+
+function arrayIncludes(array, item) {
+  return array.includes(item);
+}
+
+// TODO: Remove this once Appuniversum ships helpers for this
+// Source: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/utils/date.ts#L1C1-L6C2
+export function formatDate(date) {
+  const day = `${date.getDate()}`.padStart(2, '0');
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+
+  return `${day}-${month}-${date.getFullYear()}`;
 }
