@@ -3,6 +3,7 @@ import AuCheckbox from '@appuniversum/ember-appuniversum/components/au-checkbox'
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuHelpText from '@appuniversum/ember-appuniversum/components/au-help-text';
 import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
+import AuLinkExternal from '@appuniversum/ember-appuniversum/components/au-link-external';
 import AuLoader from '@appuniversum/ember-appuniversum/components/au-loader';
 import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
 import AuTable from '@appuniversum/ember-appuniversum/components/au-table';
@@ -399,7 +400,11 @@ class ArticleDetails extends Component {
           <:body>
             {{#each this.decisions as |decision|}}
               <tr>
-                <td>{{decision.name}}</td>
+                <td>
+                  <AuLinkExternal href={{decision.link}}>
+                    {{decision.name}}
+                  </AuLinkExternal>
+                </td>
                 <td>{{decision.sentBy.name}}</td>
                 <td>{{formatDate decision.sentDate}}</td>
                 {{#unless @isReadOnly}}
@@ -556,7 +561,11 @@ class AddDecisionsModal extends Component {
                           @onChange={{fn this.handleSelectionChange decision}}
                         />
                       </td>
-                      <td>{{decision.name}}</td>
+                      <td>
+                        <AuLinkExternal href={{decision.link}}>
+                          {{decision.name}}
+                        </AuLinkExternal>
+                      </td>
                       <td>{{formatDate decision.sentDate}}</td>
                     </tr>
                   {{else}}
@@ -741,15 +750,15 @@ function ttlToJs(ttl) {
   const graph = new NamedNode('http://temporary-graph');
   parse(ttl, store, graph.uri);
 
-  const submissions = store.match(
+  const decisions = store.match(
     null,
     RDF('type'),
     EXT('SubmissionDocument'),
     graph,
   );
 
-  return submissions.map((submission) => {
-    const subject = submission.subject;
+  return decisions.map((decision) => {
+    const subject = decision.subject;
     const name = store.any(subject, prefLabel, undefined, graph);
     const sentDate = store.any(
       subject,
@@ -766,9 +775,17 @@ function ttlToJs(ttl) {
       graph,
     );
     const orgName = store.any(org, SKOS('prefLabel'), undefined, graph);
+    const link = store.any(
+      subject,
+      new NamedNode('http://www.w3.org/2000/01/rdf-schema#seeAlso'),
+      undefined,
+      graph,
+    )?.uri;
+
     return {
       node: subject,
       name: name.value,
+      link,
       sentDate: Literal.toJS(sentDate),
       sentBy: {
         node: org,
