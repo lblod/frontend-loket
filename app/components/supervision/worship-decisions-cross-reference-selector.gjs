@@ -729,8 +729,7 @@ function plusOne(number) {
 }
 
 function articleNode() {
-  // TODO, double check if this base url is fine
-  return new NamedNode(`http://data.lblod.info/besluit-artikel/${uuid()}`);
+  return new NamedNode(`http://data.lblod.info/id/artikels/${uuid()}`);
 }
 
 function isRequiredField(fieldUri, store, formGraph) {
