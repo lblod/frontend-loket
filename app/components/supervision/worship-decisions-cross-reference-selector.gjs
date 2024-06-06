@@ -532,6 +532,8 @@ class AddDecisionsModal extends Component {
   };
 
   <template>
+    {{!Disabling this rule here makes the code easier to read}}
+    {{! template-lint-disable no-negated-condition}}
     {{#if (not this.searchMode)}}
       <AuModal @modalOpen={{true}} @closeModal={{@onClose}} @overflow={{true}}>
         <:title>Besluiten zoeken</:title>
