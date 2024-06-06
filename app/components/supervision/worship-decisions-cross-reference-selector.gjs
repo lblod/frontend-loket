@@ -46,15 +46,7 @@ export default class DecisionArticlesField extends Component {
   }
 
   get hasErrors() {
-    // TODO: Implement, copy from the addon, or move to a util
-    // Might not be needed
-    return false;
-  }
-
-  get hasWarnings() {
-    // TODO: Implement, copy from the addon, or move to a util
-    // Might not be needed
-    return false;
+    return this.args.forceShowErrors && this.articles.length === 0;
   }
 
   get isRequired() {
@@ -164,6 +156,7 @@ export default class DecisionArticlesField extends Component {
               @sourceGraph={{@graphs.sourceGraph}}
               @metaGraph={{@graphs.metaGraph}}
               @decisionType={{this.decisionType}}
+              @forceShowErrors={{@forceShowErrors}}
             />
           </li>
         {{/each}}
@@ -188,6 +181,12 @@ export default class DecisionArticlesField extends Component {
         </AuButton>
       </div>
     {{/unless}}
+
+    {{#if this.hasErrors}}
+      <AuHelpText @error={{true}}>
+        Gelieve minstens 1 artikel toe te voegen
+      </AuHelpText>
+    {{/if}}
   </template>
 }
 
@@ -200,6 +199,14 @@ class ArticleDetails extends Component {
     super(...arguments);
 
     this.loadData.perform();
+  }
+
+  get hasTypeError() {
+    return this.args.forceShowErrors && !this.type;
+  }
+
+  get hasDecisionsError() {
+    return this.args.forceShowErrors && this.decisions.length === 0;
   }
 
   loadData = task(async () => {
@@ -324,6 +331,8 @@ class ArticleDetails extends Component {
           @selected={{this.type}}
           @onChange={{this.handleTypeChange}}
           @isReadOnly={{@isReadOnly}}
+          @error={{if this.hasTypeError "Dit veld is verplicht"}}
+          @required={{true}}
           class="au-u-margin-bottom"
         >
           <:label>Artikeltype</:label>
@@ -391,6 +400,12 @@ class ArticleDetails extends Component {
             />
           {{/if}}
         {{/unless}}
+
+        {{#if this.hasDecisionsError}}
+          <AuHelpText @error={{true}}>
+            Gelieve minstens 1 besluit toe te voegen
+          </AuHelpText>
+        {{/if}}
       {{else}}
         <AuLoader>Gegevens aan het laden</AuLoader>
       {{/if}}
@@ -547,6 +562,7 @@ class AddDecisionsModal extends Component {
             @conceptScheme="http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07"
             {{!-- @conceptScheme="http://lblod.data.gift/concept-schemes/164a27d5-cf7e-43ea-996b-21645c02a920" {{! bestuurseenheden }} --}}
             @selected={{this.org}}
+            @required={{true}}
             @onChange={{fn (mut this.org)}}
           >
             <:label>Ingezonden door</:label>
@@ -594,6 +610,10 @@ class ConceptSchemeSelect extends Component {
     return options;
   }
 
+  get hasError() {
+    return Boolean(this.args.error);
+  }
+
   get selected() {
     if (!this.args.selected) {
       return null;
@@ -609,8 +629,10 @@ class ConceptSchemeSelect extends Component {
   };
 
   <template>
-    <div ...attributes>
-      <AuLabel>{{yield to="label"}}</AuLabel>
+    <div class={{if this.hasError "ember-power-select--error"}} ...attributes>
+      <AuLabel @error={{this.hasErrors}} @required={{@required}}>
+        {{yield to="label"}}
+      </AuLabel>
       {{#if @isReadOnly}}
         {{this.selected.label}}
       {{else}}
@@ -625,6 +647,12 @@ class ConceptSchemeSelect extends Component {
         >
           {{concept.label}}
         </PowerSelect>
+      {{/if}}
+
+      {{#if this.hasError}}
+        <AuHelpText @error={{true}}>
+          {{@error}}
+        </AuHelpText>
       {{/if}}
     </div>
   </template>
