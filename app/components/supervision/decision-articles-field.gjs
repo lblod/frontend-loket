@@ -373,7 +373,7 @@ class ArticleDetails extends Component {
   };
 
   <template>
-    <div class="article-details" ...attributes>
+    <div class="decision-article-field-details" ...attributes>
       <div class="au-u-flex au-u-flex--between au-u-margin-bottom">
         <AuHeading @level="2" @skin="4">
           Artikel

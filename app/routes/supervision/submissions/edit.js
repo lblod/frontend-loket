@@ -9,7 +9,7 @@ import {
 import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
 import { NamedNode } from 'rdflib';
 import { SENT_STATUS } from '../../../models/submission-document-status';
-import WorshipDecisionsCrossReferenceSelector from 'frontend-loket/components/supervision/worship-decisions-cross-reference-selector';
+import DecisionsArticlesField from 'frontend-loket/components/supervision/decision-articles-field';
 
 export default class SupervisionSubmissionsEditRoute extends Route {
   @service router;
@@ -22,7 +22,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
       {
         displayType:
           'http://lblod.data.gift/display-types/worshipDecisionsCrossReferenceSelector',
-        edit: WorshipDecisionsCrossReferenceSelector,
+        edit: DecisionsArticlesField,
       },
     ]);
   }
