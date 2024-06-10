@@ -569,10 +569,8 @@ class AddDecisionsModal extends Component {
           <ConceptSchemeSelect
             @formStore={{@formStore}}
             @metaGraph={{@metaGraph}}
-            {{! // TODO: there are 2 different "betreffende bestuur van de eredienst" fields in the form and both have a different concept scheme, so this might need to be adjustable if this is correct }}
             {{! bestuurseenheden }}
             @conceptScheme="http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07"
-            {{!-- @conceptScheme="http://lblod.data.gift/concept-schemes/164a27d5-cf7e-43ea-996b-21645c02a920" {{! bestuurseenheden }} --}}
             @selected={{this.org}}
             @required={{true}}
             @onChange={{fn (mut this.org)}}
