@@ -67,6 +67,22 @@ export default class DecisionArticlesField extends Component {
     );
   }
 
+  get isDocumentTypeRequired() {
+    const shouldExcludeTypeLiteral = this.args.formStore.any(
+      this.args.field.uri,
+      new NamedNode(
+        'http://lblod.data.gift/vocabularies/form-field-options/exclude-type_document',
+      ),
+      undefined,
+      this.args.graphs.formGraph,
+    );
+
+    return (
+      typeof shouldExcludeTypeLiteral === 'undefined' ||
+      !Literal.toJS(shouldExcludeTypeLiteral)
+    );
+  }
+
   get decisionType() {
     return this.args.formStore.any(
       this.args.sourceNode,
@@ -207,6 +223,7 @@ export default class DecisionArticlesField extends Component {
               @metaGraph={{@graphs.metaGraph}}
               @decisionType={{this.decisionType}}
               @forceShowErrors={{@forceShowErrors}}
+              @isDocumentTypeRequired={{this.isDocumentTypeRequired}}
             />
           </li>
         {{/each}}
@@ -252,7 +269,7 @@ class ArticleDetails extends Component {
   }
 
   get hasTypeError() {
-    return this.args.forceShowErrors && !this.type;
+    return this.args.isDocumentTypeRequired && this.args.forceShowErrors && !this.type;
   }
 
   get hasDecisionsError() {
@@ -373,20 +390,22 @@ class ArticleDetails extends Component {
       </div>
 
       {{#if this.loadData.isIdle}}
-        <ConceptSchemeSelect
-          @formStore={{@formStore}}
-          @metaGraph={{@metaGraph}}
-          {{! Article types }}
-          @conceptScheme="http://data.lblod.info/concept-schemes/aeb364c6-768a-4a6b-8cbf-a681d1a6b8b6"
-          @selected={{this.type}}
-          @onChange={{this.handleTypeChange}}
-          @isReadOnly={{@isReadOnly}}
-          @error={{if this.hasTypeError "Dit veld is verplicht"}}
-          @required={{true}}
-          class="au-u-margin-bottom"
-        >
-          <:label>Artikeltype</:label>
-        </ConceptSchemeSelect>
+        {{#if @isDocumentTypeRequired}}
+          <ConceptSchemeSelect
+            @formStore={{@formStore}}
+            @metaGraph={{@metaGraph}}
+            {{! Article types }}
+            @conceptScheme="http://data.lblod.info/concept-schemes/aeb364c6-768a-4a6b-8cbf-a681d1a6b8b6"
+            @selected={{this.type}}
+            @onChange={{this.handleTypeChange}}
+            @isReadOnly={{@isReadOnly}}
+            @error={{if this.hasTypeError "Dit veld is verplicht"}}
+            @required={{true}}
+            class="au-u-margin-bottom"
+          >
+            <:label>Artikeltype</:label>
+          </ConceptSchemeSelect>
+        {{/if}}
 
         <AuTable @size="small" class="au-table-test">
           <:title>
