@@ -115,7 +115,7 @@ export default class DecisionArticlesField extends Component {
       };
     });
 
-    // Add sh:order predicates of the sourceGraph doesn't contain them yet
+    // Add sh:order predicates if the sourceGraph doesn't contain them yet
     // (which could be possible if the decision wasn't created through the Toezicht module)
     if (
       !this.isReadOnly &&
@@ -412,7 +412,7 @@ class ArticleDetails extends Component {
             {{#if this.hasDecisionsError}}
               <ErrorBadge />
             {{/if}}
-            Besluiten
+            Documenten
             <RequiredPill />
           </:title>
           <:header>
@@ -451,7 +451,7 @@ class ArticleDetails extends Component {
               </tr>
             {{else}}
               <tr>
-                <td colspan="4">Er werden nog geen besluiten toegevoegd</td>
+                <td colspan="4">Er werden nog geen documenten toegevoegd</td>
               </tr>
             {{/each}}
           </:body>
@@ -465,7 +465,7 @@ class ArticleDetails extends Component {
             class="au-u-margin-top-small"
             {{on "click" (fn (mut this.showModal) true)}}
           >
-            Voeg besluiten toe
+            Voeg documenten toe
           </AuButton>
 
           {{#if this.showModal}}
@@ -482,7 +482,7 @@ class ArticleDetails extends Component {
 
         {{#if this.hasDecisionsError}}
           <AuHelpText @error={{true}}>
-            Gelieve minstens 1 besluit toe te voegen
+            Gelieve minstens 1 document toe te voegen
           </AuHelpText>
         {{/if}}
       {{else}}
@@ -564,7 +564,7 @@ class AddDecisionsModal extends Component {
     {{! template-lint-disable no-negated-condition}}
     {{#if (not this.searchMode)}}
       <AuModal @modalOpen={{true}} @closeModal={{@onClose}} @overflow={{true}}>
-        <:title>Besluiten zoeken</:title>
+        <:title>Documenten zoeken</:title>
         <:body>
           <ConceptSchemeSelect
             @formStore={{@formStore}}
@@ -587,14 +587,14 @@ class AddDecisionsModal extends Component {
               @disabled={{this.shouldSelectOrg}}
               {{on "click" this.search.perform}}
             >
-              Besluiten zoeken
+              Documenten zoeken
             </AuButton>
           </div>
         </:footer>
       </AuModal>
     {{else}}
       <AuModal @modalOpen={{true}} @closeModal={{@onClose}}>
-        <:title>Besluiten toevoegen</:title>
+        <:title>Documenten toevoegen</:title>
         <:body>
           {{#if this.search.isIdle}}
             <div>
@@ -639,7 +639,7 @@ class AddDecisionsModal extends Component {
               </AuTable>
             </div>
           {{else}}
-            <AuLoader>Besluiten aan het laden</AuLoader>
+            <AuLoader>Documenten aan het laden</AuLoader>
           {{/if}}
         </:body>
         <:footer>
@@ -657,9 +657,9 @@ class AddDecisionsModal extends Component {
               {{on "click" (fn @onAdd this.selectedDecisions)}}
             >
               {{#if (eq this.selectedDecisions.length 1)}}
-                Besluit toevoegen
+                Document toevoegen
               {{else}}
-                Besluiten toevoegen
+                Documenten toevoegen
               {{/if}}
             </AuButton>
           </div>
