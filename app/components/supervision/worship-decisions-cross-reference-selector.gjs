@@ -1,3 +1,4 @@
+import AuBadge from '@appuniversum/ember-appuniversum/components/au-badge';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import AuCheckbox from '@appuniversum/ember-appuniversum/components/au-checkbox';
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
@@ -6,9 +7,11 @@ import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import AuLinkExternal from '@appuniversum/ember-appuniversum/components/au-link-external';
 import AuLoader from '@appuniversum/ember-appuniversum/components/au-loader';
 import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
+import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
 import AuTable from '@appuniversum/ember-appuniversum/components/au-table';
 import { AddIcon } from '@appuniversum/ember-appuniversum/components/icons/add';
 import { BinIcon } from '@appuniversum/ember-appuniversum/components/icons/bin';
+import { CrossIcon } from '@appuniversum/ember-appuniversum/components/icons/cross';
 import { SearchIcon } from '@appuniversum/ember-appuniversum/components/icons/search';
 import { NavLeftIcon } from '@appuniversum/ember-appuniversum/components/icons/nav-left';
 import Component from '@glimmer/component';
@@ -386,7 +389,13 @@ class ArticleDetails extends Component {
         </ConceptSchemeSelect>
 
         <AuTable @size="small" class="au-table-test">
-          <:title>Besluiten</:title>
+          <:title>
+            {{#if this.hasDecisionsError}}
+              <ErrorBadge />
+            {{/if}}
+            Besluiten
+            <RequiredPill />
+          </:title>
           <:header>
             <tr>
               <th>Naam</th>
@@ -714,6 +723,21 @@ class ConceptSchemeSelect extends Component {
     </div>
   </template>
 }
+
+// Matches the Appuniversum version: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/components/au-label.gts#L51-L56
+const ErrorBadge = <template>
+  <AuBadge
+    @skin="error"
+    @size="small"
+    @icon={{CrossIcon}}
+    class="au-u-margin-right-tiny"
+  />
+</template>;
+
+// Matches the Appuniversum version: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/components/au-label.gts#L67
+const RequiredPill = <template>
+  <AuPill>Verplicht</AuPill>
+</template>;
 
 // Source: https://github.com/lblod/ember-submission-form-fields/blob/5eb12a7794a70a04dfd1e8d392f0cc079d6aad72/addon/components/rdf-input-fields/concept-scheme-selector.js#L14C1-L18C2
 function byLabel(a, b) {
