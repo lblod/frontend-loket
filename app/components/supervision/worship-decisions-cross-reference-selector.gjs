@@ -269,7 +269,11 @@ class ArticleDetails extends Component {
   }
 
   get hasTypeError() {
-    return this.args.isDocumentTypeRequired && this.args.forceShowErrors && !this.type;
+    return (
+      this.args.isDocumentTypeRequired &&
+      this.args.forceShowErrors &&
+      !this.type
+    );
   }
 
   get hasDecisionsError() {
