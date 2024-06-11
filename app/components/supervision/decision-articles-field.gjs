@@ -194,10 +194,18 @@ export default class DecisionArticlesField extends Component {
         object: articleToRemove.node,
         graph: sourceGraph,
       },
-      ...formStore.match(articleToRemove, undefined, undefined, sourceGraph),
+      ...formStore.match(articleToRemove.node, undefined, undefined, sourceGraph),
     ];
     formStore.removeStatements(triples);
   };
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    this.articles.forEach((article) => {
+      this.removeArticle(article);
+    });
+  }
 
   <template>
     <AuLabel
