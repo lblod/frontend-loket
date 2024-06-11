@@ -18,8 +18,10 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
+import { registerFormFields } from '@lblod/ember-submission-form-fields';
 import {
   RDF,
+  registerCustomValidation,
   SHACL,
   SKOS,
   validationsForFieldWithType,
@@ -38,7 +40,20 @@ const refersTo = ELI('refers_to');
 const prefLabel = SKOS('prefLabel');
 const shOrder = SHACL('order');
 
-export default class DecisionArticlesField extends Component {
+export function registerFormField() {
+  registerFormFields([
+    {
+      displayType:
+        'http://lblod.data.gift/display-types/worshipDecisionsCrossReferenceSelector',
+      edit: DecisionArticlesField,
+    },
+  ]);
+
+  registerFieldValidator();
+}
+
+/// Components
+class DecisionArticlesField extends Component {
   @tracked articles = [];
 
   constructor() {
@@ -68,18 +83,10 @@ export default class DecisionArticlesField extends Component {
   }
 
   get isDocumentTypeRequired() {
-    const shouldExcludeTypeLiteral = this.args.formStore.any(
+    return !isDocumentTypeOptional(
+      this.args.formStore,
       this.args.field.uri,
-      new NamedNode(
-        'http://lblod.data.gift/vocabularies/form-field-options/exclude-type_document',
-      ),
-      undefined,
       this.args.graphs.formGraph,
-    );
-
-    return (
-      typeof shouldExcludeTypeLiteral === 'undefined' ||
-      !Literal.toJS(shouldExcludeTypeLiteral)
     );
   }
 
@@ -115,7 +122,7 @@ export default class DecisionArticlesField extends Component {
       };
     });
 
-    // Add sh:order predicates if the sourceGraph doesn't contain them yet
+    // We add sh:order predicates if the sourceGraph doesn't contain them yet
     // (which could be possible if the decision wasn't created through the Toezicht module)
     if (
       !this.isReadOnly &&
@@ -194,7 +201,12 @@ export default class DecisionArticlesField extends Component {
         object: articleToRemove.node,
         graph: sourceGraph,
       },
-      ...formStore.match(articleToRemove.node, undefined, undefined, sourceGraph),
+      ...formStore.match(
+        articleToRemove.node,
+        undefined,
+        undefined,
+        sourceGraph,
+      ),
     ];
     formStore.removeStatements(triples);
   };
@@ -768,6 +780,26 @@ const RequiredPill = <template>
   <AuPill>Verplicht</AuPill>
 </template>;
 
+/// Template helpers
+function arrayIncludes(array, item) {
+  return array.includes(item);
+}
+
+function plusOne(number) {
+  return number + 1;
+}
+
+// TODO: Remove this once Appuniversum ships helpers for this
+// Source: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/utils/date.ts#L1C1-L6C2
+function formatDate(date) {
+  const day = `${date.getDate()}`.padStart(2, '0');
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+
+  return `${day}-${month}-${date.getFullYear()}`;
+}
+
+/// Utils
+
 // Source: https://github.com/lblod/ember-submission-form-fields/blob/5eb12a7794a70a04dfd1e8d392f0cc079d6aad72/addon/components/rdf-input-fields/concept-scheme-selector.js#L14C1-L18C2
 function byLabel(a, b) {
   const textA = a.label.toUpperCase();
@@ -777,10 +809,6 @@ function byLabel(a, b) {
 
 function byOrder(a, b) {
   return a?.order - b?.order;
-}
-
-function plusOne(number) {
-  return number + 1;
 }
 
 function articleNode() {
@@ -849,15 +877,63 @@ function ttlToJs(ttl) {
   });
 }
 
-function arrayIncludes(array, item) {
-  return array.includes(item);
+function isDocumentTypeOptional(store, node, formGraph) {
+  const literal = store.any(
+    node,
+    new NamedNode(
+      'http://lblod.data.gift/vocabularies/form-field-options/exclude-type_document',
+    ),
+    undefined,
+    formGraph,
+  );
+
+  return typeof literal !== 'undefined' && Literal.toJS(literal);
 }
 
-// TODO: Remove this once Appuniversum ships helpers for this
-// Source: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/utils/date.ts#L1C1-L6C2
-export function formatDate(date) {
-  const day = `${date.getDate()}`.padStart(2, '0');
-  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+/// Custom field validations
+function registerFieldValidator() {
+  registerCustomValidation(
+    'http://lblod.data.gift/vocabularies/forms/DecisionArticlesValidator',
+    validator,
+  );
+}
 
-  return `${day}-${month}-${date.getFullYear()}`;
+// This validator assumes a form:Bag grouping with the `sh:path` set to `eli:has_part`
+function validator(articles, options) {
+  if (articles.length === 0) {
+    return false;
+  }
+
+  const { constraintUri, formGraph, store, sourceGraph } = options;
+
+  const areArticlesValid = articles
+    .map((articleNode) => {
+      const documents = store.match(
+        articleNode,
+        refersTo,
+        undefined,
+        sourceGraph,
+      );
+
+      if (documents.length === 0) {
+        return false;
+      }
+
+      const isTypeOptional = isDocumentTypeOptional(
+        store,
+        constraintUri,
+        formGraph,
+      );
+
+      if (isTypeOptional) {
+        return true;
+      }
+
+      const type = store.any(articleNode, documentType, undefined, sourceGraph);
+
+      return Boolean(type);
+    })
+    .every(Boolean);
+
+  return areArticlesValid;
 }
