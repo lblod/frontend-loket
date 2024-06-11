@@ -59,7 +59,7 @@ class DecisionArticlesField extends Component {
   constructor() {
     super(...arguments);
 
-    this.loadArticles();
+    this.loadArticles.perform();
   }
 
   get isReadOnly() {
@@ -99,7 +99,11 @@ class DecisionArticlesField extends Component {
     );
   }
 
-  loadArticles = () => {
+  loadArticles = task(async () => {
+    // This is needed to the rest of the method happens _after_ the willDestroy method of previous component instances,
+    // otherwise we would simply load the old data again before it was removed from the store.
+    await Promise.resolve();
+
     const {
       formStore,
       sourceNode,
@@ -147,7 +151,7 @@ class DecisionArticlesField extends Component {
     }
 
     this.articles = articles;
-  };
+  });
 
   createArticle = () => {
     const article = articleNode();
