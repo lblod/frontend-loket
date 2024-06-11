@@ -43,8 +43,7 @@ const shOrder = SHACL('order');
 export function registerFormField() {
   registerFormFields([
     {
-      displayType:
-        'http://lblod.data.gift/display-types/decisionArticles',
+      displayType: 'http://lblod.data.gift/display-types/decisionArticles',
       edit: DecisionArticlesField,
     },
   ]);
