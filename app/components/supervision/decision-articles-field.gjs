@@ -427,7 +427,7 @@ class ArticleDetails extends Component {
             @onChange={{this.handleTypeChange}}
             @isReadOnly={{@isReadOnly}}
             @error={{if this.hasTypeError "Dit veld is verplicht"}}
-            @required={{true}}
+            @required={{not @isReadOnly}}
             class="au-u-margin-bottom"
           >
             <:label>Artikeltype</:label>
@@ -440,7 +440,9 @@ class ArticleDetails extends Component {
               <ErrorBadge />
             {{/if}}
             Documenten
-            <RequiredPill />
+            {{#unless @isReadOnly}}
+              <RequiredPill />
+            {{/unless}}
           </:title>
           <:header>
             <tr>
