@@ -44,7 +44,7 @@ export function registerFormField() {
   registerFormFields([
     {
       displayType:
-        'http://lblod.data.gift/display-types/worshipDecisionsCrossReferenceSelector',
+        'http://lblod.data.gift/display-types/decisionArticles',
       edit: DecisionArticlesField,
     },
   ]);
