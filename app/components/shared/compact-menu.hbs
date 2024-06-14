@@ -118,4 +118,14 @@
       Contact- en Organisatiegegevens
     </AuLinkExternal>
   {{/if}}
+  {{#if this.currentSession.canAccessOpenProcesHuis}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{(open-proces-huis-url)}}
+      role="menuitem"
+    >
+      Open Proces Huis
+    </AuLinkExternal>
+  {{/if}}
 </AuDropdown>

@@ -16,6 +16,7 @@ The [ember-proxy-service](https://github.com/mu-semtech/ember-proxy-service#conf
 | `EMBER_VERENIGINGEN_URL`                   | Link to the verenigingen app                                                            |
 | `EMBER_CONTACT_URL`                        | Link to the contact app                                                                 |
 | `EMBER_SUBSIDIES_URL`                      | Link to the subsidiepunt app                                                            |
+| `EMBER_OPEN_PROCES_HUIS_URL`               | Link to the open proces huis app                                                            |
 | `EMBER_GLOBAL_SYSTEM_NOTIFICATION`         | This can be used to display a message at the top of the application. HTML is supported. |
 
 ### ACM/IDM

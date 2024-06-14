@@ -144,5 +144,17 @@
         </AuLinkExternal>
       </li>
     {{/if}}
+    {{#if this.currentSession.canAccessOpenProcesHuis}}
+      <li class="au-c-list-navigation__item">
+        <AuLinkExternal
+          @icon="link-external"
+          @iconAlignment="left"
+          class="au-c-list-navigation__link"
+          href={{(open-proces-huis-url)}}
+        >
+          Open Proces Huis
+        </AuLinkExternal>
+      </li>
+    {{/if}}
   </ul>
 </nav>

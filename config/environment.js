@@ -41,6 +41,7 @@ module.exports = function (environment) {
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
     verenigingenUrl: '{{VERENIGINGEN_URL}}',
     contactUrl: '{{CONTACT_URL}}',
+    openProcesHuisUrl: '{{OPEN_PROCES_HUIS_URL}}',
     'ember-plausible': {
       enabled: false,
     },
