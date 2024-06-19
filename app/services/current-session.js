@@ -21,6 +21,9 @@ const MODULE_ROLE = {
   WORSHIP_ORGANISATIONS_DB: 'LoketLB-eredienstOrganisatiesGebruiker',
   VERENIGINGEN: 'LoketLB-verenigingenGebruiker',
   CONTACT: 'LoketLB-ContactOrganisatiegegevensGebruiker',
+  OPEN_PROCES_HUIS: config.openProcesHuisRole.startsWith('{{')
+    ? 'LoketLB-OpenProcesHuisGebruiker'
+    : config.openProcesHuisRole,
 };
 
 const ADMIN_ROLE = 'LoketLB-admin';
@@ -184,6 +187,13 @@ export default class CurrentSessionService extends Service {
   get canAccessContact() {
     return (
       this.canAccess(MODULE_ROLE.CONTACT) && !config.contactUrl.startsWith('{{')
+    );
+  }
+
+  get canAccessOpenProcesHuis() {
+    return (
+      this.canAccess(MODULE_ROLE.OPEN_PROCES_HUIS) &&
+      !config.openProcesHuisUrl.startsWith('{{')
     );
   }
 

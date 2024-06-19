@@ -8,15 +8,17 @@ The [ember-proxy-service](https://github.com/mu-semtech/ember-proxy-service#conf
 
 ### General
 
-| Name                                       | Description                                                                             |
-| ------------------------------------------ | --------------------------------------------------------------------------------------- |
-| `EMBER_LPDC_URL`                           | Link to the LPDC application                                                            |
-| `EMBER_WORSHIP_DECISIONS_DATABASE_URL`     | Link to the worship decisions database                                                  |
-| `EMBER_WORSHIP_ORGANISATIONS_DATABASE_URL` | Link to the worship organisations database                                              |
-| `EMBER_VERENIGINGEN_URL`                   | Link to the verenigingen app                                                            |
-| `EMBER_CONTACT_URL`                        | Link to the contact app                                                                 |
-| `EMBER_SUBSIDIES_URL`                      | Link to the subsidiepunt app                                                            |
-| `EMBER_GLOBAL_SYSTEM_NOTIFICATION`         | This can be used to display a message at the top of the application. HTML is supported. |
+| Name                                       | Description                                                                                           |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `EMBER_LPDC_URL`                           | Link to the LPDC application                                                                          |
+| `EMBER_WORSHIP_DECISIONS_DATABASE_URL`     | Link to the worship decisions database                                                                |
+| `EMBER_WORSHIP_ORGANISATIONS_DATABASE_URL` | Link to the worship organisations database                                                            |
+| `EMBER_VERENIGINGEN_URL`                   | Link to the verenigingen app                                                                          |
+| `EMBER_CONTACT_URL`                        | Link to the contact app                                                                               |
+| `EMBER_SUBSIDIES_URL`                      | Link to the subsidiepunt app                                                                          |
+| `EMBER_OPEN_PROCES_HUIS_URL`               | Link to the open proces huis app                                                                      |
+| `EMBER_OPEN_PROCES_HUIS_ROLE`              | ACM/IDM user role that is used to display the app link. defaults to `LoketLB-OpenProcesHuisGebruiker` |
+| `EMBER_GLOBAL_SYSTEM_NOTIFICATION`         | This can be used to display a message at the top of the application. HTML is supported.               |
 
 ### ACM/IDM
 
@@ -54,18 +56,20 @@ Feature flags are new / experimental features that can be enabled by setting the
 
 ## Releasing a new version
 
-We use [`release-it`](https://github.com/release-it/release-it) to handle our release flow 
+We use [`release-it`](https://github.com/release-it/release-it) to handle our release flow
 
 ### Generating the changelog (optional)
-At the moment the changelog is updated manually. To make this a bit easier you can generate a basic changelog based on the merged PRs with [`lerna-changelog`](https://github.com/lerna/lerna-changelog) by  adding the correct labels and updating the PR titles.
+
+At the moment the changelog is updated manually. To make this a bit easier you can generate a basic changelog based on the merged PRs with [`lerna-changelog`](https://github.com/lerna/lerna-changelog) by adding the correct labels and updating the PR titles.
 
 > `lerna-changelog` requires a Github [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) to work properly.
 
-The following command can  be used to generate the changelog:
+The following command can be used to generate the changelog:
 
 `GITHUB_AUTH=your-access-token npx lerna-changelog`
 
 ### Creating a new release
+
 Simply run `npm run release` and follow the prompts.
 
 > If you generated the changelog using lerna-changelog you can add it to the changelog file and add it to the staged changes when release-it asks if you want to commit the changes. This will ensure that the changelog change is part of the release commit.

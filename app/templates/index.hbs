@@ -279,6 +279,23 @@
             </LoketModuleCard>
           </li>
         {{/if}}
+        {{#if this.currentSession.canAccessOpenProcesHuis}}
+          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+            <LoketModuleCard
+              @icon="link-external"
+              @userManualLink=""
+            >
+              <:title>Open Proces Huis</:title>
+              <:description>Raadpleeg, doorzoek en upload processen en originele BPMN-bestanden in het Open Proces Huis, jouw centrale bron voor het ontdekken en delen van processen.
+              </:description>
+              <:link>
+                <AuLinkExternal @skin="button" href={{(open-proces-huis-url)}}>
+                  Ga naar open proces huis (externe link)
+                </AuLinkExternal>
+              </:link>
+            </LoketModuleCard>
+          </li>
+        {{/if}}
       </ul>
     {{/if}}
   </div>
