@@ -1,3 +1,12 @@
+## v0.94.1 (2024-06-19)
+
+#### :rocket: Enhancement
+* [#392](https://github.com/lblod/frontend-loket/pull/392) [DL-5816] Add open proces huis external module card ([@Riadabd](https://github.com/Riadabd))
+* [#372](https://github.com/lblod/frontend-loket/pull/372) [DGS-161] Add a `subsidies-external` feature flag ([@wolfderechter](https://github.com/wolfderechter))
+
+#### :house: Internal
+* [#388](https://github.com/lblod/frontend-loket/pull/388) Resolve `AuLoader` deprecations ([@Windvis](https://github.com/Windvis))
+
 ## v0.93.1 (2024-05-06)
 
 ### Mandatenbeheer
