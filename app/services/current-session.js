@@ -21,7 +21,9 @@ const MODULE_ROLE = {
   WORSHIP_ORGANISATIONS_DB: 'LoketLB-eredienstOrganisatiesGebruiker',
   VERENIGINGEN: 'LoketLB-verenigingenGebruiker',
   CONTACT: 'LoketLB-ContactOrganisatiegegevensGebruiker',
-  OPEN_PROCES_HUIS: 'LoketLB-OpenProcesHuisGebruiker',
+  OPEN_PROCES_HUIS: config.openProcesHuisRole.startsWith('{{')
+    ? 'LoketLB-OpenProcesHuisGebruiker'
+    : config.openProcesHuisRole,
 };
 
 const ADMIN_ROLE = 'LoketLB-admin';

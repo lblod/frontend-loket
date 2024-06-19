@@ -42,6 +42,7 @@ module.exports = function (environment) {
     verenigingenUrl: '{{VERENIGINGEN_URL}}',
     contactUrl: '{{CONTACT_URL}}',
     openProcesHuisUrl: '{{OPEN_PROCES_HUIS_URL}}',
+    openProcesHuisRole: '{{OPEN_PROCES_HUIS_ROLE}}', // TODO: remove this once the actual role is known
     'ember-plausible': {
       enabled: false,
     },
