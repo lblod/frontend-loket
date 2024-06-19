@@ -1,4 +1,4 @@
-## v0.94.1 (2024-06-19)
+## v0.94.0 (2024-06-19)
 
 #### :rocket: Enhancement
 * [#392](https://github.com/lblod/frontend-loket/pull/392) [DL-5816] Add open proces huis external module card ([@Riadabd](https://github.com/Riadabd))
