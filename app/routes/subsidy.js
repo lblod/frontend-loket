@@ -8,8 +8,5 @@ export default class SubsidyRoute extends Route {
 
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
-
-    if (!this.currentSession.canAccessSubsidies)
-      this.router.transitionTo('index');
   }
 }

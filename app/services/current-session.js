@@ -151,17 +151,6 @@ export default class CurrentSessionService extends Service {
     return this.canAccess(MODULE_ROLE.PERSONEELSBEHEER);
   }
 
-  get canAccessSubsidies() {
-    if (isFeatureEnabled('subsidies-external')) {
-      return (
-        this.canAccess(MODULE_ROLE.SUBSIDIES) &&
-        !config.subsidiesUrl.startsWith('{{')
-      );
-    } else {
-      return this.canAccess(MODULE_ROLE.SUBSIDIES);
-    }
-  }
-
   get canAccessWorshipMinisterManagement() {
     return this.canAccess(MODULE_ROLE.WORSHIP_MINISTER_MANAGEMENT);
   }
