@@ -159,28 +159,30 @@
             </LoketModuleCard>
           </li>
         {{/if}}
-        <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-          <LoketModuleCard
-            @icon="documents"
-            @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
-            @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/subsidiebeheer"
-          >
-            <:title>
-              {{if (is-feature-enabled "subsidies-external") "SubsidiePunt" "Subsidiebeheer"}}
-            </:title>
-            <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
-            <:link>
-              {{#if (is-feature-enabled "subsidies-external")}}
-                <AuLinkExternal @skin="button" href={{(subsidies-url)}}>
-                  Ga naar SubsidiePunt (externe link)
-                </AuLinkExternal>
-              {{else}}
-                <AuLink @route="subsidy.applications" @skin="button">Ga
-                  naar subsidiebeheer</AuLink>
-              {{/if}}
-            </:link>
-          </LoketModuleCard>
-        </li>
+        {{#if this.currentSession.canAccessSubsidies}}
+          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+            <LoketModuleCard
+              @icon="documents"
+              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
+              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/subsidiebeheer"
+            >
+              <:title>
+                {{if (is-feature-enabled "subsidies-external") "SubsidiePunt" "Subsidiebeheer"}}
+              </:title>
+              <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
+              <:link>
+                {{#if (is-feature-enabled "subsidies-external")}}
+                  <AuLinkExternal @skin="button" href={{(subsidies-url)}}>
+                    Ga naar SubsidiePunt (externe link)
+                  </AuLinkExternal>
+                {{else}}
+                  <AuLink @route="subsidy.applications" @skin="button">Ga
+                    naar subsidiebeheer</AuLink>
+                {{/if}}
+              </:link>
+            </LoketModuleCard>
+          </li>
+        {{/if}}
         {{#if this.currentSession.canAccessPublicServices}}
           <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
             <LoketModuleCard
