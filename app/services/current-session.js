@@ -153,10 +153,7 @@ export default class CurrentSessionService extends Service {
 
   get canAccessSubsidies() {
     if (isFeatureEnabled('subsidies-external')) {
-      return (
-        this.canAccess(MODULE_ROLE.SUBSIDIES) &&
-        !config.subsidiesUrl.startsWith('{{')
-      );
+      return !config.subsidiesUrl.startsWith('{{');
     } else {
       return this.canAccess(MODULE_ROLE.SUBSIDIES);
     }
