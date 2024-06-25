@@ -1,3 +1,8 @@
+## v0.94.1 (2024-06-25)
+
+#### :bug: Bug Fix
+* [#393](https://github.com/lblod/frontend-loket/pull/393) [DGS-316] Fix: subsidies always visible ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.94.0 (2024-06-19)
 
 #### :rocket: Enhancement
