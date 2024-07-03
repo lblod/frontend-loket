@@ -328,6 +328,10 @@ class ArticleDetails extends Component {
 
             return data.at(0);
           }
+        } else {
+          throw new Error(
+            'Something went wrong while retrieving related document information',
+          );
         }
       });
 
@@ -455,34 +459,44 @@ class ArticleDetails extends Component {
             </tr>
           </:header>
           <:body>
-            {{#each this.decisions as |decision|}}
-              <tr>
-                <td>
-                  <AuLinkExternal href={{decision.link}}>
-                    {{decision.name}}
-                  </AuLinkExternal>
-                </td>
-                <td>{{decision.sentBy.name}}</td>
-                <td>{{formatDate decision.sentDate}}</td>
-                {{#unless @isReadOnly}}
+            {{#if this.loadData.last.isSuccessful}}
+              {{#each this.decisions as |decision|}}
+                <tr>
                   <td>
-                    <AuButton
-                      @skin="naked"
-                      @alert={{true}}
-                      @hideText={{true}}
-                      @icon={{BinIcon}}
-                      {{on "click" (fn this.removeDecision decision)}}
-                    >
-                      Verwijder
-                    </AuButton>
+                    <AuLinkExternal href={{decision.link}}>
+                      {{decision.name}}
+                    </AuLinkExternal>
                   </td>
-                {{/unless}}
-              </tr>
+                  <td>{{decision.sentBy.name}}</td>
+                  <td>{{formatDate decision.sentDate}}</td>
+                  {{#unless @isReadOnly}}
+                    <td>
+                      <AuButton
+                        @skin="naked"
+                        @alert={{true}}
+                        @hideText={{true}}
+                        @icon={{BinIcon}}
+                        {{on "click" (fn this.removeDecision decision)}}
+                      >
+                        Verwijder
+                      </AuButton>
+                    </td>
+                  {{/unless}}
+                </tr>
+              {{else}}
+                <tr>
+                  <td colspan="4">Er werden nog geen documenten toegevoegd</td>
+                </tr>
+              {{/each}}
             {{else}}
               <tr>
-                <td colspan="4">Er werden nog geen documenten toegevoegd</td>
+                <td colspan="4">
+                  <AuHelpText @error={{true}} class="au-u-margin-top-none">
+                    Er ging iets fout bij het opvragen van de documenten
+                  </AuHelpText>
+                </td>
               </tr>
-            {{/each}}
+            {{/if}}
           </:body>
         </AuTable>
 
@@ -572,9 +586,11 @@ class AddDecisionsModal extends Component {
         data.sort((a, b) => b.sentDate - a.sentDate);
 
         return data;
-      } else {
-        // no results
       }
+    } else {
+      throw new Error(
+        'Something went wrong while searching for related document information',
+      );
     }
   });
 
@@ -637,31 +653,44 @@ class AddDecisionsModal extends Component {
                   </tr>
                 </:header>
                 <:body>
-                  {{#each this.search.lastSuccessful.value as |decision|}}
-                    <tr>
-                      <td>
-                        <AuCheckbox
-                          @checked={{arrayIncludes
-                            this.selectedDecisions
-                            decision
-                          }}
-                          @onChange={{fn this.handleSelectionChange decision}}
-                        />
-                      </td>
-                      <td>
-                        <AuLinkExternal href={{decision.link}}>
-                          {{decision.name}}
-                        </AuLinkExternal>
-                      </td>
-                      <td>{{formatDate decision.sentDate}}</td>
-                    </tr>
+                  {{#if this.search.last.isSuccessful}}
+                    {{#each this.search.lastSuccessful.value as |decision|}}
+                      <tr>
+                        <td>
+                          <AuCheckbox
+                            @checked={{arrayIncludes
+                              this.selectedDecisions
+                              decision
+                            }}
+                            @onChange={{fn this.handleSelectionChange decision}}
+                          />
+                        </td>
+                        <td>
+                          <AuLinkExternal href={{decision.link}}>
+                            {{decision.name}}
+                          </AuLinkExternal>
+                        </td>
+                        <td>{{formatDate decision.sentDate}}</td>
+                      </tr>
+                    {{else}}
+                      <tr>
+                        <td colspan="3">
+                          Geen resultaten
+                        </td>
+                      </tr>
+                    {{/each}}
                   {{else}}
                     <tr>
                       <td colspan="3">
-                        Geen resultaten
+                        <AuHelpText
+                          @error={{true}}
+                          class="au-u-margin-top-none"
+                        >
+                          Er ging iets fout bij het zoeken naar documenten
+                        </AuHelpText>
                       </td>
                     </tr>
-                  {{/each}}
+                  {{/if}}
                 </:body>
               </AuTable>
             </div>
