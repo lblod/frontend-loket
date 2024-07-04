@@ -330,6 +330,7 @@ class ArticleDetails extends Component {
           window.location.origin,
         );
 
+        url.searchParams.append('forDecisionType', this.args.decisionType.uri);
         url.searchParams.append('forRelatedDecision', decisionNode.uri);
         const response = await fetch(url);
 
