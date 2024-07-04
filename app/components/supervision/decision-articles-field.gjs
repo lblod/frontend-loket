@@ -3,6 +3,7 @@ import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import AuCheckbox from '@appuniversum/ember-appuniversum/components/au-checkbox';
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuHelpText from '@appuniversum/ember-appuniversum/components/au-help-text';
+import AuIcon from '@appuniversum/ember-appuniversum/components/au-icon';
 import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import AuLinkExternal from '@appuniversum/ember-appuniversum/components/au-link-external';
 import AuLoader from '@appuniversum/ember-appuniversum/components/au-loader';
@@ -12,6 +13,7 @@ import AuTable from '@appuniversum/ember-appuniversum/components/au-table';
 import { AddIcon } from '@appuniversum/ember-appuniversum/components/icons/add';
 import { BinIcon } from '@appuniversum/ember-appuniversum/components/icons/bin';
 import { CrossIcon } from '@appuniversum/ember-appuniversum/components/icons/cross';
+import { InfoCircleIcon } from '@appuniversum/ember-appuniversum/components/icons/info-circle';
 import { SearchIcon } from '@appuniversum/ember-appuniversum/components/icons/search';
 import { NavLeftIcon } from '@appuniversum/ember-appuniversum/components/icons/nav-left';
 import Component from '@glimmer/component';
@@ -30,6 +32,7 @@ import { task } from 'ember-concurrency';
 import PowerSelect from 'ember-power-select/components/power-select';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
+import worshipDecisionsDatabaseUrl from 'frontend-loket/helpers/worship-decisions-database-url';
 import { BESLUIT, ELI, EXT } from 'frontend-loket/rdf/namespaces';
 import { Literal, NamedNode, parse, Store } from 'rdflib';
 import { v4 as uuid } from 'uuid';
@@ -232,6 +235,16 @@ class DecisionArticlesField extends Component {
       {{@field.label}}
     </AuLabel>
 
+    <AuHelpText @skin="secondary" class="au-u-margin-bottom-small">
+      <AuIcon @icon={{InfoCircleIcon}} />
+      Voor een vlotte raadpleging van de gerefereerde documenten, raden we aan
+      om eerst aan te loggen op
+      <AuLinkExternal
+        @skin="secondary"
+        href={{(worshipDecisionsDatabaseUrl)}}
+      >Databank Erediensten</AuLinkExternal>
+    </AuHelpText>
+
     {{#if this.articles}}
       <ul class="au-o-flow au-o-flow--small">
         {{#each this.articles as |article index|}}
@@ -328,6 +341,10 @@ class ArticleDetails extends Component {
 
             return data.at(0);
           }
+        } else {
+          throw new Error(
+            'Something went wrong while retrieving related document information',
+          );
         }
       });
 
@@ -455,34 +472,44 @@ class ArticleDetails extends Component {
             </tr>
           </:header>
           <:body>
-            {{#each this.decisions as |decision|}}
-              <tr>
-                <td>
-                  <AuLinkExternal href={{decision.link}}>
-                    {{decision.name}}
-                  </AuLinkExternal>
-                </td>
-                <td>{{decision.sentBy.name}}</td>
-                <td>{{formatDate decision.sentDate}}</td>
-                {{#unless @isReadOnly}}
+            {{#if this.loadData.last.isSuccessful}}
+              {{#each this.decisions as |decision|}}
+                <tr>
                   <td>
-                    <AuButton
-                      @skin="naked"
-                      @alert={{true}}
-                      @hideText={{true}}
-                      @icon={{BinIcon}}
-                      {{on "click" (fn this.removeDecision decision)}}
-                    >
-                      Verwijder
-                    </AuButton>
+                    <AuLinkExternal href={{decision.link}}>
+                      {{decision.name}}
+                    </AuLinkExternal>
                   </td>
-                {{/unless}}
-              </tr>
+                  <td>{{decision.sentBy.name}}</td>
+                  <td>{{formatDate decision.sentDate}}</td>
+                  {{#unless @isReadOnly}}
+                    <td>
+                      <AuButton
+                        @skin="naked"
+                        @alert={{true}}
+                        @hideText={{true}}
+                        @icon={{BinIcon}}
+                        {{on "click" (fn this.removeDecision decision)}}
+                      >
+                        Verwijder
+                      </AuButton>
+                    </td>
+                  {{/unless}}
+                </tr>
+              {{else}}
+                <tr>
+                  <td colspan="4">Er werden nog geen documenten toegevoegd</td>
+                </tr>
+              {{/each}}
             {{else}}
               <tr>
-                <td colspan="4">Er werden nog geen documenten toegevoegd</td>
+                <td colspan="4">
+                  <AuHelpText @error={{true}} class="au-u-margin-top-none">
+                    Er ging iets fout bij het opvragen van de documenten
+                  </AuHelpText>
+                </td>
               </tr>
-            {{/each}}
+            {{/if}}
           </:body>
         </AuTable>
 
@@ -572,9 +599,11 @@ class AddDecisionsModal extends Component {
         data.sort((a, b) => b.sentDate - a.sentDate);
 
         return data;
-      } else {
-        // no results
       }
+    } else {
+      throw new Error(
+        'Something went wrong while searching for related document information',
+      );
     }
   });
 
@@ -637,31 +666,44 @@ class AddDecisionsModal extends Component {
                   </tr>
                 </:header>
                 <:body>
-                  {{#each this.search.lastSuccessful.value as |decision|}}
-                    <tr>
-                      <td>
-                        <AuCheckbox
-                          @checked={{arrayIncludes
-                            this.selectedDecisions
-                            decision
-                          }}
-                          @onChange={{fn this.handleSelectionChange decision}}
-                        />
-                      </td>
-                      <td>
-                        <AuLinkExternal href={{decision.link}}>
-                          {{decision.name}}
-                        </AuLinkExternal>
-                      </td>
-                      <td>{{formatDate decision.sentDate}}</td>
-                    </tr>
+                  {{#if this.search.last.isSuccessful}}
+                    {{#each this.search.lastSuccessful.value as |decision|}}
+                      <tr>
+                        <td>
+                          <AuCheckbox
+                            @checked={{arrayIncludes
+                              this.selectedDecisions
+                              decision
+                            }}
+                            @onChange={{fn this.handleSelectionChange decision}}
+                          />
+                        </td>
+                        <td>
+                          <AuLinkExternal href={{decision.link}}>
+                            {{decision.name}}
+                          </AuLinkExternal>
+                        </td>
+                        <td>{{formatDate decision.sentDate}}</td>
+                      </tr>
+                    {{else}}
+                      <tr>
+                        <td colspan="3">
+                          Geen resultaten
+                        </td>
+                      </tr>
+                    {{/each}}
                   {{else}}
                     <tr>
                       <td colspan="3">
-                        Geen resultaten
+                        <AuHelpText
+                          @error={{true}}
+                          class="au-u-margin-top-none"
+                        >
+                          Er ging iets fout bij het zoeken naar documenten
+                        </AuHelpText>
                       </td>
                     </tr>
-                  {{/each}}
+                  {{/if}}
                 </:body>
               </AuTable>
             </div>
