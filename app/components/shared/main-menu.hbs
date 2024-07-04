@@ -61,21 +61,14 @@
     {{/if}}
     {{#if this.currentSession.canAccessSubsidies}}
       <li class="au-c-list-navigation__item">
-        {{#if (is-feature-enabled "subsidies-external")}}
-          <AuLinkExternal
-            @icon="link-external"
-            @iconAlignment="left"
-            class="au-c-list-navigation__link"
-            href={{(subsidies-url)}}
-          >
-            SubsidiePunt
-          </AuLinkExternal>
-        {{else}}
-          <AuNavigationLink @route="subsidy.applications.index">
-            <AuIcon @icon="documents" @alignment="left" />
-            Subsidiebeheer
-          </AuNavigationLink>
-        {{/if}}
+        <AuLinkExternal
+          @icon="link-external"
+          @iconAlignment="left"
+          class="au-c-list-navigation__link"
+          href={{(subsidies-url)}}
+        >
+          SubsidiePunt
+        </AuLinkExternal>
       </li>
     {{/if}}
     {{#if this.currentSession.canAccessEredienstMandatenbeheer}}

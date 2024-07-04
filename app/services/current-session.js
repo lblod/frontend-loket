@@ -4,16 +4,13 @@ import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
 import { loadAccountData } from 'frontend-loket/utils/account';
 import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
-import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 
 const MODULE_ROLE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
   BERICHTENCENTRUM: 'LoketLB-berichtenGebruiker',
   BBCDR: 'LoketLB-bbcdrGebruiker',
-  MANDATENBEHEER: 'LoketLB-mandaatGebruiker',
   LEIDINGGEVENDENBEHEER: 'LoketLB-leidinggevendenGebruiker',
   PERSONEELSBEHEER: 'LoketLB-personeelsbeheer',
-  SUBSIDIES: 'LoketLB-subsidies',
   WORSHIP_MINISTER_MANAGEMENT: 'LoketLB-eredienstBedienaarGebruiker',
   EREDIENSTMANDATENBEHEER: 'LoketLB-eredienstMandaatGebruiker',
   PUBLIC_SERVICES: 'LoketLB-LPDCGebruiker',
@@ -152,11 +149,7 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessSubsidies() {
-    if (isFeatureEnabled('subsidies-external')) {
-      return !config.subsidiesUrl.startsWith('{{');
-    } else {
-      return this.canAccess(MODULE_ROLE.SUBSIDIES);
-    }
+    return !config.subsidiesUrl.startsWith('{{');
   }
 
   get canAccessWorshipMinisterManagement() {
