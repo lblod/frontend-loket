@@ -1,3 +1,14 @@
+## v0.95.0 (2024-07-11)
+
+### General
+#### :rocket: Enhancement
+* [#394](https://github.com/lblod/frontend-loket/pull/394) [DL-6042] Add cards to the login page for all external apps ([@Windvis](https://github.com/Windvis))
+
+### Toezicht
+#### :rocket: Enhancement
+* [#395](https://github.com/lblod/frontend-loket/pull/395) [DL-6050] `<DecisionArticlesField>` component improvements ([@Windvis](https://github.com/Windvis))
+* [#397](https://github.com/lblod/frontend-loket/pull/397) Also add the `forDecisionType` param to the `/related-document-information` call ([@Windvis](https://github.com/Windvis))
+
 ## v0.94.1 (2024-06-25)
 
 #### :bug: Bug Fix
