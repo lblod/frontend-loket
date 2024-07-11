@@ -8,8 +8,7 @@
         {{#if this.hasMultiplePages}}
           {{#unless this.isFirstPage}}
             <li class="au-c-pagination__list-item">
-              <AuButton @skin="link" {{on "click" (fn this.changePage @links.prev)}}>
-                <AuIcon @icon="nav-left" @alignment="left" />
+              <AuButton @skin="link" @icon="nav-left" {{on "click" (fn this.changePage @links.prev)}}>
                 vorige
                 <span class="au-u-hidden-visually"> {{@size}} resultaten</span>
               </AuButton>
@@ -17,10 +16,9 @@
           {{/unless}}
           {{#unless this.isLastPage}}
             <li class="au-c-pagination__list-item">
-              <AuButton @skin="link" {{on "click" (fn this.changePage @links.next)}}>
+              <AuButton @skin="link" @icon="nav-right" @iconAlignment="right" {{on "click" (fn this.changePage @links.next)}}>
                 volgende
                 <span class="au-u-hidden-visually"> {{@size}} resultaten</span>
-                <AuIcon @icon="nav-right" @alignment="right" />
               </AuButton>
             </li>
           {{/unless}}

@@ -4,7 +4,7 @@
     <AuHeading @skin="2">Beheer Fracties</AuHeading>
   </Group>
   <Group>
-    <AuButton {{on 'click' this.createNewFractie}}>Voeg fractie toe</AuButton>
+    <AuButton @icon="add" {{on 'click' this.createNewFractie}}>Voeg fractie toe</AuButton>
   </Group>
 </AuToolbar>
 <AuToolbar @size="large" as |Group|>
@@ -53,8 +53,7 @@
                 <tr>
                   <td colspan="3" class="au-u-text-center">
                     <AuHeading @level="3" @skin="4" class="au-u-margin-bottom-small">Geen fracties gevonden</AuHeading>
-                    <AuButton {{on "click" this.createNewFractie}} @skin="secondary">
-                      <AuIcon @icon="add" @alignment="left" />
+                    <AuButton @icon="add" {{on "click" this.createNewFractie}} @skin="secondary">
                       Voeg een nieuwe fractie toe
                     </AuButton>
                   </td>

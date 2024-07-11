@@ -1,7 +1,6 @@
 <div class="{{if this.isOpen "js-accordion--open"}}">
-<AuButton @skin="link" class="au-c-button--toggle" {{on 'click' this.toggleOpen}}>
+<AuButton @skin="link" @icon="nav-down" @iconAlignment="right" class="au-c-button--toggle" {{on 'click' this.toggleOpen}}>
   Toon totalen per orgaan
-  <AuIcon @icon="nav-down" @alignment="right" />
 </AuButton>
 <div class="au-c-collapsible au-u-text-left">
   {{#if this.getMandatarissenTotals.isRunning}}
