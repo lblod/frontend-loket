@@ -37,14 +37,12 @@
   </Modal.Body>
   <Modal.Footer>
     <AuButtonGroup>
-      {{! TODO: Replace this with an AuButton component once we update to 3.25+: https://github.com/emberjs/ember.js/issues/18232 }}
-      <button
-        class="au-c-button au-c-button--primary"
+      <AuButton
         form="notification-preferences-form"
         type="submit"
       >
         Bewaar
-      </button>
+      </AuButton>
       <AuButton {{on "click" @close}} @skin="secondary">
         Sluit venster en verwerp wijzigingen
       </AuButton>

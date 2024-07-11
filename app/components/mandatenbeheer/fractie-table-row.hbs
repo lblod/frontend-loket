@@ -37,8 +37,7 @@
       </AuButton>
     </AuButtonGroup>
     {{else}}
-      <AuButton {{on "click" (fn (mut this.editMode) true)}} @skin="link">
-        <AuIcon @icon="pencil" @alignment="left" />
+      <AuButton @icon="pencil" {{on "click" (fn (mut this.editMode) true)}} @skin="link">
         Bewerk
       </AuButton>
       {{!-- TODO: this.canRemove is undefined, is this still needed? --}}

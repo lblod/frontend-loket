@@ -80,20 +80,18 @@
           <AuAlert @title="Komt het zoekresultaat niet overeen met wat u zocht?" @skin="info" @size="tiny" class="au-u-margin-top-small">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="link" {{on 'click' this.handleCreatePersonClick}} class="au-c-link">
-                <AuIcon @icon="add" @alignment="left" />
-                voeg een nieuwe persoon toe
-              </AuButton>.
+              <AuButton @icon="add" @skin="link" {{on 'click' this.handleCreatePersonClick}}>
+                voeg een nieuwe persoon toe.
+              </AuButton>
             </p>
           </AuAlert>
         {{else}}
           <AuAlert @title='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @skin="info" @size="tiny">
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @skin="link" {{on 'click' this.handleCreatePersonClick}} class="au-c-link">
-                <AuIcon @icon="add" @alignment="left" />
-                voeg een nieuwe persoon toe
-              </AuButton>.
+              <AuButton @icon="add" @skin="link" {{on 'click' this.handleCreatePersonClick}}>
+                voeg een nieuwe persoon toe.
+              </AuButton>
             </p>
           </AuAlert>
         {{/if}}
@@ -101,10 +99,9 @@
         <AuContent>
           <p class="au-c-text-info">
             Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of
-            <AuButton @skin="link" {{on 'click' this.handleCreatePersonClick}}>
-              <AuIcon @icon="add" @alignment="left" />
-              voeg een nieuwe persoon toe
-            </AuButton>.
+            <AuButton @icon="add" @skin="link" {{on 'click' this.handleCreatePersonClick}}>
+              voeg een nieuwe persoon toe.
+            </AuButton>
           </p>
         </AuContent>
         <div class="mandate-new-info">

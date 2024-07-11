@@ -69,10 +69,12 @@
           Verwijder
         </AuButton>
         {{/if}}
-        <LinkTo @route='bbcdr.rapporten.index' class="au-c-button au-c-button--secondary"
-          data-test-loket="bbcdr-close-panel-btn">
+        <AuLink
+          @route="bbcdr.rapporten.index"
+          @skin="button-secondary" data-test-loket="bbcdr-close-panel-btn"
+        >
           Sluit
-        </LinkTo>
+        </AuLink>
       </AuButtonGroup>
       {{/if}}
     </div>

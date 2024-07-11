@@ -6,44 +6,37 @@
   @buttonLabel="Account settings"
 >
   {{#if this.currentSession.canAccessToezicht}}
-    <AuLink @route="supervision.submissions" role="menuitem">
-      <AuIcon @icon="search-folder" @alignment="left" />
+    <AuLink @route="supervision.submissions" @icon="search-folder" role="menuitem">
       Toezicht
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessBerichten}}
-    <AuLink @route="berichtencentrum.berichten" role="menuitem">
-      <AuIcon @icon="message" @alignment="left" />
+    <AuLink @route="berichtencentrum.berichten" @icon="message" role="menuitem">
       Berichtencentrum
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessBbcdr}}
-    <AuLink @route="bbcdr.rapporten" role="menuitem">
-      <AuIcon @icon="document" @alignment="left" />
+    <AuLink @route="bbcdr.rapporten" @icon="document" role="menuitem">
       BBC DR
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessMandaat}}
-    <AuLink @route="mandatenbeheer.mandatarissen" role="menuitem">
-      <AuIcon @icon="user-fill" @alignment="left" />
+    <AuLink @route="mandatenbeheer.mandatarissen" @icon="user-fill" role="menuitem">
       Mandatenbeheer
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessWorshipMinisterManagement}}
-    <AuLink @route="worship-ministers-management" role="menuitem">
-      <AuIcon @icon="user" @alignment="left" />
+    <AuLink @route="worship-ministers-management" @icon="user" role="menuitem">
       Bedienarenbeheer
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessLeidinggevenden}}
-    <AuLink @route="leidinggevendenbeheer.bestuursfuncties" role="menuitem">
-      <AuIcon @icon="user-popup" @alignment="left" />
+    <AuLink @route="leidinggevendenbeheer.bestuursfuncties" @icon="user-popup" role="menuitem">
       Leidinggevendenbeheer
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessPersoneelsbeheer}}
-    <AuLink @route="personeelsbeheer.personeelsaantallen.index" role="menuitem">
-      <AuIcon @icon="users" @alignment="left" />
+    <AuLink @route="personeelsbeheer.personeelsaantallen.index" @icon="users" role="menuitem">
       Personeelsbeheer
     </AuLink>
   {{/if}}
@@ -63,8 +56,7 @@
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
-    <AuLink @route="eredienst-mandatenbeheer.mandatarissen" role="menuitem">
-      <AuIcon @icon="users-four-of-four" @alignment="left" />
+    <AuLink @route="eredienst-mandatenbeheer.mandatarissen" @icon="users-four-of-four" role="menuitem">
       Mandatenbeheer
     </AuLink>
   {{/if}}

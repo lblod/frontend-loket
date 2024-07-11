@@ -30,7 +30,7 @@
         <td class="au-u-visible-small-up">{{conversatie.laatsteBericht.van.naam}}</td>
       {{/unless}}
       <td>
-        <AuLink @route='berichtencentrum.berichten.conversatie' @model={{conversatie.id}} data-test-loket="berichtencentrum-bekijk">
+        <AuLink @route='berichtencentrum.berichten.conversatie' @model={{conversatie.id}} @icon="eye" data-test-loket="berichtencentrum-bekijk">
           Bekijk
         </AuLink>
       </td>

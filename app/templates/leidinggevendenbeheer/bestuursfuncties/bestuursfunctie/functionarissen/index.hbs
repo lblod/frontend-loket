@@ -5,8 +5,7 @@
     <AuHeading @skin="2">Bekijk en bewerk aanstellingsperiode</AuHeading>
   </Group>
   <Group>
-    <AuButton {{on 'click' this.handleVoegNieuweAanstellingsperiodeClick}}>
-      <AuIcon @icon="add" @alignment="left" />
+    <AuButton @icon="add" {{on 'click' this.handleVoegNieuweAanstellingsperiodeClick}}>
       Voeg nieuwe aanstellingsperiode toe
     </AuButton>
   </Group>
@@ -37,10 +36,13 @@
         {{/if}}
       </li>
       <li class="au-c-list-horizontal__item">
-        <LinkTo @route="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info" @model={{this.bestuursfunctie.id}} class="au-c-link">
-          <AuIcon @icon="pencil" @alignment="left" />
+        <AuLink
+          @route="leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.contact-info"
+          @model={{this.bestuursfunctie.id}}
+          @icon="pencil"
+        >
           Bewerk
-        </LinkTo>
+        </AuLink>
       </li>
     </ul>
   </Group>

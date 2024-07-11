@@ -12,10 +12,10 @@
   >
     <li class="au-c-list-horizontal__item">
       <AuLinkExternal
-        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/veelgestelde-vragen"
         @skin="secondary"
+        @icon="question-circle"
+        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/veelgestelde-vragen"
       >
-        <AuIcon @icon="question-circle" @alignment="left" />
         Help
       </AuLinkExternal>
     </li>
@@ -58,10 +58,10 @@
             </div>
             <div class="au-c-sidebar__footer">
               <AuLinkExternal
-                href="https://abb-vlaanderen.gitbook.io/handleiding-loket/"
                 @skin="secondary"
+                @icon="documents"
+                href="https://abb-vlaanderen.gitbook.io/handleiding-loket/"
               >
-                <AuIcon @icon="documents" @alignment="left" />
                 Bekijk handleiding
               </AuLinkExternal>
             </div>
@@ -76,8 +76,7 @@
                 <ul class="au-c-list-horizontal au-c-list-horizontal--small">
                   {{#if this.currentSession.canAccessModules}}
                     <li class="au-c-list-horizontal__item">
-                      <AuLink @route="index">
-                        <AuIcon @icon="arrow-left" @alignment="left" />
+                      <AuLink @icon="arrow-left" @route="index">
                         Overzicht modules
                       </AuLink>
                     </li>

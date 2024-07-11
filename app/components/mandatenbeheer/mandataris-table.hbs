@@ -73,7 +73,15 @@
           {{/if}}
         </td>
       {{/if}}
-      <td><LinkTo @route={{@editRoute}} @model={{row.isBestuurlijkeAliasVan.id}} class="au-c-link"> Bewerk </LinkTo></td>
+      <td>
+        {{#if row.isBestuurlijkeAliasVan.id}}
+          <AuLink
+            @route={{@editRoute}}
+            @model={{row.isBestuurlijkeAliasVan.id}}
+            @icon="pencil"
+          >Bewerk</AuLink>
+        {{/if}}
+      </td>
       {{#if (is-admin)}}
         {{#unless @displaySubset}}
           <td>

@@ -38,7 +38,7 @@
         {{shared/document-status-pill report.status}}
       </td>
       <td data-test-loket='bbcdr-report-table-open-details-column'>
-        <LinkTo @route='bbcdr.rapporten.edit' @model={{report.id}} class="au-c-link">Bekijk</LinkTo>
+        <AuLink @route="bbcdr.rapporten.edit" @model={{report.id}} @icon="eye">Bekijk</AuLink>
       </td>
     </c.body>
   </t.content>

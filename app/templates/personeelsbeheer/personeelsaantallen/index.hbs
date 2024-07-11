@@ -31,12 +31,15 @@
         </div>
       </Group>
       <Group>
-        <div class="au-u-text-right">
-          <LinkTo @route="personeelsbeheer.personeelsaantallen.latest" @model={{dataset.id}} class="au-c-button au-u-margin-bottom-tiny">
-            Bekijk en bewerk aantallen
-            <AuIcon @icon="nav-right" @alignment="right" />
-          </LinkTo>
-        </div>
+        <AuLink
+          @route="personeelsbeheer.personeelsaantallen.latest"
+          @model={{dataset.id}}
+          @skin="button"
+          @icon="nav-right"
+          @iconAlignment="right"
+        >
+          Bekijk en bewerk aantallen
+        </AuLink>
       </Group>
     </AuToolbar>
   {{/each}}
