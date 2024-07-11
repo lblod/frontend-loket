@@ -333,3 +333,9 @@
   height: auto; // override the fixed height of the button height
   border: .1rem #c6cdd3 solid;
 }
+
+// Based on the Tailwind class: https://tailwindcss.com/docs/height#full-height
+.h-full {
+  height: 100% !important;
+}
+

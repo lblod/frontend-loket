@@ -1,15 +1,24 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 import { CONCEPT_STATUS } from 'frontend-loket/models/submission-document-status';
 
 export default class SupervisionSubmissionsIndexController extends Controller {
   @service router;
   @service store;
 
+  queryParams = ['page', 'size', 'sort', 'status'];
+
+  @tracked status;
   page = 0;
   size = 20;
   sort = '-modified';
+
+  @action handleStatusFilterChange(statusUri) {
+    this.status = statusUri;
+    this.page = 0;
+  }
 
   @action
   async reopen(submission) {
