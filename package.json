@@ -55,7 +55,6 @@
     "@lblod/ember-submission-form-fields": "^2.21.0",
     "@lblod/submission-form-helpers": "^2.10.0",
     "@sentry/ember": "^7.54.0",
-    "@zestia/ember-auto-focus": "^5.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",
     "concurrently": "^8.0.1",
