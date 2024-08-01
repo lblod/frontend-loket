@@ -79,7 +79,7 @@
     "ember-moment": "^9.0.0",
     "ember-mu-transform-helpers": "^2.1.2",
     "ember-page-title": "^7.0.0",
-    "ember-plausible": "^0.2.0",
+    "ember-plausible": "^0.3.0",
     "ember-power-select": "^7.0.0",
     "ember-power-select-with-create": "^2.0.0",
     "ember-promise-helpers": "^2.0.0",
