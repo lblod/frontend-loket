@@ -31,12 +31,6 @@
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
-  "overrides": {
-    "@embroider/macros": "$@embroider/macros",
-    "@embroider/util": "^1.12.0",
-    "ember-cli-babel": "$ember-cli-babel",
-    "moment": "^2.29.1"
-  },
   "devDependencies": {
     "@appuniversum/ember-appuniversum": "^3.4.1",
     "@babel/eslint-parser": "^7.21.3",
