@@ -33,7 +33,6 @@ module.exports = function (environment) {
     },
     features: {
       // 'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
-      'subsidies-external': '{{FEATURE_SUBSIDIES_EXTERNAL}}',
     },
     lpdcUrl: '{{LPDC_URL}}',
     subsidiesUrl: '{{SUBSIDIES_URL}}',

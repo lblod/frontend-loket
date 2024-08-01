@@ -1,6 +1,5 @@
 import EmberRouter from '@ember/routing/router';
 import config from 'frontend-loket/config/environment';
-import isFeatureEnabled from './helpers/is-feature-enabled';
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -95,24 +94,9 @@ Router.map(function () {
     });
   });
 
-  if (!isFeatureEnabled('subsidies-external')) {
-    this.route('subsidy', function () {
-      this.route('applications', function () {
-        this.route('available-subsidies');
-        this.route('new');
-        this.route('edit', { path: '/:id' }, function () {
-          this.route('step', { path: '/steps/:step_id' }, function () {
-            this.route('new');
-            this.route('edit', { path: '/forms/:form_id' });
-          });
-        });
-      });
-    });
-  } else {
-    this.route('subsidies-external-redirect', { path: 'subsidy' }, function () {
-      this.route('with-path', { path: '/*path' });
-    });
-  }
+  this.route('subsidies-external-redirect', { path: 'subsidy' }, function () {
+    this.route('with-path', { path: '/*path' });
+  });
 
   this.route(
     'lpdc-external-redirect',

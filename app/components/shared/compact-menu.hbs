@@ -40,21 +40,14 @@
       Personeelsbeheer
     </AuLink>
   {{/if}}
-  {{#if (is-feature-enabled "subsidies-external")}}
-      <AuLinkExternal
-        @icon="link-external"
-        @iconAlignment="left"
-        href={{(subsidies-url)}}
-        role="menuitem"
-      >
-        SubsidiePunt
-      </AuLinkExternal>
-    {{else}}
-    <AuLink @route="subsidy.applications.index" role="menuitem">
-      <AuIcon @icon="documents" @alignment="left" />
-      Subsidiebeheer
-    </AuLink>
-  {{/if}}
+  <AuLinkExternal
+    @icon="link-external"
+    @iconAlignment="left"
+    href={{(subsidies-url)}}
+    role="menuitem"
+  >
+    SubsidiePunt
+  </AuLinkExternal>
   {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
     <AuLink @route="eredienst-mandatenbeheer.mandatarissen" @icon="users-four-of-four" role="menuitem">
       Mandatenbeheer

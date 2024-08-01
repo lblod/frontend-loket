@@ -162,45 +162,6 @@ export default class SharedBreadCrumbComponent extends Component {
       ],
     },
     {
-      route: 'subsidy.applications.index',
-      crumbs: [{ label: 'Subsidiebeheer' }],
-    },
-    {
-      route: 'subsidy.applications.available-subsidies',
-      crumbs: [
-        { label: 'Subsidiebeheer', link: 'subsidy.applications' },
-        { label: 'Beschikbare subsidiemaatregelen' },
-      ],
-    },
-    {
-      route: 'subsidy.applications.edit',
-      crumbs: [
-        { label: 'Subsidiebeheer', link: 'subsidy.applications' },
-        { label: 'Bekijk subsidieaanvraag' },
-      ],
-    },
-    {
-      route: 'subsidy.applications.edit.step',
-      crumbs: [
-        { label: 'Subsidiebeheer', link: 'subsidy.applications' },
-        { label: 'Bekijk subsidieaanvraag' },
-      ],
-    },
-    {
-      route: 'subsidy.applications.edit.step.new_error',
-      crumbs: [
-        { label: 'Subsidiebeheer', link: 'subsidy.applications' },
-        { label: 'Bekijk subsidieaanvraag' },
-      ],
-    },
-    {
-      route: 'subsidy.applications.edit.step.edit',
-      crumbs: [
-        { label: 'Subsidiebeheer', link: 'subsidy.applications' },
-        { label: 'Bekijk subsidieaanvraag' },
-      ],
-    },
-    {
       route: 'eredienst-mandatenbeheer.mandatarissen',
       crumbs: [{ label: 'Mandatenbeheer' }],
     },

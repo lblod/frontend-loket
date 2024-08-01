@@ -76,26 +76,7 @@ inflector.irregular('submission-document', 'submission-documents');
 inflector.irregular('form-data', 'form-data');
 inflector.irregular('concept', 'concepts');
 inflector.irregular('concept-scheme', 'concept-schemes');
-inflector.irregular('subsidy-application-form', 'subsidy-application-forms');
 inflector.irregular('bank-account', 'bank-accounts');
-inflector.irregular('time-block', 'time-blocks');
-inflector.irregular('application-form-entry', 'application-form-entries');
-
-// New subsidy flow
-inflector.irregular('participation', 'participations');
-inflector.irregular('period-of-time', 'periods-of-time');
-inflector.irregular(
-  'subsidy-measure-consumption',
-  'subsidy-measure-consumptions',
-);
-inflector.irregular(
-  'subsidy-application-flow-step',
-  'subsidy-application-flow-steps',
-);
-inflector.irregular(
-  'subsidy-measure-consumption-status',
-  'subsidy-measure-consumption-statuses',
-);
 
 inflector.irregular(
   'minister-position-function',
@@ -103,5 +84,4 @@ inflector.irregular(
 );
 
 inflector.irregular('minister-position', 'minister-positions');
-
 inflector.irregular('nationality', 'nationalities');
