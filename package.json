@@ -77,7 +77,6 @@
     "ember-power-select": "^7.0.0",
     "ember-power-select-with-create": "^2.0.0",
     "ember-promise-helpers": "^2.0.0",
-    "ember-promise-modals": "^4.0.0",
     "ember-qunit": "^6.2.0",
     "ember-resolver": "^10.0.0",
     "ember-simple-auth": "^6.0.0",
