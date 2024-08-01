@@ -20,24 +20,42 @@
               {{#if login.errorMessage}}
                 <AuAlert @icon="alert-triangle" @title={{login.errorMessage}} @skin="warning" />
               {{/if}}
-              <login.each-account @accounts={{this.model}} as |account|>
-                <div class="au-o-box au-o-box--small au-c-card au-u-margin-bottom-small">
-                  <p>
-                    {{account.gebruiker.voornaam}} {{account.gebruiker.achternaam}}
-                  </p>
-                  {{#if account.gebruiker.group.alternatieveNaam}}
-                    <AuHr/>
-                    <p>
-                      <span class="au-c-info-text">Alternatieve naam:</span>
-                      {{#each account.gebruiker.bestuurseenheden as |bestuurseenheid|}}
-                        {{#each bestuurseenheid.alternatieveNaam as |alternatieveNaam|}}
-                          <AuPill>{{alternatieveNaam}}</AuPill>
-                        {{/each}}
-                      {{/each}}
-                    </p>
-                  {{/if}}
-                </div>
-              </login.each-account>
+              {{#if this.model.length}}
+                <ul class="au-o-flow au-o-flow--small au-u-margin-bottom-small">
+                  {{#each this.model as |account|}}
+                    <li>
+                      <AuButton
+                        {{!TODO: this should be a tertiary button, but Appuniversum doesn't support that yet}}
+                        @skin="secondary"
+                        class="mock-account-button au-u-padding-small au-u-1-1 au-u-text-left"
+                        {{on
+                          "click"
+                          (fn login.login account.id account.gebruiker.group.id)
+                        }}
+                      >
+                        {{account.gebruiker.voornaam}}
+                        {{account.gebruiker.achternaam}}
+                        {{#if account.gebruiker.group.alternatieveNaam}}
+                          <span>
+                            <span class="au-c-info-text">Alternatieve naam:</span>
+                            {{#each
+                              account.gebruiker.bestuurseenheden
+                              as |bestuurseenheid|
+                            }}
+                              {{#each
+                                bestuurseenheid.alternatieveNaam
+                                as |alternatieveNaam|
+                              }}
+                                <AuPill>{{alternatieveNaam}}</AuPill>
+                              {{/each}}
+                            {{/each}}
+                          </span>
+                        {{/if}}
+                      </AuButton>
+                    </li>
+                  {{/each}}
+                </ul>
+              {{/if}}
               <AuDataTableNumberPagination
                 @page={{this.page}}
                 @size={{this.size}}
