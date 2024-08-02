@@ -12,12 +12,12 @@
    as |t|>
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @label='Betreft' @field='betreft' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Type communicatie' @field='currentTypeCommunicatie' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Dossiernummer' @field='dossiernummer' @currentSorting={{@sort}} class="au-u-visible-small-up" />
+      <AuDataTableThSortable @label='Betreft' @field=':no-case:betreft' @currentSorting={{@sort}} />
+      <AuDataTableThSortable @label='Type communicatie' @field=':no-case:currentTypeCommunicatie' @currentSorting={{@sort}} />
+      <AuDataTableThSortable @label='Dossiernummer' @field=':no-case:dossiernummer' @currentSorting={{@sort}} class="au-u-visible-small-up" />
       {{#unless @renderSmallTable}}
          <AuDataTableThSortable @label='Laatste bericht' @field='laatste-bericht.verzonden' @currentSorting={{@sort}} class="au-u-visible-small-up" />
-         <AuDataTableThSortable @label='Laatste bericht van' @field='laatste-bericht.van.naam' @currentSorting={{@sort}} class="au-u-visible-small-up" />
+         <AuDataTableThSortable @label='Laatste bericht van' @field=':no-case:laatste-bericht.van.naam' @currentSorting={{@sort}} class="au-u-visible-small-up" />
       {{/unless}}
       <th>{{!-- Actions --}}</th>
     </c.header>

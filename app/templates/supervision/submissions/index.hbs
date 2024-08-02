@@ -23,7 +23,7 @@
   as |t|>
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @field="formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}}
+      <AuDataTableThSortable @field=":no-case:formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}}
                              @label="Orgaan"/>
       <AuDataTableThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
       <AuDataTableThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime"
@@ -32,7 +32,7 @@
                              @label="Datum verstuurd"/>
       <th class="au-u-visible-medium-up">Aangemaakt door</th>
       <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
-      <AuDataTableThSortable @field="status.label" @currentSorting={{this.sort}} @label="Status"/>
+      <AuDataTableThSortable @field=":no-case:status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th>Acties</th>
     </c.header>
     <c.body as |row|>
