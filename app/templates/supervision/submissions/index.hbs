@@ -25,7 +25,7 @@
     <c.header>
       <AuDataTableThSortable @field=":no-case:formData.passedBy.isTijdsspecialisatieVan.naam" @currentSorting={{this.sort}}
                              @label="Orgaan"/>
-      <AuDataTableThSortable @field="formData.decisionType.label" @currentSorting={{this.sort}} @label="Type dossier"/>
+      <AuDataTableThSortable @field=":no-case:formData.types.label" @currentSorting={{this.sort}} @label="Type dossier"/>
       <AuDataTableThSortable @class="au-u-visible-small-up" @field="formData.sessionStartedAtTime"
                              @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
       <AuDataTableThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}}
