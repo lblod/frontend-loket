@@ -9,6 +9,7 @@ const MODULE_ROLE = {
   SUPERVISION: 'LoketLB-toezichtGebruiker',
   BERICHTENCENTRUM: 'LoketLB-berichtenGebruiker',
   BBCDR: 'LoketLB-bbcdrGebruiker',
+  MANDATENBEHEER: 'LoketLB-mandaatGebruiker',
   LEIDINGGEVENDENBEHEER: 'LoketLB-leidinggevendenGebruiker',
   PERSONEELSBEHEER: 'LoketLB-personeelsbeheer',
   WORSHIP_MINISTER_MANAGEMENT: 'LoketLB-eredienstBedienaarGebruiker',
