@@ -1,3 +1,16 @@
+## v0.96.0 (2024-08-05)
+
+### General
+#### :rocket: Enhancement
+* [#400](https://github.com/lblod/frontend-loket/pull/400) Improvements to buttons, links and icons ([@Windvis](https://github.com/Windvis))
+
+#### :bug: Bug Fix
+* [#405](https://github.com/lblod/frontend-loket/pull/405) [DL-4540, DL-4069] Fix sorting in various places ([@benjay10](https://github.com/benjay10))
+
+### Subsidiebeheer
+#### :boom: Breaking Change
+* [#396](https://github.com/lblod/frontend-loket/pull/396) [DL-6053] Remove the "Subsidiebeheer" module ([@Windvis](https://github.com/Windvis))
+
 ## v0.95.0 (2024-07-11)
 
 ### General
