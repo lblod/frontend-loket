@@ -13,7 +13,9 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @reads('args.mandataris.generatedFromGelinktNotuleren') gelinktNotuleren;
 
   get formattedBeleidsdomein() {
-    const beleidsdomeinen = this.args.mandataris.hasMany('beleidsdomein').value();
+    const beleidsdomeinen = this.args.mandataris
+      .hasMany('beleidsdomein')
+      .value();
     if (beleidsdomeinen?.length) {
       return beleidsdomeinen.map((item) => item.label).join(', ');
     } else {
