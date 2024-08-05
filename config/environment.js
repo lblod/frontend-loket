@@ -42,9 +42,6 @@ module.exports = function (environment) {
     contactUrl: '{{CONTACT_URL}}',
     openProcesHuisUrl: '{{OPEN_PROCES_HUIS_URL}}',
     openProcesHuisRole: '{{OPEN_PROCES_HUIS_ROLE}}', // TODO: remove this once the actual role is known
-    'ember-plausible': {
-      enabled: false,
-    },
     plausible: {
       domain: '{{ANALYTICS_APP_DOMAIN}}',
       apiHost: '{{ANALYTICS_API_HOST}}',
