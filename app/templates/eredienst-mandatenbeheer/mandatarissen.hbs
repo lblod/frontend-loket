@@ -62,18 +62,18 @@
       <c.header>
         <th class="au-u-visible-small-up">Orgaan</th>
         <AuDataTableThSortable
-          @field="isBestuurlijkeAliasVan.gebruikteVoornaam"
+          @field=":no-case:isBestuurlijkeAliasVan.gebruikteVoornaam"
           @currentSorting={{this.sort}}
           @label="Naam"
           class="au-u-visible-small-up"
         />
         <AuDataTableThSortable
-          @field="isBestuurlijkeAliasVan.achternaam"
+          @field=":no-case:isBestuurlijkeAliasVan.achternaam"
           @currentSorting={{this.sort}}
           @label="Familienaam"
         />
         <AuDataTableThSortable
-          @field="bekleedt.bestuursfunctie.label"
+          @field=":no-case:bekleedt.bestuursfunctie.label"
           @currentSorting={{this.sort}}
           @label="Mandaat"
         />

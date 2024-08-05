@@ -27,17 +27,17 @@
   <t.content as |c|>
     <c.header>
       <AuDataTableThSortable
-        @field="ministerPosition.function.label"
+        @field=":no-case:ministerPosition.function.label"
         @currentSorting={{this.sort}}
         @label="Functienaam"
       />
       <AuDataTableThSortable
-        @field="person.gebruikteVoornaam"
+        @field=":no-case:person.gebruikteVoornaam"
         @currentSorting={{this.sort}}
         @label="Voornaam"
       />
       <AuDataTableThSortable
-        @field="person.achternaam"
+        @field=":no-case:person.achternaam"
         @currentSorting={{this.sort}}
         @label="Achternaam"
       />
