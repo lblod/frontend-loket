@@ -1,3 +1,6 @@
+// This shouldn't be needed, but it seems the EmberData setup isn't 100% working in our setup.
+// Importing this ourselves solves the issue until we move away from ember-inflector.
+import '@ember-data/request-utils/deprecation-support';
 import Inflector from 'ember-inflector';
 
 const inflector = Inflector.inflector;

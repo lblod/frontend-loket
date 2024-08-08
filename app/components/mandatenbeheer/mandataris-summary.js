@@ -2,7 +2,6 @@
 import Component from '@glimmer/component';
 import { reads } from '@ember/object/computed';
 import { action } from '@ember/object';
-import { computed } from '@ember/object';
 
 export default class MandatenbeheerMandatarisSummaryComponent extends Component {
   @reads('args.mandataris.bekleedt.bestuursfunctie.label') rol;
@@ -13,13 +12,14 @@ export default class MandatenbeheerMandatarisSummaryComponent extends Component 
   @reads('args.mandataris.status.label') status;
   @reads('args.mandataris.generatedFromGelinktNotuleren') gelinktNotuleren;
 
-  @computed('args.mandataris.beleidsdomein.@each.id')
   get formattedBeleidsdomein() {
-    const beleidsdomeinen = this.args.mandataris.beleidsdomein;
-    if (beleidsdomeinen.length) {
-      return beleidsdomeinen.map((item) => item.label);
+    const beleidsdomeinen = this.args.mandataris
+      .hasMany('beleidsdomein')
+      .value();
+    if (beleidsdomeinen?.length) {
+      return beleidsdomeinen.map((item) => item.label).join(', ');
     } else {
-      return [];
+      return '';
     }
   }
 
