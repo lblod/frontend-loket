@@ -18,22 +18,6 @@ export default class MandatarisModel extends AgentInPosition {
   })
   heeftLidmaatschap;
 
-  @hasMany('rechtsgrond-aanstelling', {
-    async: true,
-    inverse: 'bekrachtigtAanstellingenVan',
-    polymorphic: true,
-    as: 'mandataris',
-  })
-  rechtsgrondenAanstelling;
-
-  @hasMany('rechtsgrond-beeindiging', {
-    async: true,
-    inverse: 'bekrachtigtOntslagenVan',
-    polymorphic: true,
-    as: 'mandataris',
-  })
-  rechtsgrondenBeeindiging;
-
   @hasMany('mandataris', {
     async: true,
     inverse: null,

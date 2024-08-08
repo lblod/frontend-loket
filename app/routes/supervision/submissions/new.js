@@ -25,7 +25,7 @@ export default class SupervisionSubmissionsNewRoute extends Route {
     const bestuurseenheid = this.currentSession.group;
 
     const submissionDocument = this.store.createRecord(
-      'submissionDocument',
+      'submission-document',
       {},
     );
     await submissionDocument.save();

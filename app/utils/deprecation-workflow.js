@@ -6,7 +6,6 @@ import { registerDeprecationHandler } from '@ember/debug';
 const SHOULD_THROW = false; // We don't want to throw for now.
 const SILENCED_DEPRECATIONS = [
   // Add ids of deprecations you temporarily want to silence here.
-  'warp-drive.ember-inflector', // Must be resolved before updating to EmberData v6
 ];
 
 registerDeprecationHandler((message, options, next) => {
