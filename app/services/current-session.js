@@ -134,7 +134,11 @@ export default class CurrentSessionService extends Service {
   }
 
   get canAccessMandaat() {
-    return this.canAccess(MODULE_ROLE.MANDATENBEHEER);
+    return this.canAccess(MODULE_ROLE.MANDATENBEHEER) && config.mandatenbeheer;
+  }
+
+  get canAccessMandaatExternal() {
+    return !config.mandatenbeheerExternalUrl.startsWith('{{');
   }
 
   get canAccessBerichten() {
