@@ -89,6 +89,24 @@
             </LoketModuleCard>
           </li>
         {{/if}}
+        {{#if this.currentSession.canAccessMandaatExternal}}
+          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+            <LoketModuleCard
+              @icon="user-fill"
+              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-lokale-besturen"
+              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-lokaal-mandatenbeheer"
+            >
+              <:title>Mandatenbeheer</:title>
+              <:description>Hou de mandaten binnen de gemeenten, OCMW's,
+                districten en provincies bij.</:description>
+              <:link>
+                <AuLinkExternal @skin="button" href={{(mandatenbeheer-url)}}>
+                  Ga naar mandatenbeheer (externe link)
+                </AuLinkExternal>
+              </:link>
+            </LoketModuleCard>
+          </li>
+        {{/if}}
         {{#if this.currentSession.canAccessWorshipMinisterManagement}}
           <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
             <LoketModuleCard
