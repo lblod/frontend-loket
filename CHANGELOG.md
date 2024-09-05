@@ -1,3 +1,9 @@
+## v0.97.2 (2024-09-05)
+
+### General
+#### :rocket: Enhancement
+* [#409](https://github.com/lblod/frontend-loket/pull/408) [DL-6046] update mandatenbeheer tegels([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.97.0 (2024-09-05)
 
 ### General
