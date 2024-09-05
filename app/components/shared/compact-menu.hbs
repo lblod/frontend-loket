@@ -40,6 +40,16 @@
       Personeelsbeheer
     </AuLink>
   {{/if}}
+  {{#if this.currentSession.canAccessMandaatExternal}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{(mandatenbeheer-url)}}
+      role="menuitem"
+    >
+      Mandatenbeheer
+    </AuLinkExternal>
+  {{/if}}
   <AuLinkExternal
     @icon="link-external"
     @iconAlignment="left"
