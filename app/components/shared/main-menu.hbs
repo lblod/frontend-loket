@@ -59,6 +59,18 @@
         </AuNavigationLink>
       </li>
     {{/if}}
+    {{#if this.currentSession.canAccessMandaatExternal}}
+      <li class="au-c-list-navigation__item">
+        <AuLinkExternal
+          @icon="link-external"
+          @iconAlignment="left"
+          class="au-c-list-navigation__link"
+          href={{(mandatenbeheer-url)}}
+        >
+          Mandatenbeheer
+        </AuLinkExternal>
+      </li>
+    {{/if}}
     {{#if this.currentSession.canAccessSubsidies}}
       <li class="au-c-list-navigation__item">
         <AuLinkExternal
