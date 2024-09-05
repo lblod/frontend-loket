@@ -9,7 +9,7 @@ export default class SupervisionSubmissionsIndexController extends Controller {
 
   page = 0;
   size = 20;
-  sort = 'status.label,-sent-date,-modified';
+  sort = '-modified';
 
   @action
   async reopen(submission) {

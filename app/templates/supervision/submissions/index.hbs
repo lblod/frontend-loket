@@ -30,8 +30,12 @@
                              @currentSorting={{this.sort}} @label="Datum zitting/besluit"/>
       <AuDataTableThSortable @class="au-u-visible-large-up" @field="sentDate" @currentSorting={{this.sort}}
                              @label="Datum verstuurd"/>
-      <th class="au-u-visible-medium-up">Aangemaakt door</th>
       <th class="au-u-visible-small-up">Laatst gewijzigd door</th>
+      <AuDataTableThSortable
+        @field="modified"
+        @currentSorting={{this.sort}}
+        @label="Laatst gewijzigd op"
+      />
       <AuDataTableThSortable @field=":no-case:status.label" @currentSorting={{this.sort}} @label="Status"/>
       <th>Acties</th>
     </c.header>
@@ -42,19 +46,15 @@
       </td>
       <td class="au-u-visible-small-up">{{moment-format row.formData.sessionStartedAtTime "DD-MM-YYYY"}}</td>
       <td class="au-u-visible-large-up">{{moment-format row.sentDate "DD-MM-YYYY"}}</td>
-      <td class="au-u-visible-medium-up">
-        {{#if row.job.created }}
-          Automatisch aangemaakt bij publicatie
-        {{else}}
-          {{row.creator.fullName}}
-        {{/if}}
-      </td>
       <td class="au-u-visible-small-up">
         {{#if row.lastModifier.fullName}}
           {{row.lastModifier.fullName}}
         {{else if row.job.created}}
           Automatisch bij publicatie
         {{/if}}
+      </td>
+      <td class="au-u-visible-medium-up">
+        {{moment-format row.modified}}
       </td>
       <td>
         {{#if row.status}}
