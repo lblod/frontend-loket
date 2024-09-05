@@ -1,4 +1,4 @@
-## Unreleased
+## v0.97.0 (2024-09-05)
 
 ### General
 #### :rocket: Enhancement
