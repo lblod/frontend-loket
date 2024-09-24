@@ -195,12 +195,6 @@ export default class CurrentSessionService extends Service {
     );
   }
 
-  get canAccessModules() {
-    return Object.values(MODULE_ROLE).some((module) => {
-      return this.canAccess(module);
-    });
-  }
-
   get isAdmin() {
     let roles = this._roles;
     if (this.impersonation.isImpersonating) {
