@@ -1,8 +1,14 @@
+## v0.97.3 (2024-09-24)
+
+### General
+#### :rocket: Enhancement
+* [#410](https://github.com/lblod/frontend-loket/pull/410) [DGS-383] fix subsidies tegels not showing ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.97.2 (2024-09-05)
 
 ### General
 #### :rocket: Enhancement
-* [#409](https://github.com/lblod/frontend-loket/pull/408) [DL-6046] update mandatenbeheer tegels([@wolfderechter](https://github.com/wolfderechter))
+* [#409](https://github.com/lblod/frontend-loket/pull/409) [DL-6046] update mandatenbeheer tegels([@wolfderechter](https://github.com/wolfderechter))
 
 ## v0.97.0 (2024-09-05)
 
