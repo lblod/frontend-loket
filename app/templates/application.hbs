@@ -52,9 +52,7 @@
         <main.sidebar>
           <div class="au-c-sidebar">
             <div class="au-c-sidebar__content">
-              {{#if this.currentSession.canAccessModules}}
                 <Shared::MainMenu />
-              {{/if}}
             </div>
             <div class="au-c-sidebar__footer">
               <AuLinkExternal
@@ -74,7 +72,6 @@
             <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
               <Group>
                 <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-                  {{#if this.currentSession.canAccessModules}}
                     <li class="au-c-list-horizontal__item">
                       <AuLink @icon="arrow-left" @route="index">
                         Overzicht modules
@@ -83,7 +80,6 @@
                     <li class="au-c-list-horizontal__item">
                       <Shared::CompactMenu />
                     </li>
-                  {{/if}}
                   <Shared::BreadCrumb />
                 </ul>
               </Group>
