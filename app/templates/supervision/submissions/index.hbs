@@ -4,12 +4,19 @@
     <AuHeading @skin="2" data-test-loket="inzendingen-page-title">Toezicht</AuHeading>
   </Group>
   <Group>
-    <AuLink
-      @route="supervision.submissions.new"
-      @skin="button"
-      @icon="add"
-      data-test-field-uri="new-form-button"
-    >Maak nieuwe melding</AuLink>
+    <div class="au-u-flex">
+      <Supervision::SubmissionStatusSelect
+        @statusUri={{this.status}}
+        @onChange={{this.handleStatusFilterChange}}
+        class="au-u-margin-right-small"
+      />
+      <AuLink
+        @route="supervision.submissions.new"
+        @skin="button"
+        @icon="add"
+        data-test-field-uri="new-form-button"
+      >Maak nieuwe melding</AuLink>
+    </div>
   </Group>
 </AuToolbar>
 
