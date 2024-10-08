@@ -37,10 +37,4 @@ export default class PersoonModel extends Model {
     as: 'persoon',
   })
   isAangesteldAls;
-
-  @hasMany('kandidatenlijst', {
-    async: true,
-    inverse: 'kandidaten',
-  })
-  isKandidaatVoor;
 }

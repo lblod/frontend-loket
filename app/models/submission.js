@@ -28,12 +28,6 @@ export default class Submission extends Model {
   })
   organization;
 
-  @belongsTo('vendor', {
-    async: true,
-    inverse: null,
-  })
-  publisher;
-
   @belongsTo('submission-document', {
     async: true,
     inverse: 'submission',
