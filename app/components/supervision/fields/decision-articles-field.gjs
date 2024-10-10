@@ -26,16 +26,18 @@ import {
   registerCustomValidation,
   SHACL,
   SKOS,
-  validationsForFieldWithType,
 } from '@lblod/submission-form-helpers';
 import { task } from 'ember-concurrency';
-import PowerSelect from 'ember-power-select/components/power-select';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
 import worshipDecisionsDatabaseUrl from 'frontend-loket/helpers/worship-decisions-database-url';
 import { BESLUIT, ELI, EXT } from 'frontend-loket/rdf/namespaces';
+import { formatDate } from 'frontend-loket/utils/date';
+import { isRequiredField } from 'frontend-loket/utils/semantic-forms';
+import { byOrder } from 'frontend-loket/utils/sort';
 import { Literal, NamedNode, parse, Store } from 'rdflib';
 import { v4 as uuid } from 'uuid';
+import { ConceptSchemeSelect } from './-shared/concept-scheme-select';
 
 const hasPart = ELI('has_part');
 const documentType = ELI('type_document');
@@ -739,80 +741,6 @@ class AddDecisionsModal extends Component {
   </template>
 }
 
-// Based on the ember-submission-form-fields version
-class ConceptSchemeSelect extends Component {
-  @tracked options = this.getOptions();
-
-  getOptions() {
-    const metaGraph = this.args.metaGraph;
-    const conceptSchemeUri = this.args.conceptScheme;
-    const conceptScheme = new NamedNode(conceptSchemeUri);
-
-    const options = this.args.formStore
-      .match(undefined, SKOS('inScheme'), conceptScheme, metaGraph)
-      .map((t) => {
-        const label = this.args.formStore.any(
-          t.subject,
-          prefLabel,
-          undefined,
-          metaGraph,
-        );
-        return { subject: t.subject, label: label?.value };
-      });
-
-    options.sort(byLabel);
-
-    return options;
-  }
-
-  get hasError() {
-    return Boolean(this.args.error);
-  }
-
-  get selected() {
-    if (!this.args.selected) {
-      return null;
-    }
-
-    return this.options.find((option) =>
-      option.subject.equals(this.args.selected),
-    );
-  }
-
-  handleChange = (option) => {
-    this.args.onChange?.(option.subject);
-  };
-
-  <template>
-    <div class={{if this.hasError "ember-power-select--error"}} ...attributes>
-      <AuLabel @error={{this.hasErrors}} @required={{@required}}>
-        {{yield to="label"}}
-      </AuLabel>
-      {{#if @isReadOnly}}
-        {{this.selected.label}}
-      {{else}}
-        <PowerSelect
-          @options={{this.options}}
-          @selected={{this.selected}}
-          @searchEnabled={{true}}
-          @searchField="label"
-          @onChange={{this.handleChange}}
-          {{!-- @renderInPlace={{true}} --}}
-          as |concept|
-        >
-          {{concept.label}}
-        </PowerSelect>
-      {{/if}}
-
-      {{#if this.hasError}}
-        <AuHelpText @error={{true}}>
-          {{@error}}
-        </AuHelpText>
-      {{/if}}
-    </div>
-  </template>
-}
-
 // Matches the Appuniversum version: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/components/au-label.gts#L51-L56
 const ErrorBadge = <template>
   <AuBadge
@@ -837,42 +765,9 @@ function plusOne(number) {
   return number + 1;
 }
 
-// TODO: Remove this once Appuniversum ships helpers for this
-// Source: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/utils/date.ts#L1C1-L6C2
-function formatDate(date) {
-  const day = `${date.getDate()}`.padStart(2, '0');
-  const month = `${date.getMonth() + 1}`.padStart(2, '0');
-
-  return `${day}-${month}-${date.getFullYear()}`;
-}
-
 /// Utils
-
-// Source: https://github.com/lblod/ember-submission-form-fields/blob/5eb12a7794a70a04dfd1e8d392f0cc079d6aad72/addon/components/rdf-input-fields/concept-scheme-selector.js#L14C1-L18C2
-function byLabel(a, b) {
-  const textA = a.label.toUpperCase();
-  const textB = b.label.toUpperCase();
-  return textA < textB ? -1 : textA > textB ? 1 : 0;
-}
-
-function byOrder(a, b) {
-  return a?.order - b?.order;
-}
-
 function articleNode() {
   return new NamedNode(`http://data.lblod.info/id/artikels/${uuid()}`);
-}
-
-function isRequiredField(fieldUri, store, formGraph) {
-  const constraints = validationsForFieldWithType(fieldUri, {
-    store,
-    formGraph,
-  });
-  return constraints.some(
-    (constraint) =>
-      constraint.type.value ===
-      'http://lblod.data.gift/vocabularies/forms/RequiredConstraint',
-  );
 }
 
 function ttlToJs(ttl) {

@@ -6,7 +6,8 @@ import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
 import { NamedNode } from 'rdflib';
 import { SENT_STATUS } from '../../../models/submission-document-status';
-import { registerFormField } from 'frontend-loket/components/supervision/decision-articles-field';
+import { registerFormField } from 'frontend-loket/components/supervision/fields/decision-articles-field';
+import { registerFormField as registerDecisionDocumentsField } from 'frontend-loket/components/supervision/fields/decision-documents-field';
 
 export default class SupervisionSubmissionsEditRoute extends Route {
   @service router;
@@ -16,6 +17,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
     super(...arguments);
 
     registerFormField();
+    registerDecisionDocumentsField();
   }
 
   async model(params) {
