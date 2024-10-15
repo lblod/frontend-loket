@@ -328,7 +328,7 @@ class ArticleDetails extends Component {
       .map((triple) => triple.object)
       .map(async (decisionNode) => {
         const url = new URL(
-          '/related-document-information',
+          '/worship-decisions-cross-reference/document-information',
           window.location.origin,
         );
 
@@ -581,7 +581,7 @@ class AddDecisionsModal extends Component {
     this.searchMode = true;
 
     const url = new URL(
-      '/related-document-information',
+      '/worship-decisions-cross-reference/search-documents',
       window.location.origin,
     );
     url.searchParams.append('forDecisionType', this.args.decisionType.uri);
