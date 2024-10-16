@@ -1,21 +1,17 @@
 import AuBadge from '@appuniversum/ember-appuniversum/components/au-badge';
 import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
-import AuCheckbox from '@appuniversum/ember-appuniversum/components/au-checkbox';
 import AuHeading from '@appuniversum/ember-appuniversum/components/au-heading';
 import AuHelpText from '@appuniversum/ember-appuniversum/components/au-help-text';
 import AuIcon from '@appuniversum/ember-appuniversum/components/au-icon';
 import AuLabel from '@appuniversum/ember-appuniversum/components/au-label';
 import AuLinkExternal from '@appuniversum/ember-appuniversum/components/au-link-external';
 import AuLoader from '@appuniversum/ember-appuniversum/components/au-loader';
-import AuModal from '@appuniversum/ember-appuniversum/components/au-modal';
 import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
 import AuTable from '@appuniversum/ember-appuniversum/components/au-table';
 import { AddIcon } from '@appuniversum/ember-appuniversum/components/icons/add';
 import { BinIcon } from '@appuniversum/ember-appuniversum/components/icons/bin';
 import { CrossIcon } from '@appuniversum/ember-appuniversum/components/icons/cross';
 import { InfoCircleIcon } from '@appuniversum/ember-appuniversum/components/icons/info-circle';
-import { SearchIcon } from '@appuniversum/ember-appuniversum/components/icons/search';
-import { NavLeftIcon } from '@appuniversum/ember-appuniversum/components/icons/nav-left';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
@@ -25,24 +21,23 @@ import {
   RDF,
   registerCustomValidation,
   SHACL,
-  SKOS,
 } from '@lblod/submission-form-helpers';
 import { task } from 'ember-concurrency';
-import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
 import worshipDecisionsDatabaseUrl from 'frontend-loket/helpers/worship-decisions-database-url';
-import { BESLUIT, ELI, EXT } from 'frontend-loket/rdf/namespaces';
+import { BESLUIT, ELI } from 'frontend-loket/rdf/namespaces';
 import { formatDate } from 'frontend-loket/utils/date';
 import { isRequiredField } from 'frontend-loket/utils/semantic-forms';
 import { byOrder } from 'frontend-loket/utils/sort';
-import { Literal, NamedNode, parse, Store } from 'rdflib';
+import { Literal, NamedNode } from 'rdflib';
 import { v4 as uuid } from 'uuid';
 import { ConceptSchemeSelect } from './-shared/concept-scheme-select';
+import { AddDocumentsModal } from './-shared/add-documents-modal';
+import { extractDocumentsFromTtl } from './-shared/utils';
 
 const hasPart = ELI('has_part');
 const documentType = ELI('type_document');
 const refersTo = ELI('refers_to');
-const prefLabel = SKOS('prefLabel');
 const shOrder = SHACL('order');
 
 export function registerFormField() {
@@ -340,7 +335,7 @@ class ArticleDetails extends Component {
           const ttlData = await response.text();
 
           if (ttlData.length > 0) {
-            let data = ttlToJs(ttlData);
+            let data = extractDocumentsFromTtl(ttlData);
 
             return data.at(0);
           }
@@ -528,9 +523,11 @@ class ArticleDetails extends Component {
           </AuButton>
 
           {{#if this.showModal}}
-            <AddDecisionsModal
+            <AddDocumentsModal
+              {{! bestuurseenheden }}
+              @eenheidConceptScheme="http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07"
               @decisionType={{@decisionType}}
-              @addedDecisions={{this.decisions}}
+              @addedDocuments={{this.decisions}}
               @formStore={{@formStore}}
               @metaGraph={{@metaGraph}}
               @onClose={{fn (mut this.showModal)}}
@@ -551,196 +548,6 @@ class ArticleDetails extends Component {
   </template>
 }
 
-class AddDecisionsModal extends Component {
-  @tracked org;
-  @tracked selectedDecisions = [];
-  @tracked searchMode = false;
-
-  get shouldSelectOrg() {
-    return !this.org;
-  }
-
-  get orgName() {
-    if (!this.org) {
-      return '';
-    }
-
-    return this.args.formStore.any(
-      this.org,
-      prefLabel,
-      undefined,
-      this.args.metaGraph,
-    );
-  }
-
-  search = task(async () => {
-    if (!this.org) {
-      return;
-    }
-
-    this.searchMode = true;
-
-    const url = new URL(
-      '/worship-decisions-cross-reference/search-documents',
-      window.location.origin,
-    );
-    url.searchParams.append('forDecisionType', this.args.decisionType.uri);
-    url.searchParams.append('forEenheid', this.org.uri);
-    const response = await fetch(url);
-
-    if (response.ok) {
-      const ttlData = await response.text();
-
-      if (ttlData.length > 0) {
-        let data = ttlToJs(ttlData);
-
-        data = data.filter((decision) => {
-          return !this.args.addedDecisions.some(
-            (addedDecision) => addedDecision.node.uri === decision.node.uri,
-          );
-        });
-        data.sort((a, b) => b.sentDate - a.sentDate);
-
-        return data;
-      }
-    } else {
-      throw new Error(
-        'Something went wrong while searching for related document information',
-      );
-    }
-  });
-
-  handleSelectionChange = (decision, selected) => {
-    if (selected) {
-      this.selectedDecisions = [...this.selectedDecisions, decision];
-    } else {
-      this.selectedDecisions = this.selectedDecisions.filter(
-        (selected) => selected !== decision,
-      );
-    }
-  };
-
-  <template>
-    {{!Disabling this rule here makes the code easier to read}}
-    {{! template-lint-disable no-negated-condition}}
-    {{#if (not this.searchMode)}}
-      <AuModal @modalOpen={{true}} @closeModal={{@onClose}} @overflow={{true}}>
-        <:title>Documenten zoeken</:title>
-        <:body>
-          <ConceptSchemeSelect
-            @formStore={{@formStore}}
-            @metaGraph={{@metaGraph}}
-            {{! bestuurseenheden }}
-            @conceptScheme="http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07"
-            @selected={{this.org}}
-            @required={{true}}
-            @onChange={{fn (mut this.org)}}
-          >
-            <:label>Ingezonden door</:label>
-          </ConceptSchemeSelect>
-        </:body>
-        <:footer>
-          <div class="au-u-text-right">
-            <AuButton
-              @icon={{SearchIcon}}
-              @disabled={{this.shouldSelectOrg}}
-              {{on "click" this.search.perform}}
-            >
-              Documenten zoeken
-            </AuButton>
-          </div>
-        </:footer>
-      </AuModal>
-    {{else}}
-      <AuModal @modalOpen={{true}} @closeModal={{@onClose}}>
-        <:title>Documenten toevoegen</:title>
-        <:body>
-          {{#if this.search.isIdle}}
-            <div>
-              <AuTable>
-                <:title>
-                  Ingezonden door "{{this.orgName}}"
-                </:title>
-                <:header>
-                  <tr>
-                    <th></th>
-                    <th>Naam</th>
-                    <th>Datum</th>
-                  </tr>
-                </:header>
-                <:body>
-                  {{#if this.search.last.isSuccessful}}
-                    {{#each this.search.lastSuccessful.value as |decision|}}
-                      <tr>
-                        <td>
-                          <AuCheckbox
-                            @checked={{arrayIncludes
-                              this.selectedDecisions
-                              decision
-                            }}
-                            @onChange={{fn this.handleSelectionChange decision}}
-                          />
-                        </td>
-                        <td>
-                          <AuLinkExternal href={{decision.link}}>
-                            {{decision.name}}
-                          </AuLinkExternal>
-                        </td>
-                        <td>{{formatDate decision.sentDate}}</td>
-                      </tr>
-                    {{else}}
-                      <tr>
-                        <td colspan="3">
-                          Geen resultaten
-                        </td>
-                      </tr>
-                    {{/each}}
-                  {{else}}
-                    <tr>
-                      <td colspan="3">
-                        <AuHelpText
-                          @error={{true}}
-                          class="au-u-margin-top-none"
-                        >
-                          Er ging iets fout bij het zoeken naar documenten
-                        </AuHelpText>
-                      </td>
-                    </tr>
-                  {{/if}}
-                </:body>
-              </AuTable>
-            </div>
-          {{else}}
-            <AuLoader>Documenten aan het laden</AuLoader>
-          {{/if}}
-        </:body>
-        <:footer>
-          <div class="au-u-flex au-u-flex--between">
-            <AuButton
-              @icon={{NavLeftIcon}}
-              @skin="naked"
-              {{on "click" (fn (mut this.searchMode) false)}}
-            >
-              Vorige
-            </AuButton>
-
-            <AuButton
-              @disabled={{not this.selectedDecisions.length}}
-              {{on "click" (fn @onAdd this.selectedDecisions)}}
-            >
-              {{#if (eq this.selectedDecisions.length 1)}}
-                Document toevoegen
-              {{else}}
-                Documenten toevoegen
-              {{/if}}
-            </AuButton>
-          </div>
-        </:footer>
-      </AuModal>
-    {{/if}}
-  </template>
-}
-
 // Matches the Appuniversum version: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/components/au-label.gts#L51-L56
 const ErrorBadge = <template>
   <AuBadge
@@ -757,10 +564,6 @@ const RequiredPill = <template>
 </template>;
 
 /// Template helpers
-function arrayIncludes(array, item) {
-  return array.includes(item);
-}
-
 function plusOne(number) {
   return number + 1;
 }
@@ -768,56 +571,6 @@ function plusOne(number) {
 /// Utils
 function articleNode() {
   return new NamedNode(`http://data.lblod.info/id/artikels/${uuid()}`);
-}
-
-function ttlToJs(ttl) {
-  const store = new Store();
-  const graph = new NamedNode('http://temporary-graph');
-  parse(ttl, store, graph.uri);
-
-  const decisions = store.match(
-    null,
-    RDF('type'),
-    EXT('SubmissionDocument'),
-    graph,
-  );
-
-  return decisions.map((decision) => {
-    const subject = decision.subject;
-    const name = store.any(subject, prefLabel, undefined, graph);
-    const sentDate = store.any(
-      subject,
-      new NamedNode(
-        'http://www.semanticdesktop.org/ontologies/2007/03/22/nmo#sentDate',
-      ),
-      undefined,
-      graph,
-    );
-    const org = store.any(
-      subject,
-      new NamedNode('http://purl.org/pav/createdBy'),
-      undefined,
-      graph,
-    );
-    const orgName = store.any(org, SKOS('prefLabel'), undefined, graph);
-    const link = store.any(
-      subject,
-      new NamedNode('http://www.w3.org/2000/01/rdf-schema#seeAlso'),
-      undefined,
-      graph,
-    )?.uri;
-
-    return {
-      node: subject,
-      name: name.value,
-      link,
-      sentDate: Literal.toJS(sentDate),
-      sentBy: {
-        node: org,
-        name: orgName,
-      },
-    };
-  });
 }
 
 function isDocumentTypeOptional(store, node, formGraph) {
