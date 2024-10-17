@@ -16,6 +16,12 @@ export default class ToezichtSubmissionTypeComponent extends Component {
   @tracked decisionType;
   @tracked regulationType;
 
+  constructor() {
+    super(...arguments);
+
+    this.loadData.perform();
+  }
+
   @keepLatestTask
   *loadData() {
     const formData = yield this.args.formData;

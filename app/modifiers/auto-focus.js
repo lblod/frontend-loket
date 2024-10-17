@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-runloop */
 import Modifier from 'ember-modifier';
 import { next, scheduleOnce } from '@ember/runloop';
 
