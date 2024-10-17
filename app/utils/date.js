@@ -3,6 +3,8 @@
  * @param {Date} date
  * @returns {String} formatted date
  */
+// TODO: Remove this once Appuniversum ships helpers for this
+// Source: https://github.com/appuniversum/ember-appuniversum/blob/f5bcb51c76333c4ac11858bdc17916f50f628bf5/addon/utils/date.ts#L1C1-L6C2
 export function formatDate(date) {
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
