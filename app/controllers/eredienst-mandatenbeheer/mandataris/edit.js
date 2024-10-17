@@ -233,7 +233,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
         yield this.router.transitionTo(
           'eredienst-mandatenbeheer.mandatarissen',
         );
-      } catch (error) {
+      } catch {
         // I believe we're running into this issue: https://github.com/emberjs/ember.js/issues/20038
         // A `TransitionAborted` error is thrown even though the transition is complete, so we hide the error.
       }

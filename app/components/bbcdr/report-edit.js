@@ -71,7 +71,7 @@ export default class BbcdrReportEditComponent extends Component {
       this.args.report.set('status', statusSent);
       await this.updateReport();
       this.router.transitionTo('bbcdr.rapporten.index');
-    } catch (e) {
+    } catch {
       this.showError = true;
     }
   }

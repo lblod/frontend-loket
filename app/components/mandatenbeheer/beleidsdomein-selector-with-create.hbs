@@ -1,15 +1,15 @@
 <PowerSelectMultipleWithCreate
         @searchEnabled={{true}}
         @disabled={{@disabled}}
-        @placeholder={{"Zoek beleidsdomein"}}
+        @placeholder="Zoek beleidsdomein"
         @search={{perform this.searchByName}}
         @selected={{this._beleidsdomeinen}}
         @onChange={{this.select}}
         @onCreate={{this.create}}
         @buildSuggestion={{this.suggest}}
-        @showCreatePosition={{"bottom"}}
-        @loadingMessage={{"Aan het laden..."}}
-        @noMatchesMessage={{"Geen resultaten"}}
+        @showCreatePosition="bottom"
+        @loadingMessage="Aan het laden..."
+        @noMatchesMessage="Geen resultaten"
         as |beleidsdomein|>
   {{beleidsdomein.label}}
 </PowerSelectMultipleWithCreate>
