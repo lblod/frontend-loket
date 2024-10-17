@@ -86,7 +86,7 @@ export default class SharedPersoonPersoonSearchFormComponent extends Component {
   *getPersoon(queryParams) {
     try {
       return yield this.store.query('persoon', queryParams);
-    } catch (e) {
+    } catch {
       this.error = true;
     }
   }

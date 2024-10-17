@@ -37,7 +37,7 @@
             @secondaryContact={{contact.secondaryContactPoint}}
             @adres={{contact.adres}}
             @onAdresChange={{this.handleAdresChange}}
-            @isEditing={{(and this.isEditing (eq @editingContact contact))}}
+            @isEditing={{and this.isEditing (eq @editingContact contact)}}
             @isDisabled={{and this.isEditing (not-eq @editingContact contact)}}
             @isSelected={{and
               (eq @selectedContact contact)
