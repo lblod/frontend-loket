@@ -1,3 +1,9 @@
+## v0.97.4 (2024-11-04)
+
+### General
+#### :bug: Bug Fix
+* [#413](https://github.com/lblod/frontend-loket/pull/413) [DL-6228] Add a check to the external mandatenbeheer card ([@Windvis](https://github.com/Windvis))
+
 ## v0.97.3 (2024-09-24)
 
 ### General
