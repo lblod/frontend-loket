@@ -4,7 +4,7 @@ module.exports = {
   plugins: ['prettier-plugin-ember-template-tag'],
   overrides: [
     {
-      files: '*.{js,ts,gjs,gts}',
+      files: '*.{js,mjs,ts,gjs,gts}',
       options: {
         singleQuote: true,
         templateSingleQuote: false,

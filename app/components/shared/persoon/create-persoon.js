@@ -163,7 +163,7 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
 
       yield persoon.save();
       this.args.onCreate?.(persoon);
-    } catch (e) {
+    } catch {
       this.errors = { save: 'Fout bij verwerking, probeer het later opnieuw.' };
       if (persoon) persoon.destroy();
     }

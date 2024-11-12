@@ -1,4 +1,3 @@
-/* eslint-disable ember/no-get, ember/classic-decorator-no-classic-methods */
 import Model, { attr, hasMany } from '@ember-data/model';
 
 export default class GebruikerModel extends Model {

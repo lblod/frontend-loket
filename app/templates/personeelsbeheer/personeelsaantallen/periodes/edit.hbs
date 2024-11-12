@@ -9,7 +9,7 @@
     </Group>
     <Group>
       {{#if this.save.last.isError}}
-        <AuAlert @icon="info-circle" @title="Wijzigingen niet opgeslagen, probeer later opnieuw." @skin={{"error"}} @size={{"small"}}>
+        <AuAlert @icon="info-circle" @title="Wijzigingen niet opgeslagen, probeer later opnieuw." @skin="error" @size="small">
         </AuAlert>
       {{/if}}
       {{#unless this.dataset.modified}}
@@ -32,7 +32,7 @@
 
   <div class="au-c-body-container au-c-body-container--scroll">
     <div class="au-o-box">
-      <AuAlert @skin={{"info"}} @size={{"tiny"}} class="au-u-2-3@medium">
+      <AuAlert @skin="info" @size="tiny" class="au-u-2-3@medium">
         {{#if this.isFTEDataset}}
           <p><strong>Iedere tewerkstelling moet uitgedrukt worden in een percentage (kommagetal) van een voltijds tewerkgesteld personeelslid.</strong> Eén VTE is een voltijds equivalent of tewerkgesteld volgens een regime van 38/38sten. Wie minder dan voltijds tewerkgesteld is wordt pro rato meegerekend wat de VTE betreft.</p>
           <br>
