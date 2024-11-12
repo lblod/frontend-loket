@@ -31,8 +31,14 @@
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
+  "overrides": {
+    "ember-math-helpers": "^3.0.0"
+  },
+  "overridesComments": {
+    "ember-math-helpers": "ember-data-table still brings in v2 but we can't force it to v4 because that's a v2 addon which requires ember-auto-import v2. We can remove the override once this pr is merged: https://github.com/mu-semtech/ember-data-table/pull/35"
+  },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^3.5.0",
+    "@appuniversum/ember-appuniversum": "^3.7.0",
     "@babel/core": "^7.25.2",
     "@babel/eslint-parser": "^7.25.1",
     "@babel/plugin-proposal-decorators": "^7.24.7",
@@ -70,6 +76,7 @@
     "ember-cli-terser": "^4.0.2",
     "ember-concurrency": "^3.1.1",
     "ember-data": "~5.3.9",
+    "ember-data-table": "^2.1.0",
     "ember-fetch": "^8.1.2",
     "ember-load-initializers": "^2.1.2",
     "ember-modifier": "^4.2.0",
@@ -84,7 +91,7 @@
     "ember-resolver": "^12.0.1",
     "ember-simple-auth": "^6.0.0",
     "ember-source": "~5.12.0",
-    "ember-template-imports": "^3.4.0",
+    "ember-template-imports": "^4.1.0",
     "ember-template-lint": "^6.0.0",
     "ember-test-selectors": "^6.0.0",
     "ember-truth-helpers": "^3.0.0",
