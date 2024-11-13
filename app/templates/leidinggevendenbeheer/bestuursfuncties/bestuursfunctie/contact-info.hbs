@@ -40,7 +40,11 @@
 
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
-    <AuButton {{on "click" (perform this.save)}} @loading={{not this.save.isIdle}}>
+    <AuButton
+      {{on "click" (perform this.save)}}
+      @loading={{not this.save.isIdle}}
+      @loadingMessage="Bewaar contactgegevens"
+    >
       Bewaar contactgegevens
     </AuButton>
     <AuButton {{on "click" (perform this.resetChanges)}} @skin="secondary" @disabled={{not this.isDirty}}>

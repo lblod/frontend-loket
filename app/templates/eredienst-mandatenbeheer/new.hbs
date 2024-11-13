@@ -24,6 +24,7 @@
       <AuButtonGroup>
         <AuButton
           @loading={{this.createMandatee.isRunning}}
+          @loadingMessage="Mandaat toevoegen"
           @disabled={{this.createMandatee.isRunning}}
           type="submit"
           form="create-mandatee"

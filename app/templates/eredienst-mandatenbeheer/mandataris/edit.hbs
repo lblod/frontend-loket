@@ -21,6 +21,7 @@
       <AuButton
         @disabled={{this.save.isRunning}}
         @loading={{this.save.isRunning}}
+        @loadingMessage="Wijzigingen opslaan"
         {{on "click" (perform this.save)}}
       >
         Wijzigingen opslaan

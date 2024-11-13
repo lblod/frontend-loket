@@ -76,40 +76,60 @@
   {{/if}}
   <Group>
     {{#if this.model.submitted}}
-      <AuLink @route="supervision.submissions.index" @skin="secondary">Sluit</AuLink>
-      {{else}}
-      <AuButton data-test-field-uri="submit-form-button"
-                @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                @loading={{if this.submit.isRunning "true"}}
-                {{on "click" (perform this.submit)}}>Verzenden</AuButton>
-      <AuButton @disabled={{if (or this.save.isRunning this.submit.isRunning this.delete.isRunning) "true"}}
-                @loading={{if this.save.isRunning "true"}}
-                @skin="secondary"
-                @icon={{if this.recentlySaved "check"}}
-                @iconAlignment={{if this.recentlySaved "left"}}
-                {{on "click" (perform this.save)}}>
-                {{#if this.recentlySaved}}
-                  Concept bewaard
-                {{else}}
-                  Bewaar als concept
-                {{/if}}
-              </AuButton>
-      <AuLink @route="supervision.submissions.index" @skin="secondary">Annuleer</AuLink>
+      <AuLink @route="supervision.submissions.index" @skin="secondary">
+        Sluit
+      </AuLink>
+    {{else}}
+      <AuButton
+        data-test-field-uri="submit-form-button"
+        @disabled={{if
+          (or this.save.isRunning this.submit.isRunning this.delete.isRunning)
+          "true"
+        }}
+        @loading={{if this.submit.isRunning "true"}}
+        @loadingMessage="Verzenden"
+        {{on "click" (perform this.submit)}}
+      >
+        Verzenden
+      </AuButton>
+      <AuButton
+        @disabled={{if
+          (or this.save.isRunning this.submit.isRunning this.delete.isRunning)
+          "true"
+        }}
+        @loading={{if this.save.isRunning "true"}}
+        @loadingMessage="Bewaar als concept"
+        @skin="secondary"
+        @icon={{if this.recentlySaved "check"}}
+        @iconAlignment={{if this.recentlySaved "left"}}
+        {{on "click" (perform this.save)}}
+      >
+        {{#if this.recentlySaved}}
+          Concept bewaard
+        {{else}}
+          Bewaar als concept
+        {{/if}}
+      </AuButton>
     {{/if}}
   </Group>
 
   {{#unless this.model.submitted}}
-  <Group>
-    <AuButton
-      @disabled={{or this.save.isRunning this.submit.isRunning this.delete.isRunning}}
-      @loading={{this.delete.isRunning}}
-      @skin="link"
-      @alert={{true}}
-      @icon="bin"
-      {{on "click" (perform this.delete)}}
-    >
-      Verwijder dossier
-    </AuButton>
-  </Group>
+    <Group>
+      <AuButton
+        @disabled={{or
+          this.save.isRunning
+          this.submit.isRunning
+          this.delete.isRunning
+        }}
+        @loading={{this.delete.isRunning}}
+        @loadingMessage="Verwijder dossier"
+        @skin="link"
+        @alert={{true}}
+        @icon="bin"
+        {{on "click" (perform this.delete)}}
+      >
+        Verwijder dossier
+      </AuButton>
+    </Group>
   {{/unless}}
 </AuToolbar>

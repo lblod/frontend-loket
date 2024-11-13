@@ -23,6 +23,7 @@
         <AuButton
           @disabled={{not isValid}}
           @loading={{this.save.isRunning}}
+          @loadingMessage="Corrigeer aanstellingsperiode"
           {{on "click" (perform this.save)}}
         >
           Corrigeer aanstellingsperiode
