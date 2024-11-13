@@ -185,6 +185,7 @@
     <AuButton
       @disabled={{this.save.isRunning}}
       @loading={{this.save.isRunning}}
+      @loadingMessage="Voeg persoon toe"
       {{on "click" (perform this.save)}}
     >
       Voeg persoon toe

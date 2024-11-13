@@ -21,6 +21,7 @@
       <AuButtonGroup>
         <AuButton
           @loading={{this.createWorshipMinister.isRunning}}
+          @loadingMessage="Bedienaar toevoegen"
           @disabled={{this.createWorshipMinister.isRunning}}
           type="submit"
           form="create-worship-minister"
