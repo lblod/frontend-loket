@@ -11,11 +11,14 @@ import fetch from 'fetch';
 import { DELETED_STATUS } from '../../../models/submission-document-status';
 import { task } from 'ember-concurrency';
 import { inject as service } from '@ember/service';
+// TODO: rename this once we remove ember-fetch usage.
+import fetchManager from 'frontend-loket/fetch';
 
 export default class SupervisionSubmissionsEditController extends Controller {
   @service currentSession;
   @service store;
-  @service() router;
+  @service router;
+  @service toaster;
 
   @tracked datasetTriples = [];
   @tracked addedTriples = [];
@@ -84,24 +87,26 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
   @task
   *saveSubmissionForm() {
-    yield fetch(`/submission-forms/${this.model.submissionDocument.id}`, {
+    // throw new Error('save failed');
+    yield fetchManager.request({
+      url: `/submission-forms/${this.model.submissionDocument.id}`,
       method: 'PUT',
-      headers: { 'Content-Type': 'application/vnd.api+json' },
+      // headers: { 'Content-Type': 'application/vnd.api+json' },
+      headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }),
       body: JSON.stringify({
         ...this.formStore.serializeDataWithAddAndDelGraph(
           this.graphs.sourceGraph,
         ),
       }),
     });
-    yield fetch(
-      `/submission-forms/${this.model.submissionDocument.id}/flatten`,
-      {
-        method: 'PUT',
-      },
-    );
 
-    // Since the form data and related entities are not updated via ember-data
-    // we need to manually reload those to keep the index page up-to-date
+    yield fetchManager.request({
+      url: `/submission-forms/${this.model.submissionDocument.id}/flatten`,
+      method: 'PUT',
+    });
+
+    // // Since the form data and related entities are not updated via ember-data
+    // // we need to manually reload those to keep the index page up-to-date
     const formData = yield this.model.submission.belongsTo('formData').reload();
     yield formData.hasMany('types').reload();
     yield formData.belongsTo('passedBy').reload();
@@ -109,13 +114,12 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
   @task
   *submitSubmissionForm() {
-    yield fetch(
-      `/submission-forms/${this.model.submissionDocument.id}/submit`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/vnd.api+json' },
-      },
-    );
+    const future = yield fetchManager.request({
+      url: `/submission-forms/${this.model.submissionDocument.id}/submit`,
+      method: 'POST',
+      headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }),
+    });
+
     // Since the sent date and sent status of the submission will be set by the backend
     // and not via ember-data, we need to manually reload the submission record
     // to keep the index page up-to-date
@@ -125,6 +129,11 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
   @task
   *deleteSubmissionForm() {
+    // it seems that the fetch handler always assumes the response contains json, which fails for our delete since it returns plain text.
+    // yield fetchManager.request({
+    //   url: `/submissions/${this.model.submission.id}`,
+    //   method: 'DELETE',
+    // });
     yield fetch(`/submissions/${this.model.submission.id}`, {
       method: 'DELETE',
     });
@@ -163,9 +172,32 @@ export default class SupervisionSubmissionsEditController extends Controller {
       this.model.submission.modified = new Date();
       this.model.submission.lastModifier = user;
 
-      yield this.saveSubmissionForm.perform();
-      yield this.submitSubmissionForm.perform();
-      yield this.model.submission.save();
+      try {
+        yield this.saveSubmissionForm.perform();
+        // throw Error('save failed');
+      } catch (error) {
+        this.toaster.error('Bewaren mislukt', 'Er ging iets fout');
+        return;
+      }
+
+      try {
+        yield this.submitSubmissionForm.perform();
+      } catch (error) {
+        // TODO: check the error code
+        console.log('submit failed');
+        this.toaster.error('', 'Er ging iets fout');
+        return;
+      }
+
+      try {
+        // yield this.model.submission.save();
+        throw Error('model save failed');
+      } catch (error) {
+        console.log('model save failed');
+        this.toaster.error('', 'Er ging iets fout');
+        return;
+      }
+
       this.router.transitionTo('supervision.submissions');
     }
   }
