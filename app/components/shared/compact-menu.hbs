@@ -20,11 +20,6 @@
       BBC DR
     </AuLink>
   {{/if}}
-  {{#if this.currentSession.canAccessMandaat}}
-    <AuLink @route="mandatenbeheer.mandatarissen" @icon="user-fill" role="menuitem">
-      Mandatenbeheer
-    </AuLink>
-  {{/if}}
   {{#if this.currentSession.canAccessWorshipMinisterManagement}}
     <AuLink @route="worship-ministers-management" @icon="user" role="menuitem">
       Bedienarenbeheer

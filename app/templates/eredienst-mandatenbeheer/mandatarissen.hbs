@@ -23,7 +23,7 @@
   <AuToolbar @size="large" as |Group|>
     <Group>
       <div class="">
-        <Mandatenbeheer::BestuursperiodenSelector
+        <EredienstMandatenbeheer::BestuursperiodenSelector
           @options={{this.mandatenbeheer.bestuursperiods}}
           @selectedPeriod={{this.mandatenbeheer.selectedPeriod}}
           @onSelect={{this.selectPeriod}}

@@ -3,7 +3,7 @@
     <div class="au-c-description-value">{{@persoon.gebruikteVoornaam}} {{@persoon.achternaam}}</div>
     <div class="au-c-description-label js-accordion {{if this.showDetails "js-accordion--open"}}">
       {{#if @persoon.identificator.identificator}}
-        {{mandatenbeheer/display-rrn @persoon.identificator.identificator}},
+        {{display-rrn @persoon.identificator.identificator}},
         <br>
       {{/if}}
       {{@persoon.geslacht.label}},

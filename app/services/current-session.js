@@ -133,13 +133,6 @@ export default class CurrentSessionService extends Service {
     return this.canAccess(MODULE_ROLE.BBCDR);
   }
 
-  get canAccessMandaat() {
-    return (
-      this.canAccess(MODULE_ROLE.MANDATENBEHEER) &&
-      config.mandatenbeheer === 'true'
-    );
-  }
-
   get canAccessMandaatExternal() {
     return (
       this.canAccess(MODULE_ROLE.MANDATENBEHEER) &&

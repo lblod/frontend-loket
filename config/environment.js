@@ -38,7 +38,6 @@ module.exports = function (environment) {
     subsidiesUrl: '{{SUBSIDIES_URL}}',
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
-    mandatenbeheer: '{{MANDATENBEHEER}}',
     mandatenbeheerExternalUrl: '{{MANDATENBEHEER_EXTERNAL_URL}}',
     verenigingenUrl: '{{VERENIGINGEN_URL}}',
     contactUrl: '{{CONTACT_URL}}',
