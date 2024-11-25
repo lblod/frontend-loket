@@ -1,3 +1,21 @@
+## v0.98.0 (2024-11-25)
+### General
+#### :boom: Breaking Change
+* [#415](https://github.com/lblod/frontend-loket/pull/415) [DL-6151] Remove the mandatenbeheer module ([@Windvis](https://github.com/Windvis))
+
+#### :rocket: Enhancement
+* [#414](https://github.com/lblod/frontend-loket/pull/414) Update to Appuniversum v3.7.0 ([@Windvis](https://github.com/Windvis))
+
+#### :house: Internal
+* [#417](https://github.com/lblod/frontend-loket/pull/417) Refactor classic components ([@Windvis](https://github.com/Windvis))
+* [#412](https://github.com/lblod/frontend-loket/pull/412) [DL-6305] Update to the Ember v5.12 blueprints ([@Windvis](https://github.com/Windvis))
+* [#407](https://github.com/lblod/frontend-loket/pull/407) Resolve ember data v5 deprecations ([@Windvis](https://github.com/Windvis))
+
+#### Toezicht
+#### :rocket: Enhancement
+* [#411](https://github.com/lblod/frontend-loket/pull/411) [DL-6207] Add a new DecisionDocumentsField component ([@Windvis](https://github.com/Windvis))
+* [#399](https://github.com/lblod/frontend-loket/pull/399) Add a status filter to the "Toezicht" overview page ([@Windvis](https://github.com/Windvis))
+
 ## v0.97.4 (2024-11-04)
 
 ### General
