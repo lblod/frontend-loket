@@ -35,7 +35,7 @@
       <td class="au-u-visible-medium-up">{{moment-format report.modified 'DD-MM-YYYY'}}</td>
       {{/unless}}
       <td class="au-u-visible-small-up">
-        {{shared/document-status-pill report.status}}
+        <Bbcdr::DocumentStatus @status={{report.status}} />
       </td>
       <td data-test-loket='bbcdr-report-table-open-details-column'>
         <AuLink @route="bbcdr.rapporten.edit" @model={{report.id}} @icon="eye">Bekijk</AuLink>

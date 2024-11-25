@@ -5,10 +5,18 @@ export default class DocumentStatusModel extends Model {
   @attr label;
 
   get isConcept() {
-    return this.uri === 'http://data.lblod.info/document-statuses/concept';
+    return this.uri === DOCUMENT_STATUS.CONCEPT;
   }
 
   get isVerstuurd() {
-    return this.uri === 'http://data.lblod.info/document-statuses/verstuurd';
+    return this.uri === DOCUMENT_STATUS.VERSTUURD;
   }
 }
+
+export const DOCUMENT_STATUS = {
+  CONCEPT: 'http://data.lblod.info/document-statuses/concept',
+  GOEDGEKEURD: 'http://data.lblod.info/document-statuses/goedgekeurd',
+  OPMERKING: 'http://data.lblod.info/document-statuses/opmerking',
+  VERSTUURD: 'http://data.lblod.info/document-statuses/verstuurd',
+  PRULLENBAK: 'http://data.lblod.info/document-statuses/prullenbak',
+};
