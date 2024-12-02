@@ -165,3 +165,15 @@ export async function warnOnMandateExceededTimePeriode(
 
   return warningMessages;
 }
+
+/**
+ * Sorts objects by their .startDate property which is expected to be an ISO date string
+ * @param {{ startDate: string }[]} arrayToSort
+ * @returns {{ startDate: string }[]}
+ */
+
+export function sortByStartDate(arrayToSort) {
+  return arrayToSort.slice().sort((a, b) => {
+    return a.startDate.localeCompare(b.startDate);
+  });
+}
