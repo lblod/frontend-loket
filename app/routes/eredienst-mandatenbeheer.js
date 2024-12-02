@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import moment from 'moment';
+import { sortByStartDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 
 export default class EredienstMandatenbeheerRoute extends Route {
   @service currentSession;
@@ -73,7 +74,8 @@ export default class EredienstMandatenbeheerRoute extends Route {
     // - start < end
     //So, basically it assumes e.g.
     //  - [2001-2003][2003-2023] and possibly [2024-2025|null]
-    const sortedPeriods = periods.sortBy('startDate');
+    const sortedPeriods = sortByStartDate(periods);
+
     if (!(startDate || endDate)) {
       const today = moment(new Date()).format('YYYY-MM-DD');
 

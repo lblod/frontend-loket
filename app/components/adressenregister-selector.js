@@ -33,7 +33,7 @@ export default class AdressenregisterSelectorComponent extends Component {
         const selectedAddress = addresses.find(
           (a) => a.busnumber == address.busnummer,
         );
-        this.addressesWithBusnumbers = addresses.sortBy('busnumber');
+        this.addressesWithBusnumbers = sortByBusnumber(addresses);
         this.addressWithBusnumber = selectedAddress;
       } else {
         this.addressesWithBusnumbers = null;
@@ -54,7 +54,7 @@ export default class AdressenregisterSelectorComponent extends Component {
         this.args.onChange(addresses[0].adresProperties);
       } else {
         // selection of busnumber required
-        const sortedBusNumbers = addresses.sortBy('busnumber');
+        const sortedBusNumbers = sortByBusnumber(addresses);
         this.addressesWithBusnumbers = sortedBusNumbers;
         this.addressWithBusnumber = sortedBusNumbers[0];
         this.args.onChange(this.addressWithBusnumber.adresProperties);
@@ -76,4 +76,18 @@ export default class AdressenregisterSelectorComponent extends Component {
     this.addressWithBusnumber = address;
     this.args.onChange(address.adresProperties);
   }
+}
+
+/**
+ * @param {{busnumber: string | null}[]} arrayToSort
+ * @returns {{busnumber: string | null}[]}
+ */
+function sortByBusnumber(arrayToSort) {
+  return arrayToSort.slice().sort((a, b) => {
+    if (!a.busnumber) {
+      return -1;
+    }
+
+    return a.busnumber.localeCompare(b.busnumber);
+  });
 }
