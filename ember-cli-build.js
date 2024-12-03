@@ -29,6 +29,20 @@ module.exports = function (defaults) {
     staticModifiers: true,
     staticComponents: true,
     staticEmberSource: true,
+    splitAtRoutes: [
+      'mock-login',
+      'impersonate',
+      'contact',
+      'legaal',
+      'bbcdr',
+      'supervision',
+      'toezicht',
+      'berichtencentrum',
+      'leidinggevendenbeheer',
+      'personeelsbeheer',
+      'eredienst-mandatenbeheer',
+      'worship-ministers-management',
+    ],
     skipBabel: [
       {
         package: 'qunit',
