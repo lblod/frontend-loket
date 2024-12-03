@@ -3,8 +3,12 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
-  const customBuildConfig = {
-    // Add options here
+  const app = new EmberApp(defaults, {
+    // This is needed when `staticEmberSource` is enabled
+    'ember-fetch': {
+      preferNative: true,
+      nativePromise: true,
+    },
     'ember-simple-auth': {
       useSessionSetupMethod: true,
     },
@@ -15,12 +19,7 @@ module.exports = function (defaults) {
       dutchDatePickerLocalization: true,
       disableWormholeElement: true,
     },
-  };
-
-  let app = new EmberApp(defaults, customBuildConfig);
-
-  // Uncomment this if you want a "classic build"
-  // return app.toTree();
+  });
 
   const { Webpack } = require('@embroider/webpack');
   return require('@embroider/compat').compatBuild(app, Webpack, {
@@ -29,6 +28,11 @@ module.exports = function (defaults) {
     staticHelpers: true,
     staticModifiers: true,
     staticComponents: true,
-    // splitAtRoutes: ['route.name'], // can also be a RegExp
+    staticEmberSource: true,
+    skipBabel: [
+      {
+        package: 'qunit',
+      },
+    ],
   });
 };
