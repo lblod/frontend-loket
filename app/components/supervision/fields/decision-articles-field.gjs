@@ -313,6 +313,21 @@ class ArticleDetails extends Component {
     return this.args.forceShowErrors && this.decisions.length === 0;
   }
 
+  get eenheidConceptScheme() {
+    // If the decision type is `Opvragen bijkomende inlichtingen eredienstbesturen (met als gevolg stuiting termijn)` or
+    // `Schorsing beslissing eredienstbesturen`, we need CKBs in the dropdown select. Else, only EB.
+    if (
+      this.args.decisionType.value ==
+        'https://data.vlaanderen.be/id/concept/BesluitDocumentType/24743b26-e0fb-4c14-8c82-5cd271289b0e' ||
+      this.args.decisionType.value ==
+        'https://data.vlaanderen.be/id/concept/BesluitType/b25faa84-3ab5-47ae-98c0-1b389c77b827'
+    ) {
+      return 'http://lblod.data.gift/concept-schemes/362a6a78-6431-4d0a-b20d-22f1faca4130';
+    }
+
+    return 'http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07';
+  }
+
   loadData = task(async () => {
     const { article, formStore, sourceGraph } = this.args;
 
@@ -525,7 +540,7 @@ class ArticleDetails extends Component {
           {{#if this.showModal}}
             <AddDocumentsModal
               {{! bestuurseenheden }}
-              @eenheidConceptScheme="http://lblod.data.gift/concept-schemes/2e136902-f709-4bf7-a54a-9fc820cf9f07"
+              @eenheidConceptScheme={{this.eenheidConceptScheme}}
               @decisionType={{@decisionType}}
               @addedDocuments={{this.decisions}}
               @formStore={{@formStore}}
