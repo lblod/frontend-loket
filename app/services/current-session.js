@@ -156,6 +156,10 @@ export default class CurrentSessionService extends Service {
     return !config.subsidiesUrl.startsWith('{{');
   }
 
+  get canAccessDataMonitoringTool() {
+    return !config.dataMonitoringToolUrl.startsWith('{{');
+  }
+
   get canAccessWorshipMinisterManagement() {
     return this.canAccess(MODULE_ROLE.WORSHIP_MINISTER_MANAGEMENT);
   }

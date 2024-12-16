@@ -16,6 +16,7 @@ The [ember-proxy-service](https://github.com/mu-semtech/ember-proxy-service#conf
 | `EMBER_VERENIGINGEN_URL`                   | Link to the verenigingen app                                                                          |
 | `EMBER_CONTACT_URL`                        | Link to the contact app                                                                               |
 | `EMBER_SUBSIDIES_URL`                      | Link to the subsidiepunt app                                                                          |
+| `EMBER_DATA_MONITORING_TOOL_URL`           | Link to the data monitoring tool app                                                                  |
 | `EMBER_MANDATENBEHEER_EXTERNAL_URL`        | Link to the mandatenbeheer app                                                                        |
 | `EMBER_OPEN_PROCES_HUIS_URL`               | Link to the open proces huis app                                                                      |
 | `EMBER_OPEN_PROCES_HUIS_ROLE`              | ACM/IDM user role that is used to display the app link. defaults to `LoketLB-OpenProcesHuisGebruiker` |

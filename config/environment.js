@@ -36,6 +36,7 @@ module.exports = function (environment) {
     },
     lpdcUrl: '{{LPDC_URL}}',
     subsidiesUrl: '{{SUBSIDIES_URL}}',
+    dataMonitoringToolUrl: '{{EMBER_DATA_MONITORING_TOOL_URL}}',
     worshipDecisionsDatabaseUrl: '{{WORSHIP_DECISIONS_DATABASE_URL}}',
     worshipOrganisationsDatabaseUrl: '{{WORSHIP_ORGANISATIONS_DATABASE_URL}}',
     mandatenbeheerExternalUrl: '{{MANDATENBEHEER_EXTERNAL_URL}}',
