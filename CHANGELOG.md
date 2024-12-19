@@ -1,3 +1,13 @@
+## v0.99.1 (2024-12-19)
+### General
+#### :bug: Bug Fix
+* Fix dataMonitoringToolUrl environment variable
+
+## v0.99.0 (2024-12-19)
+### General
+#### :rocket: Enhancement
+* [#422](https://github.com/lblod/frontend-loket/pull/422) [DL-6195] Add data monitoring tool card ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.98.0 (2024-11-25)
 ### General
 #### :boom: Breaking Change
