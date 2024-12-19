@@ -55,6 +55,16 @@
       SubsidiePunt
     </AuLinkExternal>
   {{/if}}
+  {{#if this.currentSession.canAccessDataMonitoringTool}}
+    <AuLinkExternal
+      @icon="link-external"
+      @iconAlignment="left"
+      href={{(data-monitoring-tool-url)}}
+      role="menuitem"
+    >
+      Data Monitoring Tool
+    </AuLinkExternal>
+  {{/if}}
   {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
     <AuLink @route="eredienst-mandatenbeheer.mandatarissen" @icon="users-four-of-four" role="menuitem">
       Mandatenbeheer

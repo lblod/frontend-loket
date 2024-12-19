@@ -177,6 +177,23 @@
             </LoketModuleCard>
           </li>
         {{/if}}
+        {{#if this.currentSession.canAccessDataMonitoringTool}}
+          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+            <LoketModuleCard
+              @icon="external-link"
+            >
+              <:title>
+                Data Monitoring Tool
+              </:title>
+              <:description>Krijg inzicht in de kwaliteit van uw data, laatste zittingen, de meest recente harvests, aantal beslissingen en agendapunten.</:description>
+              <:link>
+                <AuLinkExternal @skin="button" href={{(data-monitoring-tool-url)}}>
+                  Ga naar Data Monitoring Tool (externe link)
+                </AuLinkExternal>
+              </:link>
+            </LoketModuleCard>
+          </li>
+        {{/if}}
         {{#if this.currentSession.canAccessPublicServices}}
           <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
             <LoketModuleCard
