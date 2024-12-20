@@ -1,3 +1,11 @@
+## v0.99.2 (2024-12-20)
+
+### General
+
+#### :rocket: Enhancement
+
+* [#423](https://github.com/lblod/frontend-loket/pull/423) [DL-6276] Bump ember-submission-form-fields
+
 ## v0.99.1 (2024-12-19)
 ### General
 #### :bug: Bug Fix
