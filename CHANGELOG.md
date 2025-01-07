@@ -1,3 +1,8 @@
+## v0.99.3 (2025-01-07)
+### Toezicht
+#### :bug: Bug Fix
+* [#424](https://github.com/lblod/frontend-loket/pull/424) [DL-5449] Fix an issue with the "Links naar bestanden" fields in toezicht ([@Windvis](https://github.com/Windvis))
+
 ## v0.99.2 (2024-12-20)
 
 ### General
