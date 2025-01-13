@@ -21,6 +21,7 @@ import {
   RDF,
   registerCustomValidation,
   SHACL,
+  SKOS,
 } from '@lblod/submission-form-helpers';
 import { task } from 'ember-concurrency';
 import not from 'ember-truth-helpers/helpers/not';
@@ -90,12 +91,28 @@ class DecisionArticlesField extends Component {
   }
 
   get decisionType() {
-    return this.args.formStore.any(
-      this.args.sourceNode,
-      RDF('type'),
-      undefined,
-      this.args.graphs.sourceGraph,
+    // A form can have multiple decision types, but just one is in the scheme that interests us
+    const decisionTypes = this.args.formStore
+      .match(
+        this.args.sourceNode,
+        RDF('type'),
+        undefined,
+        this.args.graphs.sourceGraph,
+      )
+      .map((triples) => triples.object);
+
+    const toezichtDossierTypeConceptScheme = new NamedNode(
+      'http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5',
     );
+
+    return decisionTypes.find((decisionType) => {
+      return this.args.formStore.any(
+        decisionType,
+        SKOS('inScheme'),
+        toezichtDossierTypeConceptScheme,
+        undefined,
+      );
+    });
   }
 
   loadArticles = task(async () => {
