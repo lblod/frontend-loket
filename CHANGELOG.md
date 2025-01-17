@@ -5,17 +5,15 @@
 
 #### Committers: 1
 - Claire Lovisa ([@claire-lovisa](https://github.com/claire-lovisa))
+
 ## v0.99.3 (2025-01-07)
 ### Toezicht
 #### :bug: Bug Fix
 * [#424](https://github.com/lblod/frontend-loket/pull/424) [DL-5449] Fix an issue with the "Links naar bestanden" fields in toezicht ([@Windvis](https://github.com/Windvis))
 
 ## v0.99.2 (2024-12-20)
-
 ### General
-
 #### :rocket: Enhancement
-
 * [#423](https://github.com/lblod/frontend-loket/pull/423) [DL-6276] Bump ember-submission-form-fields
 
 ## v0.99.1 (2024-12-19)
@@ -27,6 +25,14 @@
 ### General
 #### :rocket: Enhancement
 * [#422](https://github.com/lblod/frontend-loket/pull/422) [DL-6195] Add data monitoring tool card ([@wolfderechter](https://github.com/wolfderechter))
+
+## v0.98.2 (2025-01-17)
+### Toezicht
+#### :bug: Bug Fix
+* [#425](https://github.com/lblod/frontend-loket/pull/425) Ensure decision type is in correct scheme ([@claire-lovisa](https://github.com/claire-lovisa))
+
+#### Committers: 1
+- Claire Lovisa ([@claire-lovisa](https://github.com/claire-lovisa))
 
 ## v0.98.0 (2024-11-25)
 ### General
