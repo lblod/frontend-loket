@@ -1,3 +1,10 @@
+## v0.98.2 (2025-01-17)
+### Toezicht
+#### :bug: Bug Fix
+* [#425](https://github.com/lblod/frontend-loket/pull/425) Ensure decision type is in correct scheme ([@claire-lovisa](https://github.com/claire-lovisa))
+
+#### Committers: 1
+- Claire Lovisa ([@claire-lovisa](https://github.com/claire-lovisa))
 ## v0.98.0 (2024-11-25)
 ### General
 #### :boom: Breaking Change
