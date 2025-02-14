@@ -38,7 +38,7 @@
     "ember-math-helpers": "ember-data-table still brings in v2 but we can't force it to v4 because that's a v2 addon which requires ember-auto-import v2. We can remove the override once this pr is merged: https://github.com/mu-semtech/ember-data-table/pull/35"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^3.7.0",
+    "@appuniversum/ember-appuniversum": "^3.8.0",
     "@babel/core": "^7.25.2",
     "@babel/eslint-parser": "^7.25.1",
     "@babel/plugin-proposal-decorators": "^7.24.7",
