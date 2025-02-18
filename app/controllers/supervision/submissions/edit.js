@@ -7,22 +7,23 @@ import {
   delGraphFor,
   addGraphFor,
 } from '@lblod/ember-submission-form-fields';
-import fetch from 'fetch';
 import { DELETED_STATUS } from '../../../models/submission-document-status';
 import { task } from 'ember-concurrency';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
+import fetchManager from 'frontend-loket/utils/fetch-manager';
+import fetch from 'frontend-loket/utils/fetch';
 
 export default class SupervisionSubmissionsEditController extends Controller {
   @service currentSession;
   @service store;
-  @service() router;
+  @service router;
+  @service toaster;
 
   @tracked datasetTriples = [];
   @tracked addedTriples = [];
   @tracked removedTriples = [];
   @tracked forceShowErrors = false;
   @tracked isValidForm = true;
-  @tracked recentlySaved = false;
 
   constructor() {
     super(...arguments);
@@ -84,21 +85,21 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
   @task
   *saveSubmissionForm() {
-    yield fetch(`/submission-forms/${this.model.submissionDocument.id}`, {
+    yield fetchManager.request({
+      url: `/submission-forms/${this.model.submissionDocument.id}`,
       method: 'PUT',
-      headers: { 'Content-Type': 'application/vnd.api+json' },
+      headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }),
       body: JSON.stringify({
         ...this.formStore.serializeDataWithAddAndDelGraph(
           this.graphs.sourceGraph,
         ),
       }),
     });
-    yield fetch(
-      `/submission-forms/${this.model.submissionDocument.id}/flatten`,
-      {
-        method: 'PUT',
-      },
-    );
+
+    yield fetchManager.request({
+      url: `/submission-forms/${this.model.submissionDocument.id}/flatten`,
+      method: 'PUT',
+    });
 
     // Since the form data and related entities are not updated via ember-data
     // we need to manually reload those to keep the index page up-to-date
@@ -109,13 +110,12 @@ export default class SupervisionSubmissionsEditController extends Controller {
 
   @task
   *submitSubmissionForm() {
-    yield fetch(
-      `/submission-forms/${this.model.submissionDocument.id}/submit`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/vnd.api+json' },
-      },
-    );
+    yield fetchManager.request({
+      url: `/submission-forms/${this.model.submissionDocument.id}/submit`,
+      method: 'POST',
+      headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }),
+    });
+
     // Since the sent date and sent status of the submission will be set by the backend
     // and not via ember-data, we need to manually reload the submission record
     // to keep the index page up-to-date
@@ -124,28 +124,43 @@ export default class SupervisionSubmissionsEditController extends Controller {
   }
 
   @task
-  *deleteSubmissionForm() {
-    yield fetch(`/submissions/${this.model.submission.id}`, {
-      method: 'DELETE',
-    });
-  }
-
-  @task
   *delete() {
-    yield this.deleteSubmissionForm.perform();
-    this.router.transitionTo('supervision.submissions');
+    try {
+      // TODO: use the request manager once that supports non-json responses
+      yield fetch(`/submissions/${this.model.submission.id}`, {
+        method: 'DELETE',
+      });
+      this.toaster.success(undefined, 'Dossier verwijderd', {
+        timeOut: 3000,
+      });
+      this.router.transitionTo('supervision.submissions');
+    } catch {
+      this.toaster.error(
+        'Er ging iets fout bij het verwijderen van het dossier.',
+        'Bewaren mislukt',
+      );
+    }
   }
 
   @task
   *save() {
-    yield this.saveSubmissionForm.perform();
+    try {
+      yield this.saveSubmissionForm.perform();
 
-    const user = this.currentSession.user;
-    this.model.submission.modified = new Date();
-    this.model.submission.lastModifier = user;
-    yield this.model.submission.save();
-    this.recentlySaved = true;
-    setTimeout(() => (this.recentlySaved = false), 3000);
+      const user = this.currentSession.user;
+      this.model.submission.modified = new Date();
+      this.model.submission.lastModifier = user;
+      yield this.model.submission.save();
+
+      this.toaster.success(undefined, 'Concept bewaard', {
+        timeOut: 3000,
+      });
+    } catch {
+      this.toaster.error(
+        'Er ging iets fout bij het bewaren van het dossier.',
+        'Bewaren mislukt',
+      );
+    }
   }
 
   @task
@@ -163,10 +178,20 @@ export default class SupervisionSubmissionsEditController extends Controller {
       this.model.submission.modified = new Date();
       this.model.submission.lastModifier = user;
 
-      yield this.saveSubmissionForm.perform();
-      yield this.submitSubmissionForm.perform();
-      yield this.model.submission.save();
-      this.router.transitionTo('supervision.submissions');
+      try {
+        yield this.saveSubmissionForm.perform();
+        yield this.submitSubmissionForm.perform();
+        yield this.model.submission.save();
+        this.toaster.success(undefined, 'Dossier verzonden', {
+          timeOut: 5000,
+        });
+        this.router.transitionTo('supervision.submissions');
+      } catch {
+        this.toaster.error(
+          'Er ging iets fout bij het verzenden van het dossier.',
+          'Verzenden mislukt',
+        );
+      }
     }
   }
 }
