@@ -28,6 +28,7 @@
         <AuFileUpload
           @accept=".xbrl,.xml"
           @maxFileSizeMB="1024"
+          @minFileSizeKB={{1}}
           @onFinishUpload={{this.addFile}}
           data-test-loket="bbcdr-file-upload"
         />
