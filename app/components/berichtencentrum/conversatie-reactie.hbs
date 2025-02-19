@@ -50,7 +50,7 @@
           {{/each}}
         </ul>
       {{/if}}
-      <AuFileUpload @onFinishUpload={{this.attachFile}} @maxFileSizeMB="1024" @minFilzeSizeKB="1" />
+      <AuFileUpload @onFinishUpload={{this.attachFile}} @maxFileSizeMB="1024" @minFilzeSizeKB={{1}} />
     </div>
 
     <AuButtonGroup>
