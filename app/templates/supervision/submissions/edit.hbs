@@ -20,26 +20,6 @@
         <AuLabel>Bewerkt op</AuLabel>
         <p>{{moment-format this.model.submission.modified 'DD-MM-YYYY'}}</p>
       </li>
-      {{#if this.save.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-          <AuAlert @icon="info-circle" @title="Aan het opslaan..."  @skin="info" @size="small"></AuAlert>
-        </li>
-      {{/if}}
-      {{#if this.submit.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-          <AuAlert @icon="info-circle" @title="Aan het versturen..."  @skin="info" @size="small"></AuAlert>
-        </li>
-      {{/if}}
-      {{#if this.delete.isRunning}}
-        <li class="au-o-grid__item au-u-1-2 au-u-2-6@medium">
-          <AuAlert @icon="info-circle" @title="Aan het verwijderen..."  @skin="info" @size="small"></AuAlert>
-        </li>
-      {{/if}}
-      {{#if this.recentlySaved}}
-        <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
-          <AuAlert @icon="info-circle" @title="Opgeslagen."  @skin="success" @size="small"></AuAlert>
-        </li>
-      {{/if}}
     </ul>
   </Group>
 </AuToolbar>
@@ -87,7 +67,7 @@
           "true"
         }}
         @loading={{if this.submit.isRunning "true"}}
-        @loadingMessage="Verzenden"
+        @loadingMessage="Aan het verzenden"
         {{on "click" (perform this.submit)}}
       >
         Verzenden
@@ -98,17 +78,11 @@
           "true"
         }}
         @loading={{if this.save.isRunning "true"}}
-        @loadingMessage="Bewaar als concept"
+        @loadingMessage="Aan het bewaren"
         @skin="secondary"
-        @icon={{if this.recentlySaved "check"}}
-        @iconAlignment={{if this.recentlySaved "left"}}
         {{on "click" (perform this.save)}}
       >
-        {{#if this.recentlySaved}}
-          Concept bewaard
-        {{else}}
           Bewaar als concept
-        {{/if}}
       </AuButton>
     {{/if}}
   </Group>
@@ -122,7 +96,7 @@
           this.delete.isRunning
         }}
         @loading={{this.delete.isRunning}}
-        @loadingMessage="Verwijder dossier"
+        @loadingMessage="Aan het verwijderen"
         @skin="link"
         @alert={{true}}
         @icon="bin"
