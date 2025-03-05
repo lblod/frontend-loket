@@ -54,6 +54,7 @@
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "@lblod/ember-acmidm-login": "2.1.0",
+    "@lblod/ember-address-search": "^1.0.0",
     "@lblod/ember-mock-login": "^0.10.0",
     "@lblod/ember-submission-form-fields": "^2.24.1",
     "@lblod/submission-form-helpers": "^2.10.0",
