@@ -79,7 +79,7 @@
       <AuCheckbox @disabled={{true}} @checked={{@isSelected}} />
     </td>
     <td>
-      <AuButton @skin="link" {{on "click" @onEditContactCancel}}>
+      <AuButton @skin="link" {{on "click" this.cancelEditing}}>
         Annuleer
       </AuButton>
     </td>
