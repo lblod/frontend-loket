@@ -1,31 +1,31 @@
 {{#if @isEditing}}
   <tr>
-  {{#if @isManualInputMode}}
-    <ContactInformationTable::InputManualAddress
-      @address={{@contact.adres}}
-      @errors={{@contact.adres.errors}}
-      @toggleAddressSelector={{@toggleInputMode}}
-    />
-  {{else}}
-    <AdressenregisterSelector
-      @address={{@adres}}
-      @onChange={{this.handleAdresChange}}
-      as |Adres|
-    >
-    <td class={{if @contact.errors.adres "ember-power-select--error"}}>
-      <Adres.Selector as |suggestion|>
-        {{suggestion.fullAddress}}
-      </Adres.Selector>
-      <p class="au-u-margin-top-tiny">
-        <AuButton @skin="link" {{on "click" @toggleInputMode}}>
-            Vul adres manueel in
-        </AuButton>
-      </p>
-    </td>
-    <td>
-      <Adres.BusSelector />
-    </td>
-    </AdressenregisterSelector>
+    {{#if @isManualInputMode}}
+      <ContactInformationTable::InputManualAddress
+        @address={{@contact.adres}}
+        @errors={{@contact.adres.errors}}
+        @toggleAddressSelector={{@toggleInputMode}}
+      />
+    {{else}}
+      <AddressSelector
+        @address={{@adres}}
+        @onChange={{this.handleAdresChange}}
+        as |Adres|
+      >
+        <td class={{if @contact.errors.adres "ember-power-select--error"}}>
+          <Adres.Selector as |suggestion|>
+            {{suggestion.fullAddress}}
+          </Adres.Selector>
+          <p class="au-u-margin-top-tiny">
+            <AuButton @skin="link" {{on "click" @toggleInputMode}}>
+              Vul adres manueel in
+            </AuButton>
+          </p>
+        </td>
+        <td>
+          <Adres.BusSelector />
+        </td>
+      </AddressSelector>
     {{/if}}
     {{! TODO: Implement province selection }}
     {{!-- <td>
@@ -33,12 +33,9 @@
     </td> --}}
     <td>
       {{#if @isManualInputMode}}
-      <AuLabel
-        for="email"
-        @error={{@contact.errors.email}}
-      >
-        E-Mail
-      </AuLabel>
+        <AuLabel for="email" @error={{@contact.errors.email}}>
+          E-Mail
+        </AuLabel>
       {{/if}}
       <AuInput
         @width="block"
@@ -51,12 +48,9 @@
     </td>
     <td>
       {{#if @isManualInputMode}}
-      <AuLabel
-        for="telephone"
-        @error={{@contact.errors.telefoon}}
-      >
-        Primair telefoonnummer
-      </AuLabel>
+        <AuLabel for="telephone" @error={{@contact.errors.telefoon}}>
+          Primair telefoonnummer
+        </AuLabel>
       {{/if}}
       <AuInput
         @width="block"
@@ -69,11 +63,9 @@
     </td>
     <td>
       {{#if @isManualInputMode}}
-      <AuLabel
-        for="secondary-telephone"
-      >
-        Secundair telefoonnummer
-      </AuLabel>
+        <AuLabel for="secondary-telephone">
+          Secundair telefoonnummer
+        </AuLabel>
       {{/if}}
       <AuInput
         @width="block"
@@ -87,7 +79,7 @@
       <AuCheckbox @disabled={{true}} @checked={{@isSelected}} />
     </td>
     <td>
-      <AuButton @skin="link" {{on "click" @onEditContactCancel}}>
+      <AuButton @skin="link" {{on "click" this.cancelEditing}}>
         Annuleer
       </AuButton>
     </td>

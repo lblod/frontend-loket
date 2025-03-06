@@ -35,7 +35,7 @@
           <ContactInformationTable::Row
             @contact={{contact}}
             @secondaryContact={{contact.secondaryContactPoint}}
-            @adres={{contact.adres}}
+            @adres={{belongs-to contact "adres"}}
             @onAdresChange={{this.handleAdresChange}}
             @isEditing={{and this.isEditing (eq @editingContact contact)}}
             @isDisabled={{and this.isEditing (not-eq @editingContact contact)}}

@@ -17,8 +17,9 @@ export default class ContactInformationTableRowComponent extends Component {
         },
       });
 
-      if (typeof this.newAdres === 'object') {
+      if (this.newAdres) {
         this.newAdres.rollbackAttributes();
+        this.newAdres = undefined;
       }
       if (addresses.length == 0) {
         this.newAdres = this.store.createRecord('adres', adres);
@@ -31,5 +32,11 @@ export default class ContactInformationTableRowComponent extends Component {
 
     // Updating a relationship value doesn't seem to clear the corresponding error messages, so we do it manually
     this.args.contact.errors.remove('adres');
+  }
+
+  @action
+  cancelEditing() {
+    this.newAdres = null;
+    this.args.onEditContactCancel();
   }
 }

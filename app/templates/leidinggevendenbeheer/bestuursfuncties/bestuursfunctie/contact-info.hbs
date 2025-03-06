@@ -30,9 +30,10 @@
           {{on "input" (with-value (fn (mut this.model.telefoon)))}}
         />
       </div>
-      <AdressenregisterSelector
-        @address={{this.model.adres}}
-        @onChange={{perform this.updateAdres}}
+
+      <AddressSelector
+        @address={{belongs-to this.model "adres"}}
+        @onChange={{this.updateAdres.perform}}
       />
     </div>
   </div>
