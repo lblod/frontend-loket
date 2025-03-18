@@ -160,6 +160,10 @@ export default class CurrentSessionService extends Service {
     return !config.dataMonitoringToolUrl.startsWith('{{');
   }
 
+  get canAccessOvam() {
+    return !config.ovamUrl.startsWith('{{');
+  }
+
   get canAccessWorshipMinisterManagement() {
     return this.canAccess(MODULE_ROLE.WORSHIP_MINISTER_MANAGEMENT);
   }

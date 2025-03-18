@@ -194,6 +194,25 @@
             </LoketModuleCard>
           </li>
         {{/if}}
+        {{#if this.currentSession.canAccessOvam}}
+          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
+            <LoketModuleCard
+              @icon="external-link"
+              @extraInformationLink="https://ovam.atlassian.net/wiki/spaces/OVAM/pages/74125222/Risicolocaties"
+              @userManualLink="https://ovam.vlaanderen.be/handleiding-webtoepassing-beheer-risicolocaties"
+            >
+              <:title>
+                Beheer risicolocaties
+              </:title>
+              <:description>Beheer hier de risicolocaties binnen uw gemeente.</:description>
+              <:link>
+                <AuLinkExternal @skin="button" href={{(ovam-url)}}>
+                  Ga naar Beheer risicolocaties (externe link)
+                </AuLinkExternal>
+              </:link>
+            </LoketModuleCard>
+          </li>
+        {{/if}}
         {{#if this.currentSession.canAccessPublicServices}}
           <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
             <LoketModuleCard
