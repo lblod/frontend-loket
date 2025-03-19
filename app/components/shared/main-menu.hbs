@@ -85,6 +85,16 @@
         Data Monitoring Tool
       </AuLinkExternal>
     {{/if}}
+    {{#if this.currentSession.canAccessOvam}}
+      <AuLinkExternal
+        @icon="link-external"
+        @iconAlignment="left"
+        class="au-c-list-navigation__link"
+        href={{(ovam-url)}}
+      >
+        Beheer risicolocaties
+      </AuLinkExternal>
+    {{/if}}
     {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
       <AuNavigationLink @route="eredienst-mandatenbeheer.mandatarissen">
         <AuIcon @icon="users-four-of-four" @alignment="left" />

@@ -1,3 +1,8 @@
+## Unreleased
+### General
+#### :rocket: Enhancement
+* [#429](https://github.com/lblod/frontend-loket/pull/429) [DL-6354] Add OVAM card ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.99.4 (2025-01-17)
 ### Toezicht
 #### :bug: Bug Fix

@@ -347,6 +347,37 @@
 
             <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
               <AuCard @textCenter="true" as |c|>
+                <c.header @badgeSkin="brand" @badgeIcon="external-link">
+                  <AuHeading @level="3" @skin="4">
+                    Beheer risicolocaties
+                  </AuHeading>
+                </c.header>
+                <c.content>
+                  <p class="au-u-margin-top-tiny">Beheer hier de risicolocaties binnen uw gemeente.</p>
+                </c.content>
+                <c.footer>
+                  <p>
+                    <AuLinkExternal
+                      @skin="button"
+                      @icon="link"
+                      href="https://ovam.atlassian.net/wiki/spaces/OVAM/pages/74125222/Risicolocaties"
+                    >
+                      Meer informatie
+                    </AuLinkExternal>
+                    <AuLinkExternal
+                      @skin="button-secondary"
+                      @icon="manual"
+                      href="https://ovam.vlaanderen.be/handleiding-webtoepassing-beheer-risicolocaties"
+                    >
+                      Handleiding
+                    </AuLinkExternal>
+                  </p>
+                </c.footer>
+              </AuCard>
+            </div>
+
+            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+              <AuCard @textCenter="true" as |c|>
                 <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
                   <AuHeading @level="3" @skin="4">
                     Producten- en dienstencatalogus
