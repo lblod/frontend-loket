@@ -35,7 +35,7 @@
                       >
                         {{account.gebruiker.voornaam}}
                         {{account.gebruiker.achternaam}}
-                        {{#if account.gebruiker.group.alternatieveNaam}}
+                        {{#if (has-unique-alternative-names account)}}
                           <span>
                             <span class="au-c-info-text">Alternatieve naam:</span>
                             {{#each
@@ -46,7 +46,9 @@
                                 bestuurseenheid.alternatieveNaam
                                 as |alternatieveNaam|
                               }}
-                                <AuPill>{{alternatieveNaam}}</AuPill>
+                                {{#if (not-eq alternatieveNaam account.gebruiker.achternaam)}}
+                                  <AuPill>{{alternatieveNaam}}</AuPill>
+                                {{/if}}
                               {{/each}}
                             {{/each}}
                           </span>

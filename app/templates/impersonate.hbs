@@ -33,22 +33,24 @@
                     >
                       {{account.gebruiker.voornaam}}
                       {{account.gebruiker.achternaam}}
-                      {{#if account.gebruiker.group.alternatieveNaam}}
-                        <span>
-                          <span class="au-c-info-text">Alternatieve naam:</span>
-                          {{#each
-                            account.gebruiker.bestuurseenheden
-                            as |bestuurseenheid|
-                          }}
+                        {{#if (has-unique-alternative-names account)}}
+                          <span>
+                            <span class="au-c-info-text">Alternatieve naam:</span>
                             {{#each
-                              bestuurseenheid.alternatieveNaam
-                              as |alternatieveNaam|
+                              account.gebruiker.bestuurseenheden
+                              as |bestuurseenheid|
                             }}
-                              <AuPill>{{alternatieveNaam}}</AuPill>
+                              {{#each
+                                bestuurseenheid.alternatieveNaam
+                                as |alternatieveNaam|
+                              }}
+                                {{#if (not-eq alternatieveNaam account.gebruiker.achternaam)}}
+                                  <AuPill>{{alternatieveNaam}}</AuPill>
+                                {{/if}}
+                              {{/each}}
                             {{/each}}
-                          {{/each}}
-                        </span>
-                      {{/if}}
+                          </span>
+                        {{/if}}
                     </AuButton>
                   </li>
                 {{/each}}
