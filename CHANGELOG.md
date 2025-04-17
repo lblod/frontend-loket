@@ -1,7 +1,11 @@
-## Unreleased
+## v0.100.0 (2025-04-17)
 ### General
 #### :rocket: Enhancement
 * [#429](https://github.com/lblod/frontend-loket/pull/429) [DL-6354] Add OVAM card ([@wolfderechter](https://github.com/wolfderechter))
+* [#430](https://github.com/lblod/frontend-loket/pull/430) [DL-6522] Remove redundant alternative names ([@Riadabd](https://github.com/Riadabd))
+
+#### :bug: Bug Fix
+* [#426](https://github.com/lblod/frontend-loket/pull/426) [DL-6240] Berichtencentrum - prevent empty or too small files from being uploaded ([@aatauil](https://github.com/aatauil))
 
 ## v0.99.4 (2025-01-17)
 ### Toezicht
