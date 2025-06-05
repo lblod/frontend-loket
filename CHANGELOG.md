@@ -1,3 +1,8 @@
+## v0.100.1 (2025-06-05)
+### General
+#### :rocket: Enhancement
+* [#431](https://github.com/lblod/frontend-loket/pull/431) [DL-5635]: update privacy policy disclaimer ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v0.100.0 (2025-04-17)
 ### General
 #### :rocket: Enhancement
