@@ -44,7 +44,6 @@ module.exports = async function (defaults) {
       'legaal',
       'bbcdr',
       'supervision',
-      'toezicht',
       'berichtencentrum',
       'leidinggevendenbeheer',
       'personeelsbeheer',

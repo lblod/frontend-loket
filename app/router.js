@@ -41,13 +41,6 @@ Router.map(function () {
     });
   });
 
-  this.route('toezicht', function () {
-    this.route('inzendingen', function () {
-      this.route('new');
-      this.route('edit', { path: '/:id' });
-    });
-  });
-
   this.route('berichtencentrum', function () {
     this.route('berichten', function () {
       this.route('conversatie', { path: '/:id' }, function () {});
