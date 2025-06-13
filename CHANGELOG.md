@@ -1,3 +1,14 @@
+## v1.0.0 (2025-06-13)
+
+#### :boom: Breaking Change
+* [#432](https://github.com/lblod/frontend-loket/pull/432) [DL-6629] Use the `semtech/static-file-service` as the base image ([@Windvis](https://github.com/Windvis))
+
+#### :rocket: Enhancement
+* [#433](https://github.com/lblod/frontend-loket/pull/433) [DL-6646] Allow users to update the modified date without any table changes ([@Windvis](https://github.com/Windvis))
+
+#### Committers: 1
+- Sam Van Campenhout ([@Windvis](https://github.com/Windvis))
+
 ## v0.100.1 (2025-06-05)
 ### General
 #### :rocket: Enhancement
