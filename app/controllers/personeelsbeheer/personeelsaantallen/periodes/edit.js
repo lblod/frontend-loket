@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { task, keepLatestTask, all, timeout } from 'ember-concurrency';
+import { task, keepLatestTask, timeout } from 'ember-concurrency';
 import { tracked } from '@glimmer/tracking';
 
 export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController extends Controller {
@@ -11,22 +11,38 @@ export default class PersoneelsbeheerPersoneelsaantallenPeriodesEditController e
     return subjects?.find((um) => um.isFTE);
   }
 
-  @keepLatestTask
-  *queueSave() {
-    yield timeout(3000);
-    yield this.save.perform();
+  get isSaving() {
+    return this.save.isRunning || this.updateModifiedDate.isRunning;
   }
 
-  @task
-  *save() {
+  get wasUpdatedThisYear() {
+    const modified = this.dataset.modified;
+    if (!modified) {
+      return false;
+    }
+
+    const today = new Date();
+    return today.getFullYear() === modified.getFullYear();
+  }
+
+  queueSave = keepLatestTask(async () => {
+    await timeout(3000);
+    await this.save.perform();
+  });
+
+  save = task(async () => {
     const dirtyObservations = this.model.filter(
       (obs) => obs.hasDirtyAttributes,
     );
 
     if (dirtyObservations.length) {
-      yield all(dirtyObservations.map((obs) => obs.save()));
-      this.dataset.set('modified', new Date());
-      yield this.dataset.save();
+      await Promise.all(dirtyObservations.map((obs) => obs.save()));
+      await this.updateModifiedDate.unlinked().perform();
     }
-  }
+  });
+
+  updateModifiedDate = task(async () => {
+    this.dataset.modified = new Date();
+    await this.dataset.save();
+  });
 }
