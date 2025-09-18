@@ -1,0 +1,18 @@
+// TODO: remove this wrapper once the new loket styling is the default
+.new-loket {
+  @import "home";
+  @import "landing";
+  @import "login";
+  @import "header";
+  @import "navigation";
+  @import "footer";
+  @import "layout";
+  @import "complex-link";
+  @import "timeline";
+  @import "rich-link";
+  @import "select";
+  @import "overrides";
+
+  // TODO: set this as :root {..} when the new loket styling is the default
+  --brand-color: #1c7074;
+}

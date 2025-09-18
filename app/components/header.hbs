@@ -1,0 +1,12 @@
+<AuMainHeader @brandLink="https://www.vlaanderen.be/nl" @homeRoute="index" @appTitle="Loket voor lokale besturen" @contactRoute="">
+  <div class="c-header-buttons">
+    {{#if this.session.isAuthenticated}}
+      <HeaderAccount />
+    {{else}}
+      <AuLink @route="login" @skin="button" @icon="user" class="c-header-buttons__login">
+        Aanmelden
+      </AuLink>
+    {{/if}}
+    <HeaderHelp />
+  </div>
+</AuMainHeader>

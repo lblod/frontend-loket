@@ -27,6 +27,7 @@ const MODULE_ROLE = {
 const ADMIN_ROLE = 'LoketLB-admin';
 
 export default class CurrentSessionService extends Service {
+  @service bookmarks;
   @service session;
   @service store;
   @service impersonation;
@@ -58,6 +59,7 @@ export default class CurrentSessionService extends Service {
       });
       this.groupClassification = await this.group.classificatie;
 
+      await this.bookmarks.load();
       this.setupSentrySession();
     }
   }

@@ -1,0 +1,36 @@
+{{page-title "Favorieten"}}
+
+<AuMainContainer as |m|>
+  <m.content>
+    <AuBodyContainer>
+      <AuBodyContainer class="au-c-body-container--favorites" @scroll={{true}}>
+        <div class="favorites-container">
+          <AuHeading @level="2" @skin="4" class="favorites-title au-u-padding-left au-u-padding-top-small au-u-margin-bottom-small">
+            {{@model.length}} diensten
+          </AuHeading>
+          <AuList class="c-overview-cards-list c-overview-cards-list--favorites" as |ListItem|>
+            {{#each @model as |product|}}
+              <ListItem>
+                <IpdcServiceCard
+                  @model={{product}}
+                  @onClick={{this.openProductDetail}} />
+              </ListItem>
+            {{else}}
+              <AuAlert
+                @title="Niet gevonden wat je zocht?"
+                @icon="circle-question">
+                <p>Laat ons weten welke diensten je mist op <a href="#!" class="au-c-link">LoketLokaalBestuur@vlaanderen.be.</a></p>
+              </AuAlert>
+            {{/each}}
+          </AuList>
+        </div>
+      </AuBodyContainer>
+    </AuBodyContainer>
+  </m.content>
+</AuMainContainer>
+
+{{#if this.selectedProduct}}
+  <IpdcServiceSidepanel @model={{this.selectedProduct}} @onClose={{this.closeProductDetail}} />
+{{/if}}
+
+{{outlet}}

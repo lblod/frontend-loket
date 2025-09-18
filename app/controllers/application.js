@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { service } from '@ember/service';
+import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 
 export default class ApplicationController extends Controller {
   @service currentSession;
@@ -8,6 +9,12 @@ export default class ApplicationController extends Controller {
   @service router;
 
   appTitle = 'Loket voor lokale besturen';
+
+  maybeAddNewLoketClass = function () {
+    if (isFeatureEnabled('new-loket')) {
+      document.body.classList.add('new-loket');
+    }
+  };
 
   get isIndex() {
     return this.router.currentRouteName === 'index';

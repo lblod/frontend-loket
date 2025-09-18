@@ -1,0 +1,232 @@
+.c-header-buttons {
+  display: flex;
+  align-items: center;
+  margin-right: -$au-unit-small;
+  margin-top: -$au-unit-small;
+  margin-bottom: -$au-unit-small;
+}
+
+.c-header-buttons__login {
+  text-transform: uppercase;
+  font-size: var(--au-base);
+  border: 0;
+
+  &,
+  &:visited {
+    background-color: transparent;
+    color: var(--au-gray-900);
+  }
+
+  > .au-c-icon {
+    width: 1.4em;
+    height: 1.4em;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    color: var(--au-blue-700);
+    background-color: transparent;
+  }
+}
+
+.au-c-main-header .au-c-brand__logo {
+  // background-color: var(--au-yellow-300);
+
+  &:after {
+    display: none;
+  }
+}
+
+.au-c-main-header .au-c-brand--link:hover .au-c-brand__logo {
+  background-color: var(--au-yellow-300);
+}
+
+// Help dropdown
+.c-help-dropdown {
+}
+
+.c-help-dropdown__button {
+  position: relative;
+  text-transform: uppercase;
+  font-size: var(--au-base);
+  border: 0;
+  border-radius: 0;
+  height: 4.2rem;
+  line-height: 4.2rem;
+  margin-left: $au-unit-small;
+  overflow: visible;
+  background-color: var(--brand-color);
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -13px;
+    width: 0;
+    height: 0;
+    border-top: 0 solid transparent;
+    border-bottom: 43px solid transparent;
+    border-right: 13.5px solid var(--au-yellow-300);
+    border-right: 13.5px solid var(--brand-color);
+    transition: border-color 0.2s ease-in-out;
+  }
+
+  > .au-c-icon {
+    width: 1.4em;
+    height: 1.4em;
+  }
+
+  &,
+  &:visited {
+    background-color: var(--au-yellow-300);
+    background-color: var(--brand-color);
+    // color: var(--au-gray-900);
+  }
+
+  &:hover,
+  &:focus {
+    // color: var(--au-gray-900);
+    text-decoration: underline;
+    background-color: var(--au-yellow-300);
+    background-color: var(--brand-color);
+  }
+}
+
+.c-help-dropdown__dialog {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 5.6rem;
+  right: 0;
+  left: auto;
+  height: calc(100vh - 5.6rem);
+  width: 300px;
+  border: 0;
+  box-shadow: 0 0 12px rgba(33,35,38,.15),0 0 2px rgba(33,35,38,.1);
+  background-color: #fff;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px;
+    border-color: transparent transparent #fff;
+  }
+}
+
+.c-help-dropdown__header {
+  display: flex;
+  gap: $au-unit-small;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: $au-unit-small;
+  border-bottom: 1px solid var(--au-gray-200);
+
+  .au-c-icon {
+    width: 1.3em;
+    height: 1.3em;
+  }
+}
+
+.c-help-dropdown__content {
+  font-size: 1.8rem;
+
+  & > div,
+  & > span{
+    padding: $au-unit-small;
+  }
+
+  & > hr{
+    border: 1px solid var(--au-gray-200);
+  }
+}
+
+// Account dropdown
+.c-account-dropdown {
+  position: relative;
+}
+
+.c-account-dropdown__button {
+  text-transform: uppercase;
+  font-size: var(--au-base);
+  border: 0;
+
+  &,
+  &:visited {
+    background-color: transparent;
+    color: var(--au-gray-900);
+  }
+
+  > .au-c-icon {
+    width: 1.4em;
+    height: 1.4em;
+  }
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+    color: var(--au-blue-700);
+    background-color: transparent;
+  }
+}
+
+.c-account-dropdown__dialog {
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 5.6rem;
+  left: 0;
+  width: 250px;
+  border: 0;
+  box-shadow: 0 0 12px rgba(33,35,38,.15),0 0 2px rgba(33,35,38,.1);
+  background-color: #fff;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px;
+    border-color: transparent transparent #fff;
+  }
+}
+
+.c-account-dropdown__header {
+  gap: $au-unit-tiny;
+  justify-content: space-between;
+  padding: $au-unit-small;
+  border-bottom: 1px solid var(--au-gray-200);
+
+  .au-c-icon {
+    width: 1.3em;
+    height: 1.3em;
+  }
+}
+
+.c-account-dropdown__content {
+  .au-c-list {
+    gap: 0 !important;
+  }
+
+  .au-c-list__item {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .au-c-link {
+    display: flex;
+    padding: $au-unit-small;
+    font-size: var(--au-base);
+  }
+}

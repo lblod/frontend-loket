@@ -1,21 +1,149 @@
-<div class="au-c-body-container au-c-body-container--scroll">
-  <div class="au-o-box">
-    <div class="au-o-grid au-o-grid--small">
-      <div class="au-o-grid__item au-u-2-5@medium">
-        <AuContent class="au-u-margin-bottom">
-          <AuHeading @skin="2">{{this.currentSession.groupClassification.label}}
-            {{this.currentSession.group.naam}}</AuHeading>
-          <p>Indien u toegang mist tot een van de modules in het loket, neem
-            contact op met uw
-            <strong>interne beheerder</strong>. Indien er zich een probleem
-            voordoet met
-            <strong>toegang</strong>, neem contact op met het
-            <AuLinkExternal
-              href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
-            >gebruikersbeheer Vlaanderen</AuLinkExternal>.</p>
-        </AuContent>
+{{#if (is-feature-enabled "new-loket")}}
+  <AuBodyContainer class="au-u-background-gray-100">
+    <section class="c-landing">
+      <div class="au-o-flow">
+        {{! TODO replace with user's organization name }}
+        <AuHeading @level="1" @skin="2">
+          {{this.currentSession.groupClassification.label}}
+          {{this.currentSession.group.naam}}
+        </AuHeading>
+        <p class="au-u-para landing-intro">In dit loket vind je alle producten
+          of diensten die de Vlaamse overheid aanbiedt aan lokale besturen.
+          Veelgebruikte producten of diensten kun je zelf aanduiden als
+          favoriet, zodat je ze snel kunt terugvinden in de onderstaande lijst
+          of op de pagina Mijn favorieten.</p>
       </div>
-    </div>
+
+      <div class="c-main-search-container au-u-margin-top">
+        <div class="c-search-sort-container">
+          <div class="c-search-container">
+            <form
+              {{on "submit" this.search}}
+              class="c-navigation-search au-u-max-width-small"
+            >
+              <div>
+                <div class="c-search-icon-label">
+                  <div class="c-search-icon-container au-u-visible-from@small">
+                    <AuIcon @icon="search" />
+                  </div>
+                  <AuLabel for="search">Vind producten en diensten voor lokale
+                    besturen</AuLabel>
+                </div>
+                <AuInput
+                  id="search"
+                  value={{this.searchTerm}}
+                  @width="block"
+                  {{on "input" this.updateSearchTerm}}
+                  placeholder="Zoek op naam, beschrijving of thema van een product of dienst"
+                />
+              </div>
+              {{#if this.searchTerm}}
+                <AuButton @skin="secondary" {{on "click" this.resetSearch}}>
+                  <AuIcon @icon="cross" />
+                  <span class="au-u-hidden-visually">close</span>
+                </AuButton>
+              {{/if}}
+              <AuButton type="submit" @icon="search">
+                Zoek
+              </AuButton>
+            </form>
+          </div>
+        </div>
+        <div class="c-suggestions-container">
+          {{#each this.suggestions as |suggestion|}}
+            <AuPill
+              @route="search"
+              @query={{hash searchTerm=suggestion}}
+            >{{suggestion}}</AuPill>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="favorites-container au-u-margin-top-large">
+        <AuHeading @level="2" @skin="3">Favoriete producten of diensten</AuHeading>
+        {{#if @model.length}}
+          <ul
+            class="au-u-flex au-u-flex--wrap au-u-flex--spaced-tiny au-u-padding-top-tiny au-u-padding-bottom-large"
+          >
+            {{#each @model as |favorite|}}
+              <li class="favorite-card">
+                <AuIcon @icon={{component "icons/star-filled" }}/>
+                {{#if favorite.website.url}}
+                  <AuLinkExternal
+                    @skin="naked"
+                    href={{favorite.website.url}}
+                    class="favorite-title au-u-medium"
+                  >
+                    {{favorite.product.name.default}}
+                  </AuLinkExternal>
+                  <AuLinkExternal
+                    href={{favorite.website.url}}
+                    @skin="naked"
+                    @icon="external-link"
+                    @iconAlignment="right"
+                  />
+                {{else}}
+                  <AuLink
+                    @skin="naked-button"
+                    class="favorite-title au-u-medium"
+                    {{on "click" (fn this.openProductDetail favorite.product)}}
+                  >
+                    {{favorite.product.name.default}}
+                  </AuLink>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <AuAlert
+            @title="U heeft momenteel geen favorieten"
+            @skin="info"
+            @icon="circle-info"
+            @size="small"
+            class="au-u-margin-top-small"
+          >
+            <p>Bekijk al onze services en klik op de ster om uw eerste toe te
+              voegen.</p>
+            <AuLink
+              @route="search"
+              @skin="button"
+              class="au-u-margin-top-small"
+            >
+              Alle diensten
+            </AuLink>
+          </AuAlert>
+        {{/if}}
+      </div>
+    </section>
+  </AuBodyContainer>
+
+  {{#if this.selectedProduct}}
+    <IpdcServiceSidepanel
+      @model={{this.selectedProduct}}
+      @onClose={{this.closeProductDetail}}
+    />
+  {{/if}}
+{{else}}
+  <div class="au-c-body-container au-c-body-container--scroll">
+    <div class="au-o-box">
+      <div class="au-o-grid au-o-grid--small">
+        <div class="au-o-grid__item au-u-2-5@medium">
+          <AuContent class="au-u-margin-bottom">
+            <AuHeading
+              @skin="2"
+            >{{this.currentSession.groupClassification.label}}
+              {{this.currentSession.group.naam}}</AuHeading>
+            <p>Indien u toegang mist tot een van de modules in het loket, neem
+              contact op met uw
+              <strong>interne beheerder</strong>. Indien er zich een probleem
+              voordoet met
+              <strong>toegang</strong>, neem contact op met het
+              <AuLinkExternal
+                href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
+              >gebruikersbeheer Vlaanderen</AuLinkExternal>.</p>
+          </AuContent>
+        </div>
+      </div>
       <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">
         Beschikbare modules
       </AuHeading>
@@ -179,15 +307,18 @@
         {{/if}}
         {{#if this.currentSession.canAccessDataMonitoringTool}}
           <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="external-link"
-            >
+            <LoketModuleCard @icon="external-link">
               <:title>
                 Data Monitoring Tool
               </:title>
-              <:description>Krijg inzicht in de kwaliteit van uw data, laatste zittingen, de meest recente harvests, aantal beslissingen en agendapunten.</:description>
+              <:description>Krijg inzicht in de kwaliteit van uw data, laatste
+                zittingen, de meest recente harvests, aantal beslissingen en
+                agendapunten.</:description>
               <:link>
-                <AuLinkExternal @skin="button" href={{(data-monitoring-tool-url)}}>
+                <AuLinkExternal
+                  @skin="button"
+                  href={{(data-monitoring-tool-url)}}
+                >
                   Ga naar Data Monitoring Tool (externe link)
                 </AuLinkExternal>
               </:link>
@@ -326,5 +457,6 @@
           </li>
         {{/if}}
       </ul>
+    </div>
   </div>
-</div>
+{{/if}}

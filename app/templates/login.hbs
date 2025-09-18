@@ -1,612 +1,720 @@
-<div class="au-c-main-container" itemprop="mainContentOfPage">
-  <div
-    class="au-c-main-container__content au-c-main-container__content--scroll"
-  >
-    <main id="content">
-      <AuContentHeader
-        @titlePartOne="Vlaanderen"
-        @titlePartTwo="is lokaal bestuur"
-      >
-        <img
-          sizes="50vw"
-          src="/assets/images/loket-header-1600.jpg"
-          srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w"
-          alt="Foto van een laptop met daarop het vlaanderen logo."
-        />
-      </AuContentHeader>
-
-      <section class="au-o-region-large">
-        <div class="au-o-layout">
-          <div class="au-o-grid au-o-grid--small">
-            <div class="au-o-grid__item au-u-3-4@small au-u-1-2@medium">
-              <AuContent @skin="large">
-                <h1>Loket voor lokale besturen</h1>
-                <p>Controleer tot welke organisaties u toegang hebt via deze
-                  <AuLinkExternal
-                    href="https://mijnprofiel-gebruikersbeheer.vlaanderen.be/user/"
-                  >link</AuLinkExternal>. U kan toegang aanvragen door middel
-                  van
-                  <AuLinkExternal
+{{#if (is-feature-enabled "new-loket")}}
+  <AuMainContainer as |m|>
+    <m.content>
+      <AuBodyContainer class="au-u-background-gray-100">
+        <section class="c-login">
+          <div class="c-login__content">
+            <div class="c-login__content-container">
+              <svg
+                width="300"
+                height="120"
+                viewBox="0 0 150 60"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_491_6261)">
+                  <path
+                    d="M32.8992 0.819321L52.6261 58.9286H0.56723V0.88235L32.8992 0.819321Z"
+                    fill="#F6F6F3"
+                  />
+                  <path
+                    d="M61.6991 17.4429L57.8687 28.5603H55.592L51.7616 17.4429H53.8222L56.7304 25.8849L59.6385 17.4429H61.6991ZM64.9729 16.3628V28.3942H63.0286V16.5289L64.7236 16.3628H64.9729ZM71.3376 24.9044H70.7393C70.0081 24.9044 69.5096 24.9376 69.2437 25.0041C68.7452 25.126 68.4959 25.4168 68.4959 25.8765C68.4959 26.22 68.6067 26.4886 68.8283 26.6825C69.0498 26.8764 69.349 26.9733 69.7256 26.9733C70.0912 26.9733 70.418 26.8847 70.7061 26.7074C71.1271 26.4471 71.3376 26.0206 71.3376 25.4279V24.9044ZM73.257 25.6439C73.257 26.3363 73.6835 26.7656 74.5365 26.9318L73.6558 28.5603C72.9135 28.5603 72.2682 28.2585 71.7198 27.6547C71.2988 27.9704 70.9304 28.2003 70.6147 28.3443C70.299 28.4883 69.8253 28.5603 69.1939 28.5603C68.5624 28.5603 68.0084 28.3886 67.5321 28.0452C66.8784 27.5854 66.5516 26.8404 66.5516 25.8101C66.5516 25.0069 66.7787 24.4059 67.2329 24.007C67.6872 23.6082 68.4682 23.4088 69.5761 23.4088C70.2463 23.4088 70.8363 23.4309 71.3459 23.4752V23.0432C71.3459 21.9685 70.7836 21.4312 69.6592 21.4312C68.9667 21.4312 68.1968 21.6279 67.3493 22.0212L66.8923 20.3261C67.917 19.8387 68.9335 19.5949 69.9417 19.5949C70.9498 19.5949 71.753 19.8221 72.3513 20.2763C72.9495 20.7305 73.2514 21.4506 73.257 22.4366V25.6439ZM79.9124 24.9044H79.3142C78.583 24.9044 78.0845 24.9376 77.8186 25.0041C77.32 25.126 77.0708 25.4168 77.0708 25.8765C77.0708 26.22 77.1816 26.4886 77.4031 26.6825C77.6247 26.8764 77.9238 26.9733 78.3005 26.9733C78.6661 26.9733 78.9929 26.8847 79.281 26.7074C79.702 26.4471 79.9124 26.0206 79.9124 25.4279V24.9044ZM81.8318 25.6439C81.8318 26.3363 82.2584 26.7656 83.1114 26.9318L82.2307 28.5603C81.4884 28.5603 80.8431 28.2585 80.2947 27.6547C79.8737 27.9704 79.5053 28.2003 79.1896 28.3443C78.8738 28.4883 78.4002 28.5603 77.7687 28.5603C77.1372 28.5603 76.5833 28.3886 76.1069 28.0452C75.4533 27.5854 75.1265 26.8404 75.1265 25.8101C75.1265 25.0069 75.3536 24.4059 75.8078 24.007C76.262 23.6082 77.0431 23.4088 78.1509 23.4088C78.8212 23.4088 79.4111 23.4309 79.9208 23.4752V23.0432C79.9208 21.9685 79.3585 21.4312 78.234 21.4312C77.5416 21.4312 76.7717 21.6279 75.9241 22.0212L75.4671 20.3261C76.4919 19.8387 77.5084 19.5949 78.5165 19.5949C79.5247 19.5949 80.3279 19.8221 80.9261 20.2763C81.5244 20.7305 81.8263 21.4506 81.8318 22.4366V25.6439ZM84.283 19.7694H85.9282L86.1193 20.4425C86.9557 19.883 87.8503 19.6033 88.8031 19.6033C89.7558 19.6033 90.5258 19.8608 91.113 20.376C91.7057 20.8911 92.002 21.6556 92.002 22.6693V28.3942H90.0577V23.2426C90.0577 22.6388 89.8749 22.1929 89.5093 21.9048C89.1493 21.6168 88.6535 21.4728 88.022 21.4728C87.3905 21.4728 86.7923 21.65 86.2273 22.0046V28.3942H84.283V19.7694ZM97.9928 21.4146C97.2284 21.4146 96.6246 21.6417 96.1814 22.096C95.7383 22.5502 95.5167 23.1706 95.5167 23.9572C95.5167 24.7382 95.7023 25.3891 96.0734 25.9098C96.4446 26.4305 96.9459 26.6908 97.5774 26.6908C98.2088 26.6908 98.8071 26.5136 99.3721 26.159V21.5974C98.8902 21.4755 98.4304 21.4146 97.9928 21.4146ZM101.316 28.3942H99.8457L99.4967 27.7461C98.7711 28.2889 97.9983 28.5603 97.1785 28.5603C96.0042 28.5603 95.0985 28.1615 94.4615 27.3639C93.8245 26.5662 93.506 25.5913 93.506 24.4391C93.506 22.8659 93.9269 21.6667 94.7689 20.8413C95.6109 20.0159 96.7215 19.6033 98.1008 19.6033C98.5107 19.6033 98.9345 19.631 99.3721 19.6863V16.5289L101.017 16.3628H101.316V28.3942ZM107.93 21.9298C107.62 21.6196 107.249 21.4672 106.817 21.4728C106.385 21.4783 106 21.6306 105.662 21.9298C105.319 22.2289 105.089 22.6748 104.972 23.2675H108.454C108.415 22.6859 108.241 22.24 107.93 21.9298ZM107.34 28.5603C106.083 28.5603 105.028 28.1726 104.175 27.3971C103.322 26.6216 102.895 25.5331 102.895 24.1317C102.895 22.7302 103.28 21.6251 104.05 20.8164C104.82 20.0076 105.728 19.6033 106.775 19.6033C107.219 19.6033 107.642 19.6725 108.047 19.811C108.667 20.0215 109.16 20.3815 109.526 20.8911C109.997 21.5392 110.232 22.4117 110.232 23.5085V24.8047H104.997C105.147 25.4583 105.454 25.9375 105.92 26.2421C106.385 26.5468 106.961 26.6991 107.648 26.6991C108.324 26.6991 109.013 26.5108 109.717 26.1341L109.792 26.159V28.0452C109.088 28.3886 108.271 28.5603 107.34 28.5603ZM116.912 21.9132C116.442 21.6251 115.929 21.4811 115.375 21.4811C114.821 21.4811 114.267 21.6916 113.713 22.1126V28.3942H111.769V19.7694H113.414L113.614 20.4757C114.301 19.8941 115.023 19.6033 115.782 19.6033C116.541 19.6033 117.123 19.7168 117.527 19.9439L116.912 21.9132ZM123.069 21.9298C122.759 21.6196 122.388 21.4672 121.956 21.4728C121.524 21.4783 121.139 21.6306 120.801 21.9298C120.458 22.2289 120.228 22.6748 120.111 23.2675H123.593C123.554 22.6859 123.38 22.24 123.069 21.9298ZM122.479 28.5603C121.222 28.5603 120.167 28.1726 119.314 27.3971C118.461 26.6216 118.034 25.5331 118.034 24.1317C118.034 22.7302 118.419 21.6251 119.189 20.8164C119.959 20.0076 120.867 19.6033 121.914 19.6033C122.358 19.6033 122.781 19.6725 123.186 19.811C123.806 20.0215 124.299 20.3815 124.665 20.8911C125.136 21.5392 125.371 22.4117 125.371 23.5085V24.8047H120.136C120.286 25.4583 120.593 25.9375 121.059 26.2421C121.524 26.5468 122.1 26.6991 122.787 26.6991C123.463 26.6991 124.152 26.5108 124.856 26.1341L124.931 26.159V28.0452C124.227 28.3886 123.41 28.5603 122.479 28.5603ZM126.908 19.7694H128.553L128.744 20.4425C129.581 19.883 130.475 19.6033 131.428 19.6033C132.381 19.6033 133.151 19.8608 133.738 20.376C134.331 20.8911 134.627 21.6556 134.627 22.6693V28.3942H132.683V23.2426C132.683 22.6388 132.5 22.1929 132.134 21.9048C131.774 21.6168 131.279 21.4728 130.647 21.4728C130.016 21.4728 129.417 21.65 128.852 22.0046V28.3942H126.908V19.7694Z"
+                    fill="#F6F6F3"
+                  />
+                  <path
+                    d="M54.9104 35.5102H55.6213V40.3017H54.9104V35.5102ZM54.9196 34.5454C54.8212 34.45 54.7719 34.3346 54.7719 34.1992C54.7719 34.0638 54.8196 33.9484 54.915 33.853C55.0104 33.7576 55.1274 33.7099 55.2658 33.7099C55.4043 33.7099 55.5228 33.7576 55.6213 33.853C55.7198 33.9484 55.7675 34.0638 55.7644 34.1992C55.7644 34.3346 55.7151 34.4516 55.6167 34.5501C55.5182 34.6485 55.4028 34.6962 55.2705 34.6932C55.1351 34.6932 55.0181 34.6439 54.9196 34.5454ZM57.897 39.7247C58.1524 39.7216 58.3694 39.6955 58.5479 39.6462C58.7264 39.597 58.8803 39.5108 59.0095 39.3877C59.1449 39.2646 59.2126 39.1046 59.2126 38.9077C59.2126 38.7107 59.0926 38.5399 58.8526 38.3953C58.7541 38.3337 58.5602 38.2445 58.2709 38.1275C57.9816 38.0106 57.7678 37.9137 57.6293 37.8367C57.14 37.5751 56.8953 37.1889 56.8953 36.6781C56.8953 36.3857 56.9723 36.1426 57.1261 35.9487C57.4062 35.5948 57.8724 35.4179 58.5248 35.4179C58.8541 35.4179 59.1788 35.4625 59.4988 35.5518V36.198L59.4711 36.2119C59.0987 36.1103 58.7464 36.0595 58.414 36.0595C57.8724 36.0595 57.6016 36.2457 57.6016 36.6181C57.6016 36.8489 57.7262 37.0428 57.9755 37.1997C58.0801 37.2736 58.2955 37.3751 58.6217 37.5044C58.948 37.6336 59.2034 37.7459 59.388 37.8413C59.5727 37.9367 59.7081 38.0645 59.7942 38.2245C59.8804 38.3845 59.925 38.5953 59.9281 38.8569C59.9281 39.34 59.7312 39.717 59.3372 39.9878C58.9464 40.2586 58.5233 40.394 58.0678 40.394C57.6124 40.394 57.2154 40.3217 56.8769 40.1771V39.5078L56.9046 39.4847C57.3108 39.6447 57.6416 39.7247 57.897 39.7247ZM64.5211 33.6176V40.3017H63.8102V33.7099L64.475 33.6176H64.5211ZM66.3445 37.8921C66.3445 38.4214 66.4768 38.86 66.7415 39.2077C67.0092 39.5555 67.377 39.7293 67.8447 39.7293C68.3125 39.7293 68.6725 39.5632 68.9249 39.2308C69.1772 38.8984 69.305 38.4676 69.308 37.9383C69.308 37.4028 69.1803 36.9597 68.9249 36.6088C68.6725 36.258 68.3094 36.0826 67.8355 36.0826C67.3616 36.0826 66.9954 36.2519 66.7369 36.5904C66.4784 36.9289 66.3476 37.3628 66.3445 37.8921ZM70.0235 37.9014C70.0235 38.603 69.8158 39.1939 69.4004 39.6739C68.9849 40.154 68.4556 40.394 67.8124 40.394C67.1692 40.394 66.6445 40.1556 66.2383 39.6786C65.8321 39.2016 65.629 38.6138 65.629 37.9152C65.629 37.2166 65.8367 36.6258 66.2522 36.1426C66.6676 35.6595 67.1985 35.4179 67.8447 35.4179C68.491 35.4179 69.0157 35.6579 69.4188 36.138C69.822 36.6181 70.0235 37.2059 70.0235 37.9014ZM71.8469 40.3017H71.1314V33.7422L71.8007 33.6176H71.8469V37.7813L73.7487 35.5102H74.6627L72.7147 37.8275C72.7393 37.9383 72.8763 38.1399 73.1255 38.4322C73.3779 38.7246 73.6549 39.0015 73.9564 39.2631C74.258 39.5247 74.5258 39.6909 74.7596 39.7616L74.4642 40.394C74.2396 40.3817 73.9826 40.2617 73.6933 40.034C73.4041 39.8063 73.0825 39.4908 72.7286 39.0877C72.3747 38.6815 72.1131 38.3322 71.9438 38.0398C71.8884 37.9506 71.8561 37.8937 71.8469 37.869V40.3017ZM76.523 39.7293C77.397 39.7293 77.8324 39.3462 77.8294 38.5799V38.1922C77.6016 38.1891 77.397 38.1876 77.2154 38.1876C76.5076 38.1814 76.0614 38.283 75.8767 38.4922C75.7844 38.5938 75.7398 38.7507 75.7429 38.9631C75.7429 39.1785 75.8229 39.36 75.9829 39.5078C76.146 39.6555 76.326 39.7293 76.523 39.7293ZM76.5922 40.394C76.186 40.394 75.8475 40.2971 75.5767 40.1032C75.2166 39.8478 75.0366 39.4647 75.0366 38.9538C75.0366 38.443 75.192 38.0768 75.5028 37.8552C75.8137 37.6398 76.2676 37.5321 76.8646 37.5321C77.0831 37.5321 77.4047 37.5505 77.8294 37.5875V36.992C77.8263 36.6719 77.7509 36.4396 77.6032 36.2949C77.4555 36.1503 77.2293 36.078 76.9246 36.078C76.4168 36.078 75.9368 36.1919 75.4844 36.4196L75.2997 35.7964C75.6536 35.6548 75.9475 35.5564 76.1814 35.501C76.4153 35.4456 76.7046 35.4179 77.0492 35.4179C78.0432 35.4179 78.5402 35.9426 78.5402 36.992V38.5153C78.5433 39.0231 78.6495 39.3662 78.8588 39.5447C78.9511 39.6216 79.0649 39.6816 79.2003 39.7247L78.7941 40.394C78.4772 40.2894 78.2356 40.0663 78.0694 39.7247C77.6816 40.1709 77.1893 40.394 76.5922 40.394ZM81.2407 39.7293C82.1146 39.7293 82.5501 39.3462 82.547 38.5799V38.1922C82.3193 38.1891 82.1146 38.1876 81.9331 38.1876C81.2253 38.1814 80.7791 38.283 80.5944 38.4922C80.5021 38.5938 80.4575 38.7507 80.4605 38.9631C80.4605 39.1785 80.5406 39.36 80.7006 39.5078C80.8637 39.6555 81.0437 39.7293 81.2407 39.7293ZM81.3099 40.394C80.9037 40.394 80.5652 40.2971 80.2944 40.1032C79.9343 39.8478 79.7543 39.4647 79.7543 38.9538C79.7543 38.443 79.9097 38.0768 80.2205 37.8552C80.5313 37.6398 80.9852 37.5321 81.5823 37.5321C81.8007 37.5321 82.1223 37.5505 82.547 37.5875V36.992C82.5439 36.6719 82.4685 36.4396 82.3208 36.2949C82.1731 36.1503 81.9469 36.078 81.6423 36.078C81.1345 36.078 80.6544 36.1919 80.202 36.4196L80.0174 35.7964C80.3713 35.6548 80.6652 35.5564 80.8991 35.501C81.133 35.4456 81.4222 35.4179 81.7669 35.4179C82.7609 35.4179 83.2579 35.9426 83.2579 36.992V38.5153C83.261 39.0231 83.3671 39.3662 83.5764 39.5447C83.6687 39.6216 83.7826 39.6816 83.918 39.7247L83.5118 40.394C83.1948 40.2894 82.9532 40.0663 82.7871 39.7247C82.3993 40.1709 81.9069 40.394 81.3099 40.394ZM85.5521 33.6176V40.3017H84.8412V33.7099L85.5059 33.6176H85.5521ZM91.4515 39.7386C91.9593 39.7386 92.3609 39.5616 92.6563 39.2077C92.9517 38.8538 93.0994 38.403 93.0994 37.8552C93.0994 37.3074 92.9779 36.8766 92.7348 36.5627C92.4947 36.2426 92.1254 36.0826 91.6269 36.0826C91.1284 36.0826 90.7575 36.2565 90.5144 36.6042V39.5908C90.7637 39.6893 91.076 39.7386 91.4515 39.7386ZM90.5144 33.6176V35.838C90.8806 35.5579 91.2822 35.4179 91.7192 35.4179C92.1562 35.4179 92.5347 35.5302 92.8548 35.7549C93.1748 35.9795 93.4149 36.2765 93.5749 36.6458C93.7349 37.0151 93.8149 37.4259 93.8149 37.8783C93.8149 38.6322 93.6026 39.24 93.1779 39.7016C92.7532 40.1632 92.1608 40.394 91.4007 40.394C90.8806 40.394 90.3467 40.2802 89.7989 40.0525V33.7099L90.4683 33.6176H90.5144ZM96.5984 36.0826C96.2384 36.0826 95.9476 36.2088 95.726 36.4611C95.5044 36.7135 95.3613 37.0397 95.2967 37.4397H97.5494C97.5401 36.775 97.377 36.3565 97.0601 36.1842C96.9339 36.1165 96.78 36.0826 96.5984 36.0826ZM98.251 38.086H95.2644C95.2982 38.5907 95.4567 38.9908 95.7398 39.2862C96.023 39.5816 96.3815 39.7293 96.8154 39.7293C97.2493 39.7293 97.6909 39.6155 98.1402 39.3877L98.1541 39.3924V40.0525C97.6894 40.2802 97.2308 40.394 96.7785 40.394C96.083 40.394 95.5383 40.1663 95.1444 39.7109C94.7505 39.2554 94.5535 38.6522 94.5535 37.9014C94.5535 37.1535 94.7228 36.5519 95.0613 36.0965C95.3998 35.6441 95.9137 35.4179 96.6031 35.4179C97.2924 35.4179 97.7663 35.6949 98.0248 36.2488C98.1725 36.5658 98.2479 36.9627 98.251 37.4397V38.086ZM99.9867 39.7247C100.242 39.7216 100.459 39.6955 100.638 39.6462C100.816 39.597 100.97 39.5108 101.099 39.3877C101.235 39.2646 101.302 39.1046 101.302 38.9077C101.302 38.7107 101.182 38.5399 100.942 38.3953C100.844 38.3337 100.65 38.2445 100.361 38.1275C100.071 38.0106 99.8574 37.9137 99.7189 37.8367C99.2296 37.5751 98.985 37.1889 98.985 36.6781C98.985 36.3857 99.0619 36.1426 99.2158 35.9487C99.4958 35.5948 99.962 35.4179 100.614 35.4179C100.944 35.4179 101.268 35.4625 101.588 35.5518V36.198L101.561 36.2119C101.188 36.1103 100.836 36.0595 100.504 36.0595C99.962 36.0595 99.6912 36.2457 99.6912 36.6181C99.6912 36.8489 99.8159 37.0428 100.065 37.1997C100.17 37.2736 100.385 37.3751 100.711 37.5044C101.038 37.6336 101.293 37.7459 101.478 37.8413C101.662 37.9367 101.798 38.0645 101.884 38.2245C101.97 38.3845 102.015 38.5953 102.018 38.8569C102.018 39.34 101.821 39.717 101.427 39.9878C101.036 40.2586 100.613 40.394 100.157 40.394C99.702 40.394 99.305 40.3217 98.9665 40.1771V39.5078L98.9942 39.4847C99.4004 39.6447 99.7312 39.7247 99.9867 39.7247ZM102.576 35.5102H103.107V34.6516L103.776 34.527H103.823V35.5102H105.152V36.1749H103.823V38.5291C103.823 38.9354 103.9 39.2369 104.053 39.4339C104.207 39.6309 104.42 39.7309 104.69 39.7339C104.955 39.7339 105.254 39.6385 105.586 39.4477L105.78 40.1032C105.352 40.2971 104.937 40.394 104.534 40.394C104.13 40.394 103.792 40.2433 103.518 39.9417C103.244 39.6401 103.107 39.1692 103.107 38.5291V36.1749H102.576V35.5102ZM108.282 39.7339C108.614 39.7339 109.036 39.5816 109.547 39.277V35.5102H110.262V40.3017H109.81L109.667 39.8447C109.103 40.2109 108.596 40.394 108.143 40.394C107.688 40.394 107.303 40.2494 106.989 39.9601C106.675 39.6709 106.518 39.2092 106.518 38.5753V35.5102H107.234V38.5338C107.234 39.3339 107.583 39.7339 108.282 39.7339ZM113.461 39.7339C113.793 39.7339 114.215 39.5816 114.726 39.277V35.5102H115.441V40.3017H114.989L114.846 39.8447C114.283 40.2109 113.775 40.394 113.323 40.394C112.867 40.394 112.482 40.2494 112.169 39.9601C111.855 39.6709 111.698 39.2092 111.698 38.5753V35.5102H112.413V38.5338C112.413 39.3339 112.762 39.7339 113.461 39.7339ZM116.923 35.5102H117.403L117.569 36.0549C117.936 35.6302 118.328 35.4179 118.747 35.4179C119.03 35.4179 119.294 35.4733 119.54 35.5841L119.291 36.2257C119.088 36.1272 118.868 36.078 118.631 36.078C118.25 36.078 117.919 36.2919 117.639 36.7196V40.3017H116.923V35.5102Z"
+                    fill="#F6F6F3"
+                  />
+                  <path
+                    d="M33.0882 30.1261C31.8277 29.1176 31.1974 30.1261 30.3781 30.063C29.6848 30 29.0546 28.9286 28.5504 29.1807C27.542 29.6849 28.9285 31.5126 29.5588 31.8908C30.126 32.2059 30.8193 32.521 30.9453 32.584C31.7647 32.9622 32.0798 33.5294 32.2059 34.4118C32.2059 34.6008 32.2059 35.105 32.1428 35.2941C31.7647 36.8697 28.9916 38.3193 27.4159 37.1849C26.6596 36.6807 25.9664 35.9874 25.7773 34.8529C25.3361 32.7731 23.8865 31.2605 23.3823 29.2437C23.0672 28.0462 22.8781 26.7227 22.563 25.4622C22.2479 24.2017 21.9327 22.9412 21.6176 21.7437C21.3655 20.6723 20.8613 19.0336 20.4832 18.0882C18.9706 14.1176 18.2773 14.4328 18.2773 14.4328C18.2773 14.4328 18.8445 15.5042 20.7983 25.2101C20.8613 25.5882 21.6176 29.874 22.1218 31.2605C22.3109 31.7647 22.626 32.8361 22.8781 33.2773C23.5084 34.6639 25.2101 36.7437 25.2731 38.6345C25.3361 39.7059 25.4622 40.6513 25.4622 41.4706C25.4622 41.7227 25.5882 42.6681 25.7143 43.1093C26.1554 44.2437 29.4327 47.9622 32.9622 47.9622V45.1261C29.4958 45.1261 26.1554 43.1723 26.0924 42.9832C26.0294 42.9202 26.2815 41.5336 26.5336 40.9664C26.9748 39.8319 27.8571 38.7605 29.3697 38.6345C31.0714 38.5084 32.0798 39.0126 32.9622 39.0126L33.0882 30.1261Z"
+                    fill="#1B7175"
+                  />
+                  <path
+                    d="M17.8991 19.916C17.7731 22.0588 14.4958 24.8949 13.4874 26.7857C12.9832 27.6681 12.3529 29.2437 12.2269 30.1891C11.7857 32.7101 12.3529 34.2857 12.9832 35.7353C14.0546 38.3193 12.8571 39.2647 13.6765 38.7605C14.7479 37.8781 14.5588 35.9244 14.4958 34.6639C14.4328 33.6554 14.3697 32.521 14.4958 31.3235C14.8109 29.0546 16.1344 26.6597 17.3319 24.958C18.6554 22.8781 18.1512 20.7983 17.8991 19.916Z"
+                    fill="#1B7175"
+                  />
+                  <path
+                    d="M18.5924 25.9034C18.5924 25.9034 18.9706 27.605 17.458 31.8907C13.6134 43.1723 20.9874 44.1807 23.0672 46.8277C23.0672 46.8277 23.8865 45.6933 20.5462 42.0378C19.3487 40.7143 18.2143 37.7521 19.1596 33.5294C20.5462 27.416 18.5924 25.9034 18.5924 25.9034Z"
+                    fill="#1B7175"
+                  />
+                  <path
+                    d="M11.2815 18.5294C11.0924 17.8361 11.0294 17.2689 11.0924 16.7647C11.2815 14.1177 13.6765 13.0462 14.2437 12.6681C14.2437 12.6681 15.3151 11.9118 15.4412 11.1555C15.4412 11.1555 16.5756 13.9286 13.9916 15.5042C12.7941 16.3235 11.9118 17.2689 11.2815 18.5294Z"
+                    fill="#1B7175"
+                  />
+                  <path
+                    d="M17.3319 15.9454C17.458 16.1975 18.4664 17.6471 14.3697 21.0504C10.2731 24.3908 11.5966 26.7857 11.5966 26.7857C11.5966 26.7857 7.24789 24.3908 12.2269 20.1681C17.2059 16.0084 16.1975 15.1261 16.1975 15.1261C16.1975 15.1261 16.9538 15.1891 17.3319 15.9454Z"
+                    fill="#1B7175"
+                  />
+                  <path
+                    d="M22.626 17.2689C23.3193 17.3319 23.7605 19.5378 25.3991 20.042C26.5966 20.4202 27.8571 20.2311 28.1723 20.9244C27.605 21.2395 28.0462 22.1849 28.6134 21.9958C29.0546 20.7353 29.3067 15.7563 22.626 17.2689ZM24.8319 18.2143C24.8949 18.0882 24.958 18.2143 25.147 18.0882C25.3361 17.8992 25.5252 17.584 25.8403 17.521C26.0924 17.458 26.3445 17.458 26.5966 17.584C26.7227 17.6471 26.6596 17.9622 26.5336 18.0882C26.3445 18.2773 25.6512 17.9622 25.6512 18.4664C25.6512 19.2857 26.7227 18.4664 27.2899 18.4664C27.542 20.3571 24.3277 19.8529 24.8319 18.2143Z"
+                    fill="#1B7175"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_491_6261">
+                    <rect
+                      width="150"
+                      height="58.6134"
+                      fill="white"
+                      transform="translate(0 0.693283)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+              <div class="au-o-flow">
+                <AuHeading @level="1" @skin="2">Loket voor lokale besturen</AuHeading>
+                <p class="au-u-para au-u-light">
+                  Je kunt toegang vragen door middel van
+                  <a
                     href="https://zelfregistratie-gebruikersbeheer.vlaanderen.be/user/aanvraag?&an=287&dg=LB&ec=ABB_LoketLB_LB_CompEnt_Gebruiker"
-                  >zelfregistratie</AuLinkExternal>. Uw interne beheerder zal de
-                  toegangsaanvraag behandelen.</p>
-                <p>Lukt het aanmelden niet? Neem contact op met uw interne
+                    class="au-c-link"
+                  >zelfregistratie</a>. Je interne beheerder zal de
+                  toegangsaanvraag behandelen.
+                </p>
+                <p class="au-u-para au-u-light">
+                  Lukt het aanmelden niet? Neem contact op met je interne
                   beheerder. Indien er zich een probleem voordoet, contacteer
-                  <AuLinkExternal
+                  <a
                     href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
-                  >gebruikersbeheer Vlaanderen</AuLinkExternal>.</p>
-              </AuContent>
-            </div>
-            <div
-              class="au-o-grid__item au-u-1-4@small au-u-1-2@medium au-u-text-right@medium"
-            >
-              <LoginButton />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="au-o-region-large au-u-background-gray-200">
-        <div class="au-o-layout">
-          <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">De
-            functionaliteiten in het loket</AuHeading>
-          <div class="au-o-grid au-o-grid--small">
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="search-folder">
-                  <AuHeading @level="3" @skin="4">
-                    Toezicht
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Bezorg besluiten en
-                    overzichtslijsten elektronisch aan de toezichthoudende
-                    overheid.</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/toezicht"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/toezicht"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="message">
-                  <AuHeading @level="3" @skin="4">
-                    Berichtencentrum
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Bekijk en reageer op de
-                    berichten van de toezichthoudende overheid.</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/berichtencentrum"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/berichtencentrum"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="document">
-                  <AuHeading @level="3" @skin="4">
-                    BBC-DR
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten
-                    aan de Vlaamse Regering over de beleids- en beheerscyclus
-                    (BBC).</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/beleids-en-beheerscyclus-digitale-rapportering-bbc-dr"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/bbc-dr"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            {{!TODO: Do we remove this as well?}}
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="user-fill">
-                  <AuHeading @level="3" @skin="4">
-                    Mandatenbeheer
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Hou de mandaten binnen de
-                    gemeenteraad, college van burgemeester en schepenen, raad
-                    voor maatschappelijk welzijn, vast bureau en bijzonder
-                    comité voor de sociale dienst bij.</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-lokale-besturen"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-lokaal-mandatenbeheer"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="user">
-                  <AuHeading @level="3" @skin="4">
-                    Bedienarenbeheer
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Hou de bedienaren binnen de erediensten bij.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/bedienarenbeheer"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/bedienarenbeheer"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="user-fill">
-                  <AuHeading @level="3" @skin="4">
-                    Mandatenbeheer
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Hou de mandaten binnen de erediensten bij.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-erediensten"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="user-popup">
-                  <AuHeading @level="3" @skin="4">
-                    Leidinggevendenbeheer
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Hou hier de leidinggevende
-                    functies voor uw bestuur bij.</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/leidinggevendenbeheer"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/leidinggevendenbeheer"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="users">
-                  <AuHeading @level="3" @skin="4">
-                    Personeelsbeheer
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Hou hier de
-                    personeelsaantallen voor uw bestuur bij.</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/personeelsbeheer"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="documents">
-                  <AuHeading @level="3" @skin="4">
-                    SubsidiePunt
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor
-                    subsidiemaatregelen op.</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/subsidiebeheer"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="external-link">
-                  <AuHeading @level="3" @skin="4">
-                    Data Monitoring Tool
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Krijg inzicht in de kwaliteit van uw data, laatste zittingen, de meest recente harvests, aantal beslissingen en agendapunten.</p>
-                </c.content>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="external-link">
-                  <AuHeading @level="3" @skin="4">
-                    Beheer risicolocaties
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">Beheer hier de risicolocaties binnen uw gemeente.</p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://ovam.atlassian.net/wiki/spaces/OVAM/pages/74125222/Risicolocaties"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://ovam.vlaanderen.be/handleiding-webtoepassing-beheer-risicolocaties"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
-                  <AuHeading @level="3" @skin="4">
-                    Producten- en dienstencatalogus
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Beheer uw producten en diensten.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/lokale-producten-en-dienstencatalogus"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/informatie-lpdc/"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
-                  <AuHeading @level="3" @skin="4">
-                    Databank Erediensten
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Consulteer hier inzendingen van (centrale) besturen van de
-                    eredienst, gemeente- en provincieoverheid en representatief
-                    orgaan.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/data-en-tools/databank-erediensten"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/databank-erediensten"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
-                  <AuHeading @level="3" @skin="4">
-                    Organisaties Erediensten
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Consulteer hier de mandaten en bedienaren van de besturen
-                    van de eredienst.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/organisatie-en-werking/loket-voor-lokale-besturen/organisaties-erediensten"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/eredienst-organisaties"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
-                  <AuHeading @level="3" @skin="4">
-                    Verenigingen
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Consulteer uw verenigingen, zoals gekend in het
-                    Verenigingsregister, en beheer uw erkenningen.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/organisatie-en-werking/loket-voor-lokale-besturen"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-verenigingen/"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
-                  <AuHeading @level="3" @skin="4">
-                    Contact- en Organisatiegegevens
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Beheer uw contactgegevens en consulteer uw
-                    organisatiegegevens, zoals gekend bij Agentschap Binnenlands
-                    Bestuur.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/organisatie-en-werking/loket-voor-lokale-besturen"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                    <AuLinkExternal
-                      @skin="button-secondary"
-                      @icon="manual"
-                      href="https://abb-vlaanderen.gitbook.io/handleiding-contact-en-organisatiegegevens/"
-                    >
-                      Handleiding
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
-            </div>
-
-            <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
-              <AuCard @textCenter="true" as |c|>
-                <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
-                  <AuHeading @level="3" @skin="4">
-                    Open Proces Huis
-                  </AuHeading>
-                </c.header>
-                <c.content>
-                  <p class="au-u-margin-top-tiny">
-                    Raadpleeg, doorzoek en upload processen en originele
-                    BPMN-bestanden in het Open Proces Huis, jouw centrale bron
-                    voor het ontdekken en delen van processen.
-                  </p>
-                </c.content>
-                <c.footer>
-                  <p>
-                    <AuLinkExternal
-                      @skin="button"
-                      @icon="link"
-                      href="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/open-proces-huis"
-                    >
-                      Meer informatie
-                    </AuLinkExternal>
-                  </p>
-                </c.footer>
-              </AuCard>
+                    class="au-c-link"
+                  >gebruikersbeheer Vlaanderen</a>.
+                </p>
+                <AuLinkExternal
+                  href="https://www.vlaanderen.be/lokaal-bestuur/organisatie-en-werking/loket-voor-lokale-besturen"
+                >Meer informatie over het loket voor lokale besturen</AuLinkExternal>
+              </div>
+              <div
+                class="au-u-flex au-u-flex--column au-u-flex--vertical-start au-u-flex--spaced-small"
+              >
+                <AuLink
+                  @skin="button"
+                  class="au-c-button--large"
+                  @route="mock-login"
+                >Meld je aan</AuLink>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+          <div class="c-login__img">
 
-    <AuMainFooter>
-      <Shared::FooterHeading />
-      <AuContent @skin="small">
-        <p>Uitgegeven door
-          <AuLinkExternal
-            href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur"
-          >Agentschap Binnenlands Bestuur</AuLinkExternal></p>
-        <ul class="au-c-list-horizontal">
-          <li class="au-c-list-horizontal__item">
-            <AuLink
-              @route="legaal.disclaimer"
-              @skin="secondary"
-            >Disclaimer</AuLink>
-          </li>
-          <li class="au-c-list-horizontal__item">
-            <AuLink
-              @route="legaal.cookieverklaring"
-              @skin="secondary"
-            >Cookieverklaring</AuLink>
-          </li>
-          <li class="au-c-list-horizontal__item">
-            <AuLink
-              @route="legaal.toegankelijkheidsverklaring"
-              @skin="secondary"
-            >Toegankelijkheid</AuLink>
-          </li>
-        </ul>
-      </AuContent>
-    </AuMainFooter>
+          </div>
+        </section>
+      </AuBodyContainer>
+    </m.content>
+  </AuMainContainer>
+{{else}}
+  <div class="au-c-main-container" itemprop="mainContentOfPage">
+    <div
+      class="au-c-main-container__content au-c-main-container__content--scroll"
+    >
+      <main id="content">
+        <AuContentHeader
+          @titlePartOne="Vlaanderen"
+          @titlePartTwo="is lokaal bestuur"
+        >
+          <img
+            sizes="50vw"
+            src="/assets/images/loket-header-1600.jpg"
+            srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w"
+            alt="Foto van een laptop met daarop het vlaanderen logo."
+          />
+        </AuContentHeader>
+
+        <section class="au-o-region-large">
+          <div class="au-o-layout">
+            <div class="au-o-grid au-o-grid--small">
+              <div class="au-o-grid__item au-u-3-4@small au-u-1-2@medium">
+                <AuContent @skin="large">
+                  <h1>Loket voor lokale besturen</h1>
+                  <p>Controleer tot welke organisaties u toegang hebt via deze
+                    <AuLinkExternal
+                      href="https://mijnprofiel-gebruikersbeheer.vlaanderen.be/user/"
+                    >link</AuLinkExternal>. U kan toegang aanvragen door middel
+                    van
+                    <AuLinkExternal
+                      href="https://zelfregistratie-gebruikersbeheer.vlaanderen.be/user/aanvraag?&an=287&dg=LB&ec=ABB_LoketLB_LB_CompEnt_Gebruiker"
+                    >zelfregistratie</AuLinkExternal>. Uw interne beheerder zal
+                    de toegangsaanvraag behandelen.</p>
+                  <p>Lukt het aanmelden niet? Neem contact op met uw interne
+                    beheerder. Indien er zich een probleem voordoet, contacteer
+                    <AuLinkExternal
+                      href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
+                    >gebruikersbeheer Vlaanderen</AuLinkExternal>.</p>
+                </AuContent>
+              </div>
+              <div
+                class="au-o-grid__item au-u-1-4@small au-u-1-2@medium au-u-text-right@medium"
+              >
+                <LoginButton />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="au-o-region-large au-u-background-gray-200">
+          <div class="au-o-layout">
+            <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">De
+              functionaliteiten in het loket</AuHeading>
+            <div class="au-o-grid au-o-grid--small">
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="search-folder">
+                    <AuHeading @level="3" @skin="4">
+                      Toezicht
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Bezorg besluiten en
+                      overzichtslijsten elektronisch aan de toezichthoudende
+                      overheid.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/toezicht"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/toezicht"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="message">
+                    <AuHeading @level="3" @skin="4">
+                      Berichtencentrum
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Bekijk en reageer op de
+                      berichten van de toezichthoudende overheid.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/berichtencentrum"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/berichtencentrum"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="document">
+                    <AuHeading @level="3" @skin="4">
+                      BBC-DR
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Bezorg de digitale rapporten
+                      aan de Vlaamse Regering over de beleids- en beheerscyclus
+                      (BBC).</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/beleids-en-beheerscyclus-digitale-rapportering-bbc-dr"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/bbc-dr"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+              {{!TODO: Do we remove this as well?}}
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="user-fill">
+                    <AuHeading @level="3" @skin="4">
+                      Mandatenbeheer
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Hou de mandaten binnen de
+                      gemeenteraad, college van burgemeester en schepenen, raad
+                      voor maatschappelijk welzijn, vast bureau en bijzonder
+                      comité voor de sociale dienst bij.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-lokale-besturen"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-lokaal-mandatenbeheer"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="user">
+                    <AuHeading @level="3" @skin="4">
+                      Bedienarenbeheer
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Hou de bedienaren binnen de erediensten bij.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/bedienarenbeheer"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/bedienarenbeheer"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="user-fill">
+                    <AuHeading @level="3" @skin="4">
+                      Mandatenbeheer
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Hou de mandaten binnen de erediensten bij.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-erediensten"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/mandatenbeheer"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="user-popup">
+                    <AuHeading @level="3" @skin="4">
+                      Leidinggevendenbeheer
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Hou hier de leidinggevende
+                      functies voor uw bestuur bij.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/leidinggevendenbeheer"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/leidinggevendenbeheer"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="users">
+                    <AuHeading @level="3" @skin="4">
+                      Personeelsbeheer
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Hou hier de
+                      personeelsaantallen voor uw bestuur bij.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/personeelsbeheer"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="documents">
+                    <AuHeading @level="3" @skin="4">
+                      SubsidiePunt
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Volg hier uw aanvragen voor
+                      subsidiemaatregelen op.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/modules/subsidiebeheer"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="external-link">
+                    <AuHeading @level="3" @skin="4">
+                      Data Monitoring Tool
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Krijg inzicht in de
+                      kwaliteit van uw data, laatste zittingen, de meest recente
+                      harvests, aantal beslissingen en agendapunten.</p>
+                  </c.content>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="external-link">
+                    <AuHeading @level="3" @skin="4">
+                      Beheer risicolocaties
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">Beheer hier de
+                      risicolocaties binnen uw gemeente.</p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://ovam.atlassian.net/wiki/spaces/OVAM/pages/74125222/Risicolocaties"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://ovam.vlaanderen.be/handleiding-webtoepassing-beheer-risicolocaties"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
+                    <AuHeading @level="3" @skin="4">
+                      Producten- en dienstencatalogus
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Beheer uw producten en diensten.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/lokale-producten-en-dienstencatalogus"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/informatie-lpdc/"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
+                    <AuHeading @level="3" @skin="4">
+                      Databank Erediensten
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Consulteer hier inzendingen van (centrale) besturen van de
+                      eredienst, gemeente- en provincieoverheid en
+                      representatief orgaan.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/data-en-tools/databank-erediensten"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/databank-erediensten"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
+                    <AuHeading @level="3" @skin="4">
+                      Organisaties Erediensten
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Consulteer hier de mandaten en bedienaren van de besturen
+                      van de eredienst.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/organisatie-en-werking/loket-voor-lokale-besturen/organisaties-erediensten"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/erediensten/eredienst-organisaties"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
+                    <AuHeading @level="3" @skin="4">
+                      Verenigingen
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Consulteer uw verenigingen, zoals gekend in het
+                      Verenigingsregister, en beheer uw erkenningen.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/organisatie-en-werking/loket-voor-lokale-besturen"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-verenigingen/"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
+                    <AuHeading @level="3" @skin="4">
+                      Contact- en Organisatiegegevens
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Beheer uw contactgegevens en consulteer uw
+                      organisatiegegevens, zoals gekend bij Agentschap
+                      Binnenlands Bestuur.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/organisatie-en-werking/loket-voor-lokale-besturen"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                      <AuLinkExternal
+                        @skin="button-secondary"
+                        @icon="manual"
+                        href="https://abb-vlaanderen.gitbook.io/handleiding-contact-en-organisatiegegevens/"
+                      >
+                        Handleiding
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+
+              <div class="au-o-grid__item au-u-1-2@small au-u-1-3@medium">
+                <AuCard @textCenter="true" as |c|>
+                  <c.header @badgeSkin="brand" @badgeIcon="unordered-list">
+                    <AuHeading @level="3" @skin="4">
+                      Open Proces Huis
+                    </AuHeading>
+                  </c.header>
+                  <c.content>
+                    <p class="au-u-margin-top-tiny">
+                      Raadpleeg, doorzoek en upload processen en originele
+                      BPMN-bestanden in het Open Proces Huis, jouw centrale bron
+                      voor het ontdekken en delen van processen.
+                    </p>
+                  </c.content>
+                  <c.footer>
+                    <p>
+                      <AuLinkExternal
+                        @skin="button"
+                        @icon="link"
+                        href="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/open-proces-huis"
+                      >
+                        Meer informatie
+                      </AuLinkExternal>
+                    </p>
+                  </c.footer>
+                </AuCard>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <AuMainFooter>
+        <Shared::FooterHeading />
+        <AuContent @skin="small">
+          <p>Uitgegeven door
+            <AuLinkExternal
+              href="https://www.vlaanderen.be/organisaties/administratieve-diensten-van-de-vlaamse-overheid/beleidsdomein-kanselarij-en-bestuur/agentschap-binnenlands-bestuur"
+            >Agentschap Binnenlands Bestuur</AuLinkExternal></p>
+          <ul class="au-c-list-horizontal">
+            <li class="au-c-list-horizontal__item">
+              <AuLink
+                @route="legaal.disclaimer"
+                @skin="secondary"
+              >Disclaimer</AuLink>
+            </li>
+            <li class="au-c-list-horizontal__item">
+              <AuLink
+                @route="legaal.cookieverklaring"
+                @skin="secondary"
+              >Cookieverklaring</AuLink>
+            </li>
+            <li class="au-c-list-horizontal__item">
+              <AuLink
+                @route="legaal.toegankelijkheidsverklaring"
+                @skin="secondary"
+              >Toegankelijkheid</AuLink>
+            </li>
+          </ul>
+        </AuContent>
+      </AuMainFooter>
+    </div>
   </div>
-</div>
+{{/if}}

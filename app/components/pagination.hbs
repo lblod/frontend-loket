@@ -1,0 +1,36 @@
+<AuToolbar @border="top" @size="medium" as |Group|>
+  <Group class="au-u-flex au-u-flex--vertical-center">
+    <p class="au-u-h-functional"><strong>{{this.start}}-{{this.end}}</strong> van {{@total}}</p>
+    <AuButtonGroup>
+      <AuButton
+        @skin="naked"
+        @icon="chevron-left"
+        @disabled={{not this.hasPrevious}}
+        {{on "click" (fn @onChange this.previousPage)}}>
+        Vorige
+      </AuButton>
+      <AuButton
+        @skin="naked"
+        @icon="chevron-right"
+        @iconAlignment="right"
+        @disabled={{not this.hasNext}}
+        {{on "click" (fn @onChange this.nextPage)}}>
+        Volgende
+      </AuButton>
+    </AuButtonGroup>
+  </Group>
+  <Group class="au-u-flex au-u-flex--vertical-center">
+    <p class="au-u-h-functional au-u-muted">Aantal resultaten per pagina</p>
+    <select
+      id="page-size"
+      name="page-size"
+      class="c-select"
+      {{on "change" this.setPageSize}}>
+      {{#each this.sizeOptions as |opt|}}
+        <option value={{opt}} selected={{eq opt @size}}>
+          {{opt}}
+        </option>
+      {{/each}}
+    </select>
+  </Group>
+</AuToolbar>
