@@ -1,13 +1,14 @@
 {{page-title this.appTitle}}
-{{this.maybeAddNewLoketClass}}
 
 <AuApp>
   <GlobalSystemNotification />
   {{#if (is-feature-enabled "new-loket")}}
+    {{body-class "new-loket"}}
     <Header />
 
     {{#if this.session.isAuthenticated}}
       {{#if this.isNewLoketPage}}
+        {{body-class "new-loket-overrides"}}
         <Navigation />
       {{else}}
         <BuiltInModulesNavigation />

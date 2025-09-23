@@ -1,3 +1,6 @@
+// We use a new-loket wrapper class so we can conditionally enable the styles without having to change the build system.
+// This does have the side-effect that some styles become more specific and override things they normally wouldn't.
+// This _should_ only affect the _overrides.scss styles, so we use a different parent class that we only use on the new loket pages, to limit the conflicts.
 // TODO: remove this wrapper once the new loket styling is the default
 .new-loket {
   @import "home";
@@ -11,6 +14,16 @@
   @import "timeline";
   @import "rich-link";
   @import "select";
+
+  // TODO: set this as :root {..} when the new loket styling is the default
+  --brand-color: #1c7074;
+}
+
+// These styles cause conflicts with styles in the existing modules (partially because of the extra nesting here)
+// We only enable them on the "new loket" pages for now
+// We probably can remove a lot of the styles in there, but it would require a more detailed look.
+// TODO: remove unneeded styles and add proper classes to things we do actually want, instead of overriding other styles.
+.new-loket-overrides {
   @import "overrides";
 
   // TODO: set this as :root {..} when the new loket styling is the default
