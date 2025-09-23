@@ -1,3 +1,4 @@
+import { action } from '@ember/object';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { compare } from '@ember/utils';
@@ -38,6 +39,12 @@ class NewLoketIndexRoute extends Route {
     super.setupController(...arguments);
     controller.searchTerm = null;
     controller.selectedProduct = null;
+  }
+
+  @action
+  loading() {
+    // We don't want the loading substate for this route.
+    return false;
   }
 }
 

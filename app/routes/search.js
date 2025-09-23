@@ -1,3 +1,4 @@
+import { action } from '@ember/object';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { isPresent } from '@ember/utils';
@@ -126,5 +127,11 @@ export default class SearchRoute extends Route {
     controller.typeRecords = this.typeRecords || [];
     controller.authorityRecords = this.authorityRecords || [];
     controller.searchTermBuffer = this.searchTerm;
+  }
+
+  @action
+  loading() {
+    // We don't want the loading substate for this route.
+    return false;
   }
 }
