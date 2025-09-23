@@ -20,6 +20,15 @@ export default class ApplicationController extends Controller {
     return this.router.currentRouteName === 'index';
   }
 
+  get isNewLoketPage() {
+    const NEW_LOKET_ROUTES = ['index', 'search', 'products', 'favorites'];
+    const currentRouteName = this.router.currentRouteName;
+
+    return NEW_LOKET_ROUTES.some((routeName) => {
+      return currentRouteName.startsWith(routeName);
+    });
+  }
+
   get userInfo() {
     let user;
     let group;

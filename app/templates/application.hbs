@@ -7,7 +7,11 @@
     <Header />
 
     {{#if this.session.isAuthenticated}}
-      <Navigation />
+      {{#if this.isNewLoketPage}}
+        <Navigation />
+      {{else}}
+        <BuiltInModulesNavigation />
+      {{/if}}
     {{/if}}
 
     {{outlet}}
@@ -79,26 +83,7 @@
         <main.content>
           <AuBodyContainer>
             {{#unless this.isIndex}}
-              <AuToolbar
-                @size="medium"
-                @skin="tint"
-                @border="bottom"
-                as |Group|
-              >
-                <Group>
-                  <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-                    <li class="au-c-list-horizontal__item">
-                      <AuLink @icon="arrow-left" @route="index">
-                        Overzicht modules
-                      </AuLink>
-                    </li>
-                    <li class="au-c-list-horizontal__item">
-                      <Shared::CompactMenu />
-                    </li>
-                    <Shared::BreadCrumb />
-                  </ul>
-                </Group>
-              </AuToolbar>
+              <BuiltInModulesNavigation />
             {{/unless}}
             <AuBodyContainer id="content">
               {{outlet}}
