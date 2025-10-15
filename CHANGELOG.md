@@ -1,3 +1,11 @@
+## v1.0.1 (2025-10-15)
+
+#### :bug: Bug Fix
+* [#435](https://github.com/lblod/frontend-loket/pull/435) [DL-6960] Fix WOP label in module text ([@claire-lovisa](https://github.com/claire-lovisa))
+
+#### Committers: 1
+- Claire Lovisa ([@claire-lovisa](https://github.com/claire-lovisa))
+
 ## v1.0.0 (2025-06-13)
 
 #### :boom: Breaking Change
