@@ -1,5 +1,6 @@
 import EmbroiderRouter from '@embroider/router';
 import config from 'frontend-loket/config/environment';
+import isFeatureEnabled from './helpers/is-feature-enabled';
 
 export default class Router extends EmbroiderRouter {
   location = config.locationType;
@@ -19,7 +20,14 @@ Router.map(function () {
     this.route('switch');
   });
 
-  this.route('contact');
+  if (isFeatureEnabled('new-loket')) {
+    this.route('search', function () {
+      this.route('product', { path: '/:product_id' });
+    });
+    this.route('favorites');
+  } else {
+    this.route('contact');
+  }
 
   this.route('legaal', function () {
     this.route('disclaimer');
@@ -91,6 +99,7 @@ Router.map(function () {
     },
   );
 
+  this.route('unauthorized', { path: '/geen-toegang' });
   this.route('route-not-found', {
     path: '/*wildcard',
   });

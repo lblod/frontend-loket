@@ -28,6 +28,7 @@
     "lint:dependencies": "npx ember dependency-lint",
     "release": "release-it",
     "start": "ember serve",
+    "start:new-loket": "NEW_LOKET=true ember serve",
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test"
   },
@@ -62,6 +63,7 @@
     "broccoli-asset-rev": "^3.0.0",
     "browser-update": "^3.3.38",
     "concurrently": "^8.2.2",
+    "ember-async-data": "^2.0.1",
     "ember-auto-import": "^2.8.1",
     "ember-cli": "~5.12.0",
     "ember-cli-app-version": "^7.0.0",

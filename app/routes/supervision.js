@@ -9,6 +9,6 @@ export default class SupervisionRoute extends Route {
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
     if (!this.currentSession.canAccessToezicht)
-      this.router.transitionTo('index');
+      this.router.transitionTo('unauthorized');
   }
 }

@@ -19,7 +19,7 @@ export default class EredienstMandatenbeheerRoute extends Route {
     this.session.requireAuthentication(transition, 'login');
 
     if (!this.currentSession.canAccessEredienstMandatenbeheer)
-      this.router.transitionTo('index');
+      this.router.transitionTo('unauthorized');
   }
 
   //TODO: this needs to be kept in sync with mandatenbeheer

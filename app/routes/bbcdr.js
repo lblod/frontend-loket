@@ -9,6 +9,7 @@ export default class BbcdrRoute extends Route {
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
 
-    if (!this.currentSession.canAccessBbcdr) this.router.transitionTo('index');
+    if (!this.currentSession.canAccessBbcdr)
+      this.router.transitionTo('unauthorized');
   }
 }

@@ -1,0 +1,14 @@
+<AuButton
+  @skin="naked"
+  class="c-favorite {{if this.isBookmarked 'is-active'}}"
+  {{on "click" this.toggleFavorite}}
+>
+  <AuIcon
+    @icon={{if
+      this.isBookmarked
+      (component "icons/star-filled")
+      (component "icons/star-outline")
+    }}
+  />
+  <span class="au-u-hidden-visually">Favoriet</span>
+</AuButton>

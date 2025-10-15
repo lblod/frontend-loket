@@ -1,0 +1,10 @@
+{{#if this.callToAction}}
+  <AuLinkExternal
+    href={{this.callToAction.url}}
+    @skin="button"
+    @icon="external-link"
+    @iconAlignment="right"
+    class="au-u-margin-bottom-small">
+    {{this.callToAction.title.default}}
+  </AuLinkExternal>
+{{/if}}

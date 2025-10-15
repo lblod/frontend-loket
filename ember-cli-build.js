@@ -21,6 +21,7 @@ module.exports = async function (defaults) {
       dutchDatePickerLocalization: true,
       disableWormholeElement: true,
     },
+    'ember-cli-babel': { enableTypeScriptTransform: true },
   });
 
   setConfig(app, __dirname, {

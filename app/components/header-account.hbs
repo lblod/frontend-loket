@@ -1,0 +1,64 @@
+<CurrentUser as |user|>
+  <div class="c-account-dropdown" ...attributes>
+    <AuButton
+      {{this.reference}}
+      @icon="user-check"
+      aria-haspopup="true"
+      aria-expanded="{{if this.dropdownOpen 'true' 'false'}}"
+      class="c-account-dropdown__button"
+      type="button"
+      {{on "click" this.toggleDropdown}}
+      data-test-dropdown-button
+      data-au-dropdown-toggle
+    >
+      {{user.fullName}}
+    </AuButton>
+    {{#if this.dropdownOpen}}
+      <div
+        id="account"
+        role="menu"
+        {{focus-trap
+          shouldSelfFocus=true
+          focusTrapOptions=(hash
+            clickOutsideDeactivates=this.clickOutsideDeactivates
+          )
+        }}
+        {{on "click" this.closeDropdown}}
+        {{! template-lint-disable no-invalid-interactive }}
+        class="c-account-dropdown__dialog"
+      >
+        <div class="c-account-dropdown__header">
+          <AuHeading @level="2" @skin="5">Loket voor Lokale Besturen</AuHeading>
+          <AuHelpText @skin="secondary" class="au-u-margin-top-none">
+            Ingelogd als
+            {{user.fullName}}
+          </AuHelpText>
+        </div>
+        <AuContent class="c-account-dropdown__content">
+          <AuList @divider={{true}} as |ListItem|>
+            <ListItem>
+              <AuLink
+                @route="auth.switch"
+                role="menuitem"
+                {{! template-lint-disable require-context-role}}
+              >
+                <AuIcon @icon="synchronize" />
+                Wisselen van account
+              </AuLink>
+            </ListItem>
+            <ListItem>
+              <AuLink
+                @route="auth.logout"
+                role="menuitem"
+                {{! template-lint-disable require-context-role}}
+              >
+                <AuIcon @icon={{component "icons/exit"}} />
+                Afmelden
+              </AuLink>
+            </ListItem>
+          </AuList>
+        </AuContent>
+      </div>
+    {{/if}}
+  </div>
+</CurrentUser>

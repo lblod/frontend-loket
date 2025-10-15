@@ -15,4 +15,6 @@ export default class ConceptModel extends Model {
     inverse: 'topConcepts',
   })
   topConceptSchemes;
+
+  @hasMany('concept', { async: true, inverse: null }) broader;
 }

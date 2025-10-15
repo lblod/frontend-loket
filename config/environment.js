@@ -33,6 +33,7 @@ module.exports = function (environment) {
     },
     features: {
       // 'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
+      'new-loket': '{{FEATURE_NEW_LOKET}}',
     },
     lpdcUrl: '{{LPDC_URL}}',
     subsidiesUrl: '{{SUBSIDIES_URL}}',
@@ -67,6 +68,9 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    if (process.env.NEW_LOKET) {
+      ENV.features['new-loket'] = 'true';
+    }
   }
 
   if (environment === 'test') {

@@ -1,0 +1,31 @@
+{{#if this.open}}
+<div class="au-c-sidebar__toggle">
+  <AuButton @skin="secondary" @icon="cross" @hideText="true" {{on 'click' this.closeSidebar}}>
+    Toggle sidebar
+  </AuButton>
+</div>
+<div class="au-c-sidebar au-c-sidebar--open"
+  {{focus-trap
+    shouldSelfFocus=true
+    focusTrapOptions=(hash
+      clickOutsideDeactivates=this.closeSidebar
+    )
+  }}
+  role="menu"
+  tabindex="-1"
+>
+ {{yield}}
+</div>
+{{else}}
+<div class="au-c-sidebar__toggle">
+  <AuButton @skin="secondary" @icon="drag-handle" @hideText="true" {{on 'click' this.toggleSidebar}}>
+    Toggle sidebar
+  </AuButton>
+</div>
+<div class="au-c-sidebar"
+  role="menu"
+  tabindex="-1"
+>
+ {{yield}}
+</div>
+{{/if}}

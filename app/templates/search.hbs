@@ -1,0 +1,117 @@
+{{page-title "Diensten"}}
+
+<AuMainContainer as |m|>
+  <m.sidebar>
+    <Sidebar>
+      <div class="au-c-sidebar__content">
+        <p class="au-u-margin-left-small au-u-margin-top-small au-c-label">
+          Filters
+        </p>
+        <div class="au-o-box au-o-box--small">
+          <ConceptSchemeFilter
+            @conceptScheme={{this.themeConceptScheme}}
+            @selected={{this.themeRecords}}
+            @onChange={{this.updateThemeFilter}}
+            @label="Thematisch"
+            @isOpenInitially={{true}} />
+        </div>
+        <div class="au-o-box au-o-box--small">
+          <ConceptSchemeFilter
+            @conceptScheme={{this.serviceTypeConceptScheme}}
+            @selected={{this.typeRecords}}
+            @onChange={{this.updateServiceTypeFilter}}
+            @label="Type"
+            @isOpenInitially={{not (is-empty this.typeRecords)}} />
+        </div>
+        <div class="au-o-box au-o-box--small">
+          <ConceptSchemeFilter
+            @conceptScheme={{this.authorityConceptScheme}}
+            @selected={{this.authorityRecords}}
+            @onChange={{this.updateAuthorityFilter}}
+            @label="Aanbieder"
+            @isOpenInitially={{not (is-empty this.authorityRecords)}} />
+        </div>
+      </div>
+    </Sidebar>
+    </m.sidebar>
+    <m.content>
+      <AuBodyContainer>
+        <div class="c-main-search-container">
+          <div class="c-search-sort-container">
+            <div class="c-search-container">
+              <form {{on "submit" this.search}} class="c-navigation-search au-u-max-width-small">
+                <div>
+                  <div class="c-search-icon-label">
+                    <div class="c-search-icon-container au-u-visible-from@small">
+                      <AuIcon @icon="search" />
+                    </div>
+                    <AuLabel for="search">Vind producten en diensten voor lokale besturen</AuLabel>
+                  </div>
+                  <AuInput
+                    id="search"
+                    value={{this.searchTermBuffer}}
+                    @width="block"
+                    {{on "input" this.updateSearchTermBuffer}}
+                    placeholder="Zoek op naam, beschrijving of thema van een product of dienst"
+                  />
+                </div>
+                {{#if this.searchTerm}}
+                  <AuButton
+                    @skin="secondary"
+                    {{on "click" this.resetSearch}}>
+                    <AuIcon @icon="cross" />
+                    <span class="au-u-hidden-visually">close</span>
+                  </AuButton>
+                {{/if}}
+                <AuButton type="submit" @icon="search">
+                  Zoek
+                </AuButton>
+              </form>
+            </div>
+            <div class="c-sort-container">
+              <AuSelect
+                @label="Gesorteerd op:"
+                @selection={{this.sort}}
+                @options={{this.sortingOptions}}
+                @onChange={{this.setSorting}} />
+            </div>
+          </div>
+        </div>
+
+        <AuBodyContainer @scroll={{true}}>
+          <div>
+            <AuHeading @level="2" @skin="4" class="au-u-padding-left au-u-padding-top-small au-u-margin-bottom-small">
+              {{#if this.searchTerm}}
+                {{@model.meta.count}} resultaten voor "{{this.searchTerm}}"
+              {{else}}
+                {{@model.meta.count}} diensten
+              {{/if}}
+            </AuHeading>
+            <AuList class="c-overview-cards-list" as |ListItem|>
+              {{#each @model as |publicService|}}
+                <ListItem>
+                  <IpdcServiceCard
+                    @model={{publicService}}
+                    @onClick={{this.openDetail}} />
+                </ListItem>
+              {{else}}
+                <AuAlert
+                  @title="Niet gevonden wat je zocht?"
+                  @icon="circle-question">
+                  <p>Laat ons weten welke diensten je mist op <a href="#!" class="au-c-link">LoketLokaalBestuur@vlaanderen.be.</a></p>
+                </AuAlert>
+              {{/each}}
+            </AuList>
+          </div>
+        </AuBodyContainer>
+        <Pagination
+          @page={{this.page}}
+          @size={{this.size}}
+          @total={{this.model.meta.count}}
+          @onChange={{this.setPage}}
+          @onChangeSize={{this.setPageSize}} />
+      </AuBodyContainer>
+    </m.content>
+  </AuMainContainer>
+
+{{outlet}}

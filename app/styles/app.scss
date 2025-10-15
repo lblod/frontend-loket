@@ -32,8 +32,13 @@ $au-flex-utilities-reverse-responsive-breakpoints: true;
 @import "@appuniversum/ember-appuniversum/styles/a-plugins";
 @import "project/p-ember-promise-modals";
 
+// "New loket" styles
+@import "new-loket/index";
+
+// TODO: alert icon styles are overridden by the new-loket styles because of the nested specificity
+
 // UTILITIES
 @import "@appuniversum/ember-appuniversum/styles/a-utilities";
 
 // TEMPORARY HACKS AND QUICKFIXES
-@import 'shame';
+@import "shame";

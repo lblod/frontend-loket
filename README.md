@@ -17,7 +17,7 @@ The [mu-semtech/static-file-service](https://github.com/mu-semtech/static-file-s
 | `EMBER_CONTACT_URL`                        | Link to the contact app                                                                               |
 | `EMBER_SUBSIDIES_URL`                      | Link to the subsidiepunt app                                                                          |
 | `EMBER_DATA_MONITORING_TOOL_URL`           | Link to the data monitoring tool app                                                                  |
-| `EMBER_OVAM_URL`                           | Link to the OVAM app                                                                  |
+| `EMBER_OVAM_URL`                           | Link to the OVAM app                                                                                  |
 | `EMBER_MANDATENBEHEER_EXTERNAL_URL`        | Link to the mandatenbeheer app                                                                        |
 | `EMBER_OPEN_PROCES_HUIS_URL`               | Link to the open proces huis app                                                                      |
 | `EMBER_OPEN_PROCES_HUIS_ROLE`              | ACM/IDM user role that is used to display the app link. defaults to `LoketLB-OpenProcesHuisGebruiker` |
@@ -39,7 +39,9 @@ The [mu-semtech/static-file-service](https://github.com/mu-semtech/static-file-s
 
 Feature flags are new / experimental features that can be enabled by setting them to "true".
 
-> There are no feature flags available right now.
+| Name                      | Description                                                                                      |
+| ------------------------- | ------------------------------------------------------------------------------------------------ |
+| `EMBER_FEATURE_NEW_LOKET` | This replaces the login page and module overview page with the version from the "new hoofdloket" |
 
 ### Plausible
 

@@ -1,0 +1,13 @@
+<AuFieldset as |f| >
+  <f.legend {{on "click" this.toggle}} class="collapsibleTitle">
+    {{@label}}
+    <AuIcon
+      @icon={{if this.isOpen this.iconOpen this.iconClosed}}
+    />
+  </f.legend>
+  {{#if this.isOpen}}
+    <f.content>
+      {{yield}}
+    </f.content>
+  {{/if}}
+</AuFieldset>
