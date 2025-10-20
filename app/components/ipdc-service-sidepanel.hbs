@@ -1,0 +1,62 @@
+<div class="overlay-container">
+  <div
+    {{on "click" @onClose}}
+    class="overlay"
+    {{! template-lint-disable no-invalid-interactive }}
+  ></div>
+  <div class="dossier-container">
+    <div
+      class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny au-u-margin-bottom"
+    >
+      <div class="au-u-flex au-u-flex--between">
+        <Favorite @product={{@model}} />
+        <AuLink
+          @skin="button-naked"
+          @icon="cross"
+          @iconAlignment="right"
+          {{on "click" @onClose}}
+        >
+          Sluiten
+        </AuLink>
+      </div>
+      <div class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny">
+        <h1 class="au-u-h3">{{@model.name.default}}</h1>
+        <div class="au-u-flex au-u-flex--spaced-tiny au-u-flex--wrap">
+          {{#if @model.endDate}}
+            <AuPill @skin="warning" @size="small">Deadline:
+              {{format-date @model.endDate}}</AuPill>
+          {{else}}
+            <AuPill @skin="default" @size="small">Deadline: onbekend</AuPill>
+          {{/if}}
+          {{#if @model.thematicAreas}}
+            {{#each @model.thematicAreas as |theme|}}
+              <BroaderConceptPills @uri={{theme.uri}} />
+            {{/each}}
+          {{/if}}
+          {{#if @model.type}}
+            <BroaderConceptPills @uri={{@model.type.uri}} />
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="au-o-flow--tiny au-u-margin-bottom">
+      <IpdcServiceCtaButton @model={{@model}} />
+      <p>
+        {{! template-lint-disable no-triple-curlies}}
+        {{{@model.description.default}}}
+      </p>
+    </div>
+    <div
+      class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny au-u-margin-bottom"
+    >
+      {{#each @model.procedures as |procedure|}}
+        {{#each procedure.websites as |website|}}
+          <AuLinkExternal href={{website.url}} class="c-external">
+            {{website.title.default}}
+          </AuLinkExternal>
+        {{/each}}
+      {{/each}}
+    </div>
+  </div>
+</div>

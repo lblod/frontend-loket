@@ -1,0 +1,7 @@
+{{#let (load this.concept.broader) as |parents|}}
+  {{#if parents.isResolved}}
+    <AuPill @skin="border" @size="small">
+      {{get (get parents.value 0) "label"}}
+    </AuPill>
+  {{/if}}
+{{/let}}

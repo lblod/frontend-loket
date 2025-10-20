@@ -1,0 +1,39 @@
+// .au-c-main-footer .au-c-list-horizontal {
+//   @include mq($until: small) {
+//     flex-direction: column;
+//     gap: $au-unit-small;
+//     align-items: flex-start;
+//     margin-top: 0;
+//   }
+// }
+
+// .au-c-main-footer .au-c-list-horizontal__item + .au-c-list-horizontal__item {
+//   @include mq($until: small) {
+//     border-left: 0;
+//     margin-left: 0;
+//     padding-left: 0;
+//   }
+// }
+
+// .au-c-main-footer {
+//   display: flex;
+//   flex-wrap: wrap;
+//   gap: $au-unit;
+
+//   & > .au-c-main-footer__brand {
+//     padding: 0;
+//   }
+
+//   & .au-c-brand {
+//     display: flex;
+//   }
+
+//   & > .au-c-main-footer__content {
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: space-between;
+//     gap: $au-unit;
+//     flex-grow: 1;
+//     padding-top: $au-unit-tiny * 0.3;
+//   }
+// }

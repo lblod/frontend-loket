@@ -1,0 +1,79 @@
+<div class="c-navigation-header">
+  <div class="c-navigation" ...attributes>
+    <div class="c-navigation__mobile">
+      <AuButton
+        {{this.reference}}
+        aria-haspopup="true"
+        aria-expanded="{{if this.dropdownOpen 'true' 'false'}}"
+        class="c-navigation__button"
+        @skin="naked"
+        type="button"
+        {{on "click" this.toggleDropdown}}
+      >
+        <div class="c-navigation__trigger">
+          <AuIcon @icon={{this.TilesIcon}} @iconAlignment="left" />
+        </div>
+        {{this.activeTileLabel}}
+      </AuButton>
+      {{#if this.dropdownOpen}}
+        <div
+          id="account"
+          role="menu"
+          {{focus-trap
+            shouldSelfFocus=true
+            focusTrapOptions=(hash
+              clickOutsideDeactivates=this.clickOutsideDeactivates
+            )
+          }}
+          {{on "click" this.closeDropdown}}
+          {{! template-lint-disable no-invalid-interactive }}
+          class="c-navigation__dialog"
+        >
+          <AuLink @route="search" role="menuitem">
+            <AuIcon @icon={{this.TilesIcon}} />
+            Alle diensten
+          </AuLink>
+          <AuLink @route="favorites" role="menuitem">
+            <AuIcon @icon={{this.StarOutlineIcon}} />
+            Mijn favorieten
+          </AuLink>
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="c-navigation__tabs">
+      <AuTabs @reversed={{this.reversed}} as |Tab|>
+        <Tab>
+          <AuLink
+            @route="index"
+            role="menuitem"
+            {{! template-lint-disable require-context-role}}
+          >
+            <AuIcon @icon={{this.SubsidiesIcon}} />
+            Home
+          </AuLink>
+        </Tab>
+        <Tab>
+          <AuLink
+            @route="search"
+            role="menuitem"
+            {{! template-lint-disable require-context-role}}
+          >
+            <AuIcon @icon={{this.TilesIcon}} />
+            Alle diensten
+          </AuLink>
+        </Tab>
+        <Tab>
+          <AuLink
+            @route="favorites"
+            role="menuitem"
+            {{! template-lint-disable require-context-role}}
+          >
+            <AuIcon @icon={{this.StarOutlineIcon}} />
+            Mijn favorieten
+          </AuLink>
+        </Tab>
+      </AuTabs>
+    </div>
+  </div>
+</div>

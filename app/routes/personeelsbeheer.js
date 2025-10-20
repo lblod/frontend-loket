@@ -10,7 +10,7 @@ export default class PersoneelsbeheerRoute extends Route {
     this.session.requireAuthentication(transition, 'login');
 
     if (!this.currentSession.canAccessPersoneelsbeheer)
-      this.router.transitionTo('index');
+      this.router.transitionTo('unauthorized');
   }
 
   model() {

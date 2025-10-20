@@ -1,0 +1,105 @@
+<div class="c-help-dropdown" ...attributes>
+  <AuButton
+    {{this.reference}}
+    @icon="circle-question"
+    @iconAlignment="right"
+    aria-haspopup="true"
+    aria-expanded="{{if this.dropdownOpen 'true' 'false'}}"
+    class="c-help-dropdown__button"
+    type="button"
+    {{on "click" this.toggleDropdown}}
+  >
+    Hulp nodig
+  </AuButton>
+  {{#if this.dropdownOpen}}
+    <div
+      id="help"
+      {{focus-trap
+        shouldSelfFocus=true
+        focusTrapOptions=(hash
+          clickOutsideDeactivates=this.clickOutsideDeactivates
+        )
+      }}
+      {{on "click" this.closeDropdown}}
+      {{! template-lint-disable no-invalid-interactive }}
+      class="c-help-dropdown__dialog"
+    >
+      <div class="c-help-dropdown__header">
+        <AuHeading @level="2" @skin="4">Hulp nodig?</AuHeading>
+        <AuButton
+          @skin="naked"
+          @hideText={{true}}
+          @icon="cross"
+          {{on "click" this.toggleDropdown}}
+        >Sluit</AuButton>
+      </div>
+      <div class="c-help-dropdown__content">
+        <div>
+          <AuHeading @level="3" @skin="6" class="au-u-margin-bottom-small">Lees
+            de handleiding</AuHeading>
+          <AuList @divider={{true}} as |ListItem|>
+            <ListItem>
+              <AuLinkExternal
+                @skin="naked"
+                @icon="manual"
+                href="https://abb-vlaanderen.gitbook.io/handleiding-loket"
+              >
+                Handleiding
+              </AuLinkExternal>
+            </ListItem>
+          </AuList>
+        </div>
+        <hr />
+        <div>
+          <AuHeading @level="3" @skin="6" class="au-u-margin-bottom-small">Neem
+            contact op met de Vlaamse overheid</AuHeading>
+          <AuList @divider={{true}} as |ListItem|>
+            <ListItem>
+              <AuLinkExternal
+                @skin="naked"
+                @icon="mail"
+                href="mailto:LoketLokaalBestuur@vlaanderen.be"
+              >
+                Via e-mail
+              </AuLinkExternal>
+              <AuHelpText>
+                LoketLokaalBestuur@vlaanderen.be
+              </AuHelpText>
+            </ListItem>
+          </AuList>
+        </div>
+        <hr />
+        <AuHelpText>
+          De Vlaamse overheid hecht veel belang aan de bescherming van uw
+          persoonlijke levenssfeer. Voor meer informatie raadpleeg de
+          <a
+            href="https://www.vlaanderen.be/agentschap-binnenlands-bestuur/privacyverklaring"
+            class="au-c-link"
+          >privacyverklaring</a>.
+        </AuHelpText>
+      </div>
+    </div>
+  {{/if}}
+</div>
+
+{{!-- <AuList @divider={{true}} as |item|>
+  <item>
+    <AuLinkExternal
+      @skin="naked"
+      href="mailto:LoketLokaalBestuur@vlaanderen.be"
+    >
+      Via e-mail
+    </AuLinkExternal>
+  </item>
+  <item>
+    <AuLinkExternal
+      @skin="naked"
+      href="https://abb-vlaanderen.gitbook.io/handleiding-loket"
+    >
+      Handleiding
+    </AuLinkExternal>
+  </item>
+</AuList>
+<AuHelpText class="au-u-margin-top">
+  De Vlaamse overheid hecht veel belang aan de bescherming van uw persoonlijke levenssfeer. Voor meer informatie raadpleeg de <a href="https://www.vlaanderen.be/agentschap-binnenlands-bestuur/privacyverklaring" class="au-c-link">privacyverklaring</a>.
+</AuHelpText> --}}

@@ -1,0 +1,10 @@
+<CollapsibleFieldset @label={{@label}} @isOpenInitially={{@isOpenInitially}} >
+  <AuCheckboxGroup
+    @name={{@label}}
+    @selected={{this.selectedIds}}
+    @onChange={{this.updateSelection}} as |Group|>
+    {{#each this.concepts as |concept|}}
+      <Group.Checkbox @value={{concept.id}}>{{concept.label}}</Group.Checkbox>
+    {{/each}}
+  </AuCheckboxGroup>
+</CollapsibleFieldset>

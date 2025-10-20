@@ -2,99 +2,101 @@
 
 <AuApp>
   <GlobalSystemNotification />
-  <AuMainHeader
-    @brandLink={{unless
-      this.session.isAuthenticated
-      "https://www.vlaanderen.be/nl"
-    }}
-    @homeRoute="index"
-    @appTitle={{this.appTitle}}
-  >
-    <li class="au-c-list-horizontal__item">
-      <AuLinkExternal
-        @skin="secondary"
-        @icon="question-circle"
-        href="https://abb-vlaanderen.gitbook.io/handleiding-loket/veelgestelde-vragen"
-      >
-        Help
-      </AuLinkExternal>
-    </li>
-    {{#if this.currentSession.isAdmin}}
-      <li class="au-c-list-horizontal__item">
-        <ImpersonationMenu />
-      </li>
-    {{/if}}
-    <li class="au-c-list-horizontal__item">
-      {{#if this.session.isAuthenticated}}
-        <AuDropdown
-          @title={{this.userInfo}}
-          @buttonLabel="Account settings"
-          @alignment="right"
-          role="menu"
-        >
-          <AuLink @route="auth.switch" @icon="switch" role="menuitem">
-            Wissel van bestuurseenheid
-          </AuLink>
+  {{#if (is-feature-enabled "new-loket")}}
+    {{body-class "new-loket"}}
+    <Header />
 
-          <AuLink @route="auth.logout" @icon="logout" role="menuitem">
-            Afmelden
-          </AuLink>
-        </AuDropdown>
+    {{#if this.session.isAuthenticated}}
+      {{#if this.isNewLoketPage}}
+        {{body-class "new-loket-overrides"}}
+        <Navigation />
       {{else}}
-        <LoginButton @isCompact={{true}} />
+        <BuiltInModulesNavigation />
       {{/if}}
-    </li>
-  </AuMainHeader>
+    {{/if}}
 
-  {{#if this.session.isAuthenticated}}
-    <AuMainContainer as |main|>
-      {{#if this.isIndex}}
-        <main.sidebar>
-          <div class="au-c-sidebar">
-            <div class="au-c-sidebar__content">
-                <Shared::MainMenu />
-            </div>
-            <div class="au-c-sidebar__footer">
-              <AuLinkExternal
-                @skin="secondary"
-                @icon="documents"
-                href="https://abb-vlaanderen.gitbook.io/handleiding-loket/"
-              >
-                Bekijk handleiding
-              </AuLinkExternal>
-            </div>
-          </div>
-        </main.sidebar>
-      {{/if}}
-      <main.content>
-        <AuBodyContainer>
-          {{#unless this.isIndex}}
-            <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
-              <Group>
-                <ul class="au-c-list-horizontal au-c-list-horizontal--small">
-                    <li class="au-c-list-horizontal__item">
-                      <AuLink @icon="arrow-left" @route="index">
-                        Overzicht modules
-                      </AuLink>
-                    </li>
-                    <li class="au-c-list-horizontal__item">
-                      <Shared::CompactMenu />
-                    </li>
-                  <Shared::BreadCrumb />
-                </ul>
-              </Group>
-            </AuToolbar>
-          {{/unless}}
-          <AuBodyContainer id="content">
-            {{outlet}}
-          </AuBodyContainer>
-        </AuBodyContainer>
-      </main.content>
-    </AuMainContainer>
-  {{else}}
     {{outlet}}
+  {{else}}
+    <AuMainHeader
+      @brandLink={{unless
+        this.session.isAuthenticated
+        "https://www.vlaanderen.be/nl"
+      }}
+      @homeRoute="index"
+      @appTitle={{this.appTitle}}
+    >
+      <li class="au-c-list-horizontal__item">
+        <AuLinkExternal
+          @skin="secondary"
+          @icon="question-circle"
+          href="https://abb-vlaanderen.gitbook.io/handleiding-loket/veelgestelde-vragen"
+        >
+          Help
+        </AuLinkExternal>
+      </li>
+      {{#if this.currentSession.isAdmin}}
+        <li class="au-c-list-horizontal__item">
+          <ImpersonationMenu />
+        </li>
+      {{/if}}
+      <li class="au-c-list-horizontal__item">
+        {{#if this.session.isAuthenticated}}
+          <AuDropdown
+            @title={{this.userInfo}}
+            @buttonLabel="Account settings"
+            @alignment="right"
+            role="menu"
+          >
+            <AuLink @route="auth.switch" @icon="switch" role="menuitem">
+              Wissel van bestuurseenheid
+            </AuLink>
+
+            <AuLink @route="auth.logout" @icon="logout" role="menuitem">
+              Afmelden
+            </AuLink>
+          </AuDropdown>
+        {{else}}
+          <LoginButton @isCompact={{true}} />
+        {{/if}}
+      </li>
+    </AuMainHeader>
+
+    {{#if this.session.isAuthenticated}}
+      <AuMainContainer as |main|>
+        {{#if this.isIndex}}
+          <main.sidebar>
+            <div class="au-c-sidebar">
+              <div class="au-c-sidebar__content">
+                <Shared::MainMenu />
+              </div>
+              <div class="au-c-sidebar__footer">
+                <AuLinkExternal
+                  @skin="secondary"
+                  @icon="documents"
+                  href="https://abb-vlaanderen.gitbook.io/handleiding-loket/"
+                >
+                  Bekijk handleiding
+                </AuLinkExternal>
+              </div>
+            </div>
+          </main.sidebar>
+        {{/if}}
+        <main.content>
+          <AuBodyContainer>
+            {{#unless this.isIndex}}
+              <BuiltInModulesNavigation />
+            {{/unless}}
+            <AuBodyContainer id="content">
+              {{outlet}}
+            </AuBodyContainer>
+          </AuBodyContainer>
+        </main.content>
+      </AuMainContainer>
+    {{else}}
+      {{outlet}}
+    {{/if}}
   {{/if}}
 </AuApp>
 
 <AuModalContainer />
-<AuToaster />
+<AuToaster @position={{is-feature-enabled "new-loket" "bottom"}} />

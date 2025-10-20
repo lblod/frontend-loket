@@ -1,0 +1,18 @@
+.c-select {
+  appearance: none;
+  border: 0.1rem solid var(--au-gray-300);
+  border-radius: .3rem;
+  padding: .7rem 3rem .7rem .7rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='18' viewBox='0 0 12 18'%3E%3Cpath fill='%23687483' d='M10.65433,10.861732 L6,16.446928 L1.34566998,10.861732 L10.65433,10.861732 Z M1.34566998,7.13826799 L6,1.55307197 L10.65433,7.13826799 L1.34566998,7.13826799 Z'/%3E%3C/svg%3E");
+  background-color: #fff;
+  background-repeat: no-repeat, repeat;
+  background-position: right 1rem top 50%, 0 0;
+
+  color: var(--au-gray-800);
+  font-family: flanders-sans, sans-serif;
+  font-size: 1.5rem;
+}
+
+.c-select:focus {
+  outline: var(--au-outline);
+}
