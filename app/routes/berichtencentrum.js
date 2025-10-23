@@ -7,9 +7,9 @@ export default class BerichtencentrumRoute extends Route {
   @service router;
 
   beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'login');
-
-    if (!this.currentSession.canAccessBerichten)
-      this.router.transitionTo('unauthorized');
+    if (this.session.requireAuthentication(transition, 'login')) {
+      if (!this.currentSession.canAccessBerichten)
+        this.router.transitionTo('unauthorized');
+    }
   }
 }
