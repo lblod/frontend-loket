@@ -34,9 +34,6 @@ module.exports = async function (defaults) {
   return require('@embroider/compat').compatBuild(app, Webpack, {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
-    staticHelpers: true,
-    staticModifiers: true,
-    staticComponents: true,
     staticEmberSource: true,
     splitAtRoutes: [
       'mock-login',
@@ -51,6 +48,7 @@ module.exports = async function (defaults) {
       'eredienst-mandatenbeheer',
       'worship-ministers-management',
     ],
+    staticInvokables: true,
     skipBabel: [
       {
         package: 'qunit',
