@@ -71,10 +71,8 @@ module.exports = function (environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     if (process.env.NEW_LOKET) {
       ENV.features['new-loket'] = 'true';
-      ENV.urlMap = JSON.stringify({
-        // This converts all production loket url to local ones (and "/" if there is no path)
-        'https://loket.lokaalbestuur.vlaanderen.be': '',
-      });
+      // This converts all production loket urls to local ones (and "/" if there is no path, so it redirects to the homepage)
+      ENV.urlMap = 'https://loket.lokaalbestuur.vlaanderen.be,';
     }
   }
 
