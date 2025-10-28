@@ -43,6 +43,22 @@ Feature flags are new / experimental features that can be enabled by setting the
 | ------------------------- | ------------------------------------------------------------------------------------------------ |
 | `EMBER_FEATURE_NEW_LOKET` | This replaces the login page and module overview page with the version from the "new hoofdloket" |
 
+### Public service environment url mapping
+
+> This requires the `EMBER_FEATURE_NEW_LOKET` feature to be enabled.
+
+The "new loket" feature displays a list of public services that are available. We use the production data on all environments but still want to link to correct environment specific versions. To enable this we added the `EMBER_PUBLIC_SERVICE_URL_MAP` variable that should be provided a CSV string of the url and the mapped url in the following format:
+
+
+```yml
+services:
+  frontend:
+    environment:
+      EMBER_FEATURE_NEW_LOKET: "true"
+      EMBER_PUBLIC_SERVICE_URL_MAP: "https://url-a,https://mapped-url-a,https://url-b,https://mapped-url-b"
+```
+
+
 ### Plausible
 
 | Name                         | Description                                                                      |
