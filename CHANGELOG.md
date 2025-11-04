@@ -1,3 +1,9 @@
+## v1.1.0 (2025-11-04)
+
+#### :rocket: Enhancement
+* [#434](https://github.com/lblod/frontend-loket/pull/434) [DL-6779] Add a feature flag to enable the "new loket" code ([@Windvis](https://github.com/Windvis))
+* [#437](https://github.com/lblod/frontend-loket/pull/437) [DL-6995] Allow the backend to remap public service urls ([@Windvis](https://github.com/Windvis))
+
 ## v1.0.1 (2025-10-15)
 
 #### :bug: Bug Fix
