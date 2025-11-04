@@ -54,6 +54,7 @@ module.exports = function (environment) {
       dsn: '{{SENTRY_DSN}}',
       environment: '{{SENTRY_ENVIRONMENT}}',
     },
+    urlMap: '{{PUBLIC_SERVICE_URL_MAP}}',
     '@sentry/ember': {
       // Performance tracking isn't super useful for us yet and it sends a lot of data to the backend (which counts against the free tier limit).
       // It also prevents the performance instrumentation code from running when Sentry isn't enabled (which is something that ideally is fixed in the addon itself).
@@ -70,6 +71,8 @@ module.exports = function (environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     if (process.env.NEW_LOKET) {
       ENV.features['new-loket'] = 'true';
+      // This converts all production loket urls to local ones (and "/" if there is no path, so it redirects to the homepage)
+      ENV.urlMap = 'https://loket.lokaalbestuur.vlaanderen.be,';
     }
   }
 
