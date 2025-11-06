@@ -8,13 +8,15 @@ import './config/custom-inflector-rules';
 import { setupSentry } from 'frontend-loket/utils/sentry';
 import { silenceEmptySyncRelationshipWarnings } from './utils/ember-data';
 
+import compatModules from "@embroider/virtual/compat-modules";
+
 setupSentry();
 silenceEmptySyncRelationshipWarnings();
 
 export default class App extends Application {
   modulePrefix = config.modulePrefix;
   podModulePrefix = config.podModulePrefix;
-  Resolver = Resolver;
+  Resolver = Resolver.withModules(compatModules);
 }
 
 browserUpdate({
@@ -24,4 +26,4 @@ browserUpdate({
   shift_page_down: false,
 });
 
-loadInitializers(App, config.modulePrefix);
+loadInitializers(App, config.modulePrefix, compatModules);
