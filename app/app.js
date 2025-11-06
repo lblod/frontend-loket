@@ -1,3 +1,4 @@
+import './styles/app.scss';
 import './utils/deprecation-workflow';
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';

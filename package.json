@@ -69,7 +69,6 @@
     "ember-cli-dependency-lint": "^2.0.1",
     "ember-cli-htmlbars": "^6.3.0",
     "ember-cli-moment-shim": "^3.8.0",
-    "ember-cli-sass": "^11.0.1",
     "ember-cli-string-helpers": "^6.1.0",
     "ember-concurrency": "^4.0.0",
     "ember-data": "~5.3.9",
