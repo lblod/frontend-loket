@@ -12,4 +12,15 @@ export default defineConfig({
       extensions,
     }),
   ],
+  server: {
+    proxy: {
+      // Proxy ALL other requests (like Ember's --proxy)
+      '^/': {
+        target: process.env.PROXY,
+        changeOrigin: true,
+        // Optional: Rewrite the path if needed
+        // rewrite: (path) => path,
+      },
+    },
+  },
 });
