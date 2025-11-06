@@ -1,4 +1,3 @@
-import fetch from 'fetch';
 import ArrayProxy from '@ember/array/proxy';
 import { A } from '@ember/array';
 import LangString from './lang-string';

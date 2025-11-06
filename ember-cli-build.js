@@ -6,11 +6,6 @@ module.exports = async function (defaults) {
   const { setConfig } = await import('@warp-drive/build-config');
 
   const app = new EmberApp(defaults, {
-    // This is needed when `staticEmberSource` is enabled
-    'ember-fetch': {
-      preferNative: true,
-      nativePromise: true,
-    },
     'ember-simple-auth': {
       useSessionSetupMethod: true,
     },

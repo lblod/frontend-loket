@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import { warn } from '@ember/debug';
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
 import { ForkingStore } from '@lblod/ember-submission-form-fields';
 import { FORM, RDF } from 'frontend-loket/rdf/namespaces';
 import { NamedNode } from 'rdflib';
