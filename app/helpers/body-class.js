@@ -6,11 +6,11 @@ import { buildWaiter } from '@ember/test-waiters';
 const waiter = buildWaiter('ember-primitives:body-class:raf');
 
 let id = 0;
-const registrations = new Map<number, string[]>();
-let previousRegistrations: string[] = [];
+const registrations = new Map();
+let previousRegistrations = [];
 
-function classNames(): string[] {
-  const allNames = new Set<string>();
+function classNames() {
+  const allNames = new Set();
 
   for (const classNames of registrations.values()) {
     for (const className of classNames) {
@@ -21,8 +21,8 @@ function classNames(): string[] {
   return [...allNames];
 }
 
-let frame: number;
-let waiterToken: unknown;
+let frame;
+let waiterToken;
 
 function queueUpdate() {
   waiterToken ||= waiter.beginAsync();
@@ -54,27 +54,10 @@ function updateBodyClass() {
   previousRegistrations = toAdd;
 }
 
-export interface Signature {
-  Args: {
-    Positional: [
-      /**
-       * a space-delimited list of classes to apply when this helper is called.
-       *
-       * When the helper is removed from rendering, the clasess will be removed as well.
-       */
-      classes: string,
-    ];
-  };
-  /**
-   * This helper returns nothing, as it is a side-effect that mutates and manages external state.
-   */
-  Return: undefined;
-}
-
-export default class BodyClass extends Helper<Signature> {
+export default class BodyClass extends Helper {
   localId = id++;
 
-  compute([classes]: [string]): undefined {
+  compute([classes]) {
     const classNames = classes ? classes.split(/\s+/) : [];
 
     registrations.set(this.localId, classNames);
