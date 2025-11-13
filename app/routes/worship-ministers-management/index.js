@@ -1,7 +1,7 @@
 /* eslint-disable ember/no-mixins */
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
+import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
 
 export default class WorshipMinistersManagementIndexRoute extends Route.extend(
   DataTableRouteMixin,

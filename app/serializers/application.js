@@ -1,5 +1,5 @@
 /* eslint-disable ember/no-mixins */
-import DataTableSerializerMixin from 'ember-data-table/mixins/serializer';
+import DataTableSerializerMixin from 'frontend-loket/mixins/ember-data-table/serializer';
 import JSONAPISerializer from '@ember-data/serializer/json-api';
 
 export default class ApplicationSerializer extends JSONAPISerializer.extend(
