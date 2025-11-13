@@ -63,8 +63,8 @@ export default class SupervisionSubmissionsEditController extends Controller {
   }
 
   @action
-  setTriplesForTables() {
-    this.datasetTriples = importTriplesForForm(this.form, {
+  async setTriplesForTables() {
+    this.datasetTriples = await importTriplesForForm(this.form, {
       ...this.graphs,
       sourceNode: this.sourceNode,
       store: this.formStore,
@@ -170,7 +170,7 @@ export default class SupervisionSubmissionsEditController extends Controller {
       sourceNode: this.sourceNode,
       store: this.formStore,
     };
-    this.isValidForm = validateForm(this.form, options);
+    this.isValidForm = yield validateForm(this.form, options);
     if (!this.isValidForm) {
       this.forceShowErrors = true;
     } else {
