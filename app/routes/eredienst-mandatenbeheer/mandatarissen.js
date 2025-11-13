@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 // eslint-disable-next-line ember/no-mixins
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
+import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
 import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
