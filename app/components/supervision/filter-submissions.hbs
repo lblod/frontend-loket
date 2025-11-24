@@ -1,0 +1,20 @@
+<div ...attributes>
+  {{#if this.isLoading}}
+    <AuLoader
+      @hideMessage={{true}}
+      class="au-u-flex au-u-flex--center au-u-flex--vertical-center h-full"
+    >Aan het laden</AuLoader>
+  {{else}}
+    <PowerSelect
+      @options={{this.besluitTypes}}
+      @onChange={{this.selectBesluitTypes}}
+      @placeholder="Type document"
+      @ariaLabel="Filter op type document"
+      @selected={{this.selectedBesluitTypes}}
+      @allowClear={{true}}
+      as |typeDocument|
+    >
+      {{typeDocument.label}}
+    </PowerSelect>
+  {{/if}}
+</div>
