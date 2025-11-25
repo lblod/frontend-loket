@@ -1,4 +1,4 @@
-<div ...attributes>
+<div>
   {{#if this.isLoading}}
     <AuLoader
       @hideMessage={{true}}
@@ -6,6 +6,11 @@
     >Aan het laden</AuLoader>
   {{else}}
     <PowerSelectMultiple
+      @search={{perform this.search}}
+      @searchField="label"
+      @searchPlaceholder="Typ om te zoeken..."
+      @searchEnabled={{true}}
+      @loadingMessage="Aan het laden..."
       @options={{this.besluitTypes}}
       @onChange={{this.changeSelectedBesluitTypes}}
       @placeholder="Type dossier"
