@@ -8,8 +8,9 @@ export default class SupervisionSubmissionsIndexController extends Controller {
   @service router;
   @service store;
 
-  queryParams = ['page', 'size', 'sort', 'status'];
+  queryParams = ['page', 'size', 'sort', 'status', 'besluitTypeIds'];
 
+  @tracked besluitTypeIds;
   @tracked status;
   @tracked page = 0;
   size = 20;
@@ -19,6 +20,15 @@ export default class SupervisionSubmissionsIndexController extends Controller {
     this.status = statusUri;
     this.page = 0;
   }
+
+  @action
+  handleFilterChange(filter) {
+    if (!filter) return;
+    this.besluitTypeIds = filter.besluitTypeIds;
+
+    this.page = 0;
+  }
+
 
   @action
   async reopen(submission) {

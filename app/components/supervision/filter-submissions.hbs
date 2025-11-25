@@ -5,16 +5,16 @@
       class="au-u-flex au-u-flex--center au-u-flex--vertical-center h-full"
     >Aan het laden</AuLoader>
   {{else}}
-    <PowerSelect
+    <PowerSelectMultiple
       @options={{this.besluitTypes}}
-      @onChange={{this.selectBesluitTypes}}
-      @placeholder="Type document"
-      @ariaLabel="Filter op type document"
+      @onChange={{this.changeSelectedBesluitTypes}}
+      @placeholder="Type dossier"
+      @ariaLabel="Filter op type dossier"
       @selected={{this.selectedBesluitTypes}}
       @allowClear={{true}}
-      as |typeDocument|
+      as |besluitType|
     >
-      {{typeDocument.label}}
-    </PowerSelect>
+      {{besluitType.label}}
+    </PowerSelectMultiple>
   {{/if}}
 </div>

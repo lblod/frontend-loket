@@ -4,12 +4,14 @@
     <AuHeading @skin="2" data-test-loket="inzendingen-page-title">Toezicht</AuHeading>
   </Group>
   <Group>
-    <Supervision::FilterSubmissions
-      @filter={{hash
-                  besluitTypeIds=this.besluitTypeIds
-              }}
-    />
     <div class="au-u-flex">
+      <Supervision::FilterSubmissions
+        class="au-u-margin-right-small"
+        @filter={{hash
+                    besluitTypeIds=this.besluitTypeIds
+                }}
+        @onFilterChange={{this.handleFilterChange}}
+      />
       <Supervision::SubmissionStatusSelect
         @statusUri={{this.status}}
         @onChange={{this.handleStatusFilterChange}}
