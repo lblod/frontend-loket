@@ -1,25 +1,44 @@
 <div>
-  {{#if this.isLoading}}
-    <AuLoader
-      @hideMessage={{true}}
-      class="au-u-flex au-u-flex--center au-u-flex--vertical-center h-full"
-    >Aan het laden</AuLoader>
-  {{else}}
-    <PowerSelectMultiple
-      @search={{perform this.search}}
-      @searchField="label"
-      @searchPlaceholder="Typ om te zoeken..."
-      @searchEnabled={{true}}
-      @loadingMessage="Aan het laden..."
-      @options={{this.besluitTypes}}
-      @onChange={{this.changeSelectedBesluitTypes}}
-      @placeholder="Type dossier"
-      @ariaLabel="Filter op type dossier"
-      @selected={{this.selectedBesluitTypes}}
-      @allowClear={{true}}
-      as |besluitType|
-    >
-      {{besluitType.label}}
-    </PowerSelectMultiple>
-  {{/if}}
+  <div class="au-o-grid au-u-1-1 au-o-grid--tiny">
+    <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-3@medium">
+      {{#if this.isLoading}}
+        <AuLoader
+          @hideMessage={{true}}
+          class="au-u-flex au-u-flex--center au-u-flex--vertical-center h-full"
+        >Aan het laden</AuLoader>
+      {{else}}
+        <PowerSelectMultiple
+          @search={{perform this.search}}
+          @searchField="label"
+          @searchPlaceholder="Typ om te zoeken..."
+          @searchEnabled={{true}}
+          @loadingMessage="Aan het laden..."
+          @options={{this.besluitTypes}}
+          @onChange={{this.changeSelectedBesluitTypes}}
+          @placeholder="Type dossier"
+          @ariaLabel="Filter op type dossier"
+          @selected={{this.selectedBesluitTypes}}
+          @allowClear={{true}}
+          as |besluitType|
+        >
+          {{besluitType.label}}
+        </PowerSelectMultiple>
+      {{/if}}
+    </div>
+    <div class="au-o-grid__item au-u-1-1 au-u-1-3@medium">
+      <div class="au-o-grid au-o-grid--tiny">
+        <div class="au-o-grid__item au-u-1-6 au-u-1-3@medium">
+          <Supervision::SubmissionStatusSelect
+            @statusUri={{this.filter.status}}
+            @onChange={{this.handleStatusFilterChange}}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="au-u-padding-top-small">
+  <AuButton {{on "click" this.resetFilters}} @skin="link">
+    <AuIcon @icon="cross" @alignment="left" /> Herstel alle filters
+  </AuButton>
 </div>

@@ -56,6 +56,12 @@ export default class SupervisionFilterSubmissions extends Component {
     return results.slice();
   }
 
+  @action handleStatusFilterChange(statusUri) {
+    this.status = statusUri;
+    this.filter.status = statusUri;
+    this.args.onFilterChange(this.filter);
+  }
+
   @action
   async updateSelectedValue() {
     if (this.filter.besluitTypeIds && !this.selectedBesluitTypes) {
@@ -79,6 +85,13 @@ export default class SupervisionFilterSubmissions extends Component {
     this.selectedBesluitTypes = selectedTypes;
     this.filter.besluitTypeIds = selectedTypes && selectedTypes.map((type) => type.id).join(',');
 
+    this.args.onFilterChange(this.filter);
+  }
+
+  @action
+  resetFilters() {
+    this.filter.reset();
+    this.updateSelectedValue();
     this.args.onFilterChange(this.filter);
   }
 }

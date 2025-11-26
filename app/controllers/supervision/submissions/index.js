@@ -16,19 +16,14 @@ export default class SupervisionSubmissionsIndexController extends Controller {
   size = 20;
   sort = '-modified';
 
-  @action handleStatusFilterChange(statusUri) {
-    this.status = statusUri;
-    this.page = 0;
-  }
-
   @action
   handleFilterChange(filter) {
     if (!filter) return;
     this.besluitTypeIds = filter.besluitTypeIds;
+    this.status = filter.status;
 
     this.page = 0;
   }
-
 
   @action
   async reopen(submission) {

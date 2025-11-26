@@ -1,6 +1,7 @@
 import { tracked } from '@glimmer/tracking';
 
 export default class InzendingenFilter {
+  @tracked status;
   @tracked besluitTypeIds;
 
   constructor(params) {
@@ -10,6 +11,7 @@ export default class InzendingenFilter {
 
   get keys() {
     return [
+      'status',
       'besluitTypeIds',
     ];
   }
