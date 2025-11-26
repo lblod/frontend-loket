@@ -4,7 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { task, restartableTask, timeout } from 'ember-concurrency';
 import InzendingenFilter from 'frontend-loket/utils/inzendingen-filter';
-import { typeOf } from '@ember/utils';
+import { DECISION_TYPE } from 'frontend-loket/models/concept-scheme';
 
 export default class SupervisionFilterSubmissions extends Component {
   @service store;
@@ -24,7 +24,7 @@ export default class SupervisionFilterSubmissions extends Component {
     this.besluitTypes = yield this.store.query('concept', {
       filter: {
         'concept-schemes': {
-          ':uri:': 'http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5',
+          ':uri:': DECISION_TYPE,
         },
       },
       sort: 'label',
@@ -46,7 +46,7 @@ export default class SupervisionFilterSubmissions extends Component {
       filter: {
         label: term,
         'concept-schemes': {
-          ':uri:': 'http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5',
+          ':uri:': DECISION_TYPE,
         },
       },
       sort: 'label',
@@ -63,7 +63,7 @@ export default class SupervisionFilterSubmissions extends Component {
         filter: {
           id: this.filter.besluitTypeIds,
           'concept-schemes': {
-            ':uri:': 'http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5',
+            ':uri:': DECISION_TYPE,
           },
         },
         page: { size: this.filter.besluitTypeIds.split(',').length },
@@ -72,13 +72,6 @@ export default class SupervisionFilterSubmissions extends Component {
     } else if (!this.filter.besluitTypeIds) {
       this.selectedBesluitTypes = null;
     }
-  }
-
-  @action
-  setFilter(key, value) {
-    if (typeOf(value) == 'array') this.filter[key] = value.join(',');
-    else this.filter[key] = value;
-    this.args.onFilterChange(this.filter);
   }
 
   @action
