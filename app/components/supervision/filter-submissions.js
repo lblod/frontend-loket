@@ -5,6 +5,7 @@ import { action } from '@ember/object';
 import { task, restartableTask, timeout } from 'ember-concurrency';
 import InzendingenFilter from 'frontend-loket/utils/inzendingen-filter';
 import { DECISION_TYPE } from 'frontend-loket/models/concept-scheme';
+import moment from 'moment';
 
 export default class SupervisionFilterSubmissions extends Component {
   @service store;
@@ -12,6 +13,48 @@ export default class SupervisionFilterSubmissions extends Component {
   @tracked besluitTypes = [];
   @tracked selectedBesluitTypes = null;
   @tracked filter;
+  @tracked sessionDateFrom;
+  @tracked sessionDateTo;
+
+  get fromDate() {
+    if (this._fromDate) {
+      return this._fromDate;
+    }
+    try {
+      return new Date(Date.parse(this.sessionDateFrom));
+    // eslint-disable-next-line no-unused-vars
+    } catch (e) {
+      return null;
+    }
+  }
+
+  set fromDate(value) {
+    this._fromDate = value;
+  }
+
+  get toDate() {
+    if (this._toDate) {
+      return this._toDate;
+    }
+    try {
+      return new Date(Date.parse(this.sessionDateTo));
+    // eslint-disable-next-line no-unused-vars
+    } catch (e) {
+      return null;
+    }
+  }
+
+  set toDate(value) {
+    this.filter.sessionDateTo = value;
+  }
+
+  get isSessionFilterEnabled() {
+    return this.sessionDateFrom || this.sessionDateTo;
+  }
+
+  get isLoading() {
+    return this.besluitTypes.length === 0;
+  }
 
   constructor() {
     super(...arguments);
@@ -35,8 +78,37 @@ export default class SupervisionFilterSubmissions extends Component {
     this.updateSelectedValue();
   }
 
-  get isLoading() {
-    return this.besluitTypes.length === 0;
+  @action
+  initRangeFilter() {
+    const lastMonth = moment().subtract(1, 'month').startOf('day');
+    let initFromValue = lastMonth.toDate().toISOString();
+
+    const today = moment().endOf('day');
+    let initToValue = today.toDate().toISOString();
+
+    this.sessionDateFrom = initFromValue;
+    this.sessionDateTo = initToValue;
+  }
+
+  @action
+  updateDate(varName, isoDate) {
+    if (varName == 'fromDate') {
+      this.filter.sessionDateFrom = isoDate;
+      this.args.onFilterChange(this.filter);
+    } else {
+      this.filter.sessionDateTo = isoDate;
+      this.args.onFilterChange(this.filter);
+    }
+  }
+
+  @action
+  updateSelectedValues() {
+    if (!this.args.filter.sessionDateFrom && !this.args.filter.sessionDateTo) {
+      // Filters have been reset from outside the compenent.
+      // so we need to reset the internal state
+      this.fromDate = null;
+      this.toDate = null;
+    }
   }
 
   @restartableTask
@@ -57,7 +129,6 @@ export default class SupervisionFilterSubmissions extends Component {
   }
 
   @action handleStatusFilterChange(statusUri) {
-    this.status = statusUri;
     this.filter.status = statusUri;
     this.args.onFilterChange(this.filter);
   }
@@ -92,6 +163,13 @@ export default class SupervisionFilterSubmissions extends Component {
   resetFilters() {
     this.filter.reset();
     this.updateSelectedValue();
+    this.args.onFilterChange(this.filter);
+  }
+
+  @action
+  resetSessionFilter() {
+    this.filter.sessionDateFrom = null;
+    this.filter.sessionDateTo = null;
     this.args.onFilterChange(this.filter);
   }
 }

@@ -41,29 +41,29 @@
     <AuButtonGroup @inline={{true}}>
       <AuButton
         @skin="secondary"
-        class={{unless this.isPeriodFilterEnabled "is-active"}}
-        {{on "click" this.resetPeriodFilter}}
+        class={{unless this.isSessionFilterEnabled "is-active"}}
+        {{on "click" this.resetSessionFilter}}
       >
         Alle meldingen
       </AuButton>
       <AuButton
         @skin="secondary"
-        class={{if this.isPeriodFilterEnabled "is-active"}}
+        class={{if this.isSessionFilterEnabled "is-active"}}
         {{on "click" this.initRangeFilter}}
       >
         Specifieke periode zitting / besluit
       </AuButton>
     </AuButtonGroup>
 
-    {{#if this.isPeriodFilterEnabled}}
+    {{#if this.isSessionFilterEnabled}}
       <div class="au-u-margin-top-small">
         <div class="au-o-grid au-o-grid--tiny">
           <div class="au-o-grid__item au-u-1-5">
-            <AuLabel for="{{this.inputId}}-date-from" @inline={{true}}>Van</AuLabel>
+            <AuLabel for="zitting-date-from" @inline={{true}}>Van</AuLabel>
           </div>
           <div class="au-o-grid__item au-u-4-5">
             <AuDatePicker
-              @id="{{this.inputId}}-date-from"
+              @id="zitting-date-from"
               @value={{this.fromDate}}
               @onChange={{fn this.updateDate "fromDate"}}
               @min="2012-01-01"
@@ -72,11 +72,11 @@
           </div>
 
           <div class="au-o-grid__item au-u-1-5">
-            <AuLabel for="{{this.inputIdTo}}-date-until" @inline={{true}}>Tot</AuLabel>
+            <AuLabel for="zitting-date-until" @inline={{true}}>Tot</AuLabel>
           </div>
           <div class="au-o-grid__item au-u-4-5">
             <AuDatePicker
-              @id="{{this.inputIdTo}}-date-until"
+              @id="zitting-date-until"
               @value={{this.toDate}}
               @onChange={{fn this.updateDate "toDate"}}
               @min="2012-01-01"

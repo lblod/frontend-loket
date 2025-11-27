@@ -8,10 +8,20 @@ export default class SupervisionSubmissionsIndexController extends Controller {
   @service router;
   @service store;
 
-  queryParams = ['page', 'size', 'sort', 'status', 'besluitTypeIds'];
+  queryParams = [
+    'page',
+    'size',
+    'sort',
+    'status',
+    'besluitTypeIds',
+    'sessionDateFrom',
+    'sessionDateTo',
+  ];
 
   @tracked besluitTypeIds;
   @tracked status;
+  @tracked sessionDateFrom;
+  @tracked sessionDateTo;
   @tracked page = 0;
   size = 20;
   sort = '-modified';
@@ -21,6 +31,8 @@ export default class SupervisionSubmissionsIndexController extends Controller {
     if (!filter) return;
     this.besluitTypeIds = filter.besluitTypeIds;
     this.status = filter.status;
+    this.sessionDateFrom = filter.sessionDateFrom;
+    this.sessionDateTo = filter.sessionDateTo;
 
     this.page = 0;
   }
