@@ -13,17 +13,15 @@ export default class SupervisionFilterSubmissions extends Component {
   @tracked besluitTypes = [];
   @tracked selectedBesluitTypes = null;
   @tracked filter;
-  @tracked sessionDateFrom;
-  @tracked sessionDateTo;
 
   get fromDate() {
     if (this._fromDate) {
       return this._fromDate;
     }
     try {
-      return new Date(Date.parse(this.sessionDateFrom));
-    // eslint-disable-next-line no-unused-vars
+      return new Date(Date.parse(this.filter.sessionDateFrom));
     } catch (e) {
+      console.error(e);
       return null;
     }
   }
@@ -37,9 +35,9 @@ export default class SupervisionFilterSubmissions extends Component {
       return this._toDate;
     }
     try {
-      return new Date(Date.parse(this.sessionDateTo));
-    // eslint-disable-next-line no-unused-vars
+      return new Date(Date.parse(this.filter.sessionDateTo));
     } catch (e) {
+      console.error(e);
       return null;
     }
   }
@@ -49,7 +47,7 @@ export default class SupervisionFilterSubmissions extends Component {
   }
 
   get isSessionFilterEnabled() {
-    return this.sessionDateFrom || this.sessionDateTo;
+    return this.filter.sessionDateFrom || this.filter.sessionDateTo;
   }
 
   get isLoading() {
@@ -86,8 +84,9 @@ export default class SupervisionFilterSubmissions extends Component {
     const today = moment().endOf('day');
     let initToValue = today.toDate().toISOString();
 
-    this.sessionDateFrom = initFromValue;
-    this.sessionDateTo = initToValue;
+    this.filter.sessionDateFrom = initFromValue;
+    this.filter.sessionDateTo = initToValue;
+    this.args.onFilterChange(this.filter);
   }
 
   @action
@@ -102,13 +101,10 @@ export default class SupervisionFilterSubmissions extends Component {
   }
 
   @action
-  updateSelectedValues() {
-    if (!this.args.filter.sessionDateFrom && !this.args.filter.sessionDateTo) {
-      // Filters have been reset from outside the compenent.
-      // so we need to reset the internal state
-      this.fromDate = null;
-      this.toDate = null;
-    }
+  resetSessionFilter() {
+    this.filter.sessionDateFrom = null;
+    this.filter.sessionDateTo = null;
+    this.args.onFilterChange(this.filter);
   }
 
   @restartableTask
@@ -163,13 +159,6 @@ export default class SupervisionFilterSubmissions extends Component {
   resetFilters() {
     this.filter.reset();
     this.updateSelectedValue();
-    this.args.onFilterChange(this.filter);
-  }
-
-  @action
-  resetSessionFilter() {
-    this.filter.sessionDateFrom = null;
-    this.filter.sessionDateTo = null;
     this.args.onFilterChange(this.filter);
   }
 }
