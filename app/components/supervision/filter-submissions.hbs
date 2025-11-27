@@ -29,74 +29,66 @@
     </div>
 
     {{!-- Status Filter --}}
-    <div class="au-o-grid__item au-u-1-1 au-u-1-3@medium">
-      <div class="au-o-grid au-o-grid--tiny">
-        <div class="au-o-grid__item au-u-1-6 au-u-1-3@medium">
-          <Supervision::SubmissionStatusSelect
-            @statusUri={{this.filter.status}}
-            @onChange={{this.handleStatusFilterChange}}
-          />
-        </div>
-      </div>
+    <div class="au-o-grid__item au-u-1-6@medium">
+      <Supervision::SubmissionStatusSelect
+        @statusUri={{this.filter.status}}
+        @onChange={{this.handleStatusFilterChange}}
+      />
     </div>
 
     {{!-- Zitting / Besluit Datum Filter --}}
     <div class="au-o-grid__item au-u-1-1 au-u-1-3@medium">
-      <div class="au-o-grid au-o-grid--tiny">
-        <div class="au-o-grid__item au-u-1-2 au-u-1-1@medium">
-          <div class="au-u-margin-bottom-small">
-            <fieldset>
-              <AuButtonGroup @inline={{true}}>
-                <AuButton
-                  @skin="secondary"
-                  class={{unless this.isSessionFilterEnabled "is-active"}}
-                  {{on "click" this.resetSessionFilter}}
-                >
-                  Alle meldingen
-                </AuButton>
-                <AuButton
-                  @skin="secondary"
-                  class={{if this.isSessionFilterEnabled "is-active"}}
-                  {{on "click" this.initRangeFilter}}
-                >
-                  Specifieke periode zitting / besluit
-                </AuButton>
-              </AuButtonGroup>
+      <div class="au-u-margin-bottom-small">
+        <fieldset>
+          <AuButtonGroup @inline={{true}}>
+            <AuButton
+              @skin="secondary"
+              class={{unless this.isSessionFilterEnabled "is-active"}}
+              {{on "click" this.resetSessionFilter}}
+            >
+              Alle meldingen
+            </AuButton>
+            <AuButton
+              @skin="secondary"
+              class={{if this.isSessionFilterEnabled "is-active"}}
+              {{on "click" this.initRangeFilter}}
+            >
+              Specifieke periode zitting / besluit
+            </AuButton>
+          </AuButtonGroup>
 
-              {{#if this.isSessionFilterEnabled}}
-                <div class="au-u-margin-top-small">
-                  <div class="au-o-grid au-o-grid--tiny">
-                    <div class="au-o-grid__item au-u-1-5">
-                      <AuLabel for="zitting-date-from" @inline={{true}}>Van</AuLabel>
-                    </div>
-                    <div class="au-o-grid__item au-u-4-5">
-                      <AuDatePicker
-                        @id="zitting-date-from"
-                        @value={{this.fromDate}}
-                        @onChange={{fn this.updateDate "fromDate"}}
-                        @min="2012-01-01"
-                        @max="2049-12-31"
-                      />
-                    </div>
-
-                    <div class="au-o-grid__item au-u-1-5">
-                      <AuLabel for="zitting-date-until" @inline={{true}}>Tot</AuLabel>
-                    </div>
-                    <div class="au-o-grid__item au-u-4-5">
-                      <AuDatePicker
-                        @id="zitting-date-until"
-                        @value={{this.toDate}}
-                        @onChange={{fn this.updateDate "toDate"}}
-                        @min="2012-01-01"
-                        @max="2049-12-31"
-                      />
-                    </div>
-                  </div>
+          {{#if this.isSessionFilterEnabled}}
+            <div class="au-u-margin-top-small">
+              <div class="au-o-grid au-o-grid--tiny">
+                <div class="au-o-grid__item au-u-1-5">
+                  <AuLabel for="zitting-date-from" @inline={{true}}>Van</AuLabel>
                 </div>
-              {{/if}}
-            </fieldset>
-          </div>
-        </div>
+                <div class="au-o-grid__item au-u-4-5">
+                  <AuDatePicker
+                    @id="zitting-date-from"
+                    @value={{this.fromDate}}
+                    @onChange={{fn this.updateDate "fromDate"}}
+                    @min="2012-01-01"
+                    @max="2049-12-31"
+                  />
+                </div>
+
+                <div class="au-o-grid__item au-u-1-5">
+                  <AuLabel for="zitting-date-until" @inline={{true}}>Tot</AuLabel>
+                </div>
+                <div class="au-o-grid__item au-u-4-5">
+                  <AuDatePicker
+                    @id="zitting-date-until"
+                    @value={{this.toDate}}
+                    @onChange={{fn this.updateDate "toDate"}}
+                    @min="2012-01-01"
+                    @max="2049-12-31"
+                  />
+                </div>
+              </div>
+            </div>
+          {{/if}}
+        </fieldset>
       </div>
     </div>
   </div>
