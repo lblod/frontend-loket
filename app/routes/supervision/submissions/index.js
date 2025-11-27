@@ -16,6 +16,8 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
     sort: { refreshModel: true },
     status: { refreshModel: true },
     besluitTypeIds: { refreshModel: true },
+    sessionDateFrom: { refreshModel: true },
+    sessionDateTo: { refreshModel: true },
   };
 
   modelName = 'submission';
@@ -39,6 +41,14 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
     if (params.besluitTypeIds) {
       query['filter[form-data][decision-type][:id:]'] = params.besluitTypeIds;
     }
+
+    if (params.sessionDateFrom)
+      query['filter[form-data][:gte:session-started-at-time]'] =
+        params.sessionDateFrom;
+
+    if (params.sessionDateTo)
+      query['filter[form-data][:lte:session-started-at-time]'] =
+        params.sessionDateTo;
 
     return query;
   }
