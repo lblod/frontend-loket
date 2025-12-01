@@ -150,7 +150,8 @@ export default class SupervisionFilterSubmissions extends Component {
   @action
   changeSelectedBesluitTypes(selectedTypes) {
     this.selectedBesluitTypes = selectedTypes;
-    this.filter.besluitTypeIds = selectedTypes && selectedTypes.map((type) => type.id).join(',');
+    this.filter.besluitTypeIds =
+      selectedTypes && selectedTypes.map((type) => type.id).join(',');
 
     this.args.onFilterChange(this.filter);
   }

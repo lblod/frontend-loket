@@ -24,9 +24,7 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
 
   mergeQueryOptions(params) {
     const query = {
-      include: [
-        'form-data',
-      ].join(','),
+      include: ['form-data'].join(','),
     };
 
     if (params.status) {
