@@ -12,12 +12,7 @@ export default class InzendingenFilter {
   }
 
   get keys() {
-    return [
-      'status',
-      'besluitTypeIds',
-      'sessionDateFrom',
-      'sessionDateTo',
-    ];
+    return ['status', 'besluitTypeIds', 'sessionDateFrom', 'sessionDateTo'];
   }
 
   reset() {
