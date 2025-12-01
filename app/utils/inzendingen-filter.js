@@ -10,10 +10,7 @@ export default class InzendingenFilter {
   }
 
   get keys() {
-    return [
-      'status',
-      'besluitTypeIds',
-    ];
+    return ['status', 'besluitTypeIds'];
   }
 
   reset() {
