@@ -37,7 +37,7 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
     }
 
     if (params.besluitTypeIds) {
-      query['filter[form-data][decision-type][:id:]'] = params.besluitTypeIds;
+      query['filter[form-data][types][id]'] = params.besluitTypeIds;
     }
 
     if (params.sessionDateFrom)
