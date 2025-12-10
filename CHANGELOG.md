@@ -1,3 +1,9 @@
+## v1.2.0 (2025-12-10)
+#### :rocket: Enhancement
+* [#439](https://github.com/lblod/frontend-loket/pull/439) Remove ember-data-table ([@Windvis](https://github.com/Windvis))
+* [#438](https://github.com/lblod/frontend-loket/pull/438) [DL-6750] update ember-submission-form-fields to v3 ([@kobemertens](https://github.com/kobemertens))
+* [#442](https://github.com/lblod/frontend-loket/pull/442) [DL-7033]: Add the openproceshuis manual to the index and login cards ([@wolfderechter](https://github.com/wolfderechter))
+
 ## v1.1.0 (2025-11-04)
 
 #### :rocket: Enhancement
