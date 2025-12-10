@@ -19,7 +19,7 @@ export default class SupervisionFilterSubmissions extends Component {
       return this._fromDate;
     }
     try {
-      return new Date(Date.parse(this.filter.sessionDateFrom));
+      return new Date(Date.parse(this.filter.modifiedDateFrom));
     } catch (e) {
       console.error(e);
       return null;
@@ -35,7 +35,7 @@ export default class SupervisionFilterSubmissions extends Component {
       return this._toDate;
     }
     try {
-      return new Date(Date.parse(this.filter.sessionDateTo));
+      return new Date(Date.parse(this.filter.modifiedDateTo));
     } catch (e) {
       console.error(e);
       return null;
@@ -43,11 +43,11 @@ export default class SupervisionFilterSubmissions extends Component {
   }
 
   set toDate(value) {
-    this.filter.sessionDateTo = value;
+    this.filter.modifiedDateTo = value;
   }
 
-  get isSessionFilterEnabled() {
-    return this.filter.sessionDateFrom || this.filter.sessionDateTo;
+  get isModifiedFilterEnabled() {
+    return this.filter.modifiedDateFrom || this.filter.modifiedDateTo;
   }
 
   get isLoading() {
@@ -84,26 +84,26 @@ export default class SupervisionFilterSubmissions extends Component {
     const today = moment().endOf('day');
     let initToValue = today.toDate().toISOString();
 
-    this.filter.sessionDateFrom = initFromValue;
-    this.filter.sessionDateTo = initToValue;
+    this.filter.modifiedDateFrom = initFromValue;
+    this.filter.modifiedDateTo = initToValue;
     this.args.onFilterChange(this.filter);
   }
 
   @action
   updateDate(varName, isoDate) {
     if (varName == 'fromDate') {
-      this.filter.sessionDateFrom = isoDate;
+      this.filter.modifiedDateFrom = isoDate;
       this.args.onFilterChange(this.filter);
     } else {
-      this.filter.sessionDateTo = isoDate;
+      this.filter.modifiedDateTo = isoDate;
       this.args.onFilterChange(this.filter);
     }
   }
 
   @action
-  resetSessionFilter() {
-    this.filter.sessionDateFrom = null;
-    this.filter.sessionDateTo = null;
+  resetModifiedFilter() {
+    this.filter.modifiedDateFrom = null;
+    this.filter.modifiedDateTo = null;
     this.args.onFilterChange(this.filter);
   }
 

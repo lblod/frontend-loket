@@ -3,8 +3,8 @@ import { tracked } from '@glimmer/tracking';
 export default class InzendingenFilter {
   @tracked status;
   @tracked besluitTypeIds;
-  @tracked sessionDateFrom;
-  @tracked sessionDateTo;
+  @tracked modifiedDateFrom;
+  @tracked modifiedDateTo;
 
   constructor(params) {
     const keys = Object.keys(params);
@@ -12,7 +12,7 @@ export default class InzendingenFilter {
   }
 
   get keys() {
-    return ['status', 'besluitTypeIds', 'sessionDateFrom', 'sessionDateTo'];
+    return ['status', 'besluitTypeIds', 'modifiedDateFrom', 'modifiedDateTo'];
   }
 
   reset() {

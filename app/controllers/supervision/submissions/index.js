@@ -14,14 +14,14 @@ export default class SupervisionSubmissionsIndexController extends Controller {
     'sort',
     'status',
     'besluitTypeIds',
-    'sessionDateFrom',
-    'sessionDateTo',
+    'modifiedDateFrom',
+    'modifiedDateTo',
   ];
 
   @tracked besluitTypeIds;
   @tracked status;
-  @tracked sessionDateFrom;
-  @tracked sessionDateTo;
+  @tracked modifiedDateFrom;
+  @tracked modifiedDateTo;
   @tracked page = 0;
   size = 20;
   sort = '-modified';
@@ -31,8 +31,8 @@ export default class SupervisionSubmissionsIndexController extends Controller {
     if (!filter) return;
     this.besluitTypeIds = filter.besluitTypeIds;
     this.status = filter.status;
-    this.sessionDateFrom = filter.sessionDateFrom;
-    this.sessionDateTo = filter.sessionDateTo;
+    this.modifiedDateFrom = filter.modifiedDateFrom;
+    this.modifiedDateTo = filter.modifiedDateTo;
 
     this.page = 0;
   }
