@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import InzendingenFilter from 'frontend-loket/utils/inzendingen-filter';
 import { DECISION_TYPE } from 'frontend-loket/models/concept-scheme';
 import { task, restartableTask, timeout } from 'ember-concurrency';
 import { action } from '@ember/object';
@@ -10,16 +9,24 @@ export default class SupervisionSubmissionTypesSelect extends Component {
   @service store;
 
   @tracked besluitTypes = [];
-  @tracked selectedBesluitTypes = null;
-  @tracked filter;
 
-  get isLoading() {
+  get selectedBesluitTypes() {
+    const { besluitTypeIds } = this.args;
+    if (besluitTypeIds && !this.isBesluitTypeLoading) {
+      return this.besluitTypes.filter((type) =>
+        besluitTypeIds.split(',').includes(type.id),
+      );
+    }
+
+    return null;
+  }
+
+  get isBesluitTypeLoading() {
     return this.besluitTypes.length === 0;
   }
 
   constructor() {
     super(...arguments);
-    this.filter = new InzendingenFilter(this.args.filter);
     this.loadData.perform();
   }
 
@@ -35,8 +42,6 @@ export default class SupervisionSubmissionTypesSelect extends Component {
       page: { size: 100 },
     });
     this.besluitTypes = this.besluitTypes.slice();
-
-    this.updateSelectedTypeValue();
   }
 
   @restartableTask
@@ -57,29 +62,8 @@ export default class SupervisionSubmissionTypesSelect extends Component {
   }
 
   @action
-  async updateSelectedTypeValue() {
-    if (this.filter.besluitTypeIds && !this.selectedBesluitTypes) {
-      let selected = await this.store.query('concept', {
-        filter: {
-          id: this.filter.besluitTypeIds,
-          'concept-schemes': {
-            ':uri:': DECISION_TYPE,
-          },
-        },
-        page: { size: this.filter.besluitTypeIds.split(',').length },
-      });
-      this.selectedBesluitTypes = selected.slice();
-    } else if (!this.filter.besluitTypeIds) {
-      this.selectedBesluitTypes = null;
-    }
-  }
-
-  @action
   changeSelectedBesluitTypes(selectedTypes) {
-    this.selectedBesluitTypes = selectedTypes;
-    this.filter.besluitTypeIds =
-      selectedTypes && selectedTypes.map((type) => type.id).join(',');
-
-    this.args.onFilterChange(this.filter);
+    let besluitTypeIds = selectedTypes && selectedTypes.map((type) => type.id).join(',');
+    this.args.onChange(besluitTypeIds);
   }
 }
