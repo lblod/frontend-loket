@@ -13,7 +13,13 @@ export default class InzendingenFilter {
   }
 
   get keys() {
-    return ['status', 'besluitTypeIds', 'modifiedDateFrom', 'modifiedDateTo', 'governingBodyIds',];
+    return [
+      'status',
+      'besluitTypeIds',
+      'modifiedDateFrom',
+      'modifiedDateTo',
+      'governingBodyIds',
+    ];
   }
 
   reset() {

@@ -67,24 +67,24 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
   *updateSelectedBodyValue(childIds) {
     let children = yield this.store.query('bestuursorgaan', {
       filter: {
-        id: childIds
+        id: childIds,
       },
-      include: 'is-tijdsspecialisatie-van'
+      include: 'is-tijdsspecialisatie-van',
     });
 
     let parents = children
-      .map(child => child.isTijdsspecialisatieVan)
+      .map((child) => child.isTijdsspecialisatieVan)
       .filter(Boolean);
 
-      let seen = new Set();
-      let uniqueParents = parents.filter(parent => {
-        if (seen.has(parent.id)) {
-          return false;
-        } else {
-          seen.add(parent.id);
-          return true;
-        }
-      });
+    let seen = new Set();
+    let uniqueParents = parents.filter((parent) => {
+      if (seen.has(parent.id)) {
+        return false;
+      } else {
+        seen.add(parent.id);
+        return true;
+      }
+    });
 
     return uniqueParents;
   }
@@ -94,12 +94,10 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
     this.selectedGoverningBodyIds =
       selectedBodies && selectedBodies.map((d) => d.get('id'));
 
-    await this.findTimeSpecification().then(
-      (ids) => {
-        let governingBodyIds = ids.join(',');
-        this.args.onChange(governingBodyIds);
-      },
-    );
+    await this.findTimeSpecification().then((ids) => {
+      let governingBodyIds = ids.join(',');
+      this.args.onChange(governingBodyIds);
+    });
   }
 
   async findTimeSpecification() {
@@ -109,12 +107,12 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
       let childOrgans = await this.store.query('bestuursorgaan', {
         filter: {
           'is-tijdsspecialisatie-van': {
-            ':id:': parentId
-          }
-        }
+            ':id:': parentId,
+          },
+        },
       });
 
-      childOrgans.forEach(o => ids.push(o.id));
+      childOrgans.forEach((o) => ids.push(o.id));
     }
 
     return ids;
