@@ -154,7 +154,10 @@ export class AddDocumentsModal extends Component {
                             {{document.name}}
                           </AuLinkExternal>
                         </td>
-                        <td>{{momentFormat document.sentDate "DD-MM-YYYY H:mm"}}</td>
+                        <td>{{momentFormat
+                            document.sentDate
+                            "DD-MM-YYYY H:mm"
+                          }}</td>
                       </tr>
                     {{else}}
                       <tr>
