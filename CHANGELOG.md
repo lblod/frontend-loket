@@ -1,3 +1,7 @@
+## v1.2.1 (2025-12-11)
+#### :rocket: Enhancement
+* [#444](https://github.com/lblod/frontend-loket/pull/444) Graceful app degradation on favorites issue ([@cecemel](https://github.com/cecemel))
+
 ## v1.2.0 (2025-12-10)
 #### :rocket: Enhancement
 * [#439](https://github.com/lblod/frontend-loket/pull/439) Remove ember-data-table ([@Windvis](https://github.com/Windvis))
