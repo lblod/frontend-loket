@@ -31,29 +31,26 @@ class NewLoketIndexRoute extends Route {
     try {
       const favorites = this.bookmarksService.bookmarks
         .map((bookmark) => bookmark.object)
-            .sort((a, b) => compare(a.name.default, b.name.default));
-
+        .sort((a, b) => compare(a.name.default, b.name.default));
 
       favoritesData = await Promise.all(
         favorites.map(async (product) => {
           try {
             const callToAction = await getPublicServiceCta(product);
             return { product, website: callToAction };
-          }
-          catch(err) {
+          } catch (err) {
             console.error(err);
             errorLoadingFavorite = true;
-            return {}
+            return {};
           }
         }),
       );
-    }
-    catch(err) {
+    } catch (err) {
       console.error(err);
       errorLoadingFavorite = true;
     }
 
-    if(errorLoadingFavorite) {
+    if (errorLoadingFavorite) {
       const errorMsg = `
         U kan het product of de dienst
           proberen terug te vinden via de reguliere zoekfunctie.
