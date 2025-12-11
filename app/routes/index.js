@@ -18,21 +18,52 @@ class IndexRoute extends Route {
 class NewLoketIndexRoute extends Route {
   @service('bookmarks') bookmarksService;
   @service session;
+  @service toaster;
 
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
   }
 
-  model() {
-    const favorites = this.bookmarksService.bookmarks
-      .map((bookmark) => bookmark.object)
-      .sort((a, b) => compare(a.name.default, b.name.default));
-    return Promise.all(
-      favorites.map(async (product) => {
-        const callToAction = await getPublicServiceCta(product);
-        return { product, website: callToAction };
-      }),
-    );
+  async model() {
+    let errorLoadingFavorite = false;
+    let favoritesData = [];
+
+    try {
+      const favorites = this.bookmarksService.bookmarks
+        .map((bookmark) => bookmark.object)
+        .sort((a, b) => compare(a.name.default, b.name.default));
+
+      favoritesData = await Promise.all(
+        favorites.map(async (product) => {
+          try {
+            const callToAction = await getPublicServiceCta(product);
+            return { product, website: callToAction };
+          } catch (err) {
+            console.error(err);
+            errorLoadingFavorite = true;
+            return {};
+          }
+        }),
+      );
+    } catch (err) {
+      console.error(err);
+      errorLoadingFavorite = true;
+    }
+
+    if (errorLoadingFavorite) {
+      const errorMsg = `
+        U kan het product of de dienst
+          proberen terug te vinden via de reguliere zoekfunctie.
+        Gelieve de helpdesk te contacteren
+          indien u blijvende hinder ondervindt.
+      `;
+      const errorTitle = `Probleem bij
+       het ophalen van minstens één favoriet.`;
+
+      this.toaster.error(errorMsg, errorTitle);
+    }
+
+    return favoritesData;
   }
 
   setupController(controller) {
