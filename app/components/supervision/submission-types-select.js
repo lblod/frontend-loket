@@ -63,7 +63,8 @@ export default class SupervisionSubmissionTypesSelect extends Component {
 
   @action
   changeSelectedBesluitTypes(selectedTypes) {
-    let besluitTypeIds = selectedTypes && selectedTypes.map((type) => type.id).join(',');
+    let besluitTypeIds =
+      selectedTypes && selectedTypes.map((type) => type.id).join(',');
     this.args.onChange(besluitTypeIds);
   }
 }
