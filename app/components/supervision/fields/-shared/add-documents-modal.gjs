@@ -14,10 +14,10 @@ import { on } from '@ember/modifier';
 import { task } from 'ember-concurrency';
 import eq from 'ember-truth-helpers/helpers/eq';
 import not from 'ember-truth-helpers/helpers/not';
-import { formatDate } from 'frontend-loket/utils/date';
 import { prefLabel } from 'frontend-loket/rdf/predicates';
 import { ConceptSchemeSelect } from './concept-scheme-select';
 import { extractDocumentsFromTtl } from './utils';
+import momentFormat from 'ember-moment/helpers/moment-format';
 
 export class AddDocumentsModal extends Component {
   @tracked org;
@@ -154,7 +154,10 @@ export class AddDocumentsModal extends Component {
                             {{document.name}}
                           </AuLinkExternal>
                         </td>
-                        <td>{{formatDate document.sentDate}}</td>
+                        <td>{{momentFormat
+                            document.sentDate
+                            "DD-MM-YYYY H:mm"
+                          }}</td>
                       </tr>
                     {{else}}
                       <tr>
