@@ -27,7 +27,6 @@ import { task } from 'ember-concurrency';
 import not from 'ember-truth-helpers/helpers/not';
 import worshipDecisionsDatabaseUrl from 'frontend-loket/helpers/worship-decisions-database-url';
 import { BESLUIT, ELI } from 'frontend-loket/rdf/namespaces';
-import { formatDate } from 'frontend-loket/utils/date';
 import { isRequiredField } from 'frontend-loket/utils/semantic-forms';
 import { byOrder } from 'frontend-loket/utils/sort';
 import { Literal, NamedNode } from 'rdflib';
@@ -35,6 +34,7 @@ import { v4 as uuid } from 'uuid';
 import { ConceptSchemeSelect } from './-shared/concept-scheme-select';
 import { AddDocumentsModal } from './-shared/add-documents-modal';
 import { extractDocumentsFromTtl } from './-shared/utils';
+import momentFormat from 'ember-moment/helpers/moment-format';
 
 const hasPart = ELI('has_part');
 const documentType = ELI('type_document');
@@ -511,7 +511,7 @@ class ArticleDetails extends Component {
                     </AuLinkExternal>
                   </td>
                   <td>{{decision.sentBy.name}}</td>
-                  <td>{{formatDate decision.sentDate}}</td>
+                  <td>{{momentFormat decision.sentDate "DD-MM-YYYY H:mm"}}</td>
                   {{#unless @isReadOnly}}
                     <td>
                       <AuButton
