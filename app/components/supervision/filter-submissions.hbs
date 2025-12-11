@@ -1,8 +1,16 @@
 <div>
   <div class="au-o-grid au-u-1-1 au-o-grid--tiny">
 
+    {{!-- Bestuursorgaan Filter --}}
+    <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-4@medium">
+      <Supervision::SubmissionGoverningBodiesSelect
+        @governingBodyIds={{this.filter.governingBodyIds}}
+        @onChange={{this.handleGoverningBodyFilterChange}}
+      />
+    </div>
+
     {{!-- Besluit Types Filter --}}
-    <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-3@medium">
+    <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-4@medium">
       <Supervision::SubmissionTypesSelect
         @besluitTypeIds={{this.filter.besluitTypeIds}}
         @onChange={{this.handleBesluitTypeFilterChange}}
@@ -18,7 +26,7 @@
     </div>
 
     {{!-- Gewijzigd Datum Filter --}}
-    <div class="au-o-grid__item au-u-1-1 au-u-1-3@medium">
+    <div class="au-o-grid__item au-u-1-1 au-u-1-4@medium">
       <Supervision::SubmissionModifiedDateRange
         @modifiedDateFrom={{this.filter.modifiedDateFrom}}
         @modifiedDateTo={{this.filter.modifiedDateTo}}

@@ -16,12 +16,14 @@ export default class SupervisionSubmissionsIndexController extends Controller {
     'besluitTypeIds',
     'modifiedDateFrom',
     'modifiedDateTo',
+    'governingBodyIds',
   ];
 
   @tracked besluitTypeIds;
   @tracked status;
   @tracked modifiedDateFrom;
   @tracked modifiedDateTo;
+  @tracked governingBodyIds;
   @tracked page = 0;
   size = 20;
   sort = '-modified';
@@ -33,6 +35,7 @@ export default class SupervisionSubmissionsIndexController extends Controller {
     this.status = filter.status;
     this.modifiedDateFrom = filter.modifiedDateFrom;
     this.modifiedDateTo = filter.modifiedDateTo;
+    this.governingBodyIds = filter.governingBodyIds;
 
     this.page = 0;
   }

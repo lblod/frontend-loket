@@ -34,6 +34,12 @@ export default class SupervisionFilterSubmissions extends Component {
   }
 
   @action
+  handleGoverningBodyFilterChange(governingBodyIds) {
+    this.filter.governingBodyIds = governingBodyIds;
+    this.args.onFilterChange(this.filter);
+  }
+
+  @action
   resetFilters() {
     this.filter.reset();
     this.args.onFilterChange(this.filter);

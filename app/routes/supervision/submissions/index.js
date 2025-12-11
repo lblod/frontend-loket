@@ -18,6 +18,7 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
     besluitTypeIds: { refreshModel: true },
     modifiedDateFrom: { refreshModel: true },
     modifiedDateTo: { refreshModel: true },
+    governingBodyIds: { refreshModel: true },
   };
 
   modelName = 'submission';
@@ -47,6 +48,11 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
     if (params.modifiedDateTo)
       query['filter[form-data][submission][:lte:modified]'] =
         params.modifiedDateTo;
+
+    if (params.governingBodyIds) {
+      query['filter[form-data][passed-by][:id:]'] =
+        params.governingBodyIds;
+    }
 
     return query;
   }

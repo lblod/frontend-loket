@@ -5,6 +5,7 @@ export default class InzendingenFilter {
   @tracked besluitTypeIds;
   @tracked modifiedDateFrom;
   @tracked modifiedDateTo;
+  @tracked governingBodyIds;
 
   constructor(params) {
     const keys = Object.keys(params);
@@ -12,7 +13,7 @@ export default class InzendingenFilter {
   }
 
   get keys() {
-    return ['status', 'besluitTypeIds', 'modifiedDateFrom', 'modifiedDateTo'];
+    return ['status', 'besluitTypeIds', 'modifiedDateFrom', 'modifiedDateTo', 'governingBodyIds',];
   }
 
   reset() {
