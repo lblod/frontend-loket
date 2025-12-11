@@ -1,54 +1,17 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { task, restartableTask, timeout } from 'ember-concurrency';
 import InzendingenFilter from 'frontend-loket/utils/inzendingen-filter';
 import { DECISION_TYPE } from 'frontend-loket/models/concept-scheme';
-import moment from 'moment';
+import { task, restartableTask, timeout } from 'ember-concurrency';
+import { action } from '@ember/object';
 
-export default class SupervisionFilterSubmissions extends Component {
+export default class SupervisionSubmissionTypesSelect extends Component {
   @service store;
 
   @tracked besluitTypes = [];
   @tracked selectedBesluitTypes = null;
   @tracked filter;
-
-  get fromDate() {
-    if (this._fromDate) {
-      return this._fromDate;
-    }
-    try {
-      return new Date(Date.parse(this.filter.modifiedDateFrom));
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  }
-
-  set fromDate(value) {
-    this._fromDate = value;
-  }
-
-  get toDate() {
-    if (this._toDate) {
-      return this._toDate;
-    }
-    try {
-      return new Date(Date.parse(this.filter.modifiedDateTo));
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  }
-
-  set toDate(value) {
-    this.filter.modifiedDateTo = value;
-  }
-
-  get isModifiedFilterEnabled() {
-    return this.filter.modifiedDateFrom || this.filter.modifiedDateTo;
-  }
 
   get isLoading() {
     return this.besluitTypes.length === 0;
@@ -76,37 +39,6 @@ export default class SupervisionFilterSubmissions extends Component {
     this.updateSelectedTypeValue();
   }
 
-  @action
-  initRangeFilter() {
-    const lastMonth = moment().subtract(1, 'month').startOf('day');
-    let initFromValue = lastMonth.toDate().toISOString();
-
-    const today = moment().endOf('day');
-    let initToValue = today.toDate().toISOString();
-
-    this.filter.modifiedDateFrom = initFromValue;
-    this.filter.modifiedDateTo = initToValue;
-    this.args.onFilterChange(this.filter);
-  }
-
-  @action
-  updateDate(varName, isoDate) {
-    if (varName == 'fromDate') {
-      this.filter.modifiedDateFrom = isoDate;
-      this.args.onFilterChange(this.filter);
-    } else {
-      this.filter.modifiedDateTo = isoDate;
-      this.args.onFilterChange(this.filter);
-    }
-  }
-
-  @action
-  resetModifiedFilter() {
-    this.filter.modifiedDateFrom = null;
-    this.filter.modifiedDateTo = null;
-    this.args.onFilterChange(this.filter);
-  }
-
   @restartableTask
   *searchBesluitType(term) {
     yield timeout(600);
@@ -122,11 +54,6 @@ export default class SupervisionFilterSubmissions extends Component {
     });
 
     return results.slice();
-  }
-
-  @action handleStatusFilterChange(statusUri) {
-    this.filter.status = statusUri;
-    this.args.onFilterChange(this.filter);
   }
 
   @action
@@ -153,13 +80,6 @@ export default class SupervisionFilterSubmissions extends Component {
     this.filter.besluitTypeIds =
       selectedTypes && selectedTypes.map((type) => type.id).join(',');
 
-    this.args.onFilterChange(this.filter);
-  }
-
-  @action
-  resetFilters() {
-    this.filter.reset();
-    this.updateSelectedTypeValue();
     this.args.onFilterChange(this.filter);
   }
 }

@@ -1,0 +1,23 @@
+{{#if this.isLoading}}
+  <AuLoader
+    @hideMessage={{true}}
+    class="au-u-flex au-u-flex--center au-u-flex--vertical-center h-full"
+  >Aan het laden</AuLoader>
+{{else}}
+  <PowerSelectMultiple
+    @search={{perform this.searchBesluitType}}
+    @searchField="label"
+    @searchPlaceholder="Typ om te zoeken..."
+    @searchEnabled={{true}}
+    @loadingMessage="Aan het laden..."
+    @options={{this.besluitTypes}}
+    @onChange={{this.changeSelectedBesluitTypes}}
+    @placeholder="Type dossier"
+    @ariaLabel="Filter op type dossier"
+    @selected={{this.selectedBesluitTypes}}
+    @allowClear={{true}}
+    as |besluitType|
+  >
+    {{besluitType.label}}
+  </PowerSelectMultiple>
+{{/if}}
