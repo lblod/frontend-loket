@@ -9,14 +9,14 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
   @service currentSession;
 
   @tracked governingBodies = [];
-  @tracked selectedGoverningBodyIds = [];
   @tracked bestuur;
 
   get selectedGoverningBodies() {
     const { governingBodyIds } = this.args;
     if (governingBodyIds && !this.isGoverningBodyLoading) {
-      let bodies = this.updateSelectedBodyValue.perform(governingBodyIds);
-      return bodies;
+      return this.governingBodies.filter((body) =>
+        governingBodyIds.split(',').includes(body.id),
+      );
     }
 
     return [];
@@ -36,6 +36,7 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
   *loadData() {
     this.governingBodies = yield this.store.query('bestuursorgaan', {
       filter: {
+        ':has-no:bevat-bestuursfunctie': true,
         bestuurseenheid: {
           ':uri:': this.bestuur.uri,
         },
@@ -63,58 +64,10 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
     return results.slice();
   }
 
-  @task
-  *updateSelectedBodyValue(childIds) {
-    let children = yield this.store.query('bestuursorgaan', {
-      filter: {
-        id: childIds,
-      },
-      include: 'is-tijdsspecialisatie-van',
-    });
-
-    let parents = children
-      .map((child) => child.isTijdsspecialisatieVan)
-      .filter(Boolean);
-
-    let seen = new Set();
-    let uniqueParents = parents.filter((parent) => {
-      if (seen.has(parent.id)) {
-        return false;
-      } else {
-        seen.add(parent.id);
-        return true;
-      }
-    });
-
-    return uniqueParents;
-  }
-
   @action
-  async changeSelectedGoverningBodies(selectedBodies) {
-    this.selectedGoverningBodyIds =
-      selectedBodies && selectedBodies.map((d) => d.get('id'));
-
-    await this.findTimeSpecification().then((ids) => {
-      let governingBodyIds = ids.join(',');
-      this.args.onChange(governingBodyIds);
-    });
-  }
-
-  async findTimeSpecification() {
-    let ids = [];
-
-    for (let parentId of this.selectedGoverningBodyIds) {
-      let childOrgans = await this.store.query('bestuursorgaan', {
-        filter: {
-          'is-tijdsspecialisatie-van': {
-            ':id:': parentId,
-          },
-        },
-      });
-
-      childOrgans.forEach((o) => ids.push(o.id));
-    }
-
-    return ids;
+  changeSelectedGoverningBodies(selectedBodies) {
+    let governingBodyIds =
+      selectedBodies && selectedBodies.map((d) => d.id).join(',');
+    this.args.onChange(governingBodyIds);
   }
 }

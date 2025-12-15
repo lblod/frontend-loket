@@ -50,7 +50,8 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
         params.modifiedDateTo;
 
     if (params.governingBodyIds) {
-      query['filter[form-data][passed-by][:id:]'] = params.governingBodyIds;
+      query['filter[form-data][passed-by][is-tijdsspecialisatie-van][:id:]'] =
+        params.governingBodyIds;
     }
 
     return query;
