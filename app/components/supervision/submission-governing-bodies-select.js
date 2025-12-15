@@ -46,7 +46,7 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
     });
     this.governingBodies = this.governingBodies.slice();
     this.governingBodies = this.governingBodies.filter(
-      orgaan => orgaan.hasMany('heeftTijdsspecialisaties').value().length > 1
+      (orgaan) => orgaan.hasMany('heeftTijdsspecialisaties').value().length > 1,
     );
   }
 
