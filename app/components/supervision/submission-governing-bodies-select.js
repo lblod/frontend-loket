@@ -41,10 +41,13 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
           ':uri:': this.bestuur.uri,
         },
       },
-      include: 'classificatie',
+      include: 'heeft-tijdsspecialisaties',
       sort: 'naam',
     });
     this.governingBodies = this.governingBodies.slice();
+    this.governingBodies = this.governingBodies.filter(
+      orgaan => orgaan.hasMany('heeftTijdsspecialisaties').value().length > 1
+    );
   }
 
   @restartableTask
