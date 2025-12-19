@@ -5,11 +5,6 @@
   </Group>
   <Group>
     <div class="au-u-flex">
-      <Supervision::SubmissionStatusSelect
-        @statusUri={{this.status}}
-        @onChange={{this.handleStatusFilterChange}}
-        class="au-u-margin-right-small"
-      />
       <AuLink
         @route="supervision.submissions.new"
         @skin="button"
@@ -19,6 +14,19 @@
     </div>
   </Group>
 </AuToolbar>
+
+<div class="au-u-padding">
+  <Supervision::FilterSubmissions
+    @filter={{hash
+                status=this.status
+                besluitTypeIds=this.besluitTypeIds
+                modifiedDateFrom=this.modifiedDateFrom
+                modifiedDateTo=this.modifiedDateTo
+                governingBodyIds=this.governingBodyIds
+            }}
+    @onFilterChange={{this.handleFilterChange}}
+  />
+</div>
 
 <AuDataTable
   @content={{this.model}}

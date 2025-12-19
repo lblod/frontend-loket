@@ -1,0 +1,23 @@
+{{#if this.isGoverningBodyLoading}}
+  <AuLoader
+    @hideMessage={{true}}
+    class="au-u-flex au-u-flex--center au-u-flex--vertical-center h-full"
+  >Aan het laden</AuLoader>
+{{else}}
+  <PowerSelectMultiple
+    @search={{perform this.searchGoverningBody}}
+    @searchField="label"
+    @searchPlaceholder="Typ om te zoeken..."
+    @searchEnabled={{true}}
+    @loadingMessage="Aan het laden..."
+    @options={{this.governingBodies}}
+    @onChange={{this.changeSelectedGoverningBodies}}
+    @placeholder="Bestuursorgaan"
+    @ariaLabel="Filter op bestuursorgaan"
+    @selected={{this.selectedGoverningBodies}}
+    @allowClear={{true}}
+    as |orgaan|
+  >
+    {{orgaan.naam}}
+  </PowerSelectMultiple>
+{{/if}}

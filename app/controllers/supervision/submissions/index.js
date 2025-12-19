@@ -8,15 +8,35 @@ export default class SupervisionSubmissionsIndexController extends Controller {
   @service router;
   @service store;
 
-  queryParams = ['page', 'size', 'sort', 'status'];
+  queryParams = [
+    'page',
+    'size',
+    'sort',
+    'status',
+    'besluitTypeIds',
+    'modifiedDateFrom',
+    'modifiedDateTo',
+    'governingBodyIds',
+  ];
 
+  @tracked besluitTypeIds;
   @tracked status;
+  @tracked modifiedDateFrom;
+  @tracked modifiedDateTo;
+  @tracked governingBodyIds;
   @tracked page = 0;
   size = 20;
   sort = '-modified';
 
-  @action handleStatusFilterChange(statusUri) {
-    this.status = statusUri;
+  @action
+  handleFilterChange(filter) {
+    if (!filter) return;
+    this.besluitTypeIds = filter.besluitTypeIds;
+    this.status = filter.status;
+    this.modifiedDateFrom = filter.modifiedDateFrom;
+    this.modifiedDateTo = filter.modifiedDateTo;
+    this.governingBodyIds = filter.governingBodyIds;
+
     this.page = 0;
   }
 

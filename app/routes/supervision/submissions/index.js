@@ -15,22 +15,43 @@ export default class SupervisionSubmissionsIndexRoute extends Route.extend(
     size: { refreshModel: true },
     sort: { refreshModel: true },
     status: { refreshModel: true },
+    besluitTypeIds: { refreshModel: true },
+    modifiedDateFrom: { refreshModel: true },
+    modifiedDateTo: { refreshModel: true },
+    governingBodyIds: { refreshModel: true },
   };
 
   modelName = 'submission';
 
-  mergeQueryOptions({ status }) {
+  mergeQueryOptions(params) {
     const query = {
       include: ['form-data'].join(','),
     };
 
-    if (status) {
-      query['filter[status][:uri:]'] = status;
+    if (params.status) {
+      query['filter[status][:uri:]'] = params.status;
     } else {
       query['filter[status][id]'] = [
         '79a52da4-f491-4e2f-9374-89a13cde8ecd', // Concept status
         '9bd8d86d-bb10-4456-a84e-91e9507c374c', // Sent status
       ].join(',');
+    }
+
+    if (params.besluitTypeIds) {
+      query['filter[form-data][types][id]'] = params.besluitTypeIds;
+    }
+
+    if (params.modifiedDateFrom)
+      query['filter[form-data][submission][:gte:modified]'] =
+        params.modifiedDateFrom;
+
+    if (params.modifiedDateTo)
+      query['filter[form-data][submission][:lte:modified]'] =
+        params.modifiedDateTo;
+
+    if (params.governingBodyIds) {
+      query['filter[form-data][passed-by][is-tijdsspecialisatie-van][:id:]'] =
+        params.governingBodyIds;
     }
 
     return query;
