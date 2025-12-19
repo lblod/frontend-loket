@@ -1,3 +1,7 @@
+## v1.3.0 (2025-12-19)
+#### :rocket: Enhancement
+* [#443](https://github.com/lblod/frontend-loket/pull/443) [DL-6322] Multiple filters on inzendingen voor toezicht. ([@nikidevisscher](https://github.com/nikidevisscher))
+
 ## v1.2.3 (2025-12-11)
 #### :bug: Bug Fix
 * [d107eeebfa619b3](https://github.com/lblod/frontend-loket/commit/d107eeebfa619b3944f714205ab362cca1f0e091) [DL-6815] Fix: Show linked hour and minutes of sentDate in referenced documents view. ([@kobemertens](https://github.com/kobemertens)) 
