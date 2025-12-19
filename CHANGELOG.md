@@ -1,3 +1,11 @@
+## v1.2.3 (2025-12-11)
+#### :bug: Bug Fix
+* [d107eeebfa619b3](https://github.com/lblod/frontend-loket/commit/d107eeebfa619b3944f714205ab362cca1f0e091) [DL-6815] Fix: Show linked hour and minutes of sentDate in referenced documents view. ([@kobemertens](https://github.com/kobemertens)) 
+
+## v1.2.2 (2025-12-11)
+#### :rocket: Enhancement
+* [#446](https://github.com/lblod/frontend-loket/pull/446) [DL-6815] Format dates as 'DD-MM-YYYY H:mm' in cross-referencing documents table ([@kobemertens](https://github.com/kobemertens))
+
 ## v1.2.1 (2025-12-11)
 #### :rocket: Enhancement
 * [#444](https://github.com/lblod/frontend-loket/pull/444) Graceful app degradation on favorites issue ([@cecemel](https://github.com/cecemel))
