@@ -2,7 +2,7 @@
 
 <AuApp>
   <GlobalSystemNotification />
-  {{#if (is-feature-enabled "new-loket")}}
+  {{#if (use-new-loket)}}
     {{body-class "new-loket"}}
     <Header />
 
@@ -99,5 +99,5 @@
 </AuApp>
 
 <AuModalContainer />
-<AuToaster @position={{is-feature-enabled "new-loket" "bottom"}} />
+<AuToaster @position={{if (use-new-loket) "bottom"}} />
 <BasicDropdownWormhole />

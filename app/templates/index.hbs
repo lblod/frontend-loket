@@ -1,4 +1,4 @@
-{{#if (is-feature-enabled "new-loket")}}
+{{#if (use-new-loket)}}
   <AuBodyContainer class="au-u-background-gray-100">
     <section class="c-landing">
       <div class="au-o-flow">
@@ -67,7 +67,7 @@
           >
             {{#each @model as |favorite|}}
               <li class="favorite-card">
-                <AuIcon @icon={{component "icons/star-filled" }}/>
+                <AuIcon @icon={{component "icons/star-filled"}} />
                 {{#if favorite.website.url}}
                   <AuLinkExternal
                     @skin="naked"
@@ -442,7 +442,10 @@
         {{/if}}
         {{#if this.currentSession.canAccessOpenProcesHuis}}
           <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard @icon="link-external" @userManualLink="https://abb-vlaanderen.gitbook.io/informatie-oph/">
+            <LoketModuleCard
+              @icon="link-external"
+              @userManualLink="https://abb-vlaanderen.gitbook.io/informatie-oph/"
+            >
               <:title>Open Proces Huis</:title>
               <:description>Raadpleeg, doorzoek en upload processen en originele
                 BPMN-bestanden in het Open Proces Huis, jouw centrale bron voor
