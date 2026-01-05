@@ -2,8 +2,12 @@
 
 <AuApp>
   <GlobalSystemNotification />
-  {{#if (use-new-loket)}}
+  {{#if (is-feature-enabled "new-loket")}}
+    {{! We always need these styles, even if the current user doesn't have the flag set, because it also contains styles for the login page }}
     {{body-class "new-loket"}}
+  {{/if}}
+
+  {{#if (use-new-loket)}}
     <Header />
 
     {{#if this.session.isAuthenticated}}
