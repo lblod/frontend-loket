@@ -4,7 +4,7 @@ import { service } from '@ember/service';
 import { compare } from '@ember/utils';
 import { getPublicServiceCta } from '../utils/get-public-service-cta';
 
-class IndexRoute extends Route {
+export default class IndexRoute extends Route {
   @service currentSession;
   @service session;
   @service router;
@@ -79,5 +79,3 @@ class IndexRoute extends Route {
     return false;
   }
 }
-
-export default IndexRoute;
