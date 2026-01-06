@@ -2,29 +2,24 @@ import { action } from '@ember/object';
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { compare } from '@ember/utils';
-import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 import { getPublicServiceCta } from '../utils/get-public-service-cta';
 
-class IndexRoute extends Route {
+export default class IndexRoute extends Route {
   @service currentSession;
   @service session;
   @service router;
-
-  async beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'login');
-  }
-}
-
-class NewLoketIndexRoute extends Route {
   @service('bookmarks') bookmarksService;
-  @service session;
   @service toaster;
+  @service('new-loket') newLoketService;
 
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
   }
 
   async model() {
+    if (!this.newLoketService.shouldUseNewLoket) {
+      return;
+    }
     let errorLoadingFavorite = false;
     let favoritesData = [];
 
@@ -68,19 +63,19 @@ class NewLoketIndexRoute extends Route {
 
   setupController(controller) {
     super.setupController(...arguments);
+    if (!this.newLoketService.shouldUseNewLoket) {
+      return;
+    }
     controller.searchTerm = null;
     controller.selectedProduct = null;
   }
 
   @action
   loading() {
+    if (!this.newLoketService.shouldUseNewLoket) {
+      return true;
+    }
     // We don't want the loading substate for this route.
     return false;
   }
 }
-
-const RouteClass = isFeatureEnabled('new-loket')
-  ? NewLoketIndexRoute
-  : IndexRoute;
-
-export default RouteClass;
