@@ -1,3 +1,8 @@
+## v1.4.0 (2026-01-06)
+
+#### :rocket: Enhancement
+* [#447](https://github.com/lblod/frontend-loket/pull/447) Softlaunch new loket flag ([@kobemertens](https://github.com/kobemertens))
+
 ## v1.3.0 (2025-12-19)
 #### :rocket: Enhancement
 * [#443](https://github.com/lblod/frontend-loket/pull/443) [DL-6322] Multiple filters on inzendingen voor toezicht. ([@nikidevisscher](https://github.com/nikidevisscher))
