@@ -339,3 +339,9 @@
   height: 100% !important;
 }
 
+
+// AuContent additions
+// TODO: remove once this is part of Appuniversum
+.au-c-content a {
+  @extend .au-c-link;
+}
