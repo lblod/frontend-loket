@@ -5,7 +5,10 @@
         <div class="favorite-toggle-container">
           <Favorite @product={{@model}} />
         </div>
-        <div class="au-u-h6 au-u-medium c-overview-card__link">
+        <div
+          class="au-u-h6 au-u-medium c-overview-card__link"
+          title={{@model.name.default}}
+        >
           {{@model.name.default}}
         </div>
       </div>
