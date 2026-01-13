@@ -42,10 +42,10 @@
 
     <div class="au-o-flow--tiny au-u-margin-bottom">
       <IpdcServiceCtaButton @model={{@model}} />
-      <p>
+      <AuContent @skin="small">
         {{! template-lint-disable no-triple-curlies}}
         {{{@model.description.default}}}
-      </p>
+      </AuContent>
     </div>
     <div
       class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny au-u-margin-bottom"
