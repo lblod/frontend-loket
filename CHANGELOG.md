@@ -1,3 +1,11 @@
+## v1.5.0 (2026-01-13)
+
+#### :rocket: Enhancement
+* [#450](https://github.com/lblod/frontend-loket/pull/450) [DL-7121] "New loket" UI improvements ([@Windvis](https://github.com/Windvis))
+
+#### :bug: Bug Fix
+* [#449](https://github.com/lblod/frontend-loket/pull/449) [DL-7122] Remove the hardcoded mock-login route ([@Windvis](https://github.com/Windvis))
+
 ## v1.4.0 (2026-01-06)
 
 #### :rocket: Enhancement
