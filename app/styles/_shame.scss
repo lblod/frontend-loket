@@ -342,6 +342,6 @@
 
 // AuContent additions
 // TODO: remove once this is part of Appuniversum
-.au-c-content a {
+.au-c-content a:not(.au-c-button) {
   @extend .au-c-link;
 }
