@@ -1,3 +1,8 @@
+## v1.5.1 (2026-01-14)
+
+#### :bug: Bug Fix
+* [#451](https://github.com/lblod/frontend-loket/pull/451) [DL-7121] Fix a style issue with the card buttons ([@Windvis](https://github.com/Windvis))
+
 ## v1.5.0 (2026-01-13)
 
 #### :rocket: Enhancement
