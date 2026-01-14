@@ -24,4 +24,15 @@ export default class File extends Model {
   get downloadLink() {
     return `/files/${this.id}/download?name=${this.filename}`;
   }
+
+  get filenameWithoutExtension() {
+    const splits = this.filename.split('.');
+    if (splits.length > 1)
+      splits.splice(splits.length - 1, 1);
+    return splits.join('');
+  }
+
+  get extensionFormatted() {
+    return this.extension.replaceAll(/\./g, "").toUpperCase();
+  }
 }
