@@ -15,12 +15,13 @@ import { on } from '@ember/modifier';
 import { registerFormFields } from '@lblod/ember-submission-form-fields';
 import { task } from 'ember-concurrency';
 import worshipDecisionsDatabaseUrl from 'frontend-loket/helpers/worship-decisions-database-url';
-import { RDF, SKOS } from 'frontend-loket/rdf/namespaces';
 import { formatDate } from 'frontend-loket/utils/date';
 import { isRequiredField } from 'frontend-loket/utils/semantic-forms';
 import { AddDocumentsModal } from './-shared/add-documents-modal';
-import { extractDocumentsFromTtl } from './-shared/utils';
-import { NamedNode } from 'rdflib';
+import {
+  extractDocumentsFromTtl,
+  getSelectedDecisionType,
+} from './-shared/utils';
 
 export function registerFormField() {
   registerFormFields([
@@ -32,14 +33,37 @@ export function registerFormField() {
 }
 
 /// Components
+const OBSERVER_KEY = 'decision-documents';
 class DecisionDocumentsField extends Component {
   @tracked documents = [];
   @tracked showModal = false;
+  @tracked decisionType;
 
   constructor() {
     super(...arguments);
 
+    this.decisionType = getSelectedDecisionType({
+      formStore: this.args.formStore,
+      sourceNode: this.args.sourceNode,
+      graphs: this.args.graphs,
+    });
     this.loadDocuments.perform();
+
+    this.args.formStore.registerObserver(() => {
+      if (!this.isDestroying && !this.isDestroyed) {
+        const decisionType = getSelectedDecisionType({
+          formStore: this.args.formStore,
+          sourceNode: this.args.sourceNode,
+          graphs: this.args.graphs,
+        });
+
+        if (decisionType !== this.decisionType) {
+          // If the user changed the type of the decision, then we need to remove all previously selected documents, since they are no longer valid.
+          this.removeAllDocuments();
+          this.decisionType = decisionType;
+        }
+      }
+    }, OBSERVER_KEY);
   }
 
   get isReadOnly() {
@@ -59,31 +83,6 @@ class DecisionDocumentsField extends Component {
         this.args.graphs.formGraph,
       )
     );
-  }
-
-  get decisionType() {
-    // A form can have multiple decision types, but just one is in the scheme that interests us
-    const decisionTypes = this.args.formStore
-      .match(
-        this.args.sourceNode,
-        RDF('type'),
-        undefined,
-        this.args.graphs.sourceGraph,
-      )
-      .map((triples) => triples.object);
-
-    const toezichtDossierTypeConceptScheme = new NamedNode(
-      'http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5',
-    );
-
-    return decisionTypes.find((decisionType) => {
-      return this.args.formStore.any(
-        decisionType,
-        SKOS('inScheme'),
-        toezichtDossierTypeConceptScheme,
-        undefined,
-      );
-    });
   }
 
   get path() {
@@ -170,6 +169,12 @@ class DecisionDocumentsField extends Component {
         graph: graphs.sourceGraph,
       },
     ]);
+  };
+
+  removeAllDocuments = () => {
+    this.documents.forEach((document) => {
+      this.removeDocument(document);
+    });
   };
 
   <template>
