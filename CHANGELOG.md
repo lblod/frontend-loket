@@ -1,3 +1,8 @@
+## v1.5.2 (2026-01-20)
+
+#### :bug: Bug Fix
+* [#452](https://github.com/lblod/frontend-loket/pull/452) [DL-7079] Clear referenced documents and articles after the type of decision is changed ([@Windvis](https://github.com/Windvis))
+
 ## v1.5.1 (2026-01-14)
 
 #### :bug: Bug Fix
