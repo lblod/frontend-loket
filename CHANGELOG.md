@@ -1,3 +1,8 @@
+## v1.5.3 (2026-01-28)
+
+#### :bug: Bug Fix
+* [#453](https://github.com/lblod/frontend-loket/pull/453) [DL-7151] Fix a data loading issue in the "remote url" field ([@cecemel](https://github.com/cecemel))
+
 ## v1.5.2 (2026-01-20)
 
 #### :bug: Bug Fix
