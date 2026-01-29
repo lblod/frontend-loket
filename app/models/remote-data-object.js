@@ -1,18 +1,24 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 
-export default class RemoteUrlModel extends Model {
+export default class RemoteDataObjectModel extends Model {
   @attr uri;
-  @attr address;
+  @attr source;
   @attr('date') created;
   @attr('date') modified;
-  @attr downloadStatus;
+  @attr requestHeader;
+  @attr status;
+  @attr comment;
   @attr creator;
 
   @belongsTo('file', {
     async: true,
     inverse: null,
   })
-  download;
+  file;
+
+  // Omitted:
+  //@attr harvesting-collection
+  //@attr authentication-configuration
 
   get downloadLink() {
     return `/files/${this.id}/download`;
@@ -20,7 +26,7 @@ export default class RemoteUrlModel extends Model {
 
   get downloadSuccess() {
     return (
-      this.downloadStatus ===
+      this.status ===
       'http://lblod.data.gift/file-download-statuses/success'
     );
   }
@@ -30,12 +36,12 @@ export default class RemoteUrlModel extends Model {
       'http://lblod.data.gift/file-download-statuses/ongoing',
       'http://lblod.data.gift/file-download-statuses/ready-to-be-cached',
     ];
-    return ongoingStatuses.includes(this.downloadStatus);
+    return ongoingStatuses.includes(this.status);
   }
 
   get downloadFailed() {
     return (
-      this.downloadStatus ===
+      this.status ===
       'http://lblod.data.gift/file-download-statuses/failure'
     );
   }
