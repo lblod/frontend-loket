@@ -33,7 +33,8 @@ module.exports = function (environment) {
     },
     features: {
       // 'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
-      'new-loket': '{{FEATURE_NEW_LOKET}}',
+      //'new-loket': '{{FEATURE_NEW_LOKET}}',
+      'new-loket': 'true',
     },
     lpdcUrl: '{{LPDC_URL}}',
     subsidiesUrl: '{{SUBSIDIES_URL}}',

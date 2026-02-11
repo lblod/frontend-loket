@@ -33,6 +33,9 @@ export default class SearchRoute extends Route {
     authorities: {
       refreshModel: true,
     },
+    subTargetAudiences: {
+      refreshModel: true,
+    },
   };
 
   beforeModel(transition) {
@@ -89,6 +92,16 @@ export default class SearchRoute extends Route {
       filter['type.broader.uuid'] = this.typeRecords.map((c) => c.id).join(',');
     }
 
+    this.subTargetAudienceRecords = [];
+    if (params.subTargetAudiences.length) {
+      this.subTargetAudienceRecords = await Promise.all(
+        params.subTargetAudiences.map((id) => this.store.findRecord('concept', id)),
+      );
+      filter['subDoelgroep.uuid'] = this.subTargetAudienceRecords
+        .map((c) => c.id)
+        .join(',');
+    }
+
     return search(
       'public-services',
       params.page,
@@ -112,6 +125,7 @@ export default class SearchRoute extends Route {
           'executingAuthorityLevels',
           'componentAuthorityLevels',
           'targetAudiences',
+          'subTargetAudiences',
         ].forEach((attr) => {
           const value = product[attr];
           product[attr] = value ? (Array.isArray(value) ? value : [value]) : [];
@@ -126,6 +140,7 @@ export default class SearchRoute extends Route {
     controller.themeRecords = this.themeRecords || [];
     controller.typeRecords = this.typeRecords || [];
     controller.authorityRecords = this.authorityRecords || [];
+    controller.subTargetAudienceRecords = this.subTargetAudienceRecords || [];
     controller.searchTermBuffer = this.searchTerm;
   }
 

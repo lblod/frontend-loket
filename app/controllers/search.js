@@ -29,6 +29,7 @@ export default class SearchController extends Controller {
   @tracked types = [];
   @tracked themes = [];
   @tracked authorities = [];
+  @tracked subTargetAudiences = [];
   // set in Route `setupController`
   @tracked themeRecords;
   @tracked typeRecords;
@@ -76,13 +77,21 @@ export default class SearchController extends Controller {
     });
   }
 
+  @action
+  updateSubTargetAudienceFilter(subTargetAudiences) {
+    this.withUpdateSortAndResetPage(() => {
+      this.subTargetAudiences = subTargetAudiences.map((record) => record.id);
+    });
+  }
+
   withUpdateSortAndResetPage(callback) {
     const isEmptySearch = () => {
       return (
         isEmpty(this.searchTerm) &&
         isEmpty(this.themes) &&
         isEmpty(this.types) &&
-        isEmpty(this.authorities)
+        isEmpty(this.authorities) &&
+        isEmpty(this.subTargetAudiences)
       );
     };
 
