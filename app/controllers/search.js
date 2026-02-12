@@ -13,7 +13,7 @@ export default class SearchController extends Controller {
   serviceTypeConceptScheme = CONCEPT_SCHEMES.SERVICE_TYPE_FILTER;
   themeConceptScheme = CONCEPT_SCHEMES.THEME_FILTER;
   authorityConceptScheme = CONCEPT_SCHEMES.COMPETENT_AUTHORITY_FILTER;
-  subTargetAudienceScheme = CONCEPT_SCHEMES.COMPETENT_AUTHORITY_FILTER; // TODO: use correct concept scheme
+  subDoelgroepScheme = CONCEPT_SCHEMES.SUB_DOELGROEP_FILTER;
 
   sortingOptions = [
     { label: 'Relevantie', value: 'score' },
@@ -30,12 +30,12 @@ export default class SearchController extends Controller {
   @tracked types = [];
   @tracked themes = [];
   @tracked authorities = [];
-  @tracked subTargetAudiences = [];
+  @tracked subDoelgroepen = [];
   // set in Route `setupController`
   @tracked themeRecords;
   @tracked typeRecords;
   @tracked authorityRecords;
-  @tracked subTargetAudienceRecords;
+  @tracked subDoelgroepRecords;
 
   @action
   updateSearchTermBuffer(event) {
@@ -80,9 +80,9 @@ export default class SearchController extends Controller {
   }
 
   @action
-  updateSubTargetAudienceFilter(subTargetAudiences) {
+  updateSubDoelgroepFilter(subDoelgroepen) {
     this.withUpdateSortAndResetPage(() => {
-      this.subTargetAudiences = subTargetAudiences.map((record) => record.id);
+      this.subDoelgroepen = subDoelgroepen.map((record) => record.id);
     });
   }
 
@@ -93,7 +93,7 @@ export default class SearchController extends Controller {
         isEmpty(this.themes) &&
         isEmpty(this.types) &&
         isEmpty(this.authorities) &&
-        isEmpty(this.subTargetAudiences)
+        isEmpty(this.subDoelgroepen)
       );
     };
 

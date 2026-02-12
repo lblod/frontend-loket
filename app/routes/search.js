@@ -33,7 +33,7 @@ export default class SearchRoute extends Route {
     authorities: {
       refreshModel: true,
     },
-    subTargetAudiences: {
+    subDoelgroepen: {
       refreshModel: true,
     },
   };
@@ -92,12 +92,12 @@ export default class SearchRoute extends Route {
       filter['type.broader.uuid'] = this.typeRecords.map((c) => c.id).join(',');
     }
 
-    this.subTargetAudienceRecords = [];
-    if (params.subTargetAudiences.length) {
-      this.subTargetAudienceRecords = await Promise.all(
-        params.subTargetAudiences.map((id) => this.store.findRecord('concept', id)),
+    this.subDoelgroepRecords = [];
+    if (params.subDoelgroepen.length) {
+      this.subDoelgroepRecords = await Promise.all(
+        params.subDoelgroepen.map((id) => this.store.findRecord('concept', id)),
       );
-      filter['subDoelgroep.uuid'] = this.subTargetAudienceRecords
+      filter['subDoelgroep.uuid'] = this.subDoelgroepRecords
         .map((c) => c.id)
         .join(',');
     }
@@ -125,7 +125,7 @@ export default class SearchRoute extends Route {
           'executingAuthorityLevels',
           'componentAuthorityLevels',
           'targetAudiences',
-          'subTargetAudiences',
+          'subDoelgroepen',
         ].forEach((attr) => {
           const value = product[attr];
           product[attr] = value ? (Array.isArray(value) ? value : [value]) : [];
@@ -140,7 +140,7 @@ export default class SearchRoute extends Route {
     controller.themeRecords = this.themeRecords || [];
     controller.typeRecords = this.typeRecords || [];
     controller.authorityRecords = this.authorityRecords || [];
-    controller.subTargetAudienceRecords = this.subTargetAudienceRecords || [];
+    controller.subDoelgroepRecords = this.subDoelgroepRecords || [];
     controller.searchTermBuffer = this.searchTerm;
   }
 
