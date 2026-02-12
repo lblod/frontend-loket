@@ -13,6 +13,7 @@ export default class SearchController extends Controller {
   serviceTypeConceptScheme = CONCEPT_SCHEMES.SERVICE_TYPE_FILTER;
   themeConceptScheme = CONCEPT_SCHEMES.THEME_FILTER;
   authorityConceptScheme = CONCEPT_SCHEMES.COMPETENT_AUTHORITY_FILTER;
+  subTargetAudienceScheme = CONCEPT_SCHEMES.COMPETENT_AUTHORITY_FILTER; // TODO: use correct concept scheme
 
   sortingOptions = [
     { label: 'Relevantie', value: 'score' },
@@ -34,6 +35,7 @@ export default class SearchController extends Controller {
   @tracked themeRecords;
   @tracked typeRecords;
   @tracked authorityRecords;
+  @tracked subTargetAudienceRecords;
 
   @action
   updateSearchTermBuffer(event) {

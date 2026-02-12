@@ -36,6 +36,13 @@
           {{#if @model.type}}
             <BroaderConceptPills @uri={{@model.type.uri}} />
           {{/if}}
+          {{#if @model.competentAuthorityLevels}}
+            {{#each @model.competentAuthorityLevels as |authority|}}
+              <AuPill @skin="border" @size="small">
+                {{authority.label}}
+              </AuPill>
+            {{/each}}
+          {{/if}}
         </div>
       </div>
     </div>

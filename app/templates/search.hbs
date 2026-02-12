@@ -31,6 +31,14 @@
             @label="Aanbieder"
             @isOpenInitially={{not (is-empty this.authorityRecords)}} />
         </div>
+        <div class="au-o-box au-o-box--small">
+          <ConceptSchemeFilter
+            @conceptScheme={{this.subTargetAudienceScheme}}
+            @selected={{this.subTargetAudienceRecords}}
+            @onChange={{this.updateSubTargetAudienceFilter}}
+            @label="Doelgroep"
+            @isOpenInitially={{not (is-empty this.subTargetAudienceRecords)}} />
+        </div>
       </div>
     </Sidebar>
     </m.sidebar>
