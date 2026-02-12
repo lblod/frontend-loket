@@ -15,6 +15,7 @@ export default class PublicServiceModel extends Model {
   @attr('string') productId;
   @belongsTo('concept', { async: true, inverse: null }) type;
   @belongsTo('concept', { async: true, inverse: null }) concept;
+  @belongsTo('concept', { async: true, inverse: null }) competentAuthority;
   @hasMany('concept', { async: true, inverse: null }) languages;
   @hasMany('concept', { async: true, inverse: null }) targetAudiences;
   @hasMany('concept', { async: true, inverse: null }) thematicAreas;

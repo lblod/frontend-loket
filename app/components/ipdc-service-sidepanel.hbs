@@ -36,10 +36,15 @@
           {{#if @model.type}}
             <BroaderConceptPills @uri={{@model.type.uri}} />
           {{/if}}
-          {{#if @model.competentAuthorityLevels}}
-            {{#each @model.competentAuthorityLevels as |authority|}}
+          {{#if @model.competentAuthority}}
+            <AuPill @skin="border" @size="small">
+              {{@model.competentAuthority.label}}
+            </AuPill>
+          {{/if}}
+          {{#if @model.subDoelgroep}}
+            {{#each @model.subDoelgroep as |groep|}}
               <AuPill @skin="border" @size="small">
-                {{authority.label}}
+                {{groep.label}}
               </AuPill>
             {{/each}}
           {{/if}}
