@@ -36,22 +36,26 @@
           {{#if @model.type}}
             <BroaderConceptPills @uri={{@model.type.uri}} />
           {{/if}}
-          {{#if @model.competentAuthority}}
-            <AuPill @skin="border" @size="small">
-              {{@model.competentAuthority.label}}
-            </AuPill>
-          {{/if}}
-          {{#if @model.subDoelgroep}}
-            {{#each @model.subDoelgroep as |groep|}}
-              <AuPill @skin="border" @size="small">
-                {{groep.label}}
-              </AuPill>
-            {{/each}}
-          {{/if}}
         </div>
       </div>
     </div>
 
+    <div class="au-o-flow--tiny">
+      {{#if @model.competentAuthority}}
+          <span class="au-u-medium">Aangeboden door:</span>
+          {{@model.competentAuthority.label}}
+      {{/if}}
+    </div>
+    <div class="au-o-flow--tiny au-u-margin-bottom">
+      {{#if @model.subDoelgroep}}
+        <span class="au-u-medium">Doelgroep(en):</span>
+          {{#each @model.subDoelgroep as |groep|}}
+            <AuPill @skin="default" @size="small">
+              {{groep.label}}
+            </AuPill>
+          {{/each}}
+      {{/if}}
+    </div>
     <div class="au-o-flow--tiny au-u-margin-bottom">
       <IpdcServiceCtaButton @model={{@model}} />
       <AuContent @skin="small">
