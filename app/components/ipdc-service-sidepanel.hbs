@@ -47,11 +47,11 @@
       {{/if}}
     </div>
     <div class="au-o-flow--tiny au-u-margin-bottom">
-      {{#if @model.subDoelgroep}}
+      {{#if @model.relevantAdministrativeUnits}}
         <span class="au-u-medium">Doelgroep(en):</span>
-        {{#each @model.subDoelgroep as |groep|}}
+        {{#each @model.relevantAdministrativeUnits as |unit|}}
           <AuPill @skin="default" @size="small">
-            {{groep.label}}
+            {{unit.label}}
           </AuPill>
         {{/each}}
       {{/if}}

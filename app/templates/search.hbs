@@ -36,11 +36,11 @@
         </div>
         <div class="au-o-box au-o-box--small">
           <ConceptSchemeFilter
-            @conceptScheme={{this.subDoelgroepScheme}}
-            @selected={{this.subDoelgroepRecords}}
-            @onChange={{this.updateSubDoelgroepFilter}}
+            @conceptScheme={{this.administrativeUnitScheme}}
+            @selected={{this.administrativeUnitRecords}}
+            @onChange={{this.updateAdministrativeUnitFilter}}
             @label="Doelgroep"
-            @isOpenInitially={{not (is-empty this.subDoelgroepRecords)}}
+            @isOpenInitially={{not (is-empty this.administrativeUnitRecords)}}
           />
         </div>
       </div>

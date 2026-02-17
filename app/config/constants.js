@@ -9,7 +9,7 @@ export default {
       'https://productencatalogus.data.vlaanderen.be/id/conceptscheme/Type',
     THEME:
       'https://productencatalogus.data.vlaanderen.be/id/conceptscheme/Thema',
-    SUB_DOELGROEP_FILTER:
+    RELEVANT_ADMINISTRATIVE_UNITS_FILTER:
       'http://data.vlaanderen.be/id/conceptscheme/BestuurseenheidClassificatieCode',
   },
   TARGET_AUDIENCES: {

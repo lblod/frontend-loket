@@ -28,5 +28,5 @@ export default class PublicServiceModel extends Model {
   @hasMany('procedure', { async: true, inverse: 'publicService' })
   procedures;
   @hasMany('bestuurseenheid-classificatie-code', { async: true, inverse: null })
-  subDoelgroep;
+  relevantAdministrativeUnits;
 }
