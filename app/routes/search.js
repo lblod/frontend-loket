@@ -95,11 +95,12 @@ export default class SearchRoute extends Route {
     this.administrativeUnitRecords = [];
     if (params.administrativeUnits.length) {
       this.administrativeUnitRecords = await Promise.all(
-        params.administrativeUnits.map((id) => this.store.findRecord('concept', id)),
+        params.administrativeUnits.map((id) =>
+          this.store.findRecord('concept', id),
+        ),
       );
-      filter['relevantAdministrativeUnits.uuid'] = this.administrativeUnitRecords
-        .map((c) => c.id)
-        .join(',');
+      filter['relevantAdministrativeUnits.uuid'] =
+        this.administrativeUnitRecords.map((c) => c.id).join(',');
     }
 
     return search(

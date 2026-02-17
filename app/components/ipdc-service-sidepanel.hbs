@@ -40,22 +40,22 @@
       </div>
     </div>
 
-    <div class="au-o-flow--tiny">
-      {{#if @model.competentAuthority}}
+    {{#if @model.competentAuthority}}
+      <div class="au-o-flow--tiny">
         <span class="au-u-medium">Aangeboden door:</span>
         {{@model.competentAuthority.label}}
-      {{/if}}
-    </div>
-    <div class="au-o-flow--tiny au-u-margin-bottom">
-      {{#if @model.relevantAdministrativeUnits}}
+      </div>
+    {{/if}}
+    {{#if @model.relevantAdministrativeUnits}}
+      <div class="au-o-flow--tiny au-u-margin-bottom">
         <span class="au-u-medium">Doelgroep(en):</span>
         {{#each @model.relevantAdministrativeUnits as |unit|}}
           <AuPill @skin="default" @size="small">
             {{unit.label}}
           </AuPill>
         {{/each}}
-      {{/if}}
-    </div>
+      </div>
+    {{/if}}
     <div class="au-o-flow--tiny au-u-margin-bottom">
       <IpdcServiceCtaButton @model={{@model}} />
       <AuContent @skin="small">

@@ -13,7 +13,8 @@ export default class SearchController extends Controller {
   serviceTypeConceptScheme = CONCEPT_SCHEMES.SERVICE_TYPE_FILTER;
   themeConceptScheme = CONCEPT_SCHEMES.THEME_FILTER;
   authorityConceptScheme = CONCEPT_SCHEMES.COMPETENT_AUTHORITY_FILTER;
-  administrativeUnitScheme = CONCEPT_SCHEMES.RELEVANT_ADMINISTRATIVE_UNITS_FILTER;
+  administrativeUnitScheme =
+    CONCEPT_SCHEMES.RELEVANT_ADMINISTRATIVE_UNITS_FILTER;
 
   sortingOptions = [
     { label: 'Relevantie', value: 'score' },
