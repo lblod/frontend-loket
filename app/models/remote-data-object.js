@@ -19,30 +19,4 @@ export default class RemoteDataObjectModel extends Model {
   // Omitted:
   //@attr harvesting-collection
   //@attr authentication-configuration
-
-  get downloadLink() {
-    return `/files/${this.id}/download`;
-  }
-
-  get downloadSuccess() {
-    return (
-      this.status ===
-      'http://lblod.data.gift/file-download-statuses/success'
-    );
-  }
-
-  get downloadOngoing() {
-    const ongoingStatuses = [
-      'http://lblod.data.gift/file-download-statuses/ongoing',
-      'http://lblod.data.gift/file-download-statuses/ready-to-be-cached',
-    ];
-    return ongoingStatuses.includes(this.status);
-  }
-
-  get downloadFailed() {
-    return (
-      this.status ===
-      'http://lblod.data.gift/file-download-statuses/failure'
-    );
-  }
 }
