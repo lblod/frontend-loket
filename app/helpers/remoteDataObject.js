@@ -1,5 +1,5 @@
 export function downloadLink(rdo) {
-  return `/files/${rdo.get('id')}/download`;
+  return `/files/${rdo.id}/download`;
 }
 
 export function downloadSuccess(rdo) {
