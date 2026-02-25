@@ -20,8 +20,8 @@ import { RDF } from '@lblod/submission-form-helpers';
 import { NamedNode } from 'rdflib';
 
 import { triggerZipDownload } from '../../../utils/zip-download';
-import { downloadSuccess, downloadLink } from '../../../helpers/remoteDataObject';
-import { humanReadableSize, extensionFormatted, filenameWithoutExtension } from '../../../helpers/file';
+import { downloadSuccess, downloadLink } from '../../../utils/remoteDataObject';
+import { humanReadableSize, extensionFormatted, filenameWithoutExtension } from '../../../utils/file';
 
 import CustomRemoteUrlsEditComponent from '@lblod/ember-submission-form-fields/components/custom-submission-form-fields/remote-urls/edit';
 import RemoteUrlsEditComponent from '@lblod/ember-submission-form-fields/components/rdf-input-fields/remote-urls/edit';
