@@ -263,7 +263,7 @@ export default class RemoteDataObjectShowComponent extends Component {
 
 const RemoteDataObjectInfoCard =
   <template>
-    <li class="remote-url-list-card au-o-box au-o-box--small">
+    <li class="remote-data-object-list-card au-o-box au-o-box--small">
       <div class="au-u-flex au-u-flex--between">
         {{#if (downloadSuccess @remoteDataObject)}}
           <div>
