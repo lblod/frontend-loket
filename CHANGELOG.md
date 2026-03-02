@@ -1,3 +1,26 @@
+## v1.5.3 (2026-01-28)
+
+#### :bug: Bug Fix
+* [#453](https://github.com/lblod/frontend-loket/pull/453) [DL-7151] Fix a data loading issue in the "remote url" field ([@cecemel](https://github.com/cecemel))
+
+## v1.5.2 (2026-01-20)
+
+#### :bug: Bug Fix
+* [#452](https://github.com/lblod/frontend-loket/pull/452) [DL-7079] Clear referenced documents and articles after the type of decision is changed ([@Windvis](https://github.com/Windvis))
+
+## v1.5.1 (2026-01-14)
+
+#### :bug: Bug Fix
+* [#451](https://github.com/lblod/frontend-loket/pull/451) [DL-7121] Fix a style issue with the card buttons ([@Windvis](https://github.com/Windvis))
+
+## v1.5.0 (2026-01-13)
+
+#### :rocket: Enhancement
+* [#450](https://github.com/lblod/frontend-loket/pull/450) [DL-7121] "New loket" UI improvements ([@Windvis](https://github.com/Windvis))
+
+#### :bug: Bug Fix
+* [#449](https://github.com/lblod/frontend-loket/pull/449) [DL-7122] Remove the hardcoded mock-login route ([@Windvis](https://github.com/Windvis))
+
 ## v1.4.0 (2026-01-06)
 
 #### :rocket: Enhancement

@@ -182,20 +182,6 @@
   margin: 0 auto 2rem auto;
 }
 
-@media screen and (min-width: 840px) {
-  .c-overview-cards-list--favorites{
-    display: grid;
-    grid-template-columns: repeat(2, calc((100% - 1rem) / 2));
-  }
-}
-
-.c-overview-cards-list--favorites > li{
-  // flex-basis: calc((100% - 1rem) / 2);
-  // flex-grow: 1;
-  // min-width: 320px;
-  // max-width: 633px;
-}
-
 .c-overview-cards-list--favorites .c-overview-card--link{
   border-color: var(--au-gray-200);
 }

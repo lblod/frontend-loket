@@ -21,7 +21,6 @@ import {
   RDF,
   registerCustomValidation,
   SHACL,
-  SKOS,
 } from '@lblod/submission-form-helpers';
 import { task } from 'ember-concurrency';
 import not from 'ember-truth-helpers/helpers/not';
@@ -33,7 +32,10 @@ import { Literal, NamedNode } from 'rdflib';
 import { v4 as uuid } from 'uuid';
 import { ConceptSchemeSelect } from './-shared/concept-scheme-select';
 import { AddDocumentsModal } from './-shared/add-documents-modal';
-import { extractDocumentsFromTtl } from './-shared/utils';
+import {
+  extractDocumentsFromTtl,
+  getSelectedDecisionType,
+} from './-shared/utils';
 import momentFormat from 'ember-moment/helpers/moment-format';
 
 const hasPart = ELI('has_part');
@@ -53,13 +55,36 @@ export function registerFormField() {
 }
 
 /// Components
+const OBSERVER_KEY = 'decision-articles';
 class DecisionArticlesField extends Component {
   @tracked articles = [];
+  @tracked decisionType;
 
   constructor() {
     super(...arguments);
 
+    this.decisionType = getSelectedDecisionType({
+      formStore: this.args.formStore,
+      sourceNode: this.args.sourceNode,
+      graphs: this.args.graphs,
+    });
     this.loadArticles.perform();
+
+    this.args.formStore.registerObserver(() => {
+      if (!this.isDestroying && !this.isDestroyed) {
+        const decisionType = getSelectedDecisionType({
+          formStore: this.args.formStore,
+          sourceNode: this.args.sourceNode,
+          graphs: this.args.graphs,
+        });
+
+        if (decisionType !== this.decisionType) {
+          // If the user changed the type of the decision, then we need to remove all previously created articles, since they are no longer valid.
+          this.removeAllArticles();
+          this.decisionType = decisionType;
+        }
+      }
+    }, OBSERVER_KEY);
   }
 
   get isReadOnly() {
@@ -88,31 +113,6 @@ class DecisionArticlesField extends Component {
       this.args.field.uri,
       this.args.graphs.formGraph,
     );
-  }
-
-  get decisionType() {
-    // A form can have multiple decision types, but just one is in the scheme that interests us
-    const decisionTypes = this.args.formStore
-      .match(
-        this.args.sourceNode,
-        RDF('type'),
-        undefined,
-        this.args.graphs.sourceGraph,
-      )
-      .map((triples) => triples.object);
-
-    const toezichtDossierTypeConceptScheme = new NamedNode(
-      'http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5',
-    );
-
-    return decisionTypes.find((decisionType) => {
-      return this.args.formStore.any(
-        decisionType,
-        SKOS('inScheme'),
-        toezichtDossierTypeConceptScheme,
-        undefined,
-      );
-    });
   }
 
   loadArticles = task(async () => {
@@ -231,12 +231,17 @@ class DecisionArticlesField extends Component {
     formStore.removeStatements(triples);
   };
 
-  willDestroy() {
-    super.willDestroy(...arguments);
-
+  removeAllArticles() {
     this.articles.forEach((article) => {
       this.removeArticle(article);
     });
+  }
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    this.args.formStore.deregisterObserver(OBSERVER_KEY);
+    this.removeAllArticles();
   }
 
   <template>

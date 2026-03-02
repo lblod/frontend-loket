@@ -52,3 +52,23 @@ export function extractDocumentsFromTtl(ttl) {
     };
   });
 }
+
+export function getSelectedDecisionType({ formStore, sourceNode, graphs }) {
+  // A form can have multiple decision types, but just one is in the scheme that interests us
+  const decisionTypes = formStore
+    .match(sourceNode, RDF('type'), undefined, graphs.sourceGraph)
+    .map((triples) => triples.object);
+
+  const toezichtDossierTypeConceptScheme = new NamedNode(
+    'http://lblod.data.gift/concept-schemes/71e6455e-1204-46a6-abf4-87319f58eaa5',
+  );
+
+  return decisionTypes.find((decisionType) => {
+    return formStore.any(
+      decisionType,
+      SKOS('inScheme'),
+      toezichtDossierTypeConceptScheme,
+      undefined,
+    );
+  });
+}
