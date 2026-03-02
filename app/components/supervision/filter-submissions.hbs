@@ -1,7 +1,7 @@
 <div>
   <div class="au-o-grid au-u-1-1 au-o-grid--tiny">
 
-    {{!-- Bestuursorgaan Filter --}}
+    {{! Bestuursorgaan Filter }}
     {{#if this.showGoverningBodyFilter}}
       <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-4@medium">
         <Supervision::SubmissionGoverningBodiesSelect
@@ -12,7 +12,7 @@
       </div>
     {{/if}}
 
-    {{!-- Besluit Types Filter --}}
+    {{! Besluit Types Filter }}
     <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-4@medium">
       <Supervision::SubmissionTypesSelect
         @besluitTypeIds={{this.filter.besluitTypeIds}}
@@ -20,7 +20,7 @@
       />
     </div>
 
-    {{!-- Status Filter --}}
+    {{! Status Filter }}
     <div class="au-o-grid__item au-u-1-6@medium">
       <Supervision::SubmissionStatusSelect
         @statusUri={{this.filter.status}}
@@ -28,7 +28,7 @@
       />
     </div>
 
-    {{!-- Gewijzigd Datum Filter --}}
+    {{! Gewijzigd Datum Filter }}
     <div class="au-o-grid__item au-u-1-1 au-u-1-4@medium">
       <Supervision::SubmissionModifiedDateRange
         @modifiedDateFrom={{this.filter.modifiedDateFrom}}
@@ -40,6 +40,7 @@
 </div>
 <div class="au-u-padding-top-small">
   <AuButton {{on "click" this.resetFilters}} @skin="link">
-    <AuIcon @icon="cross" @alignment="left" /> Herstel alle filters
+    <AuIcon @icon="cross" @alignment="left" />
+    Herstel alle filters
   </AuButton>
 </div>
