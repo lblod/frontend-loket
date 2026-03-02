@@ -35,7 +35,11 @@ import {
 
 import { triggerZipDownload } from '../../../utils/zip-download';
 import { downloadSuccess, downloadLink } from '../../../utils/remoteDataObject';
-import { humanReadableSize, extensionFormatted, filenameWithoutExtension } from '../../../utils/file';
+import {
+  humanReadableSize,
+  extensionFormatted,
+  filenameWithoutExtension,
+} from '../../../utils/file';
 import { autofocus } from '../../../modifiers/auto-focus';
 
 export function registerFormField() {
@@ -46,7 +50,8 @@ export function registerFormField() {
       show: DecisionRemoteDocumentsShowComponent,
     },
     {
-      displayType: 'http://lblod.data.gift/display-types/remoteUrls/variation/1',
+      displayType:
+        'http://lblod.data.gift/display-types/remoteUrls/variation/1',
       edit: DecisionRemoteDocumentsEditComponent,
       show: DecisionRemoteDocumentsShowComponent,
     },
@@ -98,7 +103,7 @@ const DecisionRemoteDocumentsEditAltComponent = <template>
       Should we make the form config more flexible so extra data can be passed? }}
     @requiredLabel="Voorkeur"
   />
-</template>
+</template>;
 
 export class DecisionRemoteDocumentsEditComponent extends InputFieldComponent {
   inputId = `remote-data-object-${guidFor(this)}`;
@@ -182,12 +187,9 @@ export class DecisionRemoteDocumentsEditComponent extends InputFieldComponent {
 
       return new RemoteDataObject(undefined, uri, address, errors);
     } else {
-      return new RemoteDataObject(
-        undefined,
-        uri,
-        undefined,
-        ['Dit veld is verplicht'],
-      );
+      return new RemoteDataObject(undefined, uri, undefined, [
+        'Dit veld is verplicht',
+      ]);
     }
   }
 
@@ -259,11 +261,7 @@ export class DecisionRemoteDocumentsEditComponent extends InputFieldComponent {
   async updateRemoteDataObject(rdo, event) {
     rdo.source = event.target.value.trim();
     this.removeRemoteDataObject(rdo.uri);
-    this.insertRemoteDataObject(
-      rdo.uuid,
-      rdo.uri,
-      rdo.source,
-    );
+    this.insertRemoteDataObject(rdo.uuid, rdo.uri, rdo.source);
     this.hasBeenFocused = true;
     // update validations specific for the address
     // general validation of the field is handled by onStoreUpdate()
@@ -371,7 +369,8 @@ export class DecisionRemoteDocumentsEditComponent extends InputFieldComponent {
         Voeg nieuwe link toe
       </AuButton>
       <div class="au-u-margin-bottom-tiny au-u-margin-top-tiny">
-        <AuHelpText>Enkel links naar specifieke documenten, geen overzichtspagina's.</AuHelpText>
+        <AuHelpText>Enkel links naar specifieke documenten, geen
+          overzichtspagina's.</AuHelpText>
       </div>
     </div>
 
@@ -533,8 +532,7 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
             @icon="question-circle"
             @size="small"
             class="au-u-margin-left-small"
-          >
-          </AuBadge>
+          />
           <tooltip.Content>
             Bij het indienen wordt er een kopie van het document in de link
             gegenereerd en opgeslagen.
@@ -567,9 +565,7 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
           </AuHelpText>
           <ul class="au-o-flow au-o-flow--tiny">
             {{#each this.sourceDocumentUrls as |rdo|}}
-              <RemoteDataObjectInfoCard
-                @remoteDataObject={{rdo}}
-              ></RemoteDataObjectInfoCard>
+              <RemoteDataObjectInfoCard @remoteDataObject={{rdo}} />
             {{/each}}
           </ul>
         {{/if}}
@@ -583,9 +579,7 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
           </AuHelpText>
           <ul class="au-o-flow au-o-flow--tiny">
             {{#each this.attachmentUrls as |rdo|}}
-              <RemoteDataObjectInfoCard
-                @remoteDataObject={{rdo}}
-              ></RemoteDataObjectInfoCard>
+              <RemoteDataObjectInfoCard @remoteDataObject={{rdo}} />
             {{/each}}
           </ul>
         {{/if}}
@@ -606,98 +600,90 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
   </template>
 }
 
-const RemoteDataObjectInfoCard =
-  <template>
-    <li class="remote-data-object-list-card au-o-box au-o-box--small">
-      <div class="au-u-flex au-u-flex--between">
-        {{#if (downloadSuccess @remoteDataObject)}}
-          <div>
-            <AuLabel>
-              {{filenameWithoutExtension @remoteDataObject.file}}
-              <AuTooltip @placement="right" as |tooltip|>
-                <AuBadge
-                  {{tooltip.target}}
-                  @skin="border"
-                  @icon="question-circle"
-                  @size="small"
-                  class="au-u-margin-left-small"
-                >
-                </AuBadge>
-                <tooltip.Content>
-                  De bestandsnaam kan onduidelijk zijn. In sommige gevallen is de
-                  originele naam niet beschikbaar.
-                </tooltip.Content>
-              </AuTooltip>
-            </AuLabel>
-            <div class="au-u-margin-bottom-small">
-              <AuPill
-                @icon="file"
-                class="au-u-margin-right-tiny"
-              >
-                {{extensionFormatted @remoteDataObject.file}}
-              </AuPill>
-              {{humanReadableSize @remoteDataObject.file}}
-            </div>
-            <AuLinkExternal
-              @icon="external-link"
-              href={{@remoteDataObject.source}}
-            >
-              {{@remoteDataObject.source}}
-            </AuLinkExternal>
+const RemoteDataObjectInfoCard = <template>
+  <li class="remote-data-object-list-card au-o-box au-o-box--small">
+    <div class="au-u-flex au-u-flex--between">
+      {{#if (downloadSuccess @remoteDataObject)}}
+        <div>
+          <AuLabel>
+            {{filenameWithoutExtension @remoteDataObject.file}}
+            <AuTooltip @placement="right" as |tooltip|>
+              <AuBadge
+                {{tooltip.target}}
+                @skin="border"
+                @icon="question-circle"
+                @size="small"
+                class="au-u-margin-left-small"
+              />
+              <tooltip.Content>
+                De bestandsnaam kan onduidelijk zijn. In sommige gevallen is de
+                originele naam niet beschikbaar.
+              </tooltip.Content>
+            </AuTooltip>
+          </AuLabel>
+          <div class="au-u-margin-bottom-small">
+            <AuPill @icon="file" class="au-u-margin-right-tiny">
+              {{extensionFormatted @remoteDataObject.file}}
+            </AuPill>
+            {{humanReadableSize @remoteDataObject.file}}
           </div>
-          <div>
+          <AuLinkExternal
+            @icon="external-link"
+            href={{@remoteDataObject.source}}
+          >
+            {{@remoteDataObject.source}}
+          </AuLinkExternal>
+        </div>
+        <div>
+          <AuLinkExternal
+            @icon="download"
+            @skin="button"
+            href={{this.downloadLink @remoteDataObject}}
+            class="au-u-margin-left-small"
+            download
+          >
+            Download
+          </AuLinkExternal>
+        </div>
+      {{else}}
+        <div>
+          <AuLabel @error={{true}}>
+            Bestand onbeschikbaar
+            <AuTooltip @placement="right" as |tooltip|>
+              <AuBadge
+                {{tooltip.target}}
+                @skin="border"
+                @icon="question-circle"
+                @size="small"
+                class="au-u-margin-left-small"
+              />
+              <tooltip.Content>
+                Het bestand kon niet worden gedownload bij de inzending. Probeer
+                het via de onderstaande link.
+              </tooltip.Content>
+            </AuTooltip>
+          </AuLabel>
+          <AuLinkExternal
+            @icon="external-link"
+            href={{@remoteDataObject.source}}
+          >
+            {{@remoteDataObject.source}}
+          </AuLinkExternal>
+        </div>
+        <div>
+          {{#if (downloadSuccess @remoteDataObject)}}
             <AuLinkExternal
               @icon="download"
               @skin="button"
-              href={{this.downloadLink @remoteDataObject}}
+              href={{downloadLink @remoteDataObject}}
               class="au-u-margin-left-small"
               download
             >
               Download
             </AuLinkExternal>
-          </div>
-        {{else}}
-          <div>
-            <AuLabel
-              @error={{true}}
-            >
-              Bestand onbeschikbaar
-              <AuTooltip @placement="right" as |tooltip|>
-                <AuBadge
-                  {{tooltip.target}}
-                  @skin="border"
-                  @icon="question-circle"
-                  @size="small"
-                  class="au-u-margin-left-small"
-                >
-                </AuBadge>
-                <tooltip.Content>
-                  Het bestand kon niet worden gedownload bij de inzending. Probeer
-                  het via de onderstaande link.
-                </tooltip.Content>
-              </AuTooltip>
-            </AuLabel>
-            <AuLinkExternal
-              @icon="external-link"
-              href={{@remoteDataObject.source}}
-            >
-              {{@remoteDataObject.source}}
-            </AuLinkExternal>
-          </div>
-          <div>
-            {{#if (downloadSuccess @remoteDataObject)}}
-              <AuLinkExternal
-                @icon="download"
-                @skin="button"
-                href={{downloadLink @remoteDataObject}}
-                class="au-u-margin-left-small"
-                download
-              >
-                Download
-              </AuLinkExternal>
-            {{/if}}
-          </div>
-        {{/if}}
-      </div>
-    </li>
-  </template>
+          {{/if}}
+        </div>
+      {{/if}}
+    </div>
+  </li>
+</template>;

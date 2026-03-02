@@ -4,7 +4,8 @@ export function downloadLink(rdo) {
 
 export function downloadSuccess(rdo) {
   return (
-    rdo.get('status') === 'http://lblod.data.gift/file-download-statuses/success'
+    rdo.get('status') ===
+    'http://lblod.data.gift/file-download-statuses/success'
   );
 }
 
@@ -18,6 +19,7 @@ export function downloadOngoing(rdo) {
 
 export function downloadFailed(rdo) {
   return (
-    rdo.get('status') === 'http://lblod.data.gift/file-download-statuses/failure'
+    rdo.get('status') ===
+    'http://lblod.data.gift/file-download-statuses/failure'
   );
 }

@@ -9,11 +9,10 @@ export function humanReadableSize(file) {
 
 export function filenameWithoutExtension(file) {
   const splits = file.get('filename').split('.');
-  if (splits.length > 1)
-    splits.splice(splits.length - 1, 1);
+  if (splits.length > 1) splits.splice(splits.length - 1, 1);
   return splits.join('');
 }
 
 export function extensionFormatted(file) {
-  return file.get('extension').replaceAll(/\./g, "").toUpperCase();
+  return file.get('extension').replaceAll(/\./g, '').toUpperCase();
 }
