@@ -559,9 +559,9 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
       {{#if this.remoteDataObjects}}
         {{#if this.sourceDocumentUrls}}
           <AuHelpText
-            @skin="secondary"
+            @skin="tertiary"
             @size="large"
-            class="au-u-bold au-u-margin-bottom-small au-u-margin-top-small"
+            class="au-u-bold au-u-margin-bottom-small au-u-margin-top"
           >
             Brondocumenten
           </AuHelpText>
@@ -575,9 +575,9 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
         {{/if}}
         {{#if this.attachmentUrls}}
           <AuHelpText
-            @skin="secondary"
+            @skin="tertiary"
             @size="large"
-            class="au-u-bold au-u-margin-bottom-small au-u-margin-top-small"
+            class="au-u-bold au-u-margin-bottom-small au-u-margin-top"
           >
             Bijlagen
           </AuHelpText>
