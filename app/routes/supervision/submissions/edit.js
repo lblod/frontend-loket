@@ -8,7 +8,7 @@ import { NamedNode } from 'rdflib';
 import { SENT_STATUS } from '../../../models/submission-document-status';
 import { registerFormField } from 'frontend-loket/components/supervision/fields/decision-articles-field';
 import { registerFormField as registerDecisionDocumentsField } from 'frontend-loket/components/supervision/fields/decision-documents-field';
-import { registerFormField as registerDecisionRemoteDocumentsShowField } from 'frontend-loket/components/supervision/fields/decision-remote-documents-show';
+import { registerFormField as registerDecisionRemoteDocumentsField } from 'frontend-loket/components/supervision/fields/decision-remote-documents';
 
 export default class SupervisionSubmissionsEditRoute extends Route {
   @service router;
@@ -19,7 +19,7 @@ export default class SupervisionSubmissionsEditRoute extends Route {
 
     registerFormField();
     registerDecisionDocumentsField();
-    registerDecisionRemoteDocumentsShowField();
+    registerDecisionRemoteDocumentsField();
   }
 
   async model(params) {

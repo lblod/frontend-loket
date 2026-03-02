@@ -42,13 +42,13 @@ export function registerFormField() {
   registerFormFields([
     {
       displayType: 'http://lblod.data.gift/display-types/remoteUrls',
-      edit: RemoteDataObjectsEditAltComponent,
-      show: RemoteDataObjectsShowComponent,
+      edit: DecisionRemoteDocumentsEditAltComponent,
+      show: DecisionRemoteDocumentsShowComponent,
     },
     {
       displayType: 'http://lblod.data.gift/display-types/remoteUrls/variation/1',
-      edit: RemoteDataObjectsEditComponent,
-      show: RemoteDataObjectsShowComponent,
+      edit: DecisionRemoteDocumentsEditComponent,
+      show: DecisionRemoteDocumentsShowComponent,
     },
   ]);
 }
@@ -84,8 +84,8 @@ class RemoteDataObject {
   }
 }
 
-const RemoteDataObjectsEditAltComponent = <template>
-  <RemoteDataObjectsEditComponent
+const DecisionRemoteDocumentsEditAltComponent = <template>
+  <DecisionRemoteDocumentsEditComponent
     @field={{@field}}
     @form={{@form}}
     @formStore={{@formStore}}
@@ -100,7 +100,7 @@ const RemoteDataObjectsEditAltComponent = <template>
   />
 </template>
 
-export class RemoteDataObjectsEditComponent extends InputFieldComponent {
+export class DecisionRemoteDocumentsEditComponent extends InputFieldComponent {
   inputId = `remote-data-object-${guidFor(this)}`;
   @tracked remoteDataObjects = [];
   @tracked remoteDataObjectToFocus = null;
@@ -387,7 +387,7 @@ export class RemoteDataObjectsEditComponent extends InputFieldComponent {
   </template>
 }
 
-export default class RemoteDataObjectsShowComponent extends Component {
+export default class DecisionRemoteDocumentsShowComponent extends Component {
   @service store;
   @service toaster;
 
