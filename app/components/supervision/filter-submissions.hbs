@@ -2,12 +2,15 @@
   <div class="au-o-grid au-u-1-1 au-o-grid--tiny">
 
     {{!-- Bestuursorgaan Filter --}}
-    <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-4@medium">
-      <Supervision::SubmissionGoverningBodiesSelect
-        @governingBodyIds={{this.filter.governingBodyIds}}
-        @onChange={{this.handleGoverningBodyFilterChange}}
-      />
-    </div>
+    {{#if this.showGoverningBodyFilter}}
+      <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-4@medium">
+        <Supervision::SubmissionGoverningBodiesSelect
+          @governingBodyIds={{this.filter.governingBodyIds}}
+          @onChange={{this.handleGoverningBodyFilterChange}}
+          @onShowFilter={{this.handleShowGoverningBodyFilter}}
+        />
+      </div>
+    {{/if}}
 
     {{!-- Besluit Types Filter --}}
     <div class="au-o-grid__item au-u-1-1 au-u-1-2@xsmall au-u-1-4@medium">
