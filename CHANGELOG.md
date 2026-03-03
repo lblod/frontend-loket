@@ -1,3 +1,8 @@
+## v1.6.0 (2026-03-03)
+
+#### :rocket: Enhancement
+* [#448](https://github.com/lblod/frontend-loket/pull/448) [DL-5428] Improved submission remote-data-objects list ([@benjay10](https://github.com/benjay10))
+
 ## v1.5.3 (2026-01-28)
 
 #### :bug: Bug Fix
