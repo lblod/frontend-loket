@@ -11,7 +11,7 @@ export default class RemoteDataObjectModel extends Model {
   @attr creator;
 
   @belongsTo('file', {
-    async: true,
+    async: false,
     inverse: null,
   })
   file;

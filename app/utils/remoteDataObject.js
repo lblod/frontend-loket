@@ -3,10 +3,7 @@ export function downloadLink(rdo) {
 }
 
 export function downloadSuccess(rdo) {
-  return (
-    rdo.get('status') ===
-    'http://lblod.data.gift/file-download-statuses/success'
-  );
+  return rdo.status === 'http://lblod.data.gift/file-download-statuses/success';
 }
 
 export function downloadOngoing(rdo) {
@@ -14,12 +11,9 @@ export function downloadOngoing(rdo) {
     'http://lblod.data.gift/file-download-statuses/ongoing',
     'http://lblod.data.gift/file-download-statuses/ready-to-be-cached',
   ];
-  return ongoingStatuses.includes(rdo.get('status'));
+  return ongoingStatuses.includes(rdo.status);
 }
 
 export function downloadFailed(rdo) {
-  return (
-    rdo.get('status') ===
-    'http://lblod.data.gift/file-download-statuses/failure'
-  );
+  return rdo.status === 'http://lblod.data.gift/file-download-statuses/failure';
 }
