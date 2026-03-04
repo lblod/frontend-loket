@@ -498,7 +498,7 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
 
   downloadAsZip = task(async () => {
     const promises = this.downloadableRemoteUrls.map((rdo) => {
-      return fetch(rdo.downloadLink).then((response) => {
+      return fetch(downloadLink(rdo)).then((response) => {
         if (!response.ok) {
           throw new Error(
             `Something went wrong while trying to download '${rdo.downloadLink}': ${response.status} ${response.statusText}`,
@@ -638,7 +638,7 @@ const RemoteDataObjectInfoCard = <template>
           <AuLinkExternal
             @icon="download"
             @skin="button"
-            href={{this.downloadLink @remoteDataObject}}
+            href={{(downloadLink @remoteDataObject)}}
             class="au-u-margin-left-small"
             download
           >
