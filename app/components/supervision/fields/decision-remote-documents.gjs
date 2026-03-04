@@ -497,16 +497,26 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
   }
 
   downloadAsZip = task(async () => {
-    const promises = this.downloadableRemoteUrls.map((rdo) => {
-      return fetch(downloadLink(rdo)).then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Something went wrong while trying to download '${rdo.downloadLink}': ${response.status} ${response.statusText}`,
-          );
-        }
+    const promises = this.downloadableRemoteUrls.map(async (rdo) => {
+      let response;
+      if (rdo?.file?.filename) {
+        //We add the id of the file in case of naming conflict.
+        response = await fetch(
+          downloadLink(
+            rdo,
+            `${rdo.file.id}_${rdo.file.filename}`,
+          ),
+        );
+      } else {
+        response = await fetch(downloadLink(rdo));
+      }
+      if (!response.ok) {
+        throw new Error(
+          `Something went wrong while trying to download '${rdo.downloadLink}': ${response.status} ${response.statusText}`,
+        );
+      }
 
-        return response;
-      });
+      return response;
     });
 
     try {
@@ -638,7 +648,10 @@ const RemoteDataObjectInfoCard = <template>
           <AuLinkExternal
             @icon="download"
             @skin="button"
-            href={{downloadLink @remoteDataObject}}
+            href={{downloadLink
+              @remoteDataObject
+              @remoteDataObject.file.filename
+            }}
             class="au-u-margin-left-small"
             download
           >
@@ -675,7 +688,10 @@ const RemoteDataObjectInfoCard = <template>
             <AuLinkExternal
               @icon="download"
               @skin="button"
-              href={{downloadLink @remoteDataObject}}
+              href={{downloadLink
+                @remoteDataObject
+                @remoteDataObject.file.filename
+              }}
               class="au-u-margin-left-small"
               download
             >

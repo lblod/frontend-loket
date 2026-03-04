@@ -1,5 +1,6 @@
-export function downloadLink(rdo) {
-  return `/files/${rdo.id}/download`;
+export function downloadLink(rdo, filename) {
+  const base = `/files/${rdo.id}/download`;
+  return filename ? `${base}?name=${encodeURIComponent(filename)}` : base;
 }
 
 export function downloadSuccess(rdo) {
