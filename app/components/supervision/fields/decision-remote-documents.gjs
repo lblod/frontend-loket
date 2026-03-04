@@ -502,10 +502,7 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
       if (rdo?.file?.filename) {
         //We add the id of the file in case of naming conflict.
         response = await fetch(
-          downloadLink(
-            rdo,
-            `${rdo.file.id}_${rdo.file.filename}`,
-          ),
+          downloadLink(rdo, `${rdo.file.id}_${rdo.file.filename}`),
         );
       } else {
         response = await fetch(downloadLink(rdo));
