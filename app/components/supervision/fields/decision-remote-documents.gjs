@@ -638,7 +638,7 @@ const RemoteDataObjectInfoCard = <template>
           <AuLinkExternal
             @icon="download"
             @skin="button"
-            href={{(downloadLink @remoteDataObject)}}
+            href={{downloadLink @remoteDataObject}}
             class="au-u-margin-left-small"
             download
           >
