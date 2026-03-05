@@ -33,6 +33,9 @@ export default class SearchRoute extends Route {
     authorities: {
       refreshModel: true,
     },
+    administrativeUnits: {
+      refreshModel: true,
+    },
   };
 
   beforeModel(transition) {
@@ -89,6 +92,17 @@ export default class SearchRoute extends Route {
       filter['type.broader.uuid'] = this.typeRecords.map((c) => c.id).join(',');
     }
 
+    this.administrativeUnitRecords = [];
+    if (params.administrativeUnits.length) {
+      this.administrativeUnitRecords = await Promise.all(
+        params.administrativeUnits.map((id) =>
+          this.store.findRecord('concept', id),
+        ),
+      );
+      filter['relevantAdministrativeUnits.uuid'] =
+        this.administrativeUnitRecords.map((c) => c.id).join(',');
+    }
+
     return search(
       'public-services',
       params.page,
@@ -112,6 +126,7 @@ export default class SearchRoute extends Route {
           'executingAuthorityLevels',
           'componentAuthorityLevels',
           'targetAudiences',
+          'administrativeUnits',
         ].forEach((attr) => {
           const value = product[attr];
           product[attr] = value ? (Array.isArray(value) ? value : [value]) : [];
@@ -126,6 +141,7 @@ export default class SearchRoute extends Route {
     controller.themeRecords = this.themeRecords || [];
     controller.typeRecords = this.typeRecords || [];
     controller.authorityRecords = this.authorityRecords || [];
+    controller.administrativeUnitRecords = this.administrativeUnitRecords || [];
     controller.searchTermBuffer = this.searchTerm;
   }
 

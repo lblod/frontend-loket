@@ -13,6 +13,8 @@ export default class SearchController extends Controller {
   serviceTypeConceptScheme = CONCEPT_SCHEMES.SERVICE_TYPE_FILTER;
   themeConceptScheme = CONCEPT_SCHEMES.THEME_FILTER;
   authorityConceptScheme = CONCEPT_SCHEMES.COMPETENT_AUTHORITY_FILTER;
+  administrativeUnitScheme =
+    CONCEPT_SCHEMES.RELEVANT_ADMINISTRATIVE_UNITS_FILTER;
 
   sortingOptions = [
     { label: 'Relevantie', value: 'score' },
@@ -29,10 +31,12 @@ export default class SearchController extends Controller {
   @tracked types = [];
   @tracked themes = [];
   @tracked authorities = [];
+  @tracked administrativeUnits = [];
   // set in Route `setupController`
   @tracked themeRecords;
   @tracked typeRecords;
   @tracked authorityRecords;
+  @tracked administrativeUnitRecords;
 
   @action
   updateSearchTermBuffer(event) {
@@ -76,13 +80,21 @@ export default class SearchController extends Controller {
     });
   }
 
+  @action
+  updateAdministrativeUnitFilter(administrativeUnits) {
+    this.withUpdateSortAndResetPage(() => {
+      this.administrativeUnits = administrativeUnits.map((record) => record.id);
+    });
+  }
+
   withUpdateSortAndResetPage(callback) {
     const isEmptySearch = () => {
       return (
         isEmpty(this.searchTerm) &&
         isEmpty(this.themes) &&
         isEmpty(this.types) &&
-        isEmpty(this.authorities)
+        isEmpty(this.authorities) &&
+        isEmpty(this.administrativeUnits)
       );
     };
 
