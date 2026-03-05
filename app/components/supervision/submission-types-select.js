@@ -39,7 +39,7 @@ export default class SupervisionSubmissionTypesSelect extends Component {
         },
       },
       sort: 'label',
-      size: 100,
+      page: { size: 100 },
     });
     this.besluitTypes = this.besluitTypes.slice();
   }
@@ -55,7 +55,7 @@ export default class SupervisionSubmissionTypesSelect extends Component {
         },
       },
       sort: 'label',
-      size: 100,
+      page: { size: 100 },
     });
 
     return results.slice();
