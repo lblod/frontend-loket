@@ -1,8 +1,14 @@
 
-## Unreleased
+## v1.7.0 (2026-03-05)
 
 #### :rocket: Enhancement
-* [#454](https://github.com/lblod/frontend-loket/pull/454/changes) [DL-7162] IPDC Enrichment: Integrate the new data in frontend loket ([@nikidevisscher](https://github.com/nikidevisscher))
+* [#454](https://github.com/lblod/frontend-loket/pull/454) [DL-7162]: IPDC Enrichment: Integrate the new data in frontend loket ([@NikiDeVisscher](https://github.com/NikiDeVisscher))
+* [#457](https://github.com/lblod/frontend-loket/pull/457) Improved file name remote url download and some other fixes ([@cecemel](https://github.com/cecemel))
+
+#### :bug: Bug Fix
+* [#455](https://github.com/lblod/frontend-loket/pull/455) [DL-7167] Fix bestuursorgaan filter ([@NikiDeVisscher](https://github.com/NikiDeVisscher))
+
+#### :rocket: Enhancement
 ## v1.6.0 (2026-03-03)
 
 #### :rocket: Enhancement
