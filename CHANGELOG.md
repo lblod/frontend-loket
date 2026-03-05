@@ -1,7 +1,12 @@
+
 ## Unreleased
 
 #### :rocket: Enhancement
 * [#454](https://github.com/lblod/frontend-loket/pull/454/changes) [DL-7162] IPDC Enrichment: Integrate the new data in frontend loket ([@nikidevisscher](https://github.com/nikidevisscher))
+## v1.6.0 (2026-03-03)
+
+#### :rocket: Enhancement
+* [#448](https://github.com/lblod/frontend-loket/pull/448) [DL-5428] Improved submission remote-data-objects list ([@benjay10](https://github.com/benjay10))
 
 ## v1.5.3 (2026-01-28)
 
