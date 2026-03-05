@@ -8,6 +8,7 @@ export default class SupervisionFilterSubmissions extends Component {
   @service store;
 
   @tracked filter;
+  @tracked showGoverningBodyFilter = true;
 
   constructor() {
     super(...arguments);
@@ -43,5 +44,9 @@ export default class SupervisionFilterSubmissions extends Component {
   resetFilters() {
     this.filter.reset();
     this.args.onFilterChange(this.filter);
+  }
+
+  @action handleShowGoverningBodyFilter(show) {
+    this.showGoverningBodyFilter = show ?? true;
   }
 }

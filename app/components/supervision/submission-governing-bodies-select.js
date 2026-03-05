@@ -48,6 +48,12 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
     this.governingBodies = this.governingBodies.filter(
       (orgaan) => orgaan.hasMany('heeftTijdsspecialisaties').value().length > 1,
     );
+
+    if (this.governingBodies.length <= 0) {
+      // If there are no governing bodies, do not show filter
+      this.args.onShowFilter(false);
+      return;
+    }
   }
 
   @restartableTask
