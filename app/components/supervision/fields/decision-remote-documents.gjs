@@ -656,6 +656,7 @@ const RemoteDataObjectInfoCard = <template>
           </AuLinkExternal>
         </div>
       {{else}}
+        // TODO: figure out if still needed.
         <div>
           <AuLabel @error={{true}}>
             Bestand onbeschikbaar
