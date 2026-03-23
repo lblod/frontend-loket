@@ -99,7 +99,7 @@ export default class SearchRoute extends Route {
           this.store.findRecord('concept', id),
         ),
       );
-      filter['relevantAdministrativeUnits.uuid'] =
+      filter[':terms:relevantAdministrativeUnits.uuid.keyword'] =
         this.administrativeUnitRecords.map((c) => c.id).join(',');
     }
 
