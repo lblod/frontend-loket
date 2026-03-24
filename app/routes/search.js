@@ -99,7 +99,7 @@ export default class SearchRoute extends Route {
           this.store.findRecord('concept', id),
         ),
       );
-      filter['relevantAdministrativeUnits.uuid'] =
+      filter[':terms:relevantAdministrativeUnits.uuid.keyword'] =
         this.administrativeUnitRecords.map((c) => c.id).join(',');
     }
 
@@ -124,9 +124,9 @@ export default class SearchRoute extends Route {
         [
           'thematicAreas',
           'executingAuthorityLevels',
-          'componentAuthorityLevels',
+          'competentAuthorityLevels',
           'targetAudiences',
-          'administrativeUnits',
+          'relevantAdministrativeUnits',
         ].forEach((attr) => {
           const value = product[attr];
           product[attr] = value ? (Array.isArray(value) ? value : [value]) : [];
