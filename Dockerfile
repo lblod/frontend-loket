@@ -1,4 +1,4 @@
-FROM node:20.12 as builder
+FROM node:20.12 AS builder
 
 LABEL maintainer="info@redpencil.io"
 
