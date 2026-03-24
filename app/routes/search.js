@@ -126,7 +126,7 @@ export default class SearchRoute extends Route {
           'executingAuthorityLevels',
           'competentAuthorityLevels',
           'targetAudiences',
-          'administrativeUnits',
+          'relevantAdministrativeUnits',
         ].forEach((attr) => {
           const value = product[attr];
           product[attr] = value ? (Array.isArray(value) ? value : [value]) : [];
