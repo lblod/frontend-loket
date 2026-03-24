@@ -53,6 +53,7 @@ export default class SearchRoute extends Route {
       'targetAudiences.uuid': targetAudience.id,
       isArchived: false,
       ':gte:filterEndDate': new Date().toISOString(),
+      ':has:datePublished': 't',
     };
 
     this.searchTerm = params.searchTerm;
