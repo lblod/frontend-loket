@@ -12,6 +12,7 @@ export default class PublicServiceModel extends Model {
   @attr('datetime') endDate;
   @attr('datetime') dateCreated;
   @attr('datetime') dateModified;
+  @attr('datetime') datePublished;
   @attr('string') productId;
   @belongsTo('concept', { async: true, inverse: null }) type;
   @belongsTo('concept', { async: true, inverse: null }) concept;
