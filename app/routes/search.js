@@ -124,7 +124,7 @@ export default class SearchRoute extends Route {
         [
           'thematicAreas',
           'executingAuthorityLevels',
-          'componentAuthorityLevels',
+          'competentAuthorityLevels',
           'targetAudiences',
           'administrativeUnits',
         ].forEach((attr) => {
