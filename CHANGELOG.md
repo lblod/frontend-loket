@@ -1,3 +1,6 @@
+## v1.7.1 (2026-03-24)
+#### :bug: Bug Fix
+* [#458](https://github.com/lblod/frontend-loket/pull/458) [DL-7255] Fix filters 'Doelgroep' behave incorrectly when used in combination ([@NikiDeVisscher](https://github.com/NikiDeVisscher))
 
 ## v1.7.0 (2026-03-05)
 
