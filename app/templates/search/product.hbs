@@ -1,6 +1,17 @@
-<IpdcServiceSidepanel
-  @publicService={{@model.publicService}}
-  @primaryWebsite={{@model.primaryWebsite}}
-  @otherWebsites={{@model.otherWebsites}}
-  @onClose={{this.closeDetail}}
-/>
+<Await @promise={{@model.dataPromise}}>
+  <:pending>
+    <IpdcServiceSidepanel
+      @loading={{true}}
+      @onClose={{this.closeDetail}}
+    />
+  </:pending>
+
+  <:success as |result|>
+    <IpdcServiceSidepanel
+      @publicService={{result.publicService}}
+      @primaryWebsite={{result.primaryWebsite}}
+      @otherWebsites={{result.otherWebsites}}
+      @onClose={{this.closeDetail}}
+    />
+  </:success>
+</Await>

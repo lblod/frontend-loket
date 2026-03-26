@@ -6,12 +6,25 @@ import { getPublicServiceCta } from 'frontend-loket/utils/get-public-service-cta
 export default class SearchProductRoute extends Route {
   @service store;
 
-  async model(params) {
+  model(params) {
+    return {
+      dataPromise: this.loadData(params),
+    };
+  }
+
+  async loadData(params) {
     const publicService = await this.store.findRecord(
       'public-service',
       params.product_id,
       {
-        include: 'websites,procedures.websites',
+        include: [
+          'type',
+          'thematic-areas',
+          'competent-authority',
+          'relevant-administrative-units',
+          'websites',
+          'procedures.websites',
+        ].join(),
         reload: true,
       },
     );
