@@ -1,12 +1,13 @@
 import config from 'frontend-loket/config/environment';
 
-export function remapWebsiteUrl(website) {
+export function remapWebsiteUrl(url) {
   if (!shouldRemapUrls()) {
-    return;
+    return url;
   }
+
   try {
     const urlMap = csvUrlMapToObject(config.urlMap);
-    website.url = remapUrl(website.url, urlMap);
+    return remapUrl(url, urlMap);
   } catch {
     console.warn(
       'The URL map doesn\'t seem valid, be sure it\'s csv in the "url,mapped-url,url,mapped-url" format',

@@ -1,1 +1,6 @@
-<IpdcServiceSidepanel @model={{@model}} @onClose={{this.closeDetail}} />
+<IpdcServiceSidepanel
+  @publicService={{@model.publicService}}
+  @primaryWebsite={{@model.primaryWebsite}}
+  @otherWebsites={{@model.otherWebsites}}
+  @onClose={{this.closeDetail}}
+/>

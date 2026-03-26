@@ -344,3 +344,13 @@
 .au-c-content a:not(.au-c-button) {
   @extend .au-c-link;
 }
+
+// Appuniversum doesn't have a way to style lists other than with AuContent, which isn't always suitable
+.u-list {
+  list-style-position: outside;
+  margin-left: 2.4rem;
+}
+
+ul.u-list {
+  list-style-type: disc;
+}
