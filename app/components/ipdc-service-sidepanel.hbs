@@ -8,8 +8,12 @@
     <div
       class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny au-u-margin-bottom"
     >
-      <div class="au-u-flex au-u-flex--between">
-        <Favorite @product={{@model}} />
+      <div
+        class="au-u-flex {{if @loading 'au-u-flex--end' 'au-u-flex--between'}}"
+      >
+        {{#unless @loading}}
+          <Favorite @product={{@publicService}} />
+        {{/unless}}
         <AuLink
           @skin="button-naked"
           @icon="cross"
@@ -19,60 +23,74 @@
           Sluiten
         </AuLink>
       </div>
-      <div class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny">
-        <h1 class="au-u-h3">{{@model.name.default}}</h1>
-        <div class="au-u-flex au-u-flex--spaced-tiny au-u-flex--wrap">
-          {{#if @model.endDate}}
-            <AuPill @skin="warning" @size="small">Deadline:
-              {{format-date @model.endDate}}</AuPill>
-          {{else}}
-            <AuPill @skin="default" @size="small">Deadline: onbekend</AuPill>
-          {{/if}}
-          {{#if @model.thematicAreas}}
-            {{#each @model.thematicAreas as |theme|}}
-              <BroaderConceptPills @uri={{theme.uri}} />
-            {{/each}}
-          {{/if}}
-          {{#if @model.type}}
-            <BroaderConceptPills @uri={{@model.type.uri}} />
-          {{/if}}
+      {{#unless @loading}}
+        <div class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny">
+          <h1 class="au-u-h3">{{@publicService.name.default}}</h1>
+          <div class="au-u-flex au-u-flex--spaced-tiny au-u-flex--wrap">
+            {{#if @publicService.endDate}}
+              <AuPill @skin="warning" @size="small">Deadline:
+                {{format-date @publicService.endDate}}</AuPill>
+            {{else}}
+              <AuPill @skin="default" @size="small">Deadline: onbekend</AuPill>
+            {{/if}}
+            {{#if @publicService.thematicAreas}}
+              {{#each @publicService.thematicAreas as |theme|}}
+                <BroaderConceptPills @uri={{theme.uri}} />
+              {{/each}}
+            {{/if}}
+            {{#if @publicService.type}}
+              <BroaderConceptPills @uri={{@publicService.type.uri}} />
+            {{/if}}
+          </div>
         </div>
-      </div>
+      {{/unless}}
     </div>
 
-    {{#if @model.competentAuthority}}
-      <div class="au-o-flow--tiny">
-        <span class="au-u-medium">Aangeboden door:</span>
-        {{@model.competentAuthority.label}}
+    {{#if @loading}}
+      <AuLoader class="au-u-margin-top-huge">Aan het laden</AuLoader>
+    {{else}}
+      {{#if @publicService.competentAuthority}}
+        <div class="au-o-flow--tiny">
+          <span class="au-u-medium">Aangeboden door:</span>
+          {{@publicService.competentAuthority.label}}
+        </div>
+      {{/if}}
+      {{#if @publicService.relevantAdministrativeUnits}}
+        <div class="au-o-flow--tiny au-u-margin-bottom">
+          <span class="au-u-medium">Doelgroep(en):</span>
+          {{#each @publicService.relevantAdministrativeUnits as |unit|}}
+            <AuPill @skin="default" @size="small">
+              {{unit.label}}
+            </AuPill>
+          {{/each}}
+        </div>
+      {{/if}}
+      <div class="au-o-flow--tiny au-u-margin-top au-u-margin-bottom">
+        <IpdcServiceCtaButton @website={{@primaryWebsite}} />
+        <AuContent @skin="small">
+          {{! template-lint-disable no-triple-curlies}}
+          {{{@publicService.description.default}}}
+        </AuContent>
+      </div>
+      <div
+        class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny au-u-margin-bottom"
+      >
+        {{#if @otherWebsites}}
+          <AuHeading @level="2" @skin="6">Meer informatie</AuHeading>
+          <ul class="u-list">
+            {{#each @otherWebsites as |website|}}
+              <li>
+                <AuLinkExternal
+                  href={{remap-url website.url}}
+                  class="c-external"
+                >
+                  {{website.title.default}}
+                </AuLinkExternal>
+              </li>
+            {{/each}}
+          </ul>
+        {{/if}}
       </div>
     {{/if}}
-    {{#if @model.relevantAdministrativeUnits}}
-      <div class="au-o-flow--tiny au-u-margin-bottom">
-        <span class="au-u-medium">Doelgroep(en):</span>
-        {{#each @model.relevantAdministrativeUnits as |unit|}}
-          <AuPill @skin="default" @size="small">
-            {{unit.label}}
-          </AuPill>
-        {{/each}}
-      </div>
-    {{/if}}
-    <div class="au-o-flow--tiny au-u-margin-bottom">
-      <IpdcServiceCtaButton @model={{@model}} />
-      <AuContent @skin="small">
-        {{! template-lint-disable no-triple-curlies}}
-        {{{@model.description.default}}}
-      </AuContent>
-    </div>
-    <div
-      class="au-u-flex au-u-flex--column au-u-flex--spaced-tiny au-u-margin-bottom"
-    >
-      {{#each @model.procedures as |procedure|}}
-        {{#each procedure.websites as |website|}}
-          <AuLinkExternal href={{website.url}} class="c-external">
-            {{website.title.default}}
-          </AuLinkExternal>
-        {{/each}}
-      {{/each}}
-    </div>
   </div>
 </div>

@@ -1,10 +1,10 @@
-{{#if this.callToAction}}
+{{#if @website}}
   <AuLinkExternal
-    href={{this.callToAction.url}}
+    href={{remap-url @website.url}}
     @skin="button"
     @icon="external-link"
     @iconAlignment="right"
     class="au-u-margin-bottom-small">
-    {{this.callToAction.title.default}}
+    {{@website.title.default}}
   </AuLinkExternal>
 {{/if}}
