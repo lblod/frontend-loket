@@ -3,6 +3,7 @@ import { inject as service } from '@ember/service';
 import RSVP from 'rsvp';
 import moment from 'moment';
 import { sortByStartDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';
+import { buildLinkMetaObject } from 'frontend-loket/helpers/relevant-user-manual-link';
 
 export default class EredienstMandatenbeheerRoute extends Route {
   @service currentSession;
@@ -14,6 +15,12 @@ export default class EredienstMandatenbeheerRoute extends Route {
     startDate: { refreshModel: true },
     endDate: { refreshModel: true },
   };
+
+  buildRouteInfoMetadata() {
+    return buildLinkMetaObject(
+      'https://abb-vlaanderen.gitbook.io/handleiding-mandatenbeheer-erediensten',
+    );
+  }
 
   beforeModel(transition) {
     if (this.session.requireAuthentication(transition, 'login')) {
