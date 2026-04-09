@@ -28,6 +28,13 @@
   />
 </div>
 
+<AuAlert @skin="info" @icon="manual" @size="small">
+  Meer informatie vindt u in de
+  <AuLinkExternal
+    href="https://abb-vlaanderen.gitbook.io/handleiding-toezicht"
+  >handleiding</AuLinkExternal>.
+</AuAlert>
+
 <AuDataTable
   @content={{this.model}}
   @isLoading={{this.isLoadingModel}}

@@ -40,9 +40,8 @@
           <AuList @divider={{true}} as |ListItem|>
             <ListItem>
               <AuLinkExternal
-                @skin="naked"
                 @icon="manual"
-                href="https://abb-vlaanderen.gitbook.io/handleiding-loket"
+                href={{(relevant-user-manual-link)}}
               >
                 Handleiding
               </AuLinkExternal>
@@ -56,7 +55,6 @@
           <AuList @divider={{true}} as |ListItem|>
             <ListItem>
               <AuLinkExternal
-                @skin="naked"
                 @icon="mail"
                 href="mailto:LoketLokaalBestuur@vlaanderen.be"
               >
