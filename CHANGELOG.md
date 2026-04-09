@@ -1,3 +1,9 @@
+## v1.9.0 (2026-04-09)
+
+#### :rocket: Enhancement
+* [#461](https://github.com/lblod/frontend-loket/pull/461) [DL-7261] Update user manual links ([@Windvis](https://github.com/Windvis))
+* [#460](https://github.com/lblod/frontend-loket/pull/460) [DL-7239] Public service sidebar improvements ([@Windvis](https://github.com/Windvis))
+
 ## v1.8.0 (2026-03-24)
 #### Enhancement
 * Add datePublished filter to ipdc producten list (https://github.com/lblod/frontend-loket/pull/459s)
