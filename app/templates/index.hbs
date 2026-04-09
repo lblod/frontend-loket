@@ -71,14 +71,14 @@
                 {{#if favorite.website.url}}
                   <AuLinkExternal
                     @skin="naked"
-                    href={{favorite.website.url}}
+                    href={{remap-url favorite.website.url}}
                     class="favorite-title au-u-medium"
                     title={{favorite.product.name.default}}
                   >
                     {{favorite.product.name.default}}
                   </AuLinkExternal>
                   <AuLinkExternal
-                    href={{favorite.website.url}}
+                    href={{remap-url favorite.website.url}}
                     @skin="naked"
                     @icon="external-link"
                     @iconAlignment="right"
