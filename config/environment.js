@@ -61,6 +61,10 @@ module.exports = function (environment) {
       disablePerformance: true,
     },
     globalSystemNotification: '{{GLOBAL_SYSTEM_NOTIFICATION}}',
+    newLoketAnnouncement: {
+      title: '{{NEW_LOKET_ANNOUNCEMENT_TITLE}}',
+      message: '{{NEW_LOKET_ANNOUNCEMENT_MESSAGE}}',
+    },
   };
 
   if (environment === 'development') {

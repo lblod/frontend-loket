@@ -22,6 +22,8 @@ The [mu-semtech/static-file-service](https://github.com/mu-semtech/static-file-s
 | `EMBER_OPEN_PROCES_HUIS_URL`               | Link to the open proces huis app                                                                      |
 | `EMBER_OPEN_PROCES_HUIS_ROLE`              | ACM/IDM user role that is used to display the app link. defaults to `LoketLB-OpenProcesHuisGebruiker` |
 | `EMBER_GLOBAL_SYSTEM_NOTIFICATION`         | This can be used to display a message at the top of the application. HTML is supported.               |
+| `EMBER_NEW_LOKET_ANNOUNCEMENT_TITLE`       | Adjust the title of the "new loket" announcement banner. This is optional                             |
+| `EMBER_NEW_LOKET_ANNOUNCEMENT_MESSAGE`     | Adjust the message of the "new loket" announcement banner. HTML is supported.                         |
 
 ### ACM/IDM
 
@@ -49,7 +51,6 @@ Feature flags are new / experimental features that can be enabled by setting the
 
 The "new loket" feature displays a list of public services that are available. We use the production data on all environments but still want to link to correct environment specific versions. To enable this we added the `EMBER_PUBLIC_SERVICE_URL_MAP` variable that should be provided a CSV string of the url and the mapped url in the following format:
 
-
 ```yml
 services:
   frontend:
@@ -57,7 +58,6 @@ services:
       EMBER_FEATURE_NEW_LOKET: "true"
       EMBER_PUBLIC_SERVICE_URL_MAP: "https://url-a,https://mapped-url-a,https://url-b,https://mapped-url-b"
 ```
-
 
 ### Plausible
 
