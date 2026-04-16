@@ -1,3 +1,8 @@
+## v1.10.0 (2026-04-16)
+
+#### :rocket: Enhancement
+* [#463](https://github.com/lblod/frontend-loket/pull/463) [DL-7286] Add an info banner for the new loket release ([@Windvis](https://github.com/Windvis))
+
 ## v1.9.0 (2026-04-09)
 
 #### :rocket: Enhancement
