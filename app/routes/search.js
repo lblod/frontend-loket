@@ -37,7 +37,7 @@ export default class SearchRoute extends Route {
       refreshModel: true,
     },
     useDefaultUnitFilter: {
-      refreshModel: true
+      refreshModel: true,
     },
   };
 
