@@ -9,11 +9,20 @@
         </p>
         <div class="au-o-box au-o-box--small">
           <ConceptSchemeFilter
+            @conceptScheme={{this.administrativeUnitScheme}}
+            @selected={{this.administrativeUnitRecords}}
+            @onChange={{this.updateAdministrativeUnitFilter}}
+            @label="Doelgroep"
+            @isOpenInitially={{true}}
+          />
+        </div>
+        <div class="au-o-box au-o-box--small">
+          <ConceptSchemeFilter
             @conceptScheme={{this.themeConceptScheme}}
             @selected={{this.themeRecords}}
             @onChange={{this.updateThemeFilter}}
             @label="Thematisch"
-            @isOpenInitially={{true}}
+            @isOpenInitially={{not (is-empty this.typeRecords)}}
           />
         </div>
         <div class="au-o-box au-o-box--small">
@@ -32,15 +41,6 @@
             @onChange={{this.updateAuthorityFilter}}
             @label="Aanbieder"
             @isOpenInitially={{not (is-empty this.authorityRecords)}}
-          />
-        </div>
-        <div class="au-o-box au-o-box--small">
-          <ConceptSchemeFilter
-            @conceptScheme={{this.administrativeUnitScheme}}
-            @selected={{this.administrativeUnitRecords}}
-            @onChange={{this.updateAdministrativeUnitFilter}}
-            @label="Doelgroep"
-            @isOpenInitially={{not (is-empty this.administrativeUnitRecords)}}
           />
         </div>
       </div>
