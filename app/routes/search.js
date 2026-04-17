@@ -36,7 +36,7 @@ export default class SearchRoute extends Route {
     administrativeUnits: {
       refreshModel: true,
     },
-    useDefaultUnitFilter: {
+    useDefaultAdminUnitFilter: {
       refreshModel: true,
     },
   };
@@ -97,7 +97,7 @@ export default class SearchRoute extends Route {
     }
 
     let classification = this.session.currentSession.group.classificatie;
-    if (params.useDefaultUnitFilter !== false) {
+    if (params.useDefaultAdminUnitFilter !== false) {
       params.administrativeUnits = [classification.id];
     }
 

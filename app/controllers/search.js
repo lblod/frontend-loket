@@ -32,7 +32,7 @@ export default class SearchController extends Controller {
   @tracked themes = [];
   @tracked authorities = [];
   @tracked administrativeUnits = [];
-  @tracked useDefaultUnitFilter = true;
+  @tracked useDefaultAdminUnitFilter = true;
   // set in Route `setupController`
   @tracked themeRecords;
   @tracked typeRecords;
@@ -85,7 +85,7 @@ export default class SearchController extends Controller {
   updateAdministrativeUnitFilter(administrativeUnits) {
     this.withUpdateSortAndResetPage(() => {
       this.administrativeUnits = administrativeUnits.map((record) => record.id);
-      this.useDefaultUnitFilter = false;
+      this.useDefaultAdminUnitFilter = false;
     });
   }
 
