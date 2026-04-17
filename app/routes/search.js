@@ -36,6 +36,9 @@ export default class SearchRoute extends Route {
     administrativeUnits: {
       refreshModel: true,
     },
+    useDefaultAdminUnitFilter: {
+      refreshModel: true,
+    },
   };
 
   beforeModel(transition) {
@@ -91,6 +94,11 @@ export default class SearchRoute extends Route {
         params.types.map((id) => this.store.findRecord('concept', id)),
       );
       filter['type.broader.uuid'] = this.typeRecords.map((c) => c.id).join(',');
+    }
+
+    let classification = this.session.currentSession.group.classificatie;
+    if (params.useDefaultAdminUnitFilter !== false) {
+      params.administrativeUnits = [classification.id];
     }
 
     this.administrativeUnitRecords = [];
