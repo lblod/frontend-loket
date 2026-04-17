@@ -1,3 +1,8 @@
+## v1.10.1 (2026-04-11)
+
+#### :bug: Bug Fix
+* [#464](https://github.com/lblod/frontend-loket/pull/464) [DL-7300] Use relevantAdministrativeUnit filter by default ([@NikiDeVisscher](https://github.com/NikiDeVisscher))
+
 ## v1.10.0 (2026-04-16)
 
 #### :rocket: Enhancement
