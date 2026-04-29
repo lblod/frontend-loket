@@ -4,8 +4,34 @@ import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
 import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
+import moment from 'moment';
 
 export const NO_PROVENANCE_VENDOR_ID = 'none';
+
+async function getOtherPeriods(mandataris, selectedPeriod) {
+  const mandate = await mandataris.bekleedt;
+  const bestuursorganenInTijd = await mandate.bevatIn;
+
+  const ranges = bestuursorganenInTijd
+    .map((b) => ({
+      startDate: moment(b.bindingStart).format('YYYY-MM-DD'),
+      endDate: b.bindingEinde
+        ? moment(b.bindingEinde).format('YYYY-MM-DD')
+        : null,
+    }))
+    .filter(
+      (p) =>
+        p.startDate !== selectedPeriod.startDate ||
+        p.endDate !== selectedPeriod.endDate,
+    )
+    .sort((a, b) => a.startDate.localeCompare(b.startDate))
+    .map(
+      (p) =>
+        `${moment(p.startDate).format('YYYY')}-${p.endDate ? moment(p.endDate).format('YYYY') : 'heden'}`,
+    );
+
+  return [...new Set(ranges)].join(', ');
+}
 
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
   DataTableRouteMixin,
@@ -28,12 +54,20 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
   }
 
   async afterModel(mandatarissen) {
+    const selectedPeriod = this.mandatenbeheer.selectedPeriod;
+
     let mandatarisBestuursorganen = mandatarissen.reduce((data, mandataris) => {
       data[mandataris.id] = getUniqueBestuursorganen(mandataris);
       return data;
     }, {});
 
+    let mandatarisOtherPeriods = mandatarissen.reduce((data, mandataris) => {
+      data[mandataris.id] = getOtherPeriods(mandataris, selectedPeriod);
+      return data;
+    }, {});
+
     this.mandatarisBestuursorganen = await hash(mandatarisBestuursorganen);
+    this.mandatarisOtherPeriods = await hash(mandatarisOtherPeriods);
   }
 
   mergeQueryOptions(params) {
@@ -78,5 +112,6 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
     )['filter'];
     controller.mandatenbeheer = this.mandatenbeheer;
     controller.mandatarisBestuursorganen = this.mandatarisBestuursorganen;
+    controller.mandatarisOtherPeriods = this.mandatarisOtherPeriods;
   }
 }

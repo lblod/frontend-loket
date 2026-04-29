@@ -123,6 +123,13 @@
         </td>
         <td>
           {{row.bekleedt.bestuursfunctie.label}}
+          {{#let (get this.mandatarisOtherPeriods row.id) as |otherPeriods|}}
+            {{#if otherPeriods}}
+              <div class="au-u-h6 au-u-muted">
+                Tevens van kracht in periode {{otherPeriods}}
+              </div>
+            {{/if}}
+          {{/let}}
         </td>
         <td class="au-u-visible-medium-up">{{moment-format
             row.start
