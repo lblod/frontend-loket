@@ -50,8 +50,7 @@
 
   <AuAlert @skin="info" @icon="info-circle" @size="small">
     Foutje in de gegevens? Contacteer ons gerust, dan zetten we dit samen recht.
-    U vindt onze contactgegevens onder het icoontje
-    <AuIcon @icon="question-circle" />, bovenaan de pagina.
+    U vindt onze contactgegevens in de helpsectie, bovenaan de pagina.
   </AuAlert>
 
   <AuAlert @skin="warning" @icon="alert-triangle" @size="small">Gelieve
@@ -123,13 +122,16 @@
         </td>
         <td>
           {{row.bekleedt.bestuursfunctie.label}}
-          {{#let (get this.mandatarisOtherPeriods row.id) as |otherPeriods|}}
-            {{#if otherPeriods}}
-              <div class="au-u-h6 au-u-muted">
-                Tevens van kracht in periode {{otherPeriods}}
-              </div>
+          {{#let
+            (get this.mandatarisActivePeriods row.id) as |activePeriodsLabel|
+          }}
+            {{#if activePeriodsLabel}}
+              <div class="au-u-h6 au-u-muted">{{activePeriodsLabel}}</div>
             {{/if}}
           {{/let}}
+          <div class="au-u-h-functional au-u-muted">
+            Voor meer informatie hieromtrent, kan u de helpsectie te consulteren.
+          </div>
         </td>
         <td class="au-u-visible-medium-up">{{moment-format
             row.start

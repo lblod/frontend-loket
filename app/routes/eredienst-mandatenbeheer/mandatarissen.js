@@ -3,13 +3,20 @@ import Route from '@ember/routing/route';
 import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
 import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
+import { isLifetimeBoardPosition } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { hash } from 'rsvp';
 import moment from 'moment';
 
 export const NO_PROVENANCE_VENDOR_ID = 'none';
 
-async function getOtherPeriods(mandataris, selectedPeriod) {
+async function getActivePeriodsLabel(mandataris) {
   const mandate = await mandataris.bekleedt;
+  const bestuursfunctie = await mandate.bestuursfunctie;
+
+  if (isLifetimeBoardPosition(bestuursfunctie)) {
+    return 'Dit mandaat is een permanent mandaat.';
+  }
+
   const bestuursorganenInTijd = await mandate.bevatIn;
 
   const ranges = bestuursorganenInTijd
@@ -19,18 +26,15 @@ async function getOtherPeriods(mandataris, selectedPeriod) {
         ? moment(b.bindingEinde).format('YYYY-MM-DD')
         : null,
     }))
-    .filter(
-      (p) =>
-        p.startDate !== selectedPeriod.startDate ||
-        p.endDate !== selectedPeriod.endDate,
-    )
     .sort((a, b) => a.startDate.localeCompare(b.startDate))
     .map(
       (p) =>
         `${moment(p.startDate).format('YYYY')}-${p.endDate ? moment(p.endDate).format('YYYY') : 'heden'}`,
     );
 
-  return [...new Set(ranges)].join(', ');
+  const unique = [...new Set(ranges)];
+  if (!unique.length) return '';
+  return `Dit mandaat loopt over de volgende bestuursperiodes: ${unique.join(', ')}.`;
 }
 
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
@@ -54,20 +58,18 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
   }
 
   async afterModel(mandatarissen) {
-    const selectedPeriod = this.mandatenbeheer.selectedPeriod;
-
     let mandatarisBestuursorganen = mandatarissen.reduce((data, mandataris) => {
       data[mandataris.id] = getUniqueBestuursorganen(mandataris);
       return data;
     }, {});
 
-    let mandatarisOtherPeriods = mandatarissen.reduce((data, mandataris) => {
-      data[mandataris.id] = getOtherPeriods(mandataris, selectedPeriod);
+    let mandatarisActivePeriods = mandatarissen.reduce((data, mandataris) => {
+      data[mandataris.id] = getActivePeriodsLabel(mandataris);
       return data;
     }, {});
 
     this.mandatarisBestuursorganen = await hash(mandatarisBestuursorganen);
-    this.mandatarisOtherPeriods = await hash(mandatarisOtherPeriods);
+    this.mandatarisActivePeriods = await hash(mandatarisActivePeriods);
   }
 
   mergeQueryOptions(params) {
@@ -112,6 +114,6 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
     )['filter'];
     controller.mandatenbeheer = this.mandatenbeheer;
     controller.mandatarisBestuursorganen = this.mandatarisBestuursorganen;
-    controller.mandatarisOtherPeriods = this.mandatarisOtherPeriods;
+    controller.mandatarisActivePeriods = this.mandatarisActivePeriods;
   }
 }
