@@ -3,7 +3,8 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { restartableTask, timeout } from 'ember-concurrency';
-import { NO_PROVENANCE_VENDOR_ID } from 'frontend-loket/routes/eredienst-mandatenbeheer/mandatarissen';
+
+const NO_PROVENANCE_VENDOR_ID = 'none';
 
 export default class EredienstMandatenbeheerMandatarissenController extends Controller {
   @service() router;
