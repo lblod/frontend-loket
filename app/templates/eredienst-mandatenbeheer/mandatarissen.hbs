@@ -39,7 +39,19 @@
         {{on "input" (perform this.search value="target.value")}}
       />
     </Group>
+    <Group class="au-u-1-3@medium">
+      <EredienstMandatenbeheer::VendorSelector
+        @options={{this.vendorOptions}}
+        @selectedVendor={{this.selectedVendor}}
+        @onSelect={{this.selectVendor}}
+      />
+    </Group>
   </AuToolbar>
+
+  <AuAlert @skin="info" @icon="info-circle" @size="small">
+    Foutje in de gegevens? Contacteer ons gerust, dan zetten we dit samen recht.
+    U vindt onze contactgegevens in de helpsectie, bovenaan de pagina.
+  </AuAlert>
 
   <AuAlert @skin="warning" @icon="alert-triangle" @size="small">Gelieve
     Bestuursleden met mandaten Penningmeester, Secretaris of Voorzitter ook
@@ -89,6 +101,7 @@
           @label="Einddatum"
           class="au-u-visible-medium-up"
         />
+        <th>Bron</th>
         <th></th>
       </c.header>
       <c.body data-test-loket="mandatarissen-body" as |row|>
@@ -109,6 +122,16 @@
         </td>
         <td>
           {{row.bekleedt.bestuursfunctie.label}}
+          {{#let
+            (get this.mandatarisActivePeriods row.id) as |activePeriodsLabel|
+          }}
+            {{#if activePeriodsLabel}}
+              <div class="au-u-h6 au-u-muted">{{activePeriodsLabel}}</div>
+            {{/if}}
+          {{/let}}
+          <div class="au-u-h-functional au-u-muted">
+            Voor meer informatie hieromtrent, kan u de helpsectie te consulteren.
+          </div>
         </td>
         <td class="au-u-visible-medium-up">{{moment-format
             row.start
@@ -118,6 +141,7 @@
             row.einde
             "DD-MM-YYYY"
           }}</td>
+        <td>{{if row.provenance.name row.provenance.name "Loket voor lokale besturen"}}</td>
         <td>
           {{#if this.currentSession.hasViewOnlyWorshipMandateesManagementData}}
             <AuLink
