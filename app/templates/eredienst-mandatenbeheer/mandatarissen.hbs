@@ -151,7 +151,13 @@
           }}</td>
         <td>{{if row.provenance.name row.provenance.name "Loket voor lokale besturen"}}</td>
         <td>
-          {{#if this.currentSession.hasViewOnlyWorshipMandateesManagementData}}
+          {{! Fixing mixed situations, hence the OR. TODO: maybe rethink the view only mode }}
+          {{#if
+            (or
+              this.currentSession.hasViewOnlyWorshipMandateesManagementData
+              row.provenance.id
+            )
+          }}
             <AuLink
               @route="eredienst-mandatenbeheer.mandataris.details"
               @model={{row.id}}
