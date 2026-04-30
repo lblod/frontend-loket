@@ -5,10 +5,20 @@ import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
 
+export const NO_PROVENANCE_VENDOR_ID = 'none';
+
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
   DataTableRouteMixin,
 ) {
   @service store;
+
+  queryParams = {
+    filter: { refreshModel: true },
+    page: { refreshModel: true },
+    size: { refreshModel: true },
+    sort: { refreshModel: true },
+    vendorId: { refreshModel: true },
+  };
 
   modelName = 'worship-mandatee';
 
@@ -44,11 +54,18 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
         'bekleedt.bevat-in.is-tijdsspecialisatie-van',
         'is-bestuurlijke-alias-van',
         'bekleedt.bestuursfunctie',
+        'provenance',
       ].join(','),
     };
 
     if (params.filter) {
       queryParams['filter']['is-bestuurlijke-alias-van'] = params.filter;
+    }
+
+    if (params.vendorId === NO_PROVENANCE_VENDOR_ID) {
+      queryParams['filter'][':has-no:provenance'] = true;
+    } else if (params.vendorId) {
+      queryParams['filter']['provenance'] = { id: params.vendorId };
     }
 
     return queryParams;

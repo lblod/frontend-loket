@@ -1,0 +1,12 @@
+<PowerSelect
+  @placeholder="Bron"
+  @options={{@options}}
+  @selected={{@selectedVendor}}
+  @onChange={{this.selectVendor}}
+  @allowClear={{true}}
+  @searchField="name"
+  @triggerClass="au-u-1-1"
+  as |vendor|
+>
+  {{vendor.name}}
+</PowerSelect>
