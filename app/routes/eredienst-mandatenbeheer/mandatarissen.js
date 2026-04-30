@@ -3,17 +3,19 @@ import Route from '@ember/routing/route';
 import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
 import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
-import { isLifetimeBoardPosition } from 'frontend-loket/utils/eredienst-mandatenbeheer';
 import { hash } from 'rsvp';
 import moment from 'moment';
 
-export const NO_PROVENANCE_VENDOR_ID = 'none';
+const LIFETIME_BOARD_POSITION_URI =
+  'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5972fccd87f864c4ec06bfbd20b5008b';
+
+const NO_PROVENANCE_VENDOR_ID = 'none';
 
 async function getActivePeriodsLabel(mandataris) {
   const mandate = await mandataris.bekleedt;
   const bestuursfunctie = await mandate.bestuursfunctie;
 
-  if (isLifetimeBoardPosition(bestuursfunctie)) {
+  if (bestuursfunctie.uri === LIFETIME_BOARD_POSITION_URI) {
     return 'Dit mandaat is een permanent mandaat.';
   }
 
@@ -32,9 +34,8 @@ async function getActivePeriodsLabel(mandataris) {
         `${moment(p.startDate).format('YYYY')}-${p.endDate ? moment(p.endDate).format('YYYY') : 'heden'}`,
     );
 
-  const unique = [...new Set(ranges)];
-  if (!unique.length) return '';
-  return `Dit mandaat loopt over de volgende bestuursperiodes: ${unique.join(', ')}.`;
+  if (!ranges.length) return '';
+  return `Dit mandaat loopt over de volgende bestuursperiodes: ${ranges.join(', ')}.`;
 }
 
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(

@@ -2,7 +2,8 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { NO_PROVENANCE_VENDOR_ID } from 'frontend-loket/routes/eredienst-mandatenbeheer/mandatarissen';
+
+const NO_PROVENANCE_VENDOR_ID = 'none';
 
 export default class WorshipMinistersManagementIndexController extends Controller {
   @service currentSession;
