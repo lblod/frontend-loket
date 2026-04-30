@@ -20,6 +20,8 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   @tracked size = 10;
   @tracked vendorId = null;
   @tracked active = true;
+  @tracked mandatarisBestuursorganen;
+  @tracked mandatarisActivePeriods;
 
   // TODO: hardcoded for now, only one real vendor exists in production.
   // Once more vendors exist, fetch them from the API

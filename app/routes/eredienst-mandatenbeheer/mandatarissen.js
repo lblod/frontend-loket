@@ -18,7 +18,7 @@ async function getActivePeriodsLabel(mandataris) {
   if (bestuursfunctie.uri === LIFETIME_BOARD_POSITION_URI) {
     return 'Dit mandaat is een permanent mandaat.';
   }
-
+  
   const bestuursorganenInTijd = await mandate.bevatIn;
 
   const ranges = bestuursorganenInTijd
