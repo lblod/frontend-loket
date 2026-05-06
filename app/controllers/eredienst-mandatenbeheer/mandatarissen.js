@@ -11,6 +11,7 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   sort = 'is-bestuurlijke-alias-van.gebruikte-voornaam';
 
   @tracked mandatenbeheer;
+  @tracked mandatarisBestuursorganen;
   @tracked filter = '';
   @tracked page = 0;
   @tracked size = 10;
