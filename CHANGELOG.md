@@ -1,3 +1,8 @@
+## v1.10.2 (2026-05-06)
+
+#### :bug: Bug Fix
+* [#473](https://github.com/lblod/frontend-loket/pull/473) [DL-7331] Ensure the "orgaan" column is displayed correctly ([@DamonKennes](https://github.com/DamonKennes))
+
 ## v1.10.1 (2026-04-11)
 
 #### :bug: Bug Fix
