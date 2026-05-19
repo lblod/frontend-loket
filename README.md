@@ -8,22 +8,23 @@ The [mu-semtech/static-file-service](https://github.com/mu-semtech/static-file-s
 
 ### General
 
-| Name                                       | Description                                                                                           |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `EMBER_LPDC_URL`                           | Link to the LPDC application                                                                          |
-| `EMBER_WORSHIP_DECISIONS_DATABASE_URL`     | Link to the worship decisions database                                                                |
-| `EMBER_WORSHIP_ORGANISATIONS_DATABASE_URL` | Link to the worship organisations database                                                            |
-| `EMBER_VERENIGINGEN_URL`                   | Link to the verenigingen app                                                                          |
-| `EMBER_CONTACT_URL`                        | Link to the contact app                                                                               |
-| `EMBER_SUBSIDIES_URL`                      | Link to the subsidiepunt app                                                                          |
-| `EMBER_DATA_MONITORING_TOOL_URL`           | Link to the data monitoring tool app                                                                  |
-| `EMBER_OVAM_URL`                           | Link to the OVAM app                                                                                  |
-| `EMBER_MANDATENBEHEER_EXTERNAL_URL`        | Link to the mandatenbeheer app                                                                        |
-| `EMBER_OPEN_PROCES_HUIS_URL`               | Link to the open proces huis app                                                                      |
-| `EMBER_OPEN_PROCES_HUIS_ROLE`              | ACM/IDM user role that is used to display the app link. defaults to `LoketLB-OpenProcesHuisGebruiker` |
-| `EMBER_GLOBAL_SYSTEM_NOTIFICATION`         | This can be used to display a message at the top of the application. HTML is supported.               |
-| `EMBER_NEW_LOKET_ANNOUNCEMENT_TITLE`       | Adjust the title of the "new loket" announcement banner. This is optional                             |
-| `EMBER_NEW_LOKET_ANNOUNCEMENT_MESSAGE`     | Adjust the message of the "new loket" announcement banner. HTML is supported.                         |
+| Name                                       | Description                                                                                              |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `EMBER_LPDC_URL`                           | Link to the LPDC application                                                                             |
+| `EMBER_WORSHIP_DECISIONS_DATABASE_URL`     | Link to the worship decisions database                                                                   |
+| `EMBER_WORSHIP_ORGANISATIONS_DATABASE_URL` | Link to the worship organisations database                                                               |
+| `EMBER_VERENIGINGEN_URL`                   | Link to the verenigingen app                                                                             |
+| `EMBER_CONTACT_URL`                        | Link to the contact app                                                                                  |
+| `EMBER_SUBSIDIES_URL`                      | Link to the subsidiepunt app                                                                             |
+| `EMBER_DATA_MONITORING_TOOL_URL`           | Link to the data monitoring tool app                                                                     |
+| `EMBER_OVAM_URL`                           | Link to the OVAM app                                                                                     |
+| `EMBER_MANDATENBEHEER_EXTERNAL_URL`        | Link to the mandatenbeheer app                                                                           |
+| `EMBER_OPEN_PROCES_HUIS_URL`               | Link to the open proces huis app                                                                         |
+| `EMBER_OPEN_PROCES_HUIS_ROLE`              | ACM/IDM user role that is used to display the app link. defaults to `LoketLB-OpenProcesHuisGebruiker`    |
+| `EMBER_GLOBAL_SYSTEM_NOTIFICATION`         | This can be used to display a message at the top of the application. HTML is supported.                  |
+| `EMBER_NEW_LOKET_ANNOUNCEMENT_TITLE`       | Adjust the title of the "new loket" announcement banner. This is optional                                |
+| `EMBER_NEW_LOKET_ANNOUNCEMENT_MESSAGE`     | Adjust the message of the "new loket" announcement banner. HTML is supported.                            |
+| `EMBER_LOGIN_PAGE_REDIRECT_URL`            | If set the app will redirect to this url if the user isn't logged in, instead of the default login page. |
 
 ### ACM/IDM
 
