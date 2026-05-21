@@ -1,3 +1,8 @@
+## v1.11.0 (2026-05-21)
+
+#### :rocket: Enhancement
+* [#474](https://github.com/lblod/frontend-loket/pull/474) [DL-7361] Conditionally redirect to an external login page ([@Windvis](https://github.com/Windvis))
+
 ## v1.10.2 (2026-05-06)
 
 #### :bug: Bug Fix
