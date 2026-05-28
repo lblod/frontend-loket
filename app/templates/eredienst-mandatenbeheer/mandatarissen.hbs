@@ -46,6 +46,14 @@
         @onSelect={{this.selectVendor}}
       />
     </Group>
+    <Group>
+      <AuToggleSwitch
+        @checked={{this.active}}
+        @onChange={{this.toggleActive}}
+      >
+        Toon enkel actieve mandatarissen
+      </AuToggleSwitch>
+    </Group>
   </AuToolbar>
 
   <AuAlert @skin="info" @icon="info-circle" @size="small">

@@ -18,7 +18,7 @@ async function getActivePeriodsLabel(mandataris) {
   if (bestuursfunctie.uri === LIFETIME_BOARD_POSITION_URI) {
     return 'Dit mandaat is een permanent mandaat.';
   }
-
+  
   const bestuursorganenInTijd = await mandate.bevatIn;
 
   const ranges = bestuursorganenInTijd
@@ -49,6 +49,7 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
     size: { refreshModel: true },
     sort: { refreshModel: true },
     vendorId: { refreshModel: true },
+    active: { refreshModel: true },
   };
 
   modelName = 'worship-mandatee';
@@ -103,6 +104,13 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
       queryParams['filter'][':has-no:provenance'] = true;
     } else if (params.vendorId) {
       queryParams['filter']['provenance'] = { id: params.vendorId };
+    }
+
+    if (params.active) {
+      queryParams['filter'][':or:'] = {
+        ':has-no:einde': true, //TODO: note, from the doc I thought it would only work with relations. But it seems to work.
+        ':gt:einde': moment().toISOString(),
+      };
     }
 
     return queryParams;

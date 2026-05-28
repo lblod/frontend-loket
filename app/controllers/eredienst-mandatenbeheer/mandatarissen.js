@@ -10,7 +10,7 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   @service() router;
   @service() currentSession;
 
-  queryParams = ['vendorId'];
+  queryParams = ['vendorId', 'active'];
 
   sort = 'is-bestuurlijke-alias-van.gebruikte-voornaam';
 
@@ -20,6 +20,9 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   @tracked page = 0;
   @tracked size = 10;
   @tracked vendorId = null;
+  @tracked active = true;
+  @tracked mandatarisBestuursorganen;
+  @tracked mandatarisActivePeriods;
 
   // TODO: hardcoded for now, only one real vendor exists in production.
   // Once more vendors exist, fetch them from the API
@@ -65,6 +68,12 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   selectVendor(vendor) {
     this.page = 0;
     this.vendorId = vendor ? vendor.id : null;
+  }
+
+  @action
+  toggleActive(checked) {
+    this.page = 0;
+    this.active = checked;
   }
 
   @action
