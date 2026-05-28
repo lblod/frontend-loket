@@ -2,7 +2,8 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
-import { NO_PROVENANCE_VENDOR_ID } from 'frontend-loket/routes/eredienst-mandatenbeheer/mandatarissen';
+
+const NO_PROVENANCE_VENDOR_ID = 'none';
 
 export default class WorshipMinistersManagementIndexRoute extends Route.extend(
   DataTableRouteMixin,
