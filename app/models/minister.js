@@ -19,6 +19,8 @@ export default class MinisterModel extends AgentInPosition {
     inverse: null,
   })
   conditions;
+
+  @belongsTo('vendor', { async: true, inverse: null }) provenance;
 }
 
 export async function validateFunctie(worshipMinister) {

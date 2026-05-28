@@ -11,6 +11,17 @@
   {{/unless}}
 </AuToolbar>
 
+<AuToolbar @size="large" as |Group|>
+  <Group />
+  <Group class="au-u-1-3@medium">
+    <EredienstMandatenbeheer::VendorSelector
+      @options={{this.vendorOptions}}
+      @selectedVendor={{this.selectedVendor}}
+      @onSelect={{this.selectVendor}}
+    />
+  </Group>
+</AuToolbar>
+
 <AuAlert @skin="info" @icon="manual" @size="small">
   Meer informatie vindt u in de
   <AuLinkExternal
@@ -53,6 +64,7 @@
         @currentSorting={{this.sort}}
         @label="Einddatum"
       />
+      <th>Bron</th>
       <th class="u-table-cell-shrink-content">
         <span class="au-u-hidden-visually">Bedienaar bewerken</span>
       </th>
@@ -63,6 +75,7 @@
       <td>{{minister.person.achternaam}}</td>
       <td>{{moment-format minister.agentStartDate "DD-MM-YYYY"}}</td>
       <td>{{moment-format minister.agentEndDate "DD-MM-YYYY"}}</td>
+      <td>{{if minister.provenance.name minister.provenance.name "Loket lokale besturen"}}</td>
       <td class="u-table-cell-fit-content">
         {{#if this.currentSession.hasViewOnlyWorshipMinistersManagementData}}
           <AuLink
