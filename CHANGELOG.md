@@ -1,3 +1,12 @@
+## v1.12.0 (2026-05-29)
+
+#### :rocket: Enhancement
+* [#471](https://github.com/lblod/frontend-loket/pull/471) [DL-7328] Don't allow editing if source is a vendor. ([@cecemel](https://github.com/cecemel))
+* [#470](https://github.com/lblod/frontend-loket/pull/470) [DL-7328] Add active filter for mandatarissen ([@cecemel](https://github.com/cecemel))
+* [#469](https://github.com/lblod/frontend-loket/pull/469) [DL-7328] Show bestuursperiodes label per mandataris ([@cecemel](https://github.com/cecemel))
+* [#467](https://github.com/lblod/frontend-loket/pull/467) [DL-7328] Add the filter for bedienaren ([@cecemel](https://github.com/cecemel))
+* [#466](https://github.com/lblod/frontend-loket/pull/466) [DL-7328] Added bron + filter from mandataris ([@cecemel](https://github.com/cecemel))
+
 ## v1.11.0 (2026-05-21)
 
 #### :rocket: Enhancement
