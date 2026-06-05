@@ -41,6 +41,8 @@ async function getActivePeriodsLabel(mandataris) {
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
   DataTableRouteMixin,
 ) {
+  @service currentSession;
+  @service router;
   @service store;
 
   queryParams = {
@@ -53,10 +55,28 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
   };
 
   modelName = 'worship-mandatee';
+  hasInitializedVendorDefault = false;
 
-  beforeModel() {
+  beforeModel(transition) {
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
     this.mandatenbeheer = mandatenbeheer;
+
+    const qps = transition.to.queryParams;
+
+    if (!this.hasInitializedVendorDefault) {
+      this.hasInitializedVendorDefault = true;
+
+      if (!qps.vendorId) {
+        // We're just taking the first vendor we receive as the default for now.
+        const defaultVendor = this.currentSession.vendors.at(0);
+
+        if (defaultVendor) {
+          this.router.transitionTo({
+            queryParams: { vendorId: defaultVendor.id },
+          });
+        }
+      }
+    }
   }
 
   async afterModel(mandatarissen) {

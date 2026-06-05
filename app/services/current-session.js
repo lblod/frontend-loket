@@ -38,6 +38,7 @@ export default class CurrentSessionService extends Service {
   @tracked group;
   @tracked groupClassification;
   @tracked _roles = [];
+  @tracked vendors = [];
 
   async load() {
     if (this.session.isAuthenticated) {
@@ -63,6 +64,10 @@ export default class CurrentSessionService extends Service {
       if (isFeatureEnabled('new-loket')) {
         await this.bookmarks.load();
       }
+
+      this.vendors = await this.store.query('vendor', {
+        'filter[can-act-on-behalf-of][:id:]': this.groupId,
+      });
 
       this.setupSentrySession();
     }

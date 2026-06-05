@@ -8,6 +8,8 @@ const NO_PROVENANCE_VENDOR_ID = 'none';
 export default class WorshipMinistersManagementIndexRoute extends Route.extend(
   DataTableRouteMixin,
 ) {
+  @service currentSession;
+  @service router;
   @service store;
 
   queryParams = {
@@ -19,6 +21,25 @@ export default class WorshipMinistersManagementIndexRoute extends Route.extend(
   };
 
   modelName = 'minister';
+  hasInitializedVendorDefault = false;
+
+  beforeModel(transition) {
+    const qps = transition.to.queryParams;
+    if (!this.hasInitializedVendorDefault) {
+      this.hasInitializedVendorDefault = true;
+
+      if (!qps.vendorId) {
+        // We're just taking the first vendor we receive as the default for now.
+        const defaultVendor = this.currentSession.vendors.at(0);
+
+        if (defaultVendor) {
+          this.router.transitionTo({
+            queryParams: { vendorId: defaultVendor.id },
+          });
+        }
+      }
+    }
+  }
 
   mergeQueryOptions(params) {
     const queryParams = {

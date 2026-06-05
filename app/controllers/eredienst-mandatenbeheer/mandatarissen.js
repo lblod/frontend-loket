@@ -4,9 +4,6 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { restartableTask, timeout } from 'ember-concurrency';
 
-const NO_PROVENANCE_VENDOR_ID = 'none';
-const VANDEN_BROELE_VENDOR_ID = 'b1e41693-639a-4f61-92a9-5b9a3e0b924e';
-
 export default class EredienstMandatenbeheerMandatarissenController extends Controller {
   @service() router;
   @service() currentSession;
@@ -22,21 +19,7 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   @tracked size = 10;
   @tracked vendorId = null;
   @tracked active = true;
-  @tracked mandatarisBestuursorganen;
   @tracked mandatarisActivePeriods;
-
-  // TODO: hardcoded for now, only one real vendor exists in production.
-  // Once more vendors exist, fetch them from the API
-  // (store.query('vendor', { page: { size: 100 }, sort: 'name' })) instead.
-  vendorOptions = [
-    { id: NO_PROVENANCE_VENDOR_ID, name: 'Loket lokale besturen' },
-    { id: VANDEN_BROELE_VENDOR_ID, name: 'Vanden Broele' },
-  ];
-
-  get selectedVendor() {
-    if (!this.vendorId) return null;
-    return this.vendorOptions.find((v) => v.id === this.vendorId);
-  }
 
   get startDate() {
     return this.mandatenbeheer.startDate;
@@ -66,9 +49,9 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   }
 
   @action
-  selectVendor(vendor) {
+  selectVendor(vendorId) {
     this.page = 0;
-    this.vendorId = vendor ? vendor.id : null;
+    this.vendorId = vendorId;
   }
 
   @action
