@@ -10,6 +10,10 @@ import {
 export default class VendorSelector extends Component {
   @service currentSession;
 
+  get hasVendors() {
+    return this.currentSession.vendors.length > 0;
+  }
+
   get vendorOptions() {
     const userVendors = this.currentSession.vendors;
 
@@ -34,17 +38,19 @@ export default class VendorSelector extends Component {
   }
 
   <template>
-    <PowerSelect
-      @placeholder="Bron"
-      @options={{this.vendorOptions}}
-      @selected={{this.selectedVendor}}
-      @onChange={{this.selectVendor}}
-      @allowClear={{true}}
-      @searchField="name"
-      @triggerClass="au-u-1-1"
-      as |vendor|
-    >
-      {{vendor.name}}
-    </PowerSelect>
+    {{#if this.hasVendors}}
+      <PowerSelect
+        @placeholder="Bron"
+        @options={{this.vendorOptions}}
+        @selected={{this.selectedVendor}}
+        @onChange={{this.selectVendor}}
+        @allowClear={{true}}
+        @searchField="name"
+        @triggerClass="au-u-1-1"
+        as |vendor|
+      >
+        {{vendor.name}}
+      </PowerSelect>
+    {{/if}}
   </template>
 }
