@@ -5,11 +5,13 @@ import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
 import moment from 'moment';
+import {
+  NO_PROVENANCE_VENDOR_ID,
+  ALL_VENDORS_ID,
+} from 'frontend-loket/models/vendor';
 
 const LIFETIME_BOARD_POSITION_URI =
   'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5972fccd87f864c4ec06bfbd20b5008b';
-
-const NO_PROVENANCE_VENDOR_ID = 'none';
 
 async function getActivePeriodsLabel(mandataris) {
   const mandate = await mandataris.bekleedt;
@@ -62,7 +64,6 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
     this.mandatenbeheer = mandatenbeheer;
 
     const qps = transition.to.queryParams;
-
     if (!this.hasInitializedVendorDefault) {
       this.hasInitializedVendorDefault = true;
 
@@ -122,7 +123,7 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
 
     if (params.vendorId === NO_PROVENANCE_VENDOR_ID) {
       queryParams['filter'][':has-no:provenance'] = true;
-    } else if (params.vendorId) {
+    } else if (params.vendorId && params.vendorId !== ALL_VENDORS_ID) {
       queryParams['filter']['provenance'] = { id: params.vendorId };
     }
 

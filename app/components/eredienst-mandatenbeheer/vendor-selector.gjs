@@ -1,28 +1,36 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import PowerSelect from 'ember-power-select/components/power-select';
+import { service } from '@ember/service';
+import {
+  NO_PROVENANCE_VENDOR_ID,
+  ALL_VENDORS_ID,
+} from 'frontend-loket/models/vendor';
 
-const NO_PROVENANCE_VENDOR_ID = 'none';
-const VANDEN_BROELE_VENDOR_ID = 'b1e41693-639a-4f61-92a9-5b9a3e0b924e';
+export default class VendorSelector extends Component {
+  @service currentSession;
 
-export default class MandatenbeheerVendorSelectorComponent extends Component {
-  // TODO: hardcoded for now, only one real vendor exists in production.
-  // Once more vendors exist, fetch them from the API
-  // (store.query('vendor', { page: { size: 100 }, sort: 'name' })) instead.
-  vendorOptions = [
-    { id: NO_PROVENANCE_VENDOR_ID, name: 'Loket lokale besturen' },
-    { id: VANDEN_BROELE_VENDOR_ID, name: 'Vanden Broele' },
-  ];
+  get vendorOptions() {
+    const userVendors = this.currentSession.vendors;
+
+    return [
+      { id: NO_PROVENANCE_VENDOR_ID, name: 'Loket lokale besturen' },
+      ...userVendors.map((vendor) => {
+        return { id: vendor.id, name: vendor.name };
+      }),
+    ];
+  }
 
   get selectedVendor() {
     const vendorId = this.args.selectedVendor;
-    if (!vendorId) return null;
+    if (!vendorId || vendorId === ALL_VENDORS_ID) return null;
     return this.vendorOptions.find((v) => v.id === vendorId);
   }
 
   @action
   selectVendor(vendor) {
-    this.args.onSelect(vendor?.id);
+    const vendorId = vendor ? vendor.id : 'all';
+    this.args.onSelect(vendorId);
   }
 
   <template>

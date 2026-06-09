@@ -2,8 +2,10 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
-
-const NO_PROVENANCE_VENDOR_ID = 'none';
+import {
+  NO_PROVENANCE_VENDOR_ID,
+  ALL_VENDORS_ID,
+} from 'frontend-loket/models/vendor';
 
 export default class WorshipMinistersManagementIndexRoute extends Route.extend(
   DataTableRouteMixin,
@@ -49,7 +51,7 @@ export default class WorshipMinistersManagementIndexRoute extends Route.extend(
 
     if (params.vendorId === NO_PROVENANCE_VENDOR_ID) {
       queryParams['filter'][':has-no:provenance'] = true;
-    } else if (params.vendorId) {
+    } else if (params.vendorId && params.vendorId !== ALL_VENDORS_ID) {
       queryParams['filter']['provenance'] = { id: params.vendorId };
     }
 
