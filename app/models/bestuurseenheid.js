@@ -8,7 +8,6 @@ export default class Bestuurseenheid extends Model {
   @attr wilMailOntvangen;
   @attr isTrialUser;
   @attr viewOnlyModules;
-  @attr usesNewLoket;
 
   @belongsTo('werkingsgebied', {
     async: true,
