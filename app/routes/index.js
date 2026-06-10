@@ -10,16 +10,12 @@ export default class IndexRoute extends Route {
   @service router;
   @service('bookmarks') bookmarksService;
   @service toaster;
-  @service('new-loket') newLoketService;
 
   beforeModel(transition) {
     this.session.requireAuthentication(transition, 'login');
   }
 
   async model() {
-    if (!this.newLoketService.shouldUseNewLoket) {
-      return;
-    }
     let errorLoadingFavorite = false;
     let favoritesData = [];
 
@@ -63,18 +59,12 @@ export default class IndexRoute extends Route {
 
   setupController(controller) {
     super.setupController(...arguments);
-    if (!this.newLoketService.shouldUseNewLoket) {
-      return;
-    }
     controller.searchTerm = null;
     controller.selectedProduct = null;
   }
 
   @action
   loading() {
-    if (!this.newLoketService.shouldUseNewLoket) {
-      return true;
-    }
     // We don't want the loading substate for this route.
     return false;
   }

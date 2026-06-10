@@ -33,7 +33,6 @@ module.exports = function (environment) {
     },
     features: {
       // 'feature-name': '{{FEATURE_ENV_VAR_NAME}}',
-      'new-loket': '{{FEATURE_NEW_LOKET}}',
     },
     lpdcUrl: '{{LPDC_URL}}',
     subsidiesUrl: '{{SUBSIDIES_URL}}',
@@ -74,11 +73,9 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    if (process.env.NEW_LOKET) {
-      ENV.features['new-loket'] = 'true';
-      // This converts all production loket urls to local ones (and "/" if there is no path, so it redirects to the homepage)
-      ENV.urlMap = 'https://loket.lokaalbestuur.vlaanderen.be,';
-    }
+
+    // This converts all production loket urls to local ones (and "/" if there is no path, so it redirects to the homepage)
+    ENV.urlMap = 'https://loket.lokaalbestuur.vlaanderen.be,';
   }
 
   if (environment === 'test') {
