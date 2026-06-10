@@ -6,6 +6,10 @@ $au-flex-utilities-responsive: true;
 // TODO: remove this when we update to Appuniversum v4
 $au-flex-utilities-reverse-responsive-breakpoints: true;
 
+:root {
+  --brand-color: #1c7074;
+}
+
 // SETTINGS
 @import "@appuniversum/ember-appuniversum/styles/a-settings";
 
