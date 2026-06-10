@@ -30,22 +30,8 @@
   }
 }
 
-.au-c-main-header .au-c-brand__logo {
-  // background-color: var(--au-yellow-300);
-
-  &:after {
-    display: none;
-  }
-}
-
-.au-c-main-header .au-c-brand--link:hover .au-c-brand__logo {
-  background-color: var(--au-yellow-300);
-}
 
 // Help dropdown
-.c-help-dropdown {
-}
-
 .c-help-dropdown__button {
   position: relative;
   text-transform: uppercase;

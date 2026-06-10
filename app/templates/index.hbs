@@ -25,7 +25,8 @@
             <div>
               <div class="c-search-icon-label">
                 <div class="c-search-icon-container au-u-visible-from@small">
-                  <AuIcon @icon="search" />
+                  {{! TODO: replace the class once the component supports the medium size as an arg }}
+                  <AuIcon @icon="search" class="au-c-icon--medium" />
                 </div>
                 <AuLabel for="search">Vind producten en diensten voor lokale
                   besturen</AuLabel>
@@ -44,7 +45,11 @@
                 <span class="au-u-hidden-visually">close</span>
               </AuButton>
             {{/if}}
-            <AuButton type="submit" @icon="search">
+            <AuButton
+              type="submit"
+              @icon="search"
+              class="c-button--icon-medium"
+            >
               Zoek
             </AuButton>
           </form>
@@ -68,7 +73,11 @@
         >
           {{#each @model as |favorite|}}
             <li class="favorite-card">
-              <AuIcon @icon={{component "icons/star-filled"}} />
+              <AuIcon
+                @icon={{component "icons/star-filled"}}
+                @alignment="left"
+                @size="large"
+              />
               {{#if favorite.website.url}}
                 <AuLinkExternal
                   @skin="naked"
@@ -80,7 +89,8 @@
                 </AuLinkExternal>
                 <AuLinkExternal
                   href={{remap-url favorite.website.url}}
-                  @skin="naked"
+                  class="c-link--icon-medium"
+                  @skin="button-naked"
                   @icon="external-link"
                   @iconAlignment="right"
                 />

@@ -2,15 +2,10 @@
 
 <AuApp>
   <GlobalSystemNotification />
-
-  {{! TODO: see if we can change the styles so we don't need this anymore }}
-  {{body-class "new-loket"}}
-
   <Header />
 
   {{#if this.session.isAuthenticated}}
     {{#if this.isNewLoketPage}}
-      {{body-class "new-loket-overrides"}}
       <Navigation />
     {{else}}
       <BuiltInModulesNavigation />
