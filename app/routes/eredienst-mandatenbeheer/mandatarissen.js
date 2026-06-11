@@ -5,11 +5,13 @@ import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
 import moment from 'moment';
+import {
+  NO_PROVENANCE_VENDOR_ID,
+  ALL_VENDORS_ID,
+} from 'frontend-loket/models/vendor';
 
 const LIFETIME_BOARD_POSITION_URI =
   'http://data.vlaanderen.be/id/concept/BestuursfunctieCode/5972fccd87f864c4ec06bfbd20b5008b';
-
-const NO_PROVENANCE_VENDOR_ID = 'none';
 
 async function getActivePeriodsLabel(mandataris) {
   const mandate = await mandataris.bekleedt;
@@ -41,6 +43,8 @@ async function getActivePeriodsLabel(mandataris) {
 export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
   DataTableRouteMixin,
 ) {
+  @service currentSession;
+  @service router;
   @service store;
 
   queryParams = {
@@ -53,10 +57,27 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
   };
 
   modelName = 'worship-mandatee';
+  hasInitializedVendorDefault = false;
 
-  beforeModel() {
+  beforeModel(transition) {
     const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
     this.mandatenbeheer = mandatenbeheer;
+
+    const qps = transition.to.queryParams;
+    if (!this.hasInitializedVendorDefault) {
+      this.hasInitializedVendorDefault = true;
+
+      if (!qps.vendorId) {
+        // We're just taking the first vendor we receive as the default for now.
+        const defaultVendor = this.currentSession.vendors.at(0);
+
+        if (defaultVendor) {
+          this.router.transitionTo({
+            queryParams: { vendorId: defaultVendor.id },
+          });
+        }
+      }
+    }
   }
 
   async afterModel(mandatarissen) {
@@ -102,7 +123,7 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
 
     if (params.vendorId === NO_PROVENANCE_VENDOR_ID) {
       queryParams['filter'][':has-no:provenance'] = true;
-    } else if (params.vendorId) {
+    } else if (params.vendorId && params.vendorId !== ALL_VENDORS_ID) {
       queryParams['filter']['provenance'] = { id: params.vendorId };
     }
 
