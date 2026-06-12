@@ -1,0 +1,62 @@
+.favorite-card {
+  list-style-type: none;
+  display: flex;
+  min-width: 350px;
+  padding: 2rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 0 100%;
+
+  border-radius: 3px;
+  border: 1px solid #e9ebee;
+  background: #fff;
+
+  & > .au-c-icon {
+    fill: var(--au-blue-700);
+  }
+
+  .au-c-button {
+    margin-left: auto;
+  }
+
+  &:hover {
+    color: var(--au-blue-700);
+    background-color: var(--au-blue-100);
+    border-color: var(--au-blue-300);
+  }
+}
+
+.favorite-title {
+  color: var(--au-blue-700);
+  width: 100%;
+  text-decoration: none;
+}
+
+.c-favorite {
+  flex: none;
+  position: relative;
+  z-index: 1;
+  padding-left: 0;
+  padding-right: 0;
+  color: var(--au-gray-500);
+
+  &:hover {
+    color: var(--au-blue-700);
+  }
+
+  // These are !important because the `.new-loket-overrides .au-c-icon` selector would otherwise override it.
+  // TODO: remove !important once we removed that specific override style with something else.
+  .au-c-icon {
+    width: 1.1em !important;
+    height: 1.1em !important;
+    bottom: 0 !important;
+  }
+
+  &.is-active,
+  &:focus {
+    color: var(--au-blue-500);
+    background-color: transparent !important;
+    border-color: transparent !important;
+  }
+}

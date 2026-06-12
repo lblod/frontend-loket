@@ -30,17 +30,20 @@ $au-flex-utilities-reverse-responsive-breakpoints: true;
 @import "project/c-decision-articles-field";
 @import "project/c-decision-remote-data-objects";
 @import "project/c-data-list";
+@import "project/c-header";
+@import "project/c-navigation";
+@import "project/c-select";
 @import "project/c-sidebar-container";
 @import "project/c-status-label";
+@import "project/dossier";
+@import "project/favorite-card";
+@import "project/home";
+@import "project/landing";
+@import "project/login";
 
 // PLUGINS
 @import "@appuniversum/ember-appuniversum/styles/a-plugins";
 @import "project/p-ember-promise-modals";
-
-// "New loket" styles
-@import "new-loket/index";
-
-// TODO: alert icon styles are overridden by the new-loket styles because of the nested specificity
 
 // UTILITIES
 @import "@appuniversum/ember-appuniversum/styles/a-utilities";
