@@ -1,468 +1,123 @@
-{{#if (use-new-loket)}}
-  <AuBodyContainer class="au-u-background-gray-100">
-    <section class="c-landing">
-      <div class="au-o-flow">
-        {{! TODO replace with user's organization name }}
-        <AuHeading @level="1" @skin="2">
-          {{this.currentSession.groupClassification.label}}
-          {{this.currentSession.group.naam}}
-        </AuHeading>
-        <p class="au-u-para landing-intro">In dit loket vind je producten of
-          diensten die de Vlaamse overheid aanbiedt aan lokale besturen.
-          Veelgebruikte producten of diensten kun je zelf aanduiden als
-          favoriet, zodat je ze snel kunt terugvinden in de onderstaande lijst
-          of op de pagina Mijn favorieten.</p>
-
-        <NewLoketAnnouncement />
-      </div>
-
-      <div class="c-main-search-container au-u-margin-top">
-        <div class="c-search-sort-container">
-          <div class="c-search-container">
-            <form
-              {{on "submit" this.search}}
-              class="c-navigation-search au-u-max-width-small"
-            >
-              <div>
-                <div class="c-search-icon-label">
-                  <div class="c-search-icon-container au-u-visible-from@small">
-                    <AuIcon @icon="search" />
-                  </div>
-                  <AuLabel for="search">Vind producten en diensten voor lokale
-                    besturen</AuLabel>
-                </div>
-                <AuInput
-                  id="search"
-                  value={{this.searchTerm}}
-                  @width="block"
-                  {{on "input" this.updateSearchTerm}}
-                  placeholder="Zoek op naam, beschrijving of thema van een product of dienst"
-                />
-              </div>
-              {{#if this.searchTerm}}
-                <AuButton @skin="secondary" {{on "click" this.resetSearch}}>
-                  <AuIcon @icon="cross" />
-                  <span class="au-u-hidden-visually">close</span>
-                </AuButton>
-              {{/if}}
-              <AuButton type="submit" @icon="search">
-                Zoek
-              </AuButton>
-            </form>
-          </div>
-        </div>
-        <div class="c-suggestions-container">
-          {{#each this.suggestions as |suggestion|}}
-            <AuPill
-              @route="search"
-              @query={{hash searchTerm=suggestion}}
-            >{{suggestion}}</AuPill>
-          {{/each}}
-        </div>
-      </div>
-
-      <div class="favorites-container au-u-margin-top-large">
-        <AuHeading @level="2" @skin="3">Favoriete producten of diensten</AuHeading>
-        {{#if @model.length}}
-          <ul
-            class="au-u-flex au-u-flex--wrap au-u-flex--spaced-tiny au-u-padding-top-tiny au-u-padding-bottom-large"
-          >
-            {{#each @model as |favorite|}}
-              <li class="favorite-card">
-                <AuIcon @icon={{component "icons/star-filled"}} />
-                {{#if favorite.website.url}}
-                  <AuLinkExternal
-                    @skin="naked"
-                    href={{remap-url favorite.website.url}}
-                    class="favorite-title au-u-medium"
-                    title={{favorite.product.name.default}}
-                  >
-                    {{favorite.product.name.default}}
-                  </AuLinkExternal>
-                  <AuLinkExternal
-                    href={{remap-url favorite.website.url}}
-                    @skin="naked"
-                    @icon="external-link"
-                    @iconAlignment="right"
-                  />
-                {{else}}
-                  <AuLink
-                    @skin="naked-button"
-                    class="favorite-title au-u-medium"
-                    {{on "click" (fn this.openProductDetail favorite.product)}}
-                  >
-                    {{favorite.product.name.default}}
-                  </AuLink>
-                {{/if}}
-              </li>
-            {{/each}}
-          </ul>
-        {{else}}
-          <AuAlert
-            @title="U heeft momenteel geen favorieten"
-            @skin="info"
-            @icon="circle-info"
-            @size="small"
-            class="au-u-margin-top-small"
-          >
-            <p>Bekijk al onze services en klik op de ster om uw eerste toe te
-              voegen.</p>
-            <AuLink
-              @route="search"
-              @skin="button"
-              class="au-u-margin-top-small"
-            >
-              Alle diensten
-            </AuLink>
-          </AuAlert>
-        {{/if}}
-      </div>
-    </section>
-  </AuBodyContainer>
-
-  {{#if this.selectedProduct}}
-    <IpdcServiceSidepanel
-      @model={{this.selectedProduct}}
-      @onClose={{this.closeProductDetail}}
-    />
-  {{/if}}
-{{else}}
-  <div class="au-c-body-container au-c-body-container--scroll">
-    <div class="au-o-box">
-      <div class="au-o-grid au-o-grid--small">
-        <div class="au-o-grid__item au-u-2-5@medium">
-          <AuContent class="au-u-margin-bottom">
-            <AuHeading
-              @skin="2"
-            >{{this.currentSession.groupClassification.label}}
-              {{this.currentSession.group.naam}}</AuHeading>
-            <p>Indien u toegang mist tot een van de modules in het loket, neem
-              contact op met uw
-              <strong>interne beheerder</strong>. Indien er zich een probleem
-              voordoet met
-              <strong>toegang</strong>, neem contact op met het
-              <AuLinkExternal
-                href="https://overheid.vlaanderen.be/ict/ict-diensten/gebruikersbeheer"
-              >gebruikersbeheer Vlaanderen</AuLinkExternal>.</p>
-          </AuContent>
-        </div>
-      </div>
-      <AuHeading @level="2" @skin="3" class="au-u-margin-bottom">
-        Beschikbare modules
+<AuBodyContainer class="au-u-background-gray-100">
+  <section class="c-landing">
+    <div class="au-o-flow">
+      {{! TODO replace with user's organization name }}
+      <AuHeading @level="1" @skin="2">
+        {{this.currentSession.groupClassification.label}}
+        {{this.currentSession.group.naam}}
       </AuHeading>
+      <p class="au-u-para landing-intro">In dit loket vind je producten of
+        diensten die de Vlaamse overheid aanbiedt aan lokale besturen.
+        Veelgebruikte producten of diensten kun je zelf aanduiden als favoriet,
+        zodat je ze snel kunt terugvinden in de onderstaande lijst of op de
+        pagina Mijn favorieten.</p>
 
-      <ul class="au-o-grid au-o-grid--small">
-        {{#if this.currentSession.canAccessToezicht}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="search-folder"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/toezicht"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-toezicht"
-            >
-              <:title>Toezicht</:title>
-              <:description>Bezorg besluiten en overzichtslijsten aan de
-                toezichthoudende overheid.</:description>
-              <:link>
-                <AuLink @route="supervision.submissions" @skin="button">Ga naar
-                  toezicht</AuLink>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessBerichten}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="message"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/berichtencentrum"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/hoofdloket-handleiding-loket-lokale-besturen/berichtencentrum"
-            >
-              <:title>Berichtencentrum</:title>
-              <:description>Bekijk en reageer op de berichten van de
-                toezichthoudende overheid.</:description>
-              <:link>
-                <AuLink @route="berichtencentrum.berichten" @skin="button">Ga
-                  naar berichtencentrum</AuLink>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessBbcdr}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="document"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/beleids-en-beheerscyclus-digitale-rapportering-bbc-dr"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-bbc-dr"
-            >
-              <:title>BBC-DR</:title>
-              <:description>Bezorg de digitale rapporten aan de Vlaamse Regering
-                over de beleids- en beheerscyclus.</:description>
-              <:link>
-                <AuLink @route="bbcdr.rapporten" @skin="button">Ga naar BBC DR</AuLink>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessMandaatExternal}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="user-fill"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-lokale-besturen"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-lokaal-mandatenbeheer"
-            >
-              <:title>Mandatenbeheer</:title>
-              <:description>Hou de mandaten binnen de gemeenten, OCMW's,
-                districten en provincies bij.</:description>
-              <:link>
-                <AuLinkExternal @skin="button" href={{(mandatenbeheer-url)}}>
-                  Ga naar mandatenbeheer (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessWorshipMinisterManagement}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="user"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/bedienarenbeheer"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-bedienarenbeheer"
-            >
-              <:title>Bedienarenbeheer</:title>
-              <:description>Hou de bedienaren binnen de erediensten bij.</:description>
-              <:link>
-                <AuLink @route="worship-ministers-management" @skin="button">Ga
-                  naar bedienarenbeheer</AuLink>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="users-four-of-four"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/mandatenbeheer-erediensten"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-mandatenbeheer-erediensten"
-            >
-              <:title>Mandatenbeheer</:title>
-              <:description>Hou de mandaten binnen de erediensten bij.</:description>
-              <:link>
-                <AuLink
-                  @route="eredienst-mandatenbeheer.mandatarissen"
-                  @skin="button"
-                >Ga naar Mandatenbeheer</AuLink>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessLeidinggevenden}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="user-popup"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/leidinggevendenbeheer"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-leidinggevendenbeheer"
-            >
-              <:title>Leidinggevendenbeheer</:title>
-              <:description>Hou hier de leidinggevende functies voor uw bestuur
-                bij.</:description>
-              <:link>
-                <AuLink
-                  @route="leidinggevendenbeheer.bestuursfuncties"
-                  @skin="button"
-                >Ga naar leidinggevendenbeheer</AuLink>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessPersoneelsbeheer}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="users"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-personeelsbeheer"
-            >
-              <:title>Personeelsbeheer</:title>
-              <:description>Hou hier de personeelsaantallen voor uw bestuur bij:
-                aantal werknemers en voltijds equivalenten.</:description>
-              <:link>
-                <AuLink @route="personeelsbeheer" @skin="button">Ga naar
-                  personeelsbeheer</AuLink>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessSubsidies}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="documents"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/loket-voor-lokale-besturen/subsidiebeheer"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-subsidiepunt"
-            >
-              <:title>
-                SubsidiePunt
-              </:title>
-              <:description>Volg hier uw aanvragen voor subsidiemaatregelen op.</:description>
-              <:link>
-                <AuLinkExternal @skin="button" href={{(subsidies-url)}}>
-                  Ga naar SubsidiePunt (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessDataMonitoringTool}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard @icon="external-link">
-              <:title>
-                Data Monitoring Tool
-              </:title>
-              <:description>Krijg inzicht in de kwaliteit van uw data, laatste
-                zittingen, de meest recente harvests, aantal beslissingen en
-                agendapunten.</:description>
-              <:link>
-                <AuLinkExternal
-                  @skin="button"
-                  href={{(data-monitoring-tool-url)}}
-                >
-                  Ga naar Data Monitoring Tool (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessOvam}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="external-link"
-              @extraInformationLink="https://ovam.atlassian.net/wiki/spaces/OVAM/pages/74125222/Risicolocaties"
-              @userManualLink="https://ovam.vlaanderen.be/handleiding-webtoepassing-beheer-risicolocaties"
-            >
-              <:title>
-                Beheer risicolocaties
-              </:title>
-              <:description>Beheer hier de risicolocaties binnen uw gemeente.</:description>
-              <:link>
-                <AuLinkExternal @skin="button" href={{(ovam-url)}}>
-                  Ga naar Beheer risicolocaties (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessPublicServices}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="unordered-list"
-              @extraInformationLink="https://www.vlaanderen.be/lokaal-bestuur/digitale-transformatie/lokale-producten-en-dienstencatalogus"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/informatie-lpdc/"
-            >
-              <:title>Producten- en dienstencatalogus</:title>
-              <:description>Beheer uw producten en diensten.</:description>
-              <:link>
-                <AuLinkExternal @skin="button" href={{(lpdc-url)}}>
-                  Ga naar de producten- en dienstencatalogus (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessWorshipDecisionsDb}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="link-external"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-databank-erediensten"
-            >
-              <:title>Databank Erediensten</:title>
-              <:description>Consulteer hier inzendingen van (centrale) besturen
-                van de eredienst, gemeente- en provincieoverheid en
-                representatief orgaan.</:description>
-              <:link>
-                <AuLinkExternal
-                  @skin="button"
-                  href={{(worship-decisions-database-url)}}
-                >
-                  Ga naar de databank erediensten (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessWorshipOrganisationsDb}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="link-external"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-organisaties-erediensten"
-            >
-              <:title>Organisaties Erediensten</:title>
-              <:description>Consulteer hier de mandaten en bedienaren van de
-                besturen van eredienst.
-              </:description>
-              <:link>
-                <AuLinkExternal
-                  @skin="button"
-                  href={{(worship-organisations-database-url)}}
-                >
-                  Ga naar Organisaties Erediensten (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessVerenigingen}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="link-external"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-verenigingen/"
-            >
-              <:title>Verenigingen</:title>
-              <:description>Consulteer uw verenigingen, zoals gekend in het
-                Verenigingsregister, en beheer uw erkenningen.
-              </:description>
-              <:link>
-                <AuLinkExternal @skin="button" href={{(verenigingen-url)}}>
-                  Ga naar verenigingen (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessContact}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="link-external"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/handleiding-contact-en-organisatiegegevens/"
-            >
-              <:title>Contact- en Organisatiegegevens</:title>
-              <:description>Beheer uw contactgegevens en consulteer uw
-                organisatiegegevens, zoals gekend bij Agentschap Binnenlands
-                Bestuur.
-              </:description>
-              <:link>
-                <AuLinkExternal @skin="button" href={{(contact-url)}}>
-                  Ga naar contact- en organisatiegegevens (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-        {{#if this.currentSession.canAccessOpenProcesHuis}}
-          <li class="au-o-grid__item au-u-1-2@medium au-u-1-3@large">
-            <LoketModuleCard
-              @icon="link-external"
-              @userManualLink="https://abb-vlaanderen.gitbook.io/informatie-oph/"
-            >
-              <:title>Open Proces Huis</:title>
-              <:description>Raadpleeg, doorzoek en upload processen en originele
-                BPMN-bestanden in het Open Proces Huis, jouw centrale bron voor
-                het ontdekken en delen van processen.
-              </:description>
-              <:link>
-                <AuLinkExternal @skin="button" href={{(open-proces-huis-url)}}>
-                  Ga naar open proces huis (externe link)
-                </AuLinkExternal>
-              </:link>
-            </LoketModuleCard>
-          </li>
-        {{/if}}
-      </ul>
+      <NewLoketAnnouncement />
     </div>
-  </div>
+
+    <div class="c-main-search-container au-u-margin-top">
+      <div class="c-search-sort-container">
+        <div class="c-search-container">
+          <form
+            {{on "submit" this.search}}
+            class="c-navigation-search au-u-max-width-small"
+          >
+            <div>
+              <div class="c-search-icon-label">
+                <div class="c-search-icon-container au-u-visible-from@small">
+                  <AuIcon @icon="search" />
+                </div>
+                <AuLabel for="search">Vind producten en diensten voor lokale
+                  besturen</AuLabel>
+              </div>
+              <AuInput
+                id="search"
+                value={{this.searchTerm}}
+                @width="block"
+                {{on "input" this.updateSearchTerm}}
+                placeholder="Zoek op naam, beschrijving of thema van een product of dienst"
+              />
+            </div>
+            {{#if this.searchTerm}}
+              <AuButton @skin="secondary" {{on "click" this.resetSearch}}>
+                <AuIcon @icon="cross" />
+                <span class="au-u-hidden-visually">close</span>
+              </AuButton>
+            {{/if}}
+            <AuButton type="submit" @icon="search">
+              Zoek
+            </AuButton>
+          </form>
+        </div>
+      </div>
+      <div class="c-suggestions-container">
+        {{#each this.suggestions as |suggestion|}}
+          <AuPill
+            @route="search"
+            @query={{hash searchTerm=suggestion}}
+          >{{suggestion}}</AuPill>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="favorites-container au-u-margin-top-large">
+      <AuHeading @level="2" @skin="3">Favoriete producten of diensten</AuHeading>
+      {{#if @model.length}}
+        <ul
+          class="au-u-flex au-u-flex--wrap au-u-flex--spaced-tiny au-u-padding-top-tiny au-u-padding-bottom-large"
+        >
+          {{#each @model as |favorite|}}
+            <li class="favorite-card">
+              <AuIcon @icon={{component "icons/star-filled"}} />
+              {{#if favorite.website.url}}
+                <AuLinkExternal
+                  @skin="naked"
+                  href={{remap-url favorite.website.url}}
+                  class="favorite-title au-u-medium"
+                  title={{favorite.product.name.default}}
+                >
+                  {{favorite.product.name.default}}
+                </AuLinkExternal>
+                <AuLinkExternal
+                  href={{remap-url favorite.website.url}}
+                  @skin="naked"
+                  @icon="external-link"
+                  @iconAlignment="right"
+                />
+              {{else}}
+                <AuLink
+                  @skin="naked-button"
+                  class="favorite-title au-u-medium"
+                  {{on "click" (fn this.openProductDetail favorite.product)}}
+                >
+                  {{favorite.product.name.default}}
+                </AuLink>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <AuAlert
+          @title="U heeft momenteel geen favorieten"
+          @skin="info"
+          @icon="circle-info"
+          @size="small"
+          class="au-u-margin-top-small"
+        >
+          <p>Bekijk al onze services en klik op de ster om uw eerste toe te
+            voegen.</p>
+          <AuLink @route="search" @skin="button" class="au-u-margin-top-small">
+            Alle diensten
+          </AuLink>
+        </AuAlert>
+      {{/if}}
+    </div>
+  </section>
+</AuBodyContainer>
+
+{{#if this.selectedProduct}}
+  <IpdcServiceSidepanel
+    @model={{this.selectedProduct}}
+    @onClose={{this.closeProductDetail}}
+  />
 {{/if}}

@@ -20,48 +20,15 @@
   }
 }
 
-.c-navigation-header__search {
-  @include mq($until: small) {
-    order: 3;
-    margin-left: $au-unit-tiny;
-    width: 100%;
-    padding-top: $au-unit-small;
-    border-top: 1px solid var(--au-gray-300);
-  }
-}
-
 .c-navigation-search {
   display: flex;
   align-items: flex-end;
   gap: $au-unit-tiny;
   flex-grow: 1;
-  
+
   > div {
     flex-grow: 1;
   }
-}
-
-.au-c-button--counter {
-  padding-right: 0;
-  padding-left: $au-unit-tiny * 1.5;
-}
-
-.c-counter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--au-blue-900);
-  background-color: var(--au-blue-300);
-  height: 100%;
-  margin-top: -$au-unit-tiny;
-  margin-bottom: -$au-unit-tiny;
-  transition: background-color var(--au-transition), border var(--au-transition);
-  padding-inline: $au-unit-tiny * 1.5;
-  margin-left: $au-unit-tiny * .25;
-  border-radius: 100%;
-  font-size: 1.3rem;
-  width: 2rem;
-  height: 2rem;
 }
 
 .c-navigation {
