@@ -1,3 +1,8 @@
+## v1.13.0 (2026-06-12)
+
+#### :rocket: Enhancement
+* [#475](https://github.com/lblod/frontend-loket/pull/475) [DL-7373] Prefill vendor selector. ([@Windvis](https://github.com/Windvis))
+
 ## v1.12.0 (2026-05-29)
 
 #### :rocket: Enhancement
