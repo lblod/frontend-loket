@@ -1,0 +1,17 @@
+.c-landing{
+  --inner-max-width: 680px;
+  width: 100%;
+  padding: 4rem 0 0 0;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: minmax(1.2rem, 1fr) minmax(300px, 950px) minmax(1.2rem, 1fr);
+}
+
+.c-landing > *{
+  grid-column: 2 / 3;
+}
+
+.landing-intro {
+  width: 100%;
+  max-width: var(--inner-max-width);
+}

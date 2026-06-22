@@ -2,7 +2,6 @@ import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
 import config from 'frontend-loket/config/environment';
-import isFeatureEnabled from 'frontend-loket/helpers/is-feature-enabled';
 import { loadAccountData } from 'frontend-loket/utils/account';
 import { SHOULD_ENABLE_SENTRY } from 'frontend-loket/utils/sentry';
 
@@ -61,9 +60,7 @@ export default class CurrentSessionService extends Service {
       });
       this.groupClassification = await this.group.classificatie;
 
-      if (isFeatureEnabled('new-loket')) {
-        await this.bookmarks.load();
-      }
+      await this.bookmarks.load();
 
       this.vendors = await this.store.query('vendor', {
         'filter[can-act-on-behalf-of][:id:]': this.groupId,

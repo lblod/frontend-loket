@@ -39,20 +39,22 @@
             <ListItem>
               <AuLink
                 @route="auth.switch"
+                @icon="synchronize"
+                class="c-link--icon-medium"
                 role="menuitem"
                 {{! template-lint-disable require-context-role}}
               >
-                <AuIcon @icon="synchronize" />
                 Wisselen van account
               </AuLink>
             </ListItem>
             <ListItem>
               <AuLink
                 @route="auth.logout"
+                @icon={{component "icons/exit"}}
+                class="c-link--icon-medium"
                 role="menuitem"
                 {{! template-lint-disable require-context-role}}
               >
-                <AuIcon @icon={{component "icons/exit"}} />
                 Afmelden
               </AuLink>
             </ListItem>

@@ -6,6 +6,7 @@
         @skin="naked"
         @icon="chevron-left"
         @disabled={{not this.hasPrevious}}
+        class="c-button--icon-medium"
         {{on "click" (fn @onChange this.previousPage)}}>
         Vorige
       </AuButton>
@@ -14,6 +15,7 @@
         @icon="chevron-right"
         @iconAlignment="right"
         @disabled={{not this.hasNext}}
+        class="c-button--icon-medium"
         {{on "click" (fn @onChange this.nextPage)}}>
         Volgende
       </AuButton>

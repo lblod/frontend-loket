@@ -1,6 +1,6 @@
 {{page-title "Diensten"}}
 
-<AuMainContainer as |m|>
+<AuMainContainer class="c-search-layout" as |m|>
   <m.sidebar>
     <Sidebar>
       <div class="au-c-sidebar__content">
@@ -58,7 +58,8 @@
               <div>
                 <div class="c-search-icon-label">
                   <div class="c-search-icon-container au-u-visible-from@small">
-                    <AuIcon @icon="search" />
+                    {{! TODO: replace the class once the component supports the medium size as an arg }}
+                    <AuIcon @icon="search" class="au-c-icon--medium" />
                   </div>
                   <AuLabel for="search">Vind producten en diensten voor lokale
                     besturen</AuLabel>
@@ -77,7 +78,7 @@
                   <span class="au-u-hidden-visually">close</span>
                 </AuButton>
               {{/if}}
-              <AuButton type="submit" @icon="search">
+              <AuButton type="submit" @icon="search" class="c-button--icon-medium">
                 Zoek
               </AuButton>
             </form>
