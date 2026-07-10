@@ -513,7 +513,7 @@ export default class DecisionRemoteDocumentsShowComponent extends Component {
         );
       }
 
-      return response;
+      return { input: response, name: rdo.file.filename };
     });
 
     try {

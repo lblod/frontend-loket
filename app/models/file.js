@@ -22,6 +22,6 @@ export default class File extends Model {
   }
 
   get downloadLink() {
-    return `/files/${this.id}/download?name=${this.filename}`;
+    return `/files/${this.id}/download?name=${encodeURIComponent(this.filename)}`;
   }
 }
