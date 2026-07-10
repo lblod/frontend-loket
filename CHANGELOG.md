@@ -1,3 +1,11 @@
+## v1.13.1 (2026-07-10)
+
+#### :house: Internal
+* [#476](https://github.com/lblod/frontend-loket/pull/476) [DL-7409] New loket flag cleanup ([@Windvis](https://github.com/Windvis))
+
+#### :bug: Bug Fix
+* [#477](https://github.com/lblod/frontend-loket/pull/477) [DL-7363] fix download files containing special characters + bump ember submissions fields ([@DamonKennes](https://github.com/DamonKennes))
+
 ## v1.13.0 (2026-06-12)
 
 #### :rocket: Enhancement
