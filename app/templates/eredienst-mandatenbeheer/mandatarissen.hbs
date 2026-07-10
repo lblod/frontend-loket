@@ -46,12 +46,17 @@
       />
     </Group>
     <Group>
-      <AuToggleSwitch
-        @checked={{this.active}}
-        @onChange={{this.toggleActive}}
-      >
+      <AuToggleSwitch @checked={{this.active}} @onChange={{this.toggleActive}}>
         Toon enkel actieve mandatarissen
       </AuToggleSwitch>
+      {{#if this.currentSession.isAdmin}}
+        <AuToggleSwitch
+          @checked={{this.showInvalidated}}
+          @onChange={{fn (mut this.showInvalidated)}}
+        >
+          Toon verborgen mandatarissen
+        </AuToggleSwitch>
+      {{/if}}
     </Group>
   </AuToolbar>
 
@@ -79,6 +84,10 @@
   >
     <t.content as |c|>
       <c.header>
+        {{#if (and this.currentSession.isAdmin this.showHidden)}}
+          <th>Info</th>
+        {{/if}}
+
         <th class="au-u-visible-small-up">Orgaan</th>
         <AuDataTableThSortable
           @field=":no-case:isBestuurlijkeAliasVan.gebruikteVoornaam"
@@ -110,11 +119,26 @@
         />
         <th>Bron</th>
         <th></th>
+        {{#if this.currentSession.isAdmin}}
+          <th class="u-table-cell-shrink-content">
+            <span class="au-u-hidden-visually">Administratieve acties</span>
+          </th>
+        {{/if}}
       </c.header>
-      <c.body data-test-loket="mandatarissen-body" as |row|>
+      <c.body data-test-loket="mandatarissen-body" as |mandataris|>
+        {{#if (and this.currentSession.isAdmin this.showHidden)}}
+          <td>
+            {{#if mandataris.deleted}}
+              Verwijderd
+            {{else}}
+              {{! TODO, check if duplicate and display a badge }}
+              Duplicaat of normaal
+            {{/if}}
+          </td>
+        {{/if}}
         <td class="au-u-visible-small-up">
           {{#each
-            (get this.mandatarisBestuursorganen row.id)
+            (get this.mandatarisBestuursorganen mandataris.id)
             as |bestuursorgaan index|
           }}
             {{#if (gt index 0)}}<br />{{/if}}
@@ -122,55 +146,126 @@
           {{/each}}
         </td>
         <td class="au-u-visible-small-up">
-          {{row.isBestuurlijkeAliasVan.gebruikteVoornaam}}
+          {{mandataris.isBestuurlijkeAliasVan.gebruikteVoornaam}}
         </td>
         <td>
-          {{row.isBestuurlijkeAliasVan.achternaam}}
+          {{mandataris.isBestuurlijkeAliasVan.achternaam}}
         </td>
         <td>
-          {{row.bekleedt.bestuursfunctie.label}}
+          {{mandataris.bekleedt.bestuursfunctie.label}}
           {{#let
-            (get this.mandatarisActivePeriods row.id) as |activePeriodsLabel|
+            (get this.mandatarisActivePeriods mandataris.id)
+            as |activePeriodsLabel|
           }}
             {{#if activePeriodsLabel}}
               <div class="au-u-h6 au-u-muted">{{activePeriodsLabel}}</div>
             {{/if}}
           {{/let}}
           <div class="au-u-h-functional au-u-muted">
-            Voor meer informatie hieromtrent, kan u de helpsectie te consulteren.
+            Voor meer informatie hieromtrent, kan u de helpsectie te
+            consulteren.
           </div>
         </td>
         <td class="au-u-visible-medium-up">{{moment-format
-            row.start
+            mandataris.start
             "DD-MM-YYYY"
           }}</td>
         <td class="au-u-visible-medium-up">{{moment-format
-            row.einde
+            mandataris.einde
             "DD-MM-YYYY"
           }}</td>
-        <td>{{if row.provenance.name row.provenance.name "Loket voor lokale besturen"}}</td>
+        <td>{{if
+            mandataris.provenance.name
+            mandataris.provenance.name
+            "Loket voor lokale besturen"
+          }}</td>
         <td>
           {{! Fixing mixed situations, hence the OR. TODO: maybe rethink the view only mode }}
           {{#if
             (or
               this.currentSession.hasViewOnlyWorshipMandateesManagementData
-              row.provenance.id
+              mandataris.provenance.id
+              mandataris.invalidation
             )
           }}
             <AuLink
               @route="eredienst-mandatenbeheer.mandataris.details"
-              @model={{row.id}}
+              @model={{mandataris.id}}
             >Bekijk</AuLink>
           {{else}}
             <AuLink
               @route="eredienst-mandatenbeheer.mandataris.edit"
-              @model={{row.id}}
+              @model={{mandataris.id}}
             >Bewerk</AuLink>
           {{/if}}
         </td>
+        {{#if this.currentSession.isAdmin}}
+          <td>
+            <div class="au-u-flex au-u-flex--end">
+              {{#if mandataris.invalidation}}
+                {{#if (is-mandataris-deleted mandataris)}}
+                  <AuPill @skin="error" @icon="bin" @size="small">
+                    Verwijderd
+                  </AuPill>
+                {{else}}
+                  <AuPill @skin="warning" @icon="copy" @size="small">
+                    Duplicaat
+                  </AuPill>
+                {{/if}}
+              {{/if}}
+              <AuDropdown
+                @title="Acties"
+                @icon={{component "icons/nav-show-more-vertical"}}
+                @hideText={{true}}
+                role="menu"
+              >
+                {{#if mandataris.invalidation}}
+                  <AuButton
+                    @skin="link"
+                    @icon="undo"
+                    role="menuitem"
+                    {{on "click" (fn this.revertInvalidation mandataris)}}
+                  >
+                    {{#if (is-mandataris-deleted mandataris)}}
+                      Verwijderen ongedaan maken
+                    {{else}}
+                      Duplicaat status verwijderen
+                    {{/if}}
+                  </AuButton>
+                {{else}}
+                  <AuButton
+                    @skin="link"
+                    @icon="archive"
+                    role="menuitem"
+                    {{on "click" (fn this.markAsDuplicate mandataris)}}
+                  >
+                    Markeren als duplicaat
+                  </AuButton>
+                  <AuButton
+                    @skin="link"
+                    @icon="trash"
+                    @alert={{true}}
+                    role="menuitem"
+                    {{on "click" (fn this.softDelete mandataris)}}
+                  >
+                    Verwijderen
+                  </AuButton>
+                {{/if}}
+              </AuDropdown>
+            </div>
+          </td>
+        {{/if}}
       </c.body>
     </t.content>
   </AuDataTable>
 </div>
 
-{{outlet}}
+{{#if this.mandatarisForInvalidation}}
+  <EredienstMandatenbeheer::InvalidateMandataris
+    @mandataris={{this.mandatarisForInvalidation}}
+    @mandatarissen={{this.model}}
+    @invalidationType={{this.invalidationType}}
+    @onComplete={{this.handleInvalidationComplete}}
+    @onCancel={{this.hideInvalidationModal}}
+  />
+{{/if}}

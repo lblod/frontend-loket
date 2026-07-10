@@ -3,12 +3,14 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { restartableTask, timeout } from 'ember-concurrency';
+import { INVALIDATION_REASON } from 'frontend-loket/models/concept';
 
 export default class EredienstMandatenbeheerMandatarissenController extends Controller {
-  @service() router;
-  @service() currentSession;
+  @service currentSession;
+  @service router;
+  @service store;
 
-  queryParams = ['vendorId', 'active'];
+  queryParams = ['vendorId', 'active', 'showInvalidated'];
 
   sort = 'is-bestuurlijke-alias-van.gebruikte-voornaam';
 
@@ -20,6 +22,9 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
   @tracked vendorId = null;
   @tracked active = true;
   @tracked mandatarisActivePeriods;
+  @tracked showInvalidated = false;
+  @tracked mandatarisForInvalidation;
+  @tracked invalidationType;
 
   get startDate() {
     return this.mandatenbeheer.startDate;
@@ -72,5 +77,38 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
     this.router.transitionTo('eredienst-mandatenbeheer.mandatarissen', {
       queryParams,
     });
+  }
+
+  @action
+  handleInvalidationComplete() {
+    this.hideInvalidationModal();
+    this.router.refresh('eredienst-mandatenbeheer.mandatarissen');
+  }
+
+  @action
+  softDelete(mandataris) {
+    this.mandatarisForInvalidation = mandataris;
+    this.invalidationType = INVALIDATION_REASON.INVALID;
+  }
+
+  @action
+  markAsDuplicate(mandataris) {
+    this.mandatarisForInvalidation = mandataris;
+    this.invalidationType = INVALIDATION_REASON.DUPLICATE;
+  }
+
+  @action
+  hideInvalidationModal() {
+    this.mandatarisForInvalidation = null;
+    this.invalidationType = null;
+  }
+
+  @action
+  async revertInvalidation(mandataris) {
+    const invalidation = mandataris.invalidation;
+    await invalidation.destroyRecord();
+
+    mandataris.invalidation = null;
+    await mandataris.save();
   }
 }

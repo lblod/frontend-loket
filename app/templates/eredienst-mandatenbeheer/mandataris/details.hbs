@@ -19,7 +19,11 @@
 </AuToolbar>
 
 <AuBodyContainer @scroll={{true}}>
-  <AuAlert @icon="alert-triangle" @skin="warning" @size="small">Deze mandatarisgegevens zijn alleen leesbaar. Je kunt ze niet bewerken want ze worden beheerd door uw softwareleverancier.</AuAlert>
+  {{#unless @model.invalidation}}
+    <AuAlert @icon="alert-triangle" @skin="warning" @size="small">Deze
+      mandatarisgegevens zijn alleen leesbaar. Je kunt ze niet bewerken want ze
+      worden beheerd door uw softwareleverancier.</AuAlert>
+  {{/unless}}
   <dl class="au-u-2-3@medium au-o-box">
     <div class="au-u-margin-bottom-small">
       <dt class="au-c-label">
@@ -70,28 +74,28 @@
       <AuHeading @skin="2" class="au-u-h3 au-u-padding-bottom">
         Contactgegevens
       </AuHeading>
-        <dl class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
-          <div class="au-o-grid__item au-u-1-2">
-            <dt class="au-c-label">Adres</dt>
-            <dd>{{this.contact.adres.volledigAdres}}</dd>
-          </div>
-          <div class="au-o-grid__item au-u-1-2">
-            <dt class="au-c-label">E-mail</dt>
-            <dd>{{this.contact.email}}</dd>
-          </div>
-          <div class="au-o-grid__item au-u-1-2">
-            <dt class="au-c-label">Primair telefoonnummer</dt>
-            <dd>{{this.contact.telefoon}}</dd>
-          </div>
-          <div class="au-o-grid__item au-u-1-2">
-            <dt class="au-c-label">Secondair telefoonnummer</dt>
-            <dd>
-              <ValueWithPlaceholder
-                @value={{this.contact.secondaryContactPoint.telefoon}}
-              />
-            </dd>
-          </div>
-        </dl>
+      <dl class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
+        <div class="au-o-grid__item au-u-1-2">
+          <dt class="au-c-label">Adres</dt>
+          <dd>{{this.contact.adres.volledigAdres}}</dd>
+        </div>
+        <div class="au-o-grid__item au-u-1-2">
+          <dt class="au-c-label">E-mail</dt>
+          <dd>{{this.contact.email}}</dd>
+        </div>
+        <div class="au-o-grid__item au-u-1-2">
+          <dt class="au-c-label">Primair telefoonnummer</dt>
+          <dd>{{this.contact.telefoon}}</dd>
+        </div>
+        <div class="au-o-grid__item au-u-1-2">
+          <dt class="au-c-label">Secondair telefoonnummer</dt>
+          <dd>
+            <ValueWithPlaceholder
+              @value={{this.contact.secondaryContactPoint.telefoon}}
+            />
+          </dd>
+        </div>
+      </dl>
     </div>
   {{/if}}
 </AuBodyContainer>

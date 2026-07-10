@@ -10,16 +10,20 @@ export default class EredienstMandatenbeheerMandatarisEditRoute extends Route {
   @service router;
 
   async beforeModel() {
-    if (this.currentSession.hasViewOnlyWorshipMandateesManagementData) {
-      this.router.transitionTo('eredienst-mandatenbeheer.mandataris.details');
-    }
-    const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
-
-    this.bestuursorganen = mandatenbeheer.bestuursorganen;
-
     const mandataris = await this.modelFor(
       'eredienst-mandatenbeheer.mandataris',
     );
+
+    if (
+      this.currentSession.hasViewOnlyWorshipMandateesManagementData ||
+      mandataris.invalidation
+    ) {
+      this.router.transitionTo('eredienst-mandatenbeheer.mandataris.details');
+    }
+
+    const mandatenbeheer = this.modelFor('eredienst-mandatenbeheer');
+
+    this.bestuursorganen = mandatenbeheer.bestuursorganen;
     const persoon = await mandataris.isBestuurlijkeAliasVan;
 
     let positionContacts = await mandataris.contacts;
