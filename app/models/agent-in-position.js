@@ -3,6 +3,7 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 export default class AgentInPositionModel extends Model {
   @attr('date') agentStartDate;
   @attr('date') agentEndDate;
+  @attr uri;
 
   @belongsTo('post', {
     async: true,
@@ -29,4 +30,6 @@ export default class AgentInPositionModel extends Model {
     as: 'agent-in-position',
   })
   contacts;
+
+  @belongsTo('invalidation', { async: false, inverse: null }) invalidation;
 }

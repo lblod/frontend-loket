@@ -1,6 +1,4 @@
 import Route from '@ember/routing/route';
-// eslint-disable-next-line ember/no-mixins
-import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
 import { inject as service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
@@ -40,9 +38,7 @@ async function getActivePeriodsLabel(mandataris) {
   return `Dit mandaat loopt over de volgende bestuursperiodes: ${ranges.join(', ')}.`;
 }
 
-export default class EredienstMandatenbeheerMandatarissenRoute extends Route.extend(
-  DataTableRouteMixin,
-) {
+export default class EredienstMandatenbeheerMandatarissenRoute extends Route {
   @service currentSession;
   @service router;
   @service store;
@@ -54,9 +50,9 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
     sort: { refreshModel: true },
     vendorId: { refreshModel: true },
     active: { refreshModel: true },
+    showInvalidated: { refreshModel: true },
   };
 
-  modelName = 'worship-mandatee';
   hasInitializedVendorDefault = false;
 
   beforeModel(transition) {
@@ -80,28 +76,17 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
     }
   }
 
-  async afterModel(mandatarissen) {
-    let mandatarisBestuursorganen = mandatarissen.reduce((data, mandataris) => {
-      data[mandataris.id] = getUniqueBestuursorganen(mandataris);
-      return data;
-    }, {});
-
-    let mandatarisActivePeriods = mandatarissen.reduce((data, mandataris) => {
-      data[mandataris.id] = getActivePeriodsLabel(mandataris);
-      return data;
-    }, {});
-
-    this.mandatarisBestuursorganen = await hash(mandatarisBestuursorganen);
-    this.mandatarisActivePeriods = await hash(mandatarisActivePeriods);
-  }
-
-  mergeQueryOptions(params) {
+  async model(params) {
     const bestuursorganenIds = this.mandatenbeheer.bestuursorganen.map((o) =>
       o.get('id'),
     );
 
     const queryParams = {
       sort: params.sort,
+      page: {
+        number: params.page,
+        size: params.size,
+      },
       filter: {
         bekleedt: {
           'bevat-in': {
@@ -134,7 +119,31 @@ export default class EredienstMandatenbeheerMandatarissenRoute extends Route.ext
       };
     }
 
-    return queryParams;
+    if (
+      !this.currentSession.isAdmin ||
+      (this.currentSession.isAdmin && !params.showInvalidated)
+    ) {
+      queryParams['filter'][':has-no:invalidation'] = true;
+    } else {
+      queryParams.include += ',invalidation';
+    }
+
+    return await this.store.query('worship-mandatee', queryParams);
+  }
+
+  async afterModel(mandatarissen) {
+    let mandatarisBestuursorganen = mandatarissen.reduce((data, mandataris) => {
+      data[mandataris.id] = getUniqueBestuursorganen(mandataris);
+      return data;
+    }, {});
+
+    let mandatarisActivePeriods = mandatarissen.reduce((data, mandataris) => {
+      data[mandataris.id] = getActivePeriodsLabel(mandataris);
+      return data;
+    }, {});
+
+    this.mandatarisBestuursorganen = await hash(mandatarisBestuursorganen);
+    this.mandatarisActivePeriods = await hash(mandatarisActivePeriods);
   }
 
   setupController(controller) {
