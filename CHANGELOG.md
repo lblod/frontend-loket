@@ -1,3 +1,8 @@
+## v1.14.0 (2026-07-13)
+
+#### :rocket: Enhancement
+* [#478](https://github.com/lblod/frontend-loket/pull/478) [DL-7374] Add support for invalidating worship mandatees ([@Windvis](https://github.com/Windvis))
+
 ## v1.13.1 (2026-07-10)
 
 #### :house: Internal
