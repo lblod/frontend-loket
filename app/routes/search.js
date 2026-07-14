@@ -5,7 +5,8 @@ import { isPresent } from '@ember/utils';
 import constants from '../config/constants';
 import search, { langStringResourceFormat } from '../utils/mu-search';
 
-const { EXECUTING_AUTHORITY_LEVELS, TARGET_AUDIENCES, REPRESENTATIVE_ORGAN } = constants;
+const { EXECUTING_AUTHORITY_LEVELS, TARGET_AUDIENCES, REPRESENTATIVE_ORGAN } =
+  constants;
 
 export default class SearchRoute extends Route {
   @service store;
@@ -100,8 +101,12 @@ export default class SearchRoute extends Route {
     let classificationId = classification.id;
 
     // For representative organ:
-    if (classificationId === REPRESENTATIVE_ORGAN.REPRESENTATIVE_ORGAN_CLASSIFICATION_CODE) {
-      classificationId = REPRESENTATIVE_ORGAN.ADMINISTRATIVE_UNIT_CLASSIFICATION_CODE;
+    if (
+      classificationId ===
+      REPRESENTATIVE_ORGAN.REPRESENTATIVE_ORGAN_CLASSIFICATION_CODE
+    ) {
+      classificationId =
+        REPRESENTATIVE_ORGAN.ADMINISTRATIVE_UNIT_CLASSIFICATION_CODE;
     }
 
     if (params.useDefaultAdminUnitFilter !== false) {
