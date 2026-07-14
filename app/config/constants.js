@@ -24,4 +24,8 @@ export default {
     PROVINCE:
       'https://productencatalogus.data.vlaanderen.be/id/concept/UitvoerendBestuursniveau/Provinciaal',
   },
+  REPRESENTATIVE_ORGAN: {
+    ADMINISTRATIVE_UNIT_CLASSIFICATION_CODE: '36372fad-0358-499c-a4e3-f412d2eae213',
+    REPRESENTATIVE_ORGAN_CLASSIFICATION_CODE: '89a00b5a-024f-4630-a722-65a5e68967e5',
+  }
 };
