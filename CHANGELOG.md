@@ -1,3 +1,8 @@
+## v1.14.1 (2026-07-23)
+
+#### :bug: Bug Fix
+* [#479](https://github.com/lblod/frontend-loket/pull/479) [DL-7449] Handle representative organs in public services filter ([@nikidevisscher](https://github.com/nikidevisscher))
+
 ## v1.14.0 (2026-07-13)
 
 #### :rocket: Enhancement
