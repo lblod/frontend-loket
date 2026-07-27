@@ -1,3 +1,8 @@
+## v1.14.2 (2026-07-27)
+
+#### :bug: Bug Fix
+* [#480](https://github.com/lblod/frontend-loket/pull/480) [DL-7328] Mandate info text improvements ([@Windvis](https://github.com/Windvis))
+
 ## v1.14.1 (2026-07-23)
 
 #### :bug: Bug Fix
