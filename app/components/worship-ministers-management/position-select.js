@@ -15,7 +15,8 @@ export default class WorshipMinistersManagementPositionSelectComponent extends C
       'filter[worship-service][:uri:]': this.args.worshipService.uri,
       include: 'function.applicable-statuses',
     });
-    const organizationStatus = await this.args.worshipService.organizationStatus;
+    const organizationStatus =
+      await this.args.worshipService.organizationStatus;
 
     return positions.filter((position) =>
       this.isPositionApplicable(position, organizationStatus),
@@ -24,7 +25,11 @@ export default class WorshipMinistersManagementPositionSelectComponent extends C
 
   isPositionApplicable(position, organizationStatus) {
     const applicableStatuses =
-      position.belongsTo('function').value()?.hasMany('applicableStatuses').value() ?? [];
+      position
+        .belongsTo('function')
+        .value()
+        ?.hasMany('applicableStatuses')
+        .value() ?? [];
 
     return (
       applicableStatuses.length === 0 ||
