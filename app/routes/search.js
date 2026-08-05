@@ -9,6 +9,7 @@ const { EXECUTING_AUTHORITY_LEVELS, TARGET_AUDIENCES, REPRESENTATIVE_ORGAN } =
   constants;
 
 export default class SearchRoute extends Route {
+  @service bookmarks;
   @service store;
   @service session;
 
@@ -50,6 +51,7 @@ export default class SearchRoute extends Route {
     const [executingAuthorityLevel, targetAudience] = await Promise.all([
       this.store.findRecordByUri('concept', EXECUTING_AUTHORITY_LEVELS.FLEMISH),
       this.store.findRecordByUri('concept', TARGET_AUDIENCES.LOCAL_GOVERNMENT),
+      this.bookmarks.load(),
     ]);
 
     const filter = {

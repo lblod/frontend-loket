@@ -6,13 +6,20 @@ export default class BookmarksService extends Service {
   @service toaster;
   @service store;
 
+  #loadingPromise;
+
   @tracked bookmarks = [];
 
   async load() {
-    await this.fetchBookmarks();
+    if (!this.#loadingPromise) {
+      this.#loadingPromise = this.fetchBookmarks();
+    }
+
+    await this.#loadingPromise;
   }
 
   async reset() {
+    this.#loadingPromise = null;
     this.bookmarks = [];
   }
 
@@ -97,6 +104,7 @@ export default class BookmarksService extends Service {
   async jsonToBookmark(bookmark) {
     const products = await this.store.query('public-service', {
       'filter[:uri:]': bookmark.attributes.object,
+      include: 'procedures.websites',
       page: { size: 1 },
     });
     return {

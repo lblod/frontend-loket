@@ -59,14 +59,11 @@ export default class CurrentSessionService extends Service {
         reload: true,
       });
       this.groupClassification = await this.group.classificatie;
-
-      await this.bookmarks.load();
+      this.setupSentrySession();
 
       this.vendors = await this.store.query('vendor', {
         'filter[can-act-on-behalf-of][:id:]': this.groupId,
       });
-
-      this.setupSentrySession();
     }
   }
 

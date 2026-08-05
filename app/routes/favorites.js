@@ -11,7 +11,9 @@ export default class FavoritesRoute extends Route {
     this.session.requireAuthentication(transition, 'login');
   }
 
-  model() {
+  async model() {
+    await this.bookmarksService.load();
+
     return this.bookmarksService.bookmarks
       .map((bookmark) => bookmark.object)
       .sort((a, b) => compare(a.name.default, b.name.default));

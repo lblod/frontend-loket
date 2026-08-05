@@ -64,64 +64,7 @@
         {{/each}}
       </div>
     </div>
-
-    <div class="favorites-container au-u-margin-top-large">
-      <AuHeading @level="2" @skin="3">Favoriete producten of diensten</AuHeading>
-      {{#if @model.length}}
-        <ul
-          class="au-u-flex au-u-flex--wrap au-u-flex--spaced-tiny au-u-padding-top-tiny au-u-padding-bottom-large"
-        >
-          {{#each @model as |favorite|}}
-            <li class="favorite-card">
-              <AuIcon
-                @icon={{component "icons/star-filled"}}
-                @alignment="left"
-                @size="large"
-              />
-              {{#if favorite.website.url}}
-                <AuLinkExternal
-                  @skin="naked"
-                  href={{remap-url favorite.website.url}}
-                  class="favorite-title au-u-medium"
-                  title={{favorite.product.name.default}}
-                >
-                  {{favorite.product.name.default}}
-                </AuLinkExternal>
-                <AuLinkExternal
-                  href={{remap-url favorite.website.url}}
-                  class="c-link--icon-medium"
-                  @skin="button-naked"
-                  @icon="external-link"
-                  @iconAlignment="right"
-                />
-              {{else}}
-                <AuLink
-                  @skin="naked-button"
-                  class="favorite-title au-u-medium"
-                  {{on "click" (fn this.openProductDetail favorite.product)}}
-                >
-                  {{favorite.product.name.default}}
-                </AuLink>
-              {{/if}}
-            </li>
-          {{/each}}
-        </ul>
-      {{else}}
-        <AuAlert
-          @title="U heeft momenteel geen favorieten"
-          @skin="info"
-          @icon="circle-info"
-          @size="small"
-          class="au-u-margin-top-small"
-        >
-          <p>Bekijk al onze services en klik op de ster om uw eerste toe te
-            voegen.</p>
-          <AuLink @route="search" @skin="button" class="au-u-margin-top-small">
-            Alle diensten
-          </AuLink>
-        </AuAlert>
-      {{/if}}
-    </div>
+    <FavoritesOverview @onSelect={{fn (mut this.selectedProduct)}} />
   </section>
 </AuBodyContainer>
 
