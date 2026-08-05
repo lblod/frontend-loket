@@ -8,6 +8,12 @@ export default class WorshipAdministrativeUnitModel extends BestuurseenheidModel
   })
   recognizedWorshipType;
 
+  @belongsTo('organization-status-code', {
+    async: true,
+    inverse: null,
+  })
+  organizationStatus;
+
   @hasMany('minister-position', {
     async: true,
     inverse: 'worshipService',
