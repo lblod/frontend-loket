@@ -1,3 +1,8 @@
+## v1.14.3 (2026-08-07)
+
+#### :rocket: Enhancement
+* [#481](https://github.com/lblod/frontend-loket/pull/481) [DL-7485] Restrict available imam roles based on worship organisation status ([@DamonKennes](https://github.com/DamonKennes))
+
 ## v1.14.2 (2026-07-27)
 
 #### :bug: Bug Fix
