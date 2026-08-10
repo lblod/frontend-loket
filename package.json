@@ -32,7 +32,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^3.15.0",
+    "@appuniversum/ember-appuniversum": "^4.2.2",
     "@babel/core": "^7.25.2",
     "@babel/eslint-parser": "^7.25.1",
     "@babel/plugin-proposal-decorators": "^7.24.7",
@@ -50,7 +50,7 @@
     "@lblod/ember-acmidm-login": "2.1.0",
     "@lblod/ember-address-search": "^1.0.0",
     "@lblod/ember-mock-login": "^0.10.0",
-    "@lblod/ember-submission-form-fields": "^3.6.1",
+    "@lblod/ember-submission-form-fields": "^3.7.0",
     "@lblod/submission-form-helpers": "^3.0.0",
     "@sentry/ember": "^7.54.0",
     "broccoli-asset-rev": "^3.0.0",

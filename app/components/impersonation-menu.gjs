@@ -1,9 +1,7 @@
-import {
-  AuDropdown,
-  AuPill,
-  AuLink,
-  AuButton,
-} from '@appuniversum/ember-appuniversum';
+import AuDropdown from '@appuniversum/ember-appuniversum/components/au-dropdown';
+import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
+import AuLink from '@appuniversum/ember-appuniversum/components/au-link';
+import AuButton from '@appuniversum/ember-appuniversum/components/au-button';
 import { LogoutIcon } from '@appuniversum/ember-appuniversum/components/icons/logout';
 import { LoginIcon } from '@appuniversum/ember-appuniversum/components/icons/login';
 import { SwitchIcon } from '@appuniversum/ember-appuniversum/components/icons/switch';
