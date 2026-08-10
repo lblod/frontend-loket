@@ -143,8 +143,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
     this.rollbackUnsavedContactChanges();
   }
 
-  @dropTask
-  *createWorshipMinister(event) {
+  createWorshipMinister = dropTask(async (event) => {
     event.preventDefault();
 
     let { worshipMinister, contacts } = this.model;
@@ -157,29 +156,29 @@ export default class WorshipMinistersManagementNewController extends Controller 
         'startdatum is een vereist veld.',
       );
     }
-    yield validateFunctie(worshipMinister);
+    await validateFunctie(worshipMinister);
 
     // validate the worship minister contacts which has 2 valid branches:
     // the user is editing a new contact:
     if (this.isEditingContactPoint) {
       let contactPoint = this.editingContact;
-      let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
-      let adres = yield contactPoint.adres;
+      let secondaryContactPoint = await contactPoint.secondaryContactPoint;
+      let adres = await contactPoint.adres;
 
       // the user is using input mode manual, we trigger error messages here.
       if (this.isManualAddress) {
-        yield isValidAdres(adres);
+        await isValidAdres(adres);
       }
 
       // in this case the contact point information and address should be valid
       if (
-        (yield isValidPrimaryContact(contactPoint)) &&
+        (await isValidPrimaryContact(contactPoint)) &&
         worshipMinister.isValid &&
         adres.isValid
       ) {
         if (adres?.isNew || adres?.hasDirtyAttributes) {
           adres.volledigAdres = combineFullAddress(adres);
-          yield adres.save();
+          await adres.save();
         }
 
         if (contactPoint.isNew) {
@@ -188,14 +187,14 @@ export default class WorshipMinistersManagementNewController extends Controller 
         }
 
         if (secondaryContactPoint.telefoon) {
-          yield secondaryContactPoint.save();
+          await secondaryContactPoint.save();
         } else {
           // Ember Data v4.7+ doesn't remove the record from the relationship when we call destroyRecord, so we do it manually for now
           // More info: https://github.com/emberjs/data/issues/8792
           contactPoint.secondaryContactPoint = null;
 
           // The secondary contact point is empty so we can remove it if it was ever persisted before
-          yield secondaryContactPoint.destroyRecord();
+          await secondaryContactPoint.destroyRecord();
         }
       } else {
         return;
@@ -204,7 +203,7 @@ export default class WorshipMinistersManagementNewController extends Controller 
 
     // the user has selected an already existing contact pair
     if (this.selectedContact) {
-      let secondaryContact = yield this.selectedContact.secondaryContactPoint;
+      let secondaryContact = await this.selectedContact.secondaryContactPoint;
 
       worshipMinister.contacts = [
         this.selectedContact,
@@ -228,13 +227,13 @@ export default class WorshipMinistersManagementNewController extends Controller 
       worshipMinister.contacts.length > 0 &&
       this.selectedContact.isValid
     ) {
-      yield this.selectedContact.save();
-      yield worshipMinister.save();
+      await this.selectedContact.save();
+      await worshipMinister.save();
       this.router.transitionTo('worship-ministers-management');
     } else {
       return;
     }
-  }
+  });
 
   rollbackUnsavedChanges() {
     this.model?.worshipMinister?.rollbackAttributes();

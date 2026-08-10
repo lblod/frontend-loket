@@ -32,9 +32,8 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
     this.loadData.perform();
   }
 
-  @task
-  *loadData() {
-    this.governingBodies = yield this.store.query('bestuursorgaan', {
+  loadData = task(async () => {
+    this.governingBodies = await this.store.query('bestuursorgaan', {
       filter: {
         ':has-no:bevat-bestuursfunctie': true,
         bestuurseenheid: {
@@ -54,12 +53,11 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
       this.args.onShowFilter(false);
       return;
     }
-  }
+  });
 
-  @restartableTask
-  *searchGoverningBody(term) {
-    yield timeout(600);
-    let results = yield this.store.query('bestuursorgaan', {
+  searchGoverningBody = restartableTask(async (term) => {
+    await timeout(600);
+    let results = await this.store.query('bestuursorgaan', {
       filter: {
         bestuurseenheid: {
           ':uri:': this.bestuur.uri,
@@ -71,7 +69,7 @@ export default class SupervisionSubmissionGoverningBodiesSelect extends Componen
     });
 
     return results.slice();
-  }
+  });
 
   @action
   changeSelectedGoverningBodies(selectedBodies) {

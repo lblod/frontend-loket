@@ -13,8 +13,8 @@ export default class EmployeeDatasetSummary extends Component {
     if (this.args.dataset) this.calculateTotals.perform();
   }
 
-  @keepLatestTask *calculateTotals() {
-    const periods = yield this.store.query('employee-period-slice', {
+  calculateTotals = keepLatestTask(async () => {
+    const periods = await this.store.query('employee-period-slice', {
       page: { size: 1 },
       sort: '-time-period.start',
       'filter[dataset][id]': this.args.dataset.id,
@@ -22,11 +22,11 @@ export default class EmployeeDatasetSummary extends Component {
     const latestPeriod = periods.at(0);
 
     if (latestPeriod) {
-      const workingTimeCategories = yield this.store.findAll(
+      const workingTimeCategories = await this.store.findAll(
         'working-time-category',
       );
 
-      const summary = yield all(
+      const summary = await all(
         workingTimeCategories.map(async (category) => {
           const observations = await this.store.query('employee-observation', {
             page: { size: 1000 },
@@ -54,5 +54,5 @@ export default class EmployeeDatasetSummary extends Component {
     } else {
       this.summary = [];
     }
-  }
+  });
 }

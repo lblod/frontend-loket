@@ -13,8 +13,7 @@ export default class BroaderConceptPillsComponent extends Component {
     this.loadData.perform();
   }
 
-  @keepLatestTask
-  *loadData() {
-    this.concept = yield this.store.findRecordByUri('concept', this.args.uri);
-  }
+  loadData = keepLatestTask(async () => {
+    this.concept = await this.store.findRecordByUri('concept', this.args.uri);
+  });
 }

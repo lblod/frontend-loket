@@ -6,13 +6,12 @@ import { inject as service } from '@ember/service';
 export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctionarissenNewPeriodeController extends Controller {
   @service router;
 
-  @task
-  *save() {
-    yield this.model.save();
+  save = task(async () => {
+    await this.model.save();
     this.router.transitionTo(
       'leidinggevendenbeheer.bestuursfuncties.bestuursfunctie.functionarissen.index',
     );
-  }
+  });
 
   @action
   goBackToSearch() {

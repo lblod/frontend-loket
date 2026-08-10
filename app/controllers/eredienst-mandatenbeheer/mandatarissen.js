@@ -46,12 +46,11 @@ export default class EredienstMandatenbeheerMandatarissenController extends Cont
     return this.mandatenbeheer.bestuursorganen;
   }
 
-  @restartableTask
-  *search(searchData) {
-    yield timeout(300);
+  search = restartableTask(async (searchData) => {
+    await timeout(300);
     this.page = 0;
     this.filter = searchData;
-  }
+  });
 
   @action
   selectVendor(vendorId) {

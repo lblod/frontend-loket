@@ -13,21 +13,21 @@ export default class EmployeePeriodSliceTable extends Component {
     if (observations) this.initTable.perform();
   }
 
-  @keepLatestTask *initTable() {
-    const sexes = yield this.store.query('geslacht-code', {
+  initTable = keepLatestTask(async () => {
+    const sexes = await this.store.query('geslacht-code', {
       page: { size: 10 },
       sort: 'label',
       'filter[id]': '5ab0e9b8a3b2ca7c5e000029,5ab0e9b8a3b2ca7c5e000028', // vrouwelijk, mannelijk
     });
-    const workingTimeCategories = yield this.store.query(
+    const workingTimeCategories = await this.store.query(
       'working-time-category',
       { page: { size: 10 }, sort: '-label' },
     );
-    const legalStatuses = yield this.store.query('employee-legal-status', {
+    const legalStatuses = await this.store.query('employee-legal-status', {
       page: { size: 10 },
       sort: '-label',
     });
-    const educationalLevels = yield this.store.query('educational-level', {
+    const educationalLevels = await this.store.query('educational-level', {
       page: { size: 10 },
       sort: 'label',
     });
@@ -39,7 +39,7 @@ export default class EmployeePeriodSliceTable extends Component {
 
     const unitMeasure = (this.observations.at(0) || {}).unitMeasure;
     this.unitMeasure = unitMeasure;
-  }
+  });
 
   get total() {
     const totalValue = (this.observations || []).reduce((acc, obs) => {

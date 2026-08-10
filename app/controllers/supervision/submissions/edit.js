@@ -83,9 +83,8 @@ export default class SupervisionSubmissionsEditController extends Controller {
     );
   }
 
-  @task
-  *saveSubmissionForm() {
-    yield fetchManager.request({
+  saveSubmissionForm = task(async () => {
+    await fetchManager.request({
       url: `/submission-forms/${this.model.submissionDocument.id}`,
       method: 'PUT',
       headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }),
@@ -96,21 +95,20 @@ export default class SupervisionSubmissionsEditController extends Controller {
       }),
     });
 
-    yield fetchManager.request({
+    await fetchManager.request({
       url: `/submission-forms/${this.model.submissionDocument.id}/flatten`,
       method: 'PUT',
     });
 
     // Since the form data and related entities are not updated via ember-data
     // we need to manually reload those to keep the index page up-to-date
-    const formData = yield this.model.submission.belongsTo('formData').reload();
-    yield formData.hasMany('types').reload();
-    yield formData.belongsTo('passedBy').reload();
-  }
+    const formData = await this.model.submission.belongsTo('formData').reload();
+    await formData.hasMany('types').reload();
+    await formData.belongsTo('passedBy').reload();
+  });
 
-  @task
-  *submitSubmissionForm() {
-    yield fetchManager.request({
+  submitSubmissionForm = task(async () => {
+    await fetchManager.request({
       url: `/submission-forms/${this.model.submissionDocument.id}/submit`,
       method: 'POST',
       headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }),
@@ -119,15 +117,14 @@ export default class SupervisionSubmissionsEditController extends Controller {
     // Since the sent date and sent status of the submission will be set by the backend
     // and not via ember-data, we need to manually reload the submission record
     // to keep the index page up-to-date
-    const submission = yield this.model.submission.reload();
-    yield submission.belongsTo('status').reload();
-  }
+    const submission = await this.model.submission.reload();
+    await submission.belongsTo('status').reload();
+  });
 
-  @task
-  *delete() {
+  delete = task(async () => {
     try {
       // TODO: use the request manager once that supports non-json responses
-      yield fetch(`/submissions/${this.model.submission.id}`, {
+      await fetch(`/submissions/${this.model.submission.id}`, {
         method: 'DELETE',
       });
       this.toaster.success(undefined, 'Dossier verwijderd', {
@@ -140,17 +137,16 @@ export default class SupervisionSubmissionsEditController extends Controller {
         'Bewaren mislukt',
       );
     }
-  }
+  });
 
-  @task
-  *save() {
+  save = task(async () => {
     try {
-      yield this.saveSubmissionForm.perform();
+      await this.saveSubmissionForm.perform();
 
       const user = this.currentSession.user;
       this.model.submission.modified = new Date();
       this.model.submission.lastModifier = user;
-      yield this.model.submission.save();
+      await this.model.submission.save();
 
       this.toaster.success(undefined, 'Concept bewaard', {
         timeOut: 3000,
@@ -161,16 +157,15 @@ export default class SupervisionSubmissionsEditController extends Controller {
         'Bewaren mislukt',
       );
     }
-  }
+  });
 
-  @task
-  *submit() {
+  submit = task(async () => {
     const options = {
       ...this.graphs,
       sourceNode: this.sourceNode,
       store: this.formStore,
     };
-    this.isValidForm = yield validateForm(this.form, options);
+    this.isValidForm = await validateForm(this.form, options);
     if (!this.isValidForm) {
       this.forceShowErrors = true;
     } else {
@@ -179,9 +174,9 @@ export default class SupervisionSubmissionsEditController extends Controller {
       this.model.submission.lastModifier = user;
 
       try {
-        yield this.saveSubmissionForm.perform();
-        yield this.submitSubmissionForm.perform();
-        yield this.model.submission.save();
+        await this.saveSubmissionForm.perform();
+        await this.submitSubmissionForm.perform();
+        await this.model.submission.save();
         this.toaster.success(undefined, 'Dossier verzonden', {
           timeOut: 5000,
         });
@@ -193,5 +188,5 @@ export default class SupervisionSubmissionsEditController extends Controller {
         );
       }
     }
-  }
+  });
 }

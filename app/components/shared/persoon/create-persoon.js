@@ -70,44 +70,41 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
     return !!this.args.geboorteRequired;
   }
 
-  @task
-  *loadOrCreateRijksregister() {
+  loadOrCreateRijksregister = task(async () => {
     let identificator;
-    let queryResult = yield this.store.query('identificator', {
+    let queryResult = await this.store.query('identificator', {
       filter: { ':exact:identificator': this.rijksregisternummer },
     });
 
     if (queryResult.length >= 1) {
       identificator = queryResult.at(0);
     } else {
-      identificator = yield this.store
+      identificator = await this.store
         .createRecord('identificator', {
           identificator: this.rijksregisternummer,
         })
         .save();
     }
     return identificator;
-  }
+  });
 
-  @task
-  *loadOrCreateGeboorte() {
+  loadOrCreateGeboorte = task(async () => {
     let geboorte;
-    let queryResult = yield this.store.query('geboorte', {
+    let queryResult = await this.store.query('geboorte', {
       filter: { datum: this.birthDate.toISOString().substring(0, 10) },
     });
 
     if (queryResult.length >= 1) {
       geboorte = queryResult.at(0);
     } else {
-      geboorte = yield this.store
+      geboorte = await this.store
         .createRecord('geboorte', { datum: this.birthDate })
         .save();
     }
     return geboorte;
-  }
+  });
 
-  @task
-  *save() {
+  save = task(async () => {
     // todo identificator
 
     let errors = {};
@@ -153,21 +150,21 @@ export default class SharedPersoonCreatePersoonComponent extends Component {
         gebruikteVoornaam: this.voornaam,
         achternaam: this.familienaam,
         alternatieveNaam: this.roepnaam,
-        geslacht: yield store.findRecord('geslacht-code', this.geslacht),
-        identificator: yield this.loadOrCreateRijksregister.perform(),
-        geboorte: yield this.loadOrCreateGeboorte.perform(),
+        geslacht: await store.findRecord('geslacht-code', this.geslacht),
+        identificator: await this.loadOrCreateRijksregister.perform(),
+        geboorte: await this.loadOrCreateGeboorte.perform(),
       });
 
       if (this.isNationalityFieldRequired)
         persoon.nationalities = this.nationaliteit;
 
-      yield persoon.save();
+      await persoon.save();
       this.args.onCreate?.(persoon);
     } catch {
       this.errors = { save: 'Fout bij verwerking, probeer het later opnieuw.' };
       if (persoon) persoon.destroy();
     }
-  }
+  });
 
   @action
   setGender(genderId) {
