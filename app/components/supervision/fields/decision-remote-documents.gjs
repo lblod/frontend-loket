@@ -40,7 +40,7 @@ import {
   extensionFormatted,
   filenameWithoutExtension,
 } from '../../../utils/file';
-import { autofocus } from '../../../modifiers/auto-focus';
+import autofocus from '../../../modifiers/auto-focus';
 
 export function registerFormField() {
   registerFormFields([
