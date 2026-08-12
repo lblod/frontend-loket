@@ -1,6 +1,20 @@
-import Store from 'ember-data/store';
 import ArrayProxy from '@ember/array/proxy';
+import { useLegacyStore } from '@warp-drive/legacy';
+import { JSONAPICache } from '@warp-drive/json-api';
 
+const Store = useLegacyStore({
+  legacyRequests: true, // TODO, remove this once we have resolved all legacy request related deprecations
+  linksMode: false,
+  cache: JSONAPICache,
+  handlers: [
+    // -- your handlers here
+  ],
+  schemas: [
+    // -- your schemas here
+  ],
+});
+
+// TODO: switch to util functions instead of custom methods that depend on deprecated APIs.
 export default class ExtendedStoreService extends Store {
   /*
    * Executes regulare "query"-method. Queries for only one result and returns that if any.
