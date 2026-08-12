@@ -21,10 +21,7 @@
             id="dossiernummer"
             value={{@model.formData.dossiernummer}}
             required=""
-            {{on
-              "input"
-              (with-value (fn (mut @model.formData.dossiernummer)))
-            }}
+            {{on "input" (with-value (fn (mut @model.formData.dossiernummer)))}}
           />
         </AuFormRow>
 

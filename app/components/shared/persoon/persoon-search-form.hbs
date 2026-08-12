@@ -4,7 +4,7 @@
       {{yield}}
     </Group>
     <Group>
-      <AuButton @skin="primary" {{on 'click' this.handleCreatePersonClick}}>
+      <AuButton @skin="primary" {{on "click" this.handleCreatePersonClick}}>
         Voeg iemand buiten de lijst toe
       </AuButton>
     </Group>
@@ -41,10 +41,7 @@
           value={{this.rijksregisternummer}}
           id="mandataris-rijksregisternummer"
           placeholder="00.00.00-000.00"
-          {{au-inputmask options=(hash
-            mask="99.99.99-999.99"
-            placeholder="_"
-          )}}
+          {{au-inputmask options=(hash mask="99.99.99-999.99" placeholder="_")}}
           {{on "input" (fn this.updateSearchParam "rijksregisternummer")}}
         />
       </div>
@@ -55,9 +52,13 @@
 <div class="au-c-body-container au-c-body-container--scroll">
   <div class="au-o-box">
     {{#if this.error}}
-      <AuAlert @icon="alert-triangle" @title="Fout bij het zoeken, gelieve opnieuw te proberen" @skin="warning">
+      <AuAlert
+        @icon="alert-triangle"
+        @title="Fout bij het zoeken, gelieve opnieuw te proberen"
+        @skin="warning"
+      >
         <p class="au-u-margin-top-small">
-          <AuButton {{on 'click' this.toggleError}}>OK</AuButton>
+          <AuButton {{on "click" this.toggleError}}>OK</AuButton>
         </p>
       </AuAlert>
     {{/if}}
@@ -77,19 +78,36 @@
             {{/each}}
           </ul>
 
-          <AuAlert @title="Komt het zoekresultaat niet overeen met wat u zocht?" @skin="info" @size="tiny" class="au-u-margin-top-small">
+          <AuAlert
+            @title="Komt het zoekresultaat niet overeen met wat u zocht?"
+            @skin="info"
+            @size="tiny"
+            class="au-u-margin-top-small"
+          >
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @icon="add" @skin="link" {{on 'click' this.handleCreatePersonClick}}>
+              <AuButton
+                @icon="add"
+                @skin="link"
+                {{on "click" this.handleCreatePersonClick}}
+              >
                 voeg een nieuwe persoon toe.
               </AuButton>
             </p>
           </AuAlert>
         {{else}}
-          <AuAlert @title='"{{this.searchTerms}}" bestaat mogelijk nog niet.' @skin="info" @size="tiny">
+          <AuAlert
+            @title='"{{this.searchTerms}}" bestaat mogelijk nog niet.'
+            @skin="info"
+            @size="tiny"
+          >
             <p>
               Kijk uw zoekopdracht na of
-              <AuButton @icon="add" @skin="link" {{on 'click' this.handleCreatePersonClick}}>
+              <AuButton
+                @icon="add"
+                @skin="link"
+                {{on "click" this.handleCreatePersonClick}}
+              >
                 voeg een nieuwe persoon toe.
               </AuButton>
             </p>
@@ -98,8 +116,13 @@
       {{else}}
         <AuContent>
           <p class="au-c-text-info">
-            Zoek een reeds gekende persoon in de databank van het loket op naam of op rijksregisternummer,<br>of
-            <AuButton @icon="add" @skin="link" {{on 'click' this.handleCreatePersonClick}}>
+            Zoek een reeds gekende persoon in de databank van het loket op naam
+            of op rijksregisternummer,<br />of
+            <AuButton
+              @icon="add"
+              @skin="link"
+              {{on "click" this.handleCreatePersonClick}}
+            >
               voeg een nieuwe persoon toe.
             </AuButton>
           </p>
@@ -107,7 +130,7 @@
         <div class="mandate-new-info">
 
         </div>
-        {{/if}}
+      {{/if}}
     {{/if}}
   </div>
 </div>
@@ -115,20 +138,20 @@
 {{#unless this.isQuerying}}
   {{#if this.hasSearched}}
     {{#if this.personen}}
-    <Shared::Persoon::PersoonSearchFormPagination
-      @page={{this.page}}
-      @size={{this.pageSize}}
-      @nbOfItems={{this.personen.length}}
-      @total={{this.personen.meta.count}}
-      @links={{this.personen.meta.pagination}}
-      @onSelectPage={{this.selectPage}}
-    />
+      <Shared::Persoon::PersoonSearchFormPagination
+        @page={{this.page}}
+        @size={{this.pageSize}}
+        @nbOfItems={{this.personen.length}}
+        @total={{this.personen.meta.count}}
+        @links={{this.personen.meta.pagination}}
+        @onSelectPage={{this.selectPage}}
+      />
     {{/if}}
   {{/if}}
 {{/unless}}
 
 <AuToolbar @border="top" @size="large" as |Group|>
   <Group>
-    <AuButton {{on 'click' this.cancel}} @skin="secondary">Annuleer</AuButton>
+    <AuButton {{on "click" this.cancel}} @skin="secondary">Annuleer</AuButton>
   </Group>
 </AuToolbar>

@@ -1,6 +1,6 @@
 // TODO: restructure these styles, it's better to group them by component instead of by page
 
-.c-main-search-container{
+.c-main-search-container {
   display: flex;
   flex-direction: column;
   padding: 1.8rem;
@@ -9,62 +9,62 @@
   border-radius: 0;
   background-color: var(--au-gray-100);
 
-  & .au-c-label[for="search"]{
+  & .au-c-label[for="search"] {
     font-size: var(--au-h4);
     margin-bottom: 0;
   }
 
-  @media screen and (min-width: 1900px){
+  @media screen and (min-width: 1900px) {
     justify-content: start;
-    gap: .5rem;
+    gap: 0.5rem;
   }
 }
 
-.c-landing > .c-main-search-container{
+.c-landing > .c-main-search-container {
   background-color: var(--au-white);
   border-radius: var(--au-radius);
   border: 0.1rem solid var(--au-gray-200);
 }
 
-.c-search-sort-container{
+.c-search-sort-container {
   display: flex;
   gap: 1.2rem;
   align-items: end;
   flex-wrap: wrap;
 
-  @media screen and (min-width: 1900px){
+  @media screen and (min-width: 1900px) {
     flex-grow: 0;
     width: 550px;
   }
 }
 
-.c-search-container{
+.c-search-container {
   flex-grow: 1;
   display: flex;
   gap: 1.2rem;
   align-items: end;
   flex-wrap: wrap;
 
-  @media screen and (min-width: 1900px){
+  @media screen and (min-width: 1900px) {
     flex-grow: 0;
     width: 550px;
   }
 }
 
-.c-search-icon-label{
+.c-search-icon-label {
   display: flex;
   gap: 0.6rem;
   align-items: center;
   margin-bottom: 1.2rem;
 }
 
-.c-sort-container{
+.c-sort-container {
   display: flex;
   gap: 0.6rem;
   align-items: baseline;
 }
 
-.c-suggestions-container{
+.c-suggestions-container {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;

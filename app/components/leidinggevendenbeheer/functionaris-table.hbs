@@ -6,15 +6,38 @@
   @size={{@size}}
   @noDataMessage=""
   class="au-c-body-container"
-  as |t|>
+  as |t|
+>
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @label='Naam' @field='isBestuurlijkeAliasVan.gebruikteVoornaam' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Familienaam' @field='isBestuurlijkeAliasVan.achternaam' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Status' @field='status.label' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Start periode' @field='start' @currentSorting={{@sort}} class="au-u-visible-small-up"/>
-      <AuDataTableThSortable @label='Einde periode' @field='einde' @currentSorting={{@sort}} class="au-u-visible-small-up"/>
-      <th>{{!-- Actions --}}</th>
+      <AuDataTableThSortable
+        @label="Naam"
+        @field="isBestuurlijkeAliasVan.gebruikteVoornaam"
+        @currentSorting={{@sort}}
+      />
+      <AuDataTableThSortable
+        @label="Familienaam"
+        @field="isBestuurlijkeAliasVan.achternaam"
+        @currentSorting={{@sort}}
+      />
+      <AuDataTableThSortable
+        @label="Status"
+        @field="status.label"
+        @currentSorting={{@sort}}
+      />
+      <AuDataTableThSortable
+        @label="Start periode"
+        @field="start"
+        @currentSorting={{@sort}}
+        class="au-u-visible-small-up"
+      />
+      <AuDataTableThSortable
+        @label="Einde periode"
+        @field="einde"
+        @currentSorting={{@sort}}
+        class="au-u-visible-small-up"
+      />
+      <th>{{! Actions }}</th>
     </c.header>
 
     {{#if (eq @content.length 0)}}
@@ -22,7 +45,10 @@
         <tr>
           <td colspan="6">
             <div class="au-o-box au-u-text-center">
-              <p class="au-u-margin-bottom-small">Geen aanstellingsperiode voor de functie {{this.bestuursfunctie.rol.label}} toegevoegd.</p>
+              <p class="au-u-margin-bottom-small">Geen aanstellingsperiode voor
+                de functie
+                {{this.bestuursfunctie.rol.label}}
+                toegevoegd.</p>
               <AuButton @icon="add" {{on "click" @onClickNew}}>
                 Voeg aanstellingsperiode toe
               </AuButton>
@@ -37,14 +63,14 @@
         <td>{{row.status.label}}</td>
         <td class="au-u-visible-small-up au-u-word-break">
           {{#if row.start}}
-            {{moment-format row.start 'DD-MM-YYYY'}}
+            {{moment-format row.start "DD-MM-YYYY"}}
           {{else}}
             <span class="au-c-info-text">Onbepaald</span>
           {{/if}}
         </td>
         <td class="au-u-visible-small-up">
           {{#if row.einde}}
-            {{moment-format row.einde 'DD-MM-YYYY'}}
+            {{moment-format row.einde "DD-MM-YYYY"}}
           {{else}}
             <span class="au-c-info-text">Onbepaald</span>
           {{/if}}

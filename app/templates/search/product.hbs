@@ -1,9 +1,6 @@
 <Await @promise={{@model.dataPromise}}>
   <:pending>
-    <IpdcServiceSidepanel
-      @loading={{true}}
-      @onClose={{this.closeDetail}}
-    />
+    <IpdcServiceSidepanel @loading={{true}} @onClose={{this.closeDetail}} />
   </:pending>
 
   <:success as |result|>

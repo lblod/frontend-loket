@@ -1,117 +1,145 @@
 {{#unless this.initTable.isRunning}}
-<div class="au-c-table-wrapper">
-  <table class="au-c-table au-c-table--zebra">
-    <thead>
-      <tr>
-        <th rowspan="3" style="min-width: 10rem; max-width: 13rem;" {{!template-lint-disable no-inline-styles}}>Niveau</th>
-        {{#each this.workingTimeCategories as |category|}}
-          <th colspan="4">{{category.label}}</th>
-        {{/each}}
-        <th></th>
-      </tr>
-      <tr class="au-c-table__row-indent">
-        {{#each (repeat this.workingTimeCategories.length)}}
-          {{#each this.legalStatuses as |status|}}
-            <th colspan="2">{{status.label}}</th>
+  <div class="au-c-table-wrapper">
+    <table class="au-c-table au-c-table--zebra">
+      <thead>
+        <tr>
+          <th
+            rowspan="3"
+            style="min-width: 10rem; max-width: 13rem;"
+            {{!template-lint-disable no-inline-styles}}
+          >Niveau</th>
+          {{#each this.workingTimeCategories as |category|}}
+            <th colspan="4">{{category.label}}</th>
           {{/each}}
-        {{/each}}
-        <th></th>
-      </tr>
-      <tr class="au-c-table__row-indent">
-        {{#each (repeat this.workingTimeCategories.length)}}
-          {{#each (repeat this.legalStatuses.length)}}
-            {{#each this.sexes as |sex|}}
-              {{#if sex.isMale}}
-                <th>Mannen</th>
-              {{else}}
-                <th>Vrouwen</th>
-              {{/if}}
+          <th></th>
+        </tr>
+        <tr class="au-c-table__row-indent">
+          {{#each (repeat this.workingTimeCategories.length)}}
+            {{#each this.legalStatuses as |status|}}
+              <th colspan="2">{{status.label}}</th>
             {{/each}}
           {{/each}}
-        {{/each}}
-        <th>Totaal<br>
-          {{#if this.isFTEDataset}}
-            VTE's
-          {{else}}
-            koppen
-          {{/if}}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each this.educationalLevels as |level|}}
-        <tr>
-          <th style="max-width: 13rem" class="au-u-no-wrap" {{!template-lint-disable no-inline-styles}}>{{level.label}}</th>
-          {{#each this.workingTimeCategories as |category|}}
-            {{#each this.legalStatuses as |status|}}
+          <th></th>
+        </tr>
+        <tr class="au-c-table__row-indent">
+          {{#each (repeat this.workingTimeCategories.length)}}
+            {{#each (repeat this.legalStatuses.length)}}
               {{#each this.sexes as |sex|}}
-              <Personeelsbeheer::EmployeeObservationTableCell
-                  @observations={{this.observations}}
-                  @unitMeasure={{this.unitMeasure}}
-                  @educationalLevel={{level}}
-                  @workingTimeCategory={{category}}
-                  @legalStatus={{status}}
-                  @sex={{sex}}
-                  @onChange={{@onChangeObservation}}
-                />
+                {{#if sex.isMale}}
+                  <th>Mannen</th>
+                {{else}}
+                  <th>Vrouwen</th>
+                {{/if}}
               {{/each}}
             {{/each}}
           {{/each}}
-          <td><strong>
-            <Personeelsbeheer::EmployeeObservationTableTotal
-              @observations={{this.observations}}
-              @aggregations={{array (hash groupBy="educationalLevel" concept=level)}}
-            />
-          </strong></td>
+          <th>Totaal<br />
+            {{#if this.isFTEDataset}}
+              VTE's
+            {{else}}
+              koppen
+            {{/if}}
+          </th>
         </tr>
-      {{/each}}
-
-      <tr>
-        <th style="max-width: 12rem" {{!template-lint-disable no-inline-styles}}>Totaal</th>
-        {{#each this.workingTimeCategories as |category|}}
-          {{#each this.legalStatuses as |status|}}
-            {{#each this.sexes as |sex|}}
-              <th>
+      </thead>
+      <tbody>
+        {{#each this.educationalLevels as |level|}}
+          <tr>
+            <th
+              style="max-width: 13rem"
+              class="au-u-no-wrap"
+              {{!template-lint-disable no-inline-styles}}
+            >{{level.label}}</th>
+            {{#each this.workingTimeCategories as |category|}}
+              {{#each this.legalStatuses as |status|}}
+                {{#each this.sexes as |sex|}}
+                  <Personeelsbeheer::EmployeeObservationTableCell
+                    @observations={{this.observations}}
+                    @unitMeasure={{this.unitMeasure}}
+                    @educationalLevel={{level}}
+                    @workingTimeCategory={{category}}
+                    @legalStatus={{status}}
+                    @sex={{sex}}
+                    @onChange={{@onChangeObservation}}
+                  />
+                {{/each}}
+              {{/each}}
+            {{/each}}
+            <td><strong>
                 <Personeelsbeheer::EmployeeObservationTableTotal
                   @observations={{this.observations}}
-                  @aggregations={{array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status) (hash groupBy="sex" concept=sex)}}
+                  @aggregations={{array
+                    (hash groupBy="educationalLevel" concept=level)
+                  }}
                 />
-                {{#if sex.isMale}}Mannen{{else}}Vrouwen{{/if}}
+              </strong></td>
+          </tr>
+        {{/each}}
+
+        <tr>
+          <th
+            style="max-width: 12rem"
+            {{!template-lint-disable no-inline-styles}}
+          >Totaal</th>
+          {{#each this.workingTimeCategories as |category|}}
+            {{#each this.legalStatuses as |status|}}
+              {{#each this.sexes as |sex|}}
+                <th>
+                  <Personeelsbeheer::EmployeeObservationTableTotal
+                    @observations={{this.observations}}
+                    @aggregations={{array
+                      (hash groupBy="workingTimeCategory" concept=category)
+                      (hash groupBy="legalStatus" concept=status)
+                      (hash groupBy="sex" concept=sex)
+                    }}
+                  />
+                  {{#if sex.isMale}}Mannen{{else}}Vrouwen{{/if}}
+                </th>
+              {{/each}}
+            {{/each}}
+          {{/each}}
+          <th><strong>{{this.total}}</strong></th>
+        </tr>
+        <tr>
+          <th
+            style="max-width: 12rem"
+            {{!template-lint-disable no-inline-styles}}
+          >Totaal</th>
+          {{#each this.workingTimeCategories as |category|}}
+            {{#each this.legalStatuses as |status|}}
+              <th colspan="2">
+                <Personeelsbeheer::EmployeeObservationTableTotal
+                  @observations={{this.observations}}
+                  @aggregations={{array
+                    (hash groupBy="workingTimeCategory" concept=category)
+                    (hash groupBy="legalStatus" concept=status)
+                  }}
+                />
+                {{status.label}}
               </th>
             {{/each}}
           {{/each}}
-        {{/each}}
-        <th><strong>{{this.total}}</strong></th>
-      </tr>
-      <tr>
-        <th style="max-width: 12rem" {{!template-lint-disable no-inline-styles}}>Totaal</th>
-        {{#each this.workingTimeCategories as |category|}}
-          {{#each this.legalStatuses as |status|}}
-            <th colspan="2">
+          <th><strong>{{this.total}}</strong></th>
+        </tr>
+        <tr>
+          <th
+            style="max-width: 12rem"
+            {{!template-lint-disable no-inline-styles}}
+          >Totaal</th>
+          {{#each this.workingTimeCategories as |category|}}
+            <th colspan="4">
               <Personeelsbeheer::EmployeeObservationTableTotal
                 @observations={{this.observations}}
-                @aggregations={{array (hash groupBy="workingTimeCategory" concept=category) (hash groupBy="legalStatus" concept=status)}}
+                @aggregations={{array
+                  (hash groupBy="workingTimeCategory" concept=category)
+                }}
               />
-              {{status.label}}
+              {{category.label}}
             </th>
           {{/each}}
-        {{/each}}
-        <th><strong>{{this.total}}</strong></th>
-      </tr>
-      <tr>
-        <th style="max-width: 12rem" {{!template-lint-disable no-inline-styles}}>Totaal</th>
-        {{#each this.workingTimeCategories as |category|}}
-          <th colspan="4">
-            <Personeelsbeheer::EmployeeObservationTableTotal
-              @observations={{this.observations}}
-              @aggregations={{array (hash groupBy="workingTimeCategory" concept=category)}}
-            />
-            {{category.label}}
-          </th>
-        {{/each}}
-        <th><strong>{{this.total}}</strong></th>
-      </tr>
-    </tbody>
-  </table>
-</div>
+          <th><strong>{{this.total}}</strong></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 {{/unless}}

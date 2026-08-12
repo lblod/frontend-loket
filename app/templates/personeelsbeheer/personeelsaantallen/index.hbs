@@ -19,7 +19,8 @@
             </span>
             {{#if dataset.modified}}
               <AuPill @skin="border">
-                Laatst aangepast op {{moment-format dataset.modified}}
+                Laatst aangepast op
+                {{moment-format dataset.modified}}
               </AuPill>
             {{else}}
               <AuPill @skin="warning">
@@ -27,7 +28,7 @@
               </AuPill>
             {{/if}}
           </AuHeading>
-          <Personeelsbeheer::EmployeeDatasetSummary @dataset={{dataset}}/>
+          <Personeelsbeheer::EmployeeDatasetSummary @dataset={{dataset}} />
         </div>
       </Group>
       <Group>

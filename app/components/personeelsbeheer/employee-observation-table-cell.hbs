@@ -1,7 +1,10 @@
 <td>
   {{#if this.observation}}
     {{#let this.observation.id as |id|}}
-      <AuLabel for="observation-{{id}}" class="au-u-hidden-visually">Waarde</AuLabel>
+      <AuLabel
+        for="observation-{{id}}"
+        class="au-u-hidden-visually"
+      >Waarde</AuLabel>
       <AuInput
         @width="block"
         type="number"

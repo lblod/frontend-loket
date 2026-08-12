@@ -1,15 +1,32 @@
 <div class="au-c-main-container" itemprop="mainContentOfPage">
-  <div class="au-c-main-container__content au-c-main-container__content--scroll">
+  <div
+    class="au-c-main-container__content au-c-main-container__content--scroll"
+  >
     <main id="content">
-      <AuContentHeader @titlePartOne="Vlaanderen" @titlePartTwo="is lokaal bestuur">
-        <img sizes="50vw" src="/assets/images/loket-header-1600.jpg" srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w" alt="Foto van een laptop met daarop het vlaanderen logo.">
+      <AuContentHeader
+        @titlePartOne="Vlaanderen"
+        @titlePartTwo="is lokaal bestuur"
+      >
+        <img
+          sizes="50vw"
+          src="/assets/images/loket-header-1600.jpg"
+          srcset="/assets/images/loket-header-320.jpg 320w, /assets/images/loket-header-1024.jpg 1024w, /assets/images/loket-header-1600.jpg 1600w"
+          alt="Foto van een laptop met daarop het vlaanderen logo."
+        />
       </AuContentHeader>
 
       <div class="au-o-region-large">
         <div class="au-o-layout">
-          <AuHeading @skin="4" class="au-u-margin-bottom-small">Kies een bestuurseenheid om mee in te loggen.</AuHeading>
+          <AuHeading @skin="4" class="au-u-margin-bottom-small">Kies een
+            bestuurseenheid om mee in te loggen.</AuHeading>
           <p class="au-u-margin-bottom">
-            <input class="au-c-input au-c-input--block js-js-input-pattern-bound" placeholder="Aalst, Berchem,..." value={{this.gemeente}} oninput={{perform this.updateSearch value='target.value'}} aria-label="Kies een bestuurseenheid om mee in te loggen">
+            <input
+              class="au-c-input au-c-input--block js-js-input-pattern-bound"
+              placeholder="Aalst, Berchem,..."
+              value={{this.gemeente}}
+              oninput={{perform this.updateSearch value="target.value"}}
+              aria-label="Kies een bestuurseenheid om mee in te loggen"
+            />
           </p>
           <MockLogin as |login|>
             {{#if this.queryStore.isRunning}}
@@ -18,7 +35,11 @@
               </AuLoader>
             {{else}}
               {{#if login.errorMessage}}
-                <AuAlert @icon="alert-triangle" @title={{login.errorMessage}} @skin="warning" />
+                <AuAlert
+                  @icon="alert-triangle"
+                  @title={{login.errorMessage}}
+                  @skin="warning"
+                />
               {{/if}}
               {{#if this.model.length}}
                 <ul class="au-o-flow au-o-flow--small au-u-margin-bottom-small">
@@ -35,13 +56,14 @@
                       >
                         {{account.gebruiker.voornaam}}
                         {{account.gebruiker.achternaam}}
-                        {{#let (unique-alternative-names account) as |alternativeNames|}}
+                        {{#let
+                          (unique-alternative-names account)
+                          as |alternativeNames|
+                        }}
                           {{#if alternativeNames}}
                             <span>
                               <span class="au-c-info-text">Alternatieve naam:</span>
-                              {{#each
-                                alternativeNames as |alternativeName|
-                              }}
+                              {{#each alternativeNames as |alternativeName|}}
                                 <AuPill>{{alternativeName}}</AuPill>
                               {{/each}}
                             </span>

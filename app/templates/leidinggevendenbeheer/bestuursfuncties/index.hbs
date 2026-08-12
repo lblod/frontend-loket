@@ -1,8 +1,17 @@
-{{page-title "Leidinggevendenbeheer" " " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
+{{page-title
+  "Leidinggevendenbeheer"
+  " "
+  this.bestuurseenheid.classificatie.label
+  " "
+  this.bestuurseenheid.naam
+}}
 
 <AuToolbar @border="bottom" @size="large" as |Group|>
   <Group>
-    <AuHeading @skin="2">Leidinggevendenbeheer{{if this.allowed " — Overzicht functies"}}</AuHeading>
+    <AuHeading @skin="2">Leidinggevendenbeheer{{if
+        this.allowed
+        " — Overzicht functies"
+      }}</AuHeading>
   </Group>
 </AuToolbar>
 
@@ -10,7 +19,10 @@
   {{#if (or (not this.allowed) (eq this.model.length 0))}}
     <div class="au-o-box">
       <AuAlert @icon="info-circle" @size="small">
-        <p>Voor de bestuurseenheid {{this.bestuurseenheid.classificatie.label}} {{this.bestuurseenheid.naam}} moeten er geen leidinggevende functies bijgehouden worden.</p>
+        <p>Voor de bestuurseenheid
+          {{this.bestuurseenheid.classificatie.label}}
+          {{this.bestuurseenheid.naam}}
+          moeten er geen leidinggevende functies bijgehouden worden.</p>
       </AuAlert>
     </div>
   {{else}}

@@ -6,7 +6,11 @@
   @buttonLabel="Account settings"
 >
   {{#if this.currentSession.canAccessToezicht}}
-    <AuLink @route="supervision.submissions" @icon="search-folder" role="menuitem">
+    <AuLink
+      @route="supervision.submissions"
+      @icon="search-folder"
+      role="menuitem"
+    >
       Toezicht
     </AuLink>
   {{/if}}
@@ -26,12 +30,20 @@
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessLeidinggevenden}}
-    <AuLink @route="leidinggevendenbeheer.bestuursfuncties" @icon="user-popup" role="menuitem">
+    <AuLink
+      @route="leidinggevendenbeheer.bestuursfuncties"
+      @icon="user-popup"
+      role="menuitem"
+    >
       Leidinggevendenbeheer
     </AuLink>
   {{/if}}
   {{#if this.currentSession.canAccessPersoneelsbeheer}}
-    <AuLink @route="personeelsbeheer.personeelsaantallen.index" @icon="users" role="menuitem">
+    <AuLink
+      @route="personeelsbeheer.personeelsaantallen.index"
+      @icon="users"
+      role="menuitem"
+    >
       Personeelsbeheer
     </AuLink>
   {{/if}}
@@ -76,7 +88,11 @@
     </AuLinkExternal>
   {{/if}}
   {{#if this.currentSession.canAccessEredienstMandatenbeheer}}
-    <AuLink @route="eredienst-mandatenbeheer.mandatarissen" @icon="users-four-of-four" role="menuitem">
+    <AuLink
+      @route="eredienst-mandatenbeheer.mandatarissen"
+      @icon="users-four-of-four"
+      role="menuitem"
+    >
       Mandatenbeheer
     </AuLink>
   {{/if}}

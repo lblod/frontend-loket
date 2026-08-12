@@ -14,18 +14,23 @@
       </li>
       <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
         <AuLabel>Aangemaakt op</AuLabel>
-        <p>{{moment-format this.model.submission.created 'DD-MM-YYYY'}}</p>
+        <p>{{moment-format this.model.submission.created "DD-MM-YYYY"}}</p>
       </li>
       <li class="au-o-grid__item au-u-1-2 au-u-1-6@medium">
         <AuLabel>Bewerkt op</AuLabel>
-        <p>{{moment-format this.model.submission.modified 'DD-MM-YYYY'}}</p>
+        <p>{{moment-format this.model.submission.modified "DD-MM-YYYY"}}</p>
       </li>
     </ul>
   </Group>
 </AuToolbar>
 
 <div class="au-c-body-container au-c-body-container--scroll">
-  <div class="au-o-box {{if this.save.isRunning "au-c-form--disabled"}} {{if this.submit.isRunning "au-c-form--disabled"}} {{if this.delete.isRunning "au-c-form--disabled"}}">
+  <div
+    class="au-o-box
+      {{if this.save.isRunning 'au-c-form--disabled'}}
+      {{if this.submit.isRunning 'au-c-form--disabled'}}
+      {{if this.delete.isRunning 'au-c-form--disabled'}}"
+  >
     <div class="au-u-max-width-small">
       <SubmissionForm
         @form={{this.form}}
@@ -41,18 +46,32 @@
 
 <AuToolbar @border="top" @size="large" as |Group|>
   {{#if this.model.submitted}}
-  <Group class="au-c-toolbar__group--row">
-    <AuAlert @icon="check" @title="Dossier verstuurd" @skin="success" @size="small" class="au-u-margin-bottom-none">
-      <p>Dit dossier werd verstuurd op {{moment-format this.model.submission.sentDate 'DD-MM-YYYY'}}</p>
-    </AuAlert>
-  </Group>
+    <Group class="au-c-toolbar__group--row">
+      <AuAlert
+        @icon="check"
+        @title="Dossier verstuurd"
+        @skin="success"
+        @size="small"
+        class="au-u-margin-bottom-none"
+      >
+        <p>Dit dossier werd verstuurd op
+          {{moment-format this.model.submission.sentDate "DD-MM-YYYY"}}</p>
+      </AuAlert>
+    </Group>
   {{/if}}
   {{#if (and this.forceShowErrors (not this.isValidForm))}}
-  <Group class="au-c-toolbar__group--row">
-    <AuAlert @icon="alert-triangle" @title="Kan dossier niet versturen"  @skin="error" @size="small" class="au-u-margin-bottom-none">
-      <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde velden.</p>
-    </AuAlert>
-  </Group>
+    <Group class="au-c-toolbar__group--row">
+      <AuAlert
+        @icon="alert-triangle"
+        @title="Kan dossier niet versturen"
+        @skin="error"
+        @size="small"
+        class="au-u-margin-bottom-none"
+      >
+        <p>Kan formulier niet versturen door ontbrekende of foutief ingevulde
+          velden.</p>
+      </AuAlert>
+    </Group>
   {{/if}}
   <Group>
     {{#if this.model.submitted}}
@@ -82,7 +101,7 @@
         @skin="secondary"
         {{on "click" (perform this.save)}}
       >
-          Bewaar als concept
+        Bewaar als concept
       </AuButton>
     {{/if}}
   </Group>

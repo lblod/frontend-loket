@@ -1,11 +1,11 @@
-.c-login{
+.c-login {
   display: grid;
   flex-wrap: wrap;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   height: 100%;
 }
 
-.c-login__content{
+.c-login__content {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -14,9 +14,9 @@
   background-color: var(--brand-color);
   color: white;
 
-  &::after{
+  &::after {
     --slope-width: 100px;
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: calc(-1 * var(--slope-width));
@@ -27,25 +27,26 @@
     clip-path: polygon(0 0, 0 0, 100% 100%, 0 100%);
   }
 
-  .au-c-heading, .au-c-link{
+  .au-c-heading,
+  .au-c-link {
     color: white;
   }
 }
 
-.c-login__content-container{
+.c-login__content-container {
   display: flex;
   flex-direction: column;
   gap: 4rem;
   max-width: 550px;
   margin-left: auto;
 
-  & > svg{
+  & > svg {
     width: 50%;
     max-width: 300px;
   }
 }
 
-.c-login__img{
+.c-login__img {
   background-color: beige;
   min-height: 200px;
   height: 100%;

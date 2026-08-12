@@ -18,14 +18,12 @@ export function formatDate(date) {
  * @returns {boolean}
  */
 export function isSameIsoDate(dateA, dateB) {
-  if (
-    !(
-      Boolean(dateA) &&
-      isValidDate(dateA) &&
-      Boolean(dateB) &&
-      isValidDate(dateB)
-    )
-  ) {
+  if (!(
+    Boolean(dateA) &&
+    isValidDate(dateA) &&
+    Boolean(dateB) &&
+    isValidDate(dateB)
+  )) {
     return false;
   }
 

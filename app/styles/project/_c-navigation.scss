@@ -8,7 +8,6 @@
   border-bottom: 1px solid var(--au-gray-300);
   padding: $au-unit-small $au-unit-small $au-unit-small 0;
 
-
   @include mq(small) {
     padding-bottom: 0;
     padding-top: $au-unit-tiny;
@@ -53,7 +52,7 @@
     border-bottom: 0;
   }
 
-  .au-c-tabs-list__item .au-c-link  {
+  .au-c-tabs-list__item .au-c-link {
     padding-bottom: $au-unit-small + $au-unit-tiny;
   }
 
@@ -71,7 +70,10 @@
   background-color: var(--au-gray-200);
   border-radius: var(--au-radius);
   padding-right: $au-unit-small;
-  transition: color var(--au-transition), background-color var(--au-transition), box-shadow var(--au-transition);
+  transition:
+    color var(--au-transition),
+    background-color var(--au-transition),
+    box-shadow var(--au-transition);
   border: 1px solid var(--au-gray-300);
 
   &:hover,
@@ -90,7 +92,9 @@
   width: 3.75rem;
   height: 3.75rem;
   border-radius: var(--au-radius);
-  transition: color var(--au-transition), background-color var(--au-transition);
+  transition:
+    color var(--au-transition),
+    background-color var(--au-transition);
 
   .au-c-icon {
     flex: none;
@@ -116,7 +120,9 @@
   flex-wrap: wrap;
   gap: 1px;
   border-radius: var(--au-radius);
-  box-shadow: 0 0 12px rgba(33,35,38,.15),0 0 2px rgba(33,35,38,.1);
+  box-shadow:
+    0 0 12px rgba(33, 35, 38, 0.15),
+    0 0 2px rgba(33, 35, 38, 0.1);
   min-width: 380px;
 
   > .au-c-link {

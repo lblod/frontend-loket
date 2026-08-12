@@ -1,11 +1,20 @@
-{{page-title this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam " " this.bestuursfunctie.rol.label}}
+{{page-title
+  this.bestuurseenheid.classificatie.label
+  " "
+  this.bestuurseenheid.naam
+  " "
+  this.bestuursfunctie.rol.label
+}}
 
 <AuToolbar @size="large" class="au-u-padding-bottom-none" as |Group|>
   <Group>
     <AuHeading @skin="2">Bekijk en bewerk aanstellingsperiode</AuHeading>
   </Group>
   <Group>
-    <AuButton @icon="add" {{on 'click' this.handleVoegNieuweAanstellingsperiodeClick}}>
+    <AuButton
+      @icon="add"
+      {{on "click" this.handleVoegNieuweAanstellingsperiodeClick}}
+    >
       Voeg nieuwe aanstellingsperiode toe
     </AuButton>
   </Group>
