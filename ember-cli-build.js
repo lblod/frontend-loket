@@ -42,9 +42,7 @@ module.exports = async function (defaults) {
   return require('@embroider/compat').compatBuild(app, Webpack, {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
-    staticHelpers: true,
-    staticModifiers: true,
-    staticComponents: true,
+    staticInvokables: true,
     staticEmberSource: true,
     splitAtRoutes: [
       'mock-login',
