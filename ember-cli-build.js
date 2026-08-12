@@ -6,9 +6,6 @@ module.exports = async function (defaults) {
   const { setConfig } = await import('@warp-drive/build-config');
 
   const app = new EmberApp(defaults, {
-    'ember-simple-auth': {
-      useSessionSetupMethod: true,
-    },
     'ember-test-selectors': {
       strip: false,
     },
