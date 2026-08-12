@@ -1,6 +1,6 @@
 /* eslint-disable ember/no-mixins */
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import DataTableRouteMixin from 'frontend-loket/mixins/ember-data-table/route';
 
 export default class SupervisionSubmissionsIndexRoute extends Route.extend(

@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { CONTACT_TYPE } from 'frontend-loket/models/contact-punt';
 
 export default class WorshipMinisterManagementNewRoute extends Route {

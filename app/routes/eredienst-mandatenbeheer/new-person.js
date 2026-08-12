@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 export default class EredienstMandatenbeheerNewPersonRoute extends Route {
   @service currentSession;
   @service router;
