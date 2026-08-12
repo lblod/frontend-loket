@@ -1,3 +1,4 @@
+import { assert } from '@ember/debug';
 import Service, { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { setContext, setUser } from '@sentry/ember';
@@ -37,7 +38,8 @@ export default class CurrentSessionService extends Service {
   @tracked group;
   @tracked groupClassification;
   @tracked _roles = [];
-  @tracked vendors = [];
+  @tracked _vendors = [];
+  #vendorsPromise;
 
   async load() {
     if (this.session.isAuthenticated) {
@@ -60,11 +62,17 @@ export default class CurrentSessionService extends Service {
       });
       this.groupClassification = await this.group.classificatie;
       this.setupSentrySession();
+    }
+  }
 
-      this.vendors = await this.store.query('vendor', {
+  async loadVendors() {
+    if (!this.#vendorsPromise) {
+      this.#vendorsPromise = this.store.query('vendor', {
         'filter[can-act-on-behalf-of][:id:]': this.groupId,
       });
     }
+
+    this._vendors = await this.#vendorsPromise;
   }
 
   setupSentrySession() {
@@ -210,5 +218,14 @@ export default class CurrentSessionService extends Service {
       roles = this.impersonation.originalRoles || [];
     }
     return roles.includes(ADMIN_ROLE);
+  }
+
+  get vendors() {
+    assert(
+      'currentSession.vendors was accessed before the data was loaded. Call currentSession.loadVendors first.',
+      this.#vendorsPromise,
+    );
+
+    return this._vendors;
   }
 }

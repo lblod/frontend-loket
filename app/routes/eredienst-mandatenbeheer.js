@@ -26,6 +26,8 @@ export default class EredienstMandatenbeheerRoute extends Route {
     if (this.session.requireAuthentication(transition, 'login')) {
       if (!this.currentSession.canAccessEredienstMandatenbeheer)
         this.router.transitionTo('unauthorized');
+
+      return this.currentSession.loadVendors();
     }
   }
 
