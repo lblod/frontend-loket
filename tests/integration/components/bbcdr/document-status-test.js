@@ -17,7 +17,7 @@ module('Integration | Component | bbcdr/document-status', function (hooks) {
   test('it displays a capitalized status label', async function (assert) {
     await render(hbs`<Bbcdr::DocumentStatus @status={{this.status}} />`);
 
-    assert.dom('[data-test-loket=document-status-pill]').hasText('Concept');
+    assert.dom('[data-test-loket=document-status-pill]').hasText('concept');
   });
 
   test('it displays the status uri as resource attribute', async function (assert) {
