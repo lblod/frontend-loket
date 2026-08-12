@@ -1,4 +1,4 @@
-import { irregular, uncountable } from '@ember-data/request-utils/string';
+import { irregular, uncountable } from '@warp-drive/utilities/string';
 
 irregular('adres', 'adressen');
 irregular('bericht', 'berichten');

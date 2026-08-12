@@ -1,4 +1,4 @@
-import Model, { attr } from '@ember-data/model';
+import Model, { attr } from '@warp-drive/legacy/model';
 
 export const NO_PROVENANCE_VENDOR_ID = 'none';
 export const ALL_VENDORS_ID = 'all';

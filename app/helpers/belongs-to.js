@@ -1,4 +1,4 @@
-import Model from '@ember-data/model';
+import Model from '@warp-drive/legacy/model';
 
 /**
  * A simple helper that returns the value of an async belongsTo relationship in a sync way.

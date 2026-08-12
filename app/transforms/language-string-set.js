@@ -3,7 +3,7 @@
 
 import { typeOf } from '@ember/utils';
 import { assert } from '@ember/debug';
-import Transform from '@ember-data/serializer/transform';
+import { Transform } from '@warp-drive/legacy/serializer/transform';
 
 const LangString = function (content, lang) {
   this.content = content;

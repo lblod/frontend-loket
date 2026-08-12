@@ -1,4 +1,4 @@
-import { belongsTo, hasMany } from '@ember-data/model';
+import { belongsTo, hasMany } from '@warp-drive/legacy/model';
 import BestuurseenheidModel from './bestuurseenheid';
 
 export default class WorshipAdministrativeUnitModel extends BestuurseenheidModel {
