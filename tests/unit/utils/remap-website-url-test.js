@@ -6,14 +6,14 @@ import { module, test } from 'qunit';
 
 module('Unit | Util | remapUrl', function () {
   test('it maps urls to different ones based on a urlMap object', function (assert) {
-    assert.equal(
+    assert.strictEqual(
       remapUrl('https://foo.be', {
         'https://foo.be': 'https://bar.be',
       }),
       'https://bar.be',
     );
 
-    assert.equal(
+    assert.strictEqual(
       remapUrl('https://foo.be', {
         'https://bar.be': 'https://baz.be',
       }),
@@ -21,7 +21,7 @@ module('Unit | Util | remapUrl', function () {
       "it returns the url as-is if it's not part of the url map",
     );
 
-    assert.equal(
+    assert.strictEqual(
       remapUrl('https://foo.be/path', {
         'https://foo.be': 'https://bar.be',
       }),
@@ -29,7 +29,7 @@ module('Unit | Util | remapUrl', function () {
       'it partially replaces the domain in the url',
     );
 
-    assert.equal(
+    assert.strictEqual(
       remapUrl('http://foo.be/path', {
         'https://foo.be': 'https://bar.be',
       }),
@@ -37,7 +37,7 @@ module('Unit | Util | remapUrl', function () {
       'it only replaces the domain if the protocol also matches',
     ); // Should we try to support this? I don't think it will actually happen.
 
-    assert.equal(
+    assert.strictEqual(
       remapUrl('https://foo.be', {
         'https://foo.be': '',
       }),
