@@ -72,6 +72,11 @@ export default [
         ...globals.browser,
       },
     },
+    rules: {
+      'warp-drive/no-legacy-request-patterns': 'off', // TODO: uncomment and fix all issues before updating to WarpDrive v6
+      'warp-drive/no-external-request-patterns': 'off', // fetch is ok to use..
+      'warp-drive/no-invalid-resource-types': 'off', // False-positives because of Dutch model names
+    },
   },
   {
     ...qunit.configs.recommended,
