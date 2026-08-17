@@ -33,7 +33,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@appuniversum/ember-appuniversum": "^4.2.2",
+    "@appuniversum/ember-appuniversum": "^4.3.0",
     "@babel/core": "^7.29.0",
     "@babel/eslint-parser": "^7.28.6",
     "@babel/plugin-proposal-decorators": "^7.29.0",
@@ -108,7 +108,7 @@
     "sass": "^1.49.7",
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^36.0.1",
-    "tracked-toolbox": "^2.0.0",
+    "tracked-toolbox": "^3.0.0",
     "uuid": "^9.0.0",
     "webpack": "^5.106.0"
   },
