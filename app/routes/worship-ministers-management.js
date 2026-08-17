@@ -18,6 +18,8 @@ export default class WorshipMinistersManagementRoute extends Route {
     if (this.session.requireAuthentication(transition, 'login')) {
       if (!this.currentSession.canAccessWorshipMinisterManagement)
         this.router.transitionTo('unauthorized');
+
+      return this.currentSession.loadVendors();
     }
   }
 
