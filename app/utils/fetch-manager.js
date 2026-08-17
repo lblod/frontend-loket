@@ -1,5 +1,4 @@
-import RequestManager from '@ember-data/request';
-import Fetch from '@ember-data/request/fetch';
+import { RequestManager, Fetch } from '@warp-drive/core';
 
 const fetch = new RequestManager();
 // TODO: it seems the fetch handler currently assumes all responses to be json

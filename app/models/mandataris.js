@@ -1,4 +1,4 @@
-import { attr, belongsTo } from '@ember-data/model';
+import { attr, belongsTo } from '@warp-drive/legacy/model';
 import AgentInPosition from './agent-in-position';
 
 // INHERITS FROM AGENT-IN-POSITION

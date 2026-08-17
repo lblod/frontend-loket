@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { warn } from '@ember/debug';
 import ENV from 'frontend-loket/config/environment';
 import 'moment';
@@ -18,7 +18,7 @@ export default class ApplicationRoute extends Route {
     const moment = this.moment;
     moment.setLocale('nl-be');
     moment.setTimeZone('Europe/Brussels');
-    moment.set('defaultFormat', 'DD MMM YYYY, HH:mm');
+    moment.defaultFormat = 'DD MMM YYYY, HH:mm';
 
     this.startAnalytics();
 

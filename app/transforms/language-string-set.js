@@ -1,25 +1,49 @@
-import LanguageStringSetTransform from 'ember-mu-transform-helpers/transforms/language-string-set';
+// Inlined from https://github.com/mu-semtech/ember-mu-transform-helpers
+// Specific commit: https://github.com/mu-semtech/ember-mu-transform-helpers/commit/56ca9db51f46f5d358d1a362966082dd1276e1ef
 
-// Inlines the code from this commit so we don't need to use a github branch as a dependency
-// https://github.com/mu-semtech/ember-mu-transform-helpers/commit/56ca9db51f46f5d358d1a362966082dd1276e1ef
+import { typeOf } from '@ember/utils';
+import { assert } from '@ember/debug';
+import { Transform } from '@warp-drive/legacy/serializer/transform';
 
-export default class LanguageStringSet extends LanguageStringSetTransform {
+const LangString = function (content, lang) {
+  this.content = content;
+  this.language = lang;
+  this.toString = function () {
+    return `${this['content']} (${this['language']})`;
+  };
+};
+
+export default class LanguageStringSetTransform extends Transform {
   deserialize(serialized) {
-    const deserialized = super.deserialize(serialized);
+    assert(
+      `Expected array but got ${typeOf(serialized)}`,
+      !serialized || typeOf(serialized) === 'array',
+    );
+    serialized = serialized.map(function (item) {
+      return new LangString(item['content'], item['language']);
+    });
 
-    deserialized.first = (language) => {
-      return deserialized.find((langString) => langString.language == language)
+    serialized.first = (language) => {
+      return serialized.find((langString) => langString.language == language)
         ?.content;
     };
 
-    deserialized.lang = (language) => {
-      return deserialized
+    serialized.lang = (language) => {
+      return serialized
         .filter((langString) => langString.language == language)
         .map((langString) => langString.content);
     };
 
-    deserialized.default = deserialized.first('nl');
+    serialized.default = serialized.first('nl');
 
+    return serialized;
+  }
+
+  serialize(deserialized) {
+    assert(
+      `Expected array but got ${typeOf(deserialized)}`,
+      !deserialized || typeOf(deserialized) === 'array',
+    );
     return deserialized;
   }
 }

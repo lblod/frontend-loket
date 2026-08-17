@@ -7,7 +7,9 @@
     </div>
   </div>
   <div class="au-c-sidebar-container__content">
-    <div class="au-c-body-container {{if @scroll "au-c-body-container--scroll"}}">
+    <div
+      class="au-c-body-container {{if @scroll 'au-c-body-container--scroll'}}"
+    >
       {{yield to="content"}}
     </div>
   </div>

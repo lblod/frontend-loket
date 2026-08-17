@@ -1,7 +1,7 @@
-import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
+import Model, { attr, belongsTo, hasMany } from '@warp-drive/legacy/model';
 
 export default class ProcedureModel extends Model {
-  @attr('string') uri;
+  @attr uri;
   @attr('language-string-set') name;
   @attr('language-string-set') description;
   @belongsTo('public-service', { async: true, inverse: 'procedures' })

@@ -78,10 +78,9 @@
             value={{this.rijksregisternummer}}
             id="mandataris-rijksregister"
             placeholder="00.00.00-000.00"
-            {{au-inputmask options=(hash
-              mask="99.99.99-999.99"
-              placeholder="_"
-            )}}
+            {{au-inputmask
+              options=(hash mask="99.99.99-999.99" placeholder="_")
+            }}
             {{on "input" this.handleRijksregisternummerChange}}
           />
           {{#if showError}}
@@ -92,60 +91,57 @@
         {{/let}}
       </div>
       {{#if this.isNationalityFieldRequired}}
-      {{#let (if this.errors.nationaliteit true false) as |showError|}}
-        <div>
-          <AuLabel for="person-nationalities"
-            @error={{showError}}
-            @required={{true}}
+        {{#let (if this.errors.nationaliteit true false) as |showError|}}
+          <div>
+            <AuLabel
+              for="person-nationalities"
+              @error={{showError}}
+              @required={{true}}
             >
-            Nationaliteit
-          </AuLabel>
+              Nationaliteit
+            </AuLabel>
 
-          <Shared::Persoon::NationalitySelector
-            id="person-nationalities"
-            @allowClear={{not this.isNationalityFieldRequired}}
-            @selected={{this.nationaliteit}}
-            @onChange={{fn (mut this.nationaliteit)}}
-            @error={{showError}}
-          />
-        </div>
-        {{#if showError}}
-          <AuHelpText @error="true">
-            {{this.errors.nationaliteit}}
-          </AuHelpText>
-        {{/if}}
-      {{/let}}
+            <Shared::Persoon::NationalitySelector
+              id="person-nationalities"
+              @allowClear={{not this.isNationalityFieldRequired}}
+              @selected={{this.nationaliteit}}
+              @onChange={{fn (mut this.nationaliteit)}}
+              @error={{showError}}
+            />
+          </div>
+          {{#if showError}}
+            <AuHelpText @error="true">
+              {{this.errors.nationaliteit}}
+            </AuHelpText>
+          {{/if}}
+        {{/let}}
       {{/if}}
       <div>
         {{#let (if this.errors.geboorte true false) as |showError|}}
-        <AuLabel for="mandataris-geboorte"
-          @required={{this.isGeboorteFieldRequired}}
-          @error={{showError}}
+          <AuLabel
+            for="mandataris-geboorte"
+            @required={{this.isGeboorteFieldRequired}}
+            @error={{showError}}
           >
-          Geboortedatum
-        </AuLabel>
-        <AuDateInput
-          @value={{this.birthDate}}
-          @onChange={{this.setDateOfBirth}}
-          @error={{showError}}
-          @width="block"
-          id="mandataris-geboorte"
-        />
-        {{#if showError}}
-          <AuHelpText @error="true">
-            {{this.errors.geboorte}}
-          </AuHelpText>
-        {{/if}}
-      {{/let}}
+            Geboortedatum
+          </AuLabel>
+          <AuDateInput
+            @value={{this.birthDate}}
+            @onChange={{this.setDateOfBirth}}
+            @error={{showError}}
+            @width="block"
+            id="mandataris-geboorte"
+          />
+          {{#if showError}}
+            <AuHelpText @error="true">
+              {{this.errors.geboorte}}
+            </AuHelpText>
+          {{/if}}
+        {{/let}}
       </div>
       <div>
-        <AuFieldset
-          as |f|
-        >
-          <f.legend
-            @required={{true}}
-            @error={{this.errors.geslacht}}
-          >
+        <AuFieldset as |f|>
+          <f.legend @required={{true}} @error={{this.errors.geslacht}}>
             Geslacht
           </f.legend>
           <f.content>

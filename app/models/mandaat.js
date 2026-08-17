@@ -1,4 +1,4 @@
-import { attr, belongsTo, hasMany } from '@ember-data/model';
+import { attr, belongsTo, hasMany } from '@warp-drive/legacy/model';
 import Post from './post';
 
 // INHERITS FROM POST(positie)

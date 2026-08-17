@@ -1,5 +1,4 @@
 import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
-import { capitalize } from '@ember/string';
 import Component from '@glimmer/component';
 import { DOCUMENT_STATUS } from 'frontend-loket/models/document-status';
 
@@ -20,9 +19,10 @@ export default class DocumentStatus extends Component {
       @skin={{this.skin}}
       resource={{@status.uri}}
       data-test-loket="document-status-pill"
+      class="u-text-capitalize"
     >
       {{#if @status.label}}
-        {{capitalize @status.label}}
+        {{@status.label}}
       {{/if}}
     </AuPill>
   </template>

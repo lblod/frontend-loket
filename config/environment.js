@@ -18,10 +18,8 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
-    moment: {
+    'ember-moment': {
       allowEmpty: true,
-      includeLocales: ['nl-be'],
-      includeTimezone: 'all',
     },
     acmidm: {
       clientId: '{{ACMIDM_CLIENT_ID}}',

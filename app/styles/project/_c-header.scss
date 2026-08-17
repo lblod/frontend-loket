@@ -30,7 +30,6 @@
   }
 }
 
-
 // Help dropdown
 .c-help-dropdown__button {
   position: relative;
@@ -90,7 +89,9 @@
   height: calc(100vh - 5.6rem);
   width: 300px;
   border: 0;
-  box-shadow: 0 0 12px rgba(33,35,38,.15),0 0 2px rgba(33,35,38,.1);
+  box-shadow:
+    0 0 12px rgba(33, 35, 38, 0.15),
+    0 0 2px rgba(33, 35, 38, 0.1);
   background-color: #fff;
 
   &::before {
@@ -125,11 +126,11 @@
   font-size: 1.8rem;
 
   & > div,
-  & > span{
+  & > span {
     padding: $au-unit-small;
   }
 
-  & > hr{
+  & > hr {
     border: 1px solid var(--au-gray-200);
   }
 }
@@ -172,7 +173,9 @@
   left: 0;
   width: 250px;
   border: 0;
-  box-shadow: 0 0 12px rgba(33,35,38,.15),0 0 2px rgba(33,35,38,.1);
+  box-shadow:
+    0 0 12px rgba(33, 35, 38, 0.15),
+    0 0 2px rgba(33, 35, 38, 0.1);
   background-color: #fff;
 
   &::before {

@@ -22,8 +22,8 @@
 </AuToolbar>
 
 <AuAlert @skin="info" @icon="info-circle" @size="small">
-  Foutje in de gegevens? Contacteer ons gerust, dan zetten we dit samen recht.
-  U vindt onze contactgegevens in de helpsectie, bovenaan de pagina.
+  Foutje in de gegevens? Contacteer ons gerust, dan zetten we dit samen recht. U
+  vindt onze contactgegevens in de helpsectie, bovenaan de pagina.
 </AuAlert>
 
 <AuAlert @skin="info" @icon="manual" @size="small">
@@ -79,7 +79,11 @@
       <td>{{minister.person.achternaam}}</td>
       <td>{{moment-format minister.agentStartDate "DD-MM-YYYY"}}</td>
       <td>{{moment-format minister.agentEndDate "DD-MM-YYYY"}}</td>
-      <td>{{if minister.provenance.name minister.provenance.name "Loket lokale besturen"}}</td>
+      <td>{{if
+          minister.provenance.name
+          minister.provenance.name
+          "Loket lokale besturen"
+        }}</td>
       <td class="u-table-cell-fit-content">
         {{#if this.currentSession.hasViewOnlyWorshipMinistersManagementData}}
           <AuLink

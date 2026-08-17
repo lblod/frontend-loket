@@ -1,13 +1,28 @@
-{{page-title "BBC DR " this.bestuurseenheid.classificatie.label " " this.bestuurseenheid.naam}}
+{{page-title
+  "BBC DR "
+  this.bestuurseenheid.classificatie.label
+  " "
+  this.bestuurseenheid.naam
+}}
 <div class="au-o-grid au-o-grid--flush au-o-grid--fixed">
-  <div class="au-o-grid__item {{if this.hasActiveChildRoute "au-u-3-5@medium au-u-visible-medium-up" "au-u-1-1@medium"}}">
+  <div
+    class="au-o-grid__item
+      {{if
+        this.hasActiveChildRoute
+        'au-u-3-5@medium au-u-visible-medium-up'
+        'au-u-1-1@medium'
+      }}"
+  >
     <div class="au-c-body-container">
       <AuToolbar @size="large" as |Group|>
         <Group>
           <AuHeading @skin="2">BBC DR</AuHeading>
         </Group>
         <Group>
-          <AuButton {{on 'click' this.createNewReport}} data-test-loket='bbcdr-create-report-btn'>Lever nieuw rapport aan</AuButton>
+          <AuButton
+            {{on "click" this.createNewReport}}
+            data-test-loket="bbcdr-create-report-btn"
+          >Lever nieuw rapport aan</AuButton>
         </Group>
       </AuToolbar>
 
@@ -17,7 +32,7 @@
         @page={{this.page}}
         @size={{this.size}}
         @displaySubset={{this.hasActiveChildRoute}}
-        data-test-loket='bbcdr-report-table'
+        data-test-loket="bbcdr-report-table"
         class="au-c-body-container"
       />
 

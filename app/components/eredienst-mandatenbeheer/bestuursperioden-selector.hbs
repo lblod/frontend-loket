@@ -4,11 +4,13 @@
   class="is-optional"
   @onChange={{this.selectPeriod}}
   @searchEnabled={{false}}
-  as |period|>
-  Bestuursperiode {{moment-format period.startDate 'YYYY'}}
+  as |period|
+>
+  Bestuursperiode
+  {{moment-format period.startDate "YYYY"}}
   -
   {{#if period.endDate}}
-    {{moment-format period.endDate 'YYYY'}}
+    {{moment-format period.endDate "YYYY"}}
   {{else}}
     heden
   {{/if}}

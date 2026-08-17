@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { CONCEPT_STATUS } from '../../../models/submission-document-status';
 
 export default class SupervisionSubmissionsNewRoute extends Route {

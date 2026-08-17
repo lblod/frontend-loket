@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { getUniqueBestuursorganen } from 'frontend-loket/models/mandataris';
 import { hash } from 'rsvp';
 import moment from 'moment';

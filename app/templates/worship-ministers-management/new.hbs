@@ -52,73 +52,93 @@
   >
     <div class="au-u-2-3@medium au-o-box">
       <div class="au-u-margin-bottom-small">
-        {{#let (if @model.worshipMinister.errors.ministerPosition true false) as |showError|}}
-        <AuLabel for="worship-minister-position-select"
-          @required={{true}}
-          @error={{showError}}
+        {{#let
+          (if @model.worshipMinister.errors.ministerPosition true false)
+          as |showError|
+        }}
+          <AuLabel
+            for="worship-minister-position-select"
+            @required={{true}}
+            @error={{showError}}
           >
-          Functienaam
-        </AuLabel>
-        <WorshipMinistersManagement::PositionSelect
-          @worshipService={{@model.currentWorshipService}}
-          @selected={{@model.worshipMinister.ministerPosition}}
-          @onChange={{this.handleFunctieChange}}
-          @error={{showError}}
-          id="worship-minister-position-select"
-        />
-        {{#if showError}}
-          <AuHelpText @error="true">
-            {{#each @model.worshipMinister.errors.ministerPosition as |errors|}}
-              {{errors.message}}
-            {{/each}}
-          </AuHelpText>
-        {{/if}}
+            Functienaam
+          </AuLabel>
+          <WorshipMinistersManagement::PositionSelect
+            @worshipService={{@model.currentWorshipService}}
+            @selected={{@model.worshipMinister.ministerPosition}}
+            @onChange={{this.handleFunctieChange}}
+            @error={{showError}}
+            id="worship-minister-position-select"
+          />
+          {{#if showError}}
+            <AuHelpText @error="true">
+              {{#each
+                @model.worshipMinister.errors.ministerPosition
+                as |errors|
+              }}
+                {{errors.message}}
+              {{/each}}
+            </AuHelpText>
+          {{/if}}
         {{/let}}
       </div>
 
       <div class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
-          {{#let (if @model.worshipMinister.errors.agentStartDate true false) as |showError|}}
-          <AuLabel for="worship-minister-start-date"
-            @required={{true}}
-            @error={{showError}}
+          {{#let
+            (if @model.worshipMinister.errors.agentStartDate true false)
+            as |showError|
+          }}
+            <AuLabel
+              for="worship-minister-start-date"
+              @required={{true}}
+              @error={{showError}}
             >
-            Startdatum
-          </AuLabel>
-          <AuDateInput
-            @value={{@model.worshipMinister.agentStartDate}}
-            @onChange={{fn this.handleDateChange "agentStartDate"}}
-            @error={{showError}}
-            @width="block"
-            id="worship-minister-start-date"
-          />
-        {{#if showError}}
-          <AuHelpText @error="true">
-            {{#each @model.worshipMinister.errors.agentStartDate as |errors|}}
-              {{errors.message}}
-            {{/each}}
-          </AuHelpText>
-        {{/if}}
-        {{/let}}
+              Startdatum
+            </AuLabel>
+            <AuDateInput
+              @value={{@model.worshipMinister.agentStartDate}}
+              @onChange={{fn this.handleDateChange "agentStartDate"}}
+              @error={{showError}}
+              @width="block"
+              id="worship-minister-start-date"
+            />
+            {{#if showError}}
+              <AuHelpText @error="true">
+                {{#each
+                  @model.worshipMinister.errors.agentStartDate
+                  as |errors|
+                }}
+                  {{errors.message}}
+                {{/each}}
+              </AuHelpText>
+            {{/if}}
+          {{/let}}
         </div>
 
         <div class="au-o-grid__item au-u-1-2">
-          {{#let (if @model.worshipMinister.errors.agentEndDate true false) as |showError|}}
-          <AuLabel for="worship-minister-end-date" @error={{showError}}>Einddatum</AuLabel>
-          <AuDateInput
-            @value={{@model.worshipMinister.agentEndDate}}
-            @onChange={{fn this.handleDateChange "agentEndDate"}}
-            @error={{showError}}
-            @width="block"
-            id="worship-minister-end-date"
-          />
-          {{#if showError}}
-          <AuHelpText @error={{true}}>
-            {{#each @model.worshipMinister.errors.agentEndDate as |errors|}}
-              {{errors.message}}
-            {{/each}}
-          </AuHelpText>
-          {{/if}}
+          {{#let
+            (if @model.worshipMinister.errors.agentEndDate true false)
+            as |showError|
+          }}
+            <AuLabel
+              for="worship-minister-end-date"
+              @error={{showError}}
+            >Einddatum</AuLabel>
+            <AuDateInput
+              @value={{@model.worshipMinister.agentEndDate}}
+              @onChange={{fn this.handleDateChange "agentEndDate"}}
+              @error={{showError}}
+              @width="block"
+              id="worship-minister-end-date"
+            />
+            {{#if showError}}
+              <AuHelpText @error={{true}}>
+                {{#each @model.worshipMinister.errors.agentEndDate as |errors|}}
+                  {{errors.message}}
+                {{/each}}
+              </AuHelpText>
+            {{/if}}
           {{/let}}
         </div>
       </div>
@@ -147,28 +167,31 @@
           class="au-u-margin-top-small"
         >
           <p>
-            Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in te
-            vullen.
+            Gelieve de velden "Adres", "E-mail" en "Primair telefoonnummer" in
+            te vullen.
           </p>
         </AuAlert>
       {{/if}}
-      {{#let (if @model.worshipMinister.errors.contacts true false) as |hasErrors|}}
-      {{#if hasErrors}}
-        <AuAlert
-          @skin="error"
-          @icon="cross"
-          @size="small"
-          class="au-u-margin-top-small"
-        >
-          <p>
-            Contactgegevens zijn verplicht.
-            {{#each @model.worshipMinister.errors.contacts as |error|}}
-              {{error.message}}
-            {{/each}}
-          </p>
-        </AuAlert>
+      {{#let
+        (if @model.worshipMinister.errors.contacts true false)
+        as |hasErrors|
+      }}
+        {{#if hasErrors}}
+          <AuAlert
+            @skin="error"
+            @icon="cross"
+            @size="small"
+            class="au-u-margin-top-small"
+          >
+            <p>
+              Contactgegevens zijn verplicht.
+              {{#each @model.worshipMinister.errors.contacts as |error|}}
+                {{error.message}}
+              {{/each}}
+            </p>
+          </AuAlert>
         {{/if}}
-        {{/let}}
+      {{/let}}
     </div>
   </form>
 {{/if}}

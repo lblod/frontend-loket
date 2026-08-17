@@ -1,14 +1,26 @@
+/**
+ * Debugging:
+ *   https://eslint.org/docs/latest/use/configure/debug
+ *  ----------------------------------------------------
+ *
+ *   Print a file's calculated configuration
+ *
+ *     npx eslint --print-config path/to/file.js
+ *
+ *   Inspecting the config
+ *
+ *     npx eslint --inspect-config
+ *
+ */
 import globals from 'globals';
 import js from '@eslint/js';
 
-import ember from 'eslint-plugin-ember';
-import emberRecommended from 'eslint-plugin-ember/configs/recommended';
-import gjsRecommended from 'eslint-plugin-ember/configs/recommended-gjs';
-
+import ember from 'eslint-plugin-ember/recommended';
+import WarpDrive from 'eslint-plugin-warp-drive/recommended';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import qunit from 'eslint-plugin-qunit';
 import n from 'eslint-plugin-n';
 
-import emberParser from 'ember-eslint-parser';
 import babelParser from '@babel/eslint-parser';
 
 const esmParserOptions = {
@@ -22,72 +34,69 @@ const esmParserOptions = {
   },
 };
 
-// The emberRecommended and gjsRecommended exports are arrays at the moment, so we flatten them to access the rules.
-// TODO: remove this once the issues are fixed upstream: https://github.com/ember-cli/ember-cli/pull/10516#discussion_r1805001071
-const emberRecommendedRules = flatten(emberRecommended).rules;
-const gjsRecommendedRules = flatten(gjsRecommended).rules;
-
-function flatten(configArray) {
-  return configArray.reduce((flattened, config) => {
-    return {
-      ...flattened,
-      ...config
-    }
-  }, {})
-}
-
 export default [
   js.configs.recommended,
+  eslintConfigPrettier,
+  ember.configs.base,
+  ember.configs.gjs,
+  ...WarpDrive,
+  /**
+   * Ignores must be in their own object
+   * https://eslint.org/docs/latest/use/configure/ignore
+   */
   {
-    name: '.js',
+    ignores: ['dist/', 'node_modules/', 'coverage/', '!**/.*'],
+  },
+  /**
+   * https://eslint.org/docs/latest/use/configure/configuration-files#configuring-linter-options
+   */
+  {
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error',
+    },
+  },
+  {
     files: ['**/*.js'],
     languageOptions: {
       parser: babelParser,
-      parserOptions: esmParserOptions,
-      globals: {
-        ...globals.browser,
-      },
-    },
-    plugins: {
-      ember,
     },
     rules: {
-      ...emberRecommendedRules,
       'ember/routes-segments-snake-case': 'off', // https://github.com/ember-cli/eslint-plugin-ember/issues/374
     },
   },
   {
-    name: '.gjs',
-    files: ['**/*.gjs'],
+    files: ['**/*.{js,gjs}'],
     languageOptions: {
-      parser: emberParser,
       parserOptions: esmParserOptions,
       globals: {
         ...globals.browser,
       },
     },
-    plugins: {
-      ember,
-    },
     rules: {
-      ...emberRecommendedRules,
-      ...gjsRecommendedRules,
+      'warp-drive/no-legacy-request-patterns': 'off', // TODO: uncomment and fix all issues before updating to WarpDrive v6
+      'warp-drive/no-external-request-patterns': 'off', // fetch is ok to use..
+      'warp-drive/no-invalid-resource-types': 'off', // False-positives because of Dutch model names
     },
   },
   {
-    name: 'tests',
+    ...qunit.configs.recommended,
     files: ['tests/**/*-test.{js,gjs}'],
     plugins: {
       qunit,
     },
   },
+  /**
+   * CJS node files
+   */
   {
-    name: 'cjs node files',
+    ...n.configs['flat/recommended-script'],
     files: [
       '**/*.cjs',
       'config/**/*.js',
+      'tests/dummy/config/**/*.js',
       'testem.js',
       'testem*.js',
+      'index.js',
       '.prettierrc.js',
       '.stylelintrc.js',
       '.template-lintrc.js',
@@ -105,9 +114,12 @@ export default [
       },
     },
   },
+  /**
+   * ESM node files
+   */
   {
-    name: 'mjs node files',
-    files: ['*.mjs'],
+    ...n.configs['flat/recommended-module'],
+    files: ['**/*.mjs'],
     plugins: {
       n,
     },
@@ -121,15 +133,4 @@ export default [
       },
     },
   },
-  /**
-   * Settings
-   */
-  {
-    ignores: ['dist/', 'coverage/', '!**/.*'],
-  },
-  {
-    linterOptions: {
-      reportUnusedDisableDirectives: 'error',
-    },
-  }
 ];

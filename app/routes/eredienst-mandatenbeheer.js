@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import RSVP from 'rsvp';
 import moment from 'moment';
 import { sortByStartDate } from 'frontend-loket/utils/eredienst-mandatenbeheer';

@@ -1,36 +1,69 @@
-
-
 <AuDataTable
-   @content={{@content}}
-   @isLoading={{@isLoadingModel}}
-   @noDataMessage="Geen berichten gevonden"
-   @sort={{@sort}}
-   @page={{@page}}
-   @size={{@size}}
-   class="berichtencentrum-overzicht-data-table"
-
-   as |t|>
+  @content={{@content}}
+  @isLoading={{@isLoadingModel}}
+  @noDataMessage="Geen berichten gevonden"
+  @sort={{@sort}}
+  @page={{@page}}
+  @size={{@size}}
+  class="berichtencentrum-overzicht-data-table"
+  as |t|
+>
   <t.content as |c|>
     <c.header>
-      <AuDataTableThSortable @label='Betreft' @field=':no-case:betreft' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Type communicatie' @field=':no-case:currentTypeCommunicatie' @currentSorting={{@sort}} />
-      <AuDataTableThSortable @label='Dossiernummer' @field=':no-case:dossiernummer' @currentSorting={{@sort}} class="au-u-visible-small-up" />
+      <AuDataTableThSortable
+        @label="Betreft"
+        @field=":no-case:betreft"
+        @currentSorting={{@sort}}
+      />
+      <AuDataTableThSortable
+        @label="Type communicatie"
+        @field=":no-case:currentTypeCommunicatie"
+        @currentSorting={{@sort}}
+      />
+      <AuDataTableThSortable
+        @label="Dossiernummer"
+        @field=":no-case:dossiernummer"
+        @currentSorting={{@sort}}
+        class="au-u-visible-small-up"
+      />
       {{#unless @renderSmallTable}}
-         <AuDataTableThSortable @label='Laatste bericht' @field='laatste-bericht.verzonden' @currentSorting={{@sort}} class="au-u-visible-small-up" />
-         <AuDataTableThSortable @label='Laatste bericht van' @field=':no-case:laatste-bericht.van.naam' @currentSorting={{@sort}} class="au-u-visible-small-up" />
+        <AuDataTableThSortable
+          @label="Laatste bericht"
+          @field="laatste-bericht.verzonden"
+          @currentSorting={{@sort}}
+          class="au-u-visible-small-up"
+        />
+        <AuDataTableThSortable
+          @label="Laatste bericht van"
+          @field=":no-case:laatste-bericht.van.naam"
+          @currentSorting={{@sort}}
+          class="au-u-visible-small-up"
+        />
       {{/unless}}
-      <th>{{!-- Actions --}}</th>
+      <th>{{! Actions }}</th>
     </c.header>
     <c.body data-test-loket="berichtencentrum-body" as |conversatie|>
       <td>{{conversatie.betreft}}</td>
       <td>{{conversatie.currentTypeCommunicatie}}</td>
-      <td class="au-u-visible-small-up au-u-word-break">{{conversatie.dossiernummer}}</td>
+      <td
+        class="au-u-visible-small-up au-u-word-break"
+      >{{conversatie.dossiernummer}}</td>
       {{#unless @renderSmallTable}}
-        <td class="au-u-visible-small-up">{{moment-format conversatie.laatsteBericht.verzonden 'DD-MM-YYYY'}}</td>
-        <td class="au-u-visible-small-up">{{conversatie.laatsteBericht.van.naam}}</td>
+        <td class="au-u-visible-small-up">{{moment-format
+            conversatie.laatsteBericht.verzonden
+            "DD-MM-YYYY"
+          }}</td>
+        <td
+          class="au-u-visible-small-up"
+        >{{conversatie.laatsteBericht.van.naam}}</td>
       {{/unless}}
       <td>
-        <AuLink @route='berichtencentrum.berichten.conversatie' @model={{conversatie.id}} @icon="eye" data-test-loket="berichtencentrum-bekijk">
+        <AuLink
+          @route="berichtencentrum.berichten.conversatie"
+          @model={{conversatie.id}}
+          @icon="eye"
+          data-test-loket="berichtencentrum-bekijk"
+        >
           Bekijk
         </AuLink>
       </td>

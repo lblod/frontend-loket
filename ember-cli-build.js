@@ -1,19 +1,10 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const { setConfig } = require('@warp-drive/core/build-config');
 
 module.exports = async function (defaults) {
-  const { setConfig } = await import('@warp-drive/build-config');
-
   const app = new EmberApp(defaults, {
-    // This is needed when `staticEmberSource` is enabled
-    'ember-fetch': {
-      preferNative: true,
-      nativePromise: true,
-    },
-    'ember-simple-auth': {
-      useSessionSetupMethod: true,
-    },
     'ember-test-selectors': {
       strip: false,
     },
@@ -38,13 +29,21 @@ module.exports = async function (defaults) {
     },
   });
 
+  setConfig(app, __dirname, {
+    // this should be the most recent <major>.<minor> version for
+    // which all deprecations have been fully resolved
+    // and should be updated when that changes
+    // compatWith: '5.8', // TODO: enable this once we resolve all deprecations
+    deprecations: {
+      // ... list individual deprecations that have been resolved here
+    },
+  });
+
   const { Webpack } = require('@embroider/webpack');
   return require('@embroider/compat').compatBuild(app, Webpack, {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
-    staticHelpers: true,
-    staticModifiers: true,
-    staticComponents: true,
+    staticInvokables: true,
     staticEmberSource: true,
     splitAtRoutes: [
       'mock-login',

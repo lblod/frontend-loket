@@ -1,13 +1,16 @@
 <AuToolbar @border="top" @size="medium" as |Group|>
   <Group class="au-u-flex au-u-flex--vertical-center">
-    <p class="au-u-h-functional"><strong>{{this.start}}-{{this.end}}</strong> van {{@total}}</p>
+    <p class="au-u-h-functional"><strong>{{this.start}}-{{this.end}}</strong>
+      van
+      {{@total}}</p>
     <AuButtonGroup>
       <AuButton
         @skin="naked"
         @icon="chevron-left"
         @disabled={{not this.hasPrevious}}
         class="c-button--icon-medium"
-        {{on "click" (fn @onChange this.previousPage)}}>
+        {{on "click" (fn @onChange this.previousPage)}}
+      >
         Vorige
       </AuButton>
       <AuButton
@@ -16,7 +19,8 @@
         @iconAlignment="right"
         @disabled={{not this.hasNext}}
         class="c-button--icon-medium"
-        {{on "click" (fn @onChange this.nextPage)}}>
+        {{on "click" (fn @onChange this.nextPage)}}
+      >
         Volgende
       </AuButton>
     </AuButtonGroup>
@@ -27,7 +31,8 @@
       id="page-size"
       name="page-size"
       class="c-select"
-      {{on "change" this.setPageSize}}>
+      {{on "change" this.setPageSize}}
+    >
       {{#each this.sizeOptions as |opt|}}
         <option value={{opt}} selected={{eq opt @size}}>
           {{opt}}

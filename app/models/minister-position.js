@@ -1,4 +1,4 @@
-import { belongsTo, hasMany } from '@ember-data/model';
+import { belongsTo, hasMany } from '@warp-drive/legacy/model';
 import Post from './post';
 
 export default class MinisterPositionModel extends Post {

@@ -5,7 +5,10 @@
       <ul class="au-c-list-horizontal au-u-margin-top-small">
         <li class="au-c-list-horizontal__item">
           {{#if @model.contactinfo.email}}
-            <a class="au-c-link au-c-link--secondary" href="mailto:{{@model.contactinfo.email}}">
+            <a
+              class="au-c-link au-c-link--secondary"
+              href="mailto:{{@model.contactinfo.email}}"
+            >
               {{@model.contactinfo.email}}
             </a>
           {{else}}
@@ -14,7 +17,10 @@
         </li>
         <li class="au-c-list-horizontal__item">
           {{#if @model.contactinfo.telefoon}}
-            <a class="au-c-link au-c-link--secondary" href="tel:{{@model.contactinfo.telefoon}}">
+            <a
+              class="au-c-link au-c-link--secondary"
+              href="tel:{{@model.contactinfo.telefoon}}"
+            >
               {{@model.contactinfo.telefoon}}
             </a>
           {{else}}
@@ -32,7 +38,7 @@
     </div>
   </Group>
   <Group>
-    <AuButton @icon="nav-right" @iconAlignment="right" {{on 'click' @onClick}}>
+    <AuButton @icon="nav-right" @iconAlignment="right" {{on "click" @onClick}}>
       Bekijk en bewerk aanstellingsperiodes
     </AuButton>
   </Group>

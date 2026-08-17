@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { buildLinkMetaObject } from 'frontend-loket/helpers/relevant-user-manual-link';
 
 export default class BbcdrRoute extends Route {

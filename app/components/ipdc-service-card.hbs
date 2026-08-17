@@ -1,4 +1,9 @@
-<AuCard {{on "click" this.handleClick}} @size="small" class="c-overview-card c-overview-card--link" as |card|>
+<AuCard
+  {{on "click" this.handleClick}}
+  @size="small"
+  class="c-overview-card c-overview-card--link"
+  as |card|
+>
   <card.header>
     <div class="c-overview-card__header">
       <div class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-tiny">
@@ -15,7 +20,8 @@
       <div class="au-u-flex au-u-flex--spaced-tiny au-u-flex--vertical-center">
         <div class="au-u-flex au-u-flex--spaced-tiny au-u-flex--wrap">
           {{#if @model.endDate}}
-            <AuPill @skin="warning" @size="small">Deadline: {{format-date @model.endDate}}</AuPill>
+            <AuPill @skin="warning" @size="small">Deadline:
+              {{format-date @model.endDate}}</AuPill>
           {{else}}
             <AuPill @skin="default" @size="small">Deadline: onbekend</AuPill>
           {{/if}}

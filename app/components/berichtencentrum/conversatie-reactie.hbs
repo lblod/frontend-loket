@@ -1,5 +1,5 @@
 {{#if this.isExpanded}}
-<div {{auto-focus}} ...attributes>
+  <div {{auto-focus}} ...attributes>
     <AuHeading @level="3" @skin="5" class="au-u-margin-bottom-small">
       Uw reactie
     </AuHeading>
@@ -12,7 +12,7 @@
         <p class="au-c-small-text">
           {{#if this.originator}}
             {{this.originator.naam}}
-            {{ else }}
+          {{else}}
             Aan het laden...
           {{/if}}
         </p>
@@ -50,36 +50,46 @@
           {{/each}}
         </ul>
       {{/if}}
-      <AuFileUpload @onFinishUpload={{this.attachFile}} @maxFileSizeMB="1024" @minFilzeSizeKB={{1}} />
+      <AuFileUpload
+        @onFinishUpload={{this.attachFile}}
+        @maxFileSizeMB="1024"
+        @minFilzeSizeKB={{1}}
+      />
     </div>
 
     <AuButtonGroup>
       <AuButton
-        {{on 'click' (perform this.verstuurBericht)}}
+        {{on "click" (perform this.verstuurBericht)}}
         @loading={{this.verstuurBericht.isRunning}}
         @loadingMessage="Versturen"
         @disabled={{this.cantSend}}
-        class="js-accordion__toggle js-accordion-bound">
+        class="js-accordion__toggle js-accordion-bound"
+      >
         Verstuur bericht
       </AuButton>
       {{#if (is-admin)}}
         <AuButton
-          {{on 'click' (perform this.verstuurBerichtAlsABB)}}
+          {{on "click" (perform this.verstuurBerichtAlsABB)}}
           @loading={{this.verstuurBerichtAlsABB.isRunning}}
           @loadingMessage="Versturen"
           @disabled={{this.cantSend}}
-          class="js-accordion__toggle js-accordion-bound">
+          class="js-accordion__toggle js-accordion-bound"
+        >
           Verstuur bericht als ABB
         </AuButton>
       {{/if}}
-      <AuButton {{on 'click' this.collapseMe}} @skin="secondary" class="js-accordion__toggle js-accordion-bound">
+      <AuButton
+        {{on "click" this.collapseMe}}
+        @skin="secondary"
+        class="js-accordion__toggle js-accordion-bound"
+      >
         Verwijder nieuw bericht
       </AuButton>
     </AuButtonGroup>
   </div>
 {{else}}
   <div ...attributes>
-    <AuButton @icon="message" {{on 'click' this.expandMe}} @width="block">
+    <AuButton @icon="message" {{on "click" this.expandMe}} @width="block">
       Plaats reactie
     </AuButton>
   </div>

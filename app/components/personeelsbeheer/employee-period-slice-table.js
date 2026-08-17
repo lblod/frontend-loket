@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { keepLatestTask } from 'ember-concurrency';
 
 export default class EmployeePeriodSliceTable extends Component {

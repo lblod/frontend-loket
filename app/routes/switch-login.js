@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 
 // This route is only needed because ACM/IDM is configured to redirect to it when switching users.
 // We would need to change the configuration before we can remove it, otherwise we see a "bad request" error message.

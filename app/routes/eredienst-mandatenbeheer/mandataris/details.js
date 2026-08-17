@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { findPrimaryContactPoint } from 'frontend-loket/models/contact-punt';
 export default class EredienstMandatenbeheerMandatarisDetailsRoute extends Route {
   @service currentSession;

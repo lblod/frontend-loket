@@ -16,7 +16,7 @@ import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
 import eq from 'ember-truth-helpers/helpers/eq';
-import { inject as service } from '@ember/service';
+import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { downloadZip } from 'client-zip';
 import { v4 as uuidv4 } from 'uuid';
@@ -40,7 +40,7 @@ import {
   extensionFormatted,
   filenameWithoutExtension,
 } from '../../../utils/file';
-import { autofocus } from '../../../modifiers/auto-focus';
+import autofocus from '../../../modifiers/auto-focus';
 
 export function registerFormField() {
   registerFormFields([

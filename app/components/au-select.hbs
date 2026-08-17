@@ -6,7 +6,8 @@
     id="selection{{uuid}}"
     name={{or @name "selection"}}
     class="c-select"
-    {{on "change" @onChange}}>
+    {{on "change" @onChange}}
+  >
     {{#each @options as |opt|}}
       <option value={{opt.value}} selected={{eq @selection opt.value}}>
         {{opt.label}}

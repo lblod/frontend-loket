@@ -1,4 +1,4 @@
-import Model, { hasMany, belongsTo } from '@ember-data/model';
+import Model, { hasMany, belongsTo } from '@warp-drive/legacy/model';
 
 export default class PostModel extends Model {
   @belongsTo('role', {

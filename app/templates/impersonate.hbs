@@ -33,13 +33,14 @@
                     >
                       {{account.gebruiker.voornaam}}
                       {{account.gebruiker.achternaam}}
-                      {{#let (unique-alternative-names account) as |alternativeNames|}}
+                      {{#let
+                        (unique-alternative-names account)
+                        as |alternativeNames|
+                      }}
                         {{#if alternativeNames}}
                           <span>
                             <span class="au-c-info-text">Alternatieve naam:</span>
-                            {{#each
-                              alternativeNames as |alternativeName|
-                            }}
+                            {{#each alternativeNames as |alternativeName|}}
                               <AuPill>{{alternativeName}}</AuPill>
                             {{/each}}
                           </span>
