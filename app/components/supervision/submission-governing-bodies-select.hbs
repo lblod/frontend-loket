@@ -4,7 +4,7 @@
     class="au-u-flex au-u-flex--center au-u-flex--vertical-center h-full"
   >Aan het laden</AuLoader>
 {{else}}
-  <PowerSelectMultiple
+  <PowerSelect
     @search={{perform this.searchGoverningBody}}
     @searchField="label"
     @searchPlaceholder="Typ om te zoeken..."
@@ -16,8 +16,9 @@
     @ariaLabel="Filter op bestuursorgaan"
     @selected={{this.selectedGoverningBodies}}
     @allowClear={{true}}
+    @multiple={{true}}
     as |orgaan|
   >
     {{orgaan.naam}}
-  </PowerSelectMultiple>
+  </PowerSelect>
 {{/if}}
