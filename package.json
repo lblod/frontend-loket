@@ -62,7 +62,6 @@
     "browser-update": "^3.3.38",
     "client-zip": "^2.5.0",
     "concurrently": "^9.2.1",
-    "ember-async-data": "^2.0.1",
     "ember-auto-import": "^2.13.1",
     "ember-basic-dropdown": "^9.0.0",
     "ember-cli": "~6.12.0",
