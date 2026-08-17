@@ -19,9 +19,8 @@ export default class ConceptSchemeFilter extends Component {
     return this.args.selected.map((concept) => concept.id);
   }
 
-  @keepLatestTask
-  *loadData() {
-    const concepts = yield this.store.queryAll('concept', {
+  loadData = keepLatestTask(async () => {
+    const concepts = await this.store.queryAll('concept', {
       sort: 'label',
       'filter[top-concept-schemes][:uri:]': this.args.conceptScheme,
     });
@@ -30,7 +29,7 @@ export default class ConceptSchemeFilter extends Component {
     this.concepts = concepts
       .toArray()
       .sort((a, b) => compare(a.label, b.label));
-  }
+  });
 
   @action
   updateSelection(selectedIds) {

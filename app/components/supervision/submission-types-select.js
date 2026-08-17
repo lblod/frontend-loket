@@ -30,9 +30,8 @@ export default class SupervisionSubmissionTypesSelect extends Component {
     this.loadData.perform();
   }
 
-  @task
-  *loadData() {
-    this.besluitTypes = yield this.store.query('concept', {
+  loadData = task(async () => {
+    this.besluitTypes = await this.store.query('concept', {
       filter: {
         'concept-schemes': {
           ':uri:': DECISION_TYPE,
@@ -42,12 +41,11 @@ export default class SupervisionSubmissionTypesSelect extends Component {
       page: { size: 100 },
     });
     this.besluitTypes = this.besluitTypes.slice();
-  }
+  });
 
-  @restartableTask
-  *searchBesluitType(term) {
-    yield timeout(600);
-    let results = yield this.store.query('concept', {
+  searchBesluitType = restartableTask(async (term) => {
+    await timeout(600);
+    let results = await this.store.query('concept', {
       filter: {
         label: term,
         'concept-schemes': {
@@ -59,7 +57,7 @@ export default class SupervisionSubmissionTypesSelect extends Component {
     });
 
     return results.slice();
-  }
+  });
 
   @action
   changeSelectedBesluitTypes(selectedTypes) {

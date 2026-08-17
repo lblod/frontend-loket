@@ -16,21 +16,19 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieFunctio
     return this.model.hasDirtyAttributes || this.statusIsDirty;
   }
 
-  @task
-  *save() {
-    yield this.model.save();
+  save = task(async () => {
+    await this.model.save();
     this.exit();
-  }
+  });
 
-  @task
-  *resetChanges() {
+  resetChanges = task(async () => {
     if (this.isDirty) {
       this.model.rollbackAttributes();
-      const status = yield this.initialStatus;
+      const status = await this.initialStatus;
       this.model.set('status', status);
     }
     this.exit();
-  }
+  });
 
   exit() {
     this.router.transitionTo(

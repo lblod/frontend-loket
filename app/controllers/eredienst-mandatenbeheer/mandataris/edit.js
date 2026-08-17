@@ -140,44 +140,43 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     this.rollbackUnsavedContactChanges();
   }
 
-  @dropTask
-  *save() {
+  save = dropTask(async () => {
     this.model.errors.remove('contacts');
     if (!this.model.start) {
       this.model.errors.add('start', 'startdatum is een vereist veld.');
     }
 
-    yield validateMandaat(this.model);
+    await validateMandaat(this.model);
 
     if (this.isEditingContactPoint) {
       let contactPoint = this.editingContact;
-      let secondaryContactPoint = yield contactPoint.secondaryContactPoint;
-      let adres = yield contactPoint.adres;
+      let secondaryContactPoint = await contactPoint.secondaryContactPoint;
+      let adres = await contactPoint.adres;
 
       // the user is using input mode manual, we trigger error messages here.
       if (this.isManualAddress) {
-        yield isValidAdres(adres);
+        await isValidAdres(adres);
       }
 
       if (
-        (yield isValidPrimaryContact(contactPoint)) &&
+        (await isValidPrimaryContact(contactPoint)) &&
         this.model.isValid &&
         adres.isValid
       ) {
         if (secondaryContactPoint.telefoon) {
-          yield secondaryContactPoint.save();
+          await secondaryContactPoint.save();
         } else {
           // Ember Data v4.7+ doesn't remove the record from the relationship when we call destroyRecord, so we do it manually for now
           // More info: https://github.com/emberjs/data/issues/8792
           contactPoint.secondaryContactPoint = null;
 
           // The secondary contact point is empty so we can remove it if it was ever persisted before
-          yield secondaryContactPoint.destroyRecord();
+          await secondaryContactPoint.destroyRecord();
         }
 
         if (adres?.isNew || adres?.hasDirtyAttributes) {
           adres.volledigAdres = combineFullAddress(adres);
-          yield adres.save();
+          await adres.save();
         }
 
         if (contactPoint.isNew) {
@@ -185,7 +184,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
           this.selectedContact = contactPoint;
         }
 
-        yield contactPoint.save();
+        await contactPoint.save();
       } else {
         return;
       }
@@ -193,11 +192,11 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
 
     if (this.selectedContact) {
       let primaryContactPoint = findPrimaryContactPoint(
-        yield this.model.contacts,
+        await this.model.contacts,
       );
 
       if (this.selectedContact.id !== primaryContactPoint?.id) {
-        let secondaryContact = yield this.selectedContact.secondaryContactPoint;
+        let secondaryContact = await this.selectedContact.secondaryContactPoint;
 
         this.model.contacts = [this.selectedContact, secondaryContact].filter(
           Boolean,
@@ -227,10 +226,10 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
       this.model.contacts.length > 0 &&
       this.model.isValid
     ) {
-      yield this.model.save();
+      await this.model.save();
 
       try {
-        yield this.router.transitionTo(
+        await this.router.transitionTo(
           'eredienst-mandatenbeheer.mandatarissen',
         );
       } catch {
@@ -240,7 +239,7 @@ export default class EredienstMandatenbeheerMandatarisEditController extends Con
     } else {
       return;
     }
-  }
+  });
 
   rollbackUnsavedChanges() {
     this.rollbackUnsavedContactChanges();

@@ -26,31 +26,28 @@ export default class LeidinggevendenbeheerBestuursfunctiesBestuursfunctieContact
     );
   }
 
-  @task
-  *save() {
-    const address = yield this.model.adres;
-    yield address.save();
-    yield this.model.save();
+  save = task(async () => {
+    const address = await this.model.adres;
+    await address.save();
+    await this.model.save();
     this.exit();
-  }
+  });
 
-  @task
-  *resetChanges() {
-    const address = yield this.model.adres;
+  resetChanges = task(async () => {
+    const address = await this.model.adres;
     address.rollbackAttributes();
     this.model.rollbackAttributes();
     this.exit();
-  }
+  });
 
-  @task
-  *updateAdres(adresProperties) {
-    const address = yield this.model.adres;
+  updateAdres = task(async (adresProperties) => {
+    const address = await this.model.adres;
     if (adresProperties) {
       address.setProperties(adresProperties);
     } else {
       address.eachAttribute((propName) => address.set(propName, null));
     }
-  }
+  });
 
   @action
   cancel() {
