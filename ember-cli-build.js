@@ -3,7 +3,7 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const { setConfig } = require('@warp-drive/core/build-config');
 
-module.exports = async function (defaults) {
+module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
     'ember-test-selectors': {
       strip: false,

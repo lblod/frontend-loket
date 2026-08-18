@@ -6,7 +6,7 @@ export function silenceEmptySyncRelationshipWarnings() {
   // Since the warning is verbose we silence it but it does require some extra workarounds sometimes (reload instead of load for example).
   // More info: https://github.com/emberjs/data/issues/7584
   registerWarnHandler((message, options, next) => {
-    if (options.id === 'ds.store.push-link-for-sync-relationship') {
+    if (options?.id === 'ds.store.push-link-for-sync-relationship') {
       return;
     }
 
