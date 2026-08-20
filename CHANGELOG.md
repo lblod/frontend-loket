@@ -1,3 +1,8 @@
+## v1.15.0 (2026-08-20)
+
+#### :rocket: Enhancement
+* [#483](https://github.com/lblod/frontend-loket/pull/483) [DL-7515] Speed up initial page loading ([@Windvis](https://github.com/Windvis))
+
 ## v1.14.4 (2026-08-20)
 
 #### :house: Internal
