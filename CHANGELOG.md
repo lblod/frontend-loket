@@ -1,3 +1,11 @@
+## v1.14.4 (2026-08-20)
+
+#### :house: Internal
+* [#486](https://github.com/lblod/frontend-loket/pull/486) [DL-7544] Switch to the TypeScript variant of the blueprint ([@Windvis](https://github.com/Windvis))
+* [#485](https://github.com/lblod/frontend-loket/pull/485) [DL-7544] Dependency maintenance ([@Windvis](https://github.com/Windvis))
+* [#484](https://github.com/lblod/frontend-loket/pull/484) [DL-7489] Update to Ember v6.12 LTS ([@Windvis](https://github.com/Windvis))
+* [#482](https://github.com/lblod/frontend-loket/pull/482) [DL-7488] Appuniversum v4 ([@Windvis](https://github.com/Windvis))
+
 ## v1.14.3 (2026-08-07)
 
 #### :rocket: Enhancement
