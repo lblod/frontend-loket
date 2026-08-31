@@ -59,7 +59,7 @@
         </AuLabel>
         <WorshipMinistersManagement::PositionSelect
           @worshipService={{@model.currentWorshipService}}
-          @selected={{@model.minister.ministerPosition}}
+          @selected={{belongs-to @model.minister "ministerPosition"}}
           @onChange={{this.handleFunctieChange}}
           @error={{showError}}
           id="worship-minister-position-select"
