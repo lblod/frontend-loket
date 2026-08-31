@@ -67,7 +67,7 @@
           </AuLabel>
           <EredienstMandatenbeheer::MandaatBestuursorganenSelector
             @bestuursorganen={{@model.bestuursorganen}}
-            @mandaat={{@model.worshipMandatee.bekleedt}}
+            @mandaat={{belongs-to @model.worshipMandatee "bekleedt"}}
             @onSelect={{this.setMandaat}}
             @error={{showError}}
           />
