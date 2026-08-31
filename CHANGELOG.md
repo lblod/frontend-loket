@@ -1,3 +1,8 @@
+## v1.15.1 (2026-08-31)
+
+#### :bug: Bug Fix
+* [#487](https://github.com/lblod/frontend-loket/pull/487) [DL-7552] Fix mandaat/positie dropdown bug ([@DamonKennes](https://github.com/DamonKennes))
+
 ## v1.15.0 (2026-08-20)
 
 #### :rocket: Enhancement
