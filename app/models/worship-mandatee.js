@@ -6,6 +6,13 @@ export default class WorshipMandateeModel extends Mandataris {
   @attr('date') expectedEndDate;
   @attr reasonStopped;
 
+  // Harvester provenance
+  @attr harvestSource;
+  @attr harvestOriginalUri;
+  @attr('date') harvestDate;
+  @attr harvestJob;
+  @attr harvestLink;
+
   @belongsTo('vendor', { async: true, inverse: null }) provenance;
 }
 

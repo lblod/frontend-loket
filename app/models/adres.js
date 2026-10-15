@@ -1,4 +1,4 @@
-import Model, { attr } from '@warp-drive/legacy/model';
+import Model, { attr, belongsTo } from '@warp-drive/legacy/model';
 
 export default class AdresModel extends Model {
   @attr busnummer;
@@ -10,6 +10,18 @@ export default class AdresModel extends Model {
   @attr volledigAdres;
   @attr adresRegisterId;
   @attr adresRegisterUri;
+
+  // Harvester provenance
+  @attr harvestSource;
+  @attr harvestOriginalUri;
+  @attr('date') harvestDate;
+  @attr harvestJob;
+  @attr harvestLink;
+  @belongsTo('vendor', {
+    inverse: null,
+    async: true,
+  })
+  vendor;
 }
 
 export function combineFullAddress(address) {

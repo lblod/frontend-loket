@@ -5,4 +5,5 @@ export const ALL_VENDORS_ID = 'all';
 
 export default class VendorModel extends Model {
   @attr name;
+  @attr uri;
 }

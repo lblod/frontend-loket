@@ -5,6 +5,18 @@ export default class AgentInPositionModel extends Model {
   @attr('date') agentEndDate;
   @attr uri;
 
+  // Harvester provenance
+  @attr harvestSource;
+  @attr harvestOriginalUri;
+  @attr('date') harvestDate;
+  @attr harvestJob;
+  @attr harvestLink;
+  @belongsTo('vendor', {
+    inverse: null,
+    async: true,
+  })
+  vendor;
+
   @belongsTo('post', {
     async: true,
     inverse: 'agentsInPosition',

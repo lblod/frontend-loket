@@ -1,0 +1,20 @@
+.au-c-dl {
+  padding: $au-unit;
+  border: 0.1rem solid var(--vl-grey-20);
+  border-radius: var(--au-radius);
+}
+
+.au-c-dl dt {
+  margin-top: $au-unit;
+  font-weight: var(--au-bold);
+  color: var(--au-gray-800);
+}
+
+.au-c-dl dt:first-child {
+  margin-top: 0;
+}
+
+.au-c-dl dd {
+  margin-top: $au-unit-tiny;
+  margin-left: $au-unit;
+}
