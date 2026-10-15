@@ -12,6 +12,7 @@ export default class EredienstMandatenbeheerMandatarisDetailsRoute extends Route
 
     let positionContacts = await mandataris.contacts;
     this.selectedContact = findPrimaryContactPoint(positionContacts);
+    this.adres = await this.selectedContact.get('adres');
   }
 
   model() {
@@ -22,5 +23,6 @@ export default class EredienstMandatenbeheerMandatarisDetailsRoute extends Route
     super.setupController(...arguments);
 
     controller.contact = this.selectedContact;
+    controller.adres = this.adres;
   }
 }

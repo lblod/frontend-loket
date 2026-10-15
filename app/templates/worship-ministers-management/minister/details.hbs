@@ -12,7 +12,7 @@
     <div>
       <AuHeading @skin="2">
         Bekijk bedienaar
-        <HarvestMetaPopup @harvestable={{@model.person}} />
+        <HarvestMetaPopup @harvestable={{this.person}} />
       </AuHeading>
       <p class="au-u-h3">
         {{@model.person.gebruikteVoornaam}}
@@ -68,7 +68,7 @@
           <dt class="au-c-label">
             Adres
             <HarvestMetaPopup
-              @harvestable={{this.contact.adres}}
+              @harvestable={{this.adres}}
               @iconOnly={{true}}
             />
           </dt>
