@@ -5,7 +5,9 @@
     <div>
       <AuHeading @skin="2">
         Bekijk mandataris
-        <HarvestMetaPopup @harvestable={{@model}} />
+        {{#if (is-admin)}}
+          <HarvestMetaPopup @harvestable={{@model}} />
+        {{/if}}
       </AuHeading>
       <p class="au-u-h3">
         {{@model.isBestuurlijkeAliasVan.gebruikteVoornaam}}
@@ -76,16 +78,20 @@
     <div class="au-o-box">
       <AuHeading @skin="2" class="au-u-h3 au-u-padding-bottom">
         Contactgegevens
-        <HarvestMetaPopup @harvestable={{this.contact}} />
+        {{#if (is-admin)}}
+          <HarvestMetaPopup @harvestable={{this.contact}} />
+        {{/if}}
       </AuHeading>
       <dl class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
           <dt class="au-c-label">
             Adres
-            <HarvestMetaPopup
-              @harvestable={{this.adres}}
-              @iconOnly={{true}}
-            />
+            {{#if (is-admin)}}
+              <HarvestMetaPopup
+                @harvestable={{this.adres}}
+                @iconOnly={{true}}
+              />
+            {{/if}}
           </dt>
           <dd>{{this.contact.adres.volledigAdres}}</dd>
         </div>
