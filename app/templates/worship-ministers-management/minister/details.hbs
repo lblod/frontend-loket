@@ -10,7 +10,10 @@
 <AuToolbar @border="bottom" @size="large" as |Group|>
   <Group>
     <div>
-      <AuHeading @skin="2">Bekijk bedienaar</AuHeading>
+      <AuHeading @skin="2">
+        Bekijk bedienaar
+        <HarvestMetaPopup @harvestable={{@model.person}} />
+      </AuHeading>
       <p class="au-u-h3">
         {{@model.person.gebruikteVoornaam}}
         {{@model.person.achternaam~}}
@@ -58,10 +61,17 @@
     <div class="au-o-box">
       <AuHeading @skin="2" class="au-u-padding-bottom">
         Contactgegevens
+        <HarvestMetaPopup @harvestable={{this.contact}} />
       </AuHeading>
       <dl class="au-o-grid au-o-grid--tiny au-u-margin-bottom-small">
         <div class="au-o-grid__item au-u-1-2">
-          <dt class="au-c-label">Adres</dt>
+          <dt class="au-c-label">
+            Adres
+            <HarvestMetaPopup
+              @harvestable={{this.contact.adres}}
+              @iconOnly={{true}}
+            />
+          </dt>
           <dd>{{this.contact.adres.volledigAdres}}</dd>
         </div>
         <div class="au-o-grid__item au-u-1-2">

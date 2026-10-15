@@ -24,45 +24,45 @@
       <dl class="au-c-dl au-u-background-gray-100">
         <dt>Vendor</dt>
         <dd>
-          {{#if @harvestable.vendor.uri}}
-            {{@harvestable.vendor.name}}
+          {{#if this.vendor.uri}}
+            {{this.vendor.name}}
             <br />
-            <code class="au-c-code-inline">{{@harvestable.vendor.uri}}</code>
+            <code class="au-c-code-inline">{{this.vendor.uri}}</code>
           {{else}}
             <span class="au-u-muted au-u-italic">Niet beschikbaar</span>
           {{/if}}
         </dd>
         <dt>Bron</dt>
         <dd>
-          {{#if @harvestable.harvestSource}}
-            <code class="au-c-code-inline">{{@harvestable.harvestSource}}</code>
+          {{#if this.harvestSource}}
+            <code class="au-c-code-inline">{{this.harvestSource}}</code>
           {{else}}
             <span class="au-u-muted au-u-italic">Niet beschikbaar</span>
           {{/if}}
         </dd>
         <dt>Originele identificatie</dt>
         <dd>
-          {{#if @harvestable.harvestOriginalUri}}
+          {{#if this.harvestOriginalUri}}
             <code
               class="au-c-code-inline"
-            >{{@harvestable.harvestOriginalUri}}</code>
+            >{{this.harvestOriginalUri}}</code>
           {{else}}
             <span class="au-u-muted au-u-italic">Niet beschikbaar</span>
           {{/if}}
         </dd>
         <dt>Datum van laatste harvesting</dt>
         <dd>
-          {{#if @harvestable.harvestDate}}
-            {{date-format @harvestable.harvestDate}}
+          {{#if this.harvestDate}}
+            {{moment-format this.harvestDate}}
           {{else}}
             <span class="au-u-muted au-u-italic">Niet beschikbaar</span>
           {{/if}}
         </dd>
         <dt>Laatste harvesting Job</dt>
         <dd>
-          {{#if @harvestable.harvestJob}}
-            <AuLinkExternal href={{@harvestable.harvestLink}}>
-              {{@harvestable.harvestJob}}
+          {{#if this.harvestJob}}
+            <AuLinkExternal href={{this.harvestLink}}>
+              {{this.harvestJob}}
             </AuLinkExternal>
           {{else}}
             <span class="au-u-muted au-u-italic">Niet beschikbaar</span>
