@@ -7,7 +7,7 @@ import AuAccordion from '@appuniversum/ember-appuniversum/components/au-accordio
 import AuLinkExternal from '@appuniversum/ember-appuniversum/components/au-link-external';
 
 export default class LinkChecker extends Component {
-  @tracked statusText = 'De link werkt misschien niet';
+  @tracked statusText = 'Bereikbaarheid controleren...';
   @tracked skin = 'default';
   @tracked hasChecked = false;
 
@@ -42,15 +42,15 @@ export default class LinkChecker extends Component {
       switch (linkStatus) {
         case 'alive':
           this.skin = 'success';
-          this.statusText = 'De link werkt';
+          this.statusText = 'De link is bereikbaar';
           break;
         case 'dead':
           this.skin = 'error';
-          this.statusText = 'De link werkt niet';
+          this.statusText = 'De link is niet bereikbaar';
           break;
         default:
           this.skin = 'default';
-          this.statusText = 'De link werkt misschien niet';
+          this.statusText = 'Bereikbaarheid controleren...';
       }
     }
   }
