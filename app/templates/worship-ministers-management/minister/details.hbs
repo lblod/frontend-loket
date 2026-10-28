@@ -14,7 +14,7 @@
       <AuHeading @skin="2">
         Bekijk bedienaar
         {{#if (is-admin)}}
-          <HarvestMetaPopup @harvestable={{this.person}} />
+          <HarvestMetaPopup @harvestable={{@model}} />
         {{/if}}
       </AuHeading>
       <p class="au-u-h3">
