@@ -20,6 +20,8 @@ export default class WorshipMinistersManagementMinisterDetailsRoute extends Rout
 
     let positionContacts = await minister.contacts;
     this.selectedContact = findPrimaryContactPoint(positionContacts);
+    this.adres = await this.selectedContact.get('adres');
+    this.person = await minister.person;
 
     return minister;
   }
@@ -28,5 +30,7 @@ export default class WorshipMinistersManagementMinisterDetailsRoute extends Rout
     super.setupController(...arguments);
 
     controller.contact = this.selectedContact;
+    controller.adres = this.adres;
+    controller.person = this.person;
   }
 }

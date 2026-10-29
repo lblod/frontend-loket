@@ -17,6 +17,18 @@ export default class ContactPuntModel extends Model {
   @attr website;
   @attr telefoon;
 
+  // Harvester provenance
+  @attr harvestSource;
+  @attr harvestOriginalUri;
+  @attr('date') harvestDate;
+  @attr harvestJob;
+  @attr harvestLink;
+  @belongsTo('vendor', {
+    inverse: null,
+    async: true,
+  })
+  vendor;
+
   @belongsTo('adres', {
     async: true,
     inverse: null,

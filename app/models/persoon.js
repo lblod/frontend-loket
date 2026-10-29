@@ -5,6 +5,18 @@ export default class PersoonModel extends Model {
   @attr alternatieveNaam;
   @attr gebruikteVoornaam;
 
+  // Harvester provenance
+  @attr harvestSource;
+  @attr harvestOriginalUri;
+  @attr('date') harvestDate;
+  @attr harvestJob;
+  @attr harvestLink;
+  @belongsTo('vendor', {
+    inverse: null,
+    async: true,
+  })
+  vendor;
+
   @belongsTo('geboorte', {
     async: true,
     inverse: null,
