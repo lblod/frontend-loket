@@ -61,17 +61,11 @@ export default class LinkChecker extends Component {
       @reverse={{true}}
       {{on "click" this.checkLink}}
     >
-      <AuLinkExternal
-        @icon="external-link"
-        href={{@url}}
-      >
+      <AuLinkExternal @icon="external-link" href={{@url}}>
         {{@url}}
       </AuLinkExternal>
 
-      <AuPill
-        @skin={{this.skin}}
-        @icon="info-circle"
-      >
+      <AuPill @skin={{this.skin}} @icon="info-circle">
         {{this.statusText}}
       </AuPill>
     </AuAccordion>
