@@ -640,7 +640,6 @@ const RemoteDataObjectInfoCard = <template>
           <AuAccordion
             @buttonLabel="Bron"
             @reverse={{true}}
-            {{on "click" this.checkLink}}
           >
             <AuLinkExternal
               @icon="external-link"
@@ -686,7 +685,6 @@ const RemoteDataObjectInfoCard = <template>
           <AuAccordion
             @buttonLabel="Bron"
             @reverse={{true}}
-            {{on "click" this.checkLink}}
           >
             <AuLinkExternal
               @icon="external-link"
