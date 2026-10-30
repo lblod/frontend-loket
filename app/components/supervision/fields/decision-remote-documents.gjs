@@ -641,6 +641,7 @@ const RemoteDataObjectInfoCard = <template>
             <AuLinkExternal
               @icon="external-link"
               href={{@remoteDataObject.source}}
+              class="au-u-margin-right-tiny"
             >
               {{@remoteDataObject.source}}
             </AuLinkExternal>
@@ -683,6 +684,7 @@ const RemoteDataObjectInfoCard = <template>
             <AuLinkExternal
               @icon="external-link"
               href={{@remoteDataObject.source}}
+              class="au-u-margin-right-tiny"
             >
               {{@remoteDataObject.source}}
             </AuLinkExternal>
