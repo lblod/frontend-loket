@@ -41,7 +41,7 @@ import {
   filenameWithoutExtension,
 } from '../../../utils/file';
 import autofocus from '../../../modifiers/auto-focus';
-import LinkChecker from './link-checker';
+import LinkStatusPill from '../../link-status-pill';
 
 export function registerFormField() {
   registerFormFields([
@@ -348,6 +348,7 @@ export class DecisionRemoteDocumentsEditComponent extends InputFieldComponent {
               >
                 Verwijder&nbsp;link
               </AuButton>
+              <LinkStatusPill @url={{rdo.source}} />
             </div>
           </li>
         {{/each}}
@@ -635,7 +636,7 @@ const RemoteDataObjectInfoCard = <template>
             </AuPill>
             {{humanReadableSize @remoteDataObject.file}}
           </div>
-          <LinkChecker @url={{@remoteDataObject.source}} />
+          <LinkStatusPill @url={{@remoteDataObject.source}} />
         </div>
         <div>
           <AuLinkExternal
@@ -669,7 +670,7 @@ const RemoteDataObjectInfoCard = <template>
               </tooltip.Content>
             </AuTooltip>
           </AuLabel>
-          <LinkChecker @url={{@remoteDataObject.source}} />
+          <LinkStatusPill @url={{@remoteDataObject.source}} />
         </div>
         <div>
           {{#if (downloadSuccess @remoteDataObject)}}
