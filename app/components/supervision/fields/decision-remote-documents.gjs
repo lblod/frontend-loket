@@ -636,6 +636,12 @@ const RemoteDataObjectInfoCard = <template>
             </AuPill>
             {{humanReadableSize @remoteDataObject.file}}
           </div>
+          <AuLinkExternal
+            @icon="external-link"
+            href={{@remoteDataObject.source}}
+          >
+            {{@remoteDataObject.source}}
+          </AuLinkExternal>
           <LinkStatusPill @url={{@remoteDataObject.source}} />
         </div>
         <div>
@@ -670,6 +676,12 @@ const RemoteDataObjectInfoCard = <template>
               </tooltip.Content>
             </AuTooltip>
           </AuLabel>
+          <AuLinkExternal
+            @icon="external-link"
+            href={{@remoteDataObject.source}}
+          >
+            {{@remoteDataObject.source}}
+          </AuLinkExternal>
           <LinkStatusPill @url={{@remoteDataObject.source}} />
         </div>
         <div>
