@@ -637,10 +637,7 @@ const RemoteDataObjectInfoCard = <template>
             </AuPill>
             {{humanReadableSize @remoteDataObject.file}}
           </div>
-          <AuAccordion
-            @buttonLabel="Bron"
-            @reverse={{true}}
-          >
+          <AuAccordion @buttonLabel="Bron" @reverse={{true}}>
             <AuLinkExternal
               @icon="external-link"
               href={{@remoteDataObject.source}}
@@ -682,10 +679,7 @@ const RemoteDataObjectInfoCard = <template>
               </tooltip.Content>
             </AuTooltip>
           </AuLabel>
-          <AuAccordion
-            @buttonLabel="Bron"
-            @reverse={{true}}
-          >
+          <AuAccordion @buttonLabel="Bron" @reverse={{true}}>
             <AuLinkExternal
               @icon="external-link"
               href={{@remoteDataObject.source}}
