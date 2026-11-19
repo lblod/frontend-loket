@@ -8,7 +8,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM semtech/static-file-service:0.2.0
+FROM semtech/static-file-service:0.3.0
 
 COPY ./proxy/file-upload.conf /config/file-upload.conf
 
