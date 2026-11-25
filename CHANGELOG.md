@@ -1,3 +1,13 @@
+## v1.17.0 (2026-11-25)
+
+#### :rocket: Enhancement
+* [#489](https://github.com/lblod/frontend-loket/pull/489) [DL-7568]: Improve UX of download functionality in Toezicht ([@NikiDeVisscher](https://github.com/NikiDeVisscher))
+
+## v1.16.0 (2026-10-30)
+
+#### :rocket: Enhancement
+* [#488](https://github.com/lblod/frontend-loket/pull/488) [DL-7436]: Display worship harvest info in frontend ([@NikiDeVisscher](https://github.com/NikiDeVisscher))
+
 ## v1.15.1 (2026-08-31)
 
 #### :bug: Bug Fix
