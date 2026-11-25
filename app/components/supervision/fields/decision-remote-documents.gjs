@@ -8,6 +8,7 @@ import AuAlert from '@appuniversum/ember-appuniversum/components/au-alert';
 import AuLinkExternal from '@appuniversum/ember-appuniversum/components/au-link-external';
 import AuPill from '@appuniversum/ember-appuniversum/components/au-pill';
 import AuInput from '@appuniversum/ember-appuniversum/components/au-input';
+import AuAccordion from '@appuniversum/ember-appuniversum/components/au-accordion';
 
 import Component from '@glimmer/component';
 import { guidFor } from '@ember/object/internals';
@@ -41,6 +42,7 @@ import {
   filenameWithoutExtension,
 } from '../../../utils/file';
 import autofocus from '../../../modifiers/auto-focus';
+import LinkStatusPill from '../../link-status-pill';
 
 export function registerFormField() {
   registerFormFields([
@@ -347,6 +349,7 @@ export class DecisionRemoteDocumentsEditComponent extends InputFieldComponent {
               >
                 Verwijder&nbsp;link
               </AuButton>
+              <LinkStatusPill @url={{rdo.source}} />
             </div>
           </li>
         {{/each}}
@@ -634,12 +637,16 @@ const RemoteDataObjectInfoCard = <template>
             </AuPill>
             {{humanReadableSize @remoteDataObject.file}}
           </div>
-          <AuLinkExternal
-            @icon="external-link"
-            href={{@remoteDataObject.source}}
-          >
-            {{@remoteDataObject.source}}
-          </AuLinkExternal>
+          <AuAccordion @buttonLabel="Bron" @reverse={{true}}>
+            <AuLinkExternal
+              @icon="external-link"
+              href={{@remoteDataObject.source}}
+              class="au-u-margin-right-tiny"
+            >
+              {{@remoteDataObject.source}}
+            </AuLinkExternal>
+            <LinkStatusPill @url={{@remoteDataObject.source}} />
+          </AuAccordion>
         </div>
         <div>
           <AuLinkExternal
@@ -673,12 +680,16 @@ const RemoteDataObjectInfoCard = <template>
               </tooltip.Content>
             </AuTooltip>
           </AuLabel>
-          <AuLinkExternal
-            @icon="external-link"
-            href={{@remoteDataObject.source}}
-          >
-            {{@remoteDataObject.source}}
-          </AuLinkExternal>
+          <AuAccordion @buttonLabel="Bron" @reverse={{true}}>
+            <AuLinkExternal
+              @icon="external-link"
+              href={{@remoteDataObject.source}}
+              class="au-u-margin-right-tiny"
+            >
+              {{@remoteDataObject.source}}
+            </AuLinkExternal>
+            <LinkStatusPill @url={{@remoteDataObject.source}} />
+          </AuAccordion>
         </div>
         <div>
           {{#if (downloadSuccess @remoteDataObject)}}
